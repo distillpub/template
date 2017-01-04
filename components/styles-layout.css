@@ -1,4 +1,3 @@
-export default `
 .l-body,
 .l-page,
 dt-article > * {
@@ -94,4 +93,3 @@ dt-article > * {
     width: calc(960px / 2 - 48px);
   }
 }
-`

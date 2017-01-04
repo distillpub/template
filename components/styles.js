@@ -1,7 +1,7 @@
-import base from './styles-base';
-import layout from './styles-layout';
-import article from './styles-article';
-import code from './styles-code';
+import base from './styles-base.css';
+import layout from './styles-layout.css';
+import article from './styles-article.css';
+import code from './styles-code.css';
 
 export default function(dom, data) {
   let s = dom.createElement("style");

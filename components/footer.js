@@ -1,3 +1,5 @@
+import logo from "./distill-logo.svg";
+
 const html = `
 <style>
 dt-footer {
@@ -15,8 +17,8 @@ dt-footer .logo svg {
   margin-right: -2px;
 }
 dt-footer .logo svg path {
-  stroke: rgba(255, 255, 255, 0.8);
-  stroke-width: 3px;
+  stroke: rgba(255, 255, 255, 0.8)!important;
+  stroke-width: 3px!important;
 }
 dt-footer .logo {
   font-size: 16px;
@@ -29,9 +31,7 @@ dt-footer .logo {
 
 <div class="l-body">
   <a href="/" class="logo">
-    <svg viewBox="-607 419 64 64">
-      <path style="fill: none;" d="M-573.4,478.9c-8,0-14.6-6.4-14.6-14.5s14.6-25.9,14.6-40.8c0,14.9,14.6,32.8,14.6,40.8S-565.4,478.9-573.4,478.9z"/>
-    </svg>
+    ${logo}
     Distill
   </a> is dedicated to clear explanations of machine learning
 </div>

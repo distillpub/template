@@ -17,6 +17,7 @@
     "rollup-plugin-livereload": "^0.3.1",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-serve": "^0.1.0",
+    "rollup-plugin-string": "^2.0.2",
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-watch": "^2.5.0"
   }

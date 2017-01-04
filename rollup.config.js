@@ -4,6 +4,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import liveReload from 'rollup-plugin-livereload';
 import serve from 'rollup-plugin-serve';
 import uglify from 'rollup-plugin-uglify';
+import string from 'rollup-plugin-string';
 
 const PORT = 8080;
 console.log(`open http://localhost:${PORT}/`);
@@ -23,11 +24,14 @@ export default {
       jsnext: true,
       browser: true,
     }),
+    string({
+      include: ["**/*.svg", "**/*.html", "**/*.css"]
+    }),
     buble({
       exclude: 'node_modules',
       target: { chrome: 52, safari: 8, edge: 13, firefox: 48, }
     }),
-    commonjs({}),
+    commonjs(),
     uglify(),
     liveReload(),
     serve({port: PORT}),

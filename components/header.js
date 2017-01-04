@@ -1,3 +1,5 @@
+import logo from "./distill-logo.svg";
+
 const html = `
 <style>
 dt-header {
@@ -47,9 +49,7 @@ dt-header .nav a {
 
 <div class="content l-page">
   <a href="/" class="logo">
-    <svg viewBox="-607 419 64 64">
-    <path style="fill: none; stroke: black;stroke-width: 2px;" d="M-573.4,478.9c-8,0-14.6-6.4-14.6-14.5s14.6-25.9,14.6-40.8c0,14.9,14.6,32.8,14.6,40.8S-565.4,478.9-573.4,478.9z"/>
-    </svg>
+    ${logo}
     Distill
   </a>
   <div class="nav">

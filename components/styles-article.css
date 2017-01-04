@@ -1,4 +1,3 @@
-export default `
 dt-article {
   color: rgba(0, 0, 0, 0.8);
   font: 15px/1.55em -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
@@ -177,5 +176,3 @@ dt-article figure figcaption b {
   font-weight: 600;
   color: rgba(0, 0, 0, 1.0);
 }
-
-`
