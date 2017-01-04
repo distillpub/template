@@ -39,31 +39,40 @@
   <p>The final layout is for marginalia, asides, and footnotes. It does not interrupt the normal flow of <code>.l-body</code> sized text except on mobile screen sizes.</p>
   <hr>
   <h2>Markdown</h2>
-  <div dt-markdown>
-  Any element with a `dt-markdown` attribute will be rendered with it's contents replaced with a markdown processed version. We use [marked](https://github.com/chjj/marked), with [github flavored markdown](https://help.github.com/articles/basic-writing-and-formatting-syntax/) and [smartypants](https://daringfireball.net/projects/smartypants/).
+  <div>
+  <div dt-markdown>Any element with a `dt-markdown` attribute will be rendered with its contents replaced with a markdown processed version. We use [marked](https://github.com/chjj/marked), with [github flavored markdown](https://help.github.com/articles/basic-writing-and-formatting-syntax/) and [smartypants](https://daringfireball.net/projects/smartypants/).</div>
+  <pre><code class="language-html">
+  &lt;div dt-markdown&gt;
+  ###This markdown will be rendered as HTML
 
-  This section has been written in markdown, so if you view source on this page and look at this section you can use it as a reference.
+  For more about markdown, read this [tutorial](https://help.github.com/articles/basic-writing-and-formatting-syntax/).
+  &lt;/div&gt;
 
+  </code></pre>
   </div>
   <hr>
   <h2>Code Blocks</h2>
-  <pre><code class="language-javascript">
-    var x = 25;
-    function(x){
-      return x * x;
-    }
+  <p>Syntax highlighting is provided within <code class="language-html">&lt;code&gt;</code> tags. Just wrap the source with this: <code class="language-javascript">&lt;code class="language-html"&gt;let x = 10;&lt;/code&gt;</code>. For larger blocks of code, add a <code class="language-html">&lt;pre&gt;</code> tag:</p>
+  <pre><code class="language-html">
+    &lt;pre&gt;&lt;code class="language-javascript"&gt;
+      var x = 25;
+      function(x){
+        return x * x;
+      }
+    &lt;/code&gt;&lt;/pre&gt;
   </code></pre>
-  <p>You can also use code blocks within markdown blocks</p>
-  <div dt-markdown>
-  ```javascript
-  let x = 25;
-  ```
-  </div>
+  <p>You can also use code blocks within markdown blocks. For instance: </p>
+  <pre><code class="language-html">
+    &lt;div dt-markdown&gt;
+    ```javascript
+    let x = 25;
+    ```
+    &lt;/div&gt;
+  </code></pre>
   <hr>
   <h2>Citation</h2>
   <p>
-  Take a look at this paper <dt-cite>gregor2015draw</dt-cite> which
-  is about X.
+  Take a look at this paper <dt-cite>gregor2015draw</dt-cite> which is about X.
 </p>
 <p>
   Why do we reason <dt-cite>mercier2011humans</dt-cite>
@@ -72,6 +81,8 @@
   <h2>Math</h2>
   <hr>
   <h2>Footnotes</h2>
+  <p>This is a <dt-footnote ref="blah" /></p>
+  <dt-footnote-body ref="blah"></dt-footnote-body>
 </dt-article>
 <dt-appendix>
   <h3>Contributions</h3>
