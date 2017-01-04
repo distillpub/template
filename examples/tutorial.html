@@ -71,18 +71,45 @@
   </code></pre>
   <hr>
   <h2>Citation</h2>
-  <p>
-  Take a look at this paper <dt-cite>gregor2015draw</dt-cite> which is about X.
-</p>
-<p>
-  Why do we reason <dt-cite>mercier2011humans</dt-cite>
-</p>
+  <p>Bibtex is the supported way of making academic citations. You first need have a global definition of all your possible citations. This can either be inlined in the document, or it can reference an external bibtex file.</p>
+  <pre><code class="language-html">
+    &lt;dt-bibliography&gt;
+    @article{gregor2015draw,
+      title={DRAW: A recurrent neural network for image generation},
+      author={Gregor, Karol and Danihelka, Ivo and Graves, Alex and Rezende, Danilo Jimenez and Wierstra, Daan},
+      journal={arXivreprint arXiv:1502.04623},
+      year={2015}
+    }
+    @article{mercier2011humans,
+      title={Why do humans reason? Arguments for an argumentative theory},
+      author={Mercier, Hugo and Sperber, Dan},
+      journal={Behavioral and brain sciences},
+      volume={34},
+      number={02},
+      pages={57--74},
+      year={2011},
+      publisher={Cambridge Univ Press}
+    }
+    &lt;/dt-bibliography&gt;
+  </code></pre>
+  <p>Citations are then used with the <code class="language-html">&lt;dt-cite&gt;</code> tag.</p>
+  <pre><code class="language-html">
+    &lt;dt-cite&gt;gregor2015draw&lt;/dt-cite&gt;
+  </code></pre>
+  <p>Take a look at this paper <dt-cite>gregor2015draw</dt-cite>.</p>
+
   <hr>
   <h2>Math</h2>
   <hr>
   <h2>Footnotes</h2>
   <p>This is a <dt-footnote ref="blah" /></p>
   <dt-footnote-body ref="blah"></dt-footnote-body>
+  <hr>
+  <h2>HTML Includes</h2>
+  <hr>
+  <h2>Authors</h2>
+  <hr>
+  <h2>Metadata</h2>
 </dt-article>
 <dt-appendix>
   <h3>Contributions</h3>
