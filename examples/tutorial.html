@@ -1,0 +1,80 @@
+<!doctype html>
+<meta charset="utf-8">
+<script src="../dist/template.min.js"></script>
+<style>
+  .fake-img {
+    background: #bbb;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
+  }
+  .fake-img p {
+    font-family: monospace;
+    color: white;
+    text-align: center;
+    margin: 12px 0;
+    font-size: 16px;
+  }
+</style>
+<dt-header></dt-header>
+<dt-article>
+  <h1 class="l">How to Create a Distill Article</h1>
+  <h2 class="l">A collection of examples and best practices for creating interactive explanatory articles using the Distill web framework</h2>
+  <!-- <dt-byline></dt-byline> -->
+  <p>Distill ships with a CSS framework and a collection of custom web components that make building interactive academic articles easier than raw HTML, CSS and JavaScript. This reference article details several examples and best practices for how to use both frameworks. Both are also available on Github with a permissive license, so feel free to use them independent of http://distill.pub as well.</p>
+  <hr>
+  <h2>Layouts</h2>
+  <p>The main text column is referred to as the body. It is the assumed layout of any direct descendents of the <code>dt-article</code> element.</p>
+  <div class="fake-img l-body"><p>.l-body</p></div>
+  <div class="fake-img l-middle"><p>.l-middle</p></div>
+  <div class="fake-img l-page"><p>.l-page</p></div>
+  <p>Occasionally you’ll want to use the full browser width. For this, use screen. You can also inset the element a little from the edge of the browser by appending, you guessed it, <code>inset</code>.</p>
+  <div class="fake-img l-screen"><p>.l-screen</p></div>
+  <div class="fake-img l-screen-inset"><p>.l-screen-inset</p></div>
+  <p>Often you want to position smaller images so as not to completely interrupt the flow of your text. Or perhaps you want to put some text in the margin as an aside or to signal that it’s optional content. For these cases we’ll use the float-based <code>.side</code> layouts.</p>
+  <div class="fake-img l-body side"><p>.l-body.side</p></div>
+  <div class="fake-img l-page side"><p>.l-page.side</p></div>
+  <p>They are all floated to the right and anchored to the right-hand edge of the position you specify. By default, each will take up approximately half of the width of the standard layout position, but you can override the width with a more specific selector. </p>
+  <div class="fake-img l-gutter"><p>.l-gutter</p></div>
+  <p>The final layout is for marginalia, asides, and footnotes. It does not interrupt the normal flow of <code>.l-body</code> sized text except on mobile screen sizes.</p>
+  <hr>
+  <h2>Markdown</h2>
+  <div dt-markdown>
+  Any element with a `dt-markdown` attribute will be rendered with it's contents replaced with a markdown processed version. We use [marked](https://github.com/chjj/marked), with [github flavored markdown](https://help.github.com/articles/basic-writing-and-formatting-syntax/) and [smartypants](https://daringfireball.net/projects/smartypants/).
+
+  This section has been written in markdown, so if you view source on this page and look at this section you can use it as a reference.
+
+  </div>
+  <hr>
+  <h2>Code Blocks</h2>
+  <pre><code class="language-javascript">
+    var x = 25;
+    function(x){
+      return x * x;
+    }
+  </code></pre>
+  <p>You can also use code blocks within markdown blocks</p>
+  <div dt-markdown>
+  ```javascript
+  let x = 25;
+  ```
+  </div>
+  <hr>
+  <h2>Citation</h2>
+  <p>
+  Take a look at this paper <dt-cite>gregor2015draw</dt-cite> which
+  is about X.
+</p>
+<p>
+  Why do we reason <dt-cite>mercier2011humans</dt-cite>
+</p>
+  <hr>
+  <h2>Math</h2>
+  <hr>
+  <h2>Footnotes</h2>
+</dt-article>
+<dt-appendix>
+  <h3>Contributions</h3>
+  <p>List of who did what</p>
+</dt-appendix>
+<dt-footer></dt-footer>
