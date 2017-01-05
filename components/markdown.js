@@ -6,13 +6,15 @@ marked.setOptions({
 });
 
 export default function(dom, data) {
-  let markdownElements = [].slice.call(dom.querySelectorAll('[dt-markdown]'));
+  let markdownElements = [].slice.call(dom.querySelectorAll('[markdown]'));
   markdownElements.forEach(el => {
     let content = el.innerHTML;
-    let indent = "  ";
-    // Set default indents to the first or second line
+    // Set default indents
+    content = content.replace(/\n/, "");
+    let tabs = content.match(/\s*/);
+    content = content.replace(new RegExp("\n" + tabs, "g"), "\n");
+    content = content.trim();
 
-    // content.replace("\n  ", "\n" + indent);
     el.innerHTML = marked(content);
   });
 }
