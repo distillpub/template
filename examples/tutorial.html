@@ -41,34 +41,26 @@
   <h2>Markdown</h2>
   <div>
   <div dt-markdown>Any element with a `dt-markdown` attribute will be rendered with its contents replaced with a markdown processed version. We use [marked](https://github.com/chjj/marked), with [github flavored markdown](https://help.github.com/articles/basic-writing-and-formatting-syntax/) and [smartypants](https://daringfireball.net/projects/smartypants/).</div>
-  <pre><code class="language-html">
+  <dt-code block language="html">
   &lt;div dt-markdown&gt;
   ###This markdown will be rendered as HTML
 
   For more about markdown, read this [tutorial](https://help.github.com/articles/basic-writing-and-formatting-syntax/).
   &lt;/div&gt;
 
-  </code></pre>
+</dt-code>
   </div>
   <hr>
   <h2>Code Blocks</h2>
-  <p>Syntax highlighting is provided within <code class="language-html">&lt;code&gt;</code> tags. Just wrap the source with this: <code class="language-html">&lt;code class="language-html"&gt;let x = 10;&lt;/code&gt;</code>. For larger blocks of code, add a <code class="language-html">&lt;pre&gt;</code> tag:</p>
-  <pre><code class="language-html">
-    &lt;pre&gt;&lt;code class="language-javascript"&gt;
+  <p>Syntax highlighting is provided within <dt-code language="html">&lt;dt-code&gt;</dt-code> tags. An example of inline code snippets: <dt-code language="html">&lt;dt-code language="html"&gt;let x = 10;&lt;/dt-code&gt;</dt-code>. For larger blocks of code, add a <dt-code>block</dt-code> attribute:</p>
+  <dt-code block language="html">
+    &lt;dt-code block language="javascript"&gt;
       var x = 25;
       function(x){
         return x * x;
       }
-    &lt;/code&gt;&lt;/pre&gt;
-  </code></pre>
-  <p>You can also use code blocks within markdown blocks. For instance: </p>
-  <pre><code class="language-html">
-    &lt;div dt-markdown&gt;
-    ```javascript
-    let x = 25;
-    ```
-    &lt;/div&gt;
-  </code></pre>
+    &lt;/dt-code&gt;
+  </dt-code>
   <hr>
   <h2>Citation</h2>
   <p>Bibtex is the supported way of making academic citations. You first need have a global definition of all your possible citations. This can either be inlined in the document, or it can reference an external bibtex file.</p>
@@ -92,7 +84,7 @@
     }
     &lt;/dt-bibliography&gt;
   </code></pre>
-  <p>Citations are then used with the <code class="language-html">&lt;dt-cite&gt;</code> tag.</p>
+  <p>Citations are then used with the <dt-code language="html">&lt;dt-cite&gt;</dt-code> tag.</p>
   <pre><code class="language-html">
     &lt;dt-cite&gt;gregor2015draw&lt;/dt-cite&gt;
   </code></pre>

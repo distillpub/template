@@ -176,3 +176,7 @@ dt-article figure figcaption b {
   font-weight: 600;
   color: rgba(0, 0, 0, 1.0);
 }
+
+dt-article > dt-code {
+  display: block;
+}
