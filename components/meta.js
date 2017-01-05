@@ -1,14 +1,6 @@
 export default function(dom, data) {
-  dom.querySelector("html").setAttribute("lang", "en")
   let head = dom.querySelector("head");
-
-  if (!dom.querySelector("meta[charset]")) {
-    appendHtml(head, `<meta charset="utf-8">`);
-  }
-  if (!dom.querySelector("meta[name=viewport]")) {
-    appendHtml(head, `<meta name="viewport" content="width=device-width, initial-scale=1">`);
-  }
-
+  
   appendHtml(head, `
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <link rel="icon" type="image/png" href="/favicon.png">
@@ -77,8 +69,6 @@ export default function(dom, data) {
     `);
   });
 }
-
-
 
 
 function appendHtml(el, html) {

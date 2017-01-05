@@ -1,6 +1,7 @@
+import html from "./components/html";
+import styles from "./components/styles";
 import citeData from "./components/cite-data";
 import meta from "./components/meta";
-import styles from "./components/styles";
 import header from "./components/header";
 import appendix from "./components/appendix";
 import footer from "./components/footer";
@@ -11,7 +12,8 @@ import testData from "./test-data";
 
 
 function render(dom, data) {
-  styles(dom, data);
+  html(dom);
+  styles(dom);
   document.addEventListener("DOMContentLoaded", function(event) {
     citeData(dom, data);
     meta(dom, data);
