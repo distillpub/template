@@ -33,7 +33,7 @@ export default {
     }),
     commonjs(),
     uglify(),
-    liveReload(),
+    // liveReload(),
     serve({port: PORT}),
   ]
 };

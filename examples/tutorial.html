@@ -17,28 +17,20 @@
 </style>
 
 <dt-header></dt-header>
-<dt-article markdown>
-  # How to Create a Distill Article
-
-  ## A collection of examples and best practices for creating interactive explanatory articles using the Distill web framework
-
-  Distill ships with a CSS framework and a collection of custom web components that make building interactive academic articles easier than with raw HTML, CSS and JavaScript. This reference article details several examples and best practices for how to use both frameworks.
-
-  ---
-
-  ## Getting Started
-
-  If you’re using Chrome as your development browser, here is the smallest distill post.
-
+<dt-article>
+  <h1>How to Create a Distill Article</h1>
+  <h2>A collection of examples and best practices for creating interactive explanatory articles using the Distill web framework</h2>
+  <p>Distill ships with a CSS framework and a collection of custom web components that make building interactive academic articles easier than with raw HTML, CSS and JavaScript. This reference article details several examples and best practices for how to use both frameworks.</p>
+  <hr>
+  <h2>Getting Started</h2>
+  <p>If you’re using Chrome as your development browser, here is the smallest distill post.</p>
   <dt-code block language="html">
     &lt;script src="../dist/template.min.js"&gt;&lt;/script&gt;
     &lt;dt-article&gt;
       &lt;h1&gt;Hello World&lt;/h1&gt;
     &lt;/dt-article&gt;
   </dt-code>
-
-  However, this omits some required html tags that might cause rendering problems during development if you’re using a browser other than Chrome. These missing tags will be added during publishing, so if the above works for you, feel free to use it. If you are having issues, try adding <dt-code>doctype</dt-code> and <dt-code>meta</dt-code> tags explicitly.
-
+  <p>However, this omits some required html tags that might cause rendering problems during development if you’re using a browser other than Chrome. These missing tags will be added during publishing, so if the above works for you, feel free to use it. If you are having issues, try adding <dt-code>doctype</dt-code> and <dt-code>meta</dt-code> tags explicitly.</p>
   <dt-code block language="html">
     &lt;!doctype html&gt;
     &lt;meta charset="utf-8"&gt;
@@ -47,9 +39,7 @@
       &lt;h1&gt;Hello World&lt;/h1&gt;
     &lt;/dt-article&gt;
   </dt-code>
-
-  A typical distill post will be quite a bit longer than this though. Below is a more complete example. Don’t worry if some of the tags don’t make sense, they’re all documented further in this post.
-
+  <p>A typical distill post will be quite a bit longer than this though. Below is a more complete example. Don’t worry if some of the tags don’t make sense, they’re all documented further in this post.</p>
   <dt-code block language="html">
     &lt;!doctype html&gt;
     &lt;meta charset="utf-8"&gt;
@@ -58,14 +48,11 @@
       title: Article Title
       description: Description of the post
       authors:
-        Chris Olah:
-          personalUrl: http://colah.github.io
-          affiliation: Google Brain
-          affiliationURL: http://g.co/brain
-        Shan Carter:
-          personalUrl: http://shancarter.com
-          affiliation: Google Brain
-          affiliationURL: http://g.co/brain
+      - Chris Olah: http://colah.github.io
+      - Shan Carter: http://shancarter.com
+      affiliations:
+      - Google Brain: http://g.co/brain
+      - Google Brain: http://g.co/brain
     &lt;/dt-front-matter&gt;
     &lt;dt-article&gt;
       &lt;h1&gt;Hello World&lt;/h1&gt;
@@ -83,48 +70,36 @@
       }
     &lt;/dt-bibliography&gt;
   </dt-code>
-
-  ---
-
-  ## Markdown
-
-  Markdown is supported as an alternative to html for the <dt-code language="html">&lt;dt-article&gt;</dt-code> element.
-
+  <hr>
+  <h2>Markdown</h2>
+  <p>Markdown is supported as an alternative to html for the <dt-code language="html">&lt;dt-article&gt;</dt-code> element. </p>
   <dt-code block language="html">
     &lt;!doctype html&gt;
     &lt;meta charset="utf-8"&gt;
     &lt;script src="../dist/template.min.js"&gt;&lt;/script&gt;
     &lt;dt-article markdown&gt;
-      #Hello World
+      # Hello World
 
-      ##A description of the post
+      ## A description of the post
 
       First paragraph of the article.
     &lt;/dt-article&gt;
     &lt;dt-bibliography&gt;&lt;/dt-bibliography&gt;
   </dt-code>
-
-  We use <a href="https://github.com/chjj/marked">marked</a> as the rendering engine, with <a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/">github flavored markdown</a> and <a href="https://daringfireball.net/projects/smartypants/">smartypants</a> enabled. In development mode the markdown is translated in the client after the dom content has loaded, but when published, the translation is precompiled.
-
-  ---
-
-  ## Front Matter
-
-  You’ll need to describe some data about you post — title, description, authors, etc. For this use the <dt-code language="html">&lt;dt-front-matter&gt;</dt-code> tag.
-  
+  <p>We use <a href="https://github.com/chjj/marked">marked</a> as the rendering engine, with <a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/">github flavored markdown</a> and <a href="https://daringfireball.net/projects/smartypants/">smartypants</a> enabled. In development mode the markdown is translated in the client after the dom content has loaded, but when published, the translation is precompiled.</p>
+  <hr>
+  <h2>Front Matter</h2>
+  <p>You’ll need to describe some data about you post — title, description, authors, etc. For this use the <dt-code language="html">&lt;dt-front-matter&gt;</dt-code> tag.</p>
   <dt-code block language="html">
     &lt;dt-front-matter&gt;
       title: Article Title
       description: Description of the post
       authors:
-        Chris Olah:
-          personalUrl: http://colah.github.io
-          affiliation: Google Brain
-          affiliationURL: http://g.co/brain
-        Shan Carter:
-          personalUrl: http://shancarter.com
-          affiliation: Google Brain
-          affiliationURL: http://g.co/brain
+      - Chris Olah: http://colah.github.io
+      - Shan Carter: http://shancarter.com
+      affiliations:
+      - Google Brain: http://g.co/brain
+      - Google Brain: http://g.co/brain
     &lt;/dt-front-matter&gt;
   </dt-code>
   <p>You can also use an external JSON file if you like. We will automatically make a request for a <dt-code>distill.json</dt-code> file if there is no <dt-code language="html">&lt;dt-front-matter&gt;</dt-code> element on the page, or you can point to another file with the <dt-code>src</dt-code> attribute. In production, these files will be inlined into the document.</p>

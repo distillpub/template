@@ -9,6 +9,7 @@
   "license": "ISC",
   "dependencies": {
     "bibtex-parse-js": "^0.0.23",
+    "js-yaml": "^3.7.0",
     "marked": "^0.3.6",
     "prismjs": "^1.6.0",
     "rollup": "^0.36.4",

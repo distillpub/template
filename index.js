@@ -9,6 +9,7 @@ import citation from "./components/citation";
 import markdown from "./components/markdown";
 import code from "./components/code";
 import testData from "./test-data";
+import frontMatter from "./components/front-matter";
 
 
 function render(dom, data) {
@@ -16,6 +17,7 @@ function render(dom, data) {
   styles(dom);
   document.addEventListener("DOMContentLoaded", function(event) {
     citeData(dom, data);
+    frontMatter(dom, data);
     meta(dom, data);
     header(dom, data);
     appendix(dom, data);
