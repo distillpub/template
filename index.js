@@ -2,6 +2,7 @@ import html from "./components/html";
 import styles from "./components/styles";
 import frontMatter from "./components/front-matter";
 import bibliography from "./components/bibliography";
+import expandData from "./components/expand-data";
 import meta from "./components/meta";
 import header from "./components/header";
 import appendix from "./components/appendix";
@@ -18,6 +19,7 @@ function render(dom, data) {
   document.addEventListener("DOMContentLoaded", function(event) {
     frontMatter(dom, data);
     bibliography(dom, data);
+    expandData(dom, data);
     meta(dom, data);
     header(dom, data);
     appendix(dom, data);
