@@ -1,6 +1,6 @@
 export default function(dom, data) {
   let head = dom.querySelector("head");
-  
+
   appendHtml(head, `
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <link rel="icon" type="image/png" href="/favicon.png">
@@ -62,12 +62,15 @@ export default function(dom, data) {
     `)
   });
 
-  Object.keys(data.citations).forEach(key => {
-    console.log(key);
-    appendHtml(head, `
-      <meta name="citation_reference" content="${citation_meta_content(data.citations[key])}" >
-    `);
-  });
+  if (data.citations) {
+    let citationKeys = Object.keys(data.citations);
+    citationKeys.forEach(key => {
+      console.log(key);
+      appendHtml(head, `
+        <meta name="citation_reference" content="${citation_meta_content(data.citations[key])}" >
+      `);
+    });
+  }
 }
 
 

@@ -1,9 +1,11 @@
 export default function(dom, data) {
-
-  let citations = Object.keys(data.citations).map(c => data.citations[c]);
-  citations.sort((a, b) => {
-    return a.author.localeCompare(b.author);
-  });
+  let citations = [];
+  if (data.citations) {
+    citations = Object.keys(data.citations).map(c => data.citations[c]);
+    citations.sort((a, b) => {
+      return a.author.localeCompare(b.author);
+    });
+  }
 
   var citeTags = [].slice.apply(dom.querySelectorAll("dt-cite"));
   citeTags.forEach(el => {
