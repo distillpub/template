@@ -1,6 +1,7 @@
 import html from "./components/html";
 import styles from "./components/styles";
-import citeData from "./components/cite-data";
+import frontMatter from "./components/front-matter";
+import bibliography from "./components/bibliography";
 import meta from "./components/meta";
 import header from "./components/header";
 import appendix from "./components/appendix";
@@ -9,15 +10,14 @@ import citation from "./components/citation";
 import markdown from "./components/markdown";
 import code from "./components/code";
 import testData from "./test-data";
-import frontMatter from "./components/front-matter";
 
 
 function render(dom, data) {
   html(dom);
   styles(dom);
   document.addEventListener("DOMContentLoaded", function(event) {
-    citeData(dom, data);
     frontMatter(dom, data);
+    bibliography(dom, data);
     meta(dom, data);
     header(dom, data);
     appendix(dom, data);

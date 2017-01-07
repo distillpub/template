@@ -1,6 +1,6 @@
 import logo from "./distill-logo.svg";
 
-const html = `
+let html = `
 <style>
 dt-footer {
   display: block;
@@ -38,5 +38,6 @@ dt-footer .logo {
 `;
 
 export default function(dom, data) {
-  dom.querySelector('dt-footer').innerHTML = html;
+  let el = dom.querySelector("dt-footer");
+  if(el) el.innerHTML = html;
 }

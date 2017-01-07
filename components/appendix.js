@@ -73,5 +73,6 @@ const html = `
 //   })
 
 export default function(dom, data) {
-  dom.querySelector('dt-appendix').innerHTML = html;
+  let el = dom.querySelector('dt-appendix')
+  if (el) el.innerHTML = html;
 }

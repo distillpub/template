@@ -13,13 +13,15 @@ export default function(dom, data) {
   });
 
   let bibEl = dom.querySelector("dt-bibliography");
-  let ol = dom.createElement("ol");
-  citations.forEach(citation => {
-    let el = dom.createElement("li");
-    el.textContent = bibliography_cite(citation);
-    ol.appendChild(el);
-  })
-  bibEl.appendChild(ol);
+  if (bibEl) {
+    let ol = dom.createElement("ol");
+    citations.forEach(citation => {
+      let el = dom.createElement("li");
+      el.textContent = bibliography_cite(citation);
+      ol.appendChild(el);
+    })
+    bibEl.appendChild(ol);
+  }
 
   function inline_cite(key){
     if (key in data.citations){
