@@ -8,8 +8,10 @@ export default function(dom, data) {
   }
 
   var citeTags = [].slice.apply(dom.querySelectorAll("dt-cite"));
+  console.log(citeTags)
   citeTags.forEach(el => {
-    var keys = el.textContent.split(",");
+    var keys = el.getAttribute("key").split(",");
+    console.log(keys)
     var cite_string = keys.map(inline_cite).join(", ");
     el.innerHTML = cite_string;
   });
@@ -26,6 +28,7 @@ export default function(dom, data) {
   }
 
   function inline_cite(key){
+    console.log(key, data.citations)
     if (key in data.citations){
       var ent = data.citations[key];
       var names = ent.author.split(" and ");
