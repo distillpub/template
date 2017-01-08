@@ -1,5 +1,7 @@
 export default function(dom, data) {
 
+    data.authors = data.authors || [];
+
     // paths
     //data.distillPath = post.distillPath;
     //data.githubPath = post.githubPath;

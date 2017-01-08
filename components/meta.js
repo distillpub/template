@@ -48,14 +48,18 @@ export default function(dom, data) {
     <meta name="citation_fulltext_html_url" content="${data.url}">
     <meta name="citation_volume" content="${data.volume}">
     <meta name="citation_issue" content="${data.issue}">
-    <meta name="citation_journal_title" content="${data.journal.name}">
-    <meta name="citation_journal_abbrev" content="${data.journal.nameAbbrev}"/>
     <meta name="citation_firstpage" content="e${data.doiSuffix}"/>
     <meta name="citation_doi" content="${data.doi}">
-    <meta name="citation_issn" content="${data.journal.issn}">
-    <meta name="citation_publisher" content="${data.journal.publisher}"/>
   `);
-  data.authors.forEach((a) => {
+  if (data.journal) {
+    appendHtml(head, `
+      <meta name="citation_journal_title" content="${data.journal.name}">
+      <meta name="citation_journal_abbrev" content="${data.journal.nameAbbrev}"/>
+      <meta name="citation_issn" content="${data.journal.issn}">
+      <meta name="citation_publisher" content="${data.journal.publisher}"/>
+    `);
+  }
+  (data.authors || []).forEach((a) => {
     appendHtml(head, `
       <meta name="citation_author" content="${a.lastName}, ${a.firstName}" />
       <meta name="citation_author_institution" content="${a.affiliation}"/>
