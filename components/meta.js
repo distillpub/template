@@ -50,7 +50,7 @@ export default function(dom, data) {
   appendHead(`
     <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
   `);
-  
+
   let journal = data.journal || {};
   let zeroPad = (n) => { return n < 10 ? "0" + n : n; };
   let publishedYear = data.published.getFullYear();
@@ -74,9 +74,8 @@ export default function(dom, data) {
   });
 
   if (data.citations) {
-    let citationKeys = Object.keys(data.citations);
-    citationKeys.forEach(key =>
-        meta("citation_reference", citation_meta_content(data.citations[key]) )
+    data.citations.forEach(key =>
+        meta("citation_reference", citation_meta_content(data.bibliography[key]) )
       );
   }
 }
