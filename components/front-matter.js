@@ -10,6 +10,9 @@ export default function(dom, data) {
 
     data.title = localData.title;
     data.description = localData.description;
+    data.published = new Date(localData.published);
+    data.updated = new Date(localData.published || localData.updated);
+
     data.authors = localData.authors.map((author, i) =>{
       let a = {};
       let name = Object.keys(author)[0];
@@ -24,6 +27,7 @@ export default function(dom, data) {
       }
       return a;
     });
+    
   }
 
 }

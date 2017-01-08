@@ -14,6 +14,7 @@ import testData from "./test-data";
 
 
 function render(dom, data) {
+  data = data || {};
   html(dom);
   styles(dom);
   document.addEventListener("DOMContentLoaded", function(event) {
@@ -34,7 +35,7 @@ function render(dom, data) {
 
 
 if(window.document) {
-  render(window.document, testData);
+  render(window.document)//, testData);
 }
 
 export default render;

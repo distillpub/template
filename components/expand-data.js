@@ -13,10 +13,11 @@ export default function(dom, data) {
 
     // Dates
     // TODO: fix updated date
-    if (data.published) {
-      data.publishedDate = new Date(data.published);
-      data.updatedDate = new Date(data.published || data.updated);
-
+    if (data.published){//} && data.journal) {
+      data.volume = data.published.getFullYear() - 2015;
+      data.issue = data.published.getMonth() + 1;
+    }
+    /*
       //let RFC = d3.timeFormat("%a, %d %b %Y %H:%M:%S %Z");
       let months = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
       let zeroPad = (n) => { return n < 10 ? "0" + n : n; };
@@ -28,7 +29,7 @@ export default function(dom, data) {
       data.publishedDayPadded = zeroPad(data.publishedDate.getDate());
       data.volume = data.publishedDate.getFullYear() - 2015;
       data.issue = data.publishedDate.getMonth() + 1;
-    }
+    }*/
 
 
 
