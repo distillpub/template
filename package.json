@@ -2,7 +2,7 @@
   "name": "distill-template",
   "version": "0.0.5",
   "description": "Template for creating Distill articles.",
-  "main": "dist/distill.js",
+  "main": "dist/template.js",
   "scripts": {
     "start": "rollup -c -w",
     "build": "rollup -c",
@@ -34,8 +34,5 @@
     "rollup-plugin-string": "^2.0.2",
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-watch": "^2.5.0"
-  },
-  "dependencies": {
-    "distill-template": "^0.0.4"
   }
 }
