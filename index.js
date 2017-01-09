@@ -10,7 +10,6 @@ import footer from "./components/footer";
 import citation from "./components/citation";
 import markdown from "./components/markdown";
 import code from "./components/code";
-
 import generateCrossref from "./components/generate-crossref";
 
 function render(dom, data) {
@@ -50,5 +49,4 @@ export {footer as footer};
 export {citation as citation};
 export {markdown as markdown};
 export {code as code};
-
 export {generateCrossref as generateCrossref};

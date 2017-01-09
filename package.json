@@ -34,5 +34,8 @@
     "rollup-plugin-string": "^2.0.2",
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-watch": "^2.5.0"
+  },
+  "dependencies": {
+    "distill-template": "^0.0.4"
   }
 }
