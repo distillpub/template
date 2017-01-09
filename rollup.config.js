@@ -14,9 +14,9 @@ export default {
   sourceMap: true,
   targets: [
     {
-      format: 'iife',
+      format: 'umd',
       moduleName: 'dl',
-      dest: `dist/template.min.js`,
+      dest: `dist/template.js`,
     }
   ],
   plugins: [
@@ -32,7 +32,7 @@ export default {
       target: { chrome: 52, safari: 8, edge: 13, firefox: 48, }
     }),
     commonjs(),
-    uglify(),
+    // uglify(),
     // liveReload(),
     serve({port: PORT}),
   ]

@@ -11,11 +11,10 @@ import markdown from "./components/markdown";
 import code from "./components/code";
 import testData from "./test-data";
 
-
 function render(dom, data) {
   html(dom);
   styles(dom);
-  document.addEventListener("DOMContentLoaded", function(event) {
+  dom.addEventListener("DOMContentLoaded", function(event) {
     frontMatter(dom, data);
     bibliography(dom, data);
     meta(dom, data);
@@ -30,9 +29,20 @@ function render(dom, data) {
   });
 }
 
-
-if(window.document) {
+// If we are in a browser, run render automatically.
+if(window && window.document) {
   render(window.document, testData);
 }
 
-export default render;
+export {render as render};
+export {html as html};
+export {styles as styles};
+export {frontMatter as frontMatter};
+export {bibliography as bibliography};
+export {meta as meta};
+export {header as header};
+export {appendix as appendix};
+export {footer as footer};
+export {citation as citation};
+export {markdown as markdown};
+export {code as code};

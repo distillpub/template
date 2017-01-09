@@ -1,16 +1,18 @@
 {
   "name": "distill-template",
-  "version": "1.4.1",
-  "description": "",
+  "version": "0.0.0",
+  "description": "Template for creating Distill articles.",
   "scripts": {
-    "start": "rollup -c -w"
+    "start": "rollup -c -w",
+    "test": "mocha"
   },
   "author": "Shan Carter",
-  "license": "ISC",
   "dependencies": {
     "bibtex-parse-js": "^0.0.23",
     "js-yaml": "^3.7.0",
+    "jsdom": "^9.9.1",
     "marked": "^0.3.6",
+    "mocha": "^3.2.0",
     "prismjs": "^1.6.0",
     "rollup": "^0.36.4",
     "rollup-plugin-buble": "^0.14.0",
