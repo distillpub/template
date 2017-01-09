@@ -12,18 +12,20 @@ export default function(dom, data) {
       bibliography[e.citationKey].type = e.entryType;
     });
 
-    let citations = {};
+    let citations = [];
     var citeTags = [].slice.apply(dom.querySelectorAll("dt-cite"));
     citeTags.forEach(el => {
       let citationKeys = el.getAttribute("key").split(",");
       citationKeys.forEach(key => {
-        if (bibliography[key]) {
-          citations[key] = bibliography[key];
-        } else {
-          console.warn("No bibliography entry found for: " + key);
+        if (citations.indexOf(key) == -1){
+          citations.push(key);
+          if (! (key in bibliography)){
+              console.warn("No bibliography entry found for: " + key);
+          }
         }
       });
     });
+    data.bibliography = bibliography;
     data.citations = citations;
   }
 }

@@ -282,6 +282,8 @@ function Type$2(tag, options) {
 
 var type = Type$2;
 
+/*eslint-disable max-len*/
+
 var common$4        = common$1;
 var YAMLException$3 = exception;
 var Type$1          = type;
@@ -893,6 +895,8 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
+/*eslint-disable no-bitwise*/
+
 var NodeBuffer;
 
 try {
@@ -1349,6 +1353,8 @@ var default_full = Schema$6.DEFAULT = new Schema$6({
     _function
   ]
 });
+
+/*eslint-disable max-len,no-use-before-define*/
 
 var common              = common$1;
 var YAMLException$1       = exception;
@@ -2941,6 +2947,8 @@ var loader$1 = {
 	safeLoad: safeLoad_1
 };
 
+/*eslint-disable no-use-before-define*/
+
 var common$7              = common$1;
 var YAMLException$5       = exception;
 var DEFAULT_FULL_SCHEMA$2 = default_full;
@@ -3820,6 +3828,9 @@ var frontMatter = function(dom, data) {
 
     data.title = localData.title;
     data.description = localData.description;
+    data.published = new Date(localData.published);
+    data.updated = new Date(localData.published || localData.updated);
+
     data.authors = localData.authors.map(function (author, i) {
       var a = {};
       var name = Object.keys(author)[0];
@@ -3834,6 +3845,7 @@ var frontMatter = function(dom, data) {
       }
       return a;
     });
+    
   }
 
 };
@@ -4193,47 +4205,108 @@ var bibliography = function(dom, data) {
       bibliography[e.citationKey].type = e.entryType;
     });
 
-    var citations = {};
+    var citations = [];
     var citeTags = [].slice.apply(dom.querySelectorAll("dt-cite"));
     citeTags.forEach(function (el) {
       var citationKeys = el.getAttribute("key").split(",");
       citationKeys.forEach(function (key) {
-        if (bibliography[key]) {
-          citations[key] = bibliography[key];
-        } else {
-          console.warn("No bibliography entry found for: " + key);
+        if (citations.indexOf(key) == -1){
+          citations.push(key);
+          if (! (key in bibliography)){
+              console.warn("No bibliography entry found for: " + key);
+          }
         }
       });
     });
+    data.bibliography = bibliography;
     data.citations = citations;
   }
 };
 
+var expandData = function(dom, data) {
+
+    data.authors = data.authors || [];
+
+    // paths
+    //data.distillPath = post.distillPath;
+    //data.githubPath = post.githubPath;
+    //data.url = "http://distill.pub/" + post.distillPath;
+    //data.githubUrl = "https://github.com/" + post.githubPath;
+
+    // Homepage
+    //data.homepage = !post.noHomepage;
+
+    // Dates
+    // TODO: fix updated date
+    if (data.published){//} && data.journal) {
+      data.volume = data.published.getFullYear() - 2015;
+      data.issue = data.published.getMonth() + 1;
+    }
+    /*
+      //let RFC = d3.timeFormat("%a, %d %b %Y %H:%M:%S %Z");
+      let months = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+      let zeroPad = (n) => { return n < 10 ? "0" + n : n; };
+      //data.publishedDateRFC = RFC(data.publishedDate);
+      data.publishedYear = data.publishedDate.getFullYear();
+      data.publishedMonth = months[data.publishedDate.getMonth()];
+      data.publishedDay = data.publishedDate.getDate();
+      data.publishedMonthPadded = zeroPad(data.publishedDate.getMonth() + 1);
+      data.publishedDayPadded = zeroPad(data.publishedDate.getDate());
+      data.volume = data.publishedDate.getFullYear() - 2015;
+      data.issue = data.publishedDate.getMonth() + 1;
+    }*/
+
+
+
+};
+
 var meta = function(dom, data) {
   var head = dom.querySelector("head");
+  var appendHead = function (html) { return appendHtml(head, html); };
 
-  appendHtml(head, ("\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge,chrome=1\">\n    <link rel=\"icon\" type=\"image/png\" href=\"/favicon.png\">\n    <link href=\"/rss.xml\" rel=\"alternate\" type=\"application/rss+xml\" title=\"Articles from Distill\">\n    <link rel=\"canonical\" href=\"" + (data.url) + "\">\n    <title>" + (data.title) + "</title>\n  "));
+  function meta(name, content) {
+    if (content)
+      { appendHead(("<meta name=\"" + name + "\" content=\"" + content + "\" >")); }
+  }
 
-  appendHtml(head, ("\n    <!--  https://schema.org/Article -->\n    <meta property=\"article:published\" itemprop=\"datePublished\" content=\"" + (data.publishedDate) + "\" />\n    <meta property=\"article:modified\" itemprop=\"dateModified\" content=\"" + (data.updatedDate) + "\" />\n  "));
+  appendHead(("\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge,chrome=1\">\n    <link rel=\"icon\" type=\"image/png\" href=\"/favicon.png\">\n    <link href=\"/rss.xml\" rel=\"alternate\" type=\"application/rss+xml\" title=\"Articles from Distill\">\n    <link rel=\"canonical\" href=\"" + (data.url) + "\">\n    <title>" + (data.title) + "</title>\n  "));
+
+  appendHead(("\n    <!--  https://schema.org/Article -->\n    <meta property=\"article:published\" itemprop=\"datePublished\" content=\"" + (data.published) + "\" />\n    <meta property=\"article:modified\" itemprop=\"dateModified\" content=\"" + (data.updated) + "\" />\n  "));
   data.authors.forEach(function (a) {
     appendHtml(head, ("\n      <meta property=\"article:author\" content=\"" + (a.firstName) + " " + (a.lastName) + "\" />"));
   });
 
-  appendHtml(head, ("\n    <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->\n    <meta property=\"og:type\" content=\"article\"/>\n    <meta property=\"og:title\" content=\"" + (data.title) + "\"/>\n    <meta property=\"og:description\" content=\"" + (data.description) + "\">\n    <meta property=\"og:url\" content=\"" + (data.url) + "\"/>\n    <meta property=\"og:image\" content=\"" + (data.url) + "/thumbnail.png\"/>\n    <meta property=\"og:locale\" content=\"en_US\" />\n    <meta property=\"og:site_name\" content=\"Distill\" />\n  "));
+  appendHead(("\n    <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->\n    <meta property=\"og:type\" content=\"article\"/>\n    <meta property=\"og:title\" content=\"" + (data.title) + "\"/>\n    <meta property=\"og:description\" content=\"" + (data.description) + "\">\n    <meta property=\"og:url\" content=\"" + (data.url) + "\"/>\n    <meta property=\"og:image\" content=\"" + (data.url) + "/thumbnail.png\"/>\n    <meta property=\"og:locale\" content=\"en_US\" />\n    <meta property=\"og:site_name\" content=\"Distill\" />\n  "));
 
-  appendHtml(head, ("\n    <!--  https://dev.twitter.com/cards/types/summary -->\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n    <meta name=\"twitter:title\" content=\"" + (data.title) + "\">\n    <meta name=\"twitter:description\" content=\"" + (data.description) + "\">\n    <meta name=\"twitter:url\" content=\"" + (data.url) + "\">\n    <meta name=\"twitter:image\" content=\"" + (data.url) + "/thumbnail.png\">\n    <meta name=\"twitter:image:width\" content=\"560\">\n    <meta name=\"twitter:image:height\" content=\"295\">\n  "));
+  appendHead(("\n    <!--  https://dev.twitter.com/cards/types/summary -->\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n    <meta name=\"twitter:title\" content=\"" + (data.title) + "\">\n    <meta name=\"twitter:description\" content=\"" + (data.description) + "\">\n    <meta name=\"twitter:url\" content=\"" + (data.url) + "\">\n    <meta name=\"twitter:image\" content=\"" + (data.url) + "/thumbnail.png\">\n    <meta name=\"twitter:image:width\" content=\"560\">\n    <meta name=\"twitter:image:height\" content=\"295\">\n  "));
 
-  appendHtml(head, ("\n    <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->\n    <meta name=\"citation_title\" content=\"" + (data.title) + "\">\n    <meta name=\"citation_publication_date\" content=\"" + (data.publishedYear) + "/" + (data.publishedMonthPadded) + "/" + (data.publishedDayPadded) + "\">\n    <meta name=\"citation_fulltext_html_url\" content=\"" + (data.url) + "\">\n    <meta name=\"citation_volume\" content=\"" + (data.volume) + "\">\n    <meta name=\"citation_issue\" content=\"" + (data.issue) + "\">\n    <meta name=\"citation_journal_title\" content=\"" + (data.journal.name) + "\">\n    <meta name=\"citation_journal_abbrev\" content=\"" + (data.journal.nameAbbrev) + "\"/>\n    <meta name=\"citation_firstpage\" content=\"e" + (data.doiSuffix) + "\"/>\n    <meta name=\"citation_doi\" content=\"" + (data.doi) + "\">\n    <meta name=\"citation_issn\" content=\"" + (data.journal.issn) + "\">\n    <meta name=\"citation_publisher\" content=\"" + (data.journal.publisher) + "\"/>\n  "));
-  data.authors.forEach(function (a) {
-    appendHtml(head, ("\n      <meta name=\"citation_author\" content=\"" + (a.lastName) + ", " + (a.firstName) + "\" />\n      <meta name=\"citation_author_institution\" content=\"" + (a.affiliation) + "\"/>\n    "));
+  appendHead("\n    <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->\n  ");
+
+  var journal = data.journal || {};
+  var zeroPad = function (n) { return n < 10 ? "0" + n : n; };
+  var publishedYear = data.published.getFullYear();
+  var publishedMonthPadded = zeroPad(data.published.getMonth() + 1);
+  var publishedDayPadded = zeroPad(data.published.getDate());
+  meta("citation_title", data.title);
+  meta("citation_publication_date", data.published? (publishedYear + "/" + publishedMonthPadded + "/" + publishedDayPadded) : undefined);
+  meta("citation_fulltext_html_url", data.url);
+  meta("citation_volume", data.volume);
+  meta("citation_issue", data.issue);
+  meta("citation_firstpage", data.doiSuffix? ("e" + (data.doiSuffix)) : undefined);
+  meta("citation_doi", data.doi);
+  meta("citation_journal_title", journal.name);
+  meta("citation_journal_abbrev", journal.nameAbbrev);
+  meta("citation_issn", journal.issn);
+  meta("citation_publisher", journal.publisher);
+
+  (data.authors || []).forEach(function (a) {
+      meta("citation_author", ((a.lastName) + ", " + (a.firstName)));
+      meta("citation_author_institution", a.affiliation);
   });
 
   if (data.citations) {
-    var citationKeys = Object.keys(data.citations);
-    citationKeys.forEach(function (key) {
-      console.log(key);
-      appendHtml(head, ("\n        <meta name=\"citation_reference\" content=\"" + (citation_meta_content(data.citations[key])) + "\" >\n      "));
-    });
+    data.citations.forEach(function (key) { return meta("citation_reference", citation_meta_content(data.bibliography[key]) ); }
+      );
   }
 };
 
@@ -4300,44 +4373,61 @@ var footer = function(dom, data) {
 };
 
 var citation = function(dom, data) {
-  var citations = [];
-  if (data.citations) {
-    citations = Object.keys(data.citations).map(function (c) { return data.citations[c]; });
-    citations.sort(function (a, b) {
+  var citations = data.citations;
+  /*if (data.citations) {
+    citations = Object.keys(data.citations).map(c => data.citations[c]);
+    citations.sort((a, b) => {
       return a.author.localeCompare(b.author);
     });
-  }
+  }*/
 
   var citeTags = [].slice.apply(dom.querySelectorAll("dt-cite"));
+  console.log(citeTags);
   citeTags.forEach(function (el) {
-    var keys = el.textContent.split(",");
-    var cite_string = keys.map(inline_cite).join(", ");
+    var keys = el.getAttribute("key").split(",");
+    console.log(keys);
+    var cite_string = inline_cite_short(keys);
     el.innerHTML = cite_string;
   });
 
   var bibEl = dom.querySelector("dt-bibliography");
   if (bibEl) {
     var ol = dom.createElement("ol");
-    citations.forEach(function (citation) {
+    citations.forEach(function (key) {
       var el = dom.createElement("li");
-      el.textContent = bibliography_cite(citation);
+      el.textContent = bibliography_cite(data.bibliography[key]);
       ol.appendChild(el);
     });
     bibEl.appendChild(ol);
   }
 
-  function inline_cite(key){
-    if (key in data.citations){
-      var ent = data.citations[key];
-      var names = ent.author.split(" and ");
-      names = names.map(function (name) { return name.split(",")[0].trim(); });
-      var year = ent.year;
-      if (names.length == 1) { return names[0] + ", " + year; }
-      if (names.length == 2) { return names[0] + " & " + names[1] + ", " + year; }
-      if (names.length  > 2) { return names[0] + ", et al., " + year; }
-    } else {
-      return "?";
+  function inline_cite_short(keys){
+    function cite_string(key){
+      if (key in data.bibliography){
+        var n = data.citations.indexOf(key)+1;
+        return ""+n;
+      } else {
+        return "?";
+      }
     }
+    return "["+keys.map(cite_string).join(", ")+"]";
+  }
+
+  function inline_cite_long(keys){
+    function cite_string(key){
+      if (key in data.bibliography){
+        var ent = data.bibliography[key];
+        var names = ent.author.split(" and ");
+        names = names.map(function (name) { return name.split(",")[0].trim(); });
+        var year = ent.year;
+        if (names.length == 1) { return names[0] + ", " + year; }
+        if (names.length == 2) { return names[0] + " & " + names[1] + ", " + year; }
+        if (names.length  > 2) { return names[0] + ", et al., " + year; }
+      } else {
+        return "?";
+      }
+    }
+    return keys.map(cite_string).join(", ");
   }
 
   function bibliography_cite(ent){
@@ -6536,59 +6626,14 @@ var code$1 = function(dom, data) {
   });
 };
 
-var testData = {
-    "title": "Experiments in Handwriting with a Neural Network",
-    "description": "Several interactive visualizations of a generative model of handwriting. Some are fun, some are serious.",
-    "url": "http://distill.pub/2016/handwriting/",
-    "github": "https://github.com/distillpub/post--handwriting",
-    "firstPublished": "Tue Dec 6 2016 21:39:33 GMT-0700 (PDT)",
-    "lastPublished": "Tue Dec 6 2016 21:39:33 GMT-0700 (PDT)",
-    "authors": [
-      {
-        "firstName": "Shan",
-        "lastName": "Carter",
-        "personalURL": "http://shancarter.com",
-        "affiliation": "Google Brain",
-        "affiliationURL": "http://g.co/brain"
-      },
-      {
-        "firstName": "David",
-        "lastName": "Ha",
-        "personalURL": "https://github.com/hardmaru",
-        "affiliation": "Google Brain",
-        "affiliationURL": "http://g.co/brain"
-      },
-      {
-        "firstName": "Ian",
-        "lastName": "Johnson",
-        "personalURL": "https://github.com/enjalot",
-        "affiliation": "Google Cloud",
-        "affiliationURL": ""
-      },
-      {
-        "firstName": "Chris",
-        "lastName": "Olah",
-        "personalURL": "http://colah.github.io/",
-        "affiliation": "Google Brain",
-        "affiliationURL": "http://g.co/brain"
-      }
-    ],
-    journal: {
-      "title": "Distill",
-      "full_title": "Distill",
-      "abbrev_title": "Distill",
-      "url": "http://distill.pub",
-      "doi": "00.0000/dstl",
-      "issn": "0000-0000"
-    }
-  };
-
 function render(dom, data) {
+  data = data || {};
   html(dom);
   styles(dom);
   dom.addEventListener("DOMContentLoaded", function(event) {
     frontMatter(dom, data);
     bibliography(dom, data);
+    expandData(dom, data);
     meta(dom, data);
     header(dom, data);
     appendix(dom, data);
@@ -6603,7 +6648,7 @@ function render(dom, data) {
 
 // If we are in a browser, run render automatically.
 if(window && window.document) {
-  render(window.document, testData);
+  render(window.document);
 }
 
 exports.render = render;

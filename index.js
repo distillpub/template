@@ -2,6 +2,7 @@ import html from "./components/html";
 import styles from "./components/styles";
 import frontMatter from "./components/front-matter";
 import bibliography from "./components/bibliography";
+import expandData from "./components/expand-data";
 import meta from "./components/meta";
 import header from "./components/header";
 import appendix from "./components/appendix";
@@ -12,11 +13,13 @@ import code from "./components/code";
 import testData from "./test-data";
 
 function render(dom, data) {
+  data = data || {};
   html(dom);
   styles(dom);
   dom.addEventListener("DOMContentLoaded", function(event) {
     frontMatter(dom, data);
     bibliography(dom, data);
+    expandData(dom, data);
     meta(dom, data);
     header(dom, data);
     appendix(dom, data);
@@ -31,7 +34,7 @@ function render(dom, data) {
 
 // If we are in a browser, run render automatically.
 if(window && window.document) {
-  render(window.document, testData);
+  render(window.document);
 }
 
 export {render as render};

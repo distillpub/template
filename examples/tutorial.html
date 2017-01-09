@@ -48,6 +48,7 @@
     &lt;dt-front-matter&gt;
       title: Article Title
       description: Description of the post
+      published: Jan 10, 2017
       authors:
       - Chris Olah: http://colah.github.io
       - Shan Carter: http://shancarter.com
@@ -60,7 +61,7 @@
       &lt;h2&gt;A description of the article&lt;/h2&gt;
       &lt;dt-byline&gt;&lt;/dt-byline&gt;
       &lt;p&gt;This is the first paragraph of the article.&lt;/p&gt;
-      &lt;p&gt;We can also cite &lt;dt-cite article="gregor2015draw"&gt;&lt;/dt-cite&gt; external publications.&lt;/p&gt;
+      &lt;p&gt;We can also cite &lt;dt-cite key="gregor2015draw"&gt;&lt;/dt-cite&gt; external publications.&lt;/p&gt;
     &lt;/dt-article&gt;
     &lt;dt-bibliography&gt;
       @article{gregor2015draw,
@@ -136,7 +137,7 @@
   </dt-code>
   <p>Citations are then used in the article body with the <dt-code language="html">&lt;dt-cite&gt;</dt-code> tag. The <dt-code>article</dt-code> attribute is a reference to the id provided in the bibiography.</p>
   <dt-code block language="html">
-    &lt;dt-cite article="gregor2015draw"&gt;&lt;/dt-cite&gt;
+    &lt;dt-cite ket="gregor2015draw"&gt;&lt;/dt-cite&gt;
   </dt-code>
 
   <hr>

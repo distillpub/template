@@ -1,7 +1,13 @@
 export default function(dom, data) {
   let head = dom.querySelector("head");
+  let appendHead = html => appendHtml(head, html);
 
-  appendHtml(head, `
+  function meta(name, content) {
+    if (content)
+      appendHead(`<meta name="${name}" content="${content}" >`);
+  }
+
+  appendHead(`
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <link rel="icon" type="image/png" href="/favicon.png">
     <link href="/rss.xml" rel="alternate" type="application/rss+xml" title="Articles from Distill">
@@ -9,17 +15,17 @@ export default function(dom, data) {
     <title>${data.title}</title>
   `);
 
-  appendHtml(head, `
+  appendHead(`
     <!--  https://schema.org/Article -->
-    <meta property="article:published" itemprop="datePublished" content="${data.publishedDate}" />
-    <meta property="article:modified" itemprop="dateModified" content="${data.updatedDate}" />
+    <meta property="article:published" itemprop="datePublished" content="${data.published}" />
+    <meta property="article:modified" itemprop="dateModified" content="${data.updated}" />
   `);
   data.authors.forEach((a) => {
     appendHtml(head, `
       <meta property="article:author" content="${a.firstName} ${a.lastName}" />`)
   });
 
-  appendHtml(head, `
+  appendHead(`
     <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
     <meta property="og:type" content="article"/>
     <meta property="og:title" content="${data.title}"/>
@@ -30,7 +36,7 @@ export default function(dom, data) {
     <meta property="og:site_name" content="Distill" />
   `);
 
-  appendHtml(head, `
+  appendHead(`
     <!--  https://dev.twitter.com/cards/types/summary -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${data.title}">
@@ -41,35 +47,36 @@ export default function(dom, data) {
     <meta name="twitter:image:height" content="295">
   `);
 
-  appendHtml(head, `
+  appendHead(`
     <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
-    <meta name="citation_title" content="${data.title}">
-    <meta name="citation_publication_date" content="${data.publishedYear}/${data.publishedMonthPadded}/${data.publishedDayPadded}">
-    <meta name="citation_fulltext_html_url" content="${data.url}">
-    <meta name="citation_volume" content="${data.volume}">
-    <meta name="citation_issue" content="${data.issue}">
-    <meta name="citation_journal_title" content="${data.journal.name}">
-    <meta name="citation_journal_abbrev" content="${data.journal.nameAbbrev}"/>
-    <meta name="citation_firstpage" content="e${data.doiSuffix}"/>
-    <meta name="citation_doi" content="${data.doi}">
-    <meta name="citation_issn" content="${data.journal.issn}">
-    <meta name="citation_publisher" content="${data.journal.publisher}"/>
   `);
-  data.authors.forEach((a) => {
-    appendHtml(head, `
-      <meta name="citation_author" content="${a.lastName}, ${a.firstName}" />
-      <meta name="citation_author_institution" content="${a.affiliation}"/>
-    `)
+
+  let journal = data.journal || {};
+  let zeroPad = (n) => { return n < 10 ? "0" + n : n; };
+  let publishedYear = data.published.getFullYear();
+  let publishedMonthPadded = zeroPad(data.published.getMonth() + 1);
+  let publishedDayPadded = zeroPad(data.published.getDate());
+  meta("citation_title", data.title);
+  meta("citation_publication_date", data.published? `${publishedYear}/${publishedMonthPadded}/${publishedDayPadded}` : undefined);
+  meta("citation_fulltext_html_url", data.url);
+  meta("citation_volume", data.volume);
+  meta("citation_issue", data.issue);
+  meta("citation_firstpage", data.doiSuffix? `e${data.doiSuffix}` : undefined);
+  meta("citation_doi", data.doi);
+  meta("citation_journal_title", journal.name);
+  meta("citation_journal_abbrev", journal.nameAbbrev);
+  meta("citation_issn", journal.issn);
+  meta("citation_publisher", journal.publisher);
+
+  (data.authors || []).forEach((a) => {
+      meta("citation_author", `${a.lastName}, ${a.firstName}`);
+      meta("citation_author_institution", a.affiliation);
   });
 
   if (data.citations) {
-    let citationKeys = Object.keys(data.citations);
-    citationKeys.forEach(key => {
-      console.log(key);
-      appendHtml(head, `
-        <meta name="citation_reference" content="${citation_meta_content(data.citations[key])}" >
-      `);
-    });
+    data.citations.forEach(key =>
+        meta("citation_reference", citation_meta_content(data.bibliography[key]) )
+      );
   }
 }
 

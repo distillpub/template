@@ -1,42 +1,59 @@
 export default function(dom, data) {
-  let citations = [];
-  if (data.citations) {
+  let citations = data.citations;
+  /*if (data.citations) {
     citations = Object.keys(data.citations).map(c => data.citations[c]);
     citations.sort((a, b) => {
       return a.author.localeCompare(b.author);
     });
-  }
+  }*/
 
   var citeTags = [].slice.apply(dom.querySelectorAll("dt-cite"));
+  console.log(citeTags);
   citeTags.forEach(el => {
-    var keys = el.textContent.split(",");
-    var cite_string = keys.map(inline_cite).join(", ");
+    var keys = el.getAttribute("key").split(",");
+    console.log(keys)
+    var cite_string = inline_cite_short(keys);
     el.innerHTML = cite_string;
   });
 
   let bibEl = dom.querySelector("dt-bibliography");
   if (bibEl) {
     let ol = dom.createElement("ol");
-    citations.forEach(citation => {
+    citations.forEach(key => {
       let el = dom.createElement("li");
-      el.textContent = bibliography_cite(citation);
+      el.textContent = bibliography_cite(data.bibliography[key]);
       ol.appendChild(el);
     })
     bibEl.appendChild(ol);
   }
 
-  function inline_cite(key){
-    if (key in data.citations){
-      var ent = data.citations[key];
-      var names = ent.author.split(" and ");
-      names = names.map(name => name.split(",")[0].trim())
-      var year = ent.year;
-      if (names.length == 1) return names[0] + ", " + year;
-      if (names.length == 2) return names[0] + " & " + names[1] + ", " + year;
-      if (names.length  > 2) return names[0] + ", et al., " + year;
-    } else {
-      return "?";
+  function inline_cite_short(keys){
+    function cite_string(key){
+      if (key in data.bibliography){
+        var n = data.citations.indexOf(key)+1;
+        return ""+n;
+      } else {
+        return "?";
+      }
     }
+    return "["+keys.map(cite_string).join(", ")+"]";
+  }
+
+  function inline_cite_long(keys){
+    function cite_string(key){
+      if (key in data.bibliography){
+        var ent = data.bibliography[key];
+        var names = ent.author.split(" and ");
+        names = names.map(name => name.split(",")[0].trim())
+        var year = ent.year;
+        if (names.length == 1) return names[0] + ", " + year;
+        if (names.length == 2) return names[0] + " & " + names[1] + ", " + year;
+        if (names.length  > 2) return names[0] + ", et al., " + year;
+      } else {
+        return "?";
+      }
+    }
+    return keys.map(cite_string).join(", ");
   }
 
   function bibliography_cite(ent){
