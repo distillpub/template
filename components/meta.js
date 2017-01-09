@@ -51,22 +51,26 @@ export default function(dom, data) {
     <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
   `);
 
-  let journal = data.journal || {};
-  let zeroPad = (n) => { return n < 10 ? "0" + n : n; };
-  let publishedYear = data.published.getFullYear();
-  let publishedMonthPadded = zeroPad(data.published.getMonth() + 1);
-  let publishedDayPadded = zeroPad(data.published.getDate());
   meta("citation_title", data.title);
-  meta("citation_publication_date", data.published? `${publishedYear}/${publishedMonthPadded}/${publishedDayPadded}` : undefined);
   meta("citation_fulltext_html_url", data.url);
   meta("citation_volume", data.volume);
   meta("citation_issue", data.issue);
   meta("citation_firstpage", data.doiSuffix? `e${data.doiSuffix}` : undefined);
   meta("citation_doi", data.doi);
+
+  let journal = data.journal || {};
   meta("citation_journal_title", journal.name);
   meta("citation_journal_abbrev", journal.nameAbbrev);
   meta("citation_issn", journal.issn);
   meta("citation_publisher", journal.publisher);
+
+  if (data.published){
+    let zeroPad = (n) => { return n < 10 ? "0" + n : n; };
+    let publishedYear = data.published.getFullYear();
+    let publishedMonthPadded = zeroPad(data.published.getMonth() + 1);
+    let publishedDayPadded = zeroPad(data.published.getDate());
+    meta("citation_publication_date", `${publishedYear}/${publishedMonthPadded}/${publishedDayPadded}`);
+  }
 
   (data.authors || []).forEach((a) => {
       meta("citation_author", `${a.lastName}, ${a.firstName}`);
