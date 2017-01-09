@@ -1,3 +1,5 @@
+import favicon from './distill-favicon.base64';
+
 export default function(dom, data) {
   let head = dom.querySelector("head");
   let appendHead = html => appendHtml(head, html);
@@ -9,7 +11,7 @@ export default function(dom, data) {
 
   appendHead(`
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="data:image/png;base64,${favicon}">
     <link href="/rss.xml" rel="alternate" type="application/rss+xml" title="Articles from Distill">
     <link rel="canonical" href="${data.url}">
     <title>${data.title}</title>

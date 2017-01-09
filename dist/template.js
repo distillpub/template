@@ -11,6 +11,7 @@ var html = function(dom) {
 
   var head = dom.querySelector("head");
 
+
   if (!dom.querySelector("meta[charset]")) {
     var meta = dom.createElement("meta");
     meta.setAttribute("charset", "utf-8");
@@ -281,8 +282,6 @@ function Type$2(tag, options) {
 }
 
 var type = Type$2;
-
-/*eslint-disable max-len*/
 
 var common$4        = common$1;
 var YAMLException$3 = exception;
@@ -895,8 +894,6 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-/*eslint-disable no-bitwise*/
-
 var NodeBuffer;
 
 try {
@@ -1353,8 +1350,6 @@ var default_full = Schema$6.DEFAULT = new Schema$6({
     _function
   ]
 });
-
-/*eslint-disable max-len,no-use-before-define*/
 
 var common              = common$1;
 var YAMLException$1       = exception;
@@ -2947,8 +2942,6 @@ var loader$1 = {
 	safeLoad: safeLoad_1
 };
 
-/*eslint-disable no-use-before-define*/
-
 var common$7              = common$1;
 var YAMLException$5       = exception;
 var DEFAULT_FULL_SCHEMA$2 = default_full;
@@ -4260,6 +4253,8 @@ var expandData = function(dom, data) {
 
 };
 
+var favicon = "iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA99JREFUeNrsG4t1ozDMzQSM4A2ODUonKBucN2hugtIJ6E1AboLcBiQTkJsANiAb9OCd/OpzMWBJBl5TvaeXPiiyJetry0J8wW3D3QpjRh3GjneXDq+fSQA9s2mH9x3KDhN4foJfCb8N/Jrv+2fnDn8vLRQOplWHVYdvHZYdZsBcZP1vBmh/n8DzEmhUQDPaOuP9pFuY+JwJHwHnCLQE2tnWBGEyXozY9xCUgHMhhjE2I4heVWtgIkZ83wL6Qgxj1obfWBxymPwe+b00BCCRNPbwfb60yleAkkBHGT5AEehIYz7eJrFDMF9CvH4wwhcGHiHMneFvLDQwlwvMLQq58trRcYBWfYn0A0OgHWQUSu25mE+BnoYKnnEJoeIWAifzOv7vLWd2ZKRfWAIme3tOiUaQ3UnLkb0xj1FxRIeEGKaGIHOs9nEgLaaA9i0JRYo1Ic67wJW86KSKE/ZAM8KuVMk8ITVhmxUxJ3Cl2xlm9Vtkeju1+mpCQNxaEGNCY8bs9X2YqwNoQeGjBWut/ma0QAWy/TqAsHx9wSya3I5IRxOfTC+leG+kA/4vSeEcGBtNUN6byhu3+keEZCQJUNh8MAO7HL6H8pQLnsW/Hd4T4lv93TPjfM7A46iEEqbB5EDOvwYNW6tGNZzT/o+CZ6sqZ6wUtR/wf7mi/VL8iNciT6rHih48Y55b4nKCHJCCzb4y0nwFmin3ZEMIoLfZF8F7nncFmvnWBaBj7CGAYA/WGJsUwHdYqVDwAmNsUgAx4CGgAA7GOOxADYOFWOaIKifuVYzmOpREqA21Mo7aPsgiY1PhOMAmxtR+AUbYH3Id2wc0SAFIQTsn9IUGWR8k9jx3vtXSiAacFxTAGakBk9UudkNECd6jLe+6HrshshvIuC6IlLMRy7er+JpcKma24SlE4cFZSZJDGVVrsNvitQhQrDhW0jfiOLfFd47C42eHT56D/BK0To+58Ahj+cAT8HT1UWlfLZCCd/uKawzU0Rh2EyIX/Icqth3niG8ybNroezwe6khdCNxRN+l4XGdOLVLlOOt2hTRJlr1ETIuMAltVTMz70mJrkdGAaZLSmnBEqmAE32JCMmuTlCnRgsBENtOUpHhvvsYIL0ibnBkaC6QvKcR7738GKp0AKnim7xgUSNv1bpS8QwhBt8r+EP47v/oyRK/S34yJ9nT+AN0Tkm4OdB9E4BsmXM3SnMlRFUrtp6IDpV2eKzdYvF3etm3KhQksbOLChGkSmcBdmcEwvqkrMy5BzL00NZeu3qPYJOOuCc+5NjcWKXQxFvTa3NoXJ4d8in7fiAUuTt781dkvuHX4K8AA2Usy7yNKLy0AAAAASUVORK5CYII=\n";
+
 var meta = function(dom, data) {
   var head = dom.querySelector("head");
   var appendHead = function (html) { return appendHtml(head, html); };
@@ -4269,7 +4264,7 @@ var meta = function(dom, data) {
       { appendHead(("<meta name=\"" + name + "\" content=\"" + content + "\" >")); }
   }
 
-  appendHead(("\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge,chrome=1\">\n    <link rel=\"icon\" type=\"image/png\" href=\"/favicon.png\">\n    <link href=\"/rss.xml\" rel=\"alternate\" type=\"application/rss+xml\" title=\"Articles from Distill\">\n    <link rel=\"canonical\" href=\"" + (data.url) + "\">\n    <title>" + (data.title) + "</title>\n  "));
+  appendHead(("\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge,chrome=1\">\n    <link rel=\"icon\" type=\"image/png\" href=\"data:image/png;base64," + favicon + "\">\n    <link href=\"/rss.xml\" rel=\"alternate\" type=\"application/rss+xml\" title=\"Articles from Distill\">\n    <link rel=\"canonical\" href=\"" + (data.url) + "\">\n    <title>" + (data.title) + "</title>\n  "));
 
   appendHead(("\n    <!--  https://schema.org/Article -->\n    <meta property=\"article:published\" itemprop=\"datePublished\" content=\"" + (data.published) + "\" />\n    <meta property=\"article:modified\" itemprop=\"dateModified\" content=\"" + (data.updated) + "\" />\n  "));
   data.authors.forEach(function (a) {
@@ -4282,22 +4277,26 @@ var meta = function(dom, data) {
 
   appendHead("\n    <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->\n  ");
 
-  var journal = data.journal || {};
-  var zeroPad = function (n) { return n < 10 ? "0" + n : n; };
-  var publishedYear = data.published.getFullYear();
-  var publishedMonthPadded = zeroPad(data.published.getMonth() + 1);
-  var publishedDayPadded = zeroPad(data.published.getDate());
   meta("citation_title", data.title);
-  meta("citation_publication_date", data.published? (publishedYear + "/" + publishedMonthPadded + "/" + publishedDayPadded) : undefined);
   meta("citation_fulltext_html_url", data.url);
   meta("citation_volume", data.volume);
   meta("citation_issue", data.issue);
   meta("citation_firstpage", data.doiSuffix? ("e" + (data.doiSuffix)) : undefined);
   meta("citation_doi", data.doi);
+
+  var journal = data.journal || {};
   meta("citation_journal_title", journal.name);
   meta("citation_journal_abbrev", journal.nameAbbrev);
   meta("citation_issn", journal.issn);
   meta("citation_publisher", journal.publisher);
+
+  if (data.published){
+    var zeroPad = function (n) { return n < 10 ? "0" + n : n; };
+    var publishedYear = data.published.getFullYear();
+    var publishedMonthPadded = zeroPad(data.published.getMonth() + 1);
+    var publishedDayPadded = zeroPad(data.published.getDate());
+    meta("citation_publication_date", (publishedYear + "/" + publishedMonthPadded + "/" + publishedDayPadded));
+  }
 
   (data.authors || []).forEach(function (a) {
       meta("citation_author", ((a.lastName) + ", " + (a.firstName)));
@@ -4336,7 +4335,7 @@ function citation_meta_content(ref){
 
 var logo = "<svg viewBox=\"-607 419 64 64\">\n  <path style=\"fill: none; stroke: black;stroke-width: 2px;\" d=\"M-573.4,478.9c-8,0-14.6-6.4-14.6-14.5s14.6-25.9,14.6-40.8c0,14.9,14.6,32.8,14.6,40.8S-565.4,478.9-573.4,478.9z\"/>\n</svg>\n";
 
-var html$1 = "\n<style>\ndt-header {\n  display: block;\n  position: relative;\n  height: 60px;\n  background-color: #fcfcfc;\n  width: 100%;\n  box-sizing: border-box;\n  z-index: 2;\n  color: rgba(0, 0, 0, 0.8);\n}\ndt-header .content {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.3);\n  height: 60px;\n}\ndt-header a {\n  font-size: 16px;\n  height: 60px;\n  line-height: 60px;\n  text-decoration: none;\n  color: rgba(0, 0, 0, 0.8);\n}\ndt-header svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: -2px;\n}\ndt-header svg path {\n  fill: none;\n  stroke: black;\n  stroke-width: 1;\n  stroke-linejoin: round;\n}\ndt-header .logo {\n  font-size: 16px;\n  font-weight: 300;\n}\ndt-header .nav {\n  float: right;\n}\ndt-header .nav a {\n  font-size: 14px;\n}\n</style>\n\n<div class=\"content l-page\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a>\n  <div class=\"nav\">\n  </div>\n</div>\n";
+var html$1 = "\n<style>\ndt-header {\n  display: block;\n  position: relative;\n  height: 60px;\n  background-color: none;\n  width: 100%;\n  box-sizing: border-box;\n  z-index: 2;\n  color: rgba(0, 0, 0, 0.8);\n}\ndt-header .content {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.3);\n  height: 60px;\n}\ndt-header a {\n  font-size: 16px;\n  height: 60px;\n  line-height: 60px;\n  text-decoration: none;\n  color: rgba(0, 0, 0, 0.8);\n}\ndt-header svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: -2px;\n}\ndt-header svg path {\n  fill: none;\n  stroke: black;\n  stroke-width: 1;\n  stroke-linejoin: round;\n}\ndt-header .logo {\n  font-size: 16px;\n  font-weight: 300;\n}\ndt-header .nav {\n  float: right;\n}\ndt-header .nav a {\n  font-size: 14px;\n}\n</style>\n\n<div class=\"content l-page\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a>\n  <div class=\"nav\">\n  </div>\n</div>\n";
 
 var header = function(dom, data) {
   dom.querySelector('dt-header').innerHTML = html$1;
