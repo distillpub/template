@@ -10,7 +10,6 @@ import footer from "./components/footer";
 import citation from "./components/citation";
 import markdown from "./components/markdown";
 import code from "./components/code";
-import testData from "./test-data";
 
 function render(dom, data) {
   data = data || {};

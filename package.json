@@ -9,6 +9,7 @@
   "author": "Shan Carter",
   "dependencies": {
     "bibtex-parse-js": "^0.0.23",
+    "chai": "^3.5.0",
     "js-yaml": "^3.7.0",
     "jsdom": "^9.9.1",
     "marked": "^0.3.6",
