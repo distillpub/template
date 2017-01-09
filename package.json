@@ -1,13 +1,23 @@
 {
   "name": "distill-template",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "Template for creating Distill articles.",
+  "main": "dist/distill.js",
   "scripts": {
     "start": "rollup -c -w",
+    "build": "rollup -c",
     "test": "mocha"
   },
   "author": "Shan Carter",
-  "dependencies": {
+  "repository": {
+    "url": "git+https://github.com/distillpub/distill-template.git",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/distillpub/distill-template/issues"
+  },
+  "homepage": "https://github.com/distillpub/distill-template#readme",
+  "devDependencies": {
     "bibtex-parse-js": "^0.0.23",
     "chai": "^3.5.0",
     "js-yaml": "^3.7.0",
