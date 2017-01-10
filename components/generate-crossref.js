@@ -3,8 +3,9 @@
 export default function(data) {
 
   if (data.published == undefined) {
-    console.warn("Can't generate XML for post ", data.title, "with data", data);
-    return "";
+    //console.warn("Can't generate XML for post ", data.title, "with data", data);
+    //return "";
+    data.published = new Date("invalid");
   }
 
   var date = data.published;
