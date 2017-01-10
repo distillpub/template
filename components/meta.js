@@ -80,12 +80,16 @@ export default function(dom, data) {
   });
 
   if (data.citations) {
-    data.citations.forEach(key =>
+    data.citations.forEach(key => {
+      let d = data.bibliography[key];
+      if(!d) {
+        console.warn("No bibliography data fround for " + key)
+      } else {
         meta("citation_reference", citation_meta_content(data.bibliography[key]) )
-      );
+      };
+    });
   }
 }
-
 
 function appendHtml(el, html) {
   el.innerHTML += html;
