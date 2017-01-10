@@ -4188,17 +4188,20 @@ var bibtexParse = createCommonjsModule(function (module, exports) {
 
 var bibliography = function(dom, data) {
   var el = dom.querySelector('script[type="text/bibliography"]');
-
+  var citations = [];
+  var bibliography = {};
   //TODO If we don't have a local element, make a request for the document.
   if (el) {
     var rawBib = el.textContent;
-    var bibliography = {};
-    bibtexParse.toJSON(rawBib).forEach(function (e) {
-      bibliography[e.citationKey] = e.entryTags;
-      bibliography[e.citationKey].type = e.entryType;
-    });
+    var parsed = bibtexParse.toJSON(rawBib);
+    if(parsed) {
+      parsed.forEach(function (e) {
+        bibliography[e.citationKey] = e.entryTags;
+        bibliography[e.citationKey].type = e.entryType;
+      });
+    }
 
-    var citations = [];
+
     var citeTags = [].slice.apply(dom.querySelectorAll("dt-cite"));
     citeTags.forEach(function (el) {
       var key = el.getAttribute("key");
@@ -4207,16 +4210,16 @@ var bibliography = function(dom, data) {
         citationKeys.forEach(function (key) {
           if (citations.indexOf(key) == -1){
             citations.push(key);
-            if (! (key in bibliography)){
+            if (!(key in bibliography)){
               console.warn("No bibliography entry found for: " + key);
             }
           }
         });
       }
     });
-    data.bibliography = bibliography;
-    data.citations = citations;
   }
+  data.bibliography = bibliography;
+  data.citations = citations;
 };
 
 var expandData = function(dom, data) {
