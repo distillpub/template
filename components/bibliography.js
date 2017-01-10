@@ -8,7 +8,6 @@ export default function(dom, data) {
   if (el) {
     let rawBib = el.textContent;
     let parsed = bibtexParse.toJSON(rawBib);
-    console.log(parsed);
     if(parsed) {
       parsed.forEach(e => {
         bibliography[e.citationKey] = e.entryTags;
