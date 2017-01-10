@@ -283,8 +283,6 @@ function Type$2(tag, options) {
 
 var type = Type$2;
 
-/*eslint-disable max-len*/
-
 var common$4        = common$1;
 var YAMLException$3 = exception;
 var Type$1          = type;
@@ -896,8 +894,6 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-/*eslint-disable no-bitwise*/
-
 var NodeBuffer;
 
 try {
@@ -1354,8 +1350,6 @@ var default_full = Schema$6.DEFAULT = new Schema$6({
     _function
   ]
 });
-
-/*eslint-disable max-len,no-use-before-define*/
 
 var common              = common$1;
 var YAMLException$1       = exception;
@@ -2947,8 +2941,6 @@ var loader$1 = {
 	safeLoadAll: safeLoadAll_1,
 	safeLoad: safeLoad_1
 };
-
-/*eslint-disable no-use-before-define*/
 
 var common$7              = common$1;
 var YAMLException$5       = exception;
@@ -6637,29 +6629,39 @@ var generateCrossref = function(data) {
   return "crossref";
 };
 
-function render(dom, data) {
-  data = data || {};
+function renderImmediately(dom) {
   html(dom);
   styles(dom);
-  dom.addEventListener("DOMContentLoaded", function(event) {
-    frontMatter(dom, data);
-    bibliography(dom, data);
-    expandData(dom, data);
-    meta(dom, data);
-    header(dom, data);
-    appendix(dom, data);
-    footer(dom, data);
-    markdown(dom, data);
-    code$1(dom, data);
-    citation(dom, data);
+}
+
+function renderOnLoad(dom, data) {
+  frontMatter(dom, data);
+  bibliography(dom, data);
+  expandData(dom, data);
+  meta(dom, data);
+  header(dom, data);
+  appendix(dom, data);
+  footer(dom, data);
+  markdown(dom, data);
+  code$1(dom, data);
+  citation(dom, data);
+}
+
+// If we are in a browser, render automatically.
+if(window && window.document) {
+  var data = data || {};
+  renderImmediately(window.document);
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    renderOnLoad(window.document, data);
     console.log("final data:");
     for (var k in data) {console.log("   ", k, ": ", data[k]);}
   });
 }
 
-// If we are in a browser, run render automatically.
-if(window && window.document) {
-  render(window.document);
+// For node
+function render(dom, data) {
+  renderImmediately(dom);
+  renderOnload(dom, data);
 }
 
 exports.render = render;
