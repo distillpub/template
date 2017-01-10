@@ -10,6 +10,7 @@ export default function(dom, data) {
 
     // Homepage
     //data.homepage = !post.noHomepage;
+    data.journal = data.journal || {};
 
     // Dates
     // TODO: fix updated date
