@@ -44,7 +44,7 @@ if(window && window.document) {
 // For node
 function render(dom, data) {
   renderImmediately(dom);
-  renderOnload(dom, data);
+  renderOnLoad(dom, data);
 }
 
 export {render as render};

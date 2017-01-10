@@ -4201,15 +4201,18 @@ var bibliography = function(dom, data) {
     var citations = [];
     var citeTags = [].slice.apply(dom.querySelectorAll("dt-cite"));
     citeTags.forEach(function (el) {
-      var citationKeys = el.getAttribute("key").split(",");
-      citationKeys.forEach(function (key) {
-        if (citations.indexOf(key) == -1){
-          citations.push(key);
-          if (! (key in bibliography)){
+      var key = el.getAttribute("key");
+      if (key) {
+        var citationKeys = key.split(",");
+        citationKeys.forEach(function (key) {
+          if (citations.indexOf(key) == -1){
+            citations.push(key);
+            if (! (key in bibliography)){
               console.warn("No bibliography entry found for: " + key);
+            }
           }
-        }
-      });
+        });
+      }
     });
     data.bibliography = bibliography;
     data.citations = citations;
@@ -4383,10 +4386,13 @@ var citation = function(dom, data) {
   var citeTags = [].slice.apply(dom.querySelectorAll("dt-cite"));
   console.log(citeTags);
   citeTags.forEach(function (el) {
-    var keys = el.getAttribute("key").split(",");
-    console.log(keys);
-    var cite_string = inline_cite_short(keys);
-    el.innerHTML = cite_string;
+    var key = el.getAttribute("key");
+    if (key) {
+      var keys = key.split(",");
+      console.log(keys);
+      var cite_string = inline_cite_short(keys);
+      el.innerHTML = cite_string;
+    }
   });
 
   var bibEl = dom.querySelector("dt-bibliography");
@@ -6661,7 +6667,7 @@ if(window && window.document) {
 // For node
 function render(dom, data) {
   renderImmediately(dom);
-  renderOnload(dom, data);
+  renderOnLoad(dom, data);
 }
 
 exports.render = render;
