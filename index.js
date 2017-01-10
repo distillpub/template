@@ -10,6 +10,7 @@ import footer from "./components/footer";
 import citation from "./components/citation";
 import markdown from "./components/markdown";
 import code from "./components/code";
+import hoverBox from "./components/hover-box";
 import generateCrossref from "./components/generate-crossref";
 
 function renderImmediately(dom) {
@@ -28,6 +29,7 @@ function renderOnLoad(dom, data) {
   markdown(dom, data);
   code(dom, data);
   citation(dom, data);
+  hoverBox(dom, data);
   // TODO remove script tag
 }
 

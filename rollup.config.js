@@ -25,7 +25,7 @@ export default {
       browser: true,
     }),
     string({
-      include: ["**/*.svg", "**/*.html", "**/*.css", "**/*.base64"]
+      include: ["**/*.txt", "**/*.svg", "**/*.html", "**/*.css", "**/*.base64"]
     }),
     buble({
       exclude: 'node_modules',
