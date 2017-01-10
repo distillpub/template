@@ -11,7 +11,6 @@ var html = function(dom) {
 
   var head = dom.querySelector("head");
 
-
   if (!dom.querySelector("meta[charset]")) {
     var meta = dom.createElement("meta");
     meta.setAttribute("charset", "utf-8");
@@ -282,6 +281,8 @@ function Type$2(tag, options) {
 }
 
 var type = Type$2;
+
+/*eslint-disable max-len*/
 
 var common$4        = common$1;
 var YAMLException$3 = exception;
@@ -894,6 +895,8 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
+/*eslint-disable no-bitwise*/
+
 var NodeBuffer;
 
 try {
@@ -1350,6 +1353,8 @@ var default_full = Schema$6.DEFAULT = new Schema$6({
     _function
   ]
 });
+
+/*eslint-disable max-len,no-use-before-define*/
 
 var common              = common$1;
 var YAMLException$1       = exception;
@@ -2942,6 +2947,8 @@ var loader$1 = {
 	safeLoad: safeLoad_1
 };
 
+/*eslint-disable no-use-before-define*/
+
 var common$7              = common$1;
 var YAMLException$5       = exception;
 var DEFAULT_FULL_SCHEMA$2 = default_full;
@@ -3812,34 +3819,35 @@ var yaml = jsYaml;
 var index = yaml;
 
 var frontMatter = function(dom, data) {
+  var localData = {};
   var el = dom.querySelector('script[type="text/front-matter"]');
-
-  //TODO If we don't have a local element, make a request for the document.
   if (el) {
     var text = el.textContent;
-    var localData = index.safeLoad(text);
-
-    data.title = localData.title;
-    data.description = localData.description;
-    data.published = new Date(localData.published);
-    data.updated = new Date(localData.published || localData.updated);
-
-    data.authors = localData.authors.map(function (author, i) {
-      var a = {};
-      var name = Object.keys(author)[0];
-      var names = name.split(" ");
-      a.firstName = names.slice(0, names.length - 1).join(" ");
-      a.lastName = names[names.length -1];
-      a.personalURL = author[name];
-      if(localData.affiliations[i]) {
-        var affiliation = Object.keys(localData.affiliations[i])[0];
-        a.affiliation = affiliation;
-        a.affiliationURL = localData.affiliations[i][affiliation];
-      }
-      return a;
-    });
-    
+    localData = index.safeLoad(text);
   }
+
+  data.title = localData.title ? localData.title : "Untitled";
+  data.description = localData.description ? localData.description : "No description.";
+  data.published = localData.published ? new Date(localData.published) : new Date("Invalid");
+  data.updated = localData.updated ? new Date(localData.updated) : new Date("Invalid");
+
+  data.authors = localData.authors ? localData.authors : [];
+
+  data.authors = data.authors.map(function (author, i) {
+    var a = {};
+    var name = Object.keys(author)[0];
+    var names = name.split(" ");
+    a.name = name;
+    a.firstName = names.slice(0, names.length - 1).join(" ");
+    a.lastName = names[names.length -1];
+    a.personalURL = author[name];
+    if(localData.affiliations[i]) {
+      var affiliation = Object.keys(localData.affiliations[i])[0];
+      a.affiliation = affiliation;
+      a.affiliationURL = localData.affiliations[i][affiliation];
+    }
+    return a;
+  });
 
 };
 
@@ -6652,7 +6660,8 @@ var generateCrossref = function(data) {
 
   var date = data.published;
 	var batch_timestamp = Math.floor(Date.now() / 1000);
-	var batch_id = data.authors[0].lastName.split(" ")[0].toLowerCase().slice(0,20);
+  console.log(data.authors);
+	var batch_id = data.authors.length ? data.authors[0].lastName.toLowerCase().slice(0,20) : "Anonymous";
 	    batch_id += "_" + date.getFullYear();
 	    batch_id += "_" + data.title.split(" ")[0].toLowerCase().slice(0,20) + "_" +  batch_timestamp;
 	// generate XML
@@ -6813,16 +6822,16 @@ function renderOnLoad(dom, data) {
   markdown(dom, data);
   code$1(dom, data);
   citation(dom, data);
+  // TODO remove script tag
 }
 
 // If we are in a browser, render automatically.
 if(window && window.document) {
-  var data = data || {};
+  var data = {};
   renderImmediately(window.document);
   window.document.addEventListener("DOMContentLoaded", function (event) {
     renderOnLoad(window.document, data);
-    console.log("final data:");
-    for (var k in data) {console.log("   ", k, ": ", data[k]);}
+    generateCrossref(data);
   });
 }
 

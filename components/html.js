@@ -5,7 +5,6 @@ export default function(dom) {
 
   let head = dom.querySelector("head");
 
-
   if (!dom.querySelector("meta[charset]")) {
     let meta = dom.createElement("meta");
     meta.setAttribute("charset", "utf-8");

@@ -28,16 +28,16 @@ function renderOnLoad(dom, data) {
   markdown(dom, data);
   code(dom, data);
   citation(dom, data);
+  // TODO remove script tag
 }
 
 // If we are in a browser, render automatically.
 if(window && window.document) {
-  let data = data || {};
+  let data = {};
   renderImmediately(window.document);
   window.document.addEventListener("DOMContentLoaded", (event) => {
     renderOnLoad(window.document, data);
-    console.log("final data:");
-    for (var k in data) {console.log("   ", k, ": ", data[k])}
+    generateCrossref(data);
   });
 }
 
