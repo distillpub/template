@@ -6664,104 +6664,104 @@ var generateCrossref = function(data) {
   }
 
   var date = data.published;
-	var batch_timestamp = Math.floor(Date.now() / 1000);
-	var batch_id = data.authors.length ? data.authors[0].lastName.toLowerCase().slice(0,20) : "Anonymous";
-	    batch_id += "_" + date.getFullYear();
-	    batch_id += "_" + data.title.split(" ")[0].toLowerCase().slice(0,20) + "_" +  batch_timestamp;
-	// generate XML
-	var crf_data =
-		{doi_batch : [
+  var batch_timestamp = Math.floor(Date.now() / 1000);
+  var batch_id = data.authors.length ? data.authors[0].lastName.toLowerCase().slice(0,20) : "Anonymous";
+      batch_id += "_" + date.getFullYear();
+      batch_id += "_" + data.title.split(" ")[0].toLowerCase().slice(0,20) + "_" +  batch_timestamp;
+  // generate XML
+  var crf_data =
+    {doi_batch : [
 
-			{ _attr: {
-				version: "4.3.7",
-				xmlns: "http://www.crossref.org/schema/4.3.7",
-				"xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-				"xsi:schemaLocation": "http://www.crossref.org/schema/4.3.7 http://www.crossref.org/schemas/crossref4.3.7.xsd",
-			}},
+      { _attr: {
+        version: "4.3.7",
+        xmlns: "http://www.crossref.org/schema/4.3.7",
+        "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+        "xsi:schemaLocation": "http://www.crossref.org/schema/4.3.7 http://www.crossref.org/schemas/crossref4.3.7.xsd",
+      }},
 
-			{ head: [
-				{doi_batch_id: batch_id},
-				{timestamp: batch_timestamp},
-				{depositor: [
-					{depositor_name: "Distill Admin"},
-					{email_address: "admin@distill.pub"} ]},
-				{registrant: "Distill"} ]},
+      { head: [
+        {doi_batch_id: batch_id},
+        {timestamp: batch_timestamp},
+        {depositor: [
+          {depositor_name: "Distill Admin"},
+          {email_address: "admin@distill.pub"} ]},
+        {registrant: "Distill"} ]},
 
-			{body: [
-				{journal: [
+      {body: [
+        {journal: [
 
-					{journal_metadata: [
-						{full_title: data.journal.full_title || data.journal.title},
-						{abbrev_title: data.journal.abbrev_title || data.journal.title || data.journal.full_title},
-						{doi_data: [
-							{doi: data.journal.doi},
-							{resource: data.journal.url} ]} ]},
+          {journal_metadata: [
+            {full_title: data.journal.full_title || data.journal.title},
+            {abbrev_title: data.journal.abbrev_title || data.journal.title || data.journal.full_title},
+            {doi_data: [
+              {doi: data.journal.doi},
+              {resource: data.journal.url} ]} ]},
 
-					{journal_issue: [
-						{publication_date: [
-							{month: date.getMonth()+1},
-							{year: date.getFullYear()} ]},
-						{journal_volume: [
-							{volume: data.volume} ]},
-						{issue: data.issue} ]},
+          {journal_issue: [
+            {publication_date: [
+              {month: date.getMonth()+1},
+              {year: date.getFullYear()} ]},
+            {journal_volume: [
+              {volume: data.volume} ]},
+            {issue: data.issue} ]},
 
-					{journal_article: [
-						{titles: [
-							{title: data.title} ]},
-						{ contributors:
-							data.authors.map(function (author, ind) { return (
-								{person_name: [
-									{ _attr: {
-										contributor_role: "author",
-										sequence: (ind == 0)? "first" : "additional"
-									}},
-									{given_name: author.firstName},
-									{surname: author.lastName},
-									{affiliation: author.affiliation}
-									// TODO: ORCID?
-								]}
-							); })
-						},
-						{publication_date: [
-								{month: date.getMonth()+1},
-								{day: date.getDate()},
-								{year: date.getFullYear()}
-						]},
-						{ publisher_item: [
-							{item_number: data.doi}
-						]},
-						{doi_data: [
-							{doi: data.doi},
-							//{timestamp: ""},
-							{resource: data.url} ]},
-						{citation_list:
-							data.citations.map(function (key) { return citation_xml(key, data.bibliography[key]); })
-						}
+          {journal_article: [
+            {titles: [
+              {title: data.title} ]},
+            { contributors:
+              data.authors.map(function (author, ind) { return (
+                {person_name: [
+                  { _attr: {
+                    contributor_role: "author",
+                    sequence: (ind == 0)? "first" : "additional"
+                  }},
+                  {given_name: author.firstName},
+                  {surname: author.lastName},
+                  {affiliation: author.affiliation}
+                  // TODO: ORCID?
+                ]}
+              ); })
+            },
+            {publication_date: [
+                {month: date.getMonth()+1},
+                {day: date.getDate()},
+                {year: date.getFullYear()}
+            ]},
+            { publisher_item: [
+              {item_number: data.doi}
+            ]},
+            {doi_data: [
+              {doi: data.doi},
+              //{timestamp: ""},
+              {resource: data.url} ]},
+            {citation_list:
+              data.citations.map(function (key) { return citation_xml(key, data.bibliography[key]); })
+            }
 
-					]} ]} ]} ]};
+          ]} ]} ]} ]};
 
   return xml(crf_data);
 };
 
 function citation_xml(key, ent){
-	if (ent == undefined) { return {}; }
-	var info = [];
-	info.push({_attr: {key: key}});
-	if ("title" in ent)
-		{ info.push({article_title: ent.title}); }
-	if ("author" in ent)
-		{ info.push({author: ent.author.split(" and ")[0].split(",")[0].trim()}); }
-	if ("journal" in ent)
-		{ info.push({journal_title: ent.journal}); }
-	if ("booktitle" in ent)
-		{ info.push({volume_title: ent.booktitle}); }
-	if ("volume" in ent)
-		{ info.push({volume: ent.volume}); }
-	if ("issue" in ent)
-		{ info.push({issue: ent.issue}); }
-	if ("doi" in ent)
-		{ info.push({doi: ent.doi}); }
-	return {citation: info}
+  if (ent == undefined) { return {}; }
+  var info = [];
+  info.push({_attr: {key: key}});
+  if ("title" in ent)
+    { info.push({article_title: ent.title}); }
+  if ("author" in ent)
+    { info.push({author: ent.author.split(" and ")[0].split(",")[0].trim()}); }
+  if ("journal" in ent)
+    { info.push({journal_title: ent.journal}); }
+  if ("booktitle" in ent)
+    { info.push({volume_title: ent.booktitle}); }
+  if ("volume" in ent)
+    { info.push({volume: ent.volume}); }
+  if ("issue" in ent)
+    { info.push({issue: ent.issue}); }
+  if ("doi" in ent)
+    { info.push({doi: ent.doi}); }
+  return {citation: info}
 }
 
 function xml(obj) {
