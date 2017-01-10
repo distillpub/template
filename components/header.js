@@ -58,5 +58,13 @@ dt-header .nav a {
 `
 
 export default function(dom, data) {
-  dom.querySelector('dt-header').innerHTML = html;
+  let el = dom.querySelector("dt-header");
+  if(el) {
+    el.innerHTML = html;
+  } else {
+    let header = dom.createElement("dt-header");
+    header.innerHTML = html;
+    let b = dom.querySelector("body");
+    b.insertBefore(header, b.firstChild);
+  }
 }

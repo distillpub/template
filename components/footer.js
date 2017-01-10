@@ -39,5 +39,12 @@ dt-footer .logo {
 
 export default function(dom, data) {
   let el = dom.querySelector("dt-footer");
-  if(el) el.innerHTML = html;
+  if(el) {
+    el.innerHTML = html;
+  } else {
+    let footer = dom.createElement("dt-footer");
+    footer.innerHTML = html;
+    let b = dom.querySelector("body");
+    b.appendChild(footer);
+  }
 }

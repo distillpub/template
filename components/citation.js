@@ -8,12 +8,10 @@ export default function(dom, data) {
   }*/
 
   var citeTags = [].slice.apply(dom.querySelectorAll("dt-cite"));
-  console.log(citeTags);
   citeTags.forEach(el => {
     var key = el.getAttribute("key");
     if (key) {
       var keys = key.split(",");
-      console.log(keys)
       var cite_string = inline_cite_short(keys);
       el.innerHTML = cite_string;
     }

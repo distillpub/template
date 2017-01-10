@@ -10,7 +10,6 @@ export default function(data) {
 
   var date = data.published;
 	var batch_timestamp = Math.floor(Date.now() / 1000);
-  console.log(data.authors)
 	var batch_id = data.authors.length ? data.authors[0].lastName.toLowerCase().slice(0,20) : "Anonymous";
 	    batch_id += "_" + date.getFullYear();
 	    batch_id += "_" + data.title.split(" ")[0].toLowerCase().slice(0,20) + "_" +  batch_timestamp;

@@ -282,8 +282,6 @@ function Type$2(tag, options) {
 
 var type = Type$2;
 
-/*eslint-disable max-len*/
-
 var common$4        = common$1;
 var YAMLException$3 = exception;
 var Type$1          = type;
@@ -895,8 +893,6 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-/*eslint-disable no-bitwise*/
-
 var NodeBuffer;
 
 try {
@@ -1353,8 +1349,6 @@ var default_full = Schema$6.DEFAULT = new Schema$6({
     _function
   ]
 });
-
-/*eslint-disable max-len,no-use-before-define*/
 
 var common              = common$1;
 var YAMLException$1       = exception;
@@ -2947,8 +2941,6 @@ var loader$1 = {
 	safeLoad: safeLoad_1
 };
 
-/*eslint-disable no-use-before-define*/
-
 var common$7              = common$1;
 var YAMLException$5       = exception;
 var DEFAULT_FULL_SCHEMA$2 = default_full;
@@ -4358,7 +4350,15 @@ var logo = "<svg viewBox=\"-607 419 64 64\">\n  <path style=\"fill: none; stroke
 var html$1 = "\n<style>\ndt-header {\n  display: block;\n  position: relative;\n  height: 60px;\n  background-color: none;\n  width: 100%;\n  box-sizing: border-box;\n  z-index: 2;\n  color: rgba(0, 0, 0, 0.8);\n}\ndt-header .content {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.3);\n  height: 60px;\n}\ndt-header a {\n  font-size: 16px;\n  height: 60px;\n  line-height: 60px;\n  text-decoration: none;\n  color: rgba(0, 0, 0, 0.8);\n}\ndt-header svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: -2px;\n}\ndt-header svg path {\n  fill: none;\n  stroke: black;\n  stroke-width: 1;\n  stroke-linejoin: round;\n}\ndt-header .logo {\n  font-size: 16px;\n  font-weight: 300;\n}\ndt-header .nav {\n  float: right;\n}\ndt-header .nav a {\n  font-size: 14px;\n}\n</style>\n\n<div class=\"content l-page\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a>\n  <div class=\"nav\">\n  </div>\n</div>\n";
 
 var header = function(dom, data) {
-  dom.querySelector('dt-header').innerHTML = html$1;
+  var el = dom.querySelector("dt-header");
+  if(el) {
+    el.innerHTML = html$1;
+  } else {
+    var header = dom.createElement("dt-header");
+    header.innerHTML = html$1;
+    var b = dom.querySelector("body");
+    b.insertBefore(header, b.firstChild);
+  }
 };
 
 var html$2 = "\n<style>\n  dt-appendix {\n    display: block;\n    font-family: \"Open Sans\";\n    font-size: 14px;\n    line-height: 24px;\n    margin-bottom: 0;\n    border-top: 1px solid rgba(0,0,0,0.1);\n    color: rgba(0,0,0,0.5);\n    background: rgba(0,0,0,0.025);\n    padding-top: 36px;\n    padding-right: 24px;\n    padding-bottom: 60px;\n    padding-left: 24px;\n  }\n  dt-appendix h3 {\n    font-size: 16px;\n    font-weight: 500;\n    margin-top: 18px;\n    margin-bottom: 18px;\n    color: rgba(0,0,0,0.65);\n  }\n  dt-appendix .citation {\n    font-size: 11px;\n    line-height: 15px;\n    border-left: 1px solid rgba(0, 0, 0, 0.1);\n    padding-left: 18px;\n    border: 1px solid rgba(0,0,0,0.1);\n    background: rgba(0, 0, 0, 0.02);\n    padding: 10px 18px;\n    border-radius: 3px;\n    color: rgba(150, 150, 150, 1);\n    overflow: hidden;\n    margin-top: -12px;\n  }\n  dt-appendix .references {\n    font-size: 12px;\n    line-height: 20px;\n  }\n  dt-appendix a {\n    color: rgba(0, 0, 0, 0.6);\n  }\n</style>\n\n<div class=\"l-body\">\n  <h3>References</h3>\n  <dt-bibliography></dt-bibliography>\n  <h3 id=\"citation\">Errors, Reuse, and Citation</h3>\n  <p>If you see mistakes or want to suggest changes, please submit a pull request on <a class=\"github\">github</a>.</p>\n  <p>Diagrams and text are licensed under Creative Commons Attribution <a href=\"https://creativecommons.org/licenses/by/2.0/\">CC-BY 2.0</a>, unless noted otherwise, with the source available on available on <a class=\"github\">github</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>\n  <p>For attribution in academic contexts, please cite this work as</p>\n  <pre class=\"citation short\"></pre>\n  <p>BibTeX citation</p>\n  <pre class=\"citation long\"></pre>\n</div>\n";
@@ -4388,7 +4388,14 @@ var html$3 = "\n<style>\ndt-footer {\n  display: block;\n  color: rgba(255, 255,
 
 var footer = function(dom, data) {
   var el = dom.querySelector("dt-footer");
-  if(el) { el.innerHTML = html$3; }
+  if(el) {
+    el.innerHTML = html$3;
+  } else {
+    var footer = dom.createElement("dt-footer");
+    footer.innerHTML = html$3;
+    var b = dom.querySelector("body");
+    b.appendChild(footer);
+  }
 };
 
 var citation = function(dom, data) {
@@ -4401,12 +4408,10 @@ var citation = function(dom, data) {
   }*/
 
   var citeTags = [].slice.apply(dom.querySelectorAll("dt-cite"));
-  console.log(citeTags);
   citeTags.forEach(function (el) {
     var key = el.getAttribute("key");
     if (key) {
       var keys = key.split(",");
-      console.log(keys);
       var cite_string = inline_cite_short(keys);
       el.innerHTML = cite_string;
     }
@@ -6660,7 +6665,6 @@ var generateCrossref = function(data) {
 
   var date = data.published;
 	var batch_timestamp = Math.floor(Date.now() / 1000);
-  console.log(data.authors);
 	var batch_id = data.authors.length ? data.authors[0].lastName.toLowerCase().slice(0,20) : "Anonymous";
 	    batch_id += "_" + date.getFullYear();
 	    batch_id += "_" + data.title.split(" ")[0].toLowerCase().slice(0,20) + "_" +  batch_timestamp;
