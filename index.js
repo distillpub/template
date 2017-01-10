@@ -12,29 +12,39 @@ import markdown from "./components/markdown";
 import code from "./components/code";
 import generateCrossref from "./components/generate-crossref";
 
-function render(dom, data) {
-  data = data || {};
+function renderImmediately(dom) {
   html(dom);
   styles(dom);
-  dom.addEventListener("DOMContentLoaded", function(event) {
-    frontMatter(dom, data);
-    bibliography(dom, data);
-    expandData(dom, data);
-    meta(dom, data);
-    header(dom, data);
-    appendix(dom, data);
-    footer(dom, data);
-    markdown(dom, data);
-    code(dom, data);
-    citation(dom, data);
-    console.log("final data:")
+}
+
+function renderOnLoad(dom, data) {
+  frontMatter(dom, data);
+  bibliography(dom, data);
+  expandData(dom, data);
+  meta(dom, data);
+  header(dom, data);
+  appendix(dom, data);
+  footer(dom, data);
+  markdown(dom, data);
+  code(dom, data);
+  citation(dom, data);
+}
+
+// If we are in a browser, render automatically.
+if(window && window.document) {
+  let data = data || {};
+  renderImmediately(window.document);
+  window.document.addEventListener("DOMContentLoaded", (event) => {
+    renderOnLoad(window.document, data);
+    console.log("final data:");
     for (var k in data) {console.log("   ", k, ": ", data[k])}
   });
 }
 
-// If we are in a browser, run render automatically.
-if(window && window.document) {
-  render(window.document);
+// For node
+function render(dom, data) {
+  renderImmediately(dom);
+  renderOnLoad(dom, data);
 }
 
 export {render as render};
