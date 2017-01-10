@@ -28,8 +28,8 @@ export default function(data) {
         {doi_batch_id: batch_id},
         {timestamp: batch_timestamp},
         {depositor: [
-          {depositor_name: "Distill Admin"},
-          {email_address: "admin@distill.pub"},
+          {depositor_name: data.journal.depositorName},
+          {email_address: data.journal.email},
         ]},
         {registrant: "Distill"},
       ]},
