@@ -10,6 +10,9 @@ export default function(dom, data) {
     let parsed = bibtexParse.toJSON(rawBib);
     if(parsed) {
       parsed.forEach(e => {
+        for (var k in e.entryTags){
+          e.entryTags[k] = e.entryTags[k].replace(/[\t\n ]+/g, " ");
+        }
         bibliography[e.citationKey] = e.entryTags;
         bibliography[e.citationKey].type = e.entryType;
       });
