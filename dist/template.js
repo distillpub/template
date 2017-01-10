@@ -4194,6 +4194,7 @@ var bibliography = function(dom, data) {
   if (el) {
     var rawBib = el.textContent;
     var parsed = bibtexParse.toJSON(rawBib);
+    console.log(parsed);
     if(parsed) {
       parsed.forEach(function (e) {
         bibliography[e.citationKey] = e.entryTags;
