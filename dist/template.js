@@ -282,6 +282,8 @@ function Type$2(tag, options) {
 
 var type = Type$2;
 
+/*eslint-disable max-len*/
+
 var common$4        = common$1;
 var YAMLException$3 = exception;
 var Type$1          = type;
@@ -893,6 +895,8 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
+/*eslint-disable no-bitwise*/
+
 var NodeBuffer;
 
 try {
@@ -1349,6 +1353,8 @@ var default_full = Schema$6.DEFAULT = new Schema$6({
     _function
   ]
 });
+
+/*eslint-disable max-len,no-use-before-define*/
 
 var common              = common$1;
 var YAMLException$1       = exception;
@@ -2941,6 +2947,8 @@ var loader$1 = {
 	safeLoad: safeLoad_1
 };
 
+/*eslint-disable no-use-before-define*/
+
 var common$7              = common$1;
 var YAMLException$5       = exception;
 var DEFAULT_FULL_SCHEMA$2 = default_full;
@@ -4413,15 +4421,12 @@ var citation = function(dom, data) {
     if (key) {
       var keys = key.split(",");
       var cite_string = inline_cite_short(keys);
-      el.innerHTML = "<span id=\"citation-" + n + "\" class=\"citation\">" + cite_string + "</span>";
-      DistillHoverBox.bind(("#citation-" + n), key);
-
-      DistillHoverBox.contentMap[key] = "";
+      var cite_hover_str = "";
       keys.map(function (key,n) {
-        if (n>0) { DistillHoverBox.contentMap[key] += "<br>"; }
-        var cite_str = bibliography_cite(data.bibliography[key], true);
-        DistillHoverBox.contentMap[key] += cite_str;
+        if (n>0) { cite_hover_str += "<br>"; }
+        cite_hover_str += bibliography_cite(data.bibliography[key], true);
       });
+      el.innerHTML = "<span id=\"citation-" + n + "\" class=\"citation\" data-hover=\"" + cite_hover_str + "\">" + cite_string + "</span>";
     }
   });
 
@@ -4522,93 +4527,6 @@ var citation = function(dom, data) {
 
   }
 };
-
-// DistillHoverBox
-//=====================================
-
-function DistillHoverBox(key, pos){
-
-  if (!(key in DistillHoverBox.contentMap)){
-    console.error("No DistillHoverBox content registered for key", key);
-  }
-  if (key in DistillHoverBox.liveBoxes) {
-    console.error("There already exists a DistillHoverBox for key", key);
-  } else {
-    for (var k in DistillHoverBox.liveBoxes)
-      { DistillHoverBox.liveBoxes[k].remove(); }
-    DistillHoverBox.liveBoxes[key] = this;
-  }
-  this.key = key;
-
-  var pretty = window.innerWidth > 600;
-
-  var padding = pretty? 18 : 12;
-  var outer_padding = pretty ? 18 : 0;
-  var bbox = document.querySelector("body").getBoundingClientRect();
-  var left = pos[0] - bbox.left, top = pos[1] - bbox.top;
-  var width = Math.min(window.innerWidth-2*outer_padding, 648);
-  left = Math.min(left, window.innerWidth-width-outer_padding);
-  width = width - 2*padding;
-
-  var str = "<div style=\"position: absolute;\n                          background-color: #FFF;\n                          opacity: 0.95;\n                          width: " + width + "px;\n                          top: " + top + "px;\n                          left: " + left + "px;\n                          padding: " + padding + "px;\n                          border-radius: " + (pretty? 6 : 0) + "px;\n                          box-shadow: 0px 0px 18px 6px #777;\" >\n              " + (DistillHoverBox.contentMap[key]) + "\n              </div>";
-
-  this.div = appendBody(str);
-
-  DistillHoverBox.bind (this.div, key);
-}
-
-DistillHoverBox.prototype.remove = function remove(){
-  if (this.div) { this.div.remove(); }
-  if (this.timeout) { clearTimeout(this.timeout); }
-  delete DistillHoverBox.liveBoxes[this.key];
-};
-
-DistillHoverBox.prototype.stopTimeout = function stopTimeout() {
-  if (this.timeout) { clearTimeout(this.timeout); }
-};
-
-DistillHoverBox.prototype.extendTimeout = function extendTimeout(T) {
-  //console.log("extend", T)
-  var this_ = this;
-  this.stopTimeout();
-  this.timeout = setTimeout(function () { return this_.remove(); }, T);
-};
-
-DistillHoverBox.liveBoxes = {};
-DistillHoverBox.contentMap = {abc: "hello world!"};
-
-DistillHoverBox.bind = function bind(node, key) {
-  if (typeof node == "string"){
-    node = document.querySelector(node);
-  }
-  node.addEventListener("mouseover", function () {
-    var bbox = node.getBoundingClientRect();
-    if (!(key in DistillHoverBox.liveBoxes)){
-      new DistillHoverBox(key, [bbox.right, bbox.bottom]);
-    }
-    DistillHoverBox.liveBoxes[key].stopTimeout();
-  });
-  node.addEventListener("mouseout", function () {
-    if (key in DistillHoverBox.liveBoxes){
-      DistillHoverBox.liveBoxes[key].extendTimeout(250);
-    }
-  });
-
-};
-
-
-function appendBody(str){
-  var node = nodeFromString(str);
-  var body = document.querySelector("body");
-  body.appendChild(node);
-  return node;
-}
-
-function nodeFromString(str) {
-  var div = document.createElement("div");
-  div.innerHTML = str;
-  return div.firstChild;
-}
 
 var marked = createCommonjsModule(function (module, exports) {
 /**
@@ -6755,6 +6673,14 @@ var code$1 = function(dom, data) {
   });
 };
 
+var code$2 = "// DistillHoverBox\n//=====================================\n\nfunction DistillHoverBox(key, pos){\n\n  if (!(key in DistillHoverBox.contentMap)){\n    console.error(\"No DistillHoverBox content registered for key\", key);\n  }\n  if (key in DistillHoverBox.liveBoxes) {\n    console.error(\"There already exists a DistillHoverBox for key\", key);\n  } else {\n    for (var k in DistillHoverBox.liveBoxes)\n      DistillHoverBox.liveBoxes[k].remove();\n    DistillHoverBox.liveBoxes[key] = this;\n  }\n  this.key = key;\n\n  var pretty = window.innerWidth > 600;\n\n  var padding = pretty? 18 : 12;\n  var outer_padding = pretty ? 18 : 0;\n  var bbox = document.querySelector(\"body\").getBoundingClientRect();\n  var left = pos[0] - bbox.left, top = pos[1] - bbox.top;\n  var width = Math.min(window.innerWidth-2*outer_padding, 648);\n  left = Math.min(left, window.innerWidth-width-outer_padding);\n  width = width - 2*padding;\n\n  var str = `<div style=\"position: absolute;\n                          background-color: #FFF;\n                          opacity: 0.95;\n                          width: ${width}px;\n                          top: ${top}px;\n                          left: ${left}px;\n                          padding: ${padding}px;\n                          border-radius: ${pretty? 6 : 0}px;\n                          box-shadow: 0px 0px 18px 6px #777;\" >\n              ${DistillHoverBox.contentMap[key]}\n              </div>`;\n\n  this.div = appendBody(str);\n\n  DistillHoverBox.bind (this.div, key);\n}\n\nDistillHoverBox.prototype.remove = function remove(){\n  if (this.div) this.div.remove();\n  if (this.timeout) clearTimeout(this.timeout);\n  delete DistillHoverBox.liveBoxes[this.key];\n}\n\nDistillHoverBox.prototype.stopTimeout = function stopTimeout() {\n  if (this.timeout) clearTimeout(this.timeout);\n}\n\nDistillHoverBox.prototype.extendTimeout = function extendTimeout(T) {\n  //console.log(\"extend\", T)\n  var this_ = this;\n  this.stopTimeout();\n  this.timeout = setTimeout(() => this_.remove(), T);\n}\n\nDistillHoverBox.liveBoxes = {};\nDistillHoverBox.contentMap = {};\n\nDistillHoverBox.bind = function bind(node, key) {\n  if (typeof node == \"string\"){\n    node = document.querySelector(node);\n  }\n  node.addEventListener(\"mouseover\", () => {\n    var bbox = node.getBoundingClientRect();\n    if (!(key in DistillHoverBox.liveBoxes)){\n      new DistillHoverBox(key, [bbox.right, bbox.bottom]);\n    }\n    DistillHoverBox.liveBoxes[key].stopTimeout();\n  });\n  node.addEventListener(\"mouseout\", () => {\n    if (key in DistillHoverBox.liveBoxes){\n      DistillHoverBox.liveBoxes[key].extendTimeout(250);\n    }\n  });\n\n}\n\n\nfunction appendBody(str){\n  var node = nodeFromString(str);\n  var body = document.querySelector(\"body\");\n  body.appendChild(node);\n  return node;\n}\n\nfunction nodeFromString(str) {\n  var div = document.createElement(\"div\");\n  div.innerHTML = str;\n  return div.firstChild;\n}\n\nvar hover_es = document.querySelectorAll(\"span[data-hover]\");\nhover_es = [].slice.apply(hover_es);\nhover_es.forEach((e,n) => {\n  var key = \"hover-\"+n;\n  var content = e.getAttribute(\"data-hover\");\n  DistillHoverBox.contentMap[key] = content;\n  DistillHoverBox.bind(e, key);\n});\n";
+
+var hoverBox = function(dom) {
+  var s = dom.createElement("script");
+  s.textContent = code$2;
+  dom.querySelector("body").appendChild(s);
+};
+
 //import xml from "xml";
 
 var generateCrossref = function(data) {
@@ -6928,6 +6854,7 @@ function renderOnLoad(dom, data) {
   markdown(dom, data);
   code$1(dom, data);
   citation(dom, data);
+  hoverBox(dom, data);
   // TODO remove script tag
 }
 
