@@ -6079,6 +6079,32 @@ var citation = function(dom, data) {
   }
 };
 
+var footnote = function(dom, data) {
+
+  var fnTags = [].slice.apply(dom.querySelectorAll("dt-fn"));
+  var fnContent = [];
+  fnTags.forEach(function (el,n) {
+    var content = el.innerHTML;
+    fnContent.push(content);
+    n = (n+1)+"";
+    var key = "fn-"+n;
+    var escaped_content = content.replace(/"/g, "&#39;");
+    el.innerHTML = "<sup><span id=\"" + key + "\" data-hover=\"" + escaped_content + "\" style=\"cursor:pointer\">" + n + "</span></sup>";
+  });
+
+  var fnList = dom.querySelector("dt-fn-list");
+  if (fnList) {
+    var ol = dom.createElement("ol");
+    fnContent.forEach(function (content) {
+      var el = dom.createElement("li");
+      el.innerHTML = content;
+      ol.appendChild(el);
+    });
+    fnList.appendChild(ol);
+  }
+
+};
+
 var marked = createCommonjsModule(function (module, exports) {
 /**
  * marked - a markdown parser
@@ -8406,6 +8432,7 @@ function renderOnLoad(dom, data) {
   markdown(dom, data);
   code$1(dom, data);
   citation(dom, data);
+  footnote(dom, data);
   hoverBox(dom, data);
 }
 
