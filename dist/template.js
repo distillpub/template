@@ -282,8 +282,6 @@ function Type$2(tag, options) {
 
 var type = Type$2;
 
-/*eslint-disable max-len*/
-
 var common$4        = common$1;
 var YAMLException$3 = exception;
 var Type$1          = type;
@@ -895,8 +893,6 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-/*eslint-disable no-bitwise*/
-
 var NodeBuffer;
 
 try {
@@ -1353,8 +1349,6 @@ var default_full = Schema$6.DEFAULT = new Schema$6({
     _function
   ]
 });
-
-/*eslint-disable max-len,no-use-before-define*/
 
 var common              = common$1;
 var YAMLException$1       = exception;
@@ -2947,8 +2941,6 @@ var loader$1 = {
 	safeLoad: safeLoad_1
 };
 
-/*eslint-disable no-use-before-define*/
-
 var common$7              = common$1;
 var YAMLException$5       = exception;
 var DEFAULT_FULL_SCHEMA$2 = default_full;
@@ -3825,6 +3817,7 @@ var frontMatter = function(dom, data) {
     var text = el.textContent;
     localData = index.safeLoad(text);
   }
+  console.log(localData);
 
   data.title = localData.title ? localData.title : "Untitled";
   data.description = localData.description ? localData.description : "No description.";
@@ -3836,15 +3829,23 @@ var frontMatter = function(dom, data) {
   data.authors = data.authors.map(function (author, i) {
     var a = {};
     var name = Object.keys(author)[0];
+    if ((typeof author) === "string") {
+      name = author;
+    } else {
+      a.personalURL = author[name];
+    }
     var names = name.split(" ");
     a.name = name;
     a.firstName = names.slice(0, names.length - 1).join(" ");
     a.lastName = names[names.length -1];
-    a.personalURL = author[name];
     if(localData.affiliations[i]) {
       var affiliation = Object.keys(localData.affiliations[i])[0];
+      if ((typeof localData.affiliations[i]) === "string") {
+        affiliation = localData.affiliations[i];
+      } else {
+        a.affiliationURL = localData.affiliations[i][affiliation];
+      }
       a.affiliation = affiliation;
-      a.affiliationURL = localData.affiliations[i][affiliation];
     }
     return a;
   });
