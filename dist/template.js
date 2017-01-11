@@ -24,7 +24,7 @@ var html = function(dom) {
   }
 };
 
-var base = "html {\n  font: 400 15px/1.55em -apple-system, BlinkMacSystemFont, \"Roboto\", sans-serif;\n}\n\nhtml {\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n}\n\n/*\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}*/\n";
+var base = "html {\n  font: 400 15px/1.55em -apple-system, BlinkMacSystemFont, \"Roboto\", sans-serif;\n}\n\nhtml {\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n}\n\ndt-article .citation {\n  color: #668;\n  cursor: pointer;\n}\n\n/*\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}*/\n";
 
 var layout = ".l-body,\n.l-page,\ndt-article > * {\n  margin-left: 24px;\n  margin-right: 24px;\n  box-sizing: border-box;\n}\n\n@media(min-width: 768px) {\n  .l-body,\n  .l-page,\n  dt-article > * {\n    margin-left: 72px;\n    margin-right: 72px;\n  }\n}\n\n@media(min-width: 1080px) {\n  .l-body,\n  dt-article > * {\n    margin-left: calc(50% - 984px / 2);\n    width: 648px;\n  }\n  .l-body-outset,\n  dt-article .l-body-outset {\n    margin-left: calc(50% - 984px / 2 - 24px);\n    width: calc(648px + 48px);\n  }\n  .l-middle,\n  dt-article .l-middle {\n    width: 816px;\n    margin-left: calc(50% - 984px / 2);\n  }\n  .l-page,\n  dt-article .l-page {\n    width: 984px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-page-outset,\n  dt-article .l-page-outset {\n    width: 1080px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-screen,\n  dt-article .l-screen {\n    margin-left: auto;\n    margin-right: auto;\n    width: auto;\n  }\n  .l-screen-inset,\n  dt-article .l-screen-inset {\n    margin-left: 24px;\n    margin-right: 24px;\n    width: auto;\n  }\n  .l-gutter,\n  dt-article .l-gutter {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 24px;\n    margin-right: calc((100vw - 960px) / 2);\n    width: calc((984px - 648px) / 2 - 24px);\n  }\n  /* Side */\n  .side.l-body,\n  dt-article .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px) / 2);\n    width: calc(648px / 2 - 24px);\n  }\n  .side.l-body-outset,\n  dt-article .side.l-body-outset {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px - 48px) / 2);\n    width: calc(648px / 2 - 48px + 24px);\n  }\n  .side.l-page,\n  dt-article .side.l-page {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2);\n    width: calc(960px / 2 - 48px);\n  }\n}\n";
 
@@ -281,6 +281,8 @@ function Type$2(tag, options) {
 }
 
 var type = Type$2;
+
+/*eslint-disable max-len*/
 
 var common$4        = common$1;
 var YAMLException$3 = exception;
@@ -893,6 +895,8 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
+/*eslint-disable no-bitwise*/
+
 var NodeBuffer;
 
 try {
@@ -1349,6 +1353,8 @@ var default_full = Schema$6.DEFAULT = new Schema$6({
     _function
   ]
 });
+
+/*eslint-disable max-len,no-use-before-define*/
 
 var common              = common$1;
 var YAMLException$1       = exception;
@@ -2941,6 +2947,8 @@ var loader$1 = {
 	safeLoad: safeLoad_1
 };
 
+/*eslint-disable no-use-before-define*/
+
 var common$7              = common$1;
 var YAMLException$5       = exception;
 var DEFAULT_FULL_SCHEMA$2 = default_full;
@@ -4196,6 +4204,9 @@ var bibliography = function(dom, data) {
     var parsed = bibtexParse.toJSON(rawBib);
     if(parsed) {
       parsed.forEach(function (e) {
+        for (var k in e.entryTags){
+          e.entryTags[k] = e.entryTags[k].replace(/[\t\n ]+/g, " ");
+        }
         bibliography[e.citationKey] = e.entryTags;
         bibliography[e.citationKey].type = e.entryType;
       });
@@ -5906,9 +5917,10 @@ var citation = function(dom, data) {
       var cite_string = inline_cite_short(keys);
       var cite_hover_str = "";
       keys.map(function (key,n) {
-        if (n>0) { cite_hover_str += "<br>"; }
-        cite_hover_str += bibliography_cite(data.bibliography[key], true);
+        if (n>0) { cite_hover_str += "<br><br>"; }
+        cite_hover_str += hover_cite(data.bibliography[key]);
       });
+      cite_hover_str = cite_hover_str.replace(/"/g, "&#39;");
       el.innerHTML = "<span id=\"citation-" + n + "\" class=\"citation\" data-hover=\"" + cite_hover_str + "\">" + cite_string + "</span>";
     }
   });
@@ -5953,43 +5965,76 @@ var citation = function(dom, data) {
     return keys.map(cite_string).join(", ");
   }
 
+  function author_string(ent, template, sep, finalSep){
+    var names = ent.author.split(" and ");
+    var name_strings = names.map(function (name) {
+      var last = name.split(",")[0].trim();
+      var firsts = name.split(",")[1];
+      var initials = "";
+      if (firsts != undefined) {
+        initials = firsts.trim().split(" ").map(function (s) { return s.trim()[0]; });
+        initials = initials.join(".")+".";
+      }
+      return template.replace("F", firsts)
+                     .replace("L", last)
+                     .replace("I", initials);
+    });
+    if (names.length > 1) {
+      var str = name_strings.slice(0, names.length-1).join(sep);
+      str += (finalSep || sep) + name_strings[names.length-1];
+      return str;
+    } else {
+      return name_strings[0];
+    }
+  }
+
+  function venue_string(ent) {
+    var cite = (ent.journal || ent.booktitle || "");
+    if ("volume" in ent){
+      var issue = ent.issue || ent.number;
+      issue = (issue != undefined)? "("+issue+")" : "";
+      cite += ", Vol " + ent.volume + issue;
+    }
+    if ("pages" in ent){
+      cite += ", pp. " + ent.pages;
+    }
+    cite += ". ";
+    if ("publisher" in ent){
+      cite += ent.publisher + ".";
+    }
+    return cite;
+  }
+
   function bibliography_cite(ent, fancy){
     if (ent){
-      var names = ent.author.split(" and ");
-      var cite = "";
-      var name_strings = names.map(function (name) {
-        var last = name.split(",")[0].trim();
-        var firsts = name.split(",")[1];
-        if (firsts != undefined) {
-          var initials = firsts.trim().split(" ").map(function (s) { return s.trim()[0]; });
-          return last + ", " + initials.join(".")+".";
-        }
-        return last;
-      });
-      if (names.length > 1) {
-        cite += name_strings.slice(0, names.length-1).join(", ");
-        cite += " and " + name_strings[names.length-1];
-      } else {
-        cite += name_strings[0];
-      }
+      var cite =  author_string(ent, "L, I", ", ", " and ");
       cite += ", " + ent.year + ". ";
-      if (fancy){
-        cite += "<b>" + ent.title + "</b>. ";
-      } else {
-        cite += ent.title + ". ";
-      }
-      cite += (ent.journal || ent.booktitle || "");
-      if ("volume" in ent){
-        var issue = ent.issue || ent.number;
-        issue = (issue != undefined)? "("+issue+")" : "";
-        cite += ", Vol " + ent.volume + issue;
-      }
-      if ("pages" in ent){
-        cite += ", pp. " + ent.pages;
-      }
-      cite += ". ";
+      cite += ent.title + ". ";
+      cite += venue_string(ent);
       if (fancy && ent.url && ent.url.slice(-4) == ".pdf") {
         cite = cite + " <a href=\"" + (ent.url) + "\">[pdf]</a>";
+      }
+      return cite
+    } else {
+      return "?";
+    }
+  }
+
+  function hover_cite(ent){
+    if (ent){
+      var cite = "";
+      cite += "<b>" + ent.title + "</b>";
+      if (ent.url && ent.url.slice(-4) == ".pdf") {
+        cite = cite + " &ensp;<a href=\"" + (ent.url) + "\" style=\"text-decoration:inherit\"><b>[PDF]</b></a>";
+      }
+      if (ent.url && ent.url.slice(-5) == ".html") {
+        cite = cite + " &ensp;<a href=\"" + (ent.url) + "\" style=\"text-decoration:inherit\"><b>[HTML]</b></a>";
+      }
+      cite += "<br>";
+      cite += author_string(ent, "I L", ", ") + ".<br>";
+      cite += venue_string(ent).trim() + " " + ent.year + ". ";
+      if ("doi" in ent) {
+        cite += "<br> <a href=\"https://doi.org/" + (ent.doi) + "\" style=\"text-decoration:inherit; font-size: 80%;\">DOI: " + (ent.doi) + "</a>";
       }
       return cite
     } else {
@@ -8156,7 +8201,7 @@ var code$1 = function(dom, data) {
   });
 };
 
-var code$2 = "// DistillHoverBox\n//=====================================\n\nfunction DistillHoverBox(key, pos){\n\n  if (!(key in DistillHoverBox.contentMap)){\n    console.error(\"No DistillHoverBox content registered for key\", key);\n  }\n  if (key in DistillHoverBox.liveBoxes) {\n    console.error(\"There already exists a DistillHoverBox for key\", key);\n  } else {\n    for (var k in DistillHoverBox.liveBoxes)\n      DistillHoverBox.liveBoxes[k].remove();\n    DistillHoverBox.liveBoxes[key] = this;\n  }\n  this.key = key;\n\n  var pretty = window.innerWidth > 600;\n\n  var padding = pretty? 18 : 12;\n  var outer_padding = pretty ? 18 : 0;\n  var bbox = document.querySelector(\"body\").getBoundingClientRect();\n  var left = pos[0] - bbox.left, top = pos[1] - bbox.top;\n  var width = Math.min(window.innerWidth-2*outer_padding, 648);\n  left = Math.min(left, window.innerWidth-width-outer_padding);\n  width = width - 2*padding;\n\n  var str = `<div style=\"position: absolute;\n                          background-color: #FFF;\n                          opacity: 0.95;\n                          width: ${width}px;\n                          top: ${top}px;\n                          left: ${left}px;\n                          padding: ${padding}px;\n                          border-radius: ${pretty? 6 : 0}px;\n                          box-shadow: 0px 0px 18px 6px #777;\" >\n              ${DistillHoverBox.contentMap[key]}\n              </div>`;\n\n  this.div = appendBody(str);\n\n  DistillHoverBox.bind (this.div, key);\n}\n\nDistillHoverBox.prototype.remove = function remove(){\n  if (this.div) this.div.remove();\n  if (this.timeout) clearTimeout(this.timeout);\n  delete DistillHoverBox.liveBoxes[this.key];\n}\n\nDistillHoverBox.prototype.stopTimeout = function stopTimeout() {\n  if (this.timeout) clearTimeout(this.timeout);\n}\n\nDistillHoverBox.prototype.extendTimeout = function extendTimeout(T) {\n  //console.log(\"extend\", T)\n  var this_ = this;\n  this.stopTimeout();\n  this.timeout = setTimeout(() => this_.remove(), T);\n}\n\nDistillHoverBox.liveBoxes = {};\nDistillHoverBox.contentMap = {};\n\nDistillHoverBox.bind = function bind(node, key) {\n  if (typeof node == \"string\"){\n    node = document.querySelector(node);\n  }\n  node.addEventListener(\"mouseover\", () => {\n    var bbox = node.getBoundingClientRect();\n    if (!(key in DistillHoverBox.liveBoxes)){\n      new DistillHoverBox(key, [bbox.right, bbox.bottom]);\n    }\n    DistillHoverBox.liveBoxes[key].stopTimeout();\n  });\n  node.addEventListener(\"mouseout\", () => {\n    if (key in DistillHoverBox.liveBoxes){\n      DistillHoverBox.liveBoxes[key].extendTimeout(250);\n    }\n  });\n\n}\n\n\nfunction appendBody(str){\n  var node = nodeFromString(str);\n  var body = document.querySelector(\"body\");\n  body.appendChild(node);\n  return node;\n}\n\nfunction nodeFromString(str) {\n  var div = document.createElement(\"div\");\n  div.innerHTML = str;\n  return div.firstChild;\n}\n\nvar hover_es = document.querySelectorAll(\"span[data-hover]\");\nhover_es = [].slice.apply(hover_es);\nhover_es.forEach((e,n) => {\n  var key = \"hover-\"+n;\n  var content = e.getAttribute(\"data-hover\");\n  DistillHoverBox.contentMap[key] = content;\n  DistillHoverBox.bind(e, key);\n});\n";
+var code$2 = "// DistillHoverBox\n//=====================================\n\nfunction DistillHoverBox(key, pos){\n\n  if (!(key in DistillHoverBox.contentMap)){\n    console.error(\"No DistillHoverBox content registered for key\", key);\n  }\n  if (key in DistillHoverBox.liveBoxes) {\n    console.error(\"There already exists a DistillHoverBox for key\", key);\n  } else {\n    for (var k in DistillHoverBox.liveBoxes)\n      DistillHoverBox.liveBoxes[k].remove();\n    DistillHoverBox.liveBoxes[key] = this;\n  }\n  this.key = key;\n\n  var pretty = window.innerWidth > 600;\n\n  var padding = pretty? 18 : 12;\n  var outer_padding = pretty ? 18 : 0;\n  var bbox = document.querySelector(\"body\").getBoundingClientRect();\n  var left = pos[0] - bbox.left, top = pos[1] - bbox.top;\n  var width = Math.min(window.innerWidth-2*outer_padding, 648);\n  left = Math.min(left, window.innerWidth-width-outer_padding);\n  width = width - 2*padding;\n\n  var str = `<div style=\"position: absolute;\n                          background-color: #FFF;\n                          opacity: 0.95;\n                          width: ${width}px;\n                          top: ${top}px;\n                          left: ${left}px;\n                          padding: ${padding}px;\n                          border-radius: ${pretty? 3 : 0}px;\n                          box-shadow: 0px 0px 18px 3px #777;\" >\n              ${DistillHoverBox.contentMap[key]}\n              </div>`;\n\n  this.div = appendBody(str);\n\n  DistillHoverBox.bind (this.div, key);\n}\n\nDistillHoverBox.prototype.remove = function remove(){\n  if (this.div) this.div.remove();\n  if (this.timeout) clearTimeout(this.timeout);\n  delete DistillHoverBox.liveBoxes[this.key];\n}\n\nDistillHoverBox.prototype.stopTimeout = function stopTimeout() {\n  if (this.timeout) clearTimeout(this.timeout);\n}\n\nDistillHoverBox.prototype.extendTimeout = function extendTimeout(T) {\n  //console.log(\"extend\", T)\n  var this_ = this;\n  this.stopTimeout();\n  this.timeout = setTimeout(() => this_.remove(), T);\n}\n\nDistillHoverBox.liveBoxes = {};\nDistillHoverBox.contentMap = {};\n\nDistillHoverBox.bind = function bind(node, key) {\n  if (typeof node == \"string\"){\n    node = document.querySelector(node);\n  }\n  node.addEventListener(\"mouseover\", () => {\n    var bbox = node.getBoundingClientRect();\n    if (!(key in DistillHoverBox.liveBoxes)){\n      new DistillHoverBox(key, [bbox.right, bbox.bottom]);\n    }\n    DistillHoverBox.liveBoxes[key].stopTimeout();\n  });\n  node.addEventListener(\"mouseout\", () => {\n    if (key in DistillHoverBox.liveBoxes){\n      DistillHoverBox.liveBoxes[key].extendTimeout(250);\n    }\n  });\n\n}\n\n\nfunction appendBody(str){\n  var node = nodeFromString(str);\n  var body = document.querySelector(\"body\");\n  body.appendChild(node);\n  return node;\n}\n\nfunction nodeFromString(str) {\n  var div = document.createElement(\"div\");\n  div.innerHTML = str;\n  return div.firstChild;\n}\n\nvar hover_es = document.querySelectorAll(\"span[data-hover]\");\nhover_es = [].slice.apply(hover_es);\nhover_es.forEach((e,n) => {\n  var key = \"hover-\"+n;\n  var content = e.getAttribute(\"data-hover\");\n  DistillHoverBox.contentMap[key] = content;\n  DistillHoverBox.bind(e, key);\n});\n";
 
 var hoverBox = function(dom) {
   var s = dom.createElement("script");

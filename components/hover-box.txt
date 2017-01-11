@@ -32,8 +32,8 @@ function DistillHoverBox(key, pos){
                           top: ${top}px;
                           left: ${left}px;
                           padding: ${padding}px;
-                          border-radius: ${pretty? 6 : 0}px;
-                          box-shadow: 0px 0px 18px 6px #777;" >
+                          border-radius: ${pretty? 3 : 0}px;
+                          box-shadow: 0px 0px 18px 3px #777;" >
               ${DistillHoverBox.contentMap[key]}
               </div>`;
 
