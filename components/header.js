@@ -6,7 +6,7 @@ dt-header {
   display: block;
   position: relative;
   height: 60px;
-  background: #f9f9f9;
+  background: white;
   width: 100%;
   box-sizing: border-box;
   z-index: 2;
