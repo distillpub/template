@@ -28,7 +28,7 @@ export default function(dom, data) {
     let ol = dom.createElement("ol");
     citations.forEach(key => {
       let el = dom.createElement("li");
-      el.textContent = bibliography_cite(data.bibliography[key]);
+      el.innerHTML = bibliography_cite(data.bibliography[key]);
       ol.appendChild(el);
     })
     bibEl.appendChild(ol);
@@ -103,15 +103,36 @@ export default function(dom, data) {
     return cite;
   }
 
+  function link_string(ent){
+    if ("url" in ent){
+      if (ent.url.slice(-4) == ".pdf"){
+        var label = "PDF";
+      } else if (ent.url.slice(-5) == ".html") {
+        var label = "HTML";
+      }
+      return ` &ensp;<a href="${ent.url}">[${label||"link"}]</a>`;
+    }/* else if ("doi" in ent){
+      return ` &ensp;<a href="https://doi.org/${ent.doi}" >[DOI]</a>`;
+    }*/ else {
+      return "";
+    }
+  }
+  function doi_string(ent, new_line){
+    if ("doi" in ent) {
+      return `${new_line?"<br>":""} <a href="https://doi.org/${ent.doi}" style="text-decoration:inherit;">DOI: ${ent.doi}</a>`;
+    } else {
+      return "";
+    }
+  }
+
   function bibliography_cite(ent, fancy){
     if (ent){
       var cite =  author_string(ent, "L, I", ", ", " and ");
       cite += ", " + ent.year + ". "
-      cite += ent.title + ". ";
+      cite += "<b>" + ent.title + "</b>. ";
       cite += venue_string(ent);
-      if (fancy && ent.url && ent.url.slice(-4) == ".pdf") {
-        cite = `${cite} <a href="${ent.url}">[pdf]</a>`
-      }
+      cite += doi_string(ent);
+      cite += link_string(ent);
       return cite
     } else {
       return "?";
@@ -122,18 +143,11 @@ export default function(dom, data) {
     if (ent){
       var cite = "";
       cite += "<b>" + ent.title + "</b>";
-      if (ent.url && ent.url.slice(-4) == ".pdf") {
-        cite = `${cite} &ensp;<a href="${ent.url}" style="text-decoration:inherit"><b>[PDF]</b></a>`
-      }
-      if (ent.url && ent.url.slice(-5) == ".html") {
-        cite = `${cite} &ensp;<a href="${ent.url}" style="text-decoration:inherit"><b>[HTML]</b></a>`
-      }
+      cite += link_string(ent);
       cite += "<br>"
       cite += author_string(ent, "I L", ", ") + ".<br>";
       cite += venue_string(ent).trim() + " " + ent.year + ". "
-      if ("doi" in ent) {
-        cite += `<br> <a href="https://doi.org/${ent.doi}" style="text-decoration:inherit; font-size: 80%;">DOI: ${ent.doi}</a>`
-      }
+      cite += doi_string(ent, true);
       return cite
     } else {
       return "?";
@@ -142,7 +156,7 @@ export default function(dom, data) {
 
 
   //https://scholar.google.com/scholar?q=allintitle%3ADocument+author%3Aolah
-  function get_URL(ent){
+  function get_GS_URL(ent){
     if (ent){
       var names = ent.author.split(" and ");
       names = names.map(name => name.split(",")[0].trim())
