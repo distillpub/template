@@ -19,7 +19,9 @@ export default function(dom, data) {
         cite_hover_str += hover_cite(data.bibliography[key]);
       });
       cite_hover_str = cite_hover_str.replace(/"/g, "&#39;")
-      el.innerHTML = `<span id="citation-${n}" class="citation" data-hover="${cite_hover_str}">${cite_string}</span>`;
+      var orig_string = el.innerHTML;
+      if (orig_string != "") orig_string += " ";
+      el.innerHTML = `<span id="citation-${n}" class="citation" data-hover="${cite_hover_str}">${orig_string}${cite_string}</span>`;
     }
   });
 
