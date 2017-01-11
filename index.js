@@ -5,6 +5,7 @@ import bibliography from "./components/bibliography";
 import expandData from "./components/expand-data";
 import meta from "./components/meta";
 import header from "./components/header";
+import byline from "./components/byline";
 import appendix from "./components/appendix";
 import footer from "./components/footer";
 import citation from "./components/citation";
@@ -24,6 +25,7 @@ function renderOnLoad(dom, data) {
   expandData(dom, data);
   meta(dom, data);
   header(dom, data);
+  byline(dom, data);
   appendix(dom, data);
   footer(dom, data);
   markdown(dom, data);
