@@ -128,7 +128,6 @@ const template = `
 
 export default function(dom, data) {
   let el = dom.querySelector('dt-byline');
-  console.log(data);
   if (el) {
     el.innerHTML = html + mustache.render(template, data);
   }

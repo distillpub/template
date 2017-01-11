@@ -6,14 +6,14 @@ dt-header {
   display: block;
   position: relative;
   height: 60px;
-  background-color: none;
+  background: none;
   width: 100%;
   box-sizing: border-box;
   z-index: 2;
   color: rgba(0, 0, 0, 0.8);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 dt-header .content {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   height: 60px;
 }
 dt-header a {
