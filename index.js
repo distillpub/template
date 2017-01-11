@@ -9,6 +9,7 @@ import byline from "./components/byline";
 import appendix from "./components/appendix";
 import footer from "./components/footer";
 import citation from "./components/citation";
+import footnote from "./components/footnote";
 import markdown from "./components/markdown";
 import code from "./components/code";
 import hoverBox from "./components/hover-box-include";
@@ -31,6 +32,7 @@ function renderOnLoad(dom, data) {
   markdown(dom, data);
   code(dom, data);
   citation(dom, data);
+  footnote(dom, data);
   hoverBox(dom, data);
   // TODO remove script tag
 }
