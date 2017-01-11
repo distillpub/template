@@ -34,7 +34,6 @@ function renderOnLoad(dom, data) {
   citation(dom, data);
   footnote(dom, data);
   hoverBox(dom, data);
-  // TODO remove script tag
 }
 
 // If we are in a browser, render automatically.
@@ -51,6 +50,9 @@ if(window && window.document) {
 function render(dom, data) {
   renderImmediately(dom);
   renderOnLoad(dom, data);
+  // Remove script tag so it doesn't run again
+  let s = dom.querySelector('script[src="http://distill.pub/template.js]');
+  s.parentElement.removeChild(s);
 }
 
 export {render as render};

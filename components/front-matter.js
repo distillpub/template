@@ -7,12 +7,9 @@ export default function(dom, data) {
     let text = el.textContent;
     localData = ymlParse.safeLoad(text);
   }
-  console.log(localData)
 
   data.title = localData.title ? localData.title : "Untitled";
   data.description = localData.description ? localData.description : "No description.";
-  data.published = localData.published ? new Date(localData.published) : new Date("Invalid");
-  data.updated = localData.updated ? new Date(localData.updated) : new Date("Invalid");
 
   data.authors = localData.authors ? localData.authors : [];
 
@@ -39,5 +36,6 @@ export default function(dom, data) {
     }
     return a;
   });
+  
 
 }

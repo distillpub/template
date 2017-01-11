@@ -282,6 +282,8 @@ function Type$2(tag, options) {
 
 var type = Type$2;
 
+/*eslint-disable max-len*/
+
 var common$4        = common$1;
 var YAMLException$3 = exception;
 var Type$1          = type;
@@ -893,6 +895,8 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
+/*eslint-disable no-bitwise*/
+
 var NodeBuffer;
 
 try {
@@ -1349,6 +1353,8 @@ var default_full = Schema$6.DEFAULT = new Schema$6({
     _function
   ]
 });
+
+/*eslint-disable max-len,no-use-before-define*/
 
 var common              = common$1;
 var YAMLException$1       = exception;
@@ -2941,6 +2947,8 @@ var loader$1 = {
 	safeLoad: safeLoad_1
 };
 
+/*eslint-disable no-use-before-define*/
+
 var common$7              = common$1;
 var YAMLException$5       = exception;
 var DEFAULT_FULL_SCHEMA$2 = default_full;
@@ -3817,12 +3825,9 @@ var frontMatter = function(dom, data) {
     var text = el.textContent;
     localData = index.safeLoad(text);
   }
-  console.log(localData);
 
   data.title = localData.title ? localData.title : "Untitled";
   data.description = localData.description ? localData.description : "No description.";
-  data.published = localData.published ? new Date(localData.published) : new Date("Invalid");
-  data.updated = localData.updated ? new Date(localData.updated) : new Date("Invalid");
 
   data.authors = localData.authors ? localData.authors : [];
 
@@ -3849,6 +3854,7 @@ var frontMatter = function(dom, data) {
     }
     return a;
   });
+  
 
 };
 
@@ -4206,7 +4212,11 @@ var bibliography = function(dom, data) {
     if(parsed) {
       parsed.forEach(function (e) {
         for (var k in e.entryTags){
-          e.entryTags[k] = e.entryTags[k].replace(/[\t\n ]+/g, " ");
+          var val = e.entryTags[k];
+          val = val.replace(/[\t\n ]+/g, " ");
+          val = val.replace(/{\\["^`\.'acu~Hvs]( )?([a-zA-Z])}/g,
+                            function (full, x, char) { return char; });
+          e.entryTags[k] = val;
         }
         bibliography[e.citationKey] = e.entryTags;
         bibliography[e.citationKey].type = e.entryType;
@@ -5078,10 +5088,8 @@ var expandData = function(dom, data) {
     data.authors = data.authors || [];
 
     // paths
-    //data.distillPath = post.distillPath;
-    //data.githubPath = post.githubPath;
-    //data.url = "http://distill.pub/" + post.distillPath;
-    //data.githubUrl = "https://github.com/" + post.githubPath;
+    data.url = "http://distill.pub/" + data.distillPath;
+    data.githubUrl = "https://github.com/" + data.githubPath;
 
     // Homepage
     //data.homepage = !post.noHomepage;
@@ -5089,20 +5097,24 @@ var expandData = function(dom, data) {
 
     // Dates
     // TODO: fix updated date
-    if (data.published){//} && data.journal) {
-      data.volume = data.published.getFullYear() - 2015;
-      data.issue = data.published.getMonth() + 1;
+    if (data.publishedDate){//} && data.journal) {
+      data.volume = data.publishedDate.getFullYear() - 2015;
+      data.issue = data.publishedDate.getMonth() + 1;
     }
+
+    data.publishedDate = data.publishedDate ? data.publishedDate : new Date("Invalid");
+    data.updated = data.updated ? data.updated : new Date("Invalid");
+
     data.publishedDateRFC;
     var RFC = timeFormat("%a, %d %b %Y %H:%M:%S %Z");
     var months = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
     var zeroPad = function (n) { return n < 10 ? "0" + n : n; };
-    data.publishedDateRFC = RFC(data.published);
-    data.publishedYear = data.published.getFullYear();
-    data.publishedMonth = months[data.published.getMonth()];
-    data.publishedDay = data.published.getDate();
-    data.publishedMonthPadded = zeroPad(data.published.getMonth() + 1);
-    data.publishedDayPadded = zeroPad(data.published.getDate());
+    data.publishedDateRFC = RFC(data.publishedDate);
+    data.publishedYear = data.publishedDate.getFullYear();
+    data.publishedMonth = months[data.publishedDate.getMonth()];
+    data.publishedDay = data.publishedDate.getDate();
+    data.publishedMonthPadded = zeroPad(data.publishedDate.getMonth() + 1);
+    data.publishedDayPadded = zeroPad(data.publishedDate.getDate());
 
     if (data.authors.length  > 2) {
       data.concatenatedAuthors = data.authors[0].lastName + ", et al.";
@@ -5111,6 +5123,12 @@ var expandData = function(dom, data) {
     } else if (data.authors.length === 1) {
       data.concatenatedAuthors = data.authors[0].lastName;
     }
+
+    data.bibtexAuthors = data.authors.map(function(author){
+      return author.lastName + ", " + author.firstName;
+    }).join(" and ");
+
+    data.slug = data.authors.length ? data.authors[0].lastName.toLowerCase() + data.publishedYear + data.title.split(" ")[0].toLowerCase() : "Untitled";
 
 };
 
@@ -5201,7 +5219,7 @@ function citation_meta_content(ref){
 
 var logo = "<svg viewBox=\"-607 419 64 64\">\n  <path style=\"fill: none; stroke: black;stroke-width: 2px;\" d=\"M-573.4,478.9c-8,0-14.6-6.4-14.6-14.5s14.6-25.9,14.6-40.8c0,14.9,14.6,32.8,14.6,40.8S-565.4,478.9-573.4,478.9z\"/>\n</svg>\n";
 
-var html$1 = "\n<style>\ndt-header {\n  display: block;\n  position: relative;\n  height: 60px;\n  background-color: none;\n  width: 100%;\n  box-sizing: border-box;\n  z-index: 2;\n  color: rgba(0, 0, 0, 0.8);\n}\ndt-header .content {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.3);\n  height: 60px;\n}\ndt-header a {\n  font-size: 16px;\n  height: 60px;\n  line-height: 60px;\n  text-decoration: none;\n  color: rgba(0, 0, 0, 0.8);\n}\ndt-header svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: -2px;\n}\ndt-header svg path {\n  fill: none;\n  stroke: black;\n  stroke-width: 1;\n  stroke-linejoin: round;\n}\ndt-header .logo {\n  font-size: 16px;\n  font-weight: 300;\n}\ndt-header .nav {\n  float: right;\n}\ndt-header .nav a {\n  font-size: 14px;\n}\n</style>\n\n<div class=\"content l-page\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a>\n  <div class=\"nav\">\n  </div>\n</div>\n";
+var html$1 = "\n<style>\ndt-header {\n  display: block;\n  position: relative;\n  height: 60px;\n  background: none;\n  width: 100%;\n  box-sizing: border-box;\n  z-index: 2;\n  color: rgba(0, 0, 0, 0.8);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n}\ndt-header .content {\n  height: 60px;\n}\ndt-header a {\n  font-size: 16px;\n  height: 60px;\n  line-height: 60px;\n  text-decoration: none;\n  color: rgba(0, 0, 0, 0.8);\n}\ndt-header svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: -2px;\n}\ndt-header svg path {\n  fill: none;\n  stroke: black;\n  stroke-width: 1;\n  stroke-linejoin: round;\n}\ndt-header .logo {\n  font-size: 16px;\n  font-weight: 300;\n}\ndt-header .nav {\n  float: right;\n}\ndt-header .nav a {\n  font-size: 14px;\n}\n</style>\n\n<div class=\"content l-page\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a>\n  <div class=\"nav\">\n  </div>\n</div>\n";
 
 var header = function(dom, data) {
   var el = dom.querySelector("dt-header");
@@ -5858,33 +5876,31 @@ var template = "\n<div class=\"byline\">\n  <div class=\"authors\">\n  {{#author
 
 var byline = function(dom, data) {
   var el = dom.querySelector('dt-byline');
-  console.log(data);
   if (el) {
     el.innerHTML = html$2 + mustache.render(template, data);
   }
 };
 
-var html$3 = "\n<style>\n  dt-appendix {\n    display: block;\n    font-family: \"Open Sans\";\n    font-size: 14px;\n    line-height: 24px;\n    margin-bottom: 0;\n    border-top: 1px solid rgba(0,0,0,0.1);\n    color: rgba(0,0,0,0.5);\n    background: rgba(0,0,0,0.025);\n    padding-top: 36px;\n    padding-right: 24px;\n    padding-bottom: 60px;\n    padding-left: 24px;\n  }\n  dt-appendix h3 {\n    font-size: 16px;\n    font-weight: 500;\n    margin-top: 18px;\n    margin-bottom: 18px;\n    color: rgba(0,0,0,0.65);\n  }\n  dt-appendix .citation {\n    font-size: 11px;\n    line-height: 15px;\n    border-left: 1px solid rgba(0, 0, 0, 0.1);\n    padding-left: 18px;\n    border: 1px solid rgba(0,0,0,0.1);\n    background: rgba(0, 0, 0, 0.02);\n    padding: 10px 18px;\n    border-radius: 3px;\n    color: rgba(150, 150, 150, 1);\n    overflow: hidden;\n    margin-top: -12px;\n  }\n  dt-appendix .references {\n    font-size: 12px;\n    line-height: 20px;\n  }\n  dt-appendix a {\n    color: rgba(0, 0, 0, 0.6);\n  }\n</style>\n\n<div class=\"l-body\">\n  <h3>References</h3>\n  <dt-bibliography></dt-bibliography>\n  <h3 id=\"citation\">Errors, Reuse, and Citation</h3>\n  <p>If you see mistakes or want to suggest changes, please submit a pull request on <a class=\"github\">github</a>.</p>\n  <p>Diagrams and text are licensed under Creative Commons Attribution <a href=\"https://creativecommons.org/licenses/by/2.0/\">CC-BY 2.0</a>, unless noted otherwise, with the source available on available on <a class=\"github\">github</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>\n  <p>For attribution in academic contexts, please cite this work as</p>\n  <pre class=\"citation short\"></pre>\n  <p>BibTeX citation</p>\n  <pre class=\"citation long\"></pre>\n</div>\n";
-
-//   distill.data().then(function(data) {
-//     var as = el.querySelectorAll("a.github");
-//     [].forEach.call(as, function(a) {
-//       a.setAttribute("href", data.github);
-//     });
-//     el.querySelector(".citation.short").textContent = data.concatenatedAuthors + ", " + '"' + data.title + '", Distill, ' + data.firstPublishedYear + ".";
-//     var bibtex  = "@article{" + data.slug + ",\n";
-//         bibtex += "  author = {" + data.bibtexAuthors + "},\n";
-//         bibtex += "  title = {" + data.title + "},\n";
-//         bibtex += "  journal = {Distill},\n";
-//         bibtex += "  year = {" + data.firstPublishedYear + "},\n";
-//         bibtex += "  note = {" + data.url + "}\n";
-//         bibtex += "}";
-//     el.querySelector(".citation.long").textContent = bibtex;
-//   })
+var html$3 = "\n<style>\n  dt-appendix {\n    display: block;\n    font-family: \"Open Sans\";\n    font-size: 14px;\n    line-height: 24px;\n    margin-bottom: 0;\n    border-top: 1px solid rgba(0,0,0,0.1);\n    color: rgba(0,0,0,0.5);\n    background: rgba(0,0,0,0.025);\n    padding-top: 36px;\n    padding-right: 24px;\n    padding-bottom: 60px;\n    padding-left: 24px;\n  }\n  dt-appendix h3 {\n    font-size: 16px;\n    font-weight: 500;\n    margin-top: 18px;\n    margin-bottom: 18px;\n    color: rgba(0,0,0,0.65);\n  }\n  dt-appendix .citation {\n    font-size: 11px;\n    line-height: 15px;\n    border-left: 1px solid rgba(0, 0, 0, 0.1);\n    padding-left: 18px;\n    border: 1px solid rgba(0,0,0,0.1);\n    background: rgba(0, 0, 0, 0.02);\n    padding: 10px 18px;\n    border-radius: 3px;\n    color: rgba(150, 150, 150, 1);\n    overflow: hidden;\n    margin-top: -12px;\n  }\n  dt-appendix .references {\n    font-size: 12px;\n    line-height: 20px;\n  }\n  dt-appendix a {\n    color: rgba(0, 0, 0, 0.6);\n  }\n</style>\n\n<div class=\"l-body\">\n  <h3>References</h3>\n  <dt-bibliography></dt-bibliography>\n  <h3 id=\"citation\">Errors, Reuse, and Citation</h3>\n  <p>If you see mistakes or want to suggest changes, please <a class=\"github-issue\">create an issue on GitHub</a>.</p>\n  <p>Diagrams and text are licensed under Creative Commons Attribution <a href=\"https://creativecommons.org/licenses/by/2.0/\">CC-BY 2.0</a>, unless noted otherwise, with the <a class=\"github\">source available on GitHub</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>\n  <p>For attribution in academic contexts, please cite this work as</p>\n  <pre class=\"citation short\"></pre>\n  <p>BibTeX citation</p>\n  <pre class=\"citation long\"></pre>\n</div>\n";
 
 var appendix = function(dom, data) {
   var el = dom.querySelector('dt-appendix');
-  if (el) { el.innerHTML = html$3; }
+  if (el) {
+    el.innerHTML = html$3;
+
+    el.querySelector("a.github").setAttribute("href", data.githubUrl);
+    el.querySelector("a.github-issue").setAttribute("href", data.githubUrl + "/issues/new");
+    el.querySelector(".citation.short").textContent = data.concatenatedAuthors + ", " + '"' + data.title + '", Distill, ' + data.publishedYear + ".";
+    var bibtex  = "@article{" + data.slug + ",\n";
+        bibtex += "  author = {" + data.bibtexAuthors + "},\n";
+        bibtex += "  title = {" + data.title + "},\n";
+        bibtex += "  journal = {Distill},\n";
+        bibtex += "  year = {" + data.publishedYear + "},\n";
+        bibtex += "  note = {" + data.url + "}\n";
+        bibtex += "}";
+    el.querySelector(".citation.long").textContent = bibtex;
+  }
+
 };
 
 var html$4 = "\n<style>\ndt-footer {\n  display: block;\n  color: rgba(255, 255, 255, 0.4);\n  font-weight: 300;\n  padding: 40px 0;\n  border-top: 1px solid rgba(0, 0, 0, 0.1);\n  background-color: rgba(0, 0, 0, 0.6);\n}\ndt-footer .logo svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: -2px;\n}\ndt-footer .logo svg path {\n  stroke: rgba(255, 255, 255, 0.8)!important;\n  stroke-width: 3px!important;\n}\ndt-footer .logo {\n  font-size: 16px;\n  font-weight: 300;\n  color: rgba(255, 255, 255, 0.8);\n  text-decoration: none;\n  margin-right: 6px;\n}\n</style>\n\n<div class=\"l-body\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a> is dedicated to clear explanations of machine learning\n</div>\n";
@@ -5931,7 +5947,7 @@ var citation = function(dom, data) {
     var ol = dom.createElement("ol");
     citations.forEach(function (key) {
       var el = dom.createElement("li");
-      el.textContent = bibliography_cite(data.bibliography[key]);
+      el.innerHTML = bibliography_cite(data.bibliography[key]);
       ol.appendChild(el);
     });
     bibEl.appendChild(ol);
@@ -6006,15 +6022,36 @@ var citation = function(dom, data) {
     return cite;
   }
 
+  function link_string(ent){
+    if ("url" in ent){
+      if (ent.url.slice(-4) == ".pdf"){
+        var label = "PDF";
+      } else if (ent.url.slice(-5) == ".html") {
+        var label = "HTML";
+      }
+      return (" &ensp;<a href=\"" + (ent.url) + "\">[" + (label||"link") + "]</a>");
+    }/* else if ("doi" in ent){
+      return ` &ensp;<a href="https://doi.org/${ent.doi}" >[DOI]</a>`;
+    }*/ else {
+      return "";
+    }
+  }
+  function doi_string(ent, new_line){
+    if ("doi" in ent) {
+      return ((new_line?"<br>":"") + " <a href=\"https://doi.org/" + (ent.doi) + "\" style=\"text-decoration:inherit;\">DOI: " + (ent.doi) + "</a>");
+    } else {
+      return "";
+    }
+  }
+
   function bibliography_cite(ent, fancy){
     if (ent){
       var cite =  author_string(ent, "L, I", ", ", " and ");
       cite += ", " + ent.year + ". ";
-      cite += ent.title + ". ";
+      cite += "<b>" + ent.title + "</b>. ";
       cite += venue_string(ent);
-      if (fancy && ent.url && ent.url.slice(-4) == ".pdf") {
-        cite = cite + " <a href=\"" + (ent.url) + "\">[pdf]</a>";
-      }
+      cite += doi_string(ent);
+      cite += link_string(ent);
       return cite
     } else {
       return "?";
@@ -6025,18 +6062,11 @@ var citation = function(dom, data) {
     if (ent){
       var cite = "";
       cite += "<b>" + ent.title + "</b>";
-      if (ent.url && ent.url.slice(-4) == ".pdf") {
-        cite = cite + " &ensp;<a href=\"" + (ent.url) + "\" style=\"text-decoration:inherit\"><b>[PDF]</b></a>";
-      }
-      if (ent.url && ent.url.slice(-5) == ".html") {
-        cite = cite + " &ensp;<a href=\"" + (ent.url) + "\" style=\"text-decoration:inherit\"><b>[HTML]</b></a>";
-      }
+      cite += link_string(ent);
       cite += "<br>";
       cite += author_string(ent, "I L", ", ") + ".<br>";
       cite += venue_string(ent).trim() + " " + ent.year + ". ";
-      if ("doi" in ent) {
-        cite += "<br> <a href=\"https://doi.org/" + (ent.doi) + "\" style=\"text-decoration:inherit; font-size: 80%;\">DOI: " + (ent.doi) + "</a>";
-      }
+      cite += doi_string(ent, true);
       return cite
     } else {
       return "?";
@@ -6045,7 +6075,7 @@ var citation = function(dom, data) {
 
 
   //https://scholar.google.com/scholar?q=allintitle%3ADocument+author%3Aolah
-  function get_URL(ent){
+  function get_GS_URL(ent){
     if (ent){
       var names = ent.author.split(" and ");
       names = names.map(function (name) { return name.split(",")[0].trim(); });
