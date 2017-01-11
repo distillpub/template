@@ -11,9 +11,8 @@ body {
   margin: 0;
 }
 
-dt-article .citation {
-  color: #668;
-  cursor: pointer;
+a {
+  color: #004276;
 }
 
 /*

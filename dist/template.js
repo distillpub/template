@@ -24,11 +24,11 @@ var html = function(dom) {
   }
 };
 
-var base = "html {\n  font: 400 15px/1.55em -apple-system, BlinkMacSystemFont, \"Roboto\", sans-serif;\n}\n\nhtml {\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n}\n\ndt-article .citation {\n  color: #668;\n  cursor: pointer;\n}\n\n/*\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}*/\n";
+var base = "html {\n  font: 400 15px/1.55em -apple-system, BlinkMacSystemFont, \"Roboto\", sans-serif;\n}\n\nhtml {\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n}\n\na {\n  color: #004276;\n}\n\n/*\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}*/\n";
 
 var layout = ".l-body,\n.l-page,\ndt-article > * {\n  margin-left: 24px;\n  margin-right: 24px;\n  box-sizing: border-box;\n}\n\n@media(min-width: 768px) {\n  .l-body,\n  .l-page,\n  dt-article > * {\n    margin-left: 72px;\n    margin-right: 72px;\n  }\n}\n\n@media(min-width: 1080px) {\n  .l-body,\n  dt-article > * {\n    margin-left: calc(50% - 984px / 2);\n    width: 648px;\n  }\n  .l-body-outset,\n  dt-article .l-body-outset {\n    margin-left: calc(50% - 984px / 2 - 24px);\n    width: calc(648px + 48px);\n  }\n  .l-middle,\n  dt-article .l-middle {\n    width: 816px;\n    margin-left: calc(50% - 984px / 2);\n  }\n  .l-page,\n  dt-article .l-page {\n    width: 984px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-page-outset,\n  dt-article .l-page-outset {\n    width: 1080px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-screen,\n  dt-article .l-screen {\n    margin-left: auto;\n    margin-right: auto;\n    width: auto;\n  }\n  .l-screen-inset,\n  dt-article .l-screen-inset {\n    margin-left: 24px;\n    margin-right: 24px;\n    width: auto;\n  }\n  .l-gutter,\n  dt-article .l-gutter {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 24px;\n    margin-right: calc((100vw - 960px) / 2);\n    width: calc((984px - 648px) / 2 - 24px);\n  }\n  /* Side */\n  .side.l-body,\n  dt-article .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px) / 2);\n    width: calc(648px / 2 - 24px);\n  }\n  .side.l-body-outset,\n  dt-article .side.l-body-outset {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px - 48px) / 2);\n    width: calc(648px / 2 - 48px + 24px);\n  }\n  .side.l-page,\n  dt-article .side.l-page {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2);\n    width: calc(960px / 2 - 48px);\n  }\n}\n";
 
-var article = "dt-article {\n  color: rgba(0, 0, 0, 0.8);\n  font: 15px/1.55em -apple-system, BlinkMacSystemFont, \"Roboto\", sans-serif;\n}\n\n@media(min-width: 1024px) {\n  dt-article {\n    font-size: 20px;\n  }\n}\n\ndt-article h1 {\n  font-weight: 700;\n  font-size: 32px;\n  line-height: 1.1em;\n  /*-webkit-font-smoothing: antialiased;*/\n}\n\n@media(min-width: 1024px) {\n  dt-article h1 {\n    font-size: 50px;\n    margin-bottom: 12px;\n    letter-spacing: -0.025em;\n  }\n}\n\n@media(min-width: 1024px) {\n  dt-article > h1:first-of-type {\n    margin-top: 100px;\n  }\n}\n\ndt-article h2 {\n  font-weight: 400;\n  font-size: 28px;\n  line-height: 1.25em;\n  margin-top: 12px;\n  margin-bottom: 24px;\n}\n\ndt-article h1 + h2 {\n}\n\ndt-article h3 {\n  font-weight: 700;\n  font-size: 20px;\n  line-height: 1.4em;\n  margin-top: 24px;\n  margin-bottom: 24px;\n}\n\ndt-article h4 {\n  font-weight: 600;\n  text-transform: uppercase;\n  font-size: 14px;\n  line-height: 1.4em;\n}\n\ndt-article a {\n  color: inherit;\n}\n\ndt-article p {\n  margin-bottom: 24px;\n  -webkit-font-smoothing: antialiased;\n  /*font-family: Georgia, serif;*/\n}\n\ndt-article p a {\n  /*text-decoration: none;*/\n  /*background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0) 50%);*/\n  /*background-repeat: repeat-x;*/\n  /*background-size: 2px 1em;*/\n  /*background-position: 0 1.25em;*/\n}\n\ndt-article p .link {\n  text-decoration: underline;\n  cursor: pointer;\n}\n\n\n\ndt-article ul {\n  padding-left: 20px;\n}\n\ndt-article li {\n  /*margin-bottom: 24px;*/\n}\n\ndt-article pre {\n  font-size: 14px;\n  margin-bottom: 20px;\n}\n\n\ndt-article hr {\n  border: none;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n  margin-top: 60px;\n  margin-bottom: 60px;\n}\n\ndt-article section {\n  margin-top: 60px;\n  margin-bottom: 60px;\n}\n\n\n/* Figure */\n\ndt-article figure {\n  position: relative;\n  margin-top: 30px;\n  margin-bottom: 30px;\n}\n\n@media(min-width: 1024px) {\n  dt-article figure {\n    margin-top: 48px;\n    margin-bottom: 48px;\n  }\n}\n\ndt-article figure img {\n  width: 100%;\n}\n\ndt-article figure svg text,\ndt-article figure svg tspan {\n}\n\ndt-article figure figcaption {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 12px;\n  line-height: 1.5em;\n}\n@media(min-width: 1024px) {\n  dt-article figure figcaption {\n    font-size: 13px;\n  }\n}\n\ndt-article figure.external img {\n  background: white;\n  border: 1px solid rgba(0, 0, 0, 0.1);\n  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);\n  padding: 18px;\n  box-sizing: border-box;\n}\n\ndt-article figure figcaption a {\n  color: rgba(0, 0, 0, 0.6);\n}\n\n/*dt-article figure figcaption::before {\n  position: relative;\n  display: block;\n  top: -20px;\n  content: \"\";\n  width: 25px;\n  border-top: 1px solid rgba(0, 0, 0, 0.3);\n}*/\n\ndt-article span.equation-mimic {\n  font-family: georgia;\n  font-size: 115%;\n  font-style: italic;\n}\n\ndt-article figure figcaption b {\n  font-weight: 600;\n  color: rgba(0, 0, 0, 1.0);\n}\n\ndt-article > dt-code {\n  display: block;\n}\n";
+var article = "dt-article {\n  display: block;\n  color: rgba(0, 0, 0, 0.8);\n  font: 15px/1.55em -apple-system, BlinkMacSystemFont, \"Roboto\", sans-serif;\n  margin-bottom: 72px;\n}\n\n@media(min-width: 1024px) {\n  dt-article {\n    font-size: 20px;\n  }\n}\n\ndt-article h1 {\n  font-weight: 700;\n  font-size: 32px;\n  line-height: 1.1em;\n  /*-webkit-font-smoothing: antialiased;*/\n}\n\n@media(min-width: 1024px) {\n  dt-article h1 {\n    font-size: 50px;\n    margin-bottom: 12px;\n    letter-spacing: -0.025em;\n  }\n}\n\n@media(min-width: 1024px) {\n  dt-article > h1:first-of-type {\n    margin-top: 100px;\n  }\n}\n\ndt-article h2 {\n  font-weight: 400;\n  font-size: 28px;\n  line-height: 1.25em;\n  margin-top: 12px;\n  margin-bottom: 24px;\n}\n\ndt-article h1 + h2 {\n}\n\ndt-article h3 {\n  font-weight: 700;\n  font-size: 20px;\n  line-height: 1.4em;\n  margin-top: 24px;\n  margin-bottom: 24px;\n}\n\ndt-article h4 {\n  font-weight: 600;\n  text-transform: uppercase;\n  font-size: 14px;\n  line-height: 1.4em;\n}\n\ndt-article a {\n  color: inherit;\n}\n\ndt-article p {\n  margin-bottom: 24px;\n  -webkit-font-smoothing: antialiased;\n  /*font-family: Georgia, serif;*/\n}\n\ndt-article p a {\n  /*text-decoration: none;*/\n  /*background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0) 50%);*/\n  /*background-repeat: repeat-x;*/\n  /*background-size: 2px 1em;*/\n  /*background-position: 0 1.25em;*/\n}\n\ndt-article p .link {\n  text-decoration: underline;\n  cursor: pointer;\n}\n\n\n\ndt-article ul {\n  padding-left: 20px;\n}\n\ndt-article li {\n  /*margin-bottom: 24px;*/\n}\n\ndt-article pre {\n  font-size: 14px;\n  margin-bottom: 20px;\n}\n\n\ndt-article hr {\n  border: none;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n  margin-top: 60px;\n  margin-bottom: 60px;\n}\n\ndt-article section {\n  margin-top: 60px;\n  margin-bottom: 60px;\n}\n\n\n/* Figure */\n\ndt-article figure {\n  position: relative;\n  margin-top: 30px;\n  margin-bottom: 30px;\n}\n\n@media(min-width: 1024px) {\n  dt-article figure {\n    margin-top: 48px;\n    margin-bottom: 48px;\n  }\n}\n\ndt-article figure img {\n  width: 100%;\n}\n\ndt-article figure svg text,\ndt-article figure svg tspan {\n}\n\ndt-article figure figcaption {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 12px;\n  line-height: 1.5em;\n}\n@media(min-width: 1024px) {\n  dt-article figure figcaption {\n    font-size: 13px;\n  }\n}\n\ndt-article figure.external img {\n  background: white;\n  border: 1px solid rgba(0, 0, 0, 0.1);\n  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);\n  padding: 18px;\n  box-sizing: border-box;\n}\n\ndt-article figure figcaption a {\n  color: rgba(0, 0, 0, 0.6);\n}\n\n/*dt-article figure figcaption::before {\n  position: relative;\n  display: block;\n  top: -20px;\n  content: \"\";\n  width: 25px;\n  border-top: 1px solid rgba(0, 0, 0, 0.3);\n}*/\n\ndt-article span.equation-mimic {\n  font-family: georgia;\n  font-size: 115%;\n  font-style: italic;\n}\n\ndt-article figure figcaption b {\n  font-weight: 600;\n  color: rgba(0, 0, 0, 1.0);\n}\n\ndt-article > dt-code {\n  display: block;\n}\n\ndt-article .citation {\n  color: #668;\n  cursor: pointer;\n}\n";
 
 var code = "/**\n * prism.js default theme for JavaScript, CSS and HTML\n * Based on dabblet (http://dabblet.com)\n * @author Lea Verou\n */\n\n code {\n   white-space:pre-wrap;\n   background: rgba(0, 0, 0, 0.04);\n   border-radius: 2px;\n   padding: 4px 7px;\n   font-size: 15px;\n   color: rgba(0, 0, 0, 0.6);\n }\n\n pre code {\n   display: block;\n   background: white;\n   border: 1px solid rgba(0, 0, 0, 0.08);\n   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);\n }\n\n\ncode[class*=\"language-\"],\npre[class*=\"language-\"] {\n\tcolor: black;\n\ttext-shadow: 0 1px white;\n\tfont-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;\n\ttext-align: left;\n\twhite-space: pre;\n\tword-spacing: normal;\n\tword-break: normal;\n\tword-wrap: normal;\n\tline-height: 1.5;\n\n\t-moz-tab-size: 4;\n\t-o-tab-size: 4;\n\ttab-size: 4;\n\n\t-webkit-hyphens: none;\n\t-moz-hyphens: none;\n\t-ms-hyphens: none;\n\thyphens: none;\n}\n\npre[class*=\"language-\"]::-moz-selection, pre[class*=\"language-\"] ::-moz-selection,\ncode[class*=\"language-\"]::-moz-selection, code[class*=\"language-\"] ::-moz-selection {\n\ttext-shadow: none;\n\tbackground: #b3d4fc;\n}\n\npre[class*=\"language-\"]::selection, pre[class*=\"language-\"] ::selection,\ncode[class*=\"language-\"]::selection, code[class*=\"language-\"] ::selection {\n\ttext-shadow: none;\n\tbackground: #b3d4fc;\n}\n\n@media print {\n\tcode[class*=\"language-\"],\n\tpre[class*=\"language-\"] {\n\t\ttext-shadow: none;\n\t}\n}\n\n/* Code blocks */\npre[class*=\"language-\"] {\n\toverflow: auto;\n}\n\n:not(pre) > code[class*=\"language-\"],\npre[class*=\"language-\"] {\n}\n\n/* Inline code */\n:not(pre) > code[class*=\"language-\"] {\n\twhite-space: normal;\n}\n\n.token.comment,\n.token.prolog,\n.token.doctype,\n.token.cdata {\n\tcolor: slategray;\n}\n\n.token.punctuation {\n\tcolor: #999;\n}\n\n.namespace {\n\topacity: .7;\n}\n\n.token.property,\n.token.tag,\n.token.boolean,\n.token.number,\n.token.constant,\n.token.symbol,\n.token.deleted {\n\tcolor: #905;\n}\n\n.token.selector,\n.token.attr-name,\n.token.string,\n.token.char,\n.token.builtin,\n.token.inserted {\n\tcolor: #690;\n}\n\n.token.operator,\n.token.entity,\n.token.url,\n.language-css .token.string,\n.style .token.string {\n\tcolor: #a67f59;\n\tbackground: hsla(0, 0%, 100%, .5);\n}\n\n.token.atrule,\n.token.attr-value,\n.token.keyword {\n\tcolor: #07a;\n}\n\n.token.function {\n\tcolor: #DD4A68;\n}\n\n.token.regex,\n.token.important,\n.token.variable {\n\tcolor: #e90;\n}\n\n.token.important,\n.token.bold {\n\tfont-weight: bold;\n}\n.token.italic {\n\tfont-style: italic;\n}\n\n.token.entity {\n\tcursor: help;\n}\n";
 
@@ -281,8 +281,6 @@ function Type$2(tag, options) {
 }
 
 var type = Type$2;
-
-/*eslint-disable max-len*/
 
 var common$4        = common$1;
 var YAMLException$3 = exception;
@@ -895,8 +893,6 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-/*eslint-disable no-bitwise*/
-
 var NodeBuffer;
 
 try {
@@ -1353,8 +1349,6 @@ var default_full = Schema$6.DEFAULT = new Schema$6({
     _function
   ]
 });
-
-/*eslint-disable max-len,no-use-before-define*/
 
 var common              = common$1;
 var YAMLException$1       = exception;
@@ -2946,8 +2940,6 @@ var loader$1 = {
 	safeLoadAll: safeLoadAll_1,
 	safeLoad: safeLoad_1
 };
-
-/*eslint-disable no-use-before-define*/
 
 var common$7              = common$1;
 var YAMLException$5       = exception;
@@ -5219,7 +5211,7 @@ function citation_meta_content(ref){
 
 var logo = "<svg viewBox=\"-607 419 64 64\">\n  <path style=\"fill: none; stroke: black;stroke-width: 2px;\" d=\"M-573.4,478.9c-8,0-14.6-6.4-14.6-14.5s14.6-25.9,14.6-40.8c0,14.9,14.6,32.8,14.6,40.8S-565.4,478.9-573.4,478.9z\"/>\n</svg>\n";
 
-var html$1 = "\n<style>\ndt-header {\n  display: block;\n  position: relative;\n  height: 60px;\n  background: none;\n  width: 100%;\n  box-sizing: border-box;\n  z-index: 2;\n  color: rgba(0, 0, 0, 0.8);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n}\ndt-header .content {\n  height: 60px;\n}\ndt-header a {\n  font-size: 16px;\n  height: 60px;\n  line-height: 60px;\n  text-decoration: none;\n  color: rgba(0, 0, 0, 0.8);\n}\ndt-header svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: -2px;\n}\ndt-header svg path {\n  fill: none;\n  stroke: black;\n  stroke-width: 1;\n  stroke-linejoin: round;\n}\ndt-header .logo {\n  font-size: 16px;\n  font-weight: 300;\n}\ndt-header .nav {\n  float: right;\n}\ndt-header .nav a {\n  font-size: 14px;\n}\n</style>\n\n<div class=\"content l-page\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a>\n  <div class=\"nav\">\n  </div>\n</div>\n";
+var html$1 = "\n<style>\ndt-header {\n  display: block;\n  position: relative;\n  height: 60px;\n  background: white;\n  width: 100%;\n  box-sizing: border-box;\n  z-index: 2;\n  color: rgba(0, 0, 0, 0.8);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.08);\n  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);\n}\ndt-header .content {\n  height: 60px;\n}\ndt-header a {\n  font-size: 16px;\n  height: 60px;\n  line-height: 60px;\n  text-decoration: none;\n  color: rgba(0, 0, 0, 0.8);\n}\ndt-header svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: -2px;\n}\ndt-header svg path {\n  fill: none;\n  stroke: black;\n  stroke-width: 1;\n  stroke-linejoin: round;\n}\ndt-header .logo {\n  font-size: 16px;\n  font-weight: 300;\n}\ndt-header .nav {\n  float: right;\n}\ndt-header .nav a {\n  font-size: 14px;\n}\n</style>\n\n<div class=\"content l-page\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a>\n  <div class=\"nav\">\n  </div>\n</div>\n";
 
 var header = function(dom, data) {
   var el = dom.querySelector("dt-header");
@@ -6085,6 +6077,32 @@ var citation = function(dom, data) {
     }
 
   }
+};
+
+var footnote = function(dom, data) {
+
+  var fnTags = [].slice.apply(dom.querySelectorAll("dt-fn"));
+  var fnContent = [];
+  fnTags.forEach(function (el,n) {
+    var content = el.innerHTML;
+    fnContent.push(content);
+    n = (n+1)+"";
+    var key = "fn-"+n;
+    var escaped_content = content.replace(/"/g, "&#39;");
+    el.innerHTML = "<sup><span id=\"" + key + "\" data-hover=\"" + escaped_content + "\" style=\"cursor:pointer\">" + n + "</span></sup>";
+  });
+
+  var fnList = dom.querySelector("dt-fn-list");
+  if (fnList) {
+    var ol = dom.createElement("ol");
+    fnContent.forEach(function (content) {
+      var el = dom.createElement("li");
+      el.innerHTML = content;
+      ol.appendChild(el);
+    });
+    fnList.appendChild(ol);
+  }
+
 };
 
 var marked = createCommonjsModule(function (module, exports) {
@@ -8414,8 +8432,8 @@ function renderOnLoad(dom, data) {
   markdown(dom, data);
   code$1(dom, data);
   citation(dom, data);
+  footnote(dom, data);
   hoverBox(dom, data);
-  // TODO remove script tag
 }
 
 // If we are in a browser, render automatically.
@@ -8432,6 +8450,9 @@ if(window && window.document) {
 function render$1(dom, data) {
   renderImmediately(dom);
   renderOnLoad(dom, data);
+  // Remove script tag so it doesn't run again
+  var s = dom.querySelector('script[src="http://distill.pub/template.js"]');
+  if (s) { s.parentElement.removeChild(s); }
 }
 
 exports.render = render$1;

@@ -1,6 +1,8 @@
 dt-article {
+  display: block;
   color: rgba(0, 0, 0, 0.8);
   font: 15px/1.55em -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  margin-bottom: 72px;
 }
 
 @media(min-width: 1024px) {
@@ -176,4 +178,9 @@ dt-article figure figcaption b {
 
 dt-article > dt-code {
   display: block;
+}
+
+dt-article .citation {
+  color: #668;
+  cursor: pointer;
 }
