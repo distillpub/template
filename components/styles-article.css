@@ -3,6 +3,7 @@ dt-article {
   color: rgba(0, 0, 0, 0.8);
   font: 15px/1.55em -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
   margin-bottom: 72px;
+  overflow: hidden;
 }
 
 @media(min-width: 1024px) {
@@ -32,12 +33,16 @@ dt-article h1 {
   }
 }
 
+
 dt-article h2 {
   font-weight: 400;
-  font-size: 28px;
+  font-size: 22px;
   line-height: 1.25em;
   margin-top: 12px;
   margin-bottom: 24px;
+}
+@media(min-width: 1024px) {
+  font-size: 28px;
 }
 
 dt-article h1 + h2 {

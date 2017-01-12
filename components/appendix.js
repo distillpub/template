@@ -59,7 +59,10 @@ const html = `
 export default function(dom, data) {
   let el = dom.querySelector('dt-appendix')
   if (el) {
+    let oldHtml = el.innerHTML;
     el.innerHTML = html;
+    let div = el.querySelector("div.l-body")
+    div.innerHTML = oldHtml + div.innerHTML;
 
     el.querySelector("a.github").setAttribute("href", data.githubUrl);
     el.querySelector("a.github-issue").setAttribute("href", data.githubUrl + "/issues/new");

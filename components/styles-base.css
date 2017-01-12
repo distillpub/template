@@ -1,5 +1,6 @@
 html {
   font: 400 15px/1.55em -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  background: #666;
 }
 
 html {
@@ -9,6 +10,7 @@ html {
 }
 body {
   margin: 0;
+  background: white;
 }
 
 a {
