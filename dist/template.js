@@ -282,6 +282,8 @@ function Type$2(tag, options) {
 
 var type = Type$2;
 
+/*eslint-disable max-len*/
+
 var common$4        = common$1;
 var YAMLException$3 = exception;
 var Type$1          = type;
@@ -893,6 +895,8 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
+/*eslint-disable no-bitwise*/
+
 var NodeBuffer;
 
 try {
@@ -1349,6 +1353,8 @@ var default_full = Schema$6.DEFAULT = new Schema$6({
     _function
   ]
 });
+
+/*eslint-disable max-len,no-use-before-define*/
 
 var common              = common$1;
 var YAMLException$1       = exception;
@@ -2940,6 +2946,8 @@ var loader$1 = {
 	safeLoadAll: safeLoadAll_1,
 	safeLoad: safeLoad_1
 };
+
+/*eslint-disable no-use-before-define*/
 
 var common$7              = common$1;
 var YAMLException$5       = exception;
@@ -5933,7 +5941,9 @@ var citation = function(dom, data) {
         cite_hover_str += hover_cite(data.bibliography[key]);
       });
       cite_hover_str = cite_hover_str.replace(/"/g, "&#39;");
-      el.innerHTML = "<span id=\"citation-" + n + "\" class=\"citation\" data-hover=\"" + cite_hover_str + "\">" + cite_string + "</span>";
+      var orig_string = el.innerHTML;
+      if (orig_string != "") { orig_string += " "; }
+      el.innerHTML = "<span id=\"citation-" + n + "\" class=\"citation\" data-hover=\"" + cite_hover_str + "\">" + orig_string + cite_string + "</span>";
     }
   });
 
