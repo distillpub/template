@@ -21,10 +21,13 @@ dt-article > * {
     margin-left: calc(50% - 984px / 2);
     width: 648px;
   }
+  /*w-body-plus is deprecated*/
   .l-body-outset,
-  dt-article .l-body-outset {
-    margin-left: calc(50% - 984px / 2 - 24px);
-    width: calc(648px + 48px);
+  dt-article .l-body-outset,
+  .w-body-plus,
+  dt-article .w-body-plus {
+    margin-left: calc(50% - 984px / 2 - 96px/2);
+    width: calc(648px + 96px);
   }
   .l-middle,
   dt-article .l-middle {

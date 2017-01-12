@@ -41,8 +41,11 @@ dt-article h2 {
   margin-top: 12px;
   margin-bottom: 24px;
 }
+
 @media(min-width: 1024px) {
-  font-size: 28px;
+  dt-article h2 {
+    font-size: 28px;
+  }
 }
 
 dt-article h1 + h2 {
@@ -188,4 +191,11 @@ dt-article > dt-code {
 dt-article .citation {
   color: #668;
   cursor: pointer;
+}
+
+dt-include {
+  width: 100%;
+  display: block;
+  margin: 0;
+  padding: 0;
 }

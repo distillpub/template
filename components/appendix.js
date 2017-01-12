@@ -62,7 +62,13 @@ export default function(dom, data) {
     let oldHtml = el.innerHTML;
     el.innerHTML = html;
     let div = el.querySelector("div.l-body")
+    
+    if (dom.querySelector("dt-fn")) {
+      div.innerHTML = `<h3>Footnotes</h3><dt-fn-list></dt-fn-list>` + div.innerHTML;
+    }
+
     div.innerHTML = oldHtml + div.innerHTML;
+
 
     el.querySelector("a.github").setAttribute("href", data.githubUrl);
     el.querySelector("a.github-issue").setAttribute("href", data.githubUrl + "/issues/new");

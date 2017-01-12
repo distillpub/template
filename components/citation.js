@@ -21,7 +21,7 @@ export default function(dom, data) {
       cite_hover_str = cite_hover_str.replace(/"/g, "&#39;")
       var orig_string = el.innerHTML;
       if (orig_string != "") orig_string += " ";
-      el.innerHTML = `<span id="citation-${n}" class="citation" data-hover="${cite_hover_str}">${orig_string}${cite_string}</span>`;
+      el.innerHTML = `<span id="citation-${n}" data-hover="${cite_hover_str}">${orig_string}${cite_string}</span>`;
     }
   });
 
