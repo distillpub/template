@@ -15,6 +15,8 @@ export default function(dom, data) {
           val = val.replace(/[\t\n ]+/g, " ");
           val = val.replace(/{\\["^`\.'acu~Hvs]( )?([a-zA-Z])}/g,
                             (full, x, char) => char);
+          val = val.replace(/{\\([a-zA-Z])}/g,
+                            (full, char) => char);
           e.entryTags[k] = val;
         }
         bibliography[e.citationKey] = e.entryTags;
