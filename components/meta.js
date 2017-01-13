@@ -33,7 +33,7 @@ export default function(dom, data) {
     <meta property="og:title" content="${data.title}"/>
     <meta property="og:description" content="${data.description}">
     <meta property="og:url" content="${data.url}"/>
-    <meta property="og:image" content="${data.url}/thumbnail.png"/>
+    <meta property="og:image" content="${data.url}/thumbnail.jpg"/>
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Distill" />
   `);
@@ -44,7 +44,7 @@ export default function(dom, data) {
     <meta name="twitter:title" content="${data.title}">
     <meta name="twitter:description" content="${data.description}">
     <meta name="twitter:url" content="${data.url}">
-    <meta name="twitter:image" content="${data.url}/thumbnail.png">
+    <meta name="twitter:image" content="${data.url}/thumbnail.jpg">
     <meta name="twitter:image:width" content="560">
     <meta name="twitter:image:height" content="295">
   `);

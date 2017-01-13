@@ -12,20 +12,29 @@ const html = `
     padding-top: 12px;
     padding-bottom: 12px;
   }
+  dt-article.centered dt-byline {
+    text-align: center;
+
+  }
   dt-byline a {
     text-decoration: none;
+  }
+  dt-byline .authors {
+    text-align: left;
   }
   dt-byline .name {
     text-transform: uppercase;
   }
   dt-byline .date {
     display: block;
+    text-align: left;
   }
   dt-byline .year, dt-byline .month {
     display: inline;
   }
   dt-byline .citation {
     display: block;
+    text-align: left;
   }
   dt-byline .citation div {
     display: inline;
@@ -39,7 +48,7 @@ const html = `
   @media(min-width: 1024px) {
     dt-byline {
       border-bottom: none;
-      margin-bottom: 48px;
+      margin-bottom: 70px;
     }
 
     dt-byline a:hover {

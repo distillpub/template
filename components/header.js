@@ -6,7 +6,7 @@ dt-header {
   display: block;
   position: relative;
   height: 60px;
-  background: white;
+  background-color: hsl(223, 9%, 25%);
   width: 100%;
   box-sizing: border-box;
   z-index: 2;
@@ -15,30 +15,41 @@ dt-header {
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
 }
 dt-header .content {
-  height: 60px;
+  height: 70px;
 }
 dt-header a {
   font-size: 16px;
   height: 60px;
   line-height: 60px;
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.8);
+  color: rgba(255, 255, 255, 0.8);
 }
 dt-header svg {
   width: 24px;
   position: relative;
   top: 4px;
-  margin-right: -2px;
+  margin-right: 2px;
 }
+
+@media(min-width: 1080px) {
+  dt-header {
+    height: 70px;
+  }
+  dt-header a {
+    height: 70px;
+    line-height: 70px;
+  }
+}
+
 dt-header svg path {
   fill: none;
-  stroke: black;
-  stroke-width: 1;
-  stroke-linejoin: round;
+  stroke: rgba(255, 255, 255, 0.8);
+  stroke-width: 3px;
 }
 dt-header .logo {
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 300;
+  text-transform: uppercase;
 }
 dt-header .nav {
   float: right;

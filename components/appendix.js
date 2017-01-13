@@ -2,7 +2,6 @@ const html = `
 <style>
   dt-appendix {
     display: block;
-    font-family: "Open Sans";
     font-size: 14px;
     line-height: 24px;
     margin-bottom: 0;
@@ -62,7 +61,7 @@ export default function(dom, data) {
     let oldHtml = el.innerHTML;
     el.innerHTML = html;
     let div = el.querySelector("div.l-body")
-    
+
     if (dom.querySelector("dt-fn")) {
       div.innerHTML = `<h3>Footnotes</h3><dt-fn-list></dt-fn-list>` + div.innerHTML;
     }
