@@ -6044,12 +6044,20 @@ var citation = function(dom, data) {
 
   function link_string(ent){
     if ("url" in ent){
-      if (ent.url.slice(-4) == ".pdf"){
+      var url = ent.url;
+      var arxiv_match = (/arxiv\.org\/abs\/([0-9\.]*)/).exec(url);
+      if (arxiv_match != null){
+        console.log(url);
+        url = "http://arxiv.org/pdf/" + (arxiv_match[1]) + ".pdf";
+          console.log(url);
+      }
+
+      if (url.slice(-4) == ".pdf"){
         var label = "PDF";
-      } else if (ent.url.slice(-5) == ".html") {
+      } else if (url.slice(-5) == ".html") {
         var label = "HTML";
       }
-      return (" &ensp;<a href=\"" + (ent.url) + "\">[" + (label||"link") + "]</a>");
+      return (" &ensp;<a href=\"" + url + "\">[" + (label||"link") + "]</a>");
     }/* else if ("doi" in ent){
       return ` &ensp;<a href="https://doi.org/${ent.doi}" >[DOI]</a>`;
     }*/ else {
