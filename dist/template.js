@@ -5142,12 +5142,12 @@ var meta = function(dom, data) {
 
   function meta(name, content) {
     if (content)
-      { appendHead(("<meta name=\"" + name + "\" content=\"" + content + "\" >")); }
+      { appendHead(("    <meta name=\"" + name + "\" content=\"" + content + "\" >\n")); }
   }
 
   appendHead(("\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge,chrome=1\">\n    <link rel=\"icon\" type=\"image/png\" href=\"data:image/png;base64," + favicon + "\">\n    <link href=\"/rss.xml\" rel=\"alternate\" type=\"application/rss+xml\" title=\"Articles from Distill\">\n    <link rel=\"canonical\" href=\"" + (data.url) + "\">\n    <title>" + (data.title) + "</title>\n  "));
 
-  appendHead(("\n    <!--  https://schema.org/Article -->\n    <meta property=\"article:published\" itemprop=\"datePublished\" content=\"" + (data.published) + "\" />\n    <meta property=\"article:modified\" itemprop=\"dateModified\" content=\"" + (data.updated) + "\" />\n  "));
+  appendHead(("\n    <!--  https://schema.org/Article -->\n    <meta property=\"article:published\" itemprop=\"datePublished\" content=\"" + (data.publishedYear) + "-" + (data.publishedMonthPadded) + "-" + (data.publishedDayPadded) + "\" />\n  ")); // <meta property="article:modified" itemprop="dateModified" content="${data.updated}" />
   data.authors.forEach(function (a) {
     appendHtml(head, ("\n      <meta property=\"article:author\" content=\"" + (a.firstName) + " " + (a.lastName) + "\" />"));
   });
@@ -5156,7 +5156,7 @@ var meta = function(dom, data) {
 
   appendHead(("\n    <!--  https://dev.twitter.com/cards/types/summary -->\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n    <meta name=\"twitter:title\" content=\"" + (data.title) + "\">\n    <meta name=\"twitter:description\" content=\"" + (data.description) + "\">\n    <meta name=\"twitter:url\" content=\"" + (data.url) + "\">\n    <meta name=\"twitter:image\" content=\"" + (data.url) + "/thumbnail.jpg\">\n    <meta name=\"twitter:image:width\" content=\"560\">\n    <meta name=\"twitter:image:height\" content=\"295\">\n  "));
 
-  appendHead("\n    <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->\n  ");
+  appendHead("\n    <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->");
 
   meta("citation_title", data.title);
   meta("citation_fulltext_html_url", data.url);
@@ -5171,12 +5171,9 @@ var meta = function(dom, data) {
   meta("citation_issn", journal.issn);
   meta("citation_publisher", journal.publisher);
 
-  if (data.published){
+  if (data.publishedDate){
     var zeroPad = function (n) { return n < 10 ? "0" + n : n; };
-    var publishedYear = data.published.getFullYear();
-    var publishedMonthPadded = zeroPad(data.published.getMonth() + 1);
-    var publishedDayPadded = zeroPad(data.published.getDate());
-    meta("citation_publication_date", (publishedYear + "/" + publishedMonthPadded + "/" + publishedDayPadded));
+    meta("citation_publication_date", ((data.publishedYear) + "/" + (data.publishedMonthPadded) + "/" + (data.publishedDayPadded)));
   }
 
   (data.authors || []).forEach(function (a) {
