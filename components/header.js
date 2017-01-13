@@ -53,6 +53,7 @@ dt-header .logo {
 }
 dt-header .nav {
   float: right;
+  font-weight: 300;
 }
 dt-header .nav a {
   font-size: 14px;
@@ -65,6 +66,7 @@ dt-header .nav a {
     Distill
   </a>
   <div class="nav">
+    <a href="/faq">About</a>
   </div>
 </div>
 `
