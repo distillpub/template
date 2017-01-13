@@ -117,9 +117,7 @@ export default function(dom, data) {
       var url = ent.url;
       var arxiv_match = (/arxiv\.org\/abs\/([0-9\.]*)/).exec(url);
       if (arxiv_match != null){
-        console.log(url);
         url = `http://arxiv.org/pdf/${arxiv_match[1]}.pdf`;
-          console.log(url);
       }
 
       if (url.slice(-4) == ".pdf"){
