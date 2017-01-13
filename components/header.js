@@ -67,6 +67,7 @@ dt-header .nav a {
   </a>
   <div class="nav">
     <a href="/faq">About</a>
+    <!-- https://twitter.com/distillpub -->
   </div>
 </div>
 `

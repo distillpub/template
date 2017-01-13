@@ -97,6 +97,10 @@ dt-article h3 {
   letter-spacing: -0.03em;
 }
 
+dt-article h1 + h3 {
+  margin-top: 48px;
+}
+
 @media(min-width: 1024px) {
   dt-article h3 {
     font-size: 16px;
