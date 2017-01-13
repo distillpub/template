@@ -48,41 +48,44 @@ export default function(dom, data) {
     <meta name="twitter:image:height" content="295">
   `);
 
-  appendHead(`
-    <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->`);
+  // if this is a proprer article, generate Google Scholar meta data
+  if (data.doiSuffix){
+    appendHead(`
+      <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->\n`);
 
-  meta("citation_title", data.title);
-  meta("citation_fulltext_html_url", data.url);
-  meta("citation_volume", data.volume);
-  meta("citation_issue", data.issue);
-  meta("citation_firstpage", data.doiSuffix? `e${data.doiSuffix}` : undefined);
-  meta("citation_doi", data.doi);
+    meta("citation_title", data.title);
+    meta("citation_fulltext_html_url", data.url);
+    meta("citation_volume", data.volume);
+    meta("citation_issue", data.issue);
+    meta("citation_firstpage", data.doiSuffix? `e${data.doiSuffix}` : undefined);
+    meta("citation_doi", data.doi);
 
-  let journal = data.journal || {};
-  meta("citation_journal_title", journal.name);
-  meta("citation_journal_abbrev", journal.nameAbbrev);
-  meta("citation_issn", journal.issn);
-  meta("citation_publisher", journal.publisher);
+    let journal = data.journal || {};
+    meta("citation_journal_title", journal.name);
+    meta("citation_journal_abbrev", journal.nameAbbrev);
+    meta("citation_issn", journal.issn);
+    meta("citation_publisher", journal.publisher);
 
-  if (data.publishedDate){
-    let zeroPad = (n) => { return n < 10 ? "0" + n : n; };
-    meta("citation_publication_date", `${data.publishedYear}/${data.publishedMonthPadded}/${data.publishedDayPadded}`);
-  }
+    if (data.publishedDate){
+      let zeroPad = (n) => { return n < 10 ? "0" + n : n; };
+      meta("citation_publication_date", `${data.publishedYear}/${data.publishedMonthPadded}/${data.publishedDayPadded}`);
+    }
 
-  (data.authors || []).forEach((a) => {
-      meta("citation_author", `${a.lastName}, ${a.firstName}`);
-      meta("citation_author_institution", a.affiliation);
-  });
-
-  if (data.citations) {
-    data.citations.forEach(key => {
-      let d = data.bibliography[key];
-      if(!d) {
-        console.warn("No bibliography data fround for " + key)
-      } else {
-        meta("citation_reference", citation_meta_content(data.bibliography[key]) )
-      };
+    (data.authors || []).forEach((a) => {
+        meta("citation_author", `${a.lastName}, ${a.firstName}`);
+        meta("citation_author_institution", a.affiliation);
     });
+
+    if (data.citations) {
+      data.citations.forEach(key => {
+        let d = data.bibliography[key];
+        if(!d) {
+          console.warn("No bibliography data fround for " + key)
+        } else {
+          meta("citation_reference", citation_meta_content(data.bibliography[key]) )
+        };
+      });
+    }
   }
 }
 
