@@ -6,7 +6,7 @@ export default function(dom, data) {
 
   function meta(name, content) {
     if (content)
-      appendHead(`<meta name="${name}" content="${content}" >`);
+      appendHead(`    <meta name="${name}" content="${content}" >\n`);
   }
 
   appendHead(`
@@ -19,9 +19,8 @@ export default function(dom, data) {
 
   appendHead(`
     <!--  https://schema.org/Article -->
-    <meta property="article:published" itemprop="datePublished" content="${data.published}" />
-    <meta property="article:modified" itemprop="dateModified" content="${data.updated}" />
-  `);
+    <meta property="article:published" itemprop="datePublished" content="${data.publishedYear}-${data.publishedMonthPadded}-${data.publishedDayPadded}" />
+  `); // <meta property="article:modified" itemprop="dateModified" content="${data.updated}" />
   data.authors.forEach((a) => {
     appendHtml(head, `
       <meta property="article:author" content="${a.firstName} ${a.lastName}" />`)
@@ -50,8 +49,7 @@ export default function(dom, data) {
   `);
 
   appendHead(`
-    <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
-  `);
+    <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->`);
 
   meta("citation_title", data.title);
   meta("citation_fulltext_html_url", data.url);
@@ -66,12 +64,9 @@ export default function(dom, data) {
   meta("citation_issn", journal.issn);
   meta("citation_publisher", journal.publisher);
 
-  if (data.published){
+  if (data.publishedDate){
     let zeroPad = (n) => { return n < 10 ? "0" + n : n; };
-    let publishedYear = data.published.getFullYear();
-    let publishedMonthPadded = zeroPad(data.published.getMonth() + 1);
-    let publishedDayPadded = zeroPad(data.published.getDate());
-    meta("citation_publication_date", `${publishedYear}/${publishedMonthPadded}/${publishedDayPadded}`);
+    meta("citation_publication_date", `${data.publishedYear}/${data.publishedMonthPadded}/${data.publishedDayPadded}`);
   }
 
   (data.authors || []).forEach((a) => {
