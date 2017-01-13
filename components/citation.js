@@ -68,16 +68,22 @@ export default function(dom, data) {
   function author_string(ent, template, sep, finalSep){
     var names = ent.author.split(" and ");
     let name_strings = names.map(name => {
-      var last = name.split(",")[0].trim();
-      var firsts = name.split(",")[1];
+      name = name.trim();
+      if (name.indexOf(",") != -1){
+        var last = name.split(",")[0].trim();
+        var firsts = name.split(",")[1];
+      } else {
+        var last = name.split(" ").slice(-1)[0].trim();
+        var firsts = name.split(" ").slice(0,-1).join(" ");
+      }
       var initials = "";
       if (firsts != undefined) {
         initials = firsts.trim().split(" ").map(s => s.trim()[0]);
         initials = initials.join(".")+".";
       }
-      return template.replace("F", firsts)
-                     .replace("L", last)
-                     .replace("I", initials);
+      return template.replace("${F}", firsts)
+                     .replace("${L}", last)
+                     .replace("${I}", initials);
     });
     if (names.length > 1) {
       var str = name_strings.slice(0, names.length-1).join(sep);
@@ -98,21 +104,28 @@ export default function(dom, data) {
     if ("pages" in ent){
       cite += ", pp. " + ent.pages
     }
-    cite += ". "
+    if (cite != "") cite += ". "
     if ("publisher" in ent){
-      cite += ent.publisher + ".";
+      cite += ent.publisher;
+      if (cite[cite.length-1] != ".") cite += ".";
     }
     return cite;
   }
 
   function link_string(ent){
     if ("url" in ent){
-      if (ent.url.slice(-4) == ".pdf"){
+      var url = ent.url;
+      var arxiv_match = (/arxiv\.org\/abs\/([0-9\.]*)/).exec(url);
+      if (arxiv_match != null){
+        url = `http://arxiv.org/pdf/${arxiv_match[1]}.pdf`;
+      }
+
+      if (url.slice(-4) == ".pdf"){
         var label = "PDF";
-      } else if (ent.url.slice(-5) == ".html") {
+      } else if (url.slice(-5) == ".html") {
         var label = "HTML";
       }
-      return ` &ensp;<a href="${ent.url}">[${label||"link"}]</a>`;
+      return ` &ensp;<a href="${url}">[${label||"link"}]</a>`;
     }/* else if ("doi" in ent){
       return ` &ensp;<a href="https://doi.org/${ent.doi}" >[DOI]</a>`;
     }*/ else {
@@ -129,8 +142,12 @@ export default function(dom, data) {
 
   function bibliography_cite(ent, fancy){
     if (ent){
-      var cite =  author_string(ent, "L, I", ", ", " and ");
-      cite += ", " + ent.year + ". "
+      var cite =  author_string(ent, "${L}, ${I}", ", ", " and ");
+      if (ent.year || ent.date){
+        cite += ", " + (ent.year || ent.date) + ". "
+      } else {
+        cite += ". "
+      }
       cite += "<b>" + ent.title + "</b>. ";
       cite += venue_string(ent);
       cite += doi_string(ent);
@@ -147,7 +164,7 @@ export default function(dom, data) {
       cite += "<b>" + ent.title + "</b>";
       cite += link_string(ent);
       cite += "<br>"
-      cite += author_string(ent, "I L", ", ") + ".<br>";
+      cite += author_string(ent, "${I} ${L}", ", ") + ".<br>";
       cite += venue_string(ent).trim() + " " + ent.year + ". "
       cite += doi_string(ent, true);
       return cite
