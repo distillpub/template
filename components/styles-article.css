@@ -17,10 +17,9 @@ dt-article {
 dt-article h1 {
   margin-top: 48px;
   font-weight: 400;
-  font-size: 32px;
+  font-size: 36px;
   line-height: 1.1em;
-  -webkit-font-smoothing: antialiased;
-  font-family: Georgia, serif;
+  font-family: Cochin, Georgia, serif;
 }
 
 
@@ -30,7 +29,7 @@ dt-article h1 {
   }
 
   dt-article h1 {
-    font-size: 48px;
+    font-size: 50px;
     margin-bottom: 12px;
     letter-spacing: -0.02em;
   }
@@ -43,7 +42,7 @@ dt-article h1 {
 
 @media(min-width: 1200px) {
   dt-article h1 {
-    font-size: 52px;
+    font-size: 54px;
   }
 
   dt-article > h1:first-of-type {
@@ -68,9 +67,8 @@ dt-article h2 {
 }
 
 dt-article h1 + h2 {
-  font-family: Georgia, serif;
-  font-weight: normal;
-  font-size: 18px;
+  font-weight: 300;
+  font-size: 20px;
   line-height: 1.5em;
   margin-top: 8px;
 }
@@ -82,7 +80,8 @@ dt-article h1 + h2 {
   }
   dt-article h1 + h2 {
     margin-top: 12px;
-    font-size: 22px;
+    font-size: 24px;
+    letter-spacing: 0.015em;
   }
 }
 

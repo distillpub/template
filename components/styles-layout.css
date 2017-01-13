@@ -1,3 +1,16 @@
+/*
+  Column: 60px
+  Gutter: 24px
+
+  Body: 648px
+    - 8 columns
+    - 7 gutters
+  Middle: 816px
+  Page: 984px
+    - 12 columns
+    - 11 gutters
+*/
+
 .l-body,
 .l-body-outset,
 .l-page,
@@ -175,6 +188,6 @@ dt-article > dt-byline {
     margin-top: 0;
     margin-left: 48px;
     margin-right: calc((100vw - 984px) / 2);
-    width: calc(648px / 2 - 24px);
+    width: 396px;
   }
 }

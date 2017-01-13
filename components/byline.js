@@ -23,7 +23,11 @@ const html = `
     text-align: left;
   }
   dt-byline .name {
+    display: inline;
     text-transform: uppercase;
+  }
+  dt-byline .affiliation {
+    display: inline;
   }
   dt-byline .date {
     display: block;
