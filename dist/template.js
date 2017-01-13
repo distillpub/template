@@ -5156,40 +5156,43 @@ var meta = function(dom, data) {
 
   appendHead(("\n    <!--  https://dev.twitter.com/cards/types/summary -->\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n    <meta name=\"twitter:title\" content=\"" + (data.title) + "\">\n    <meta name=\"twitter:description\" content=\"" + (data.description) + "\">\n    <meta name=\"twitter:url\" content=\"" + (data.url) + "\">\n    <meta name=\"twitter:image\" content=\"" + (data.url) + "/thumbnail.jpg\">\n    <meta name=\"twitter:image:width\" content=\"560\">\n    <meta name=\"twitter:image:height\" content=\"295\">\n  "));
 
-  appendHead("\n    <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->");
+  // if this is a proprer article, generate Google Scholar meta data
+  if (data.doiSuffix){
+    appendHead("\n      <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->\n");
 
-  meta("citation_title", data.title);
-  meta("citation_fulltext_html_url", data.url);
-  meta("citation_volume", data.volume);
-  meta("citation_issue", data.issue);
-  meta("citation_firstpage", data.doiSuffix? ("e" + (data.doiSuffix)) : undefined);
-  meta("citation_doi", data.doi);
+    meta("citation_title", data.title);
+    meta("citation_fulltext_html_url", data.url);
+    meta("citation_volume", data.volume);
+    meta("citation_issue", data.issue);
+    meta("citation_firstpage", data.doiSuffix? ("e" + (data.doiSuffix)) : undefined);
+    meta("citation_doi", data.doi);
 
-  var journal = data.journal || {};
-  meta("citation_journal_title", journal.name);
-  meta("citation_journal_abbrev", journal.nameAbbrev);
-  meta("citation_issn", journal.issn);
-  meta("citation_publisher", journal.publisher);
+    var journal = data.journal || {};
+    meta("citation_journal_title", journal.name);
+    meta("citation_journal_abbrev", journal.nameAbbrev);
+    meta("citation_issn", journal.issn);
+    meta("citation_publisher", journal.publisher);
 
-  if (data.publishedDate){
-    var zeroPad = function (n) { return n < 10 ? "0" + n : n; };
-    meta("citation_publication_date", ((data.publishedYear) + "/" + (data.publishedMonthPadded) + "/" + (data.publishedDayPadded)));
-  }
+    if (data.publishedDate){
+      var zeroPad = function (n) { return n < 10 ? "0" + n : n; };
+      meta("citation_publication_date", ((data.publishedYear) + "/" + (data.publishedMonthPadded) + "/" + (data.publishedDayPadded)));
+    }
 
-  (data.authors || []).forEach(function (a) {
-      meta("citation_author", ((a.lastName) + ", " + (a.firstName)));
-      meta("citation_author_institution", a.affiliation);
-  });
-
-  if (data.citations) {
-    data.citations.forEach(function (key) {
-      var d = data.bibliography[key];
-      if(!d) {
-        console.warn("No bibliography data fround for " + key);
-      } else {
-        meta("citation_reference", citation_meta_content(data.bibliography[key]) );
-      }
+    (data.authors || []).forEach(function (a) {
+        meta("citation_author", ((a.lastName) + ", " + (a.firstName)));
+        meta("citation_author_institution", a.affiliation);
     });
+
+    if (data.citations) {
+      data.citations.forEach(function (key) {
+        var d = data.bibliography[key];
+        if(!d) {
+          console.warn("No bibliography data fround for " + key);
+        } else {
+          meta("citation_reference", citation_meta_content(data.bibliography[key]) );
+        }
+      });
+    }
   }
 };
 
