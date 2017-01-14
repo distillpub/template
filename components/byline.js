@@ -49,7 +49,7 @@ const html = `
     }
   }
 
-  @media(min-width: 1024px) {
+  @media(min-width: 1080px) {
     dt-byline {
       border-bottom: none;
       margin-bottom: 70px;

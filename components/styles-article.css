@@ -16,15 +16,17 @@ dt-article {
 /* H1 */
 
 dt-article h1 {
-  margin-top: 24px;
+  margin-top: 18px;
   font-weight: 400;
-  font-size: 36px;
-  line-height: 1.1em;
+  font-size: 40px;
+  line-height: 1em;
   font-family: Cochin, Georgia, serif;
 }
 @media(min-width: 768px) {
   dt-article h1 {
+    font-size: 46px;
     margin-top: 48px;
+    margin-bottom: 12px;
   }
 }
 
@@ -35,7 +37,6 @@ dt-article h1 {
 
   dt-article h1 {
     font-size: 50px;
-    margin-bottom: 12px;
     letter-spacing: -0.02em;
   }
 

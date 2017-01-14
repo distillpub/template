@@ -39,6 +39,9 @@ dt-header svg {
     height: 70px;
     line-height: 70px;
   }
+  dt-header .logo {
+    padding: 28px 0;
+  }
 }
 
 dt-header svg path {
@@ -50,7 +53,7 @@ dt-header .logo {
   font-size: 13px;
   font-weight: 300;
   text-transform: uppercase;
-  padding: 28px 0;
+  padding: 22px 0;
 }
 dt-header .nav {
   float: right;
