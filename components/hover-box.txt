@@ -27,8 +27,9 @@ function DistillHoverBox(key, pos){
 
   var str = `<div style="position: absolute;
                           background-color: #FFF;
+                          white-s
                           opacity: 0.95;
-                          width: ${width}px;
+                          max-width: ${width}px;
                           top: ${top}px;
                           left: ${left}px;
                           padding: ${padding}px;

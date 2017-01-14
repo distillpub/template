@@ -50,6 +50,7 @@ dt-header .logo {
   font-size: 13px;
   font-weight: 300;
   text-transform: uppercase;
+  padding: 28px 0;
 }
 dt-header .nav {
   float: right;

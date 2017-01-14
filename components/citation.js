@@ -1,4 +1,33 @@
 export default function(dom, data) {
+  let css = `
+    dt-cite {
+      color: hsla(206, 90%, 20%, 0.7);
+    }
+    dt-cite .citation-number {
+      cursor: default;
+      white-space: nowrap;
+      font-family: -apple-system, BlinkMacSystemFont, "Roboto", Helvetica, sans-serif;
+      font-size: 75%;
+      color: hsla(206, 90%, 20%, 0.7);
+      display: inline-block;
+      line-height: 1.1em;
+      text-align: center;
+      position: relative;
+      top: -2px;
+      margin: 0 2px;
+    }
+    figcaption dt-cite .citation-number {
+      font-size: 11px;
+      font-weight: normal;
+      top: -2px;
+      line-height: 1em;
+    }
+  `;
+
+  let style = dom.createElement("style");
+  style.textContent = css;
+  dom.querySelector("body").appendChild(style);
+
   let citations = data.citations;
   /*if (data.citations) {
     citations = Object.keys(data.citations).map(c => data.citations[c]);
@@ -21,7 +50,7 @@ export default function(dom, data) {
       cite_hover_str = cite_hover_str.replace(/"/g, "&#39;")
       var orig_string = el.innerHTML;
       if (orig_string != "") orig_string += " ";
-      el.innerHTML = `<span id="citation-${n}" data-hover="${cite_hover_str}">${orig_string}${cite_string}</span>`;
+      el.innerHTML = `<span id="citation-${n}" data-hover="${cite_hover_str}">${orig_string}<span class="citation-number">${cite_string}</span></span>`;
     }
   });
 
