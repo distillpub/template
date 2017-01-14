@@ -23,6 +23,10 @@ dt-header a {
   line-height: 60px;
   text-decoration: none;
   color: rgba(255, 255, 255, 0.8);
+  padding: 22px 0;
+}
+dt-header a:hover {
+  color: rgba(255, 255, 255, 1);
 }
 dt-header svg {
   width: 24px;
@@ -38,9 +42,9 @@ dt-header svg {
   dt-header a {
     height: 70px;
     line-height: 70px;
+    padding: 28px 0;
   }
   dt-header .logo {
-    padding: 28px 0;
   }
 }
 
@@ -53,7 +57,6 @@ dt-header .logo {
   font-size: 13px;
   font-weight: 300;
   text-transform: uppercase;
-  padding: 22px 0;
 }
 dt-header .nav {
   float: right;
