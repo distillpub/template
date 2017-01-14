@@ -7,7 +7,7 @@ const html = `
     margin-bottom: 0;
     border-top: 1px solid rgba(0,0,0,0.1);
     color: rgba(0,0,0,0.5);
-    background: rgba(0,0,0,0.025);
+    background: rgb(250, 250, 250);
     padding-top: 36px;
     padding-right: 24px;
     padding-bottom: 60px;
