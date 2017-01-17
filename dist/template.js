@@ -8306,13 +8306,9 @@ var hoverBox = function(dom) {
 
 var generateCrossref = function(data) {
 
-  if (data.published == undefined) {
-    //console.warn("Can't generate XML for post ", data.title, "with data", data);
-    //return "";
-    data.published = new Date("invalid");
-  }
 
-  var date = data.published;
+  var date = data.publishedDate;
+
   var batch_timestamp = Math.floor(Date.now() / 1000);
   var batch_id = data.authors.length ? data.authors[0].lastName.toLowerCase().slice(0,20) : "Anonymous";
       batch_id += "_" + date.getFullYear();
@@ -8332,9 +8328,9 @@ var generateCrossref = function(data) {
         {doi_batch_id: batch_id},
         {timestamp: batch_timestamp},
         {depositor: [
-          {depositor_name: data.journal.depositorName},
-          {email_address: data.journal.email} ]},
-        {registrant: "Distill"} ]},
+          {depositor_name: data.journal.publisherName},
+          {email_address: data.journal.publisherEmail} ]},
+        {registrant: data.journal.publisherName} ]},
 
       {body: [
         {journal: [
