@@ -1,0 +1,108 @@
+// DistillHoverBox
+//=====================================
+
+function DistillHoverBox(key, pos){
+
+  if (!(key in DistillHoverBox.contentMap)){
+    console.error("No DistillHoverBox content registered for key", key);
+  }
+  if (key in DistillHoverBox.liveBoxes) {
+    console.error("There already exists a DistillHoverBox for key", key);
+  } else {
+    for (var k in DistillHoverBox.liveBoxes)
+      DistillHoverBox.liveBoxes[k].remove();
+    DistillHoverBox.liveBoxes[key] = this;
+  }
+  this.key = key;
+
+  var pretty = window.innerWidth > 600;
+
+  var padding = pretty? 18 : 12;
+  var outer_padding = pretty ? 18 : 0;
+  var bbox = document.querySelector("body").getBoundingClientRect();
+  var left = pos[0] - bbox.left, top = pos[1] - bbox.top;
+  var width = Math.min(window.innerWidth-2*outer_padding, 648);
+  left = Math.min(left, window.innerWidth-width-outer_padding);
+  width = width - 2*padding;
+
+  var str = `<div style="position: absolute;
+                          background-color: #FFF;
+                          white-s
+                          opacity: 0.95;
+                          max-width: ${width}px;
+                          top: ${top}px;
+                          left: ${left}px;
+                          border: 1px solid rgba(0, 0, 0, 0.25);
+                          padding: ${padding}px;
+                          border-radius: ${pretty? 3 : 0}px;
+                          box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);
+                          z-index: ${1e6}" >
+              ${DistillHoverBox.contentMap[key]}
+              </div>`;
+
+  this.div = appendBody(str);
+
+  DistillHoverBox.bind (this.div, key);
+}
+
+DistillHoverBox.prototype.remove = function remove(){
+  if (this.div) this.div.remove();
+  if (this.timeout) clearTimeout(this.timeout);
+  delete DistillHoverBox.liveBoxes[this.key];
+}
+
+DistillHoverBox.prototype.stopTimeout = function stopTimeout() {
+  if (this.timeout) clearTimeout(this.timeout);
+}
+
+DistillHoverBox.prototype.extendTimeout = function extendTimeout(T) {
+  //console.log("extend", T)
+  var this_ = this;
+  this.stopTimeout();
+  this.timeout = setTimeout(() => this_.remove(), T);
+}
+
+DistillHoverBox.liveBoxes = {};
+DistillHoverBox.contentMap = {};
+
+DistillHoverBox.bind = function bind(node, key) {
+  if (typeof node == "string"){
+    node = document.querySelector(node);
+  }
+  node.addEventListener("mouseover", () => {
+    var bbox = node.getBoundingClientRect();
+    if (!(key in DistillHoverBox.liveBoxes)){
+      new DistillHoverBox(key, [bbox.right, bbox.bottom]);
+    }
+    DistillHoverBox.liveBoxes[key].stopTimeout();
+  });
+  node.addEventListener("mouseout", () => {
+    if (key in DistillHoverBox.liveBoxes){
+      DistillHoverBox.liveBoxes[key].extendTimeout(250);
+    }
+  });
+
+}
+
+
+function appendBody(str){
+  var node = nodeFromString(str);
+  var body = document.querySelector("body");
+  body.appendChild(node);
+  return node;
+}
+
+function nodeFromString(str) {
+  var div = document.createElement("div");
+  div.innerHTML = str;
+  return div.firstChild;
+}
+
+var hover_es = document.querySelectorAll("span[data-hover]");
+hover_es = [].slice.apply(hover_es);
+hover_es.forEach((e,n) => {
+  var key = "hover-"+n;
+  var content = e.getAttribute("data-hover");
+  DistillHoverBox.contentMap[key] = content;
+  DistillHoverBox.bind(e, key);
+});

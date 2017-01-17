@@ -5,10 +5,10 @@
   title: Article Title
   published: Jan 10, 2017
   authors:
-  - Chris Olah: http://colah.github.io
+  - Chris Olah: 
   - Shan Carter: http://shancarter.com
   affiliations:
-  - Google Brain: http://g.co/brain
+  - Google Brain:
   - Google Brain: http://g.co/brain
 </script>
 
@@ -18,16 +18,136 @@
   <h2>A description of the article</h2>
   <dt-byline></dt-byline>
   <p>This is the first paragraph of the article.</p>
-  <p>We can also cite <dt-cite key="gregor2015draw"></dt-cite> external publications.</p>
+  <p>We can also cite <dt-cite key="gregor2015draw,mercier2011humans"></dt-cite> external publications. <dt-cite key="dong2014image,dumoulin2016guide,mordvintsev2015inceptionism"></dt-cite></p>
 </dt-article>
 
 <script type="text/bibliography">
   @article{gregor2015draw,
     title={DRAW: A recurrent neural network for image generation},
     author={Gregor, Karol and Danihelka, Ivo and Graves, Alex and Rezende, Danilo Jimenez and Wierstra, Daan},
-    journal={arXivreprint arXiv:1502.04623},
-    year={2015}
+    journal={arXiv preprint arXiv:1502.04623},
+    year={2015},
+    url ={https://arxiv.org/pdf/1502.04623.pdf}
   }
+  @article{mercier2011humans,
+    title={Why do humans reason? Arguments for an argumentative theory},
+    author={Mercier, Hugo and Sperber, Dan},
+    journal={Behavioral and brain sciences},
+    volume={34},
+    number={02},
+    pages={57--74},
+    year={2011},
+    publisher={Cambridge Univ Press},
+    doi={10.1017/S0140525X10000968}
+  }
+
+  @article{dong2014image,
+    title={Image super-resolution using deep convolutional networks},
+    author={Dong, Chao and Loy, Chen Change and He, Kaiming and Tang, Xiaoou},
+    journal={arXiv preprint arXiv:1501.00092},
+    year={2014},
+    url={https://arxiv.org/pdf/1501.00092.pdf}
+  }
+
+  @article{dumoulin2016adversarially,
+    title={Adversarially Learned Inference},
+    author={Dumoulin, Vincent and Belghazi, Ishmael and Poole, Ben and Lamb, Alex and Arjovsky, Martin and Mastropietro, Olivier and Courville, Aaron},
+    journal={arXiv preprint arXiv:1606.00704},
+    year={2016},
+    url={https://arxiv.org/pdf/1606.00704.pdf}
+  }
+
+  @article{dumoulin2016guide,
+    title={A guide to convolution arithmetic for deep learning},
+    author={Dumoulin, Vincent and Visin, Francesco},
+    journal={arXiv preprint arXiv:1603.07285},
+    year={2016},
+    url={https://arxiv.org/pdf/1603.07285.pdf}
+  }
+
+  @article{donahue2016adversarial,
+    title={Adversarial Feature Learning},
+    author={Donahue, Jeff and Kr{\"a}henb{\"u}hl, Philipp and Darrell, Trevor},
+    journal={arXiv preprint arXiv:1605.09782},
+    year={2016},
+    url={https://arxiv.org/pdf/1605.09782.pdf}
+  }
+
+  @article{gauthier2014conditional,
+    title={Conditional generative adversarial nets for convolutional face generation},
+    author={Gauthier, Jon},
+    journal={Class Project for Stanford CS231N: Convolutional Neural Networks for Visual Recognition, Winter semester},
+    volume={2014},
+    year={2014},
+    url={http://www.foldl.me/uploads/papers/tr-cgans.pdf}
+  }
+
+  @article{henaff2015geodesics,
+    title={Geodesics of learned representations},
+    author={H{\'e}naff, Olivier J and Simoncelli, Eero P},
+    journal={arXiv preprint arXiv:1511.06394},
+    year={2015},
+    url={https://arxiv.org/pdf/1511.06394.pdf}
+  }
+
+  @article{johnson2016perceptual,
+    title={Perceptual losses for real-time style transfer and super-resolution},
+    author={Johnson, Justin and Alahi, Alexandre and Fei-Fei, Li},
+    journal={arXiv preprint arXiv:1603.08155},
+    year={2016},
+    url={https://arxiv.org/pdf/1603.08155.pdf}
+  }
+
+  @article{mordvintsev2015inceptionism,
+    title={Inceptionism: Going deeper into neural networks},
+    author={Mordvintsev, Alexander and Olah, Christopher and Tyka, Mike},
+    journal={Google Research Blog},
+    year={2015},
+    url={https://research.googleblog.com/2015/06/inceptionism-going-deeper-into-neural.html}
+  }
+
+  @misc{mordvintsev2016deepdreaming,
+    title={DeepDreaming with TensorFlow},
+    author={Mordvintsev, Alexander},
+    year={2016},
+    url={https://github.com/tensorflow/tensorflow/blob/master/tensorflow/examples/tutorials/deepdream/deepdream.ipynb},
+  }
+
+  @article{radford2015unsupervised,
+    title={Unsupervised representation learning with deep convolutional generative adversarial networks},
+    author={Radford, Alec and Metz, Luke and Chintala, Soumith},
+    journal={arXiv preprint arXiv:1511.06434},
+    year={2015},
+    url={https://arxiv.org/pdf/1511.06434.pdf}
+  }
+
+  @inproceedings{salimans2016improved,
+    title={Improved techniques for training gans},
+    author={Salimans, Tim and Goodfellow, Ian and Zaremba, Wojciech and Cheung, Vicki and Radford, Alec and Chen, Xi},
+    booktitle={Advances in Neural Information Processing Systems},
+    pages={2226--2234},
+    year={2016},
+    url={https://arxiv.org/pdf/1606.03498.pdf}
+  }
+
+  @article{shi2016deconvolution,
+    title={Is the deconvolution layer the same as a convolutional layer?},
+    author={Shi, Wenzhe and Caballero, Jose and Theis, Lucas and Huszar, Ferenc and Aitken, Andrew and Ledig, Christian and Wang, Zehan},
+    journal={arXiv preprint arXiv:1609.07009},
+    year={2016},
+    url={https://arxiv.org/pdf/1609.07009.pdf}
+  }
+
+  @inproceedings{shi2016real,
+    title={Real-time single image and video super-resolution using an efficient sub-pixel convolutional neural network},
+    author={Shi, Wenzhe and Caballero, Jose and Husz{\'a}r, Ferenc and Totz, Johannes and Aitken, Andrew P and Bishop, Rob and Rueckert, Daniel and Wang, Zehan},
+    booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
+    pages={1874--1883},
+    year={2016},
+    url={https://arxiv.org/pdf/1609.05158.pdf},
+    doi={10.1109/cvpr.2016.207}
+  }
+
 </script>
 <dt-appendix>
   <h3>Contributions</h3>

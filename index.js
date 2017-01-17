@@ -5,11 +5,14 @@ import bibliography from "./components/bibliography";
 import expandData from "./components/expand-data";
 import meta from "./components/meta";
 import header from "./components/header";
+import byline from "./components/byline";
 import appendix from "./components/appendix";
 import footer from "./components/footer";
 import citation from "./components/citation";
+import footnote from "./components/footnote";
 import markdown from "./components/markdown";
 import code from "./components/code";
+import hoverBox from "./components/hover-box-include";
 import generateCrossref from "./components/generate-crossref";
 
 function renderImmediately(dom) {
@@ -23,12 +26,14 @@ function renderOnLoad(dom, data) {
   expandData(dom, data);
   meta(dom, data);
   header(dom, data);
+  byline(dom, data);
   appendix(dom, data);
   footer(dom, data);
   markdown(dom, data);
   code(dom, data);
   citation(dom, data);
-  // TODO remove script tag
+  footnote(dom, data);
+  hoverBox(dom, data);
 }
 
 // If we are in a browser, render automatically.
@@ -45,6 +50,9 @@ if(window && window.document) {
 function render(dom, data) {
   renderImmediately(dom);
   renderOnLoad(dom, data);
+  // Remove script tag so it doesn't run again
+  let s = dom.querySelector('script[src="http://distill.pub/template.js"]');
+  if (s) { s.parentElement.removeChild(s); }
 }
 
 export {render as render};

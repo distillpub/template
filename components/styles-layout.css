@@ -1,6 +1,32 @@
+/*
+  Column: 60px
+  Gutter: 24px
+
+  Body: 648px
+    - 8 columns
+    - 7 gutters
+  Middle: 816px
+  Page: 984px
+    - 12 columns
+    - 11 gutters
+*/
+
 .l-body,
+.l-body-outset,
 .l-page,
-dt-article > * {
+.l-page-outset,
+.l-middle,
+.l-middle-outset,
+dt-article > div,
+dt-article > p,
+dt-article > h1,
+dt-article > h2,
+dt-article > h3,
+dt-article > h4,
+dt-article > figure,
+dt-article > ul,
+dt-article > dt-byline {
+  width: auto;
   margin-left: 24px;
   margin-right: 24px;
   box-sizing: border-box;
@@ -8,8 +34,20 @@ dt-article > * {
 
 @media(min-width: 768px) {
   .l-body,
+  .l-body-outset,
   .l-page,
-  dt-article > * {
+  .l-page-outset,
+  .l-middle,
+  .l-middle-outset,
+  dt-article > div,
+  dt-article > p,
+  dt-article > h1,
+  dt-article > h2,
+  dt-article > h3,
+  dt-article > h4,
+  dt-article > figure,
+  dt-article > ul,
+  dt-article > dt-byline {
     margin-left: 72px;
     margin-right: 72px;
   }
@@ -17,40 +55,53 @@ dt-article > * {
 
 @media(min-width: 1080px) {
   .l-body,
-  dt-article > * {
+  dt-article > div,
+  dt-article > p,
+  dt-article > h1,
+  dt-article > h2,
+  dt-article > h3,
+  dt-article > h4,
+  dt-article > figure,
+  dt-article > ul,
+  dt-article > dt-byline {
     margin-left: calc(50% - 984px / 2);
     width: 648px;
   }
   .l-body-outset,
   dt-article .l-body-outset {
-    margin-left: calc(50% - 984px / 2 - 24px);
-    width: calc(648px + 48px);
+    margin-left: calc(50% - 984px / 2 - 96px/2);
+    width: calc(648px + 96px);
   }
   .l-middle,
   dt-article .l-middle {
     width: 816px;
     margin-left: calc(50% - 984px / 2);
+    margin-right: auto;
   }
   .l-page,
-  dt-article .l-page {
+  dt-article .l-page,
+  dt-article.centered .l-page {
     width: 984px;
     margin-left: auto;
     margin-right: auto;
   }
   .l-page-outset,
-  dt-article .l-page-outset {
+  dt-article .l-page-outset,
+  dt-article.centered .l-page-outset {
     width: 1080px;
     margin-left: auto;
     margin-right: auto;
   }
   .l-screen,
-  dt-article .l-screen {
+  dt-article .l-screen,
+  dt-article.centered .l-screen {
     margin-left: auto;
     margin-right: auto;
     width: auto;
   }
   .l-screen-inset,
-  dt-article .l-screen-inset {
+  dt-article .l-screen-inset,
+  dt-article.centered .l-screen-inset {
     margin-left: 24px;
     margin-right: 24px;
     width: auto;
@@ -61,8 +112,8 @@ dt-article > * {
     float: right;
     margin-top: 0;
     margin-left: 24px;
-    margin-right: calc((100vw - 960px) / 2);
-    width: calc((984px - 648px) / 2 - 24px);
+    margin-right: calc((100vw - 984px) / 2);
+    width: calc((984px - 648px) - 24px);
   }
   /* Side */
   .side.l-body,
@@ -83,13 +134,60 @@ dt-article > * {
     margin-right: calc((100vw - 984px + 648px - 48px) / 2);
     width: calc(648px / 2 - 48px + 24px);
   }
-  .side.l-page,
-  dt-article .side.l-page {
+
+  /* Centered */
+
+  .centered .l-body,
+  .centered.l-body,
+  dt-article.centered > div,
+  dt-article.centered > p,
+  dt-article.centered > h1,
+  dt-article.centered > h2,
+  dt-article.centered > h3,
+  dt-article.centered > h4,
+  dt-article.centered > figure,
+  dt-article.centered > ul,
+  dt-article.centered > dt-byline {
+    margin-left: auto;
+    margin-right: auto;
+    width: 648px;
+  }
+  .centered .l-body-outset,
+  .centered.l-body-outset,
+  dt-article.centered .l-body-outset {
+    margin-left: auto;
+    margin-right: auto;
+    width: calc(648px + 96px);
+  }
+  .centered .l-middle,
+  .centered.l-middle,
+  dt-article.centered .l-middle {
+    width: 816px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* page and screen are already centered */
+
+  .centered .l-gutter,
+  .centered.l-gutter,
+  dt-article.centered .l-gutter {
+    clear: both;
+    float: right;
+    margin-top: 0;
+    margin-left: 24px;
+    margin-right: calc((100vw - 984px) / 2);
+    width: calc((984px - 648px) / 2 - 24px);
+  }
+  /* Side */
+  .centered .side.l-body,
+  .centered.side.l-body,
+  dt-article.centered .side.l-body {
     clear: both;
     float: right;
     margin-top: 0;
     margin-left: 48px;
     margin-right: calc((100vw - 984px) / 2);
-    width: calc(960px / 2 - 48px);
+    width: 396px;
   }
 }

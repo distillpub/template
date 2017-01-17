@@ -34,5 +34,9 @@
     "rollup-plugin-string": "^2.0.2",
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-watch": "^2.5.0"
+  },
+  "dependencies": {
+    "d3-time-format": "^2.0.3",
+    "mustache": "^2.3.0"
   }
 }

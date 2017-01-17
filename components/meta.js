@@ -6,7 +6,7 @@ export default function(dom, data) {
 
   function meta(name, content) {
     if (content)
-      appendHead(`<meta name="${name}" content="${content}" >`);
+      appendHead(`    <meta name="${name}" content="${content}" >\n`);
   }
 
   appendHead(`
@@ -19,9 +19,8 @@ export default function(dom, data) {
 
   appendHead(`
     <!--  https://schema.org/Article -->
-    <meta property="article:published" itemprop="datePublished" content="${data.published}" />
-    <meta property="article:modified" itemprop="dateModified" content="${data.updated}" />
-  `);
+    <meta property="article:published" itemprop="datePublished" content="${data.publishedYear}-${data.publishedMonthPadded}-${data.publishedDayPadded}" />
+  `); // <meta property="article:modified" itemprop="dateModified" content="${data.updated}" />
   data.authors.forEach((a) => {
     appendHtml(head, `
       <meta property="article:author" content="${a.firstName} ${a.lastName}" />`)
@@ -33,7 +32,7 @@ export default function(dom, data) {
     <meta property="og:title" content="${data.title}"/>
     <meta property="og:description" content="${data.description}">
     <meta property="og:url" content="${data.url}"/>
-    <meta property="og:image" content="${data.url}/thumbnail.png"/>
+    <meta property="og:image" content="${data.url}/thumbnail.jpg"/>
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Distill" />
   `);
@@ -44,50 +43,49 @@ export default function(dom, data) {
     <meta name="twitter:title" content="${data.title}">
     <meta name="twitter:description" content="${data.description}">
     <meta name="twitter:url" content="${data.url}">
-    <meta name="twitter:image" content="${data.url}/thumbnail.png">
+    <meta name="twitter:image" content="${data.url}/thumbnail.jpg">
     <meta name="twitter:image:width" content="560">
     <meta name="twitter:image:height" content="295">
   `);
 
-  appendHead(`
-    <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
-  `);
+  // if this is a proprer article, generate Google Scholar meta data
+  if (data.doiSuffix){
+    appendHead(`
+      <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->\n`);
 
-  meta("citation_title", data.title);
-  meta("citation_fulltext_html_url", data.url);
-  meta("citation_volume", data.volume);
-  meta("citation_issue", data.issue);
-  meta("citation_firstpage", data.doiSuffix? `e${data.doiSuffix}` : undefined);
-  meta("citation_doi", data.doi);
+    meta("citation_title", data.title);
+    meta("citation_fulltext_html_url", data.url);
+    meta("citation_volume", data.volume);
+    meta("citation_issue", data.issue);
+    meta("citation_firstpage", data.doiSuffix? `e${data.doiSuffix}` : undefined);
+    meta("citation_doi", data.doi);
 
-  let journal = data.journal || {};
-  meta("citation_journal_title", journal.name);
-  meta("citation_journal_abbrev", journal.nameAbbrev);
-  meta("citation_issn", journal.issn);
-  meta("citation_publisher", journal.publisher);
+    let journal = data.journal || {};
+    meta("citation_journal_title", journal.name);
+    meta("citation_journal_abbrev", journal.nameAbbrev);
+    meta("citation_issn", journal.issn);
+    meta("citation_publisher", journal.publisher);
 
-  if (data.published){
-    let zeroPad = (n) => { return n < 10 ? "0" + n : n; };
-    let publishedYear = data.published.getFullYear();
-    let publishedMonthPadded = zeroPad(data.published.getMonth() + 1);
-    let publishedDayPadded = zeroPad(data.published.getDate());
-    meta("citation_publication_date", `${publishedYear}/${publishedMonthPadded}/${publishedDayPadded}`);
-  }
+    if (data.publishedDate){
+      let zeroPad = (n) => { return n < 10 ? "0" + n : n; };
+      meta("citation_publication_date", `${data.publishedYear}/${data.publishedMonthPadded}/${data.publishedDayPadded}`);
+    }
 
-  (data.authors || []).forEach((a) => {
-      meta("citation_author", `${a.lastName}, ${a.firstName}`);
-      meta("citation_author_institution", a.affiliation);
-  });
-
-  if (data.citations) {
-    data.citations.forEach(key => {
-      let d = data.bibliography[key];
-      if(!d) {
-        console.warn("No bibliography data fround for " + key)
-      } else {
-        meta("citation_reference", citation_meta_content(data.bibliography[key]) )
-      };
+    (data.authors || []).forEach((a) => {
+        meta("citation_author", `${a.lastName}, ${a.firstName}`);
+        meta("citation_author_institution", a.affiliation);
     });
+
+    if (data.citations) {
+      data.citations.forEach(key => {
+        let d = data.bibliography[key];
+        if(!d) {
+          console.warn("No bibliography data fround for " + key)
+        } else {
+          meta("citation_reference", citation_meta_content(data.bibliography[key]) )
+        };
+      });
+    }
   }
 }
 

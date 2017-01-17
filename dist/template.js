@@ -24,11 +24,11 @@ var html = function(dom) {
   }
 };
 
-var base = "html {\n  font: 400 15px/1.55em -apple-system, BlinkMacSystemFont, \"Roboto\", sans-serif;\n}\n\nhtml {\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n}\n\n/*\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}*/\n";
+var base = "html {\n  font: 400 16px/1.55em -apple-system, BlinkMacSystemFont, \"Roboto\", Helvetica, sans-serif;\n  /*background-color: hsl(223, 9%, 25%);*/\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n  /*background-color: hsl(223, 9%, 25%);*/\n}\n\na {\n  color: #004276;\n}\n\nfigure {\n  margin: 0;\n}\n\nh1 {\n  font-family: Cochin, Georgia, serif;\n}\n\n/*\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}*/\n";
 
-var layout = ".l-body,\n.l-page,\ndt-article > * {\n  margin-left: 24px;\n  margin-right: 24px;\n  box-sizing: border-box;\n}\n\n@media(min-width: 768px) {\n  .l-body,\n  .l-page,\n  dt-article > * {\n    margin-left: 72px;\n    margin-right: 72px;\n  }\n}\n\n@media(min-width: 1080px) {\n  .l-body,\n  dt-article > * {\n    margin-left: calc(50% - 984px / 2);\n    width: 648px;\n  }\n  .l-body-outset,\n  dt-article .l-body-outset {\n    margin-left: calc(50% - 984px / 2 - 24px);\n    width: calc(648px + 48px);\n  }\n  .l-middle,\n  dt-article .l-middle {\n    width: 816px;\n    margin-left: calc(50% - 984px / 2);\n  }\n  .l-page,\n  dt-article .l-page {\n    width: 984px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-page-outset,\n  dt-article .l-page-outset {\n    width: 1080px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-screen,\n  dt-article .l-screen {\n    margin-left: auto;\n    margin-right: auto;\n    width: auto;\n  }\n  .l-screen-inset,\n  dt-article .l-screen-inset {\n    margin-left: 24px;\n    margin-right: 24px;\n    width: auto;\n  }\n  .l-gutter,\n  dt-article .l-gutter {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 24px;\n    margin-right: calc((100vw - 960px) / 2);\n    width: calc((984px - 648px) / 2 - 24px);\n  }\n  /* Side */\n  .side.l-body,\n  dt-article .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px) / 2);\n    width: calc(648px / 2 - 24px);\n  }\n  .side.l-body-outset,\n  dt-article .side.l-body-outset {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px - 48px) / 2);\n    width: calc(648px / 2 - 48px + 24px);\n  }\n  .side.l-page,\n  dt-article .side.l-page {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2);\n    width: calc(960px / 2 - 48px);\n  }\n}\n";
+var layout = "/*\n  Column: 60px\n  Gutter: 24px\n\n  Body: 648px\n    - 8 columns\n    - 7 gutters\n  Middle: 816px\n  Page: 984px\n    - 12 columns\n    - 11 gutters\n*/\n\n.l-body,\n.l-body-outset,\n.l-page,\n.l-page-outset,\n.l-middle,\n.l-middle-outset,\ndt-article > div,\ndt-article > p,\ndt-article > h1,\ndt-article > h2,\ndt-article > h3,\ndt-article > h4,\ndt-article > figure,\ndt-article > ul,\ndt-article > dt-byline {\n  width: auto;\n  margin-left: 24px;\n  margin-right: 24px;\n  box-sizing: border-box;\n}\n\n@media(min-width: 768px) {\n  .l-body,\n  .l-body-outset,\n  .l-page,\n  .l-page-outset,\n  .l-middle,\n  .l-middle-outset,\n  dt-article > div,\n  dt-article > p,\n  dt-article > h1,\n  dt-article > h2,\n  dt-article > h3,\n  dt-article > h4,\n  dt-article > figure,\n  dt-article > ul,\n  dt-article > dt-byline {\n    margin-left: 72px;\n    margin-right: 72px;\n  }\n}\n\n@media(min-width: 1080px) {\n  .l-body,\n  dt-article > div,\n  dt-article > p,\n  dt-article > h1,\n  dt-article > h2,\n  dt-article > h3,\n  dt-article > h4,\n  dt-article > figure,\n  dt-article > ul,\n  dt-article > dt-byline {\n    margin-left: calc(50% - 984px / 2);\n    width: 648px;\n  }\n  .l-body-outset,\n  dt-article .l-body-outset {\n    margin-left: calc(50% - 984px / 2 - 96px/2);\n    width: calc(648px + 96px);\n  }\n  .l-middle,\n  dt-article .l-middle {\n    width: 816px;\n    margin-left: calc(50% - 984px / 2);\n    margin-right: auto;\n  }\n  .l-page,\n  dt-article .l-page,\n  dt-article.centered .l-page {\n    width: 984px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-page-outset,\n  dt-article .l-page-outset,\n  dt-article.centered .l-page-outset {\n    width: 1080px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-screen,\n  dt-article .l-screen,\n  dt-article.centered .l-screen {\n    margin-left: auto;\n    margin-right: auto;\n    width: auto;\n  }\n  .l-screen-inset,\n  dt-article .l-screen-inset,\n  dt-article.centered .l-screen-inset {\n    margin-left: 24px;\n    margin-right: 24px;\n    width: auto;\n  }\n  .l-gutter,\n  dt-article .l-gutter {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 24px;\n    margin-right: calc((100vw - 984px) / 2);\n    width: calc((984px - 648px) - 24px);\n  }\n  /* Side */\n  .side.l-body,\n  dt-article .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px) / 2);\n    width: calc(648px / 2 - 24px);\n  }\n  .side.l-body-outset,\n  dt-article .side.l-body-outset {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px - 48px) / 2);\n    width: calc(648px / 2 - 48px + 24px);\n  }\n\n  /* Centered */\n\n  .centered .l-body,\n  .centered.l-body,\n  dt-article.centered > div,\n  dt-article.centered > p,\n  dt-article.centered > h1,\n  dt-article.centered > h2,\n  dt-article.centered > h3,\n  dt-article.centered > h4,\n  dt-article.centered > figure,\n  dt-article.centered > ul,\n  dt-article.centered > dt-byline {\n    margin-left: auto;\n    margin-right: auto;\n    width: 648px;\n  }\n  .centered .l-body-outset,\n  .centered.l-body-outset,\n  dt-article.centered .l-body-outset {\n    margin-left: auto;\n    margin-right: auto;\n    width: calc(648px + 96px);\n  }\n  .centered .l-middle,\n  .centered.l-middle,\n  dt-article.centered .l-middle {\n    width: 816px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n\n  /* page and screen are already centered */\n\n  .centered .l-gutter,\n  .centered.l-gutter,\n  dt-article.centered .l-gutter {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 24px;\n    margin-right: calc((100vw - 984px) / 2);\n    width: calc((984px - 648px) / 2 - 24px);\n  }\n  /* Side */\n  .centered .side.l-body,\n  .centered.side.l-body,\n  dt-article.centered .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2);\n    width: 396px;\n  }\n}\n";
 
-var article = "dt-article {\n  color: rgba(0, 0, 0, 0.8);\n  font: 15px/1.55em -apple-system, BlinkMacSystemFont, \"Roboto\", sans-serif;\n}\n\n@media(min-width: 1024px) {\n  dt-article {\n    font-size: 20px;\n  }\n}\n\ndt-article h1 {\n  font-weight: 700;\n  font-size: 32px;\n  line-height: 1.1em;\n  /*-webkit-font-smoothing: antialiased;*/\n}\n\n@media(min-width: 1024px) {\n  dt-article h1 {\n    font-size: 50px;\n    margin-bottom: 12px;\n    letter-spacing: -0.025em;\n  }\n}\n\n@media(min-width: 1024px) {\n  dt-article > h1:first-of-type {\n    margin-top: 100px;\n  }\n}\n\ndt-article h2 {\n  font-weight: 400;\n  font-size: 28px;\n  line-height: 1.25em;\n  margin-top: 12px;\n  margin-bottom: 24px;\n}\n\ndt-article h1 + h2 {\n  padding-bottom: 48px;\n  margin-bottom: 48px;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n\ndt-article h3 {\n  font-weight: 700;\n  font-size: 20px;\n  line-height: 1.4em;\n  margin-top: 24px;\n  margin-bottom: 24px;\n}\n\ndt-article h4 {\n  font-weight: 600;\n  text-transform: uppercase;\n  font-size: 14px;\n  line-height: 1.4em;\n}\n\ndt-article a {\n  color: inherit;\n}\n\ndt-article p {\n  margin-bottom: 24px;\n  -webkit-font-smoothing: antialiased;\n  /*font-family: Georgia, serif;*/\n}\n\ndt-article p a {\n  /*text-decoration: none;*/\n  /*background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0) 50%);*/\n  /*background-repeat: repeat-x;*/\n  /*background-size: 2px 1em;*/\n  /*background-position: 0 1.25em;*/\n}\n\ndt-article p .link {\n  text-decoration: underline;\n  cursor: pointer;\n}\n\n\n\ndt-article ul {\n  padding-left: 20px;\n}\n\ndt-article li {\n  /*margin-bottom: 24px;*/\n}\n\ndt-article pre {\n  font-size: 14px;\n  margin-bottom: 20px;\n}\n\n\ndt-article hr {\n  border: none;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n  margin-top: 60px;\n  margin-bottom: 60px;\n}\n\ndt-article section {\n  margin-top: 60px;\n  margin-bottom: 60px;\n}\n\n\n/* Figure */\n\ndt-article figure {\n  position: relative;\n  margin-top: 30px;\n  margin-bottom: 30px;\n}\n\n@media(min-width: 1024px) {\n  dt-article figure {\n    margin-top: 48px;\n    margin-bottom: 48px;\n  }\n}\n\ndt-article figure img {\n  width: 100%;\n}\n\ndt-article figure svg text,\ndt-article figure svg tspan {\n}\n\ndt-article figure figcaption {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 12px;\n  line-height: 1.5em;\n}\n@media(min-width: 1024px) {\n  dt-article figure figcaption {\n    font-size: 13px;\n  }\n}\n\ndt-article figure.external img {\n  background: white;\n  border: 1px solid rgba(0, 0, 0, 0.1);\n  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);\n  padding: 18px;\n  box-sizing: border-box;\n}\n\ndt-article figure figcaption a {\n  color: rgba(0, 0, 0, 0.6);\n}\n\n/*dt-article figure figcaption::before {\n  position: relative;\n  display: block;\n  top: -20px;\n  content: \"\";\n  width: 25px;\n  border-top: 1px solid rgba(0, 0, 0, 0.3);\n}*/\n\ndt-article span.equation-mimic {\n  font-family: georgia;\n  font-size: 115%;\n  font-style: italic;\n}\n\ndt-article figure figcaption b {\n  font-weight: 600;\n  color: rgba(0, 0, 0, 1.0);\n}\n\ndt-article > dt-code {\n  display: block;\n}\n";
+var article = "dt-article {\n  display: block;\n  color: rgba(0, 0, 0, 0.8);\n  font: 17px/1.55em -apple-system, BlinkMacSystemFont, \"Roboto\", sans-serif;\n  padding-bottom: 72px;\n  overflow: hidden;\n  background: white;\n}\n\n@media(min-width: 1024px) {\n  dt-article {\n    font-size: 20px;\n  }\n}\n\n/* H1 */\n\ndt-article h1 {\n  margin-top: 18px;\n  font-weight: 400;\n  font-size: 40px;\n  line-height: 1em;\n  font-family: Cochin, Georgia, serif;\n}\n@media(min-width: 768px) {\n  dt-article h1 {\n    font-size: 46px;\n    margin-top: 48px;\n    margin-bottom: 12px;\n  }\n}\n\n@media(min-width: 1080px) {\n  dt-article.centered h1 {\n    text-align: center;\n  }\n\n  dt-article h1 {\n    font-size: 50px;\n    letter-spacing: -0.02em;\n  }\n\n  dt-article > h1:first-of-type {\n    margin-top: 80px;\n  }\n}\n\n\n@media(min-width: 1200px) {\n  dt-article h1 {\n    font-size: 54px;\n  }\n\n  dt-article > h1:first-of-type {\n    margin-top: 100px;\n  }\n}\n\n/* H2 */\n\ndt-article h2 {\n  font-weight: 700;\n  font-size: 22px;\n  line-height: 1.25em;\n  margin-top: 12px;\n  margin-bottom: 24px;\n}\n\n@media(min-width: 1024px) {\n  dt-article h2 {\n    font-size: 24px;\n  }\n}\n\ndt-article h1 + h2 {\n  font-weight: 300;\n  font-size: 20px;\n  line-height: 1.5em;\n  margin-top: 8px;\n}\n\n\n@media(min-width: 1024px) {\n  dt-article.centered h1 + h2 {\n    text-align: center;\n  }\n  dt-article h1 + h2 {\n    margin-top: 12px;\n    font-size: 24px;\n    letter-spacing: 0.015em;\n  }\n}\n\n/* H3 */\n\ndt-article h3 {\n  font-weight: 700;\n  font-size: 13px;\n  line-height: 1.4em;\n  margin-top: 36px;\n  margin-bottom: 18px;\n  text-transform: uppercase;\n  letter-spacing: -0.03em;\n}\n\ndt-article h1 + h3 {\n  margin-top: 48px;\n}\n\n@media(min-width: 1024px) {\n  dt-article h3 {\n    font-size: 16px;\n  }\n}\n\n/* H4 */\n\ndt-article h4 {\n  font-weight: 600;\n  text-transform: uppercase;\n  font-size: 14px;\n  line-height: 1.4em;\n}\n\ndt-article a {\n  color: inherit;\n}\n\ndt-article p {\n  margin-bottom: 24px;\n  -webkit-font-smoothing: antialiased;\n  font-family: Georgia, serif;\n  font-family: 16px;\n}\n\ndt-article p a {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.4);\n  text-decoration: none;\n}\n\ndt-article p a:hover {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.8);\n}\n\ndt-article p .link {\n  text-decoration: underline;\n  cursor: pointer;\n}\n\ndt-article ul {\n  padding-left: 20px;\n}\n\ndt-article li {\n  /*margin-bottom: 24px;*/\n}\n\ndt-article pre {\n  font-size: 14px;\n  margin-bottom: 20px;\n}\n\n\ndt-article hr {\n  border: none;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n  margin-top: 60px;\n  margin-bottom: 60px;\n}\n\ndt-article section {\n  margin-top: 60px;\n  margin-bottom: 60px;\n}\n\n\n/* Figure */\n\ndt-article figure {\n  position: relative;\n  margin-top: 30px;\n  margin-bottom: 30px;\n}\n\n@media(min-width: 1024px) {\n  dt-article figure {\n    margin-top: 48px;\n    margin-bottom: 48px;\n  }\n}\n\ndt-article figure img {\n  width: 100%;\n}\n\ndt-article figure svg text,\ndt-article figure svg tspan {\n}\n\ndt-article figure figcaption {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 12px;\n  line-height: 1.5em;\n}\n@media(min-width: 1024px) {\n  dt-article figure figcaption {\n    font-size: 13px;\n  }\n}\n\ndt-article figure.external img {\n  background: white;\n  border: 1px solid rgba(0, 0, 0, 0.1);\n  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);\n  padding: 18px;\n  box-sizing: border-box;\n}\n\ndt-article figure figcaption a {\n  color: rgba(0, 0, 0, 0.6);\n}\n\n/*dt-article figure figcaption::before {\n  position: relative;\n  display: block;\n  top: -20px;\n  content: \"\";\n  width: 25px;\n  border-top: 1px solid rgba(0, 0, 0, 0.3);\n}*/\n\ndt-article span.equation-mimic {\n  font-family: georgia;\n  font-size: 115%;\n  font-style: italic;\n}\n\ndt-article figure figcaption b {\n  font-weight: 600;\n  color: rgba(0, 0, 0, 1.0);\n}\n\ndt-article > dt-code {\n  display: block;\n}\n\ndt-article .citation {\n  color: #668;\n  cursor: pointer;\n}\n\ndt-include {\n  width: auto;\n  display: block;\n}\n";
 
 var code = "/**\n * prism.js default theme for JavaScript, CSS and HTML\n * Based on dabblet (http://dabblet.com)\n * @author Lea Verou\n */\n\n code {\n   white-space:pre-wrap;\n   background: rgba(0, 0, 0, 0.04);\n   border-radius: 2px;\n   padding: 4px 7px;\n   font-size: 15px;\n   color: rgba(0, 0, 0, 0.6);\n }\n\n pre code {\n   display: block;\n   background: white;\n   border: 1px solid rgba(0, 0, 0, 0.08);\n   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);\n }\n\n\ncode[class*=\"language-\"],\npre[class*=\"language-\"] {\n\tcolor: black;\n\ttext-shadow: 0 1px white;\n\tfont-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;\n\ttext-align: left;\n\twhite-space: pre;\n\tword-spacing: normal;\n\tword-break: normal;\n\tword-wrap: normal;\n\tline-height: 1.5;\n\n\t-moz-tab-size: 4;\n\t-o-tab-size: 4;\n\ttab-size: 4;\n\n\t-webkit-hyphens: none;\n\t-moz-hyphens: none;\n\t-ms-hyphens: none;\n\thyphens: none;\n}\n\npre[class*=\"language-\"]::-moz-selection, pre[class*=\"language-\"] ::-moz-selection,\ncode[class*=\"language-\"]::-moz-selection, code[class*=\"language-\"] ::-moz-selection {\n\ttext-shadow: none;\n\tbackground: #b3d4fc;\n}\n\npre[class*=\"language-\"]::selection, pre[class*=\"language-\"] ::selection,\ncode[class*=\"language-\"]::selection, code[class*=\"language-\"] ::selection {\n\ttext-shadow: none;\n\tbackground: #b3d4fc;\n}\n\n@media print {\n\tcode[class*=\"language-\"],\n\tpre[class*=\"language-\"] {\n\t\ttext-shadow: none;\n\t}\n}\n\n/* Code blocks */\npre[class*=\"language-\"] {\n\toverflow: auto;\n}\n\n:not(pre) > code[class*=\"language-\"],\npre[class*=\"language-\"] {\n}\n\n/* Inline code */\n:not(pre) > code[class*=\"language-\"] {\n\twhite-space: normal;\n}\n\n.token.comment,\n.token.prolog,\n.token.doctype,\n.token.cdata {\n\tcolor: slategray;\n}\n\n.token.punctuation {\n\tcolor: #999;\n}\n\n.namespace {\n\topacity: .7;\n}\n\n.token.property,\n.token.tag,\n.token.boolean,\n.token.number,\n.token.constant,\n.token.symbol,\n.token.deleted {\n\tcolor: #905;\n}\n\n.token.selector,\n.token.attr-name,\n.token.string,\n.token.char,\n.token.builtin,\n.token.inserted {\n\tcolor: #690;\n}\n\n.token.operator,\n.token.entity,\n.token.url,\n.language-css .token.string,\n.style .token.string {\n\tcolor: #a67f59;\n\tbackground: hsla(0, 0%, 100%, .5);\n}\n\n.token.atrule,\n.token.attr-value,\n.token.keyword {\n\tcolor: #07a;\n}\n\n.token.function {\n\tcolor: #DD4A68;\n}\n\n.token.regex,\n.token.important,\n.token.variable {\n\tcolor: #e90;\n}\n\n.token.important,\n.token.bold {\n\tfont-weight: bold;\n}\n.token.italic {\n\tfont-style: italic;\n}\n\n.token.entity {\n\tcursor: help;\n}\n";
 
@@ -3784,8 +3784,8 @@ var SAFE_SCHEMA = default_safe;
 var DEFAULT_SCHEMA = default_full;
 
 // Deprecated functions from JS-YAML 1.x.x
-var scan = deprecated('scan');
-var parse = deprecated('parse');
+var scan$1 = deprecated('scan');
+var parse$1 = deprecated('parse');
 var compose = deprecated('compose');
 var addConstructor = deprecated('addConstructor');
 
@@ -3807,8 +3807,8 @@ var jsYaml = {
 	MINIMAL_SCHEMA: MINIMAL_SCHEMA,
 	SAFE_SCHEMA: SAFE_SCHEMA,
 	DEFAULT_SCHEMA: DEFAULT_SCHEMA,
-	scan: scan,
-	parse: parse,
+	scan: scan$1,
+	parse: parse$1,
 	compose: compose,
 	addConstructor: addConstructor
 };
@@ -3828,26 +3828,33 @@ var frontMatter = function(dom, data) {
 
   data.title = localData.title ? localData.title : "Untitled";
   data.description = localData.description ? localData.description : "No description.";
-  data.published = localData.published ? new Date(localData.published) : new Date("Invalid");
-  data.updated = localData.updated ? new Date(localData.updated) : new Date("Invalid");
 
   data.authors = localData.authors ? localData.authors : [];
 
   data.authors = data.authors.map(function (author, i) {
     var a = {};
     var name = Object.keys(author)[0];
+    if ((typeof author) === "string") {
+      name = author;
+    } else {
+      a.personalURL = author[name];
+    }
     var names = name.split(" ");
     a.name = name;
     a.firstName = names.slice(0, names.length - 1).join(" ");
     a.lastName = names[names.length -1];
-    a.personalURL = author[name];
     if(localData.affiliations[i]) {
       var affiliation = Object.keys(localData.affiliations[i])[0];
+      if ((typeof localData.affiliations[i]) === "string") {
+        affiliation = localData.affiliations[i];
+      } else {
+        a.affiliationURL = localData.affiliations[i][affiliation];
+      }
       a.affiliation = affiliation;
-      a.affiliationURL = localData.affiliations[i][affiliation];
     }
     return a;
   });
+  
 
 };
 
@@ -4204,6 +4211,15 @@ var bibliography = function(dom, data) {
     var parsed = bibtexParse.toJSON(rawBib);
     if(parsed) {
       parsed.forEach(function (e) {
+        for (var k in e.entryTags){
+          var val = e.entryTags[k];
+          val = val.replace(/[\t\n ]+/g, " ");
+          val = val.replace(/{\\["^`\.'acu~Hvs]( )?([a-zA-Z])}/g,
+                            function (full, x, char) { return char; });
+          val = val.replace(/{\\([a-zA-Z])}/g,
+                            function (full, char) { return char; });
+          e.entryTags[k] = val;
+        }
         bibliography[e.citationKey] = e.entryTags;
         bibliography[e.citationKey].type = e.entryType;
       });
@@ -4230,15 +4246,852 @@ var bibliography = function(dom, data) {
   data.citations = citations;
 };
 
+var t0 = new Date;
+var t1 = new Date;
+
+function newInterval(floori, offseti, count, field) {
+
+  function interval(date) {
+    return floori(date = new Date(+date)), date;
+  }
+
+  interval.floor = interval;
+
+  interval.ceil = function(date) {
+    return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
+  };
+
+  interval.round = function(date) {
+    var d0 = interval(date),
+        d1 = interval.ceil(date);
+    return date - d0 < d1 - date ? d0 : d1;
+  };
+
+  interval.offset = function(date, step) {
+    return offseti(date = new Date(+date), step == null ? 1 : Math.floor(step)), date;
+  };
+
+  interval.range = function(start, stop, step) {
+    var range = [];
+    start = interval.ceil(start);
+    step = step == null ? 1 : Math.floor(step);
+    if (!(start < stop) || !(step > 0)) { return range; } // also handles Invalid Date
+    do { range.push(new Date(+start)); } while (offseti(start, step), floori(start), start < stop)
+    return range;
+  };
+
+  interval.filter = function(test) {
+    return newInterval(function(date) {
+      if (date >= date) { while (floori(date), !test(date)) { date.setTime(date - 1); } }
+    }, function(date, step) {
+      if (date >= date) { while (--step >= 0) { while (offseti(date, 1), !test(date)) {} } } // eslint-disable-line no-empty
+    });
+  };
+
+  if (count) {
+    interval.count = function(start, end) {
+      t0.setTime(+start), t1.setTime(+end);
+      floori(t0), floori(t1);
+      return Math.floor(count(t0, t1));
+    };
+
+    interval.every = function(step) {
+      step = Math.floor(step);
+      return !isFinite(step) || !(step > 0) ? null
+          : !(step > 1) ? interval
+          : interval.filter(field
+              ? function(d) { return field(d) % step === 0; }
+              : function(d) { return interval.count(0, d) % step === 0; });
+    };
+  }
+
+  return interval;
+}
+
+var millisecond = newInterval(function() {
+  // noop
+}, function(date, step) {
+  date.setTime(+date + step);
+}, function(start, end) {
+  return end - start;
+});
+
+// An optimized implementation for this simple case.
+millisecond.every = function(k) {
+  k = Math.floor(k);
+  if (!isFinite(k) || !(k > 0)) { return null; }
+  if (!(k > 1)) { return millisecond; }
+  return newInterval(function(date) {
+    date.setTime(Math.floor(date / k) * k);
+  }, function(date, step) {
+    date.setTime(+date + step * k);
+  }, function(start, end) {
+    return (end - start) / k;
+  });
+};
+
+var durationSecond = 1e3;
+var durationMinute = 6e4;
+var durationHour = 36e5;
+var durationDay = 864e5;
+var durationWeek = 6048e5;
+
+var second = newInterval(function(date) {
+  date.setTime(Math.floor(date / durationSecond) * durationSecond);
+}, function(date, step) {
+  date.setTime(+date + step * durationSecond);
+}, function(start, end) {
+  return (end - start) / durationSecond;
+}, function(date) {
+  return date.getUTCSeconds();
+});
+
+var minute = newInterval(function(date) {
+  date.setTime(Math.floor(date / durationMinute) * durationMinute);
+}, function(date, step) {
+  date.setTime(+date + step * durationMinute);
+}, function(start, end) {
+  return (end - start) / durationMinute;
+}, function(date) {
+  return date.getMinutes();
+});
+
+var hour = newInterval(function(date) {
+  var offset = date.getTimezoneOffset() * durationMinute % durationHour;
+  if (offset < 0) { offset += durationHour; }
+  date.setTime(Math.floor((+date - offset) / durationHour) * durationHour + offset);
+}, function(date, step) {
+  date.setTime(+date + step * durationHour);
+}, function(start, end) {
+  return (end - start) / durationHour;
+}, function(date) {
+  return date.getHours();
+});
+
+var day = newInterval(function(date) {
+  date.setHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setDate(date.getDate() + step);
+}, function(start, end) {
+  return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * durationMinute) / durationDay;
+}, function(date) {
+  return date.getDate() - 1;
+});
+
+function weekday(i) {
+  return newInterval(function(date) {
+    date.setDate(date.getDate() - (date.getDay() + 7 - i) % 7);
+    date.setHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setDate(date.getDate() + step * 7);
+  }, function(start, end) {
+    return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * durationMinute) / durationWeek;
+  });
+}
+
+var sunday = weekday(0);
+var monday = weekday(1);
+var tuesday = weekday(2);
+var wednesday = weekday(3);
+var thursday = weekday(4);
+var friday = weekday(5);
+var saturday = weekday(6);
+
+var month = newInterval(function(date) {
+  date.setDate(1);
+  date.setHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setMonth(date.getMonth() + step);
+}, function(start, end) {
+  return end.getMonth() - start.getMonth() + (end.getFullYear() - start.getFullYear()) * 12;
+}, function(date) {
+  return date.getMonth();
+});
+
+var year = newInterval(function(date) {
+  date.setMonth(0, 1);
+  date.setHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setFullYear(date.getFullYear() + step);
+}, function(start, end) {
+  return end.getFullYear() - start.getFullYear();
+}, function(date) {
+  return date.getFullYear();
+});
+
+// An optimized implementation for this simple case.
+year.every = function(k) {
+  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function(date) {
+    date.setFullYear(Math.floor(date.getFullYear() / k) * k);
+    date.setMonth(0, 1);
+    date.setHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setFullYear(date.getFullYear() + step * k);
+  });
+};
+
+var utcMinute = newInterval(function(date) {
+  date.setUTCSeconds(0, 0);
+}, function(date, step) {
+  date.setTime(+date + step * durationMinute);
+}, function(start, end) {
+  return (end - start) / durationMinute;
+}, function(date) {
+  return date.getUTCMinutes();
+});
+
+var utcHour = newInterval(function(date) {
+  date.setUTCMinutes(0, 0, 0);
+}, function(date, step) {
+  date.setTime(+date + step * durationHour);
+}, function(start, end) {
+  return (end - start) / durationHour;
+}, function(date) {
+  return date.getUTCHours();
+});
+
+var utcDay = newInterval(function(date) {
+  date.setUTCHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setUTCDate(date.getUTCDate() + step);
+}, function(start, end) {
+  return (end - start) / durationDay;
+}, function(date) {
+  return date.getUTCDate() - 1;
+});
+
+function utcWeekday(i) {
+  return newInterval(function(date) {
+    date.setUTCDate(date.getUTCDate() - (date.getUTCDay() + 7 - i) % 7);
+    date.setUTCHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setUTCDate(date.getUTCDate() + step * 7);
+  }, function(start, end) {
+    return (end - start) / durationWeek;
+  });
+}
+
+var utcSunday = utcWeekday(0);
+var utcMonday = utcWeekday(1);
+var utcTuesday = utcWeekday(2);
+var utcWednesday = utcWeekday(3);
+var utcThursday = utcWeekday(4);
+var utcFriday = utcWeekday(5);
+var utcSaturday = utcWeekday(6);
+
+var utcMonth = newInterval(function(date) {
+  date.setUTCDate(1);
+  date.setUTCHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setUTCMonth(date.getUTCMonth() + step);
+}, function(start, end) {
+  return end.getUTCMonth() - start.getUTCMonth() + (end.getUTCFullYear() - start.getUTCFullYear()) * 12;
+}, function(date) {
+  return date.getUTCMonth();
+});
+
+var utcYear = newInterval(function(date) {
+  date.setUTCMonth(0, 1);
+  date.setUTCHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setUTCFullYear(date.getUTCFullYear() + step);
+}, function(start, end) {
+  return end.getUTCFullYear() - start.getUTCFullYear();
+}, function(date) {
+  return date.getUTCFullYear();
+});
+
+// An optimized implementation for this simple case.
+utcYear.every = function(k) {
+  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function(date) {
+    date.setUTCFullYear(Math.floor(date.getUTCFullYear() / k) * k);
+    date.setUTCMonth(0, 1);
+    date.setUTCHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setUTCFullYear(date.getUTCFullYear() + step * k);
+  });
+};
+
+function localDate(d) {
+  if (0 <= d.y && d.y < 100) {
+    var date = new Date(-1, d.m, d.d, d.H, d.M, d.S, d.L);
+    date.setFullYear(d.y);
+    return date;
+  }
+  return new Date(d.y, d.m, d.d, d.H, d.M, d.S, d.L);
+}
+
+function utcDate(d) {
+  if (0 <= d.y && d.y < 100) {
+    var date = new Date(Date.UTC(-1, d.m, d.d, d.H, d.M, d.S, d.L));
+    date.setUTCFullYear(d.y);
+    return date;
+  }
+  return new Date(Date.UTC(d.y, d.m, d.d, d.H, d.M, d.S, d.L));
+}
+
+function newYear(y) {
+  return {y: y, m: 0, d: 1, H: 0, M: 0, S: 0, L: 0};
+}
+
+function formatLocale(locale) {
+  var locale_dateTime = locale.dateTime,
+      locale_date = locale.date,
+      locale_time = locale.time,
+      locale_periods = locale.periods,
+      locale_weekdays = locale.days,
+      locale_shortWeekdays = locale.shortDays,
+      locale_months = locale.months,
+      locale_shortMonths = locale.shortMonths;
+
+  var periodRe = formatRe(locale_periods),
+      periodLookup = formatLookup(locale_periods),
+      weekdayRe = formatRe(locale_weekdays),
+      weekdayLookup = formatLookup(locale_weekdays),
+      shortWeekdayRe = formatRe(locale_shortWeekdays),
+      shortWeekdayLookup = formatLookup(locale_shortWeekdays),
+      monthRe = formatRe(locale_months),
+      monthLookup = formatLookup(locale_months),
+      shortMonthRe = formatRe(locale_shortMonths),
+      shortMonthLookup = formatLookup(locale_shortMonths);
+
+  var formats = {
+    "a": formatShortWeekday,
+    "A": formatWeekday,
+    "b": formatShortMonth,
+    "B": formatMonth,
+    "c": null,
+    "d": formatDayOfMonth,
+    "e": formatDayOfMonth,
+    "H": formatHour24,
+    "I": formatHour12,
+    "j": formatDayOfYear,
+    "L": formatMilliseconds,
+    "m": formatMonthNumber,
+    "M": formatMinutes,
+    "p": formatPeriod,
+    "S": formatSeconds,
+    "U": formatWeekNumberSunday,
+    "w": formatWeekdayNumber,
+    "W": formatWeekNumberMonday,
+    "x": null,
+    "X": null,
+    "y": formatYear,
+    "Y": formatFullYear,
+    "Z": formatZone,
+    "%": formatLiteralPercent
+  };
+
+  var utcFormats = {
+    "a": formatUTCShortWeekday,
+    "A": formatUTCWeekday,
+    "b": formatUTCShortMonth,
+    "B": formatUTCMonth,
+    "c": null,
+    "d": formatUTCDayOfMonth,
+    "e": formatUTCDayOfMonth,
+    "H": formatUTCHour24,
+    "I": formatUTCHour12,
+    "j": formatUTCDayOfYear,
+    "L": formatUTCMilliseconds,
+    "m": formatUTCMonthNumber,
+    "M": formatUTCMinutes,
+    "p": formatUTCPeriod,
+    "S": formatUTCSeconds,
+    "U": formatUTCWeekNumberSunday,
+    "w": formatUTCWeekdayNumber,
+    "W": formatUTCWeekNumberMonday,
+    "x": null,
+    "X": null,
+    "y": formatUTCYear,
+    "Y": formatUTCFullYear,
+    "Z": formatUTCZone,
+    "%": formatLiteralPercent
+  };
+
+  var parses = {
+    "a": parseShortWeekday,
+    "A": parseWeekday,
+    "b": parseShortMonth,
+    "B": parseMonth,
+    "c": parseLocaleDateTime,
+    "d": parseDayOfMonth,
+    "e": parseDayOfMonth,
+    "H": parseHour24,
+    "I": parseHour24,
+    "j": parseDayOfYear,
+    "L": parseMilliseconds,
+    "m": parseMonthNumber,
+    "M": parseMinutes,
+    "p": parsePeriod,
+    "S": parseSeconds,
+    "U": parseWeekNumberSunday,
+    "w": parseWeekdayNumber,
+    "W": parseWeekNumberMonday,
+    "x": parseLocaleDate,
+    "X": parseLocaleTime,
+    "y": parseYear,
+    "Y": parseFullYear,
+    "Z": parseZone,
+    "%": parseLiteralPercent
+  };
+
+  // These recursive directive definitions must be deferred.
+  formats.x = newFormat(locale_date, formats);
+  formats.X = newFormat(locale_time, formats);
+  formats.c = newFormat(locale_dateTime, formats);
+  utcFormats.x = newFormat(locale_date, utcFormats);
+  utcFormats.X = newFormat(locale_time, utcFormats);
+  utcFormats.c = newFormat(locale_dateTime, utcFormats);
+
+  function newFormat(specifier, formats) {
+    return function(date) {
+      var string = [],
+          i = -1,
+          j = 0,
+          n = specifier.length,
+          c,
+          pad,
+          format;
+
+      if (!(date instanceof Date)) { date = new Date(+date); }
+
+      while (++i < n) {
+        if (specifier.charCodeAt(i) === 37) {
+          string.push(specifier.slice(j, i));
+          if ((pad = pads[c = specifier.charAt(++i)]) != null) { c = specifier.charAt(++i); }
+          else { pad = c === "e" ? " " : "0"; }
+          if (format = formats[c]) { c = format(date, pad); }
+          string.push(c);
+          j = i + 1;
+        }
+      }
+
+      string.push(specifier.slice(j, i));
+      return string.join("");
+    };
+  }
+
+  function newParse(specifier, newDate) {
+    return function(string) {
+      var d = newYear(1900),
+          i = parseSpecifier(d, specifier, string += "", 0);
+      if (i != string.length) { return null; }
+
+      // The am-pm flag is 0 for AM, and 1 for PM.
+      if ("p" in d) { d.H = d.H % 12 + d.p * 12; }
+
+      // Convert day-of-week and week-of-year to day-of-year.
+      if ("W" in d || "U" in d) {
+        if (!("w" in d)) { d.w = "W" in d ? 1 : 0; }
+        var day$$1 = "Z" in d ? utcDate(newYear(d.y)).getUTCDay() : newDate(newYear(d.y)).getDay();
+        d.m = 0;
+        d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day$$1 + 5) % 7 : d.w + d.U * 7 - (day$$1 + 6) % 7;
+      }
+
+      // If a time zone is specified, all fields are interpreted as UTC and then
+      // offset according to the specified time zone.
+      if ("Z" in d) {
+        d.H += d.Z / 100 | 0;
+        d.M += d.Z % 100;
+        return utcDate(d);
+      }
+
+      // Otherwise, all fields are in local time.
+      return newDate(d);
+    };
+  }
+
+  function parseSpecifier(d, specifier, string, j) {
+    var i = 0,
+        n = specifier.length,
+        m = string.length,
+        c,
+        parse;
+
+    while (i < n) {
+      if (j >= m) { return -1; }
+      c = specifier.charCodeAt(i++);
+      if (c === 37) {
+        c = specifier.charAt(i++);
+        parse = parses[c in pads ? specifier.charAt(i++) : c];
+        if (!parse || ((j = parse(d, string, j)) < 0)) { return -1; }
+      } else if (c != string.charCodeAt(j++)) {
+        return -1;
+      }
+    }
+
+    return j;
+  }
+
+  function parsePeriod(d, string, i) {
+    var n = periodRe.exec(string.slice(i));
+    return n ? (d.p = periodLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseShortWeekday(d, string, i) {
+    var n = shortWeekdayRe.exec(string.slice(i));
+    return n ? (d.w = shortWeekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseWeekday(d, string, i) {
+    var n = weekdayRe.exec(string.slice(i));
+    return n ? (d.w = weekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseShortMonth(d, string, i) {
+    var n = shortMonthRe.exec(string.slice(i));
+    return n ? (d.m = shortMonthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseMonth(d, string, i) {
+    var n = monthRe.exec(string.slice(i));
+    return n ? (d.m = monthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseLocaleDateTime(d, string, i) {
+    return parseSpecifier(d, locale_dateTime, string, i);
+  }
+
+  function parseLocaleDate(d, string, i) {
+    return parseSpecifier(d, locale_date, string, i);
+  }
+
+  function parseLocaleTime(d, string, i) {
+    return parseSpecifier(d, locale_time, string, i);
+  }
+
+  function formatShortWeekday(d) {
+    return locale_shortWeekdays[d.getDay()];
+  }
+
+  function formatWeekday(d) {
+    return locale_weekdays[d.getDay()];
+  }
+
+  function formatShortMonth(d) {
+    return locale_shortMonths[d.getMonth()];
+  }
+
+  function formatMonth(d) {
+    return locale_months[d.getMonth()];
+  }
+
+  function formatPeriod(d) {
+    return locale_periods[+(d.getHours() >= 12)];
+  }
+
+  function formatUTCShortWeekday(d) {
+    return locale_shortWeekdays[d.getUTCDay()];
+  }
+
+  function formatUTCWeekday(d) {
+    return locale_weekdays[d.getUTCDay()];
+  }
+
+  function formatUTCShortMonth(d) {
+    return locale_shortMonths[d.getUTCMonth()];
+  }
+
+  function formatUTCMonth(d) {
+    return locale_months[d.getUTCMonth()];
+  }
+
+  function formatUTCPeriod(d) {
+    return locale_periods[+(d.getUTCHours() >= 12)];
+  }
+
+  return {
+    format: function(specifier) {
+      var f = newFormat(specifier += "", formats);
+      f.toString = function() { return specifier; };
+      return f;
+    },
+    parse: function(specifier) {
+      var p = newParse(specifier += "", localDate);
+      p.toString = function() { return specifier; };
+      return p;
+    },
+    utcFormat: function(specifier) {
+      var f = newFormat(specifier += "", utcFormats);
+      f.toString = function() { return specifier; };
+      return f;
+    },
+    utcParse: function(specifier) {
+      var p = newParse(specifier, utcDate);
+      p.toString = function() { return specifier; };
+      return p;
+    }
+  };
+}
+
+var pads = {"-": "", "_": " ", "0": "0"};
+var numberRe = /^\s*\d+/;
+var percentRe = /^%/;
+var requoteRe = /[\\\^\$\*\+\?\|\[\]\(\)\.\{\}]/g;
+
+function pad(value, fill, width) {
+  var sign = value < 0 ? "-" : "",
+      string = (sign ? -value : value) + "",
+      length = string.length;
+  return sign + (length < width ? new Array(width - length + 1).join(fill) + string : string);
+}
+
+function requote(s) {
+  return s.replace(requoteRe, "\\$&");
+}
+
+function formatRe(names) {
+  return new RegExp("^(?:" + names.map(requote).join("|") + ")", "i");
+}
+
+function formatLookup(names) {
+  var map = {}, i = -1, n = names.length;
+  while (++i < n) { map[names[i].toLowerCase()] = i; }
+  return map;
+}
+
+function parseWeekdayNumber(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 1));
+  return n ? (d.w = +n[0], i + n[0].length) : -1;
+}
+
+function parseWeekNumberSunday(d, string, i) {
+  var n = numberRe.exec(string.slice(i));
+  return n ? (d.U = +n[0], i + n[0].length) : -1;
+}
+
+function parseWeekNumberMonday(d, string, i) {
+  var n = numberRe.exec(string.slice(i));
+  return n ? (d.W = +n[0], i + n[0].length) : -1;
+}
+
+function parseFullYear(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 4));
+  return n ? (d.y = +n[0], i + n[0].length) : -1;
+}
+
+function parseYear(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.y = +n[0] + (+n[0] > 68 ? 1900 : 2000), i + n[0].length) : -1;
+}
+
+function parseZone(d, string, i) {
+  var n = /^(Z)|([+-]\d\d)(?:\:?(\d\d))?/.exec(string.slice(i, i + 6));
+  return n ? (d.Z = n[1] ? 0 : -(n[2] + (n[3] || "00")), i + n[0].length) : -1;
+}
+
+function parseMonthNumber(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.m = n[0] - 1, i + n[0].length) : -1;
+}
+
+function parseDayOfMonth(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.d = +n[0], i + n[0].length) : -1;
+}
+
+function parseDayOfYear(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 3));
+  return n ? (d.m = 0, d.d = +n[0], i + n[0].length) : -1;
+}
+
+function parseHour24(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.H = +n[0], i + n[0].length) : -1;
+}
+
+function parseMinutes(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.M = +n[0], i + n[0].length) : -1;
+}
+
+function parseSeconds(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.S = +n[0], i + n[0].length) : -1;
+}
+
+function parseMilliseconds(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 3));
+  return n ? (d.L = +n[0], i + n[0].length) : -1;
+}
+
+function parseLiteralPercent(d, string, i) {
+  var n = percentRe.exec(string.slice(i, i + 1));
+  return n ? i + n[0].length : -1;
+}
+
+function formatDayOfMonth(d, p) {
+  return pad(d.getDate(), p, 2);
+}
+
+function formatHour24(d, p) {
+  return pad(d.getHours(), p, 2);
+}
+
+function formatHour12(d, p) {
+  return pad(d.getHours() % 12 || 12, p, 2);
+}
+
+function formatDayOfYear(d, p) {
+  return pad(1 + day.count(year(d), d), p, 3);
+}
+
+function formatMilliseconds(d, p) {
+  return pad(d.getMilliseconds(), p, 3);
+}
+
+function formatMonthNumber(d, p) {
+  return pad(d.getMonth() + 1, p, 2);
+}
+
+function formatMinutes(d, p) {
+  return pad(d.getMinutes(), p, 2);
+}
+
+function formatSeconds(d, p) {
+  return pad(d.getSeconds(), p, 2);
+}
+
+function formatWeekNumberSunday(d, p) {
+  return pad(sunday.count(year(d), d), p, 2);
+}
+
+function formatWeekdayNumber(d) {
+  return d.getDay();
+}
+
+function formatWeekNumberMonday(d, p) {
+  return pad(monday.count(year(d), d), p, 2);
+}
+
+function formatYear(d, p) {
+  return pad(d.getFullYear() % 100, p, 2);
+}
+
+function formatFullYear(d, p) {
+  return pad(d.getFullYear() % 10000, p, 4);
+}
+
+function formatZone(d) {
+  var z = d.getTimezoneOffset();
+  return (z > 0 ? "-" : (z *= -1, "+"))
+      + pad(z / 60 | 0, "0", 2)
+      + pad(z % 60, "0", 2);
+}
+
+function formatUTCDayOfMonth(d, p) {
+  return pad(d.getUTCDate(), p, 2);
+}
+
+function formatUTCHour24(d, p) {
+  return pad(d.getUTCHours(), p, 2);
+}
+
+function formatUTCHour12(d, p) {
+  return pad(d.getUTCHours() % 12 || 12, p, 2);
+}
+
+function formatUTCDayOfYear(d, p) {
+  return pad(1 + utcDay.count(utcYear(d), d), p, 3);
+}
+
+function formatUTCMilliseconds(d, p) {
+  return pad(d.getUTCMilliseconds(), p, 3);
+}
+
+function formatUTCMonthNumber(d, p) {
+  return pad(d.getUTCMonth() + 1, p, 2);
+}
+
+function formatUTCMinutes(d, p) {
+  return pad(d.getUTCMinutes(), p, 2);
+}
+
+function formatUTCSeconds(d, p) {
+  return pad(d.getUTCSeconds(), p, 2);
+}
+
+function formatUTCWeekNumberSunday(d, p) {
+  return pad(utcSunday.count(utcYear(d), d), p, 2);
+}
+
+function formatUTCWeekdayNumber(d) {
+  return d.getUTCDay();
+}
+
+function formatUTCWeekNumberMonday(d, p) {
+  return pad(utcMonday.count(utcYear(d), d), p, 2);
+}
+
+function formatUTCYear(d, p) {
+  return pad(d.getUTCFullYear() % 100, p, 2);
+}
+
+function formatUTCFullYear(d, p) {
+  return pad(d.getUTCFullYear() % 10000, p, 4);
+}
+
+function formatUTCZone() {
+  return "+0000";
+}
+
+function formatLiteralPercent() {
+  return "%";
+}
+
+var locale$1;
+var timeFormat;
+var timeParse;
+var utcFormat;
+var utcParse;
+
+defaultLocale({
+  dateTime: "%x, %X",
+  date: "%-m/%-d/%Y",
+  time: "%-I:%M:%S %p",
+  periods: ["AM", "PM"],
+  days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  shortDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  shortMonths: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+});
+
+function defaultLocale(definition) {
+  locale$1 = formatLocale(definition);
+  timeFormat = locale$1.format;
+  timeParse = locale$1.parse;
+  utcFormat = locale$1.utcFormat;
+  utcParse = locale$1.utcParse;
+  return locale$1;
+}
+
+var isoSpecifier = "%Y-%m-%dT%H:%M:%S.%LZ";
+
+function formatIsoNative(date) {
+  return date.toISOString();
+}
+
+var formatIso = Date.prototype.toISOString
+    ? formatIsoNative
+    : utcFormat(isoSpecifier);
+
+function parseIsoNative(string) {
+  var date = new Date(string);
+  return isNaN(date) ? null : date;
+}
+
+var parseIso = +new Date("2000-01-01T00:00:00.000Z")
+    ? parseIsoNative
+    : utcParse(isoSpecifier);
+
 var expandData = function(dom, data) {
 
     data.authors = data.authors || [];
 
     // paths
-    //data.distillPath = post.distillPath;
-    //data.githubPath = post.githubPath;
-    //data.url = "http://distill.pub/" + post.distillPath;
-    //data.githubUrl = "https://github.com/" + post.githubPath;
+    data.url = "http://distill.pub/" + data.distillPath;
+    data.githubUrl = "https://github.com/" + data.githubPath;
 
     // Homepage
     //data.homepage = !post.noHomepage;
@@ -4246,25 +5099,38 @@ var expandData = function(dom, data) {
 
     // Dates
     // TODO: fix updated date
-    if (data.published){//} && data.journal) {
-      data.volume = data.published.getFullYear() - 2015;
-      data.issue = data.published.getMonth() + 1;
-    }
-    /*
-      //let RFC = d3.timeFormat("%a, %d %b %Y %H:%M:%S %Z");
-      let months = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-      let zeroPad = (n) => { return n < 10 ? "0" + n : n; };
-      //data.publishedDateRFC = RFC(data.publishedDate);
-      data.publishedYear = data.publishedDate.getFullYear();
-      data.publishedMonth = months[data.publishedDate.getMonth()];
-      data.publishedDay = data.publishedDate.getDate();
-      data.publishedMonthPadded = zeroPad(data.publishedDate.getMonth() + 1);
-      data.publishedDayPadded = zeroPad(data.publishedDate.getDate());
+    if (data.publishedDate){//} && data.journal) {
       data.volume = data.publishedDate.getFullYear() - 2015;
       data.issue = data.publishedDate.getMonth() + 1;
-    }*/
+    }
 
+    data.publishedDate = data.publishedDate ? data.publishedDate : new Date("Invalid");
+    data.updated = data.updated ? data.updated : new Date("Invalid");
 
+    data.publishedDateRFC;
+    var RFC = timeFormat("%a, %d %b %Y %H:%M:%S %Z");
+    var months = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    var zeroPad = function (n) { return n < 10 ? "0" + n : n; };
+    data.publishedDateRFC = RFC(data.publishedDate);
+    data.publishedYear = data.publishedDate.getFullYear();
+    data.publishedMonth = months[data.publishedDate.getMonth()];
+    data.publishedDay = data.publishedDate.getDate();
+    data.publishedMonthPadded = zeroPad(data.publishedDate.getMonth() + 1);
+    data.publishedDayPadded = zeroPad(data.publishedDate.getDate());
+
+    if (data.authors.length  > 2) {
+      data.concatenatedAuthors = data.authors[0].lastName + ", et al.";
+    } else if (data.authors.length === 2) {
+      data.concatenatedAuthors = data.authors[0].lastName + " & " + data.authors[1].lastName;
+    } else if (data.authors.length === 1) {
+      data.concatenatedAuthors = data.authors[0].lastName;
+    }
+
+    data.bibtexAuthors = data.authors.map(function(author){
+      return author.lastName + ", " + author.firstName;
+    }).join(" and ");
+
+    data.slug = data.authors.length ? data.authors[0].lastName.toLowerCase() + data.publishedYear + data.title.split(" ")[0].toLowerCase() : "Untitled";
 
 };
 
@@ -4276,57 +5142,57 @@ var meta = function(dom, data) {
 
   function meta(name, content) {
     if (content)
-      { appendHead(("<meta name=\"" + name + "\" content=\"" + content + "\" >")); }
+      { appendHead(("    <meta name=\"" + name + "\" content=\"" + content + "\" >\n")); }
   }
 
   appendHead(("\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge,chrome=1\">\n    <link rel=\"icon\" type=\"image/png\" href=\"data:image/png;base64," + favicon + "\">\n    <link href=\"/rss.xml\" rel=\"alternate\" type=\"application/rss+xml\" title=\"Articles from Distill\">\n    <link rel=\"canonical\" href=\"" + (data.url) + "\">\n    <title>" + (data.title) + "</title>\n  "));
 
-  appendHead(("\n    <!--  https://schema.org/Article -->\n    <meta property=\"article:published\" itemprop=\"datePublished\" content=\"" + (data.published) + "\" />\n    <meta property=\"article:modified\" itemprop=\"dateModified\" content=\"" + (data.updated) + "\" />\n  "));
+  appendHead(("\n    <!--  https://schema.org/Article -->\n    <meta property=\"article:published\" itemprop=\"datePublished\" content=\"" + (data.publishedYear) + "-" + (data.publishedMonthPadded) + "-" + (data.publishedDayPadded) + "\" />\n  ")); // <meta property="article:modified" itemprop="dateModified" content="${data.updated}" />
   data.authors.forEach(function (a) {
     appendHtml(head, ("\n      <meta property=\"article:author\" content=\"" + (a.firstName) + " " + (a.lastName) + "\" />"));
   });
 
-  appendHead(("\n    <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->\n    <meta property=\"og:type\" content=\"article\"/>\n    <meta property=\"og:title\" content=\"" + (data.title) + "\"/>\n    <meta property=\"og:description\" content=\"" + (data.description) + "\">\n    <meta property=\"og:url\" content=\"" + (data.url) + "\"/>\n    <meta property=\"og:image\" content=\"" + (data.url) + "/thumbnail.png\"/>\n    <meta property=\"og:locale\" content=\"en_US\" />\n    <meta property=\"og:site_name\" content=\"Distill\" />\n  "));
+  appendHead(("\n    <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->\n    <meta property=\"og:type\" content=\"article\"/>\n    <meta property=\"og:title\" content=\"" + (data.title) + "\"/>\n    <meta property=\"og:description\" content=\"" + (data.description) + "\">\n    <meta property=\"og:url\" content=\"" + (data.url) + "\"/>\n    <meta property=\"og:image\" content=\"" + (data.url) + "/thumbnail.jpg\"/>\n    <meta property=\"og:locale\" content=\"en_US\" />\n    <meta property=\"og:site_name\" content=\"Distill\" />\n  "));
 
-  appendHead(("\n    <!--  https://dev.twitter.com/cards/types/summary -->\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n    <meta name=\"twitter:title\" content=\"" + (data.title) + "\">\n    <meta name=\"twitter:description\" content=\"" + (data.description) + "\">\n    <meta name=\"twitter:url\" content=\"" + (data.url) + "\">\n    <meta name=\"twitter:image\" content=\"" + (data.url) + "/thumbnail.png\">\n    <meta name=\"twitter:image:width\" content=\"560\">\n    <meta name=\"twitter:image:height\" content=\"295\">\n  "));
+  appendHead(("\n    <!--  https://dev.twitter.com/cards/types/summary -->\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n    <meta name=\"twitter:title\" content=\"" + (data.title) + "\">\n    <meta name=\"twitter:description\" content=\"" + (data.description) + "\">\n    <meta name=\"twitter:url\" content=\"" + (data.url) + "\">\n    <meta name=\"twitter:image\" content=\"" + (data.url) + "/thumbnail.jpg\">\n    <meta name=\"twitter:image:width\" content=\"560\">\n    <meta name=\"twitter:image:height\" content=\"295\">\n  "));
 
-  appendHead("\n    <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->\n  ");
+  // if this is a proprer article, generate Google Scholar meta data
+  if (data.doiSuffix){
+    appendHead("\n      <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->\n");
 
-  meta("citation_title", data.title);
-  meta("citation_fulltext_html_url", data.url);
-  meta("citation_volume", data.volume);
-  meta("citation_issue", data.issue);
-  meta("citation_firstpage", data.doiSuffix? ("e" + (data.doiSuffix)) : undefined);
-  meta("citation_doi", data.doi);
+    meta("citation_title", data.title);
+    meta("citation_fulltext_html_url", data.url);
+    meta("citation_volume", data.volume);
+    meta("citation_issue", data.issue);
+    meta("citation_firstpage", data.doiSuffix? ("e" + (data.doiSuffix)) : undefined);
+    meta("citation_doi", data.doi);
 
-  var journal = data.journal || {};
-  meta("citation_journal_title", journal.name);
-  meta("citation_journal_abbrev", journal.nameAbbrev);
-  meta("citation_issn", journal.issn);
-  meta("citation_publisher", journal.publisher);
+    var journal = data.journal || {};
+    meta("citation_journal_title", journal.name);
+    meta("citation_journal_abbrev", journal.nameAbbrev);
+    meta("citation_issn", journal.issn);
+    meta("citation_publisher", journal.publisher);
 
-  if (data.published){
-    var zeroPad = function (n) { return n < 10 ? "0" + n : n; };
-    var publishedYear = data.published.getFullYear();
-    var publishedMonthPadded = zeroPad(data.published.getMonth() + 1);
-    var publishedDayPadded = zeroPad(data.published.getDate());
-    meta("citation_publication_date", (publishedYear + "/" + publishedMonthPadded + "/" + publishedDayPadded));
-  }
+    if (data.publishedDate){
+      var zeroPad = function (n) { return n < 10 ? "0" + n : n; };
+      meta("citation_publication_date", ((data.publishedYear) + "/" + (data.publishedMonthPadded) + "/" + (data.publishedDayPadded)));
+    }
 
-  (data.authors || []).forEach(function (a) {
-      meta("citation_author", ((a.lastName) + ", " + (a.firstName)));
-      meta("citation_author_institution", a.affiliation);
-  });
-
-  if (data.citations) {
-    data.citations.forEach(function (key) {
-      var d = data.bibliography[key];
-      if(!d) {
-        console.warn("No bibliography data fround for " + key);
-      } else {
-        meta("citation_reference", citation_meta_content(data.bibliography[key]) );
-      }
+    (data.authors || []).forEach(function (a) {
+        meta("citation_author", ((a.lastName) + ", " + (a.firstName)));
+        meta("citation_author_institution", a.affiliation);
     });
+
+    if (data.citations) {
+      data.citations.forEach(function (key) {
+        var d = data.bibliography[key];
+        if(!d) {
+          console.warn("No bibliography data fround for " + key);
+        } else {
+          meta("citation_reference", citation_meta_content(data.bibliography[key]) );
+        }
+      });
+    }
   }
 };
 
@@ -4353,9 +5219,9 @@ function citation_meta_content(ref){
   return content;
 }
 
-var logo = "<svg viewBox=\"-607 419 64 64\">\n  <path style=\"fill: none; stroke: black;stroke-width: 2px;\" d=\"M-573.4,478.9c-8,0-14.6-6.4-14.6-14.5s14.6-25.9,14.6-40.8c0,14.9,14.6,32.8,14.6,40.8S-565.4,478.9-573.4,478.9z\"/>\n</svg>\n";
+var logo = "<svg viewBox=\"-607 419 64 64\">\n  <path d=\"M-573.4,478.9c-8,0-14.6-6.4-14.6-14.5s14.6-25.9,14.6-40.8c0,14.9,14.6,32.8,14.6,40.8S-565.4,478.9-573.4,478.9z\"/>\n</svg>\n";
 
-var html$1 = "\n<style>\ndt-header {\n  display: block;\n  position: relative;\n  height: 60px;\n  background-color: none;\n  width: 100%;\n  box-sizing: border-box;\n  z-index: 2;\n  color: rgba(0, 0, 0, 0.8);\n}\ndt-header .content {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.3);\n  height: 60px;\n}\ndt-header a {\n  font-size: 16px;\n  height: 60px;\n  line-height: 60px;\n  text-decoration: none;\n  color: rgba(0, 0, 0, 0.8);\n}\ndt-header svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: -2px;\n}\ndt-header svg path {\n  fill: none;\n  stroke: black;\n  stroke-width: 1;\n  stroke-linejoin: round;\n}\ndt-header .logo {\n  font-size: 16px;\n  font-weight: 300;\n}\ndt-header .nav {\n  float: right;\n}\ndt-header .nav a {\n  font-size: 14px;\n}\n</style>\n\n<div class=\"content l-page\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a>\n  <div class=\"nav\">\n  </div>\n</div>\n";
+var html$1 = "\n<style>\ndt-header {\n  display: block;\n  position: relative;\n  height: 60px;\n  background-color: hsl(223, 9%, 25%);\n  width: 100%;\n  box-sizing: border-box;\n  z-index: 2;\n  color: rgba(0, 0, 0, 0.8);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.08);\n  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);\n}\ndt-header .content {\n  height: 70px;\n}\ndt-header a {\n  font-size: 16px;\n  height: 60px;\n  line-height: 60px;\n  text-decoration: none;\n  color: rgba(255, 255, 255, 0.8);\n  padding: 22px 0;\n}\ndt-header a:hover {\n  color: rgba(255, 255, 255, 1);\n}\ndt-header svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: 2px;\n}\n\n@media(min-width: 1080px) {\n  dt-header {\n    height: 70px;\n  }\n  dt-header a {\n    height: 70px;\n    line-height: 70px;\n    padding: 28px 0;\n  }\n  dt-header .logo {\n  }\n}\n\ndt-header svg path {\n  fill: none;\n  stroke: rgba(255, 255, 255, 0.8);\n  stroke-width: 3px;\n}\ndt-header .logo {\n  font-size: 13px;\n  font-weight: 300;\n  text-transform: uppercase;\n}\ndt-header .nav {\n  float: right;\n  font-weight: 300;\n}\ndt-header .nav a {\n  font-size: 14px;\n}\n</style>\n\n<div class=\"content l-page\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a>\n  <div class=\"nav\">\n    <a href=\"/faq\">About</a>\n    <!-- https://twitter.com/distillpub -->\n  </div>\n</div>\n";
 
 var header = function(dom, data) {
   var el = dom.querySelector("dt-header");
@@ -4369,44 +5235,706 @@ var header = function(dom, data) {
   }
 };
 
-var html$2 = "\n<style>\n  dt-appendix {\n    display: block;\n    font-family: \"Open Sans\";\n    font-size: 14px;\n    line-height: 24px;\n    margin-bottom: 0;\n    border-top: 1px solid rgba(0,0,0,0.1);\n    color: rgba(0,0,0,0.5);\n    background: rgba(0,0,0,0.025);\n    padding-top: 36px;\n    padding-right: 24px;\n    padding-bottom: 60px;\n    padding-left: 24px;\n  }\n  dt-appendix h3 {\n    font-size: 16px;\n    font-weight: 500;\n    margin-top: 18px;\n    margin-bottom: 18px;\n    color: rgba(0,0,0,0.65);\n  }\n  dt-appendix .citation {\n    font-size: 11px;\n    line-height: 15px;\n    border-left: 1px solid rgba(0, 0, 0, 0.1);\n    padding-left: 18px;\n    border: 1px solid rgba(0,0,0,0.1);\n    background: rgba(0, 0, 0, 0.02);\n    padding: 10px 18px;\n    border-radius: 3px;\n    color: rgba(150, 150, 150, 1);\n    overflow: hidden;\n    margin-top: -12px;\n  }\n  dt-appendix .references {\n    font-size: 12px;\n    line-height: 20px;\n  }\n  dt-appendix a {\n    color: rgba(0, 0, 0, 0.6);\n  }\n</style>\n\n<div class=\"l-body\">\n  <h3>References</h3>\n  <dt-bibliography></dt-bibliography>\n  <h3 id=\"citation\">Errors, Reuse, and Citation</h3>\n  <p>If you see mistakes or want to suggest changes, please submit a pull request on <a class=\"github\">github</a>.</p>\n  <p>Diagrams and text are licensed under Creative Commons Attribution <a href=\"https://creativecommons.org/licenses/by/2.0/\">CC-BY 2.0</a>, unless noted otherwise, with the source available on available on <a class=\"github\">github</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>\n  <p>For attribution in academic contexts, please cite this work as</p>\n  <pre class=\"citation short\"></pre>\n  <p>BibTeX citation</p>\n  <pre class=\"citation long\"></pre>\n</div>\n";
+var mustache = createCommonjsModule(function (module, exports) {
+/*!
+ * mustache.js - Logic-less {{mustache}} templates with JavaScript
+ * http://github.com/janl/mustache.js
+ */
 
-//   distill.data().then(function(data) {
-//     var as = el.querySelectorAll("a.github");
-//     [].forEach.call(as, function(a) {
-//       a.setAttribute("href", data.github);
-//     });
-//     el.querySelector(".citation.short").textContent = data.concatenatedAuthors + ", " + '"' + data.title + '", Distill, ' + data.firstPublishedYear + ".";
-//     var bibtex  = "@article{" + data.slug + ",\n";
-//         bibtex += "  author = {" + data.bibtexAuthors + "},\n";
-//         bibtex += "  title = {" + data.title + "},\n";
-//         bibtex += "  journal = {Distill},\n";
-//         bibtex += "  year = {" + data.firstPublishedYear + "},\n";
-//         bibtex += "  note = {" + data.url + "}\n";
-//         bibtex += "}";
-//     el.querySelector(".citation.long").textContent = bibtex;
-//   })
+/*global define: false Mustache: true*/
+
+(function defineMustache (global, factory) {
+  if ('object' === 'object' && exports && typeof exports.nodeName !== 'string') {
+    factory(exports); // CommonJS
+  } else if (typeof undefined === 'function' && undefined.amd) {
+    undefined(['exports'], factory); // AMD
+  } else {
+    global.Mustache = {};
+    factory(global.Mustache); // script, wsh, asp
+  }
+}(commonjsGlobal, function mustacheFactory (mustache) {
+
+  var objectToString = Object.prototype.toString;
+  var isArray = Array.isArray || function isArrayPolyfill (object) {
+    return objectToString.call(object) === '[object Array]';
+  };
+
+  function isFunction (object) {
+    return typeof object === 'function';
+  }
+
+  /**
+   * More correct typeof string handling array
+   * which normally returns typeof 'object'
+   */
+  function typeStr (obj) {
+    return isArray(obj) ? 'array' : typeof obj;
+  }
+
+  function escapeRegExp (string) {
+    return string.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
+  }
+
+  /**
+   * Null safe way of checking whether or not an object,
+   * including its prototype, has a given property
+   */
+  function hasProperty (obj, propName) {
+    return obj != null && typeof obj === 'object' && (propName in obj);
+  }
+
+  // Workaround for https://issues.apache.org/jira/browse/COUCHDB-577
+  // See https://github.com/janl/mustache.js/issues/189
+  var regExpTest = RegExp.prototype.test;
+  function testRegExp (re, string) {
+    return regExpTest.call(re, string);
+  }
+
+  var nonSpaceRe = /\S/;
+  function isWhitespace (string) {
+    return !testRegExp(nonSpaceRe, string);
+  }
+
+  var entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+    '/': '&#x2F;',
+    '`': '&#x60;',
+    '=': '&#x3D;'
+  };
+
+  function escapeHtml (string) {
+    return String(string).replace(/[&<>"'`=\/]/g, function fromEntityMap (s) {
+      return entityMap[s];
+    });
+  }
+
+  var whiteRe = /\s*/;
+  var spaceRe = /\s+/;
+  var equalsRe = /\s*=/;
+  var curlyRe = /\s*\}/;
+  var tagRe = /#|\^|\/|>|\{|&|=|!/;
+
+  /**
+   * Breaks up the given `template` string into a tree of tokens. If the `tags`
+   * argument is given here it must be an array with two string values: the
+   * opening and closing tags used in the template (e.g. [ "<%", "%>" ]). Of
+   * course, the default is to use mustaches (i.e. mustache.tags).
+   *
+   * A token is an array with at least 4 elements. The first element is the
+   * mustache symbol that was used inside the tag, e.g. "#" or "&". If the tag
+   * did not contain a symbol (i.e. {{myValue}}) this element is "name". For
+   * all text that appears outside a symbol this element is "text".
+   *
+   * The second element of a token is its "value". For mustache tags this is
+   * whatever else was inside the tag besides the opening symbol. For text tokens
+   * this is the text itself.
+   *
+   * The third and fourth elements of the token are the start and end indices,
+   * respectively, of the token in the original template.
+   *
+   * Tokens that are the root node of a subtree contain two more elements: 1) an
+   * array of tokens in the subtree and 2) the index in the original template at
+   * which the closing tag for that section begins.
+   */
+  function parseTemplate (template, tags) {
+    if (!template)
+      { return []; }
+
+    var sections = [];     // Stack to hold section tokens
+    var tokens = [];       // Buffer to hold the tokens
+    var spaces = [];       // Indices of whitespace tokens on the current line
+    var hasTag = false;    // Is there a {{tag}} on the current line?
+    var nonSpace = false;  // Is there a non-space char on the current line?
+
+    // Strips all whitespace tokens array for the current line
+    // if there was a {{#tag}} on it and otherwise only space.
+    function stripSpace () {
+      if (hasTag && !nonSpace) {
+        while (spaces.length)
+          { delete tokens[spaces.pop()]; }
+      } else {
+        spaces = [];
+      }
+
+      hasTag = false;
+      nonSpace = false;
+    }
+
+    var openingTagRe, closingTagRe, closingCurlyRe;
+    function compileTags (tagsToCompile) {
+      if (typeof tagsToCompile === 'string')
+        { tagsToCompile = tagsToCompile.split(spaceRe, 2); }
+
+      if (!isArray(tagsToCompile) || tagsToCompile.length !== 2)
+        { throw new Error('Invalid tags: ' + tagsToCompile); }
+
+      openingTagRe = new RegExp(escapeRegExp(tagsToCompile[0]) + '\\s*');
+      closingTagRe = new RegExp('\\s*' + escapeRegExp(tagsToCompile[1]));
+      closingCurlyRe = new RegExp('\\s*' + escapeRegExp('}' + tagsToCompile[1]));
+    }
+
+    compileTags(tags || mustache.tags);
+
+    var scanner = new Scanner(template);
+
+    var start, type, value, chr, token, openSection;
+    while (!scanner.eos()) {
+      start = scanner.pos;
+
+      // Match any text between tags.
+      value = scanner.scanUntil(openingTagRe);
+
+      if (value) {
+        for (var i = 0, valueLength = value.length; i < valueLength; ++i) {
+          chr = value.charAt(i);
+
+          if (isWhitespace(chr)) {
+            spaces.push(tokens.length);
+          } else {
+            nonSpace = true;
+          }
+
+          tokens.push([ 'text', chr, start, start + 1 ]);
+          start += 1;
+
+          // Check for whitespace on the current line.
+          if (chr === '\n')
+            { stripSpace(); }
+        }
+      }
+
+      // Match the opening tag.
+      if (!scanner.scan(openingTagRe))
+        { break; }
+
+      hasTag = true;
+
+      // Get the tag type.
+      type = scanner.scan(tagRe) || 'name';
+      scanner.scan(whiteRe);
+
+      // Get the tag value.
+      if (type === '=') {
+        value = scanner.scanUntil(equalsRe);
+        scanner.scan(equalsRe);
+        scanner.scanUntil(closingTagRe);
+      } else if (type === '{') {
+        value = scanner.scanUntil(closingCurlyRe);
+        scanner.scan(curlyRe);
+        scanner.scanUntil(closingTagRe);
+        type = '&';
+      } else {
+        value = scanner.scanUntil(closingTagRe);
+      }
+
+      // Match the closing tag.
+      if (!scanner.scan(closingTagRe))
+        { throw new Error('Unclosed tag at ' + scanner.pos); }
+
+      token = [ type, value, start, scanner.pos ];
+      tokens.push(token);
+
+      if (type === '#' || type === '^') {
+        sections.push(token);
+      } else if (type === '/') {
+        // Check section nesting.
+        openSection = sections.pop();
+
+        if (!openSection)
+          { throw new Error('Unopened section "' + value + '" at ' + start); }
+
+        if (openSection[1] !== value)
+          { throw new Error('Unclosed section "' + openSection[1] + '" at ' + start); }
+      } else if (type === 'name' || type === '{' || type === '&') {
+        nonSpace = true;
+      } else if (type === '=') {
+        // Set the tags for the next time around.
+        compileTags(value);
+      }
+    }
+
+    // Make sure there are no open sections when we're done.
+    openSection = sections.pop();
+
+    if (openSection)
+      { throw new Error('Unclosed section "' + openSection[1] + '" at ' + scanner.pos); }
+
+    return nestTokens(squashTokens(tokens));
+  }
+
+  /**
+   * Combines the values of consecutive text tokens in the given `tokens` array
+   * to a single token.
+   */
+  function squashTokens (tokens) {
+    var squashedTokens = [];
+
+    var token, lastToken;
+    for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
+      token = tokens[i];
+
+      if (token) {
+        if (token[0] === 'text' && lastToken && lastToken[0] === 'text') {
+          lastToken[1] += token[1];
+          lastToken[3] = token[3];
+        } else {
+          squashedTokens.push(token);
+          lastToken = token;
+        }
+      }
+    }
+
+    return squashedTokens;
+  }
+
+  /**
+   * Forms the given array of `tokens` into a nested tree structure where
+   * tokens that represent a section have two additional items: 1) an array of
+   * all tokens that appear in that section and 2) the index in the original
+   * template that represents the end of that section.
+   */
+  function nestTokens (tokens) {
+    var nestedTokens = [];
+    var collector = nestedTokens;
+    var sections = [];
+
+    var token, section;
+    for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
+      token = tokens[i];
+
+      switch (token[0]) {
+        case '#':
+        case '^':
+          collector.push(token);
+          sections.push(token);
+          collector = token[4] = [];
+          break;
+        case '/':
+          section = sections.pop();
+          section[5] = token[2];
+          collector = sections.length > 0 ? sections[sections.length - 1][4] : nestedTokens;
+          break;
+        default:
+          collector.push(token);
+      }
+    }
+
+    return nestedTokens;
+  }
+
+  /**
+   * A simple string scanner that is used by the template parser to find
+   * tokens in template strings.
+   */
+  function Scanner (string) {
+    this.string = string;
+    this.tail = string;
+    this.pos = 0;
+  }
+
+  /**
+   * Returns `true` if the tail is empty (end of string).
+   */
+  Scanner.prototype.eos = function eos () {
+    return this.tail === '';
+  };
+
+  /**
+   * Tries to match the given regular expression at the current position.
+   * Returns the matched text if it can match, the empty string otherwise.
+   */
+  Scanner.prototype.scan = function scan (re) {
+    var match = this.tail.match(re);
+
+    if (!match || match.index !== 0)
+      { return ''; }
+
+    var string = match[0];
+
+    this.tail = this.tail.substring(string.length);
+    this.pos += string.length;
+
+    return string;
+  };
+
+  /**
+   * Skips all text until the given regular expression can be matched. Returns
+   * the skipped string, which is the entire tail if no match can be made.
+   */
+  Scanner.prototype.scanUntil = function scanUntil (re) {
+    var index = this.tail.search(re), match;
+
+    switch (index) {
+      case -1:
+        match = this.tail;
+        this.tail = '';
+        break;
+      case 0:
+        match = '';
+        break;
+      default:
+        match = this.tail.substring(0, index);
+        this.tail = this.tail.substring(index);
+    }
+
+    this.pos += match.length;
+
+    return match;
+  };
+
+  /**
+   * Represents a rendering context by wrapping a view object and
+   * maintaining a reference to the parent context.
+   */
+  function Context (view, parentContext) {
+    this.view = view;
+    this.cache = { '.': this.view };
+    this.parent = parentContext;
+  }
+
+  /**
+   * Creates a new context using the given view with this context
+   * as the parent.
+   */
+  Context.prototype.push = function push (view) {
+    return new Context(view, this);
+  };
+
+  /**
+   * Returns the value of the given name in this context, traversing
+   * up the context hierarchy if the value is absent in this context's view.
+   */
+  Context.prototype.lookup = function lookup (name) {
+    var cache = this.cache;
+
+    var value;
+    if (cache.hasOwnProperty(name)) {
+      value = cache[name];
+    } else {
+      var context = this, names, index, lookupHit = false;
+
+      while (context) {
+        if (name.indexOf('.') > 0) {
+          value = context.view;
+          names = name.split('.');
+          index = 0;
+
+          /**
+           * Using the dot notion path in `name`, we descend through the
+           * nested objects.
+           *
+           * To be certain that the lookup has been successful, we have to
+           * check if the last object in the path actually has the property
+           * we are looking for. We store the result in `lookupHit`.
+           *
+           * This is specially necessary for when the value has been set to
+           * `undefined` and we want to avoid looking up parent contexts.
+           **/
+          while (value != null && index < names.length) {
+            if (index === names.length - 1)
+              { lookupHit = hasProperty(value, names[index]); }
+
+            value = value[names[index++]];
+          }
+        } else {
+          value = context.view[name];
+          lookupHit = hasProperty(context.view, name);
+        }
+
+        if (lookupHit)
+          { break; }
+
+        context = context.parent;
+      }
+
+      cache[name] = value;
+    }
+
+    if (isFunction(value))
+      { value = value.call(this.view); }
+
+    return value;
+  };
+
+  /**
+   * A Writer knows how to take a stream of tokens and render them to a
+   * string, given a context. It also maintains a cache of templates to
+   * avoid the need to parse the same template twice.
+   */
+  function Writer () {
+    this.cache = {};
+  }
+
+  /**
+   * Clears all cached templates in this writer.
+   */
+  Writer.prototype.clearCache = function clearCache () {
+    this.cache = {};
+  };
+
+  /**
+   * Parses and caches the given `template` and returns the array of tokens
+   * that is generated from the parse.
+   */
+  Writer.prototype.parse = function parse (template, tags) {
+    var cache = this.cache;
+    var tokens = cache[template];
+
+    if (tokens == null)
+      { tokens = cache[template] = parseTemplate(template, tags); }
+
+    return tokens;
+  };
+
+  /**
+   * High-level method that is used to render the given `template` with
+   * the given `view`.
+   *
+   * The optional `partials` argument may be an object that contains the
+   * names and templates of partials that are used in the template. It may
+   * also be a function that is used to load partial templates on the fly
+   * that takes a single argument: the name of the partial.
+   */
+  Writer.prototype.render = function render (template, view, partials) {
+    var tokens = this.parse(template);
+    var context = (view instanceof Context) ? view : new Context(view);
+    return this.renderTokens(tokens, context, partials, template);
+  };
+
+  /**
+   * Low-level method that renders the given array of `tokens` using
+   * the given `context` and `partials`.
+   *
+   * Note: The `originalTemplate` is only ever used to extract the portion
+   * of the original template that was contained in a higher-order section.
+   * If the template doesn't use higher-order sections, this argument may
+   * be omitted.
+   */
+  Writer.prototype.renderTokens = function renderTokens (tokens, context, partials, originalTemplate) {
+    var this$1 = this;
+
+    var buffer = '';
+
+    var token, symbol, value;
+    for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
+      value = undefined;
+      token = tokens[i];
+      symbol = token[0];
+
+      if (symbol === '#') { value = this$1.renderSection(token, context, partials, originalTemplate); }
+      else if (symbol === '^') { value = this$1.renderInverted(token, context, partials, originalTemplate); }
+      else if (symbol === '>') { value = this$1.renderPartial(token, context, partials, originalTemplate); }
+      else if (symbol === '&') { value = this$1.unescapedValue(token, context); }
+      else if (symbol === 'name') { value = this$1.escapedValue(token, context); }
+      else if (symbol === 'text') { value = this$1.rawValue(token); }
+
+      if (value !== undefined)
+        { buffer += value; }
+    }
+
+    return buffer;
+  };
+
+  Writer.prototype.renderSection = function renderSection (token, context, partials, originalTemplate) {
+    var this$1 = this;
+
+    var self = this;
+    var buffer = '';
+    var value = context.lookup(token[1]);
+
+    // This function is used to render an arbitrary template
+    // in the current context by higher-order sections.
+    function subRender (template) {
+      return self.render(template, context, partials);
+    }
+
+    if (!value) { return; }
+
+    if (isArray(value)) {
+      for (var j = 0, valueLength = value.length; j < valueLength; ++j) {
+        buffer += this$1.renderTokens(token[4], context.push(value[j]), partials, originalTemplate);
+      }
+    } else if (typeof value === 'object' || typeof value === 'string' || typeof value === 'number') {
+      buffer += this.renderTokens(token[4], context.push(value), partials, originalTemplate);
+    } else if (isFunction(value)) {
+      if (typeof originalTemplate !== 'string')
+        { throw new Error('Cannot use higher-order sections without the original template'); }
+
+      // Extract the portion of the original template that the section contains.
+      value = value.call(context.view, originalTemplate.slice(token[3], token[5]), subRender);
+
+      if (value != null)
+        { buffer += value; }
+    } else {
+      buffer += this.renderTokens(token[4], context, partials, originalTemplate);
+    }
+    return buffer;
+  };
+
+  Writer.prototype.renderInverted = function renderInverted (token, context, partials, originalTemplate) {
+    var value = context.lookup(token[1]);
+
+    // Use JavaScript's definition of falsy. Include empty arrays.
+    // See https://github.com/janl/mustache.js/issues/186
+    if (!value || (isArray(value) && value.length === 0))
+      { return this.renderTokens(token[4], context, partials, originalTemplate); }
+  };
+
+  Writer.prototype.renderPartial = function renderPartial (token, context, partials) {
+    if (!partials) { return; }
+
+    var value = isFunction(partials) ? partials(token[1]) : partials[token[1]];
+    if (value != null)
+      { return this.renderTokens(this.parse(value), context, partials, value); }
+  };
+
+  Writer.prototype.unescapedValue = function unescapedValue (token, context) {
+    var value = context.lookup(token[1]);
+    if (value != null)
+      { return value; }
+  };
+
+  Writer.prototype.escapedValue = function escapedValue (token, context) {
+    var value = context.lookup(token[1]);
+    if (value != null)
+      { return mustache.escape(value); }
+  };
+
+  Writer.prototype.rawValue = function rawValue (token) {
+    return token[1];
+  };
+
+  mustache.name = 'mustache.js';
+  mustache.version = '2.3.0';
+  mustache.tags = [ '{{', '}}' ];
+
+  // All high-level mustache.* functions use this writer.
+  var defaultWriter = new Writer();
+
+  /**
+   * Clears all cached templates in the default writer.
+   */
+  mustache.clearCache = function clearCache () {
+    return defaultWriter.clearCache();
+  };
+
+  /**
+   * Parses and caches the given template in the default writer and returns the
+   * array of tokens it contains. Doing this ahead of time avoids the need to
+   * parse templates on the fly as they are rendered.
+   */
+  mustache.parse = function parse (template, tags) {
+    return defaultWriter.parse(template, tags);
+  };
+
+  /**
+   * Renders the `template` with the given `view` and `partials` using the
+   * default writer.
+   */
+  mustache.render = function render (template, view, partials) {
+    if (typeof template !== 'string') {
+      throw new TypeError('Invalid template! Template should be a "string" ' +
+                          'but "' + typeStr(template) + '" was given as the first ' +
+                          'argument for mustache#render(template, view, partials)');
+    }
+
+    return defaultWriter.render(template, view, partials);
+  };
+
+  // This is here for backwards compatibility with 0.4.x.,
+  /*eslint-disable */ // eslint wants camel cased function name
+  mustache.to_html = function to_html (template, view, partials, send) {
+    /*eslint-enable*/
+
+    var result = mustache.render(template, view, partials);
+
+    if (isFunction(send)) {
+      send(result);
+    } else {
+      return result;
+    }
+  };
+
+  // Export the escaping function so that the user may override it.
+  // See https://github.com/janl/mustache.js/issues/244
+  mustache.escape = escapeHtml;
+
+  // Export these mainly for testing, but also for advanced usage.
+  mustache.Scanner = Scanner;
+  mustache.Context = Context;
+  mustache.Writer = Writer;
+
+  return mustache;
+}));
+});
+
+var html$2 = "\n<style>\n  dt-byline {\n    font-size: 12px;\n    line-height: 18px;\n    display: block;\n    border-top: 1px solid rgba(0, 0, 0, 0.1);\n    border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n    color: rgba(0, 0, 0, 0.5);\n    padding-top: 12px;\n    padding-bottom: 12px;\n  }\n  dt-article.centered dt-byline {\n    text-align: center;\n\n  }\n  dt-byline a {\n    text-decoration: none;\n  }\n  dt-byline .authors {\n    text-align: left;\n  }\n  dt-byline .name {\n    display: inline;\n    text-transform: uppercase;\n  }\n  dt-byline .affiliation {\n    display: inline;\n  }\n  dt-byline .date {\n    display: block;\n    text-align: left;\n  }\n  dt-byline .year, dt-byline .month {\n    display: inline;\n  }\n  dt-byline .citation {\n    display: block;\n    text-align: left;\n  }\n  dt-byline .citation div {\n    display: inline;\n  }\n\n  @media(min-width: 768px) {\n    dt-byline {\n    }\n  }\n\n  @media(min-width: 1080px) {\n    dt-byline {\n      border-bottom: none;\n      margin-bottom: 70px;\n    }\n\n    dt-byline a:hover {\n      color: rgba(0, 0, 0, 0.9);\n    }\n\n    dt-byline .authors {\n      display: inline-block;\n    }\n\n    dt-byline .author {\n      display: inline-block;\n      margin-right: 12px;\n      /*padding-left: 20px;*/\n      /*border-left: 1px solid #ddd;*/\n    }\n\n    dt-byline .affiliation {\n      display: block;\n    }\n\n    dt-byline .author:last-child {\n      margin-right: 0;\n    }\n\n    dt-byline .name {\n      display: block;\n    }\n\n    dt-byline .date {\n      border-left: 1px solid rgba(0, 0, 0, 0.1);\n      padding-left: 15px;\n      margin-left: 15px;\n      display: inline-block;\n    }\n    dt-byline .year, dt-byline .month {\n      display: block;\n    }\n\n    dt-byline .citation {\n      border-left: 1px solid rgba(0, 0, 0, 0.15);\n      padding-left: 15px;\n      margin-left: 15px;\n      display: inline-block;\n    }\n    dt-byline .citation div {\n      display: block;\n    }\n  }\n</style>\n\n";
+
+var template = "\n<div class=\"byline\">\n  <div class=\"authors\">\n  {{#authors}}\n    <div class=\"author\">\n      {{#personalURL}}\n        <a class=\"name\" href=\"{{personalURL}}\">{{name}}</a>\n      {{/personalURL}}\n      {{^personalURL}}\n        <div class=\"name\">{{name}}</div>\n      {{/personalURL}}\n      {{#affiliation}}\n        {{#affiliationURL}}\n          <a class=\"affiliation\" href=\"{{affiliationURL}}\">{{affiliation}}</a>\n        {{/affiliationURL}}\n        {{^affiliationURL}}\n          <div class=\"affiliation\">{{affiliation}}</div>\n        {{/affiliationURL}}\n      {{/affiliation}}\n    </div>\n    {{/authors}}\n  </div>\n  <div class=\"date\">\n    <div class=\"month\">{{publishedMonth}}. {{publishedDay}}</div>\n    <div class=\"year\">{{publishedYear}}</div>\n  </div>\n  <a class=\"citation\" href=\"#citation\">\n    <div>Citation:</div>\n    <div>{{concatenatedAuthors}}, {{publishedYear}}</div>\n  </a>\n</div>\n";
+
+var byline = function(dom, data) {
+  var el = dom.querySelector('dt-byline');
+  if (el) {
+    el.innerHTML = html$2 + mustache.render(template, data);
+  }
+};
+
+var html$3 = "\n<style>\n  dt-appendix {\n    display: block;\n    font-size: 14px;\n    line-height: 24px;\n    margin-bottom: 0;\n    border-top: 1px solid rgba(0,0,0,0.1);\n    color: rgba(0,0,0,0.5);\n    background: rgb(250, 250, 250);\n    padding-top: 36px;\n    padding-right: 24px;\n    padding-bottom: 60px;\n    padding-left: 24px;\n  }\n  dt-appendix h3 {\n    font-size: 16px;\n    font-weight: 500;\n    margin-top: 18px;\n    margin-bottom: 18px;\n    color: rgba(0,0,0,0.65);\n  }\n  dt-appendix .citation {\n    font-size: 11px;\n    line-height: 15px;\n    border-left: 1px solid rgba(0, 0, 0, 0.1);\n    padding-left: 18px;\n    border: 1px solid rgba(0,0,0,0.1);\n    background: rgba(0, 0, 0, 0.02);\n    padding: 10px 18px;\n    border-radius: 3px;\n    color: rgba(150, 150, 150, 1);\n    overflow: hidden;\n    margin-top: -12px;\n  }\n  dt-appendix .references {\n    font-size: 12px;\n    line-height: 20px;\n  }\n  dt-appendix a {\n    color: rgba(0, 0, 0, 0.6);\n  }\n</style>\n\n<div class=\"l-body\">\n  <h3>References</h3>\n  <dt-bibliography></dt-bibliography>\n  <h3 id=\"citation\">Errors, Reuse, and Citation</h3>\n  <p>If you see mistakes or want to suggest changes, please <a class=\"github-issue\">create an issue on GitHub</a>.</p>\n  <p>Diagrams and text are licensed under Creative Commons Attribution <a href=\"https://creativecommons.org/licenses/by/2.0/\">CC-BY 2.0</a>, unless noted otherwise, with the <a class=\"github\">source available on GitHub</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>\n  <p>For attribution in academic contexts, please cite this work as</p>\n  <pre class=\"citation short\"></pre>\n  <p>BibTeX citation</p>\n  <pre class=\"citation long\"></pre>\n</div>\n";
 
 var appendix = function(dom, data) {
   var el = dom.querySelector('dt-appendix');
-  if (el) { el.innerHTML = html$2; }
+  if (el) {
+    var oldHtml = el.innerHTML;
+    el.innerHTML = html$3;
+    var div = el.querySelector("div.l-body");
+
+    if (dom.querySelector("dt-fn")) {
+      div.innerHTML = "<h3>Footnotes</h3><dt-fn-list></dt-fn-list>" + div.innerHTML;
+    }
+
+    div.innerHTML = oldHtml + div.innerHTML;
+
+
+    el.querySelector("a.github").setAttribute("href", data.githubUrl);
+    el.querySelector("a.github-issue").setAttribute("href", data.githubUrl + "/issues/new");
+    el.querySelector(".citation.short").textContent = data.concatenatedAuthors + ", " + '"' + data.title + '", Distill, ' + data.publishedYear + ".";
+    var bibtex  = "@article{" + data.slug + ",\n";
+        bibtex += "  author = {" + data.bibtexAuthors + "},\n";
+        bibtex += "  title = {" + data.title + "},\n";
+        bibtex += "  journal = {Distill},\n";
+        bibtex += "  year = {" + data.publishedYear + "},\n";
+        bibtex += "  note = {" + data.url + "}\n";
+        bibtex += "}";
+    el.querySelector(".citation.long").textContent = bibtex;
+  }
+
 };
 
-var html$3 = "\n<style>\ndt-footer {\n  display: block;\n  color: rgba(255, 255, 255, 0.4);\n  font-weight: 300;\n  padding: 40px 0;\n  border-top: 1px solid rgba(0, 0, 0, 0.1);\n  background-color: rgba(0, 0, 0, 0.6);\n}\ndt-footer .logo svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: -2px;\n}\ndt-footer .logo svg path {\n  stroke: rgba(255, 255, 255, 0.8)!important;\n  stroke-width: 3px!important;\n}\ndt-footer .logo {\n  font-size: 16px;\n  font-weight: 300;\n  color: rgba(255, 255, 255, 0.8);\n  text-decoration: none;\n  margin-right: 6px;\n}\n</style>\n\n<div class=\"l-body\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a> is dedicated to clear explanations of machine learning\n</div>\n";
+var html$4 = "\n<style>\ndt-footer {\n  display: block;\n  color: rgba(255, 255, 255, 0.4);\n  font-weight: 300;\n  padding: 40px 0;\n  border-top: 1px solid rgba(0, 0, 0, 0.1);\n  background-color: hsl(223, 9%, 25%);\n  text-align: center;\n}\ndt-footer .logo svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: 2px;\n}\ndt-footer .logo svg path {\n  fill: none;\n  stroke: rgba(255, 255, 255, 0.8);\n  stroke-width: 3px;\n}\ndt-footer .logo {\n  font-size: 13px;\n  font-weight: 300;\n  text-transform: uppercase;\n  color: rgba(255, 255, 255, 0.8);\n  text-decoration: none;\n  margin-right: 6px;\n}\n</style>\n\n<div class=\"l-screen-inset\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a> is dedicated to clear explanations of machine learning\n</div>\n";
 
 var footer = function(dom, data) {
   var el = dom.querySelector("dt-footer");
   if(el) {
-    el.innerHTML = html$3;
+    el.innerHTML = html$4;
   } else {
     var footer = dom.createElement("dt-footer");
-    footer.innerHTML = html$3;
+    footer.innerHTML = html$4;
     var b = dom.querySelector("body");
     b.appendChild(footer);
   }
 };
 
 var citation = function(dom, data) {
+  var css = "\n    dt-cite {\n      color: hsla(206, 90%, 20%, 0.7);\n    }\n    dt-cite .citation-number {\n      cursor: default;\n      white-space: nowrap;\n      font-family: -apple-system, BlinkMacSystemFont, \"Roboto\", Helvetica, sans-serif;\n      font-size: 75%;\n      color: hsla(206, 90%, 20%, 0.7);\n      display: inline-block;\n      line-height: 1.1em;\n      text-align: center;\n      position: relative;\n      top: -2px;\n      margin: 0 2px;\n    }\n    figcaption dt-cite .citation-number {\n      font-size: 11px;\n      font-weight: normal;\n      top: -2px;\n      line-height: 1em;\n    }\n  ";
+
+  var style = dom.createElement("style");
+  style.textContent = css;
+  dom.querySelector("body").appendChild(style);
+
   var citations = data.citations;
   /*if (data.citations) {
     citations = Object.keys(data.citations).map(c => data.citations[c]);
@@ -4421,15 +5949,15 @@ var citation = function(dom, data) {
     if (key) {
       var keys = key.split(",");
       var cite_string = inline_cite_short(keys);
-      el.innerHTML = "<span id=\"citation-" + n + "\" class=\"citation\">" + cite_string + "</span>";
-      DistillHoverBox.bind(("#citation-" + n), key);
-
-      DistillHoverBox.contentMap[key] = "";
+      var cite_hover_str = "";
       keys.map(function (key,n) {
-        if (n>0) { DistillHoverBox.contentMap[key] += "<br>"; }
-        var cite_str = bibliography_cite(data.bibliography[key], true);
-        DistillHoverBox.contentMap[key] += cite_str;
+        if (n>0) { cite_hover_str += "<br><br>"; }
+        cite_hover_str += hover_cite(data.bibliography[key]);
       });
+      cite_hover_str = cite_hover_str.replace(/"/g, "&#39;");
+      var orig_string = el.innerHTML;
+      if (orig_string != "") { orig_string += " "; }
+      el.innerHTML = "<span id=\"citation-" + n + "\" data-hover=\"" + cite_hover_str + "\">" + orig_string + "<span class=\"citation-number\">" + cite_string + "</span></span>";
     }
   });
 
@@ -4438,7 +5966,7 @@ var citation = function(dom, data) {
     var ol = dom.createElement("ol");
     citations.forEach(function (key) {
       var el = dom.createElement("li");
-      el.textContent = bibliography_cite(data.bibliography[key]);
+      el.innerHTML = bibliography_cite(data.bibliography[key]);
       ol.appendChild(el);
     });
     bibEl.appendChild(ol);
@@ -4473,44 +6001,108 @@ var citation = function(dom, data) {
     return keys.map(cite_string).join(", ");
   }
 
-  function bibliography_cite(ent, fancy){
-    if (ent){
-      var names = ent.author.split(" and ");
-      var cite = "";
-      var name_strings = names.map(function (name) {
+  function author_string(ent, template, sep, finalSep){
+    var names = ent.author.split(" and ");
+    var name_strings = names.map(function (name) {
+      name = name.trim();
+      if (name.indexOf(",") != -1){
         var last = name.split(",")[0].trim();
         var firsts = name.split(",")[1];
-        if (firsts != undefined) {
-          var initials = firsts.trim().split(" ").map(function (s) { return s.trim()[0]; });
-          return last + ", " + initials.join(".")+".";
-        }
-        return last;
-      });
-      if (names.length > 1) {
-        cite += name_strings.slice(0, names.length-1).join(", ");
-        cite += " and " + name_strings[names.length-1];
       } else {
-        cite += name_strings[0];
+        var last = name.split(" ").slice(-1)[0].trim();
+        var firsts = name.split(" ").slice(0,-1).join(" ");
       }
-      cite += ", " + ent.year + ". ";
-      if (fancy){
-        cite += "<b>" + ent.title + "</b>. ";
+      var initials = "";
+      if (firsts != undefined) {
+        initials = firsts.trim().split(" ").map(function (s) { return s.trim()[0]; });
+        initials = initials.join(".")+".";
+      }
+      return template.replace("${F}", firsts)
+                     .replace("${L}", last)
+                     .replace("${I}", initials);
+    });
+    if (names.length > 1) {
+      var str = name_strings.slice(0, names.length-1).join(sep);
+      str += (finalSep || sep) + name_strings[names.length-1];
+      return str;
+    } else {
+      return name_strings[0];
+    }
+  }
+
+  function venue_string(ent) {
+    var cite = (ent.journal || ent.booktitle || "");
+    if ("volume" in ent){
+      var issue = ent.issue || ent.number;
+      issue = (issue != undefined)? "("+issue+")" : "";
+      cite += ", Vol " + ent.volume + issue;
+    }
+    if ("pages" in ent){
+      cite += ", pp. " + ent.pages;
+    }
+    if (cite != "") { cite += ". "; }
+    if ("publisher" in ent){
+      cite += ent.publisher;
+      if (cite[cite.length-1] != ".") { cite += "."; }
+    }
+    return cite;
+  }
+
+  function link_string(ent){
+    if ("url" in ent){
+      var url = ent.url;
+      var arxiv_match = (/arxiv\.org\/abs\/([0-9\.]*)/).exec(url);
+      if (arxiv_match != null){
+        url = "http://arxiv.org/pdf/" + (arxiv_match[1]) + ".pdf";
+      }
+
+      if (url.slice(-4) == ".pdf"){
+        var label = "PDF";
+      } else if (url.slice(-5) == ".html") {
+        var label = "HTML";
+      }
+      return (" &ensp;<a href=\"" + url + "\">[" + (label||"link") + "]</a>");
+    }/* else if ("doi" in ent){
+      return ` &ensp;<a href="https://doi.org/${ent.doi}" >[DOI]</a>`;
+    }*/ else {
+      return "";
+    }
+  }
+  function doi_string(ent, new_line){
+    if ("doi" in ent) {
+      return ((new_line?"<br>":"") + " <a href=\"https://doi.org/" + (ent.doi) + "\" style=\"text-decoration:inherit;\">DOI: " + (ent.doi) + "</a>");
+    } else {
+      return "";
+    }
+  }
+
+  function bibliography_cite(ent, fancy){
+    if (ent){
+      var cite =  author_string(ent, "${L}, ${I}", ", ", " and ");
+      if (ent.year || ent.date){
+        cite += ", " + (ent.year || ent.date) + ". ";
       } else {
-        cite += ent.title + ". ";
+        cite += ". ";
       }
-      cite += (ent.journal || ent.booktitle || "");
-      if ("volume" in ent){
-        var issue = ent.issue || ent.number;
-        issue = (issue != undefined)? "("+issue+")" : "";
-        cite += ", Vol " + ent.volume + issue;
-      }
-      if ("pages" in ent){
-        cite += ", pp. " + ent.pages;
-      }
-      cite += ". ";
-      if (fancy && ent.url && ent.url.slice(-4) == ".pdf") {
-        cite = cite + " <a href=\"" + (ent.url) + "\">[pdf]</a>";
-      }
+      cite += "<b>" + ent.title + "</b>. ";
+      cite += venue_string(ent);
+      cite += doi_string(ent);
+      cite += link_string(ent);
+      return cite
+    } else {
+      return "?";
+    }
+  }
+
+  function hover_cite(ent){
+    if (ent){
+      var cite = "";
+      cite += "<b>" + ent.title + "</b>";
+      cite += link_string(ent);
+      cite += "<br>";
+      cite += author_string(ent, "${I} ${L}", ", ") + ".<br>";
+      cite += venue_string(ent).trim() + " " + ent.year + ". ";
+      cite += doi_string(ent, true);
       return cite
     } else {
       return "?";
@@ -4519,7 +6111,7 @@ var citation = function(dom, data) {
 
 
   //https://scholar.google.com/scholar?q=allintitle%3ADocument+author%3Aolah
-  function get_URL(ent){
+  function get_GS_URL(ent){
     if (ent){
       var names = ent.author.split(" and ");
       names = names.map(function (name) { return name.split(",")[0].trim(); });
@@ -4531,92 +6123,31 @@ var citation = function(dom, data) {
   }
 };
 
-// DistillHoverBox
-//=====================================
+var footnote = function(dom, data) {
 
-function DistillHoverBox(key, pos){
-
-  if (!(key in DistillHoverBox.contentMap)){
-    console.error("No DistillHoverBox content registered for key", key);
-  }
-  if (key in DistillHoverBox.liveBoxes) {
-    console.error("There already exists a DistillHoverBox for key", key);
-  } else {
-    for (var k in DistillHoverBox.liveBoxes)
-      { DistillHoverBox.liveBoxes[k].remove(); }
-    DistillHoverBox.liveBoxes[key] = this;
-  }
-  this.key = key;
-
-  var pretty = window.innerWidth > 600;
-
-  var padding = pretty? 18 : 12;
-  var outer_padding = pretty ? 18 : 0;
-  var bbox = document.querySelector("body").getBoundingClientRect();
-  var left = pos[0] - bbox.left, top = pos[1] - bbox.top;
-  var width = Math.min(window.innerWidth-2*outer_padding, 648);
-  left = Math.min(left, window.innerWidth-width-outer_padding);
-  width = width - 2*padding;
-
-  var str = "<div style=\"position: absolute;\n                          background-color: #FFF;\n                          opacity: 0.95;\n                          width: " + width + "px;\n                          top: " + top + "px;\n                          left: " + left + "px;\n                          padding: " + padding + "px;\n                          border-radius: " + (pretty? 6 : 0) + "px;\n                          box-shadow: 0px 0px 18px 6px #777;\" >\n              " + (DistillHoverBox.contentMap[key]) + "\n              </div>";
-
-  this.div = appendBody(str);
-
-  DistillHoverBox.bind (this.div, key);
-}
-
-DistillHoverBox.prototype.remove = function remove(){
-  if (this.div) { this.div.remove(); }
-  if (this.timeout) { clearTimeout(this.timeout); }
-  delete DistillHoverBox.liveBoxes[this.key];
-};
-
-DistillHoverBox.prototype.stopTimeout = function stopTimeout() {
-  if (this.timeout) { clearTimeout(this.timeout); }
-};
-
-DistillHoverBox.prototype.extendTimeout = function extendTimeout(T) {
-  //console.log("extend", T)
-  var this_ = this;
-  this.stopTimeout();
-  this.timeout = setTimeout(function () { return this_.remove(); }, T);
-};
-
-DistillHoverBox.liveBoxes = {};
-DistillHoverBox.contentMap = {abc: "hello world!"};
-
-DistillHoverBox.bind = function bind(node, key) {
-  if (typeof node == "string"){
-    node = document.querySelector(node);
-  }
-  node.addEventListener("mouseover", function () {
-    var bbox = node.getBoundingClientRect();
-    if (!(key in DistillHoverBox.liveBoxes)){
-      new DistillHoverBox(key, [bbox.right, bbox.bottom]);
-    }
-    DistillHoverBox.liveBoxes[key].stopTimeout();
-  });
-  node.addEventListener("mouseout", function () {
-    if (key in DistillHoverBox.liveBoxes){
-      DistillHoverBox.liveBoxes[key].extendTimeout(250);
-    }
+  var fnTags = [].slice.apply(dom.querySelectorAll("dt-fn"));
+  var fnContent = [];
+  fnTags.forEach(function (el,n) {
+    var content = el.innerHTML;
+    fnContent.push(content);
+    n = (n+1)+"";
+    var key = "fn-"+n;
+    var escaped_content = content.replace(/"/g, "&#39;");
+    el.innerHTML = "<sup><span id=\"" + key + "\" data-hover=\"" + escaped_content + "\" style=\"cursor:pointer\">" + n + "</span></sup>";
   });
 
+  var fnList = dom.querySelector("dt-fn-list");
+  if (fnList) {
+    var ol = dom.createElement("ol");
+    fnContent.forEach(function (content) {
+      var el = dom.createElement("li");
+      el.innerHTML = content;
+      ol.appendChild(el);
+    });
+    fnList.appendChild(ol);
+  }
+
 };
-
-
-function appendBody(str){
-  var node = nodeFromString(str);
-  var body = document.querySelector("body");
-  body.appendChild(node);
-  return node;
-}
-
-function nodeFromString(str) {
-  var div = document.createElement("div");
-  div.innerHTML = str;
-  return div.firstChild;
-}
 
 var marked = createCommonjsModule(function (module, exports) {
 /**
@@ -6763,6 +8294,14 @@ var code$1 = function(dom, data) {
   });
 };
 
+var code$2 = "// DistillHoverBox\n//=====================================\n\nfunction DistillHoverBox(key, pos){\n\n  if (!(key in DistillHoverBox.contentMap)){\n    console.error(\"No DistillHoverBox content registered for key\", key);\n  }\n  if (key in DistillHoverBox.liveBoxes) {\n    console.error(\"There already exists a DistillHoverBox for key\", key);\n  } else {\n    for (var k in DistillHoverBox.liveBoxes)\n      DistillHoverBox.liveBoxes[k].remove();\n    DistillHoverBox.liveBoxes[key] = this;\n  }\n  this.key = key;\n\n  var pretty = window.innerWidth > 600;\n\n  var padding = pretty? 18 : 12;\n  var outer_padding = pretty ? 18 : 0;\n  var bbox = document.querySelector(\"body\").getBoundingClientRect();\n  var left = pos[0] - bbox.left, top = pos[1] - bbox.top;\n  var width = Math.min(window.innerWidth-2*outer_padding, 648);\n  left = Math.min(left, window.innerWidth-width-outer_padding);\n  width = width - 2*padding;\n\n  var str = `<div style=\"position: absolute;\n                          background-color: #FFF;\n                          white-s\n                          opacity: 0.95;\n                          max-width: ${width}px;\n                          top: ${top}px;\n                          left: ${left}px;\n                          border: 1px solid rgba(0, 0, 0, 0.25);\n                          padding: ${padding}px;\n                          border-radius: ${pretty? 3 : 0}px;\n                          box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);\n                          z-index: ${1e6}\" >\n              ${DistillHoverBox.contentMap[key]}\n              </div>`;\n\n  this.div = appendBody(str);\n\n  DistillHoverBox.bind (this.div, key);\n}\n\nDistillHoverBox.prototype.remove = function remove(){\n  if (this.div) this.div.remove();\n  if (this.timeout) clearTimeout(this.timeout);\n  delete DistillHoverBox.liveBoxes[this.key];\n}\n\nDistillHoverBox.prototype.stopTimeout = function stopTimeout() {\n  if (this.timeout) clearTimeout(this.timeout);\n}\n\nDistillHoverBox.prototype.extendTimeout = function extendTimeout(T) {\n  //console.log(\"extend\", T)\n  var this_ = this;\n  this.stopTimeout();\n  this.timeout = setTimeout(() => this_.remove(), T);\n}\n\nDistillHoverBox.liveBoxes = {};\nDistillHoverBox.contentMap = {};\n\nDistillHoverBox.bind = function bind(node, key) {\n  if (typeof node == \"string\"){\n    node = document.querySelector(node);\n  }\n  node.addEventListener(\"mouseover\", () => {\n    var bbox = node.getBoundingClientRect();\n    if (!(key in DistillHoverBox.liveBoxes)){\n      new DistillHoverBox(key, [bbox.right, bbox.bottom]);\n    }\n    DistillHoverBox.liveBoxes[key].stopTimeout();\n  });\n  node.addEventListener(\"mouseout\", () => {\n    if (key in DistillHoverBox.liveBoxes){\n      DistillHoverBox.liveBoxes[key].extendTimeout(250);\n    }\n  });\n\n}\n\n\nfunction appendBody(str){\n  var node = nodeFromString(str);\n  var body = document.querySelector(\"body\");\n  body.appendChild(node);\n  return node;\n}\n\nfunction nodeFromString(str) {\n  var div = document.createElement(\"div\");\n  div.innerHTML = str;\n  return div.firstChild;\n}\n\nvar hover_es = document.querySelectorAll(\"span[data-hover]\");\nhover_es = [].slice.apply(hover_es);\nhover_es.forEach((e,n) => {\n  var key = \"hover-\"+n;\n  var content = e.getAttribute(\"data-hover\");\n  DistillHoverBox.contentMap[key] = content;\n  DistillHoverBox.bind(e, key);\n});\n";
+
+var hoverBox = function(dom) {
+  var s = dom.createElement("script");
+  s.textContent = code$2;
+  dom.querySelector("body").appendChild(s);
+};
+
 //import xml from "xml";
 
 var generateCrossref = function(data) {
@@ -6931,12 +8470,14 @@ function renderOnLoad(dom, data) {
   expandData(dom, data);
   meta(dom, data);
   header(dom, data);
+  byline(dom, data);
   appendix(dom, data);
   footer(dom, data);
   markdown(dom, data);
   code$1(dom, data);
   citation(dom, data);
-  // TODO remove script tag
+  footnote(dom, data);
+  hoverBox(dom, data);
 }
 
 // If we are in a browser, render automatically.
@@ -6950,12 +8491,15 @@ if(window && window.document) {
 }
 
 // For node
-function render(dom, data) {
+function render$1(dom, data) {
   renderImmediately(dom);
   renderOnLoad(dom, data);
+  // Remove script tag so it doesn't run again
+  var s = dom.querySelector('script[src="http://distill.pub/template.js"]');
+  if (s) { s.parentElement.removeChild(s); }
 }
 
-exports.render = render;
+exports.render = render$1;
 exports.html = html;
 exports.styles = styles;
 exports.frontMatter = frontMatter;

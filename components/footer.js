@@ -8,28 +8,31 @@ dt-footer {
   font-weight: 300;
   padding: 40px 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: hsl(223, 9%, 25%);
+  text-align: center;
 }
 dt-footer .logo svg {
   width: 24px;
   position: relative;
   top: 4px;
-  margin-right: -2px;
+  margin-right: 2px;
 }
 dt-footer .logo svg path {
-  stroke: rgba(255, 255, 255, 0.8)!important;
-  stroke-width: 3px!important;
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.8);
+  stroke-width: 3px;
 }
 dt-footer .logo {
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 300;
+  text-transform: uppercase;
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   margin-right: 6px;
 }
 </style>
 
-<div class="l-body">
+<div class="l-screen-inset">
   <a href="/" class="logo">
     ${logo}
     Distill
