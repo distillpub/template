@@ -4,6 +4,7 @@
   "description": "Template for creating Distill articles.",
   "main": "dist/template.js",
   "scripts": {
+    "serve": "python3 -m http.server",
     "start": "rollup -c -w",
     "build": "rollup -c",
     "test": "mocha"

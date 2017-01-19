@@ -25,7 +25,8 @@ dt-article > h3,
 dt-article > h4,
 dt-article > figure,
 dt-article > ul,
-dt-article > dt-byline {
+dt-article > dt-byline,
+dt-article > dt-code {
   width: auto;
   margin-left: 24px;
   margin-right: 24px;
@@ -47,7 +48,8 @@ dt-article > dt-byline {
   dt-article > h4,
   dt-article > figure,
   dt-article > ul,
-  dt-article > dt-byline {
+  dt-article > dt-byline,
+  dt-article > dt-code {
     margin-left: 72px;
     margin-right: 72px;
   }
@@ -63,7 +65,8 @@ dt-article > dt-byline {
   dt-article > h4,
   dt-article > figure,
   dt-article > ul,
-  dt-article > dt-byline {
+  dt-article > dt-byline,
+  dt-article > dt-code {
     margin-left: calc(50% - 984px / 2);
     width: 648px;
   }
@@ -147,7 +150,8 @@ dt-article > dt-byline {
   dt-article.centered > h4,
   dt-article.centered > figure,
   dt-article.centered > ul,
-  dt-article.centered > dt-byline {
+  dt-article.centered > dt-byline,
+  dt-article.centered > dt-code {
     margin-left: auto;
     margin-right: auto;
     width: 648px;

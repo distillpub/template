@@ -20,7 +20,7 @@ dt-article h1 {
   font-weight: 400;
   font-size: 40px;
   line-height: 1em;
-  font-family: Cochin, Georgia, serif;
+  font-family: HoeflerText-Regular, Cochin, Georgia, serif;
 }
 @media(min-width: 768px) {
   dt-article h1 {
@@ -130,7 +130,6 @@ dt-article p {
   margin-bottom: 24px;
   -webkit-font-smoothing: antialiased;
   font-family: Georgia, serif;
-  font-family: 16px;
 }
 
 dt-article p a {
