@@ -282,6 +282,8 @@ function Type$2(tag, options) {
 
 var type = Type$2;
 
+/*eslint-disable max-len*/
+
 var common$4        = common$1;
 var YAMLException$3 = exception;
 var Type$1          = type;
@@ -893,6 +895,8 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
+/*eslint-disable no-bitwise*/
+
 var NodeBuffer;
 
 try {
@@ -1349,6 +1353,8 @@ var default_full = Schema$6.DEFAULT = new Schema$6({
     _function
   ]
 });
+
+/*eslint-disable max-len,no-use-before-define*/
 
 var common              = common$1;
 var YAMLException$1       = exception;
@@ -2940,6 +2946,8 @@ var loader$1 = {
 	safeLoadAll: safeLoadAll_1,
 	safeLoad: safeLoad_1
 };
+
+/*eslint-disable no-use-before-define*/
 
 var common$7              = common$1;
 var YAMLException$5       = exception;
@@ -8298,13 +8306,9 @@ var hoverBox = function(dom) {
 
 var generateCrossref = function(data) {
 
-  if (data.published == undefined) {
-    //console.warn("Can't generate XML for post ", data.title, "with data", data);
-    //return "";
-    data.published = new Date("invalid");
-  }
 
-  var date = data.published;
+  var date = data.publishedDate;
+
   var batch_timestamp = Math.floor(Date.now() / 1000);
   var batch_id = data.authors.length ? data.authors[0].lastName.toLowerCase().slice(0,20) : "Anonymous";
       batch_id += "_" + date.getFullYear();
@@ -8324,9 +8328,9 @@ var generateCrossref = function(data) {
         {doi_batch_id: batch_id},
         {timestamp: batch_timestamp},
         {depositor: [
-          {depositor_name: data.journal.depositorName},
-          {email_address: data.journal.email} ]},
-        {registrant: "Distill"} ]},
+          {depositor_name: data.journal.publisherName},
+          {email_address: data.journal.publisherEmail} ]},
+        {registrant: data.journal.publisherName} ]},
 
       {body: [
         {journal: [
