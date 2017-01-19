@@ -5,7 +5,7 @@
  */
 
 code {
-  white-space:pre-wrap;
+  white-space: nowrap;
   background: rgba(0, 0, 0, 0.04);
   border-radius: 2px;
   padding: 4px 7px;

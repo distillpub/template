@@ -118,6 +118,7 @@ dt-article > dt-code {
     margin-right: calc((100vw - 984px) / 2);
     width: calc((984px - 648px) - 24px);
   }
+
   /* Side */
   .side.l-body,
   dt-article .side.l-body {
@@ -149,6 +150,9 @@ dt-article > dt-code {
   dt-article .side.l-middle-outset {
     clear: both;
     float: right;
+    width: 456px;
+    margin-left: 48px;
+    margin-right: calc((100vw - 984px) / 2 + 168px);
   }
   .side.l-page,
   dt-article .side.l-page {
@@ -161,6 +165,8 @@ dt-article > dt-code {
   dt-article .side.l-page-outset {
     clear: both;
     float: right;
+    width: 624px;
+    margin-right: calc((100vw - 984px) / 2);
   }
 }
 
@@ -200,6 +206,56 @@ dt-article > dt-code {
 
   /* page and screen are already centered */
 
+  /* Side */
+
+  .centered .side.l-body,
+  .centered dt-article .side.l-body {
+    clear: both;
+    float: right;
+    margin-top: 0;
+    margin-left: 48px;
+    margin-right: calc((100vw - 648px) / 2);
+    width: calc(4 * 60px + 3 * 24px);
+  }
+  .centered .side.l-body-outset,
+  .centered dt-article .side.l-body-outset {
+    clear: both;
+    float: right;
+    margin-top: 0;
+    margin-left: 48px;
+    margin-right: calc((100vw - 648px) / 2);
+    width: calc(4 * 60px + 3 * 24px);
+  }
+  .centered .side.l-middle,
+  .centered dt-article .side.l-middle {
+    clear: both;
+    float: right;
+    width: 396px;
+    margin-left: 48px;
+    margin-right: calc((100vw - 984px) / 2 + 168px / 2);
+  }
+  .centered .side.l-middle-outset,
+  .centered dt-article .side.l-middle-outset {
+    clear: both;
+    float: right;
+    width: 456px;
+    margin-left: 48px;
+    margin-right: calc((100vw - 984px) / 2 + 168px);
+  }
+  .centered .side.l-page,
+  .centered dt-article .side.l-page {
+    clear: both;
+    float: right;
+    width: 480px;
+    margin-right: calc((100vw - 984px) / 2);
+  }
+  .centered .side.l-page-outset,
+  .centered dt-article .side.l-page-outset {
+    clear: both;
+    float: right;
+    width: 480px;
+    margin-right: calc((100vw - 984px) / 2);
+  }
   .centered .l-gutter,
   .centered.l-gutter,
   dt-article.centered .l-gutter {
@@ -209,17 +265,6 @@ dt-article > dt-code {
     margin-left: 24px;
     margin-right: calc((100vw - 984px) / 2);
     width: calc((984px - 648px) / 2 - 24px);
-  }
-  /* Side */
-  .centered .side.l-body,
-  .centered.side.l-body,
-  dt-article.centered .side.l-body {
-    clear: both;
-    float: right;
-    margin-top: 0;
-    margin-left: 48px;
-    margin-right: calc((100vw - 984px) / 2);
-    width: 396px;
   }
 
 }

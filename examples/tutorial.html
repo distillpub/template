@@ -11,8 +11,9 @@
 .fake-img p {
   font-family: monospace;
   color: white;
-  text-align: center;
+  text-align: left;
   margin: 12px 0;
+  text-align: center;
   font-size: 16px;
 }
 </style>
@@ -158,18 +159,28 @@
   <h2>Layouts</h2>
   <p>The main text column is referred to as the body. It is the assumed layout of any direct descendents of the <code>dt-article</code> element.</p>
   <div class="fake-img l-body"><p>.l-body</p></div>
+  <p>For images you want to display a little larger, try these:</p>
   <div class="fake-img l-middle"><p>.l-middle</p></div>
   <div class="fake-img l-page"><p>.l-page</p></div>
-  <p>Occasionally you’ll want to use the full browser width. For this, use screen. You can also inset the element a little from the edge of the browser by appending, you guessed it, <code>inset</code>.</p>
+  <p>All of these have an <dt-code>outset</dt-code> variant if you want to poke out from the body text a little bit. For instance:</p>
+  <div class="fake-img l-body-outset"><p>.l-body-outset</p></div>
+  <p>Occasionally you’ll want to use the full browser width. For this, use <dt-code>.l-screen</dt-code>. You can also inset the element a little from the edge of the browser by using the inset variant.</p>
   <div class="fake-img l-screen"><p>.l-screen</p></div>
   <div class="fake-img l-screen-inset"><p>.l-screen-inset</p></div>
-  <p>Often you want to position smaller images so as not to completely interrupt the flow of your text. Or perhaps you want to put some text in the margin as an aside or to signal that it’s optional content. For these cases we’ll use the float-based <code>.side</code> layouts.</p>
+  <p>Often you want to position smaller images so as not to completely interrupt the flow of your text. Or perhaps you want to put some text in the margin as an aside or to signal that it’s optional content. For these cases we’ll use the float-based layouts.</p>
   <div class="fake-img l-body side"><p>.l-body.side</p></div>
   <div class="fake-img l-middle side"><p>.l-middle.side</p></div>
   <div class="fake-img l-page side"><p>.l-page.side</p></div>
   <p>They are all floated to the right and anchored to the right-hand edge of the position you specify. By default, each will take up approximately half of the width of the standard layout position, but you can override the width with a more specific selector. </p>
   <div class="fake-img l-gutter"><p>.l-gutter</p></div>
   <p>The final layout is for marginalia, asides, and footnotes. It does not interrupt the normal flow of <code>.l-body</code> sized text except on mobile screen sizes.</p>
+  <p>You can also use an alternate centered layout by adding a <dt-code>centered</dt-code> class to the <dt-code>dt-article</dt-code> element.</p>
+  <dt-code block language="html">
+    &lt;dt-article class="centered"&gt;
+      &lt;h1&gt;Hello World&lt;/h1&gt;
+    &lt;/dt-article&gt;
+  </dt-code>
+  <p>You can toggle it on this article by <a onclick="document.querySelector('dt-article').classList.toggle('centered');">clicking here</a></p>
 <!--
   <hr>
   <h2>Including External Files</h2> -->
