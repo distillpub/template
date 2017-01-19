@@ -80,7 +80,7 @@ dt-article h1 + h2 {
 }
 
 
-@media(min-width: 1024px) {
+@media(min-width: 1080px) {
   dt-article.centered h1 + h2 {
     text-align: center;
   }

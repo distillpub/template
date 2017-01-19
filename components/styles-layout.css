@@ -59,7 +59,6 @@ dt-article > dt-code {
   .l-body,
   dt-article > div,
   dt-article > p,
-  dt-article > h1,
   dt-article > h2,
   dt-article > h3,
   dt-article > h4,
@@ -81,6 +80,7 @@ dt-article > dt-code {
     margin-left: calc(50% - 984px / 2);
     margin-right: auto;
   }
+  dt-article > h1,
   .l-page,
   dt-article .l-page,
   dt-article.centered .l-page {
@@ -137,14 +137,40 @@ dt-article > dt-code {
     margin-right: calc((100vw - 984px + 648px - 48px) / 2);
     width: calc(648px / 2 - 48px + 24px);
   }
+  .side.l-middle,
+  dt-article .side.l-middle {
+    clear: both;
+    float: right;
+    width: 456px;
+    margin-left: 48px;
+    margin-right: calc((100vw - 984px) / 2 + 168px);
+  }
+  .side.l-middle-outset,
+  dt-article .side.l-middle-outset {
+    clear: both;
+    float: right;
+  }
+  .side.l-page,
+  dt-article .side.l-page {
+    clear: both;
+    float: right;
+    width: 624px;
+    margin-right: calc((100vw - 984px) / 2);
+  }
+  .side.l-page-outset,
+  dt-article .side.l-page-outset {
+    clear: both;
+    float: right;
+  }
+}
 
-  /* Centered */
+/* Centered */
 
+@media(min-width: 1080px) {
   .centered .l-body,
   .centered.l-body,
   dt-article.centered > div,
   dt-article.centered > p,
-  dt-article.centered > h1,
   dt-article.centered > h2,
   dt-article.centered > h3,
   dt-article.centered > h4,
@@ -163,6 +189,7 @@ dt-article > dt-code {
     margin-right: auto;
     width: calc(648px + 96px);
   }
+  dt-article.centered > h1,
   .centered .l-middle,
   .centered.l-middle,
   dt-article.centered .l-middle {
@@ -194,4 +221,5 @@ dt-article > dt-code {
     margin-right: calc((100vw - 984px) / 2);
     width: 396px;
   }
+
 }

@@ -68,7 +68,7 @@
       }
     &lt;/script&gt;
   </dt-code>
-  <hr>
+  <!-- <hr>
   <h2>Markdown</h2>
   <p>Markdown is supported as an alternative to html for the <dt-code language="html">&lt;dt-article&gt;</dt-code> element. </p>
   <dt-code block language="html">
@@ -84,7 +84,7 @@
     &lt;/dt-article&gt;
     &lt;script type="text/bibliography"&gt;&lt;/script&gt;
   </dt-code>
-  <p>We use <a href="https://github.com/chjj/marked">marked</a> as the rendering engine, with <a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/">github flavored markdown</a> and <a href="https://daringfireball.net/projects/smartypants/">smartypants</a> enabled. In development mode the markdown is translated in the client after the dom content has loaded, but when published, the translation is precompiled.</p>
+  <p>We use <a href="https://github.com/chjj/marked">marked</a> as the rendering engine, with <a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/">github flavored markdown</a> and <a href="https://daringfireball.net/projects/smartypants/">smartypants</a> enabled. In development mode the markdown is translated in the client after the dom content has loaded, but when published, the translation is precompiled.</p> -->
   <hr>
   <h2>Front Matter</h2>
   <p>You’ll need to describe some data about you post — title, description, authors, etc. For this use the <dt-code language="html">&lt;script type="text/front-matter"&gt;</dt-code> tag.</p>
@@ -108,7 +108,7 @@
   <h2>Citations</h2>
   <p>Bibtex is the supported way of making academic citations. You first need have a global definition of all your possible citations. For this we’ll use the <dt-code language="html">&lt;script type="text/bibliography"&gt;</dt-code> element.</p>
   <dt-code block language="html">
-    &lt;script type="text/bibliography""&gt;
+    &lt;script type="text/bibliography"&gt;
       @article{gregor2015draw,
         title={DRAW: A recurrent neural network for image generation},
         author={Gregor, Karol and Danihelka, Ivo and Graves, Alex and Rezende, Danilo Jimenez and Wierstra, Daan},
@@ -133,7 +133,7 @@
   </dt-code> -->
   <p>Citations are then used in the article body with the <dt-code language="html">&lt;dt-cite&gt;</dt-code> tag. The <dt-code>article</dt-code> attribute is a reference to the id provided in the bibiography.</p>
   <dt-code block language="html">
-    &lt;dt-cite ket="gregor2015draw"&gt;&lt;/dt-cite&gt;
+    &lt;dt-cite key="gregor2015draw"&gt;&lt;/dt-cite&gt;
   </dt-code>
 
   <hr>
@@ -165,6 +165,7 @@
   <div class="fake-img l-screen-inset"><p>.l-screen-inset</p></div>
   <p>Often you want to position smaller images so as not to completely interrupt the flow of your text. Or perhaps you want to put some text in the margin as an aside or to signal that it’s optional content. For these cases we’ll use the float-based <code>.side</code> layouts.</p>
   <div class="fake-img l-body side"><p>.l-body.side</p></div>
+  <div class="fake-img l-middle side"><p>.l-middle.side</p></div>
   <div class="fake-img l-page side"><p>.l-page.side</p></div>
   <p>They are all floated to the right and anchored to the right-hand edge of the position you specify. By default, each will take up approximately half of the width of the standard layout position, but you can override the width with a more specific selector. </p>
   <div class="fake-img l-gutter"><p>.l-gutter</p></div>
