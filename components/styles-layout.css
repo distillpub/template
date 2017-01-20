@@ -151,8 +151,8 @@ dt-article section > dt-code {
     float: right;
     margin-top: 0;
     margin-left: 24px;
-    margin-right: calc((100vw - 984px) / 2);
-    width: calc((984px - 648px) - 24px);
+    margin-right: calc((100vw - 984px) / 2 + 168px);
+    width: calc((984px - 648px) / 2 - 24px);
   }
 
   /* Side */
@@ -163,7 +163,7 @@ dt-article section > dt-code {
     margin-top: 0;
     margin-left: 48px;
     margin-right: calc((100vw - 984px + 648px) / 2);
-    width: calc(648px / 2 - 24px);
+    width: calc(648px / 2 - 24px - 84px);
   }
   .side.l-body-outset,
   dt-article .side.l-body-outset {
@@ -178,7 +178,7 @@ dt-article section > dt-code {
   dt-article .side.l-middle {
     clear: both;
     float: right;
-    width: 456px;
+    width: calc(456px - 84px);
     margin-left: 48px;
     margin-right: calc((100vw - 984px) / 2 + 168px);
   }
@@ -194,7 +194,8 @@ dt-article section > dt-code {
   dt-article .side.l-page {
     clear: both;
     float: right;
-    width: 624px;
+    margin-left: 48px;
+    width: calc(624px - 84px);
     margin-right: calc((100vw - 984px) / 2);
   }
   .side.l-page-outset,
