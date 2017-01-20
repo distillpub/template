@@ -260,6 +260,14 @@ dt-article section > dt-code {
     margin-right: auto;
   }
 
+  .centered .l-middle-outset,
+  .centered.l-middle-outset,
+  dt-article.centered .l-middle-outset {
+    width: calc(816px + 96px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   /* page and screen are already centered */
 
   /* Side */
