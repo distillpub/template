@@ -109,6 +109,12 @@ dt-article section > dt-code {
     margin-left: calc(50% - 984px / 2);
     margin-right: auto;
   }
+  .l-middle-outset,
+  dt-article .l-middle-outset {
+    width: calc(816px + 96px);
+    margin-left: calc(50% - 984px / 2 - 48px);
+    margin-right: auto;
+  }
   dt-article > h1,
   dt-article section > h1,
   .l-page,

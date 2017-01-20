@@ -23,7 +23,7 @@
   <h2>A collection of examples and best practices for creating interactive explanatory articles using the Distill web framework</h2>
   <hr>
   <h2>Getting Started</h2>
-  <p>Here is the smallest distill post.</p>
+  <p>Distill ships with a CSS framework and a collection of custom web components that make building interactive academic articles easier than with raw HTML, CSS and JavaScript. At its simplest, each distill post is just a single HTML file with one special script tag.</p>
   <dt-code block language="html">
     &lt;!doctype html&gt;
     &lt;meta charset="utf-8"&gt;
@@ -33,7 +33,8 @@
       &lt;h1&gt;Hello World&lt;/h1&gt;
     &lt;/dt-article&gt;
   </dt-code>
-  <p>A typical distill post will be quite a bit longer than this though. Below is a more complete example. Don’t worry if some of the tags don’t make sense, they’re all documented further in this post.</p>
+  <p>This script tag will modify your post in your browser, adding the distill styling and functionality. When we publish your article, we will bake in these transformations, but during development it’s handy to be able to preview it locally (It even works without a web server).</p>
+  <p>A typical distill post will be quite a bit longer than the one above. Below is a more complete example. Don’t worry if some of the tags don’t make sense, they’re all documented further in this post.</p>
   <dt-code block language="html">
     &lt;!doctype html&gt;
     &lt;meta charset="utf-8"&gt;
@@ -85,6 +86,28 @@
     &lt;script type="text/bibliography"&gt;&lt;/script&gt;
   </dt-code>
   <p>We use <a href="https://github.com/chjj/marked">marked</a> as the rendering engine, with <a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/">github flavored markdown</a> and <a href="https://daringfireball.net/projects/smartypants/">smartypants</a> enabled. In development mode the markdown is translated in the client after the dom content has loaded, but when published, the translation is precompiled.</p> -->
+
+  <hr>
+  <h2>Project Structure</h2>
+  <p>Because all the templating is delivered via a script tag, you are generally free to develop however you are most comfortable. The only requirements are that each article must be its own Github repository. The simplest setup would be a repository that contained a single HTML file, along with any additional assets, like images or javascript files. Note, in this default setup, all files in the root of the repository will be published. Note, also, in this configuration you generally will not even need to run a static local webserver. You can just open the <dt-code>index.html</dt-code> file in your browser to preview.</p>
+
+  <dt-code block language="html">
+    image.jpg
+    index.html
+    script.js
+  </dt-code>
+
+  <p>If you have a more complicated build process, or have files you don’t want published, put your output in a <dt-code>public</dt-code> folder and we will only publish its contents.</p>
+
+  <dt-code block language="html">
+    build/
+    _index.html
+    package.json
+    public/
+      index.html
+      image.jpg
+  </dt-code>
+
   <hr>
   <h2>Front Matter</h2>
   <p>You’ll need to describe some data about you post — title, description, authors, etc. For this use the <dt-code language="html">&lt;script type="text/front-matter"&gt;</dt-code> tag.</p>
@@ -137,6 +160,14 @@
   </dt-code>
 
   <hr>
+  <h2>Footnotes</h2>
+  <p>Just wrap the text you would like to show up in a footnote in a <dt-code>dt-fn</dt-code> tag. The number of the footnote will be automatically generated. <dt-fn>This text will be shown on hover.</dt-fn></p>
+    <dt-code block language="html">
+      &lt;dt-fn&gt;This will become a hoverable footnote.&lt;/dt-fn&gt;
+    </dt-code>
+  <dt-footnote-body ref="blah"></dt-footnote-body>
+
+  <hr>
   <h2>Code Blocks</h2>
   <p>Syntax highlighting is provided within <dt-code language="html">&lt;dt-code&gt;</dt-code> tags. An example of inline code snippets: <dt-code language="html">&lt;dt-code language="html"&gt;let x = 10;&lt;/dt-code&gt;</dt-code>. For larger blocks of code, add a <dt-code>block</dt-code> attribute:</p>
   <dt-code block language="html">
@@ -148,13 +179,6 @@
     &lt;/dt-code&gt;
   </dt-code>
 
-  <hr>
-  <h2>Footnotes</h2>
-  <p>Just wrap the text you would like to show up in a footnote in a <dt-code>dt-fn</dt-code> tag. The number of the footnote will be automatically generated. <dt-fn>This text will be shown on hover.</dt-fn></p>
-    <dt-code block language="html">
-      &lt;dt-fn&gt;This will become a hoverable footnote.&lt;/dt-fn&gt;
-    </dt-code>
-  <dt-footnote-body ref="blah"></dt-footnote-body>
   <!--
   <hr>
   <h2>Math</h2>
@@ -168,6 +192,8 @@
   <div class="fake-img l-page"><p>.l-page</p></div>
   <p>All of these have an <dt-code>outset</dt-code> variant if you want to poke out from the body text a little bit. For instance:</p>
   <div class="fake-img l-body-outset"><p>.l-body-outset</p></div>
+  <div class="fake-img l-middle-outset"><p>.l-middle-outset</p></div>
+  <div class="fake-img l-page-outset"><p>.l-page-outset</p></div>
   <p>Occasionally you’ll want to use the full browser width. For this, use <dt-code>.l-screen</dt-code>. You can also inset the element a little from the edge of the browser by using the inset variant.</p>
   <div class="fake-img l-screen"><p>.l-screen</p></div>
   <div class="fake-img l-screen-inset"><p>.l-screen-inset</p></div>
@@ -186,8 +212,11 @@
   </dt-code>
   <p>You can toggle it on this article by <a onclick="document.querySelector('dt-article').classList.toggle('centered');">clicking here</a></p>
   <section class="centered">
-  
+
   </section>
+
+  <h2>And You’re Off</h2>
+  <p>That should do it. If you have any questions or bugs to file, feel free to <a href="https://github.com/distillpub/template/issues/new">open an issue on GitHub</a>.</p>
 <!--
   <hr>
   <h2>Including External Files</h2> -->
