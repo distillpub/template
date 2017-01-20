@@ -31,7 +31,7 @@ dt-article h1 {
 }
 
 @media(min-width: 1080px) {
-  dt-article.centered h1 {
+  .centered h1 {
     text-align: center;
   }
 
@@ -40,7 +40,8 @@ dt-article h1 {
     letter-spacing: -0.02em;
   }
 
-  dt-article > h1:first-of-type {
+  dt-article > h1:first-of-type,
+  dt-article section > h1:first-of-type {
     margin-top: 80px;
   }
 }
@@ -81,7 +82,7 @@ dt-article h1 + h2 {
 
 
 @media(min-width: 1080px) {
-  dt-article.centered h1 + h2 {
+  .centered h1 + h2 {
     text-align: center;
   }
   dt-article h1 + h2 {
@@ -239,7 +240,8 @@ dt-article figure figcaption b {
   color: rgba(0, 0, 0, 1.0);
 }
 
-dt-article > dt-code {
+dt-article > dt-code,
+dt-article section > dt-code  {
   display: block;
 }
 

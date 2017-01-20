@@ -26,7 +26,17 @@ dt-article > h4,
 dt-article > figure,
 dt-article > ul,
 dt-article > dt-byline,
-dt-article > dt-code {
+dt-article > dt-code,
+dt-article section > div,
+dt-article section > p,
+dt-article section > h1,
+dt-article section > h2,
+dt-article section > h3,
+dt-article section > h4,
+dt-article section > figure,
+dt-article section > ul,
+dt-article section > dt-byline,
+dt-article section > dt-code {
   width: auto;
   margin-left: 24px;
   margin-right: 24px;
@@ -49,7 +59,17 @@ dt-article > dt-code {
   dt-article > figure,
   dt-article > ul,
   dt-article > dt-byline,
-  dt-article > dt-code {
+  dt-article > dt-code,
+  dt-article section > div,
+  dt-article section > p,
+  dt-article section > h1,
+  dt-article section > h2,
+  dt-article section > h3,
+  dt-article section > h4,
+  dt-article section > figure,
+  dt-article section > ul,
+  dt-article section > dt-byline,
+  dt-article section > dt-code {
     margin-left: 72px;
     margin-right: 72px;
   }
@@ -65,7 +85,16 @@ dt-article > dt-code {
   dt-article > figure,
   dt-article > ul,
   dt-article > dt-byline,
-  dt-article > dt-code {
+  dt-article > dt-code,
+  dt-article section > div,
+  dt-article section > p,
+  dt-article section > h2,
+  dt-article section > h3,
+  dt-article section > h4,
+  dt-article section > figure,
+  dt-article section > ul,
+  dt-article section > dt-byline,
+  dt-article section > dt-code {
     margin-left: calc(50% - 984px / 2);
     width: 648px;
   }
@@ -81,6 +110,7 @@ dt-article > dt-code {
     margin-right: auto;
   }
   dt-article > h1,
+  dt-article section > h1,
   .l-page,
   dt-article .l-page,
   dt-article.centered .l-page {
@@ -183,7 +213,25 @@ dt-article > dt-code {
   dt-article.centered > figure,
   dt-article.centered > ul,
   dt-article.centered > dt-byline,
-  dt-article.centered > dt-code {
+  dt-article.centered > dt-code,
+  dt-article.centered section > div,
+  dt-article.centered section > p,
+  dt-article.centered section > h2,
+  dt-article.centered section > h3,
+  dt-article.centered section > h4,
+  dt-article.centered section > figure,
+  dt-article.centered section > ul,
+  dt-article.centered section > dt-byline,
+  dt-article.centered section > dt-code,
+  dt-article section.centered > div,
+  dt-article section.centered > p,
+  dt-article section.centered > h2,
+  dt-article section.centered > h3,
+  dt-article section.centered > h4,
+  dt-article section.centered > figure,
+  dt-article section.centered > ul,
+  dt-article section.centered > dt-byline,
+  dt-article section.centered > dt-code {
     margin-left: auto;
     margin-right: auto;
     width: 648px;
@@ -196,6 +244,8 @@ dt-article > dt-code {
     width: calc(648px + 96px);
   }
   dt-article.centered > h1,
+  dt-article.centered section > h1,
+  dt-article section.centered > h1,
   .centered .l-middle,
   .centered.l-middle,
   dt-article.centered .l-middle {
