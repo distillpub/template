@@ -136,32 +136,36 @@
         title={DRAW: A recurrent neural network for image generation},
         author={Gregor, Karol and Danihelka, Ivo and Graves, Alex and Rezende, Danilo Jimenez and Wierstra, Daan},
         journal={arXivreprint arXiv:1502.04623},
-        year={2015}
-      }
-      @article{mercier2011humans,
-        title={Why do humans reason? Arguments for an argumentative theory},
-        author={Mercier, Hugo and Sperber, Dan},
-        journal={Behavioral and brain sciences},
-        volume={34},
-        number={02},
-        pages={57--74},
-        year={2011},
-        publisher={Cambridge Univ Press}
+        year={2015},
+        url={https://arxiv.org/pdf/1502.04623.pdf},
       }
     &lt;/script&gt;
   </dt-code>
+  <p>(We strongly encourage you to populate the <dt-code>url</dt-code> bibtex field where possible so that we can provide links for citations.)</p>
   <!-- <p>Like with the <dt-code language="html">&lt;script type="text/front-matter"&gt;</dt-code> element, you can alternatively reference an external file with the <dt-code>src</dt-code> attribute. If no <dt-code language="html">&lt;script type="text/bibliography"&gt;</dt-code> element is found on the page, a request will automatically be made for <dt-code>bibliography.bib</dt-code>. In production, these files will be inlined into the document.</p>
   <dt-code block language="html">
     &lt;script type="text/bibliography" src="bibliography.bib"&gt;&lt;/script&gt;
   </dt-code> -->
-  <p>Citations are then used in the article body with the <dt-code language="html">&lt;dt-cite&gt;</dt-code> tag. The <dt-code>article</dt-code> attribute is a reference to the id provided in the bibiography.</p>
+  <p>Citations are then used in the article body with the <dt-code language="html">&lt;dt-cite&gt;</dt-code> tag. The <dt-code>key</dt-code> attribute is a reference to the id provided in the bibiography. The <dt-code>key</dt-code> attribute can take multiple ids, separated by commas.</p>
   <dt-code block language="html">
     &lt;dt-cite key="gregor2015draw"&gt;&lt;/dt-cite&gt;
   </dt-code>
+  <script type="text/bibliography">
+  @article{gregor2015draw,
+    title={DRAW: A recurrent neural network for image generation},
+    author={Gregor, Karol and Danihelka, Ivo and Graves, Alex and Rezende, Danilo Jimenez and Wierstra, Daan},
+    journal={arXivreprint arXiv:1502.04623},
+    year={2015},
+    url={https://arxiv.org/pdf/1502.04623.pdf},
+  }
+  </script>
+  <p>The citation is presented inline like this: <dt-cite key="gregor2015draw"></dt-cite> (a number that displays more information on hover). If you have an appendix, a bibliography is automatically created and populated in it.</p>
+  <p>Distill chose a numerical inline citation style to improve readability of citation dense articles and because many of the benefits of longer citations are obviated by dispalying more information on hover. However, we consider it good style to mention author last names if you discuss something at length and it fits into the flow well -- the authors are human and it's nice for them to have the community associate them with their work.</p>
+
 
   <hr>
   <h2>Footnotes</h2>
-  <p>Just wrap the text you would like to show up in a footnote in a <dt-code>dt-fn</dt-code> tag. The number of the footnote will be automatically generated. <dt-fn>This text will be shown on hover.</dt-fn></p>
+  <p>Just wrap the text you would like to show up in a footnote in a <dt-code language="html">&lt;dt-fn&gt;</dt-code> tag. The number of the footnote will be automatically generated. <dt-fn>This text will be shown on hover.</dt-fn></p>
     <dt-code block language="html">
       &lt;dt-fn&gt;This will become a hoverable footnote.&lt;/dt-fn&gt;
     </dt-code>
@@ -215,6 +219,29 @@
 
   </section>
 
+  <hr>
+  <h2>Appendix</h2>
+
+  <p>An appendix can be added after your article, using the <dt-code language="html">&lt;dt-appendix&gt;</dt-code> tag.</p>
+
+  <dt-code block language="html">
+    &lt;dt-article&gt;
+      ...
+    &lt;/dt-article&gt;
+
+    &lt;dt-appendix&gt;
+      &lt;h3&gt;Appendix Section Title&lt;/h3&gt;
+      &lt;p&gt;section content&lt;p&gt;
+    &lt;/dt-appendix&gt;
+  </dt-code>
+
+  <p>You may wish to include the following sections in your appendix:</p>
+  <ul>
+    <li><b>Acknowledgments</b>: This is a place to recognize people and institutions. It may also be a good place to acknowledge and cite software that makes your work possible (eg. TensorFlow, OpenAI Gym).</li>
+    <li><b>Author Contributions</b>: We strongly encourage you to include an author contributions statement briefly describing what each author did.</li>
+  </ul>
+
+  <hr>
   <h2>And You’re Off</h2>
   <p>That should do it. If you have any questions or bugs to file, feel free to <a href="https://github.com/distillpub/template/issues/new">open an issue on GitHub</a>.</p>
 <!--
