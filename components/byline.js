@@ -16,8 +16,14 @@ const html = `
     text-align: center;
 
   }
-  dt-byline a {
+  dt-byline a,
+  dt-article dt-byline a {
     text-decoration: none;
+    border-bottom: none;
+  }
+  dt-article dt-byline a:hover {
+    text-decoration: underline;
+    border-bottom: none;
   }
   dt-byline .authors {
     text-align: left;
