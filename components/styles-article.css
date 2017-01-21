@@ -127,22 +127,23 @@ dt-article a {
   color: inherit;
 }
 
-dt-article p {
+dt-article p,
+dt-article ul {
   margin-bottom: 24px;
   -webkit-font-smoothing: antialiased;
   font-family: Georgia, serif;
 }
 
-dt-article p a {
+dt-article a {
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
   text-decoration: none;
 }
 
-dt-article p a:hover {
+dt-article a:hover {
   border-bottom: 1px solid rgba(0, 0, 0, 0.8);
 }
 
-dt-article p .link {
+dt-article .link {
   text-decoration: underline;
   cursor: pointer;
 }
