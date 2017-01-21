@@ -130,7 +130,6 @@ dt-article a {
 dt-article p,
 dt-article ul {
   margin-bottom: 24px;
-  -webkit-font-smoothing: antialiased;
   font-family: Georgia, serif;
 }
 
