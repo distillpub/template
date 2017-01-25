@@ -36,7 +36,7 @@ dt-article h1 {
   }
 
   dt-article h1 {
-    font-size: 50px;
+    font-size: 60px;
     letter-spacing: -0.02em;
   }
 
@@ -128,7 +128,8 @@ dt-article a {
 }
 
 dt-article p,
-dt-article ul {
+dt-article ul,
+dt-article ol {
   margin-bottom: 24px;
   font-family: Georgia, serif;
 }
@@ -147,12 +148,15 @@ dt-article .link {
   cursor: pointer;
 }
 
-dt-article ul {
-  padding-left: 20px;
+dt-article ul,
+dt-article ol {
+  padding-left: 24px;
 }
 
 dt-article li {
-  /*margin-bottom: 24px;*/
+  margin-bottom: 24px;
+  margin-left: 0;
+  padding-left: 0;
 }
 
 dt-article pre {
