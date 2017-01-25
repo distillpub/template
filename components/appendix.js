@@ -40,6 +40,10 @@ const html = `
   dt-appendix a {
     color: rgba(0, 0, 0, 0.6);
   }
+  dt-appendix ol,
+  dt-appendix ul {
+    padding-left: 24px;
+  }
 </style>
 
 <div class="l-body">
