@@ -9,9 +9,7 @@ const html = `
     color: rgba(0,0,0,0.5);
     background: rgb(250, 250, 250);
     padding-top: 36px;
-    padding-right: 24px;
     padding-bottom: 60px;
-    padding-left: 24px;
   }
   dt-appendix h3 {
     font-size: 16px;
