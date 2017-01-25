@@ -6078,17 +6078,28 @@ var citation = function(dom, data) {
 
   function bibliography_cite(ent, fancy){
     if (ent){
-      var cite =  author_string(ent, "${L}, ${I}", ", ", " and ");
+      var cite =  "<b>" + ent.title + "</b> ";
+      cite += link_string(ent) + "<br>";
+      cite += author_string(ent, "${L}, ${I}", ", ", " and ");
       if (ent.year || ent.date){
         cite += ", " + (ent.year || ent.date) + ". ";
       } else {
         cite += ". ";
       }
+      cite += venue_string(ent);
+      cite += doi_string(ent);
+      return cite
+      /*var cite =  author_string(ent, "${L}, ${I}", ", ", " and ");
+      if (ent.year || ent.date){
+        cite += ", " + (ent.year || ent.date) + ". "
+      } else {
+        cite += ". "
+      }
       cite += "<b>" + ent.title + "</b>. ";
       cite += venue_string(ent);
       cite += doi_string(ent);
       cite += link_string(ent);
-      return cite
+      return cite*/
     } else {
       return "?";
     }
@@ -6100,10 +6111,16 @@ var citation = function(dom, data) {
       cite += "<b>" + ent.title + "</b>";
       cite += link_string(ent);
       cite += "<br>";
-      cite += author_string(ent, "${I} ${L}", ", ") + ".<br>";
-      cite += venue_string(ent).trim() + " " + ent.year + ". ";
-      cite += doi_string(ent, true);
-      return cite
+
+      var a_str = author_string(ent, "${I} ${L}", ", ") + ".";
+      var v_str = venue_string(ent).trim() + " " + ent.year + ". " + doi_string(ent, true);
+
+      if ((a_str+v_str).length < Math.min(40, ent.title.length)) {
+        cite += a_str + " " + v_str;
+      } else {
+        cite += a_str + "<br>" + v_str;
+      }
+      return cite;
     } else {
       return "?";
     }
