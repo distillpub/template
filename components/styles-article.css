@@ -60,16 +60,17 @@ dt-article h1 {
 /* H2 */
 
 dt-article h2 {
-  font-weight: 700;
-  font-size: 22px;
+  font-family: Cochin, Georgia, serif;
+  font-weight: 500;
+  font-size: 24px;
   line-height: 1.25em;
-  margin-top: 12px;
+  margin-top: 36px;
   margin-bottom: 24px;
 }
 
 @media(min-width: 1024px) {
   dt-article h2 {
-    font-size: 24px;
+    font-size: 36px;
   }
 }
 
@@ -95,13 +96,13 @@ dt-article h1 + h2 {
 /* H3 */
 
 dt-article h3 {
-  font-weight: 700;
+  font-family: HoeflerText-Regular, Georgia, serif;
+  font-weight: 400;
   font-size: 13px;
   line-height: 1.4em;
   margin-top: 36px;
   margin-bottom: 18px;
   text-transform: uppercase;
-  letter-spacing: -0.03em;
 }
 
 dt-article h1 + h3 {
@@ -110,7 +111,7 @@ dt-article h1 + h3 {
 
 @media(min-width: 1024px) {
   dt-article h3 {
-    font-size: 16px;
+    font-size: 22px;
   }
 }
 
@@ -132,6 +133,12 @@ dt-article ul,
 dt-article ol {
   margin-bottom: 24px;
   font-family: Georgia, serif;
+}
+
+dt-article p b,
+dt-article ul b,
+dt-article ol b {
+  -webkit-font-smoothing: antialiased;
 }
 
 dt-article a {
