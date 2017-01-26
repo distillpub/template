@@ -62,8 +62,7 @@ dt-article h1 {
 dt-article h2 {
   font-family: HoeflerText-Regular, Cochin, Georgia, serif;
   font-weight: 400;
-  font-style: italic;
-  font-size: 24px;
+  font-size: 26px;
   line-height: 1.25em;
   margin-top: 36px;
   margin-bottom: 24px;
@@ -71,7 +70,7 @@ dt-article h2 {
 
 @media(min-width: 1024px) {
   dt-article h2 {
-  margin-top: 48px;
+    margin-top: 48px;
     font-size: 30px;
   }
 }
@@ -100,11 +99,11 @@ dt-article h1 + h2 {
 dt-article h3 {
   font-family: HoeflerText-Regular, Georgia, serif;
   font-weight: 400;
-  font-size: 13px;
+  font-size: 20px;
   line-height: 1.4em;
   margin-top: 36px;
   margin-bottom: 18px;
-  text-transform: uppercase;
+  font-style: italic;
 }
 
 dt-article h1 + h3 {
@@ -113,7 +112,7 @@ dt-article h1 + h3 {
 
 @media(min-width: 1024px) {
   dt-article h3 {
-    font-size: 22px;
+    font-size: 26px;
   }
 }
 

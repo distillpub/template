@@ -6,7 +6,7 @@ import serve from 'rollup-plugin-serve';
 import uglify from 'rollup-plugin-uglify';
 import string from 'rollup-plugin-string';
 
-// const PORT = 8080;
+const PORT = 8080;
 // console.log(`open http://localhost:${PORT}/`);
 
 export default {

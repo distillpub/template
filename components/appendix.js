@@ -70,7 +70,6 @@ export default function(dom, data) {
 
     div.innerHTML = oldHtml + div.innerHTML;
 
-
     el.querySelector("a.github").setAttribute("href", data.githubUrl);
     el.querySelector("a.github-issue").setAttribute("href", data.githubUrl + "/issues/new");
     el.querySelector(".citation.short").textContent = data.concatenatedAuthors + ", " + '"' + data.title + '", Distill, ' + data.publishedYear + ".";

@@ -4,6 +4,7 @@ import frontMatter from "./components/front-matter";
 import bibliography from "./components/bibliography";
 import expandData from "./components/expand-data";
 import meta from "./components/meta";
+import banner from "./components/banner";
 import header from "./components/header";
 import byline from "./components/byline";
 import appendix from "./components/appendix";
@@ -42,6 +43,10 @@ if(window && window.document) {
   renderImmediately(window.document);
   window.document.addEventListener("DOMContentLoaded", (event) => {
     renderOnLoad(window.document, data);
+    // Add a banner if we're not on localhost.
+    if (window.location.hostname !== "localhost") {
+      banner(window.document, data);
+    }
     generateCrossref(data);
   });
 }
