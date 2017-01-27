@@ -5,6 +5,7 @@ dt-article {
   padding-bottom: 72px;
   overflow: hidden;
   background: white;
+  min-height: calc(100vh - 70px - 182px);
 }
 
 @media(min-width: 1024px) {

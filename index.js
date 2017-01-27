@@ -44,7 +44,7 @@ if(window && window.document) {
   window.document.addEventListener("DOMContentLoaded", (event) => {
     renderOnLoad(window.document, data);
     // Add a banner if we're not on localhost.
-    if (window.location.hostname !== "localhost") {
+    if (window.location.hostname !== "localhost" && window.location.origin !== "file://") {
       banner(window.document, data);
     }
     generateCrossref(data);
