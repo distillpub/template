@@ -8374,8 +8374,8 @@ var typeset = function(dom, data) {
 function punctuation(text){
 
   // Dashes
-  text = text.replace(/--/g, '—');
-  text = text.replace(/ — /g,"\u2009\u2014\u2009"); //this has thin spaces
+  text = text.replace(/--/g, '\u2014');
+  text = text.replace(/ \u2014 /g,"\u2009\u2014\u2009"); //this has thin spaces
 
   // Elipses
   text = text.replace(/\.\.\./g,'…');
