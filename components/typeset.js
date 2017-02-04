@@ -12,6 +12,9 @@ export default function(dom, data) {
                node.nodeName !== "PRE" &&
                node.nodeName !== "SPAN" &&
                node.nodeName !== "DT-HEADER" &&
+               node.nodeName !== "DT-BYLINE" &&
+               node.nodeName !== "DT-MATH" &&
+               node.nodeName !== "DT-CODE" &&
                node.nodeName !== "DT-BIBLIOGRAPHY" &&
                node.nodeName !== "DT-FOOTER" &&
                node.nodeType !== 8 && //comment nodes
@@ -19,14 +22,13 @@ export default function(dom, data) {
       }
     }
   );
-
   while (textNodes.nextNode()) {
     var n = textNodes.currentNode,
         text = n.nodeValue;
     if (n.nodeType === 3 && text) {
-      quotes(text);
-      punctuation(text);
-      ligatures(text);
+      text = quotes(text);
+      text = punctuation(text);
+      text = ligatures(text);
       n.nodeValue = text;
     }
   }
@@ -46,14 +48,14 @@ export default function(dom, data) {
 function punctuation(text){
 
   // Dashes
-  text = text.replace(/--/g, '–');
-  text = text.replace(/ – /g,'&thinsp;&mdash;&thinsp;');
+  text = text.replace(/--/g, '\u2014');
+  text = text.replace(/ \u2014 /g,"\u2009\u2014\u2009"); //this has thin spaces
 
   // Elipses
   text = text.replace(/\.\.\./g,'…');
 
   // Nbsp for punc with spaces
-  var NBSP = '&nbsp;';
+  var NBSP = "\u00a0";
   var NBSP_PUNCTUATION_START = /([«¿¡]) /g;
   var NBSP_PUNCTUATION_END = / ([\!\?:;\.,‽»])/g;
 

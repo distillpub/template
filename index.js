@@ -13,6 +13,7 @@ import citation from "./components/citation";
 import footnote from "./components/footnote";
 import markdown from "./components/markdown";
 import code from "./components/code";
+import typeset from "./components/typeset";
 import hoverBox from "./components/hover-box-include";
 import generateCrossref from "./components/generate-crossref";
 
@@ -34,10 +35,11 @@ function renderOnLoad(dom, data) {
   code(dom, data);
   citation(dom, data);
   footnote(dom, data);
+  typeset(dom, data);
   hoverBox(dom, data);
 }
 
-// If we are in a browser, render automatically.
+// If we are in a browser, render automatically...
 if(window && window.document) {
   let data = {};
   renderImmediately(window.document);
@@ -51,13 +53,13 @@ if(window && window.document) {
   });
 }
 
-// For node
+// If we are in node...
 function render(dom, data) {
   renderImmediately(dom);
   renderOnLoad(dom, data);
-  // Remove script tag so it doesn't run again
+  // Remove script tag so it doesn't run again in the client
   let s = dom.querySelector('script[src="http://distill.pub/template.js"]');
-  if (s) { s.parentElement.removeChild(s); }
+  if (s) { s.parentElement.removeChild(s); };
 }
 
 export {render as render};
