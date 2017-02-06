@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+
+var fs = require("fs"),
+    jsdom = require("jsdom").jsdom,
+    serializeDocument = require("jsdom").serializeDocument,
+    distill = require("../dist/template.js"),
+    program = require('commander');
+
+program
+  .version('0.0.1')
+  .option('-i, --input <path>', 'path to input file.')
+  .parse(process.argv);
+
+let htmlString = fs.readFileSync(program.input, "utf8");
+var dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
+distill.render(dom, {});
+let transformedHtml = serializeDocument(dom);
+process.stdout.write(transformedHtml);

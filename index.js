@@ -63,15 +63,4 @@ function render(dom, data) {
 }
 
 export {render as render};
-export {html as html};
-export {styles as styles};
-export {frontMatter as frontMatter};
-export {bibliography as bibliography};
-export {meta as meta};
-export {header as header};
-export {appendix as appendix};
-export {footer as footer};
-export {citation as citation};
-export {markdown as markdown};
-export {code as code};
 export {generateCrossref as generateCrossref};

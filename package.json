@@ -22,7 +22,7 @@
     "bibtex-parse-js": "^0.0.23",
     "chai": "^3.5.0",
     "js-yaml": "^3.7.0",
-    "jsdom": "^9.9.1",
+    "jsdom": "^9.10.0",
     "marked": "^0.3.6",
     "mocha": "^3.2.0",
     "prismjs": "^1.6.0",
@@ -37,6 +37,7 @@
     "rollup-watch": "^2.5.0"
   },
   "dependencies": {
+    "commander": "^2.9.0",
     "d3-time-format": "^2.0.3",
     "mustache": "^2.3.0"
   }
