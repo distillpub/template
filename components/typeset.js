@@ -2,36 +2,37 @@ export default function(dom, data) {
 
   var textNodes = dom.createTreeWalker(
     dom.body,
-    NodeFilter.ALL_ELEMENTS,
-    {
-      acceptNode: function(node) {
-        var isMath = (node.getAttribute && node.getAttribute("class")) ? node.getAttribute("class").includes("katex") || node.getAttribute("class").includes("MathJax") : false;
-        return node.nodeName !== "SCRIPT" &&
-               node.nodeName !== "STYLE" &&
-               node.nodeName !== "CODE" &&
-               node.nodeName !== "PRE" &&
-               node.nodeName !== "SPAN" &&
-               node.nodeName !== "DT-HEADER" &&
-               node.nodeName !== "DT-BYLINE" &&
-               node.nodeName !== "DT-MATH" &&
-               node.nodeName !== "DT-CODE" &&
-               node.nodeName !== "DT-BIBLIOGRAPHY" &&
-               node.nodeName !== "DT-FOOTER" &&
-               node.nodeType !== 8 && //comment nodes
-               !isMath;
-      }
-    }
+    dom.defaultView.NodeFilter.SHOW_TEXT
   );
   while (textNodes.nextNode()) {
     var n = textNodes.currentNode,
         text = n.nodeValue;
-    if (n.nodeType === 3 && text) {
+    if (text && acceptNode(n)) {
       text = quotes(text);
       text = punctuation(text);
       text = ligatures(text);
       n.nodeValue = text;
     }
   }
+}
+
+function acceptNode(node) {
+  var parent = node.parentElement;
+  var isMath = (parent && parent.getAttribute && parent.getAttribute("class")) ? parent.getAttribute("class").includes("katex") || parent.getAttribute("class").includes("MathJax") : false;
+  return parent &&
+         parent.nodeName !== "SCRIPT" &&
+         parent.nodeName !== "STYLE" &&
+         parent.nodeName !== "CODE" &&
+         parent.nodeName !== "PRE" &&
+         parent.nodeName !== "SPAN" &&
+         parent.nodeName !== "DT-HEADER" &&
+         parent.nodeName !== "DT-BYLINE" &&
+         parent.nodeName !== "DT-MATH" &&
+         parent.nodeName !== "DT-CODE" &&
+         parent.nodeName !== "DT-BIBLIOGRAPHY" &&
+         parent.nodeName !== "DT-FOOTER" &&
+         parent.nodeType !== 8 && //comment nodes
+         !isMath;
 }
 
 
