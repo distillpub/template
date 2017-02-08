@@ -13,7 +13,6 @@ export default function(dom, data) {
     data.journal = data.journal || {};
 
     // Dates
-    // TODO: fix updated date
     if (data.publishedDate){//} && data.journal) {
       data.volume = data.publishedDate.getFullYear() - 2015;
       data.issue = data.publishedDate.getMonth() + 1;

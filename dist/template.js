@@ -5100,7 +5100,6 @@ var expandData = function(dom, data) {
     data.journal = data.journal || {};
 
     // Dates
-    // TODO: fix updated date
     if (data.publishedDate){//} && data.journal) {
       data.volume = data.publishedDate.getFullYear() - 2015;
       data.issue = data.publishedDate.getMonth() + 1;
@@ -5912,6 +5911,10 @@ var appendix = function(dom, data) {
     }
 
     div.innerHTML = oldHtml + div.innerHTML;
+
+    if (data.githubCompareUpdatesUrl) {
+      div.innerHTML = "<h3>Updates</h3><p><a href=\"" + (data.githubCompareUpdatesUrl) + "\">View changes</a> since article was first published.</p>" + div.innerHTML;
+    }
 
     el.querySelector("a.github").setAttribute("href", data.githubUrl);
     el.querySelector("a.github-issue").setAttribute("href", data.githubUrl + "/issues/new");
