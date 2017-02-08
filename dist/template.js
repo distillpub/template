@@ -5911,9 +5911,9 @@ var appendix = function(dom, data) {
     }
 
     div.innerHTML = oldHtml + div.innerHTML;
-
+    console.log(data.githubCompareUpdatesUrl);
     if (data.githubCompareUpdatesUrl) {
-      div.innerHTML = "<h3>Updates</h3><p><a href=\"" + (data.githubCompareUpdatesUrl) + "\">View changes</a> since article was first published.</p>" + div.innerHTML;
+      div.innerHTML = "<h3>Updates</h3><p><a href=\"" + (data.githubCompareUpdatesUrl) + "\">View all changes</a> to this article since it was first published.</p>" + div.innerHTML;
     }
 
     el.querySelector("a.github").setAttribute("href", data.githubUrl);
