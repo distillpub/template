@@ -20,7 +20,8 @@ export default function(dom, data) {
   appendHead(`
     <!--  https://schema.org/Article -->
     <meta property="article:published" itemprop="datePublished" content="${data.publishedYear}-${data.publishedMonthPadded}-${data.publishedDayPadded}" />
-  `); // <meta property="article:modified" itemprop="dateModified" content="${data.updated}" />
+    <meta property="article:modified" itemprop="dateModified" content="${data.updatedDate}" />
+  `);
   data.authors.forEach((a) => {
     appendHtml(head, `
       <meta property="article:author" content="${a.firstName} ${a.lastName}" />`)

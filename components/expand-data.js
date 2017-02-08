@@ -20,7 +20,7 @@ export default function(dom, data) {
     }
 
     data.publishedDate = data.publishedDate ? data.publishedDate : new Date("Invalid");
-    data.updated = data.updated ? data.updated : new Date("Invalid");
+    data.updatedDate = data.updatedDate ? data.updatedDate : new Date("Invalid");
 
     data.publishedDateRFC
     let RFC = timeFormat("%a, %d %b %Y %H:%M:%S %Z");
@@ -32,6 +32,7 @@ export default function(dom, data) {
     data.publishedDay = data.publishedDate.getDate();
     data.publishedMonthPadded = zeroPad(data.publishedDate.getMonth() + 1);
     data.publishedDayPadded = zeroPad(data.publishedDate.getDate());
+    data.updatedDateRFC = RFC(data.updatedDate);
 
     if (data.authors.length  > 2) {
       data.concatenatedAuthors = data.authors[0].lastName + ", et al.";

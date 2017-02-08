@@ -5107,7 +5107,7 @@ var expandData = function(dom, data) {
     }
 
     data.publishedDate = data.publishedDate ? data.publishedDate : new Date("Invalid");
-    data.updated = data.updated ? data.updated : new Date("Invalid");
+    data.updatedDate = data.updatedDate ? data.updatedDate : new Date("Invalid");
 
     data.publishedDateRFC;
     var RFC = timeFormat("%a, %d %b %Y %H:%M:%S %Z");
@@ -5119,6 +5119,7 @@ var expandData = function(dom, data) {
     data.publishedDay = data.publishedDate.getDate();
     data.publishedMonthPadded = zeroPad(data.publishedDate.getMonth() + 1);
     data.publishedDayPadded = zeroPad(data.publishedDate.getDate());
+    data.updatedDateRFC = RFC(data.updatedDate);
 
     if (data.authors.length  > 2) {
       data.concatenatedAuthors = data.authors[0].lastName + ", et al.";
@@ -5149,7 +5150,7 @@ var meta = function(dom, data) {
 
   appendHead(("\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge,chrome=1\">\n    <link rel=\"icon\" type=\"image/png\" href=\"data:image/png;base64," + favicon + "\">\n    <link href=\"/rss.xml\" rel=\"alternate\" type=\"application/rss+xml\" title=\"Articles from Distill\">\n    <link rel=\"canonical\" href=\"" + (data.url) + "\">\n    <title>" + (data.title) + "</title>\n  "));
 
-  appendHead(("\n    <!--  https://schema.org/Article -->\n    <meta property=\"article:published\" itemprop=\"datePublished\" content=\"" + (data.publishedYear) + "-" + (data.publishedMonthPadded) + "-" + (data.publishedDayPadded) + "\" />\n  ")); // <meta property="article:modified" itemprop="dateModified" content="${data.updated}" />
+  appendHead(("\n    <!--  https://schema.org/Article -->\n    <meta property=\"article:published\" itemprop=\"datePublished\" content=\"" + (data.publishedYear) + "-" + (data.publishedMonthPadded) + "-" + (data.publishedDayPadded) + "\" />\n    <meta property=\"article:modified\" itemprop=\"dateModified\" content=\"" + (data.updatedDate) + "\" />\n  "));
   data.authors.forEach(function (a) {
     appendHtml(head, ("\n      <meta property=\"article:author\" content=\"" + (a.firstName) + " " + (a.lastName) + "\" />"));
   });
@@ -8631,17 +8632,6 @@ function render$1(dom, data) {
 }
 
 exports.render = render$1;
-exports.html = html;
-exports.styles = styles;
-exports.frontMatter = frontMatter;
-exports.bibliography = bibliography;
-exports.meta = meta;
-exports.header = header;
-exports.appendix = appendix;
-exports.footer = footer;
-exports.citation = citation;
-exports.markdown = markdown;
-exports.code = code$1;
 exports.generateCrossref = generateCrossref;
 
 Object.defineProperty(exports, '__esModule', { value: true });
