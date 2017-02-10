@@ -8,7 +8,7 @@ dt-footer {
   font-weight: 300;
   padding: 40px 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: hsl(223, 9%, 25%);
+  background-color: hsl(200, 60%, 15%);
   text-align: center;
 }
 dt-footer .logo svg {
@@ -23,9 +23,8 @@ dt-footer .logo svg path {
   stroke-width: 3px;
 }
 dt-footer .logo {
-  font-size: 13px;
-  font-weight: 300;
-  text-transform: uppercase;
+  font-size: 17px;
+  font-weight: 200;
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   margin-right: 6px;
