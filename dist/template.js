@@ -8471,6 +8471,7 @@ var generateCrossref = function(data) {
           {journal_metadata: [
             {full_title: data.journal.full_title || data.journal.title},
             {abbrev_title: data.journal.abbrev_title || data.journal.title || data.journal.full_title},
+            {issn: data.journal.issn},
             {doi_data: [
               {doi: data.journal.doi},
               {resource: data.journal.url} ]} ]},
