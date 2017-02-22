@@ -10,7 +10,6 @@ export default function(dom, data) {
     if (text && acceptNode(n)) {
       text = quotes(text);
       text = punctuation(text);
-      text = ligatures(text);
       n.nodeValue = text;
     }
   }
