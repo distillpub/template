@@ -5,9 +5,8 @@
   "main": "dist/template.js",
   "scripts": {
     "serve": "python3 -m http.server",
-    "start": "rollup -c -w",
-    "build": "rollup -c",
-    "test": "mocha"
+    "test": "mocha",
+    "build": "rollup -c rollup.config.components.js && rollup -c rollup.config.transforms.js"
   },
   "author": "Shan Carter",
   "repository": {
@@ -19,6 +18,9 @@
   },
   "homepage": "https://github.com/distillpub/distill-template#readme",
   "devDependencies": {
+    "@webcomponents/custom-elements": "https://github.com/webcomponents/custom-elements",
+    "@webcomponents/shadycss": "https://github.com/webcomponents/shadycss",
+    "@webcomponents/shadydom": "https://github.com/webcomponents/shadydom",
     "bibtex-parse-js": "^0.0.23",
     "chai": "^3.5.0",
     "js-yaml": "^3.7.0",
@@ -39,6 +41,7 @@
   "dependencies": {
     "commander": "^2.9.0",
     "d3-time-format": "^2.0.3",
-    "mustache": "^2.3.0"
+    "mustache": "^2.3.0",
+    "webpack": "^2.2.1"
   }
 }

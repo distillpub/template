@@ -29,7 +29,7 @@ export default {
     }),
     buble({
       exclude: 'node_modules',
-      target: { chrome: 52, safari: 8, edge: 13, firefox: 48, }
+      target: { chrome: 52, safari: 9, edge: 13, firefox: 48, }
     }),
     commonjs(),
     // uglify(),
