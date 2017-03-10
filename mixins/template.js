@@ -9,13 +9,16 @@ export const Template = (name, templateString, useShadow = true) => {
     return class extends superclass {
       constructor() {
         super();
-        const clone = document.importNode(template.content, true);
+        this.clone = document.importNode(template.content, true);
         if (useShadow) {
           // ShadyCSS.applyStyle(this);
           this.shadow_ = this.attachShadow({mode: 'open'});
           this.shadow_.appendChild(clone);
-        } else {
-          this.appendChild(clone);
+        }
+      }
+      connectedCallback() {
+        if (!useShadow) {
+          this.insertBefore(this.clone, this.firstChild);
         }
       }
       get root() {

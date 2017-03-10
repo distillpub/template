@@ -1,18 +1,20 @@
-import {Template} from './mixins/template';
+import {Template} from "./mixins/template";
 
 // import logo from "./distill-logo.svg";
 var logo = "";
 
-const T = Template('dt-header', `
+const T = Template("distill-header", `
 <style>
 :host {
+  box-sizing: border-box;
   display: block;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 60px;
   background-color: hsl(200, 60%, 15%);
-  width: 100%;
-  box-sizing: border-box;
-  z-index: 2;
+  z-index: ${1e6};
   color: rgba(0, 0, 0, 0.8);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
@@ -82,10 +84,10 @@ svg path {
 </div>
 `);
 
-export default class DTHeader extends T(HTMLElement) {
+export default class DistillHeader extends T(HTMLElement) {
   static get is() {
-    return 'dt-header';
+    return "distill-header";
   }
 }
 
-customElements.define(DTHeader.is, DTHeader);
+customElements.define(DistillHeader.is, DistillHeader);

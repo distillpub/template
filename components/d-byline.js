@@ -1,120 +1,121 @@
 import mustache from "mustache";
+import {Template} from "../mixins/template";
+import {page} from "./layout";
 
-const html = `
+const T = Template("d-byline", `
 <style>
-  dt-byline {
+  d-byline {
+    box-sizing: border-box;
     font-size: 12px;
     line-height: 18px;
     display: block;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 0.8);
     padding-top: 12px;
     padding-bottom: 12px;
-    min-height: 90px;
-
+    background-color: grey;
   }
-  dt-article.centered dt-byline {
+  ${page("d-byline .byline")}
+  d-article.centered d-byline {
     text-align: center;
-
   }
-  dt-byline a,
-  dt-article dt-byline a {
+  d-byline a,
+  d-article d-byline a {
+    color: rgba(255, 255, 255, 1);
     text-decoration: none;
     border-bottom: none;
   }
-  dt-article dt-byline a:hover {
+  d-article d-byline a:hover {
     text-decoration: underline;
     border-bottom: none;
   }
-  dt-byline .authors {
+  d-byline .authors {
     text-align: left;
   }
-  dt-byline .name {
+  d-byline .name {
     display: inline;
     text-transform: uppercase;
   }
-  dt-byline .affiliation {
+  d-byline .affiliation {
     display: inline;
   }
-  dt-byline .date {
+  d-byline .date {
     display: block;
     text-align: left;
   }
-  dt-byline .year, dt-byline .month {
+  d-byline .year, d-byline .month {
     display: inline;
   }
-  dt-byline .citation {
+  d-byline .citation {
     display: block;
     text-align: left;
   }
-  dt-byline .citation div {
+  d-byline .citation div {
     display: inline;
   }
 
   @media(min-width: 768px) {
-    dt-byline {
+    d-byline {
     }
   }
 
   @media(min-width: 1080px) {
-    dt-byline {
+    d-byline {
       border-bottom: none;
-      margin-bottom: 70px;
     }
 
-    dt-byline a:hover {
+    d-byline a:hover {
       color: rgba(0, 0, 0, 0.9);
     }
 
-    dt-byline .authors {
+    d-byline .authors {
       display: inline-block;
     }
 
-    dt-byline .author {
+    d-byline .author {
       display: inline-block;
       margin-right: 12px;
       /*padding-left: 20px;*/
       /*border-left: 1px solid #ddd;*/
     }
 
-    dt-byline .affiliation {
+    d-byline .affiliation {
       display: block;
     }
 
-    dt-byline .author:last-child {
+    d-byline .author:last-child {
       margin-right: 0;
     }
 
-    dt-byline .name {
+    d-byline .name {
       display: block;
     }
 
-    dt-byline .date {
+    d-byline .date {
       border-left: 1px solid rgba(0, 0, 0, 0.1);
       padding-left: 15px;
       margin-left: 15px;
       display: inline-block;
     }
-    dt-byline .year, dt-byline .month {
+    d-byline .year, d-byline .month {
       display: block;
     }
 
-    dt-byline .citation {
+    d-byline .citation {
       border-left: 1px solid rgba(0, 0, 0, 0.15);
       padding-left: 15px;
       margin-left: 15px;
       display: inline-block;
     }
-    dt-byline .citation div {
+    d-byline .citation div {
       display: block;
     }
   }
 </style>
+`, false);
 
-`;
-
-const template = `
+const mustacheTemplate = `
 <div class="byline">
   <div class="authors">
   {{#authors}}
@@ -145,11 +146,16 @@ const template = `
     <div>{{concatenatedAuthors}}, {{publishedYear}}</div>
   </a>
 </div>
-`
+`;
 
-export default function(dom, data) {
-  let el = dom.querySelector('dt-byline');
-  if (el) {
-    el.innerHTML = html + mustache.render(template, data);
+export default class Byline extends T(HTMLElement) {
+  static get is() {
+    return "d-byline";
+  }
+  render(data) {
+    this.innerHTML = mustache.render(mustacheTemplate, data);
   }
 }
+
+customElements.define(Byline.is, Byline);
+
