@@ -3919,18 +3919,17 @@ d-title {
   box-sizing: border-box;
   display: block;
   width: 100%;
-  background-color: hsl(200, 0%, 95%);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  margin-bottom: 100px;
 }
 d-title h1 {
-  padding-top: 100px;
-  padding-bottom: 36px;
+  padding-top: 140px;
+  padding-bottom: 24px;
   margin: 0;
   line-height: 1em;
-  font-size: 60px;
-  font-weight: 400;
+  font-size: 48px;
+  font-weight: 600;
 }
-${body("d-title h1")}
+${page("d-title h1")}
 </style>
 `, false);
 
@@ -4593,15 +4592,14 @@ var T$1 = Template("d-byline", `
 <style>
   d-byline {
     box-sizing: border-box;
-    font-size: 12px;
-    line-height: 18px;
+    font-size: 13px;
+    line-height: 20px;
     display: block;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    color: rgba(255, 255, 255, 0.8);
-    padding-top: 12px;
-    padding-bottom: 12px;
-    background-color: grey;
+    color: rgba(0, 0, 0, 0.6);
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
   ${page("d-byline .byline")}
   d-article.centered d-byline {
@@ -4609,7 +4607,7 @@ var T$1 = Template("d-byline", `
   }
   d-byline a,
   d-article d-byline a {
-    color: rgba(255, 255, 255, 1);
+    color: rgba(0, 0, 0, 0.8);
     text-decoration: none;
     border-bottom: none;
   }
@@ -4621,6 +4619,7 @@ var T$1 = Template("d-byline", `
     text-align: left;
   }
   d-byline .name {
+    font-weight: 600;
     display: inline;
     text-transform: uppercase;
   }
@@ -4724,14 +4723,18 @@ var mustacheTemplate = `
     </div>
     {{/authors}}
   </div>
+  {{#publishedDate}}
   <div class="date">
-    <div class="month">{{publishedMonth}}. {{publishedDay}}</div>
+    <div class="month">{{publishedMonth}}. {{publishedDay}} {{publishedYear}</div>
     <div class="year">{{publishedYear}}</div>
   </div>
+  {{/publishedDate}}
+  {{#citation}}
   <a class="citation" href="#citation">
     <div>Citation:</div>
     <div>{{concatenatedAuthors}}, {{publishedYear}}</div>
   </a>
+  {{/citation}}
 </div>
 `;
 
@@ -4760,35 +4763,31 @@ var T$2 = Template("d-article", `
     padding-top: 36px;
     padding-bottom: 72px;
     overflow: hidden;
-    background: white;
-    min-height: calc(100vh - 70px - 182px);
-    font-size: 20px;
-    line-height: 1.5rem;
+    font-size: 16px;
+    line-height: 1.6em;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
   }
-
   @media(min-width: 1024px) {
     d-article {
-      font-size: 20px;
+      font-size: 18px;
     }
   }
 
   /* H2 */
 
   d-article h2 {
-    font-weight: 400;
+    font-weight: 500;
     font-size: 26px;
     line-height: 1.25em;
     margin-top: 36px;
     margin-bottom: 24px;
   }
-
   @media(min-width: 1024px) {
     d-article h2 {
       margin-top: 48px;
-      font-size: 30px;
+      font-size: 26px;
     }
   }
-
   d-article h1 + h2 {
     font-weight: 300;
     font-size: 20px;
@@ -4796,7 +4795,6 @@ var T$2 = Template("d-article", `
     margin-top: 8px;
     font-style: normal;
   }
-
   @media(min-width: 1080px) {
     .centered h1 + h2 {
       text-align: center;
@@ -4817,11 +4815,9 @@ var T$2 = Template("d-article", `
     margin-bottom: 18px;
     font-style: italic;
   }
-
   d-article h1 + h3 {
     margin-top: 48px;
   }
-
   @media(min-width: 1024px) {
     d-article h3 {
       font-size: 26px;
@@ -4836,66 +4832,53 @@ var T$2 = Template("d-article", `
     font-size: 14px;
     line-height: 1.4em;
   }
-
   d-article a {
     color: inherit;
   }
-
   d-article p,
   d-article ul,
   d-article ol {
     margin-bottom: 24px;
   }
-
   d-article p b,
   d-article ul b,
   d-article ol b {
     -webkit-font-smoothing: antialiased;
   }
-
   d-article a {
     border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     text-decoration: none;
   }
-
   d-article a:hover {
     border-bottom: 1px solid rgba(0, 0, 0, 0.8);
   }
-
   d-article .link {
     text-decoration: underline;
     cursor: pointer;
   }
-
   d-article ul,
   d-article ol {
     padding-left: 24px;
   }
-
   d-article li {
     margin-bottom: 24px;
     margin-left: 0;
     padding-left: 0;
   }
-
   d-article pre {
     font-size: 14px;
     margin-bottom: 20px;
   }
-
-
   d-article hr {
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     margin-top: 60px;
     margin-bottom: 60px;
   }
-
   d-article section {
     margin-top: 60px;
     margin-bottom: 60px;
   }
-
 
   /* Figure */
 
@@ -4904,22 +4887,18 @@ var T$2 = Template("d-article", `
     margin-top: 30px;
     margin-bottom: 30px;
   }
-
   @media(min-width: 1024px) {
     d-article figure {
       margin-top: 48px;
       margin-bottom: 48px;
     }
   }
-
   d-article figure img {
     width: 100%;
   }
-
   d-article figure svg text,
   d-article figure svg tspan {
   }
-
   d-article figure figcaption {
     color: rgba(0, 0, 0, 0.6);
     font-size: 12px;
@@ -4930,7 +4909,6 @@ var T$2 = Template("d-article", `
       font-size: 13px;
     }
   }
-
   d-article figure.external img {
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -4938,11 +4916,9 @@ var T$2 = Template("d-article", `
     padding: 18px;
     box-sizing: border-box;
   }
-
   d-article figure figcaption a {
     color: rgba(0, 0, 0, 0.6);
   }
-
   /*d-article figure figcaption::before {
     position: relative;
     display: block;
@@ -4951,28 +4927,23 @@ var T$2 = Template("d-article", `
     width: 25px;
     border-top: 1px solid rgba(0, 0, 0, 0.3);
   }*/
-
   d-article span.equation-mimic {
     font-family: georgia;
     font-size: 115%;
     font-style: italic;
   }
-
   d-article figure figcaption b {
     font-weight: 600;
     color: rgba(0, 0, 0, 1.0);
   }
-
   d-article > d-code,
   d-article section > d-code  {
     display: block;
   }
-
   d-article .citation {
     color: #668;
     cursor: pointer;
   }
-
   d-include {
     width: auto;
     display: block;
@@ -4994,9 +4965,11 @@ var T$3 = Template("d-abstract", `
 <style>
   d-abstract {
     display: block;
-    font-size: 20px;
-    line-height: 1.5rem;
+    font-size: 23px;
+    line-height: 1.7em;
+    margin-bottom: 140px;
   }
+  ${body("d-abstract")}
 </style>
 `, false);
 
@@ -5031,7 +5004,7 @@ var dToc = Object.freeze({
 	default: Toc
 });
 
-var base = "html {\n  font-size: 20px;\n\tline-height: 1rem;\n\tfont-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Helvetica Neue\", sans-serif;\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\n\nbody {\n  margin: 0;\n  /*background-color: hsl(223, 9%, 25%);*/\n}\n\na {\n  color: #004276;\n}\n\nfigure {\n  margin: 0;\n}\n\n/*\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}*/\n";
+var base = "html {\n  font-size: 20px;\n\tline-height: 1rem;\n\t/*font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Helvetica Neue\", sans-serif;*/\n\tfont-family: \"Libre Franklin\", \"Helvetica Neue\", sans-serif;\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\n\nbody {\n  margin: 0;\n  /*background-color: hsl(223, 9%, 25%);*/\n}\n\na {\n  color: #004276;\n}\n\nfigure {\n  margin: 0;\n}\n\n/*\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}*/\n";
 
 var layout = "/*\n  Column: 60px\n  Gutter: 24px\n\n  Body: 648px\n    - 8 columns\n    - 7 gutters\n  Middle: 816px\n  Page: 984px\n    - 12 columns\n    - 11 gutters\n*/\n\n.l-body,\n.l-body-outset,\n.l-page,\n.l-page-outset,\n.l-middle,\n.l-middle-outset,\nd-article > div,\nd-article > p,\nd-article > h1,\nd-article > h2,\nd-article > h3,\nd-article > h4,\nd-article > figure,\nd-article > ul,\nd-article > d-abstract,\nd-article > d-code,\nd-article section > div,\nd-article section > p,\nd-article section > h1,\nd-article section > h2,\nd-article section > h3,\nd-article section > h4,\nd-article section > figure,\nd-article section > ul,\nd-article section > d-abstract,\nd-article section > d-code {\n  width: auto;\n  margin-left: 24px;\n  margin-right: 24px;\n  box-sizing: border-box;\n}\n\n@media(min-width: 768px) {\n  .l-body,\n  .l-body-outset,\n  .l-page,\n  .l-page-outset,\n  .l-middle,\n  .l-middle-outset,\n  d-article > div,\n  d-article > p,\n  d-article > h1,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h1,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code {\n    margin-left: 72px;\n    margin-right: 72px;\n  }\n}\n\n@media(min-width: 1080px) {\n  .l-body,\n  d-article > div,\n  d-article > p,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code {\n    margin-left: calc(50% - 984px / 2);\n    width: 648px;\n  }\n  .l-body-outset,\n  d-article .l-body-outset {\n    margin-left: calc(50% - 984px / 2 - 96px/2);\n    width: calc(648px + 96px);\n  }\n  .l-middle,\n  d-article .l-middle {\n    width: 816px;\n    margin-left: calc(50% - 984px / 2);\n    margin-right: auto;\n  }\n  .l-middle-outset,\n  d-article .l-middle-outset {\n    width: calc(816px + 96px);\n    margin-left: calc(50% - 984px / 2 - 48px);\n    margin-right: auto;\n  }\n  d-article > h1,\n  d-article section > h1,\n  .l-page,\n  d-article .l-page,\n  d-article.centered .l-page {\n    width: 984px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-page-outset,\n  d-article .l-page-outset,\n  d-article.centered .l-page-outset {\n    width: 1080px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-screen,\n  d-article .l-screen,\n  d-article.centered .l-screen {\n    margin-left: auto;\n    margin-right: auto;\n    width: auto;\n  }\n  .l-screen-inset,\n  d-article .l-screen-inset,\n  d-article.centered .l-screen-inset {\n    margin-left: 24px;\n    margin-right: 24px;\n    width: auto;\n  }\n  .l-gutter,\n  d-article .l-gutter {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 24px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n    width: calc((984px - 648px) / 2 - 24px);\n  }\n\n  /* Side */\n  .side.l-body,\n  d-article .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px) / 2);\n    width: calc(648px / 2 - 24px - 84px);\n  }\n  .side.l-body-outset,\n  d-article .side.l-body-outset {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px - 48px) / 2);\n    width: calc(648px / 2 - 48px + 24px);\n  }\n  .side.l-middle,\n  d-article .side.l-middle {\n    clear: both;\n    float: right;\n    width: calc(456px - 84px);\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-middle-outset,\n  d-article .side.l-middle-outset {\n    clear: both;\n    float: right;\n    width: 456px;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-page,\n  d-article .side.l-page {\n    clear: both;\n    float: right;\n    margin-left: 48px;\n    width: calc(624px - 84px);\n    margin-right: calc((100vw - 984px) / 2);\n  }\n  .side.l-page-outset,\n  d-article .side.l-page-outset {\n    clear: both;\n    float: right;\n    width: 624px;\n    margin-right: calc((100vw - 984px) / 2);\n  }\n}\n\n\n/* Rows and Columns */\n\n.row {\n  display: flex;\n}\n.column {\n  flex: 1;\n  box-sizing: border-box;\n  margin-right: 24px;\n  margin-left: 24px;\n}\n.row > .column:first-of-type {\n  margin-left: 0;\n}\n.row > .column:last-of-type {\n  margin-right: 0;\n}\n";
 
@@ -5048,6 +5021,523 @@ var styles = Object.freeze({
 	default: s
 });
 
+var T$5 = Template("d-appendix", `
+<style>
+  d-appendix {
+    display: block;
+    font-size: 13px;
+    line-height: 24px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    color: rgba(0,0,0,0.5);
+    background: rgb(250, 250, 250);
+    padding-top: 36px;
+    padding-bottom: 60px;
+  }
+  ${page("d-appendix p, d-appendix h3, d-appendix pre")}
+  d-appendix h3 {
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 20px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+    line-height: 1em;
+  }
+  d-appendix .citation {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 2px solid rgba(0, 0, 0, 0.1);
+    padding: 0 0 0 18px;
+    overflow: hidden;
+    margin-top: 0px;
+  }
+  d-appendix .references {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  d-appendix ol,
+  d-appendix ul {
+    padding-left: 24px;
+  }
+</style>
+<!-- slot -->
+<d-references></d-references>
+<distill-appendix></distill-appendix>
+`, false);
+
+class Appendix extends T$5(HTMLElement) {
+  static get is() { return "d-appendix"; }
+  connectedCallback() {
+    super.connectedCallback();
+    //TODO: Check for distill journal
+    var distillAppendix = document.createElement("distill-appendix");
+    var journalData = [];
+    distillAppendix.render(journalData);
+    this.appendChild(distillAppendix);
+  }
+}
+
+customElements.define(Appendix.is, Appendix);
+
+
+var dAppendix = Object.freeze({
+	default: Appendix
+});
+
+var T$6 = Template("distill-appendix", `
+<style>
+d-appendix {
+  display: block;
+}
+</style>
+`, false);
+
+var mustacheTemplate$1 = `
+<h3>Updates and Corrections</h3>
+<p><a href="">View all changes</a> to this article since it was first published. If you see mistakes or want to suggest changes, please <a href="">create an issue on GitHub</a>.
+
+<h3>Reuse</h3>
+<p>Diagrams and text are licensed under Creative Commons Attribution <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY 2.0</a>, unless noted otherwise, with the <a class="github" href="https://github.com/distillpub/post--augmented-rnns">source available on GitHub</a>. The figures that have been reused from other sources don’t fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>
+
+<h3>Citation</h3>
+<p>For attribution in academic contexts, please cite this work as</p>
+<pre class="citation short">Olah &amp; Carter, "Attention and Augmented Recurrent Neural Networks", Distill, 2016.</pre>
+<p>BibTeX citation</p>
+<pre class="citation long">@article{olah2016attention,
+  author = {Olah, Chris and Carter, Shan},
+  title = {Attention and Augmented Recurrent Neural Networks},
+  journal = {Distill},
+  year = {2016},
+  note = {http://distill.pub/2016/augmented-rnns}
+}</pre>
+`;
+
+class DistillAppendix extends T$6(HTMLElement) {
+  static get is() { return "distill-appendix"; }
+  render(data) {
+    this.innerHTML = mustache.render(mustacheTemplate$1, data);
+  }
+}
+
+customElements.define(DistillAppendix.is, DistillAppendix);
+
+
+var distillAppendix = Object.freeze({
+	default: DistillAppendix
+});
+
+var bibtexParse = createCommonjsModule(function (module, exports) {
+/* start bibtexParse 0.0.22 */
+
+//Original work by Henrik Muehe (c) 2010
+//
+//CommonJS port by Mikola Lysenko 2013
+//
+//Port to Browser lib by ORCID / RCPETERS
+//
+//Issues:
+//no comment handling within strings
+//no string concatenation
+//no variable values yet
+//Grammar implemented here:
+//bibtex -> (string | preamble | comment | entry)*;
+//string -> '@STRING' '{' key_equals_value '}';
+//preamble -> '@PREAMBLE' '{' value '}';
+//comment -> '@COMMENT' '{' value '}';
+//entry -> '@' key '{' key ',' key_value_list '}';
+//key_value_list -> key_equals_value (',' key_equals_value)*;
+//key_equals_value -> key '=' value;
+//value -> value_quotes | value_braces | key;
+//value_quotes -> '"' .*? '"'; // not quite
+//value_braces -> '{' .*? '"'; // not quite
+(function(exports) {
+
+    function BibtexParser() {
+        
+        this.months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+        this.notKey = [',','{','}',' ','='];
+        this.pos = 0;
+        this.input = "";
+        this.entries = new Array();
+
+        this.currentEntry = "";
+
+        this.setInput = function(t) {
+            this.input = t;
+        };
+
+        this.getEntries = function() {
+            return this.entries;
+        };
+
+        this.isWhitespace = function(s) {
+            return (s == ' ' || s == '\r' || s == '\t' || s == '\n');
+        };
+
+        this.match = function(s, canCommentOut) {
+            if (canCommentOut == undefined || canCommentOut == null)
+                { canCommentOut = true; }
+            this.skipWhitespace(canCommentOut);
+            if (this.input.substring(this.pos, this.pos + s.length) == s) {
+                this.pos += s.length;
+            } else {
+                throw "Token mismatch, expected " + s + ", found "
+                        + this.input.substring(this.pos);
+            }
+            this.skipWhitespace(canCommentOut);
+        };
+
+        this.tryMatch = function(s, canCommentOut) {
+            if (canCommentOut == undefined || canCommentOut == null)
+                { canCommentOut = true; }
+            this.skipWhitespace(canCommentOut);
+            if (this.input.substring(this.pos, this.pos + s.length) == s) {
+                return true;
+            } else {
+                return false;
+            }
+            this.skipWhitespace(canCommentOut);
+        };
+
+        /* when search for a match all text can be ignored, not just white space */
+        this.matchAt = function() {
+            var this$1 = this;
+
+            while (this.input.length > this.pos && this.input[this.pos] != '@') {
+                this$1.pos++;
+            }
+
+            if (this.input[this.pos] == '@') {
+                return true;
+            }
+            return false;
+        };
+
+        this.skipWhitespace = function(canCommentOut) {
+            var this$1 = this;
+
+            while (this.isWhitespace(this.input[this.pos])) {
+                this$1.pos++;
+            }
+            if (this.input[this.pos] == "%" && canCommentOut == true) {
+                while (this.input[this.pos] != "\n") {
+                    this$1.pos++;
+                }
+                this.skipWhitespace(canCommentOut);
+            }
+        };
+
+        this.value_braces = function() {
+            var this$1 = this;
+
+            var bracecount = 0;
+            this.match("{", false);
+            var start = this.pos;
+            var escaped = false;
+            while (true) {
+                if (!escaped) {
+                    if (this$1.input[this$1.pos] == '}') {
+                        if (bracecount > 0) {
+                            bracecount--;
+                        } else {
+                            var end = this$1.pos;
+                            this$1.match("}", false);
+                            return this$1.input.substring(start, end);
+                        }
+                    } else if (this$1.input[this$1.pos] == '{') {
+                        bracecount++;
+                    } else if (this$1.pos >= this$1.input.length - 1) {
+                        throw "Unterminated value";
+                    }
+                }
+                if (this$1.input[this$1.pos] == '\\' && escaped == false)
+                    { escaped = true; }
+                else
+                    { escaped = false; }
+                this$1.pos++;
+            }
+        };
+
+        this.value_comment = function() {
+            var this$1 = this;
+
+            var str = '';
+            var brcktCnt = 0;
+            while (!(this.tryMatch("}", false) && brcktCnt == 0)) {
+                str = str + this$1.input[this$1.pos];
+                if (this$1.input[this$1.pos] == '{')
+                    { brcktCnt++; }
+                if (this$1.input[this$1.pos] == '}')
+                    { brcktCnt--; }
+                if (this$1.pos >= this$1.input.length - 1) {
+                    throw "Unterminated value:" + this$1.input.substring(start);
+                }
+                this$1.pos++;
+            }
+            return str;
+        };
+
+        this.value_quotes = function() {
+            var this$1 = this;
+
+            this.match('"', false);
+            var start = this.pos;
+            var escaped = false;
+            while (true) {
+                if (!escaped) {
+                    if (this$1.input[this$1.pos] == '"') {
+                        var end = this$1.pos;
+                        this$1.match('"', false);
+                        return this$1.input.substring(start, end);
+                    } else if (this$1.pos >= this$1.input.length - 1) {
+                        throw "Unterminated value:" + this$1.input.substring(start);
+                    }
+                }
+                if (this$1.input[this$1.pos] == '\\' && escaped == false)
+                    { escaped = true; }
+                else
+                    { escaped = false; }
+                this$1.pos++;
+            }
+        };
+
+        this.single_value = function() {
+            var start = this.pos;
+            if (this.tryMatch("{")) {
+                return this.value_braces();
+            } else if (this.tryMatch('"')) {
+                return this.value_quotes();
+            } else {
+                var k = this.key();
+                if (k.match("^[0-9]+$"))
+                    { return k; }
+                else if (this.months.indexOf(k.toLowerCase()) >= 0)
+                    { return k.toLowerCase(); }
+                else
+                    { throw "Value expected:" + this.input.substring(start) + ' for key: ' + k; }
+            
+            }
+        };
+
+        this.value = function() {
+            var this$1 = this;
+
+            var values = [];
+            values.push(this.single_value());
+            while (this.tryMatch("#")) {
+                this$1.match("#");
+                values.push(this$1.single_value());
+            }
+            return values.join("");
+        };
+
+        this.key = function() {
+            var this$1 = this;
+
+            var start = this.pos;
+            while (true) {
+                if (this$1.pos >= this$1.input.length) {
+                    throw "Runaway key";
+                }
+                                // а-яА-Я is Cyrillic
+                //console.log(this.input[this.pos]);
+                if (this$1.notKey.indexOf(this$1.input[this$1.pos]) >= 0) {
+                    return this$1.input.substring(start, this$1.pos);
+                } else {
+                    this$1.pos++;
+                    
+                }
+            }
+        };
+
+        this.key_equals_value = function() {
+            var key = this.key();
+            if (this.tryMatch("=")) {
+                this.match("=");
+                var val = this.value();
+                return [ key, val ];
+            } else {
+                throw "... = value expected, equals sign missing:"
+                        + this.input.substring(this.pos);
+            }
+        };
+
+        this.key_value_list = function() {
+            var this$1 = this;
+
+            var kv = this.key_equals_value();
+            this.currentEntry['entryTags'] = {};
+            this.currentEntry['entryTags'][kv[0]] = kv[1];
+            while (this.tryMatch(",")) {
+                this$1.match(",");
+                // fixes problems with commas at the end of a list
+                if (this$1.tryMatch("}")) {
+                    break;
+                }
+                
+                kv = this$1.key_equals_value();
+                this$1.currentEntry['entryTags'][kv[0]] = kv[1];
+            }
+        };
+
+        this.entry_body = function(d) {
+            this.currentEntry = {};
+            this.currentEntry['citationKey'] = this.key();
+            this.currentEntry['entryType'] = d.substring(1);
+            this.match(",");
+            this.key_value_list();
+            this.entries.push(this.currentEntry);
+        };
+
+        this.directive = function() {
+            this.match("@");
+            return "@" + this.key();
+        };
+
+        this.preamble = function() {
+            this.currentEntry = {};
+            this.currentEntry['entryType'] = 'PREAMBLE';
+            this.currentEntry['entry'] = this.value_comment();
+            this.entries.push(this.currentEntry);
+        };
+
+        this.comment = function() {
+            this.currentEntry = {};
+            this.currentEntry['entryType'] = 'COMMENT';
+            this.currentEntry['entry'] = this.value_comment();
+            this.entries.push(this.currentEntry);
+        };
+
+        this.entry = function(d) {
+            this.entry_body(d);
+        };
+
+        this.bibtex = function() {
+            var this$1 = this;
+
+            while (this.matchAt()) {
+                var d = this$1.directive();
+                this$1.match("{");
+                if (d == "@STRING") {
+                    this$1.string();
+                } else if (d == "@PREAMBLE") {
+                    this$1.preamble();
+                } else if (d == "@COMMENT") {
+                    this$1.comment();
+                } else {
+                    this$1.entry(d);
+                }
+                this$1.match("}");
+            }
+        };
+    }
+    
+    exports.toJSON = function(bibtex) {
+        var b = new BibtexParser();
+        b.setInput(bibtex);
+        b.bibtex();
+        return b.entries;
+    };
+
+    /* added during hackathon don't hate on me */
+    exports.toBibtex = function(json) {
+        var out = '';
+        for ( var i in json) {
+            out += "@" + json[i].entryType;
+            out += '{';
+            if (json[i].citationKey)
+                { out += json[i].citationKey + ', '; }
+            if (json[i].entry)
+                { out += json[i].entry ; }
+            if (json[i].entryTags) {
+                var tags = '';
+                for (var jdx in json[i].entryTags) {
+                    if (tags.length != 0)
+                        { tags += ', '; }
+                    tags += jdx + '= {' + json[i].entryTags[jdx] + '}';
+                }
+                out += tags;
+            }
+            out += '}\n\n';
+        }
+        return out;
+        
+    };
+
+})(exports);
+
+/* end bibtexParse */
+});
+
+var T$7 = Template("d-bibliography", `
+<style>
+d-bibliography {
+  display: none;
+}
+</style>
+`, false);
+
+class Bibliography extends T$7(HTMLElement) {
+  static get is() { return "d-bibliography"; }
+  connectedCallback() {
+    super.connectedCallback();
+    var s = this.querySelector('script[type="text/bibtex"]');
+    if (s) {
+      var bibliography = {};
+      var rawBib = s.textContent;
+      var parsed = bibtexParse.toJSON(rawBib);
+      if(parsed) {
+        parsed.forEach(function (e) {
+          for (var k in e.entryTags){
+            var val = e.entryTags[k];
+            val = val.replace(/[\t\n ]+/g, " ");
+            val = val.replace(/{\\["^`\.'acu~Hvs]( )?([a-zA-Z])}/g,
+                              function (full, x, char) { return char; });
+            val = val.replace(/{\\([a-zA-Z])}/g,
+                              function (full, char) { return char; });
+            e.entryTags[k] = val;
+          }
+          bibliography[e.citationKey] = e.entryTags;
+          bibliography[e.citationKey].type = e.entryType;
+        });
+      }
+      console.log(bibliography);
+    }
+  }
+}
+
+customElements.define(Bibliography.is, Bibliography);
+
+
+var dBibliography = Object.freeze({
+	default: Bibliography
+});
+
+var T$8 = Template("d-references", `
+<style>
+d-references {
+  display: block;
+}
+</style>
+`, false);
+
+class References extends T$8(HTMLElement) {
+  static get is() { return "d-references"; }
+  connectedCallback() {
+    super.connectedCallback();
+  }
+}
+
+customElements.define(References.is, References);
+
+
+var dReferences = Object.freeze({
+	default: References
+});
+
 exports.frontMatter = dFrontMatter;
 exports.title = dTitle;
 exports.byline = dByline;
@@ -5055,6 +5545,10 @@ exports.article = dArticle;
 exports.abstract = dAbstract;
 exports.toc = dToc;
 exports.styles = styles;
+exports.appendix = dAppendix;
+exports.distillAppendix = distillAppendix;
+exports.bibliography = dBibliography;
+exports.references = dReferences;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

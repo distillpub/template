@@ -1,12 +1,15 @@
 import {Template} from "../mixins/template";
+import {body} from "./layout";
 
 const T = Template("d-abstract", `
 <style>
   d-abstract {
     display: block;
-    font-size: 20px;
-    line-height: 1.5rem;
+    font-size: 23px;
+    line-height: 1.7em;
+    margin-bottom: 140px;
   }
+  ${body("d-abstract")}
 </style>
 `, false);
 

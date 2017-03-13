@@ -6,15 +6,14 @@ const T = Template("d-byline", `
 <style>
   d-byline {
     box-sizing: border-box;
-    font-size: 12px;
-    line-height: 18px;
+    font-size: 13px;
+    line-height: 20px;
     display: block;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    color: rgba(255, 255, 255, 0.8);
-    padding-top: 12px;
-    padding-bottom: 12px;
-    background-color: grey;
+    color: rgba(0, 0, 0, 0.6);
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
   ${page("d-byline .byline")}
   d-article.centered d-byline {
@@ -22,7 +21,7 @@ const T = Template("d-byline", `
   }
   d-byline a,
   d-article d-byline a {
-    color: rgba(255, 255, 255, 1);
+    color: rgba(0, 0, 0, 0.8);
     text-decoration: none;
     border-bottom: none;
   }
@@ -34,6 +33,7 @@ const T = Template("d-byline", `
     text-align: left;
   }
   d-byline .name {
+    font-weight: 600;
     display: inline;
     text-transform: uppercase;
   }
@@ -137,14 +137,18 @@ const mustacheTemplate = `
     </div>
     {{/authors}}
   </div>
+  {{#publishedDate}}
   <div class="date">
-    <div class="month">{{publishedMonth}}. {{publishedDay}}</div>
+    <div class="month">{{publishedMonth}}. {{publishedDay}} {{publishedYear}</div>
     <div class="year">{{publishedYear}}</div>
   </div>
+  {{/publishedDate}}
+  {{#citation}}
   <a class="citation" href="#citation">
     <div>Citation:</div>
     <div>{{concatenatedAuthors}}, {{publishedYear}}</div>
   </a>
+  {{/citation}}
 </div>
 `;
 

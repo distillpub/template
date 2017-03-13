@@ -8,35 +8,31 @@ const T = Template("d-article", `
     padding-top: 36px;
     padding-bottom: 72px;
     overflow: hidden;
-    background: white;
-    min-height: calc(100vh - 70px - 182px);
-    font-size: 20px;
-    line-height: 1.5rem;
+    font-size: 16px;
+    line-height: 1.6em;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
   }
-
   @media(min-width: 1024px) {
     d-article {
-      font-size: 20px;
+      font-size: 18px;
     }
   }
 
   /* H2 */
 
   d-article h2 {
-    font-weight: 400;
+    font-weight: 500;
     font-size: 26px;
     line-height: 1.25em;
     margin-top: 36px;
     margin-bottom: 24px;
   }
-
   @media(min-width: 1024px) {
     d-article h2 {
       margin-top: 48px;
-      font-size: 30px;
+      font-size: 26px;
     }
   }
-
   d-article h1 + h2 {
     font-weight: 300;
     font-size: 20px;
@@ -44,7 +40,6 @@ const T = Template("d-article", `
     margin-top: 8px;
     font-style: normal;
   }
-
   @media(min-width: 1080px) {
     .centered h1 + h2 {
       text-align: center;
@@ -65,11 +60,9 @@ const T = Template("d-article", `
     margin-bottom: 18px;
     font-style: italic;
   }
-
   d-article h1 + h3 {
     margin-top: 48px;
   }
-
   @media(min-width: 1024px) {
     d-article h3 {
       font-size: 26px;
@@ -84,66 +77,53 @@ const T = Template("d-article", `
     font-size: 14px;
     line-height: 1.4em;
   }
-
   d-article a {
     color: inherit;
   }
-
   d-article p,
   d-article ul,
   d-article ol {
     margin-bottom: 24px;
   }
-
   d-article p b,
   d-article ul b,
   d-article ol b {
     -webkit-font-smoothing: antialiased;
   }
-
   d-article a {
     border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     text-decoration: none;
   }
-
   d-article a:hover {
     border-bottom: 1px solid rgba(0, 0, 0, 0.8);
   }
-
   d-article .link {
     text-decoration: underline;
     cursor: pointer;
   }
-
   d-article ul,
   d-article ol {
     padding-left: 24px;
   }
-
   d-article li {
     margin-bottom: 24px;
     margin-left: 0;
     padding-left: 0;
   }
-
   d-article pre {
     font-size: 14px;
     margin-bottom: 20px;
   }
-
-
   d-article hr {
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     margin-top: 60px;
     margin-bottom: 60px;
   }
-
   d-article section {
     margin-top: 60px;
     margin-bottom: 60px;
   }
-
 
   /* Figure */
 
@@ -152,22 +132,18 @@ const T = Template("d-article", `
     margin-top: 30px;
     margin-bottom: 30px;
   }
-
   @media(min-width: 1024px) {
     d-article figure {
       margin-top: 48px;
       margin-bottom: 48px;
     }
   }
-
   d-article figure img {
     width: 100%;
   }
-
   d-article figure svg text,
   d-article figure svg tspan {
   }
-
   d-article figure figcaption {
     color: rgba(0, 0, 0, 0.6);
     font-size: 12px;
@@ -178,7 +154,6 @@ const T = Template("d-article", `
       font-size: 13px;
     }
   }
-
   d-article figure.external img {
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -186,11 +161,9 @@ const T = Template("d-article", `
     padding: 18px;
     box-sizing: border-box;
   }
-
   d-article figure figcaption a {
     color: rgba(0, 0, 0, 0.6);
   }
-
   /*d-article figure figcaption::before {
     position: relative;
     display: block;
@@ -199,28 +172,23 @@ const T = Template("d-article", `
     width: 25px;
     border-top: 1px solid rgba(0, 0, 0, 0.3);
   }*/
-
   d-article span.equation-mimic {
     font-family: georgia;
     font-size: 115%;
     font-style: italic;
   }
-
   d-article figure figcaption b {
     font-weight: 600;
     color: rgba(0, 0, 0, 1.0);
   }
-
   d-article > d-code,
   d-article section > d-code  {
     display: block;
   }
-
   d-article .citation {
     color: #668;
     cursor: pointer;
   }
-
   d-include {
     width: auto;
     display: block;
