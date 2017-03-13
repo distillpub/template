@@ -10,6 +10,14 @@ import * as distillAppendix from "./components/distill-appendix";
 import * as bibliography from "./components/d-bibliography";
 import * as references from "./components/d-references";
 
+document.addEventListener("DOMContentLoaded", function() {
+  // Render byline with authors list.
+
+  // Render distill appendix with distill journal data.
+  document.querySelector("distill-appendix").render([]);
+
+})
+
 export {frontMatter as frontMatter};
 export {title as title};
 export {byline as byline};

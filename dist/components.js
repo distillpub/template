@@ -5026,13 +5026,13 @@ var T$5 = Template("d-appendix", `
   d-appendix {
     display: block;
     font-size: 13px;
-    line-height: 24px;
+    line-height: 1.7em;
     margin-bottom: 0;
     border-top: 1px solid rgba(0,0,0,0.1);
     color: rgba(0,0,0,0.5);
     background: rgb(250, 250, 250);
     padding-top: 36px;
-    padding-bottom: 60px;
+    padding-bottom: 48px;
   }
   ${page("d-appendix p, d-appendix h3, d-appendix pre")}
   d-appendix h3 {
@@ -5043,41 +5043,16 @@ var T$5 = Template("d-appendix", `
     color: rgba(0,0,0,0.65);
     line-height: 1em;
   }
-  d-appendix .citation {
-    font-size: 11px;
-    line-height: 15px;
-    border-left: 2px solid rgba(0, 0, 0, 0.1);
-    padding: 0 0 0 18px;
-    overflow: hidden;
-    margin-top: 0px;
-  }
-  d-appendix .references {
-    font-size: 12px;
-    line-height: 20px;
-  }
   d-appendix a {
     color: rgba(0, 0, 0, 0.6);
-  }
-  d-appendix ol,
-  d-appendix ul {
-    padding-left: 24px;
   }
 </style>
 <!-- slot -->
 <d-references></d-references>
-<distill-appendix></distill-appendix>
 `, false);
 
 class Appendix extends T$5(HTMLElement) {
   static get is() { return "d-appendix"; }
-  connectedCallback() {
-    super.connectedCallback();
-    //TODO: Check for distill journal
-    var distillAppendix = document.createElement("distill-appendix");
-    var journalData = [];
-    distillAppendix.render(journalData);
-    this.appendChild(distillAppendix);
-  }
 }
 
 customElements.define(Appendix.is, Appendix);
@@ -5087,20 +5062,50 @@ var dAppendix = Object.freeze({
 	default: Appendix
 });
 
-var T$6 = Template("distill-appendix", `
-<style>
-d-appendix {
-  display: block;
-}
-</style>
-`, false);
-
 var mustacheTemplate$1 = `
+<style>
+  distill-appendix {
+    display: block;
+    font-size: 13px;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    color: rgba(0,0,0,0.5);
+    background: rgb(250, 250, 250);
+    padding-top: 36px;
+    padding-bottom: 48px;
+  }
+  ${page("distill-appendix p, distill-appendix h3, distill-appendix pre")}
+  distill-appendix h3 {
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 20px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+    line-height: 1em;
+  }
+  distill-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  distill-appendix ol,
+  distill-appendix ul {
+    padding-left: 24px;
+  }
+  distill-appendix .citation {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 2px solid rgba(0, 0, 0, 0.1);
+    padding: 0 0 0 12px;
+    overflow: hidden;
+    margin-top: -4px;
+  }
+</style>
+
 <h3>Updates and Corrections</h3>
-<p><a href="">View all changes</a> to this article since it was first published. If you see mistakes or want to suggest changes, please <a href="">create an issue on GitHub</a>.
+<p><a href="">View all changes</a> to this article since it was first published. If you see mistakes or want to suggest changes, please <a href="">create an issue on GitHub</a>. </p>
 
 <h3>Reuse</h3>
-<p>Diagrams and text are licensed under Creative Commons Attribution <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY 2.0</a>, unless noted otherwise, with the <a class="github" href="https://github.com/distillpub/post--augmented-rnns">source available on GitHub</a>. The figures that have been reused from other sources don’t fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>
+<p>Diagrams and text are licensed under Creative Commons Attribution <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY 2.0</a> with the <a class="github" href="https://github.com/distillpub/post--augmented-rnns">source available on GitHub</a>, unless noted otherwise. The figures that have been reused from other sources don’t fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>
 
 <h3>Citation</h3>
 <p>For attribution in academic contexts, please cite this work as</p>
@@ -5115,7 +5120,7 @@ var mustacheTemplate$1 = `
 }</pre>
 `;
 
-class DistillAppendix extends T$6(HTMLElement) {
+class DistillAppendix extends HTMLElement {
   static get is() { return "distill-appendix"; }
   render(data) {
     this.innerHTML = mustache.render(mustacheTemplate$1, data);
@@ -5472,26 +5477,70 @@ var bibtexParse = createCommonjsModule(function (module, exports) {
 /* end bibtexParse */
 });
 
-var T$7 = Template("d-bibliography", `
+var mustacheTemplate$2 = `
 <style>
-d-bibliography {
-  display: none;
-}
+  d-bibliography {
+    display: block;
+    font-size: 13px;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    color: rgba(0,0,0,0.5);
+    background: rgb(250, 250, 250);
+    padding-top: 36px;
+    padding-bottom: 48px;
+  }
+  ${page("d-bibliography ol, d-bibliography h3")}
+  d-bibliography .references {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  d-bibliography .title {
+    font-weight: 600;
+  }
+  d-bibliography ol {
+    padding: 0;
+  }
+  d-bibliography li {
+    margin-bottom: 12px;
+  }
+  d-bibliography h3 {
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 20px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+    line-height: 1em;
+  }
+  d-bibliography a {
+    color: rgba(0, 0, 0, 0.6);
+  }
 </style>
-`, false);
+{{#hasCitations}}
+  <h3>References</h3>
+  <ol>
+    {{#citations}}
+      <li>
+        <div class="title">Unsupervised representation learning with deep convolutional generative adversarial networks   <a href="https://arxiv.org/pdf/1511.06434.pdf">[PDF]</a></div>
+        <div class="details">Radford, A., Metz, L. and Chintala, S., 2015. arXiv preprint arXiv:1511.06434.</div>
+      </li>
+  {{/citations}}
+  </ol>
+{{/hasCitations}}
+`;
 
-class Bibliography extends T$7(HTMLElement) {
+class Bibliography extends HTMLElement {
   static get is() { return "d-bibliography"; }
+
   connectedCallback() {
-    super.connectedCallback();
-    var s = this.querySelector('script[type="text/bibtex"]');
+    var s = this.querySelector("script");
     if (s) {
-      var bibliography = {};
+      var bibliography = new Map();
       var rawBib = s.textContent;
       var parsed = bibtexParse.toJSON(rawBib);
       if(parsed) {
         parsed.forEach(function (e) {
-          for (var k in e.entryTags){
+          for (var k in e.entryTags) {
             var val = e.entryTags[k];
             val = val.replace(/[\t\n ]+/g, " ");
             val = val.replace(/{\\["^`\.'acu~Hvs]( )?([a-zA-Z])}/g,
@@ -5500,12 +5549,39 @@ class Bibliography extends T$7(HTMLElement) {
                               function (full, char) { return char; });
             e.entryTags[k] = val;
           }
-          bibliography[e.citationKey] = e.entryTags;
-          bibliography[e.citationKey].type = e.entryType;
+          e.entryTags.type = e.entryType;
+          bibliography.set(e.citationKey, e.entryTags);
         });
       }
-      console.log(bibliography);
+      this.data = bibliography;
     }
+  }
+
+  render() {
+    var this$1 = this;
+
+    this.citations = [];
+    var citationElements = [].slice.apply(document.querySelectorAll("d-cite"));
+    citationElements.forEach(function (el) { this$1.cite(el); });
+    this.innerHTML = mustache.render(mustacheTemplate$2, {hasCitations: this.citations.length > 0, citations: this.citations});
+  }
+
+  cite(el) {
+    var this$1 = this;
+
+    var keyString = el.getAttribute("key");
+    var keys = keyString ? keyString.split(",") : [];
+    keys.forEach(function (key) {
+      var citation = this$1.data[key];
+      if (!this$1.data.has(key)) {
+        console.error("Citation key  '" + key + "' not present in bibliography.");
+      } else if (this$1.citations.indexOf(key) !== -1) {
+        // Bibliography entry has already been cited
+      } else {
+        this$1.citations.push(key);
+      }
+    });
+
   }
 }
 
@@ -5516,7 +5592,7 @@ var dBibliography = Object.freeze({
 	default: Bibliography
 });
 
-var T$8 = Template("d-references", `
+var T$6 = Template("d-references", `
 <style>
 d-references {
   display: block;
@@ -5524,7 +5600,7 @@ d-references {
 </style>
 `, false);
 
-class References extends T$8(HTMLElement) {
+class References extends T$6(HTMLElement) {
   static get is() { return "d-references"; }
   connectedCallback() {
     super.connectedCallback();
@@ -5536,6 +5612,14 @@ customElements.define(References.is, References);
 
 var dReferences = Object.freeze({
 	default: References
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Render byline with authors list.
+
+  // Render distill appendix with distill journal data.
+  document.querySelector("distill-appendix").render([]);
+
 });
 
 exports.frontMatter = dFrontMatter;
