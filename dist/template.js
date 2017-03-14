@@ -5138,13 +5138,90 @@ var expandData = function(dom, data) {
 
 var favicon = "iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA99JREFUeNrsG4t1ozDMzQSM4A2ODUonKBucN2hugtIJ6E1AboLcBiQTkJsANiAb9OCd/OpzMWBJBl5TvaeXPiiyJetry0J8wW3D3QpjRh3GjneXDq+fSQA9s2mH9x3KDhN4foJfCb8N/Jrv+2fnDn8vLRQOplWHVYdvHZYdZsBcZP1vBmh/n8DzEmhUQDPaOuP9pFuY+JwJHwHnCLQE2tnWBGEyXozY9xCUgHMhhjE2I4heVWtgIkZ83wL6Qgxj1obfWBxymPwe+b00BCCRNPbwfb60yleAkkBHGT5AEehIYz7eJrFDMF9CvH4wwhcGHiHMneFvLDQwlwvMLQq58trRcYBWfYn0A0OgHWQUSu25mE+BnoYKnnEJoeIWAifzOv7vLWd2ZKRfWAIme3tOiUaQ3UnLkb0xj1FxRIeEGKaGIHOs9nEgLaaA9i0JRYo1Ic67wJW86KSKE/ZAM8KuVMk8ITVhmxUxJ3Cl2xlm9Vtkeju1+mpCQNxaEGNCY8bs9X2YqwNoQeGjBWut/ma0QAWy/TqAsHx9wSya3I5IRxOfTC+leG+kA/4vSeEcGBtNUN6byhu3+keEZCQJUNh8MAO7HL6H8pQLnsW/Hd4T4lv93TPjfM7A46iEEqbB5EDOvwYNW6tGNZzT/o+CZ6sqZ6wUtR/wf7mi/VL8iNciT6rHih48Y55b4nKCHJCCzb4y0nwFmin3ZEMIoLfZF8F7nncFmvnWBaBj7CGAYA/WGJsUwHdYqVDwAmNsUgAx4CGgAA7GOOxADYOFWOaIKifuVYzmOpREqA21Mo7aPsgiY1PhOMAmxtR+AUbYH3Id2wc0SAFIQTsn9IUGWR8k9jx3vtXSiAacFxTAGakBk9UudkNECd6jLe+6HrshshvIuC6IlLMRy7er+JpcKma24SlE4cFZSZJDGVVrsNvitQhQrDhW0jfiOLfFd47C42eHT56D/BK0To+58Ahj+cAT8HT1UWlfLZCCd/uKawzU0Rh2EyIX/Icqth3niG8ybNroezwe6khdCNxRN+l4XGdOLVLlOOt2hTRJlr1ETIuMAltVTMz70mJrkdGAaZLSmnBEqmAE32JCMmuTlCnRgsBENtOUpHhvvsYIL0ibnBkaC6QvKcR7738GKp0AKnim7xgUSNv1bpS8QwhBt8r+EP47v/oyRK/S34yJ9nT+AN0Tkm4OdB9E4BsmXM3SnMlRFUrtp6IDpV2eKzdYvF3etm3KhQksbOLChGkSmcBdmcEwvqkrMy5BzL00NZeu3qPYJOOuCc+5NjcWKXQxFvTa3NoXJ4d8in7fiAUuTt781dkvuHX4K8AA2Usy7yNKLy0AAAAASUVORK5CYII=\n";
 
+/*!
+ * escape-html
+ * Copyright(c) 2012-2013 TJ Holowaychuk
+ * Copyright(c) 2015 Andreas Lubbe
+ * Copyright(c) 2015 Tiancheng "Timothy" Gu
+ * MIT Licensed
+ */
+
+/**
+ * Module variables.
+ * @private
+ */
+
+var matchHtmlRegExp = /["'&<>]/;
+
+/**
+ * Module exports.
+ * @public
+ */
+
+var index$1 = escapeHtml;
+
+/**
+ * Escape special characters in the given string of html.
+ *
+ * @param  {string} string The string to escape for inserting into HTML
+ * @return {string}
+ * @public
+ */
+
+function escapeHtml(string) {
+  var str = '' + string;
+  var match = matchHtmlRegExp.exec(str);
+
+  if (!match) {
+    return str;
+  }
+
+  var escape;
+  var html = '';
+  var index = 0;
+  var lastIndex = 0;
+
+  for (index = match.index; index < str.length; index++) {
+    switch (str.charCodeAt(index)) {
+      case 34: // "
+        escape = '&quot;';
+        break;
+      case 38: // &
+        escape = '&amp;';
+        break;
+      case 39: // '
+        escape = '&#39;';
+        break;
+      case 60: // <
+        escape = '&lt;';
+        break;
+      case 62: // >
+        escape = '&gt;';
+        break;
+      default:
+        continue;
+    }
+
+    if (lastIndex !== index) {
+      html += str.substring(lastIndex, index);
+    }
+
+    lastIndex = index + 1;
+    html += escape;
+  }
+
+  return lastIndex !== index
+    ? html + str.substring(lastIndex, index)
+    : html;
+}
+
 var meta = function(dom, data) {
   var head = dom.querySelector("head");
   var appendHead = function (html) { return appendHtml(head, html); };
 
-  function meta(name, content) {
-    if (content)
-      { appendHead(("    <meta name=\"" + name + "\" content=\"" + content + "\" >\n")); }
+  function meta(name, content, force) {
+    if (content || force)
+      { appendHead(("    <meta name=\"" + name + "\" content=\"" + (index$1(content)) + "\" >\n")); }
   }
 
   appendHead(("\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge,chrome=1\">\n    <link rel=\"icon\" type=\"image/png\" href=\"data:image/png;base64," + favicon + "\">\n    <link href=\"/rss.xml\" rel=\"alternate\" type=\"application/rss+xml\" title=\"Articles from Distill\">\n    <link rel=\"canonical\" href=\"" + (data.url) + "\">\n    <title>" + (data.title) + "</title>\n  "));
@@ -5163,20 +5240,23 @@ var meta = function(dom, data) {
     appendHead("\n      <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->\n");
 
     meta("citation_title", data.title);
-    meta("citation_fulltext_html_url", data.url);
+    //meta("citation_fulltext_html_url", data.url);
     meta("citation_volume", data.volume);
     meta("citation_issue", data.issue);
     meta("citation_firstpage", data.doiSuffix? ("e" + (data.doiSuffix)) : undefined);
     meta("citation_doi", data.doi);
 
     var journal = data.journal || {};
-    meta("citation_journal_title", journal.name);
-    meta("citation_journal_abbrev", journal.nameAbbrev);
+    meta("citation_journal_title", journal.full_title || journal.title);
+    meta("citation_journal_abbrev", journal.abbrev_title);
     meta("citation_issn", journal.issn);
     meta("citation_publisher", journal.publisher);
+    meta("citation_fulltext_world_readable", "", true);
 
     if (data.publishedDate){
       var zeroPad = function (n) { return n < 10 ? "0" + n : n; };
+      meta("citation_online_date", ((data.publishedYear) + "/" + (data.publishedMonthPadded) + "/" + (data.publishedDayPadded)));
+      // Should we do something different here?
       meta("citation_publication_date", ((data.publishedYear) + "/" + (data.publishedMonthPadded) + "/" + (data.publishedDayPadded)));
     }
 
@@ -5203,10 +5283,31 @@ function appendHtml(el, html) {
 }
 
 function citation_meta_content(ref){
+  // Special test for arxiv
   var content = "citation_title=" + (ref.title) + ";";
-  ref.author.split(" and ").forEach(function (author) {
-    content += "citation_author=" + (author.trim()) + ";";
+  
+  var name_strings = ref.author.split(" and ").forEach(function (name) {
+    name = name.trim();
+    if (name.indexOf(",") != -1){
+      var last = name.split(",")[0].trim();
+      var firsts = name.split(",")[1].trim();
+    } else {
+      var last = name.split(" ").slice(-1)[0].trim();
+      var firsts = name.split(" ").slice(0,-1).join(" ");
+    }
+    content += "citation_author=" + firsts + " " + last + ";";
   });
+  
+  if ("year" in ref) {
+    content += "citation_publication_date=" + (ref.year) + ";";
+  }
+  
+  var arxiv_id_search = /https?:\/\/arxiv\.org\/pdf\/([0-9]*\.[0-9]*)\.pdf/.exec(ref.url);
+  arxiv_id_search = arxiv_id_search || /https?:\/\/arxiv\.org\/abs\/([0-9]*\.[0-9]*)/.exec(ref.url);
+  if (arxiv_id_search && arxiv_id_search[1]){
+    content += "citation_arxiv_id=" + (arxiv_id_search[1]) + ";";
+    return content;
+  } 
   if ("journal" in ref){
     content += "citation_journal_title=" + (ref.journal) + ";";
   }
