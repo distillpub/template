@@ -2,7 +2,7 @@ import buble from 'rollup-plugin-buble';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import serve from 'rollup-plugin-serve';
-import uglify from 'rollup-plugin-uglify';
+// import uglify from 'rollup-plugin-uglify';
 import string from 'rollup-plugin-string';
 
 const PORT = 8080;

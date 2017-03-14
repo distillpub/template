@@ -1,3 +1,4 @@
+import "webcomponents.js/webcomponents-hi-ce.js";
 import * as frontMatter from "./components/d-front-matter";
 import * as title from "./components/d-title";
 import * as byline from "./components/d-byline";
