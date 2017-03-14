@@ -5499,7 +5499,7 @@ var mustacheTemplate$2 = `
     font-weight: 600;
   }
   d-bibliography ol {
-    padding: 0;
+    padding: 0 0 0 18px;
   }
   d-bibliography li {
     margin-bottom: 12px;
@@ -5554,6 +5554,7 @@ class Bibliography extends HTMLElement {
         });
       }
       this.data = bibliography;
+      this.render();
     }
   }
 
