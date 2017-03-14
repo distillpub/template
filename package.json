@@ -39,6 +39,7 @@
   "dependencies": {
     "commander": "^2.9.0",
     "d3-time-format": "^2.0.3",
+    "html-escape": "^2.0.0",
     "mustache": "^2.3.0"
   }
 }
