@@ -120,10 +120,11 @@ function citation_meta_content(ref){
   
   var arxiv_id_search = /https?:\/\/arxiv\.org\/pdf\/([0-9]*\.[0-9]*)\.pdf/.exec(ref.url);
   arxiv_id_search = arxiv_id_search || /https?:\/\/arxiv\.org\/abs\/([0-9]*\.[0-9]*)/.exec(ref.url);
+  arxiv_id_search = arxiv_id_search || /arXiv preprint arXiv:([0-9]*\.[0-9]*)/.exec(ref.journal);
   if (arxiv_id_search && arxiv_id_search[1]){
     content += `citation_arxiv_id=${arxiv_id_search[1]};`;
     return content;
-  } 
+  }
   if ("journal" in ref){
     content += `citation_journal_title=${ref.journal};`;
   }
