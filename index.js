@@ -5,10 +5,8 @@ import bibliography from "./components/bibliography";
 import expandData from "./components/expand-data";
 import meta from "./components/meta";
 import banner from "./components/banner";
-import header from "./components/header";
 import byline from "./components/byline";
 import appendix from "./components/appendix";
-import footer from "./components/footer";
 import citation from "./components/citation";
 import footnote from "./components/footnote";
 import markdown from "./components/markdown";
@@ -16,6 +14,8 @@ import code from "./components/code";
 import typeset from "./components/typeset";
 import hoverBox from "./components/hover-box-include";
 import generateCrossref from "./components/generate-crossref";
+import header from "./components/header";
+import footer from "./components/footer";
 
 function renderImmediately(dom) {
   html(dom);
@@ -27,10 +27,8 @@ function renderOnLoad(dom, data) {
   bibliography(dom, data);
   expandData(dom, data);
   meta(dom, data);
-  header(dom, data);
   byline(dom, data);
   appendix(dom, data);
-  footer(dom, data);
   markdown(dom, data);
   code(dom, data);
   citation(dom, data);
@@ -62,5 +60,12 @@ function render(dom, data) {
   if (s) { s.parentElement.removeChild(s); };
 }
 
+// Distill specific rendering
+function distillify(dom, data) {
+  header(dom, data);
+  footer(dom, data);
+}
+
 export {render as render};
+export {distillify as distillify};
 export {generateCrossref as generateCrossref};

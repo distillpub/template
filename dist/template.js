@@ -5335,22 +5335,6 @@ var banner = function(dom, data) {
   });
 };
 
-var logo = "<svg viewBox=\"-607 419 64 64\">\n  <path d=\"M-573.4,478.9c-8,0-14.6-6.4-14.6-14.5s14.6-25.9,14.6-40.8c0,14.9,14.6,32.8,14.6,40.8S-565.4,478.9-573.4,478.9z\"/>\n</svg>\n";
-
-var html$2 = "\n<style>\ndt-header {\n  display: block;\n  position: relative;\n  height: 60px;\n  background-color: hsl(200, 60%, 15%);\n  width: 100%;\n  box-sizing: border-box;\n  z-index: 2;\n  color: rgba(0, 0, 0, 0.8);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.08);\n  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);\n}\ndt-header .content {\n  height: 70px;\n}\ndt-header a {\n  font-size: 16px;\n  height: 60px;\n  line-height: 60px;\n  text-decoration: none;\n  color: rgba(255, 255, 255, 0.8);\n  padding: 22px 0;\n}\ndt-header a:hover {\n  color: rgba(255, 255, 255, 1);\n}\ndt-header svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: 2px;\n}\n@media(min-width: 1080px) {\n  dt-header {\n    height: 70px;\n  }\n  dt-header a {\n    height: 70px;\n    line-height: 70px;\n    padding: 28px 0;\n  }\n  dt-header .logo {\n  }\n}\ndt-header svg path {\n  fill: none;\n  stroke: rgba(255, 255, 255, 0.8);\n  stroke-width: 3px;\n}\ndt-header .logo {\n  font-size: 17px;\n  font-weight: 200;\n}\ndt-header .nav {\n  float: right;\n  font-weight: 300;\n}\ndt-header .nav a {\n  font-size: 12px;\n  margin-left: 24px;\n  text-transform: uppercase;\n}\n</style>\n\n<div class=\"content l-page\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a>\n  <div class=\"nav\">\n    <a href=\"/faq\">About</a>\n    <a href=\"https://github.com/distillpub\">GitHub</a>\n    <!-- https://twitter.com/distillpub -->\n  </div>\n</div>\n";
-
-var header = function(dom, data) {
-  var el = dom.querySelector("dt-header");
-  if(el) {
-    el.innerHTML = html$2;
-  } else {
-    var header = dom.createElement("dt-header");
-    header.innerHTML = html$2;
-    var b = dom.querySelector("body");
-    b.insertBefore(header, b.firstChild);
-  }
-};
-
 var mustache = createCommonjsModule(function (module, exports) {
 /*!
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
@@ -5988,24 +5972,24 @@ var mustache = createCommonjsModule(function (module, exports) {
 }));
 });
 
-var html$3 = "\n<style>\n  dt-byline {\n    font-size: 12px;\n    line-height: 18px;\n    display: block;\n    border-top: 1px solid rgba(0, 0, 0, 0.1);\n    border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n    color: rgba(0, 0, 0, 0.5);\n    padding-top: 12px;\n    padding-bottom: 12px;\n  }\n  dt-article.centered dt-byline {\n    text-align: center;\n\n  }\n  dt-byline a,\n  dt-article dt-byline a {\n    text-decoration: none;\n    border-bottom: none;\n  }\n  dt-article dt-byline a:hover {\n    text-decoration: underline;\n    border-bottom: none;\n  }\n  dt-byline .authors {\n    text-align: left;\n  }\n  dt-byline .name {\n    display: inline;\n    text-transform: uppercase;\n  }\n  dt-byline .affiliation {\n    display: inline;\n  }\n  dt-byline .date {\n    display: block;\n    text-align: left;\n  }\n  dt-byline .year, dt-byline .month {\n    display: inline;\n  }\n  dt-byline .citation {\n    display: block;\n    text-align: left;\n  }\n  dt-byline .citation div {\n    display: inline;\n  }\n\n  @media(min-width: 768px) {\n    dt-byline {\n    }\n  }\n\n  @media(min-width: 1080px) {\n    dt-byline {\n      border-bottom: none;\n      margin-bottom: 70px;\n    }\n\n    dt-byline a:hover {\n      color: rgba(0, 0, 0, 0.9);\n    }\n\n    dt-byline .authors {\n      display: inline-block;\n    }\n\n    dt-byline .author {\n      display: inline-block;\n      margin-right: 12px;\n      /*padding-left: 20px;*/\n      /*border-left: 1px solid #ddd;*/\n    }\n\n    dt-byline .affiliation {\n      display: block;\n    }\n\n    dt-byline .author:last-child {\n      margin-right: 0;\n    }\n\n    dt-byline .name {\n      display: block;\n    }\n\n    dt-byline .date {\n      border-left: 1px solid rgba(0, 0, 0, 0.1);\n      padding-left: 15px;\n      margin-left: 15px;\n      display: inline-block;\n    }\n    dt-byline .year, dt-byline .month {\n      display: block;\n    }\n\n    dt-byline .citation {\n      border-left: 1px solid rgba(0, 0, 0, 0.15);\n      padding-left: 15px;\n      margin-left: 15px;\n      display: inline-block;\n    }\n    dt-byline .citation div {\n      display: block;\n    }\n  }\n</style>\n\n";
+var html$2 = "\n<style>\n  dt-byline {\n    font-size: 12px;\n    line-height: 18px;\n    display: block;\n    border-top: 1px solid rgba(0, 0, 0, 0.1);\n    border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n    color: rgba(0, 0, 0, 0.5);\n    padding-top: 12px;\n    padding-bottom: 12px;\n  }\n  dt-article.centered dt-byline {\n    text-align: center;\n\n  }\n  dt-byline a,\n  dt-article dt-byline a {\n    text-decoration: none;\n    border-bottom: none;\n  }\n  dt-article dt-byline a:hover {\n    text-decoration: underline;\n    border-bottom: none;\n  }\n  dt-byline .authors {\n    text-align: left;\n  }\n  dt-byline .name {\n    display: inline;\n    text-transform: uppercase;\n  }\n  dt-byline .affiliation {\n    display: inline;\n  }\n  dt-byline .date {\n    display: block;\n    text-align: left;\n  }\n  dt-byline .year, dt-byline .month {\n    display: inline;\n  }\n  dt-byline .citation {\n    display: block;\n    text-align: left;\n  }\n  dt-byline .citation div {\n    display: inline;\n  }\n\n  @media(min-width: 768px) {\n    dt-byline {\n    }\n  }\n\n  @media(min-width: 1080px) {\n    dt-byline {\n      border-bottom: none;\n      margin-bottom: 70px;\n    }\n\n    dt-byline a:hover {\n      color: rgba(0, 0, 0, 0.9);\n    }\n\n    dt-byline .authors {\n      display: inline-block;\n    }\n\n    dt-byline .author {\n      display: inline-block;\n      margin-right: 12px;\n      /*padding-left: 20px;*/\n      /*border-left: 1px solid #ddd;*/\n    }\n\n    dt-byline .affiliation {\n      display: block;\n    }\n\n    dt-byline .author:last-child {\n      margin-right: 0;\n    }\n\n    dt-byline .name {\n      display: block;\n    }\n\n    dt-byline .date {\n      border-left: 1px solid rgba(0, 0, 0, 0.1);\n      padding-left: 15px;\n      margin-left: 15px;\n      display: inline-block;\n    }\n    dt-byline .year, dt-byline .month {\n      display: block;\n    }\n\n    dt-byline .citation {\n      border-left: 1px solid rgba(0, 0, 0, 0.15);\n      padding-left: 15px;\n      margin-left: 15px;\n      display: inline-block;\n    }\n    dt-byline .citation div {\n      display: block;\n    }\n  }\n</style>\n\n";
 
 var template = "\n<div class=\"byline\">\n  <div class=\"authors\">\n  {{#authors}}\n    <div class=\"author\">\n      {{#personalURL}}\n        <a class=\"name\" href=\"{{personalURL}}\">{{name}}</a>\n      {{/personalURL}}\n      {{^personalURL}}\n        <div class=\"name\">{{name}}</div>\n      {{/personalURL}}\n      {{#affiliation}}\n        {{#affiliationURL}}\n          <a class=\"affiliation\" href=\"{{affiliationURL}}\">{{affiliation}}</a>\n        {{/affiliationURL}}\n        {{^affiliationURL}}\n          <div class=\"affiliation\">{{affiliation}}</div>\n        {{/affiliationURL}}\n      {{/affiliation}}\n    </div>\n    {{/authors}}\n  </div>\n  <div class=\"date\">\n    <div class=\"month\">{{publishedMonth}}. {{publishedDay}}</div>\n    <div class=\"year\">{{publishedYear}}</div>\n  </div>\n  <a class=\"citation\" href=\"#citation\">\n    <div>Citation:</div>\n    <div>{{concatenatedAuthors}}, {{publishedYear}}</div>\n  </a>\n</div>\n";
 
 var byline = function(dom, data) {
   var el = dom.querySelector('dt-byline');
   if (el) {
-    el.innerHTML = html$3 + mustache.render(template, data);
+    el.innerHTML = html$2 + mustache.render(template, data);
   }
 };
 
-var html$4 = "\n<style>\n  dt-appendix {\n    display: block;\n    font-size: 14px;\n    line-height: 24px;\n    margin-bottom: 0;\n    border-top: 1px solid rgba(0,0,0,0.1);\n    color: rgba(0,0,0,0.5);\n    background: rgb(250, 250, 250);\n    padding-top: 36px;\n    padding-bottom: 60px;\n  }\n  dt-appendix h3 {\n    font-size: 16px;\n    font-weight: 500;\n    margin-top: 18px;\n    margin-bottom: 18px;\n    color: rgba(0,0,0,0.65);\n  }\n  dt-appendix .citation {\n    font-size: 11px;\n    line-height: 15px;\n    border-left: 1px solid rgba(0, 0, 0, 0.1);\n    padding-left: 18px;\n    border: 1px solid rgba(0,0,0,0.1);\n    background: rgba(0, 0, 0, 0.02);\n    padding: 10px 18px;\n    border-radius: 3px;\n    color: rgba(150, 150, 150, 1);\n    overflow: hidden;\n    margin-top: -12px;\n  }\n  dt-appendix .references {\n    font-size: 12px;\n    line-height: 20px;\n  }\n  dt-appendix a {\n    color: rgba(0, 0, 0, 0.6);\n  }\n  dt-appendix ol,\n  dt-appendix ul {\n    padding-left: 24px;\n  }\n</style>\n\n<div class=\"l-body\">\n  <h3>References</h3>\n  <dt-bibliography></dt-bibliography>\n  <h3 id=\"citation\">Errors, Reuse, and Citation</h3>\n  <p>If you see mistakes or want to suggest changes, please <a class=\"github-issue\">create an issue on GitHub</a>.</p>\n  <p>Diagrams and text are licensed under Creative Commons Attribution <a href=\"https://creativecommons.org/licenses/by/2.0/\">CC-BY 2.0</a>, unless noted otherwise, with the <a class=\"github\">source available on GitHub</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>\n  <p>For attribution in academic contexts, please cite this work as</p>\n  <pre class=\"citation short\"></pre>\n  <p>BibTeX citation</p>\n  <pre class=\"citation long\"></pre>\n</div>\n";
+var html$3 = "\n<style>\n  dt-appendix {\n    display: block;\n    font-size: 14px;\n    line-height: 24px;\n    margin-bottom: 0;\n    border-top: 1px solid rgba(0,0,0,0.1);\n    color: rgba(0,0,0,0.5);\n    background: rgb(250, 250, 250);\n    padding-top: 36px;\n    padding-bottom: 60px;\n  }\n  dt-appendix h3 {\n    font-size: 16px;\n    font-weight: 500;\n    margin-top: 18px;\n    margin-bottom: 18px;\n    color: rgba(0,0,0,0.65);\n  }\n  dt-appendix .citation {\n    font-size: 11px;\n    line-height: 15px;\n    border-left: 1px solid rgba(0, 0, 0, 0.1);\n    padding-left: 18px;\n    border: 1px solid rgba(0,0,0,0.1);\n    background: rgba(0, 0, 0, 0.02);\n    padding: 10px 18px;\n    border-radius: 3px;\n    color: rgba(150, 150, 150, 1);\n    overflow: hidden;\n    margin-top: -12px;\n  }\n  dt-appendix .references {\n    font-size: 12px;\n    line-height: 20px;\n  }\n  dt-appendix a {\n    color: rgba(0, 0, 0, 0.6);\n  }\n  dt-appendix ol,\n  dt-appendix ul {\n    padding-left: 24px;\n  }\n</style>\n\n<div class=\"l-body\">\n  <h3>References</h3>\n  <dt-bibliography></dt-bibliography>\n  <h3 id=\"citation\">Errors, Reuse, and Citation</h3>\n  <p>If you see mistakes or want to suggest changes, please <a class=\"github-issue\">create an issue on GitHub</a>.</p>\n  <p>Diagrams and text are licensed under Creative Commons Attribution <a href=\"https://creativecommons.org/licenses/by/2.0/\">CC-BY 2.0</a>, unless noted otherwise, with the <a class=\"github\">source available on GitHub</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>\n  <p>For attribution in academic contexts, please cite this work as</p>\n  <pre class=\"citation short\"></pre>\n  <p>BibTeX citation</p>\n  <pre class=\"citation long\"></pre>\n</div>\n";
 
 var appendix = function(dom, data) {
   var el = dom.querySelector('dt-appendix');
   if (el) {
     var oldHtml = el.innerHTML;
-    el.innerHTML = html$4;
+    el.innerHTML = html$3;
     var div = el.querySelector("div.l-body");
 
     if (dom.querySelector("dt-fn")) {
@@ -6030,20 +6014,6 @@ var appendix = function(dom, data) {
     el.querySelector(".citation.long").textContent = bibtex;
   }
 
-};
-
-var html$5 = "\n<style>\ndt-footer {\n  display: block;\n  color: rgba(255, 255, 255, 0.4);\n  font-weight: 300;\n  padding: 40px 0;\n  border-top: 1px solid rgba(0, 0, 0, 0.1);\n  background-color: hsl(200, 60%, 15%);\n  text-align: center;\n}\ndt-footer .logo svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: 2px;\n}\ndt-footer .logo svg path {\n  fill: none;\n  stroke: rgba(255, 255, 255, 0.8);\n  stroke-width: 3px;\n}\ndt-footer .logo {\n  font-size: 17px;\n  font-weight: 200;\n  color: rgba(255, 255, 255, 0.8);\n  text-decoration: none;\n  margin-right: 6px;\n}\n</style>\n\n<div class=\"l-screen-inset\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a> is dedicated to clear explanations of machine learning\n</div>\n";
-
-var footer = function(dom, data) {
-  var el = dom.querySelector("dt-footer");
-  if(el) {
-    el.innerHTML = html$5;
-  } else {
-    var footer = dom.createElement("dt-footer");
-    footer.innerHTML = html$5;
-    var b = dom.querySelector("body");
-    b.appendChild(footer);
-  }
 };
 
 var citation = function(dom, data) {
@@ -8682,6 +8652,36 @@ function xml(obj) {
   return result;
 }
 
+var logo = "<svg viewBox=\"-607 419 64 64\">\n  <path d=\"M-573.4,478.9c-8,0-14.6-6.4-14.6-14.5s14.6-25.9,14.6-40.8c0,14.9,14.6,32.8,14.6,40.8S-565.4,478.9-573.4,478.9z\"/>\n</svg>\n";
+
+var html$4 = "\n<style>\ndt-header {\n  display: block;\n  position: relative;\n  height: 60px;\n  background-color: hsl(200, 60%, 15%);\n  width: 100%;\n  box-sizing: border-box;\n  z-index: 2;\n  color: rgba(0, 0, 0, 0.8);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.08);\n  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);\n}\ndt-header .content {\n  height: 70px;\n}\ndt-header a {\n  font-size: 16px;\n  height: 60px;\n  line-height: 60px;\n  text-decoration: none;\n  color: rgba(255, 255, 255, 0.8);\n  padding: 22px 0;\n}\ndt-header a:hover {\n  color: rgba(255, 255, 255, 1);\n}\ndt-header svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: 2px;\n}\n@media(min-width: 1080px) {\n  dt-header {\n    height: 70px;\n  }\n  dt-header a {\n    height: 70px;\n    line-height: 70px;\n    padding: 28px 0;\n  }\n  dt-header .logo {\n  }\n}\ndt-header svg path {\n  fill: none;\n  stroke: rgba(255, 255, 255, 0.8);\n  stroke-width: 3px;\n}\ndt-header .logo {\n  font-size: 17px;\n  font-weight: 200;\n}\ndt-header .nav {\n  float: right;\n  font-weight: 300;\n}\ndt-header .nav a {\n  font-size: 12px;\n  margin-left: 24px;\n  text-transform: uppercase;\n}\n</style>\n\n<div class=\"content l-page\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a>\n  <div class=\"nav\">\n    <a href=\"/faq\">About</a>\n    <a href=\"https://github.com/distillpub\">GitHub</a>\n    <!-- https://twitter.com/distillpub -->\n  </div>\n</div>\n";
+
+var header = function(dom, data) {
+  var el = dom.querySelector("dt-header");
+  if(el) {
+    el.innerHTML = html$4;
+  } else {
+    var header = dom.createElement("dt-header");
+    header.innerHTML = html$4;
+    var b = dom.querySelector("body");
+    b.insertBefore(header, b.firstChild);
+  }
+};
+
+var html$5 = "\n<style>\ndt-footer {\n  display: block;\n  color: rgba(255, 255, 255, 0.4);\n  font-weight: 300;\n  padding: 40px 0;\n  border-top: 1px solid rgba(0, 0, 0, 0.1);\n  background-color: hsl(200, 60%, 15%);\n  text-align: center;\n}\ndt-footer .logo svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: 2px;\n}\ndt-footer .logo svg path {\n  fill: none;\n  stroke: rgba(255, 255, 255, 0.8);\n  stroke-width: 3px;\n}\ndt-footer .logo {\n  font-size: 17px;\n  font-weight: 200;\n  color: rgba(255, 255, 255, 0.8);\n  text-decoration: none;\n  margin-right: 6px;\n}\n</style>\n\n<div class=\"l-screen-inset\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a> is dedicated to clear explanations of machine learning\n</div>\n";
+
+var footer = function(dom, data) {
+  var el = dom.querySelector("dt-footer");
+  if(el) {
+    el.innerHTML = html$5;
+  } else {
+    var footer = dom.createElement("dt-footer");
+    footer.innerHTML = html$5;
+    var b = dom.querySelector("body");
+    b.appendChild(footer);
+  }
+};
+
 function renderImmediately(dom) {
   html(dom);
   styles(dom);
@@ -8692,10 +8692,8 @@ function renderOnLoad(dom, data) {
   bibliography(dom, data);
   expandData(dom, data);
   meta(dom, data);
-  header(dom, data);
   byline(dom, data);
   appendix(dom, data);
-  footer(dom, data);
   markdown(dom, data);
   code$1(dom, data);
   citation(dom, data);
@@ -8727,7 +8725,14 @@ function render$1(dom, data) {
   if (s) { s.parentElement.removeChild(s); }
 }
 
+// Distill specific rendering
+function distillify(dom, data) {
+  header(dom, data);
+  footer(dom, data);
+}
+
 exports.render = render$1;
+exports.distillify = distillify;
 exports.generateCrossref = generateCrossref;
 
 Object.defineProperty(exports, '__esModule', { value: true });
