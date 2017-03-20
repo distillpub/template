@@ -56,7 +56,7 @@ function render(dom, data) {
   renderImmediately(dom);
   renderOnLoad(dom, data);
   // Remove script tag so it doesn't run again in the client
-  let s = dom.querySelector('script[src="http://distill.pub/template.js"]');
+  let s = dom.querySelector('script[src*="distill.pub/template"]');
   if (s) { s.parentElement.removeChild(s); };
 }
 

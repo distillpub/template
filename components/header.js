@@ -72,9 +72,9 @@ dt-header .nav a {
     Distill
   </a>
   <div class="nav">
-    <a href="/faq">About</a>
-    <a href="https://github.com/distillpub">GitHub</a>
-    <!-- https://twitter.com/distillpub -->
+    <a href="/about">About</a>
+    <a href="/prize">Prize</a>
+    <a href="/authors">Submit</a>
   </div>
 </div>
 `
