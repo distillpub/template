@@ -5092,8 +5092,10 @@ var expandData = function(dom, data) {
     data.authors = data.authors || [];
 
     // paths
-    data.url = "http://distill.pub/" + data.distillPath;
+    data.url = data.url ? data.url : "http://distill.pub/" + data.distillPath;
     data.githubUrl = "https://github.com/" + data.githubPath;
+
+    data.previewURL = data.previewURL ? data.previewURL : data.url + "/thumbnail.jpg";
 
     // Homepage
     //data.homepage = !post.noHomepage;
@@ -5231,9 +5233,9 @@ var meta = function(dom, data) {
     appendHtml(head, ("\n      <meta property=\"article:author\" content=\"" + (a.firstName) + " " + (a.lastName) + "\" />"));
   });
 
-  appendHead(("\n    <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->\n    <meta property=\"og:type\" content=\"article\"/>\n    <meta property=\"og:title\" content=\"" + (data.title) + "\"/>\n    <meta property=\"og:description\" content=\"" + (data.description) + "\">\n    <meta property=\"og:url\" content=\"" + (data.url) + "\"/>\n    <meta property=\"og:image\" content=\"" + (data.url) + "/thumbnail.jpg\"/>\n    <meta property=\"og:locale\" content=\"en_US\" />\n    <meta property=\"og:site_name\" content=\"Distill\" />\n  "));
+  appendHead(("\n    <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->\n    <meta property=\"og:type\" content=\"article\"/>\n    <meta property=\"og:title\" content=\"" + (data.title) + "\"/>\n    <meta property=\"og:description\" content=\"" + (data.description) + "\">\n    <meta property=\"og:url\" content=\"" + (data.url) + "\"/>\n    <meta property=\"og:image\" content=\"" + (data.previewURL) + "\"/>\n    <meta property=\"og:locale\" content=\"en_US\" />\n    <meta property=\"og:site_name\" content=\"Distill\" />\n  "));
 
-  appendHead(("\n    <!--  https://dev.twitter.com/cards/types/summary -->\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n    <meta name=\"twitter:title\" content=\"" + (data.title) + "\">\n    <meta name=\"twitter:description\" content=\"" + (data.description) + "\">\n    <meta name=\"twitter:url\" content=\"" + (data.url) + "\">\n    <meta name=\"twitter:image\" content=\"" + (data.url) + "/thumbnail.jpg\">\n    <meta name=\"twitter:image:width\" content=\"560\">\n    <meta name=\"twitter:image:height\" content=\"295\">\n  "));
+  appendHead(("\n    <!--  https://dev.twitter.com/cards/types/summary -->\n    <meta name=\"twitter:card\" content=\"summary_large_image\">\n    <meta name=\"twitter:title\" content=\"" + (data.title) + "\">\n    <meta name=\"twitter:description\" content=\"" + (data.description) + "\">\n    <meta name=\"twitter:url\" content=\"" + (data.url) + "\">\n    <meta name=\"twitter:image\" content=\"" + (data.previewURL) + "\">\n    <meta name=\"twitter:image:width\" content=\"560\">\n    <meta name=\"twitter:image:height\" content=\"295\">\n  "));
 
   // if this is a proprer article, generate Google Scholar meta data
   if (data.doiSuffix){
@@ -5285,7 +5287,7 @@ function appendHtml(el, html) {
 function citation_meta_content(ref){
   // Special test for arxiv
   var content = "citation_title=" + (ref.title) + ";";
-  
+
   var name_strings = ref.author.split(" and ").forEach(function (name) {
     name = name.trim();
     if (name.indexOf(",") != -1){
@@ -5297,11 +5299,11 @@ function citation_meta_content(ref){
     }
     content += "citation_author=" + firsts + " " + last + ";";
   });
-  
+
   if ("year" in ref) {
     content += "citation_publication_date=" + (ref.year) + ";";
   }
-  
+
   var arxiv_id_search = /https?:\/\/arxiv\.org\/pdf\/([0-9]*\.[0-9]*)\.pdf/.exec(ref.url);
   arxiv_id_search = arxiv_id_search || /https?:\/\/arxiv\.org\/abs\/([0-9]*\.[0-9]*)/.exec(ref.url);
   arxiv_id_search = arxiv_id_search || /arXiv preprint arXiv:([0-9]*\.[0-9]*)/.exec(ref.journal);
