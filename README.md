@@ -1,6 +1,6 @@
 # Distill Templates
 
-This is the repository for the distill web framework. If you're interesting in just using the framework to write an article, visit http://distill.pub/guide/. If you're interested in submitting pull requests or developing on the framework itself, read on.
+This is the repository for the distill web framework. If you're interesting in just using the framework to write an article for [Distill journal](http://distill.pub), visit http://distill.pub/guide/. If you're interested in submitting pull requests or developing on the framework itself, read on.
 
 ## Development
 
