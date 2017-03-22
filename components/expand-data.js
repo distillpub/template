@@ -5,7 +5,11 @@ export default function(dom, data) {
     data.authors = data.authors || [];
 
     // paths
-    data.url = data.url ? data.url : "http://distill.pub/" + data.distillPath;
+    if (!data.distillPath && !data.url) {
+      data.url = "http://distill.pub/";
+    } else if (!data.url) {
+      data.url = "http://distill.pub/" + data.distillPath;
+    }
     data.githubUrl = "https://github.com/" + data.githubPath;
 
     data.previewURL = data.previewURL ? data.previewURL : data.url + "/thumbnail.jpg"
