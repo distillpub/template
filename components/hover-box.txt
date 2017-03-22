@@ -81,6 +81,11 @@ DistillHoverBox.bind = function bind(node, key) {
       DistillHoverBox.liveBoxes[key].extendTimeout(250);
     }
   });
+  node.addEventListener("touchend", () => {
+    if (key in DistillHoverBox.liveBoxes){
+      DistillHoverBox.liveBoxes[key].extendTimeout(250);
+    }
+  });
 
 }
 
