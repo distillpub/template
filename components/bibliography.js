@@ -17,7 +17,7 @@ export default function(dom, data) {
                             (full, x, char) => char);
           val = val.replace(/{\\([a-zA-Z])}/g,
                             (full, char) => char);
-          e.entryTags[k] = val;
+          e.entryTags[k.toLowerCase()] = val;
         }
         bibliography[e.citationKey] = e.entryTags;
         bibliography[e.citationKey].type = e.entryType;
