@@ -8,7 +8,7 @@ The general process for using this framework is to hotlink the compiled code in 
 <script src="http://distill.pub/template.v1.js"></script>
 ```
 
-You can also install it as a local dependency through npm or with yarn.
+You can also install it as a local dependency through npm or with [yarn](https://yarnpkg.com).
 
 ```
 npm install --D distill-template
