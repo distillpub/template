@@ -5,6 +5,7 @@ export default function(dom, data) {
     data.authors = data.authors || [];
 
     // paths
+    data.githubPath = data.githubPath || 'distillpub/template';
     data.url = data.url ? data.url : "http://distill.pub/" + data.distillPath;
     data.githubUrl = "https://github.com/" + data.githubPath;
 
