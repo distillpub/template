@@ -7,6 +7,7 @@ import meta from "./components/meta";
 import banner from "./components/banner";
 import byline from "./components/byline";
 import appendix from "./components/appendix";
+import appendixDistill from "./components/appendix-distill";
 import citation from "./components/citation";
 import footnote from "./components/footnote";
 import markdown from "./components/markdown";
@@ -48,6 +49,7 @@ if(window && window.document) {
       banner(window.document, data);
     }
     generateCrossref(data);
+    // console.log(data);
   });
 }
 
@@ -63,6 +65,7 @@ function render(dom, data) {
 // Distill specific rendering
 function distillify(dom, data) {
   header(dom, data);
+  appendixDistill(dom, data);
   footer(dom, data);
 }
 

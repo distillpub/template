@@ -134,14 +134,18 @@ const template = `
     </div>
     {{/authors}}
   </div>
+  {{#publishedYear}}
   <div class="date">
     <div class="month">{{publishedMonth}}. {{publishedDay}}</div>
     <div class="year">{{publishedYear}}</div>
   </div>
+  {{/publishedYear}}
+  {{#publishedYear}}
   <a class="citation" href="#citation">
     <div>Citation:</div>
     <div>{{concatenatedAuthors}}, {{publishedYear}}</div>
   </a>
+  {{/publishedYear}}
 </div>
 `
 
