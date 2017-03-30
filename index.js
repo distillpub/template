@@ -2,7 +2,7 @@ import html from "./components/html";
 import styles from "./components/styles";
 import frontMatter from "./components/front-matter";
 import bibliography from "./components/bibliography";
-import expandData from "./components/expand-data";
+import expandData from "./components/data";
 import meta from "./components/meta";
 import banner from "./components/banner";
 import byline from "./components/byline";

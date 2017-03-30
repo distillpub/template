@@ -1,19 +1,18 @@
 export default function(dom, data) {
   let el = dom.querySelector('dt-appendix > div');
   if (el) {
-    let existingHTML = el.innerHTML;
     let newHTML = "";
 
-newHTML += `<h3>Updates and Corrections</h3>
-<p><a href="${data.githubCompareUpdatesUrl}">View all changes</a> to this article since it was first published. If you see a mistake or want to suggest a change, please <a class="github-issue" href="${data.githubUrl}/issues/new">create an issue on GitHub</a>.</p>`;
+    newHTML += `<h3>Updates and Corrections</h3>
+    <p><a href="${data.githubCompareUpdatesUrl}">View all changes</a> to this article since it was first published. If you see a mistake or want to suggest a change, please <a class="github-issue" href="${data.githubUrl}/issues/new">create an issue on GitHub</a>.</p>`;
 
-newHTML += `<h3>Citations and Reuse</h3>
-<p>Diagrams and text are licensed under Creative Commons Attribution <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY 2.0</a>, unless noted otherwise, with the <a class="github" href="${data.githubUrl}">source available on GitHub</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>`;
+    newHTML += `<h3>Citations and Reuse</h3>
+    <p>Diagrams and text are licensed under Creative Commons Attribution <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY 2.0</a>, unless noted otherwise, with the <a class="github" href="${data.githubUrl}">source available on GitHub</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>
 
-newHTML += `<p>For attribution in academic contexts, please cite this work as</p>
-<pre class="citation short">${data.concatenatedAuthors}, "${data.title}", ${data.journal.title}, ${data.publishedYear}. http://doi.org/${data.doi}</pre>`;
+    <p>For attribution in academic contexts, please cite this work as</p>
+    <pre class="citation short">${data.concatenatedAuthors}, "${data.title}", ${data.journal.title}, ${data.publishedYear}. http://doi.org/${data.doi}</pre>
 
-newHTML += `<p>BibTeX citation</p>
+    <p>BibTeX citation</p>
 <pre class="citation long">@article{${data.slug},
   author = {${data.bibtexAuthors}},
   title = {${data.title}},
@@ -23,6 +22,7 @@ newHTML += `<p>BibTeX citation</p>
   doi = {${data.doi}}
 }</pre>`;
 
+    let existingHTML = el.innerHTML;
     el.innerHTML = existingHTML + newHTML;
   }
 }
