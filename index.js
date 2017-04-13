@@ -10,6 +10,7 @@ import appendix from "./components/appendix";
 import appendixDistill from "./components/appendix-distill";
 import citation from "./components/citation";
 import footnote from "./components/footnote";
+import DTMath from "./components/dt-math";
 import markdown from "./components/markdown";
 import code from "./components/code";
 import typeset from "./components/typeset";
@@ -31,6 +32,7 @@ function renderOnLoad(dom, data) {
   byline(dom, data);
   appendix(dom, data);
   markdown(dom, data);
+  DTMath(dom, data);
   code(dom, data);
   citation(dom, data);
   footnote(dom, data);
