@@ -6119,6 +6119,25 @@ var citation = function(dom, data) {
       return a.author.localeCompare(b.author);
     });
   }*/
+  
+  var appendCiteHoverDiv = (function() {
+    function nodeFromString(str) {
+      var div = dom.createElement("div");
+      div.innerHTML = str;
+      return div.firstChild;
+    }
+    var hover_boxes_container = nodeFromString("<div id=\"cite-hover-boxes-container\"></div>");
+    dom.querySelector("body").appendChild(hover_boxes_container);
+    var hover_n = 0;
+    return function appendHoverDiv(content) {
+      var id = "dt-cite-hover-box-" + hover_n;
+      hover_n += 1;
+      var str = "<div style=\"display:none;\" class=\"dt-hover-box\" id=\"" + id + "\" >" + content + "</div>";
+      var div = nodeFromString(str);
+      hover_boxes_container.appendChild(div);
+      return id;
+    }
+  })();
 
   var citeTags = [].slice.apply(dom.querySelectorAll("dt-cite"));
   citeTags.forEach(function (el,n) {
@@ -6131,10 +6150,11 @@ var citation = function(dom, data) {
         if (n>0) { cite_hover_str += "<br><br>"; }
         cite_hover_str += hover_cite(data.bibliography[key]);
       });
-      cite_hover_str = cite_hover_str.replace(/"/g, "&#39;");
+      var ref_id = appendCiteHoverDiv(cite_hover_str);
+      //cite_hover_str = cite_hover_str.replace(/"/g, "&#39;")
       var orig_string = el.innerHTML;
       if (orig_string != "") { orig_string += " "; }
-      el.innerHTML = "<span id=\"citation-" + n + "\" data-hover=\"" + cite_hover_str + "\">" + orig_string + "<span class=\"citation-number\">" + cite_string + "</span></span>";
+      el.innerHTML = "<span id=\"citation-" + n + "\" data-hover-ref=\"" + ref_id + "\">" + orig_string + "<span class=\"citation-number\">" + cite_string + "</span></span>";
     }
   });
 
@@ -6319,15 +6339,36 @@ var citation = function(dom, data) {
 
 var footnote = function(dom, data) {
 
+  var appendFootnoteHoverDiv = (function() {
+    function nodeFromString(str) {
+      var div = dom.createElement("div");
+      div.innerHTML = str;
+      return div.firstChild;
+    }
+    var hover_boxes_container = nodeFromString("<div id=\"footnote-hover-boxes-container\"></div>");
+    dom.querySelector("body").appendChild(hover_boxes_container);
+    var hover_n = 0;
+    return function appendHoverDiv(content) {
+      var id = "dt-fn-hover-box-" + hover_n;
+      hover_n += 1;
+      var str = "<div style=\"display:none;\" class=\"dt-hover-box\" id=\"" + id + "\" >" + content + "</div>";
+      var div = nodeFromString(str);
+      hover_boxes_container.appendChild(div);
+      return id;
+    }
+  })();
+
+
   var fnTags = [].slice.apply(dom.querySelectorAll("dt-fn"));
   var fnContent = [];
   fnTags.forEach(function (el,n) {
     var content = el.innerHTML;
+    var ref_id = appendFootnoteHoverDiv(content);
     fnContent.push(content);
     n = (n+1)+"";
     var key = "fn-"+n;
     var escaped_content = content.replace(/"/g, "&#39;");
-    el.innerHTML = "<sup><span id=\"" + key + "\" data-hover=\"" + escaped_content + "\" style=\"cursor:pointer\">" + n + "</span></sup>";
+    el.innerHTML = "<sup><span id=\"" + key + "\" data-hover-ref=\"" + ref_id + "\" style=\"cursor:pointer\">" + n + "</span></sup>";
   });
 
   var fnList = dom.querySelector("dt-fn-list");
@@ -8541,16 +8582,19 @@ function punctuation(text){
   text = text.replace(/--/g, '\u2014');
   text = text.replace(/ \u2014 /g,"\u2009\u2014\u2009"); //this has thin spaces
 
+  // The following are temporary commented out because incompatibility
+  // with katex
+
   // Elipses
-  text = text.replace(/\.\.\./g,'…');
+  // text = text.replace(/\.\.\./g,'…');
 
   // Nbsp for punc with spaces
-  var NBSP = "\u00a0";
-  var NBSP_PUNCTUATION_START = /([«¿¡]) /g;
-  var NBSP_PUNCTUATION_END = / ([\!\?:;\.,‽»])/g;
+  // var NBSP = "\u00a0";
+  // var NBSP_PUNCTUATION_START = /([«¿¡]) /g;
+  // var NBSP_PUNCTUATION_END = / ([\!\?:;\.,‽»])/g;
 
-  text = text.replace(NBSP_PUNCTUATION_START, '$1' + NBSP);
-  text = text.replace(NBSP_PUNCTUATION_END, NBSP + '$1');
+  // text = text.replace(NBSP_PUNCTUATION_START, '$1' + NBSP);
+  // text = text.replace(NBSP_PUNCTUATION_END, NBSP + '$1');
 
   return text;
 }
@@ -8579,7 +8623,7 @@ function quotes(text) {
   return text;
 }
 
-var code$2 = "// DistillHoverBox\n//=====================================\n\nfunction DistillHoverBox(key, pos){\n\n  if (!(key in DistillHoverBox.contentMap)){\n    console.error(\"No DistillHoverBox content registered for key\", key);\n  }\n  if (key in DistillHoverBox.liveBoxes) {\n    console.error(\"There already exists a DistillHoverBox for key\", key);\n  } else {\n    for (var k in DistillHoverBox.liveBoxes)\n      DistillHoverBox.liveBoxes[k].remove();\n    DistillHoverBox.liveBoxes[key] = this;\n  }\n  this.key = key;\n\n  var pretty = window.innerWidth > 600;\n\n  var padding = pretty? 18 : 12;\n  var outer_padding = pretty ? 18 : 0;\n  var bbox = document.querySelector(\"body\").getBoundingClientRect();\n  var left = pos[0] - bbox.left, top = pos[1] - bbox.top;\n  var width = Math.min(window.innerWidth-2*outer_padding, 648);\n  left = Math.min(left, window.innerWidth-width-outer_padding);\n  width = width - 2*padding;\n\n  var str = `<div style=\"position: absolute;\n                          background-color: #FFF;\n                          white-s\n                          opacity: 0.95;\n                          max-width: ${width}px;\n                          top: ${top}px;\n                          left: ${left}px;\n                          border: 1px solid rgba(0, 0, 0, 0.25);\n                          padding: ${padding}px;\n                          border-radius: ${pretty? 3 : 0}px;\n                          box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);\n                          z-index: ${1e6}\" >\n              ${DistillHoverBox.contentMap[key]}\n              </div>`;\n\n  this.div = appendBody(str);\n\n  DistillHoverBox.bind (this.div, key);\n}\n\nDistillHoverBox.prototype.remove = function remove(){\n  if (this.div) this.div.remove();\n  if (this.timeout) clearTimeout(this.timeout);\n  delete DistillHoverBox.liveBoxes[this.key];\n}\n\nDistillHoverBox.prototype.stopTimeout = function stopTimeout() {\n  if (this.timeout) clearTimeout(this.timeout);\n}\n\nDistillHoverBox.prototype.extendTimeout = function extendTimeout(T) {\n  //console.log(\"extend\", T)\n  var this_ = this;\n  this.stopTimeout();\n  this.timeout = setTimeout(() => this_.remove(), T);\n}\n\nDistillHoverBox.liveBoxes = {};\nDistillHoverBox.contentMap = {};\n\nDistillHoverBox.bind = function bind(node, key) {\n  if (typeof node == \"string\"){\n    node = document.querySelector(node);\n  }\n  node.addEventListener(\"mouseover\", () => {\n    var bbox = node.getBoundingClientRect();\n    if (!(key in DistillHoverBox.liveBoxes)){\n      new DistillHoverBox(key, [bbox.right, bbox.bottom]);\n    }\n    DistillHoverBox.liveBoxes[key].stopTimeout();\n  });\n  node.addEventListener(\"mouseout\", () => {\n    if (key in DistillHoverBox.liveBoxes){\n      DistillHoverBox.liveBoxes[key].extendTimeout(250);\n    }\n  });\n  node.addEventListener(\"touchend\", () => {\n    if (key in DistillHoverBox.liveBoxes){\n      DistillHoverBox.liveBoxes[key].extendTimeout(250);\n    }\n  });\n\n}\n\n\nfunction appendBody(str){\n  var node = nodeFromString(str);\n  var body = document.querySelector(\"body\");\n  body.appendChild(node);\n  return node;\n}\n\nfunction nodeFromString(str) {\n  var div = document.createElement(\"div\");\n  div.innerHTML = str;\n  return div.firstChild;\n}\n\nvar hover_es = document.querySelectorAll(\"span[data-hover]\");\nhover_es = [].slice.apply(hover_es);\nhover_es.forEach((e,n) => {\n  var key = \"hover-\"+n;\n  var content = e.getAttribute(\"data-hover\");\n  DistillHoverBox.contentMap[key] = content;\n  DistillHoverBox.bind(e, key);\n});\n";
+var code$2 = "\n\nfunction nodeFromString(str) {\n  var div = document.createElement(\"div\");\n  div.innerHTML = str;\n  return div.firstChild;\n}\n\nfunction make_hover_css(pos) {\n  var pretty = window.innerWidth > 600;\n  var padding = pretty? 18 : 12;\n  var outer_padding = pretty ? 18 : 0;\n  var bbox = document.querySelector(\"body\").getBoundingClientRect();\n  var left = pos[0] - bbox.left, top = pos[1] - bbox.top;\n  var width = Math.min(window.innerWidth-2*outer_padding, 648);\n  left = Math.min(left, window.innerWidth-width-outer_padding);\n  width = width - 2*padding;\n  return (`position: absolute;\n     background-color: #FFF;\n     opacity: 0.95;\n     max-width: ${width}px;\n     top: ${top}px;\n     left: ${left}px;\n     border: 1px solid rgba(0, 0, 0, 0.25);\n     padding: ${padding}px;\n     border-radius: ${pretty? 3 : 0}px;\n     box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);\n     z-index: ${1e6};`);\n}\n\n\nfunction DtHoverBox(div_id) {\n  this.div = document.querySelector(\"#\"+div_id);\n  this.visible = false;\n  this.bind(this.div);\n  DtHoverBox.box_map[div_id] = this;\n}\n\nDtHoverBox.box_map = {};\n\nDtHoverBox.get_box = function get_box(div_id) {\n  if (div_id in DtHoverBox.box_map) {\n    return DtHoverBox.box_map[div_id];\n  } else {\n    return new DtHoverBox(div_id);\n  }\n}\n\nDtHoverBox.prototype.show = function show(pos){\n  this.visible = true;\n  this.div.setAttribute(\"style\", make_hover_css(pos) );\n  for (var box_id in DtHoverBox.box_map) {\n    var box = DtHoverBox.box_map[box_id];\n    if (box != this) box.hide();\n  }\n}\n\nDtHoverBox.prototype.hide = function hide(){\n  this.visible = false;\n  if (this.div) this.div.setAttribute(\"style\", \"display:none\");\n  if (this.timeout) clearTimeout(this.timeout);\n}\n\nDtHoverBox.prototype.stopTimeout = function stopTimeout() {\n  if (this.timeout) clearTimeout(this.timeout);\n}\n\nDtHoverBox.prototype.extendTimeout = function extendTimeout(T) {\n  //console.log(\"extend\", T)\n  var this_ = this;\n  this.stopTimeout();\n  this.timeout = setTimeout(() => this_.hide(), T);\n}\n\nDtHoverBox.prototype.bind = function bind(node) {\n  if (typeof node == \"string\"){\n    node = document.querySelector(node);\n  }\n  node.addEventListener(\"mouseover\", () => {\n    var bbox = node.getBoundingClientRect();\n    if (!this.visible) this.show([bbox.right, bbox.bottom]);\n    this.stopTimeout();\n  });\n  node.addEventListener(\"mouseout\", () => this.extendTimeout(250) );\n  node.addEventListener(\"touchend\", () => this.extendTimeout(250) );\n}\n\nvar hover_es = document.querySelectorAll(\"span[data-hover-ref]\");\nhover_es = [].slice.apply(hover_es);\nhover_es.forEach((e,n) => {\n  var ref_id = e.getAttribute(\"data-hover-ref\");\n  DtHoverBox.get_box(ref_id).bind(e);\n})\n";
 
 var hoverBox = function(dom) {
   var s = dom.createElement("script");
