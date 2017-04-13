@@ -35,6 +35,25 @@ export default function(dom, data) {
       return a.author.localeCompare(b.author);
     });
   }*/
+  
+  var appendCiteHoverDiv = (function() {
+    function nodeFromString(str) {
+      var div = dom.createElement("div");
+      div.innerHTML = str;
+      return div.firstChild;
+    }
+    var hover_boxes_container = nodeFromString(`<div id="cite-hover-boxes-container"></div>`)
+    dom.querySelector("body").appendChild(hover_boxes_container);
+    var hover_n = 0;
+    return function appendHoverDiv(content) {
+      var id = `dt-cite-hover-box-${hover_n}`;
+      hover_n += 1;
+      var str = `<div style="display:none;" class="dt-hover-box" id="${id}" >${content}</div>`;
+      var div = nodeFromString(str);
+      hover_boxes_container.appendChild(div);
+      return id;
+    }
+  })();
 
   var citeTags = [].slice.apply(dom.querySelectorAll("dt-cite"));
   citeTags.forEach((el,n) => {
@@ -47,10 +66,11 @@ export default function(dom, data) {
         if (n>0) cite_hover_str += "<br><br>";
         cite_hover_str += hover_cite(data.bibliography[key]);
       });
-      cite_hover_str = cite_hover_str.replace(/"/g, "&#39;")
+      var ref_id = appendCiteHoverDiv(cite_hover_str);
+      //cite_hover_str = cite_hover_str.replace(/"/g, "&#39;")
       var orig_string = el.innerHTML;
       if (orig_string != "") orig_string += " ";
-      el.innerHTML = `<span id="citation-${n}" data-hover="${cite_hover_str}">${orig_string}<span class="citation-number">${cite_string}</span></span>`;
+      el.innerHTML = `<span id="citation-${n}" data-hover-ref="${ref_id}">${orig_string}<span class="citation-number">${cite_string}</span></span>`;
     }
   });
 
