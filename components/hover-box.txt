@@ -32,7 +32,7 @@ function make_hover_css(pos) {
 function DtHoverBox(div_id) {
   this.div = document.querySelector("#"+div_id);
   this.visible = false;
-  this.bind(this.div);
+  this.bindDivEvents();
   DtHoverBox.box_map[div_id] = this;
 }
 
@@ -55,6 +55,11 @@ DtHoverBox.prototype.show = function show(pos){
   }
 }
 
+DtHoverBox.prototype.showAtNode = function showAtNode(node){
+    var bbox = node.getBoundingClientRect();
+    this.show([bbox.right, bbox.bottom]);
+}
+
 DtHoverBox.prototype.hide = function hide(){
   this.visible = false;
   if (this.div) this.div.setAttribute("style", "display:none");
@@ -72,17 +77,41 @@ DtHoverBox.prototype.extendTimeout = function extendTimeout(T) {
   this.timeout = setTimeout(() => this_.hide(), T);
 }
 
+// Bind events to a link to open this box
 DtHoverBox.prototype.bind = function bind(node) {
   if (typeof node == "string"){
     node = document.querySelector(node);
   }
+
   node.addEventListener("mouseover", () => {
-    var bbox = node.getBoundingClientRect();
-    if (!this.visible) this.show([bbox.right, bbox.bottom]);
+    if (!this.visible) this.showAtNode(node);
     this.stopTimeout();
   });
   node.addEventListener("mouseout", () => this.extendTimeout(250) );
-  node.addEventListener("touchend", () => this.extendTimeout(250) );
+
+  node.addEventListener("touchstart", e => {
+    if (this.visible) {
+      this.hide();
+    } else {
+      this.showAtNode(node);
+    }
+    // Don't trigger body touchstart event when touching link
+    e.stopPropagation();
+  });
+}
+
+DtHoverBox.prototype.bindDivEvents = function bindDivEvents(){
+  // For mice, same behavior as hovering on links
+  this.div.addEventListener("mouseover", () => {
+    if (!this.visible) this.showAtNode(node);
+    this.stopTimeout();
+  });
+  this.div.addEventListener("mouseout", () => this.extendTimeout(250) );
+
+  // Don't trigger body touchstart event when touching within box
+  this.div.addEventListener("touchstart", e => e.stopPropagation());
+  // Close box when touching outside box
+  document.body.addEventListener("touchstart", () => this.hide());
 }
 
 var hover_es = document.querySelectorAll("span[data-hover-ref]");
