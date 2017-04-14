@@ -18,13 +18,19 @@
     "url": "https://github.com/distillpub/distill-template/issues"
   },
   "homepage": "https://github.com/distillpub/distill-template#readme",
-  "devDependencies": {
+  "dependencies": {
     "bibtex-parse-js": "^0.0.23",
     "chai": "^3.5.0",
+    "commander": "^2.9.0",
+    "d3-time-format": "^2.0.3",
+    "escape-html": "^1.0.3",
+    "html-escape": "^2.0.0",
     "js-yaml": "^3.7.0",
     "jsdom": "^9.10.0",
+    "katex": "^0.7.1",
     "marked": "^0.3.6",
     "mocha": "^3.2.0",
+    "mustache": "^2.3.0",
     "prismjs": "^1.6.0",
     "rollup": "^0.36.4",
     "rollup-plugin-buble": "^0.14.0",
@@ -35,12 +41,5 @@
     "rollup-plugin-string": "^2.0.2",
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-watch": "^2.5.0"
-  },
-  "dependencies": {
-    "commander": "^2.9.0",
-    "d3-time-format": "^2.0.3",
-    "html-escape": "^2.0.0",
-    "katex": "^0.7.1",
-    "mustache": "^2.3.0"
   }
 }
