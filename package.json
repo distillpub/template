@@ -24,7 +24,6 @@
     "commander": "^2.9.0",
     "d3-time-format": "^2.0.3",
     "escape-html": "^1.0.3",
-    "html-escape": "^2.0.0",
     "js-yaml": "^3.7.0",
     "jsdom": "^9.10.0",
     "katex": "^0.7.1",

@@ -15457,7 +15457,6 @@ var DTMath = function(dom, data) {
   var equationElements = [].slice.call(dom.querySelectorAll("dt-math"));
   equationElements.forEach(function (el) {
     var content = el.textContent;
-    console.log(content);
     var displayMode = el.hasAttribute("block") ? true : false;
     el.innerHTML = html$3 + katex.renderToString(content, {displayMode: displayMode});
   });
