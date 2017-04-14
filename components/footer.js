@@ -50,6 +50,7 @@ dt-footer .nav a {
     <a href="http://distill.pub/about/">About</a>
     <a href="http://distill.pub/journal/">Submit</a>
     <a href="http://distill.pub/prize/">Prize</a>
+    <a href="http://distill.pub/archive/">Archive</a>
     <a href="http://distill.pub/rss.xml">RSS</a>
     <a href="https://twitter.com/distillpub">Twitter</a>
   </div>
