@@ -284,6 +284,8 @@ function Type$2(tag, options) {
 
 var type = Type$2;
 
+/*eslint-disable max-len*/
+
 var common$4        = common$1;
 var YAMLException$3 = exception;
 var Type$1          = type;
@@ -895,6 +897,8 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
+/*eslint-disable no-bitwise*/
+
 var NodeBuffer;
 
 try {
@@ -1351,6 +1355,8 @@ var default_full = Schema$6.DEFAULT = new Schema$6({
     _function
   ]
 });
+
+/*eslint-disable max-len,no-use-before-define*/
 
 var common              = common$1;
 var YAMLException$1       = exception;
@@ -2942,6 +2948,8 @@ var loader$1 = {
 	safeLoadAll: safeLoadAll_1,
 	safeLoad: safeLoad_1
 };
+
+/*eslint-disable no-use-before-define*/
 
 var common$7              = common$1;
 var YAMLException$5       = exception;
@@ -5221,6 +5229,11 @@ var favicon = "iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAGXRFWHRTb2Z0d2FyZ
  * MIT Licensed
  */
 
+/**
+ * Module variables.
+ * @private
+ */
+
 var matchHtmlRegExp = /["'&<>]/;
 
 /**
@@ -6085,7 +6098,7 @@ var appendixDistill = function(dom, data) {
 
     newHTML += "<h3>Updates and Corrections</h3>\n    <p><a href=\"" + (data.githubCompareUpdatesUrl) + "\">View all changes</a> to this article since it was first published. If you see a mistake or want to suggest a change, please <a class=\"github-issue\" href=\"" + (data.githubUrl) + "/issues/new\">create an issue on GitHub</a>.</p>";
 
-    newHTML += "<h3>Citations and Reuse</h3>\n    <p>Diagrams and text are licensed under Creative Commons Attribution <a href=\"https://creativecommons.org/licenses/by/2.0/\">CC-BY 2.0</a>, unless noted otherwise, with the <a class=\"github\" href=\"" + (data.githubUrl) + "\">source available on GitHub</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>\n\n    <p>For attribution in academic contexts, please cite this work as</p>\n    <pre class=\"citation short\">" + (data.concatenatedAuthors) + ", \"" + (data.title) + "\", " + (data.journal.title) + ", " + (data.publishedYear) + ". http://doi.org/" + (data.doi) + "</pre>\n\n    <p>BibTeX citation</p>\n<pre class=\"citation long\">@article{" + (data.slug) + ",\n  author = {" + (data.bibtexAuthors) + "},\n  title = {" + (data.title) + "},\n  journal = {" + (data.journal.title) + "},\n  year = {" + (data.publishedYear) + "},\n  url = {" + (data.url) + "},\n  doi = {" + (data.doi) + "}\n}</pre>";
+    newHTML += "<h3 id=\"citation\">Citations and Reuse</h3>\n    <p>Diagrams and text are licensed under Creative Commons Attribution <a href=\"https://creativecommons.org/licenses/by/2.0/\">CC-BY 2.0</a>, unless noted otherwise, with the <a class=\"github\" href=\"" + (data.githubUrl) + "\">source available on GitHub</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>\n\n    <p>For attribution in academic contexts, please cite this work as</p>\n    <pre class=\"citation short\">" + (data.concatenatedAuthors) + ", \"" + (data.title) + "\", " + (data.journal.title) + ", " + (data.publishedYear) + ". http://doi.org/" + (data.doi) + "</pre>\n\n    <p>BibTeX citation</p>\n<pre class=\"citation long\">@article{" + (data.slug) + ",\n  author = {" + (data.bibtexAuthors) + "},\n  title = {" + (data.title) + "},\n  journal = {" + (data.journal.title) + "},\n  year = {" + (data.publishedYear) + "},\n  url = {" + (data.url) + "},\n  doi = {" + (data.doi) + "}\n}</pre>";
 
     var existingHTML = el.innerHTML;
     el.innerHTML = existingHTML + newHTML;
@@ -8291,11 +8304,6 @@ var sigmas$1 = {
     axisHeight: [0.250, 0.250, 0.250]  // sigma22
 };
 
-// These font metrics are extracted from TeX by using
-// \font\a=cmex10
-// \showthe\fontdimenX\a
-// where X is the corresponding variable number. These correspond to the font
-// parameters of the extension fonts (family 3). See the TeXbook, page 441.
 var xi8 = 0.04;
 var xi9 = 0.111;
 var xi10 = 0.166;
@@ -8503,6 +8511,14 @@ var fontMetrics$1 = {
     sigmas: sigmas$1,
     getCharacterMetrics: getCharacterMetrics
 };
+
+/**
+ * This file contains information and classes for the various kinds of styles
+ * used in TeX. It provides a generic `Style` class, which holds information
+ * about a specific style. It then provides instances of all the different kinds
+ * of styles possible, and provides functions to move between them and get
+ * information about them.
+ */
 
 var sigmas = fontMetrics$1.sigmas;
 
@@ -8753,6 +8769,15 @@ var utils$4 = {
     clearNode: clearNode
 };
 
+/**
+ * These objects store the data about the DOM nodes we create, as well as some
+ * extra data. They can then be transformed into real DOM nodes with the
+ * `toNode` function or HTML markup using `toMarkup`. They are useful for both
+ * storing extra properties on the nodes, as well as providing a way to easily
+ * work with the DOM.
+ *
+ * Similar functions for working with MathML nodes exist in mathMLTree.js.
+ */
 var unicodeRegexes$2 = unicodeRegexes;
 var utils$3 = utils$4;
 
@@ -9770,6 +9795,12 @@ defineSymbol(text, main, textord, "\u201c", "“");
 defineSymbol(text, main, textord, "\u201d", "”");
 });
 
+/* eslint no-console:0 */
+/**
+ * This module contains general functions that can be used for building
+ * different kinds of domTree nodes in a consistent manner.
+ */
+
 var domTree$1 = domTree$2;
 var fontMetrics$3 = fontMetrics$1;
 var symbols = symbols$1;
@@ -10244,6 +10275,28 @@ var buildCommon$2 = {
     sizingMultiplier: sizingMultiplier,
     spacingFunctions: spacingFunctions
 };
+
+/**
+ * This file deals with creating delimiters of various sizes. The TeXbook
+ * discusses these routines on page 441-442, in the "Another subroutine sets box
+ * x to a specified variable delimiter" paragraph.
+ *
+ * There are three main routines here. `makeSmallDelim` makes a delimiter in the
+ * normal font, but in either text, script, or scriptscript style.
+ * `makeLargeDelim` makes a delimiter in textstyle, but in one of the Size1,
+ * Size2, Size3, or Size4 fonts. `makeStackedDelim` makes a delimiter out of
+ * smaller pieces that are stacked on top of one another.
+ *
+ * The functions take a parameter `center`, which determines if the delimiter
+ * should be centered around the axis.
+ *
+ * Then, there are three exposed functions. `sizedDelim` makes a delimiter in
+ * one of the given sizes. This is used for things like `\bigl`.
+ * `customSizedDelim` makes a delimiter with a given total height+depth. It is
+ * called in places like `\sqrt`. `leftRightDelim` makes an appropriate
+ * delimiter which surrounds an expression of a given height an depth. It is
+ * used in `\left` and `\right`.
+ */
 
 var ParseError$3 = ParseError_1;
 var Style$4 = Style_1;
@@ -10773,6 +10826,14 @@ var delimiter$1 = {
     customSizedDelim: makeCustomSizedDelim,
     leftRightDelim: makeLeftRightDelim
 };
+
+/* eslint no-console:0 */
+/**
+ * This file does the main work of building a domTree structure from a parse
+ * tree. The entry point is the `buildHTML` function, which takes a parse tree.
+ * Then, the buildExpression, buildGroup, and various groupTypes functions are
+ * called, to produce a final HTML tree.
+ */
 
 var ParseError$2 = ParseError_1;
 var Style$1 = Style_1;
@@ -12336,6 +12397,16 @@ var buildHTML$1 = function(tree, options) {
 
 var buildHTML_1 = buildHTML$1;
 
+/**
+ * These objects store data about MathML nodes. This is the MathML equivalent
+ * of the types in domTree.js. Since MathML handles its own rendering, and
+ * since we're mainly using MathML to improve accessibility, we don't manage
+ * any of the styling state that the plain DOM nodes do.
+ *
+ * The `toNode` and `toMarkup` functions work simlarly to how they do in
+ * domTree.js, creating namespaced DOM nodes and HTML text markup respectively.
+ */
+
 var utils$8 = utils$4;
 
 /**
@@ -12432,6 +12503,12 @@ var mathMLTree$1 = {
     MathNode: MathNode,
     TextNode: TextNode
 };
+
+/**
+ * This file converts a parse tree into a cooresponding MathML tree. The main
+ * entry point is the `buildMathML` function, which takes a parse tree from the
+ * parser.
+ */
 
 var buildCommon$5 = buildCommon$2;
 var fontMetrics$5 = fontMetrics$1;
@@ -14229,6 +14306,19 @@ function matchAt$1(re, str, pos) {
 
 var matchAt_1 = matchAt$1;
 
+/**
+ * The Lexer class handles tokenizing the input in various ways. Since our
+ * parser expects us to be able to backtrack, the lexer allows lexing from any
+ * given starting point.
+ *
+ * Its main exposed function is the `lex` function, which takes a position to
+ * lex from and a type of token to lex. It defers to the appropriate `_innerLex`
+ * function.
+ *
+ * The various `_innerLex` functions perform the actual lexing of different
+ * kinds.
+ */
+
 var matchAt = matchAt_1;
 
 var ParseError$6 = ParseError_1;
@@ -14326,6 +14416,11 @@ Lexer$1.prototype.lex = function() {
 
 var Lexer_1 = Lexer$1;
 
+/**
+ * This file contains the “gullet” where macros are expanded
+ * until only non-macro tokens remain.
+ */
+
 var Lexer = Lexer_1;
 
 function MacroExpander$1(input, macros) {
@@ -14398,6 +14493,7 @@ MacroExpander$1.prototype.unget = function(token) {
 
 var MacroExpander_1 = MacroExpander$1;
 
+/* eslint no-constant-condition:0 */
 var functions = functions$1;
 var environments = environments$1;
 var MacroExpander = MacroExpander_1;
@@ -15259,6 +15355,11 @@ Parser$1.prototype.ParseNode = ParseNode;
 
 var Parser_1 = Parser$1;
 
+/**
+ * Provides a single function for parsing an expression using a Parser
+ * TODO(emily): Remove this
+ */
+
 var Parser = Parser_1;
 
 /**
@@ -15274,6 +15375,15 @@ var parseTree$1 = function(toParse, settings) {
 };
 
 var parseTree_1 = parseTree$1;
+
+/* eslint no-console:0 */
+/**
+ * This is the main entry point for KaTeX. Here, we expose functions for
+ * rendering expressions either to DOM nodes or to markup strings.
+ *
+ * We also expose the ParseError class to check if errors thrown from KaTeX are
+ * errors in the expression, or errors in javascript handling.
+ */
 
 var ParseError = ParseError_1;
 var Settings = Settings_1;
