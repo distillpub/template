@@ -185,6 +185,25 @@ dt-article section {
   margin-bottom: 60px;
 }
 
+/* Tables */
+
+dt-article table {
+  border-collapse: collapse;
+}
+
+dt-article table th {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+dt-article table td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+dt-article table th,
+dt-article table td {
+  font-size: 15px;
+  padding: 2px 0;
+}
 
 /* Figure */
 
@@ -231,15 +250,6 @@ dt-article figure.external img {
 dt-article figure figcaption a {
   color: rgba(0, 0, 0, 0.6);
 }
-
-/*dt-article figure figcaption::before {
-  position: relative;
-  display: block;
-  top: -20px;
-  content: "";
-  width: 25px;
-  border-top: 1px solid rgba(0, 0, 0, 0.3);
-}*/
 
 dt-article span.equation-mimic {
   font-family: georgia;
