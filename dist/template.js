@@ -26,7 +26,7 @@ var html = function(dom) {
 
 var base = "html {\n  font: 400 16px/1.55em -apple-system, BlinkMacSystemFont, \"Roboto\", Helvetica, sans-serif;\n  /*background-color: hsl(223, 9%, 25%);*/\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\nbody {\n  margin: 0;\n  /*background-color: hsl(223, 9%, 25%);*/\n}\n\na {\n  color: #004276;\n}\n\nfigure {\n  margin: 0;\n}\n\nh1 {\n  font-family: Cochin, Georgia, serif;\n}\n\n/*\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}*/\n";
 
-var layout = "/*\n  Column: 60px\n  Gutter: 24px\n\n  Body: 648px\n    - 8 columns\n    - 7 gutters\n  Middle: 816px\n  Page: 984px\n    - 12 columns\n    - 11 gutters\n*/\n\n.l-body,\n.l-body-outset,\n.l-page,\n.l-page-outset,\n.l-middle,\n.l-middle-outset,\ndt-article > div,\ndt-article > p,\ndt-article > h1,\ndt-article > h2,\ndt-article > h3,\ndt-article > h4,\ndt-article > figure,\ndt-article > table,\ndt-article > ol,\ndt-article > ul,\ndt-article > dt-byline,\ndt-article > dt-math,\ndt-article > dt-code,\ndt-article section > div,\ndt-article section > p,\ndt-article section > h1,\ndt-article section > h2,\ndt-article section > h3,\ndt-article section > h4,\ndt-article section > figure,\ndt-article section > table,\ndt-article section > ol,\ndt-article section > ul,\ndt-article section > dt-byline,\ndt-article section > dt-code {\n  width: auto;\n  margin-left: 24px;\n  margin-right: 24px;\n  box-sizing: border-box;\n}\n\n@media(min-width: 768px) {\n  .l-body,\n  .l-body-outset,\n  .l-page,\n  .l-page-outset,\n  .l-middle,\n  .l-middle-outset,\n  dt-article > div,\n  dt-article > p,\n  dt-article > h1,\n  dt-article > h2,\n  dt-article > h3,\n  dt-article > h4,\n  dt-article > figure,\n  dt-article > table,\n  dt-article > ol,\n  dt-article > ul,\n  dt-article > dt-byline,\n  dt-article > dt-math,\n  dt-article > dt-code,\n  dt-article section > div,\n  dt-article section > p,\n  dt-article section > h1,\n  dt-article section > h2,\n  dt-article section > h3,\n  dt-article section > h4,\n  dt-article section > figure,\n  dt-article section > table,\n  dt-article section > ol,\n  dt-article section > ul,\n  dt-article section > dt-byline,\n  dt-article section > dt-code {\n    margin-left: 72px;\n    margin-right: 72px;\n  }\n}\n\n@media(min-width: 1080px) {\n  .l-body,\n  dt-article > div,\n  dt-article > p,\n  dt-article > h2,\n  dt-article > h3,\n  dt-article > h4,\n  dt-article > figure,\n  dt-article > table,\n  dt-article > ol,\n  dt-article > ul,\n  dt-article > dt-byline,\n  dt-article > dt-math,\n  dt-article > dt-code,\n  dt-article section > div,\n  dt-article section > p,\n  dt-article section > h2,\n  dt-article section > h3,\n  dt-article section > h4,\n  dt-article section > figure,\n  dt-article section > table,\n  dt-article section > ol,\n  dt-article section > ul,\n  dt-article section > dt-byline,\n  dt-article section > dt-code {\n    margin-left: calc(50% - 984px / 2);\n    width: 648px;\n  }\n  .l-body-outset,\n  dt-article .l-body-outset {\n    margin-left: calc(50% - 984px / 2 - 96px/2);\n    width: calc(648px + 96px);\n  }\n  .l-middle,\n  dt-article .l-middle {\n    width: 816px;\n    margin-left: calc(50% - 984px / 2);\n    margin-right: auto;\n  }\n  .l-middle-outset,\n  dt-article .l-middle-outset {\n    width: calc(816px + 96px);\n    margin-left: calc(50% - 984px / 2 - 48px);\n    margin-right: auto;\n  }\n  dt-article > h1,\n  dt-article section > h1,\n  .l-page,\n  dt-article .l-page,\n  dt-article.centered .l-page {\n    width: 984px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-page-outset,\n  dt-article .l-page-outset,\n  dt-article.centered .l-page-outset {\n    width: 1080px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-screen,\n  dt-article .l-screen,\n  dt-article.centered .l-screen {\n    margin-left: auto;\n    margin-right: auto;\n    width: auto;\n  }\n  .l-screen-inset,\n  dt-article .l-screen-inset,\n  dt-article.centered .l-screen-inset {\n    margin-left: 24px;\n    margin-right: 24px;\n    width: auto;\n  }\n  .l-gutter,\n  dt-article .l-gutter {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 24px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n    width: calc((984px - 648px) / 2 - 24px);\n  }\n\n  /* Side */\n  .side.l-body,\n  dt-article .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px) / 2);\n    width: calc(648px / 2 - 24px - 84px);\n  }\n  .side.l-body-outset,\n  dt-article .side.l-body-outset {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px - 48px) / 2);\n    width: calc(648px / 2 - 48px + 24px);\n  }\n  .side.l-middle,\n  dt-article .side.l-middle {\n    clear: both;\n    float: right;\n    width: calc(456px - 84px);\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-middle-outset,\n  dt-article .side.l-middle-outset {\n    clear: both;\n    float: right;\n    width: 456px;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-page,\n  dt-article .side.l-page {\n    clear: both;\n    float: right;\n    margin-left: 48px;\n    width: calc(624px - 84px);\n    margin-right: calc((100vw - 984px) / 2);\n  }\n  .side.l-page-outset,\n  dt-article .side.l-page-outset {\n    clear: both;\n    float: right;\n    width: 624px;\n    margin-right: calc((100vw - 984px) / 2);\n  }\n}\n\n/* Centered */\n\n@media(min-width: 1080px) {\n  .centered .l-body,\n  .centered.l-body,\n  dt-article.centered > div,\n  dt-article.centered > p,\n  dt-article.centered > h2,\n  dt-article.centered > h3,\n  dt-article.centered > h4,\n  dt-article.centered > figure,\n  dt-article.centered > ol,\n  dt-article.centered > ul,\n  dt-article.centered > dt-byline,\n  dt-article.centered > dt-code,\n  dt-article.centered section > div,\n  dt-article.centered section > p,\n  dt-article.centered section > h2,\n  dt-article.centered section > h3,\n  dt-article.centered section > h4,\n  dt-article.centered section > figure,\n  dt-article.cebtered section > ol,\n  dt-article.centered section > ul,\n  dt-article.centered section > dt-byline,\n  dt-article.centered section > dt-code,\n  dt-article section.centered > div,\n  dt-article section.centered > p,\n  dt-article section.centered > h2,\n  dt-article section.centered > h3,\n  dt-article section.centered > h4,\n  dt-article section.centered > figure,\n  dt-article section.centered > ol,\n  dt-article section.centered > ul,\n  dt-article section.centered > dt-byline,\n  dt-article section.centered > dt-code {\n    margin-left: auto;\n    margin-right: auto;\n    width: 648px;\n  }\n  .centered .l-body-outset,\n  .centered.l-body-outset,\n  dt-article.centered .l-body-outset {\n    margin-left: auto;\n    margin-right: auto;\n    width: calc(648px + 96px);\n  }\n  dt-article.centered > h1,\n  dt-article.centered section > h1,\n  dt-article section.centered > h1,\n  .centered .l-middle,\n  .centered.l-middle,\n  dt-article.centered .l-middle {\n    width: 816px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n\n  .centered .l-middle-outset,\n  .centered.l-middle-outset,\n  dt-article.centered .l-middle-outset {\n    width: calc(816px + 96px);\n    margin-left: auto;\n    margin-right: auto;\n  }\n\n  /* page and screen are already centered */\n\n  /* Side */\n\n  .centered .side.l-body,\n  .centered dt-article .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 648px) / 2);\n    width: calc(4 * 60px + 3 * 24px);\n  }\n  .centered .side.l-body-outset,\n  .centered dt-article .side.l-body-outset {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 648px) / 2);\n    width: calc(4 * 60px + 3 * 24px);\n  }\n  .centered .side.l-middle,\n  .centered dt-article .side.l-middle {\n    clear: both;\n    float: right;\n    width: 396px;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px / 2);\n  }\n  .centered .side.l-middle-outset,\n  .centered dt-article .side.l-middle-outset {\n    clear: both;\n    float: right;\n    width: 456px;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .centered .side.l-page,\n  .centered dt-article .side.l-page {\n    clear: both;\n    float: right;\n    width: 480px;\n    margin-right: calc((100vw - 984px) / 2);\n  }\n  .centered .side.l-page-outset,\n  .centered dt-article .side.l-page-outset {\n    clear: both;\n    float: right;\n    width: 480px;\n    margin-right: calc((100vw - 984px) / 2);\n  }\n  .centered .l-gutter,\n  .centered.l-gutter,\n  dt-article.centered .l-gutter {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 24px;\n    margin-right: calc((100vw - 984px) / 2);\n    width: calc((984px - 648px) / 2 - 24px);\n  }\n\n}\n\n/* Rows and Columns */\n\n.row {\n  display: flex;\n}\n.column {\n  flex: 1;\n  box-sizing: border-box;\n  margin-right: 24px;\n  margin-left: 24px;\n}\n.row > .column:first-of-type {\n  margin-left: 0;\n}\n.row > .column:last-of-type {\n  margin-right: 0;\n}\n";
+var layout = "/*\n  Column: 60px\n  Gutter: 24px\n\n  Body: 648px\n    - 8 columns\n    - 7 gutters\n  Middle: 816px\n  Page: 984px\n    - 12 columns\n    - 11 gutters\n*/\n\n.l-body,\n.l-body-outset,\n.l-page,\n.l-page-outset,\n.l-middle,\n.l-middle-outset,\ndt-article > div,\ndt-article > p,\ndt-article > h1,\ndt-article > h2,\ndt-article > h3,\ndt-article > h4,\ndt-article > figure,\ndt-article > table,\ndt-article > ol,\ndt-article > ul,\ndt-article > dt-byline,\ndt-article > dt-math,\ndt-article > dt-code,\ndt-article section > div,\ndt-article section > p,\ndt-article section > h1,\ndt-article section > h2,\ndt-article section > h3,\ndt-article section > h4,\ndt-article section > figure,\ndt-article section > table,\ndt-article section > ol,\ndt-article section > ul,\ndt-article section > dt-byline,\ndt-article section > dt-code {\n  width: auto;\n  margin-left: 24px;\n  margin-right: 24px;\n  box-sizing: border-box;\n}\n\n@media(min-width: 768px) {\n  .l-body,\n  .l-body-outset,\n  .l-page,\n  .l-page-outset,\n  .l-middle,\n  .l-middle-outset,\n  dt-article > div,\n  dt-article > p,\n  dt-article > h1,\n  dt-article > h2,\n  dt-article > h3,\n  dt-article > h4,\n  dt-article > figure,\n  dt-article > table,\n  dt-article > ol,\n  dt-article > ul,\n  dt-article > dt-byline,\n  dt-article > dt-math,\n  dt-article > dt-code,\n  dt-article section > div,\n  dt-article section > p,\n  dt-article section > h1,\n  dt-article section > h2,\n  dt-article section > h3,\n  dt-article section > h4,\n  dt-article section > figure,\n  dt-article section > table,\n  dt-article section > ol,\n  dt-article section > ul,\n  dt-article section > dt-byline,\n  dt-article section > dt-code {\n    margin-left: 72px;\n    margin-right: 72px;\n  }\n}\n\n@media(min-width: 1080px) {\n  .l-body,\n  dt-article > div,\n  dt-article > p,\n  dt-article > h2,\n  dt-article > h3,\n  dt-article > h4,\n  dt-article > figure,\n  dt-article > table,\n  dt-article > ol,\n  dt-article > ul,\n  dt-article > dt-byline,\n  dt-article > dt-math,\n  dt-article > dt-code,\n  dt-article section > div,\n  dt-article section > p,\n  dt-article section > h2,\n  dt-article section > h3,\n  dt-article section > h4,\n  dt-article section > figure,\n  dt-article section > table,\n  dt-article section > ol,\n  dt-article section > ul,\n  dt-article section > dt-byline,\n  dt-article section > dt-code {\n    margin-left: calc(50% - 984px / 2);\n    width: 648px;\n  }\n  .l-body-outset,\n  dt-article .l-body-outset {\n    margin-left: calc(50% - 984px / 2 - 96px/2);\n    width: calc(648px + 96px);\n  }\n  .l-middle,\n  dt-article .l-middle {\n    width: 816px;\n    margin-left: calc(50% - 984px / 2);\n    margin-right: auto;\n  }\n  .l-middle-outset,\n  dt-article .l-middle-outset {\n    width: calc(816px + 96px);\n    margin-left: calc(50% - 984px / 2 - 48px);\n    margin-right: auto;\n  }\n  dt-article > h1,\n  dt-article section > h1,\n  .l-page,\n  dt-article .l-page,\n  dt-article.centered .l-page {\n    width: 984px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-page-outset,\n  dt-article .l-page-outset,\n  dt-article.centered .l-page-outset {\n    width: 1080px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-screen,\n  dt-article .l-screen,\n  dt-article.centered .l-screen {\n    margin-left: auto;\n    margin-right: auto;\n    width: auto;\n  }\n  .l-screen-inset,\n  dt-article .l-screen-inset,\n  dt-article.centered .l-screen-inset {\n    margin-left: 24px;\n    margin-right: 24px;\n    width: auto;\n  }\n  .l-gutter,\n  dt-article .l-gutter {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 24px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n    width: calc((984px - 648px) / 2 - 24px);\n  }\n\n  /* Side */\n  .side.l-body,\n  dt-article .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px) / 2);\n    width: calc(648px / 2 - 24px - 84px);\n  }\n  .side.l-body-outset,\n  dt-article .side.l-body-outset {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px - 48px) / 2);\n    width: calc(648px / 2 - 48px + 24px);\n  }\n  .side.l-middle,\n  dt-article .side.l-middle {\n    clear: both;\n    float: right;\n    width: calc(456px - 84px);\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-middle-outset,\n  dt-article .side.l-middle-outset {\n    clear: both;\n    float: right;\n    width: 456px;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-page,\n  dt-article .side.l-page {\n    clear: both;\n    float: right;\n    margin-left: 48px;\n    width: calc(624px - 84px);\n    margin-right: calc((100vw - 984px) / 2);\n  }\n  .side.l-page-outset,\n  dt-article .side.l-page-outset {\n    clear: both;\n    float: right;\n    width: 624px;\n    margin-right: calc((100vw - 984px) / 2);\n  }\n}\n\n/* Centered */\n\n@media(min-width: 1080px) {\n  .centered .l-body,\n  .centered.l-body,\n  dt-article.centered > div,\n  dt-article.centered > p,\n  dt-article.centered > h2,\n  dt-article.centered > h3,\n  dt-article.centered > h4,\n  dt-article.centered > figure,\n  dt-article.centered > table,\n  dt-article.centered > ol,\n  dt-article.centered > ul,\n  dt-article.centered > dt-byline,\n  dt-article.centered > dt-code,\n  dt-article.centered section > div,\n  dt-article.centered section > p,\n  dt-article.centered section > h2,\n  dt-article.centered section > h3,\n  dt-article.centered section > h4,\n  dt-article.centered section > figure,\n  dt-article.centered section > table,\n  dt-article.cebtered section > ol,\n  dt-article.centered section > ul,\n  dt-article.centered section > dt-byline,\n  dt-article.centered section > dt-code,\n  dt-article section.centered > div,\n  dt-article section.centered > p,\n  dt-article section.centered > h2,\n  dt-article section.centered > h3,\n  dt-article section.centered > h4,\n  dt-article section.centered > figure,\n  dt-article section.centered > table,\n  dt-article section.centered > ol,\n  dt-article section.centered > ul,\n  dt-article section.centered > dt-byline,\n  dt-article section.centered > dt-code {\n    margin-left: auto;\n    margin-right: auto;\n    width: 648px;\n  }\n  .centered .l-body-outset,\n  .centered.l-body-outset,\n  dt-article.centered .l-body-outset {\n    margin-left: auto;\n    margin-right: auto;\n    width: calc(648px + 96px);\n  }\n  dt-article.centered > h1,\n  dt-article.centered section > h1,\n  dt-article section.centered > h1,\n  .centered .l-middle,\n  .centered.l-middle,\n  dt-article.centered .l-middle {\n    width: 816px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n\n  .centered .l-middle-outset,\n  .centered.l-middle-outset,\n  dt-article.centered .l-middle-outset {\n    width: calc(816px + 96px);\n    margin-left: auto;\n    margin-right: auto;\n  }\n\n  /* page and screen are already centered */\n\n  /* Side */\n\n  .centered .side.l-body,\n  .centered dt-article .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 648px) / 2);\n    width: calc(4 * 60px + 3 * 24px);\n  }\n  .centered .side.l-body-outset,\n  .centered dt-article .side.l-body-outset {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 648px) / 2);\n    width: calc(4 * 60px + 3 * 24px);\n  }\n  .centered .side.l-middle,\n  .centered dt-article .side.l-middle {\n    clear: both;\n    float: right;\n    width: 396px;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px / 2);\n  }\n  .centered .side.l-middle-outset,\n  .centered dt-article .side.l-middle-outset {\n    clear: both;\n    float: right;\n    width: 456px;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .centered .side.l-page,\n  .centered dt-article .side.l-page {\n    clear: both;\n    float: right;\n    width: 480px;\n    margin-right: calc((100vw - 984px) / 2);\n  }\n  .centered .side.l-page-outset,\n  .centered dt-article .side.l-page-outset {\n    clear: both;\n    float: right;\n    width: 480px;\n    margin-right: calc((100vw - 984px) / 2);\n  }\n  .centered .l-gutter,\n  .centered.l-gutter,\n  dt-article.centered .l-gutter {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 24px;\n    margin-right: calc((100vw - 984px) / 2);\n    width: calc((984px - 648px) / 2 - 24px);\n  }\n\n}\n\n/* Rows and Columns */\n\n.row {\n  display: flex;\n}\n.column {\n  flex: 1;\n  box-sizing: border-box;\n  margin-right: 24px;\n  margin-left: 24px;\n}\n.row > .column:first-of-type {\n  margin-left: 0;\n}\n.row > .column:last-of-type {\n  margin-right: 0;\n}\n";
 
 var article = "dt-article {\n  display: block;\n  color: rgba(0, 0, 0, 0.8);\n  font: 17px/1.55em -apple-system, BlinkMacSystemFont, \"Roboto\", sans-serif;\n  padding-bottom: 72px;\n  overflow: hidden;\n  background: white;\n}\n\n@media(min-width: 1024px) {\n  dt-article {\n    font-size: 20px;\n  }\n}\n\n/* H1 */\n\ndt-article h1 {\n  margin-top: 18px;\n  font-weight: 400;\n  font-size: 40px;\n  line-height: 1em;\n  font-family: HoeflerText-Regular, Cochin, Georgia, serif;\n}\n@media(min-width: 768px) {\n  dt-article h1 {\n    font-size: 46px;\n    margin-top: 48px;\n    margin-bottom: 12px;\n  }\n}\n\n@media(min-width: 1080px) {\n  .centered h1 {\n    text-align: center;\n  }\n\n  dt-article h1 {\n    font-size: 50px;\n    letter-spacing: -0.02em;\n  }\n\n  dt-article > h1:first-of-type,\n  dt-article section > h1:first-of-type {\n    margin-top: 80px;\n  }\n}\n\n\n@media(min-width: 1200px) {\n  dt-article h1 {\n    font-size: 56px;\n  }\n\n  dt-article > h1:first-of-type {\n    margin-top: 100px;\n  }\n}\n\n/* H2 */\n\ndt-article h2 {\n  font-family: HoeflerText-Regular, Cochin, Georgia, serif;\n  font-weight: 400;\n  font-size: 26px;\n  line-height: 1.25em;\n  margin-top: 36px;\n  margin-bottom: 24px;\n}\n\n@media(min-width: 1024px) {\n  dt-article h2 {\n    margin-top: 48px;\n    font-size: 30px;\n  }\n}\n\ndt-article h1 + h2 {\n  font-weight: 300;\n  font-size: 20px;\n  line-height: 1.4em;\n  margin-top: 8px;\n  font-style: normal;\n}\n\n\n@media(min-width: 1080px) {\n  .centered h1 + h2 {\n    text-align: center;\n  }\n  dt-article h1 + h2 {\n    margin-top: 12px;\n    font-size: 24px;\n  }\n}\n\n/* H3 */\n\ndt-article h3 {\n  font-family: HoeflerText-Regular, Georgia, serif;\n  font-weight: 400;\n  font-size: 20px;\n  line-height: 1.4em;\n  margin-top: 36px;\n  margin-bottom: 18px;\n  font-style: italic;\n}\n\ndt-article h1 + h3 {\n  margin-top: 48px;\n}\n\n@media(min-width: 1024px) {\n  dt-article h3 {\n    font-size: 26px;\n  }\n}\n\n/* H4 */\n\ndt-article h4 {\n  font-weight: 600;\n  text-transform: uppercase;\n  font-size: 14px;\n  line-height: 1.4em;\n}\n\ndt-article a {\n  color: inherit;\n}\n\ndt-article p,\ndt-article ul,\ndt-article ol {\n  margin-bottom: 24px;\n  font-family: Georgia, serif;\n}\n\ndt-article p b,\ndt-article ul b,\ndt-article ol b {\n  -webkit-font-smoothing: antialiased;\n}\n\ndt-article a {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.4);\n  text-decoration: none;\n}\n\ndt-article a:hover {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.8);\n}\n\ndt-article .link {\n  text-decoration: underline;\n  cursor: pointer;\n}\n\ndt-article ul,\ndt-article ol {\n  padding-left: 24px;\n}\n\ndt-article li {\n  margin-bottom: 24px;\n  margin-left: 0;\n  padding-left: 0;\n}\n\ndt-article pre {\n  font-size: 14px;\n  margin-bottom: 20px;\n}\n\n\ndt-article hr {\n  border: none;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n  margin-top: 60px;\n  margin-bottom: 60px;\n}\n\ndt-article section {\n  margin-top: 60px;\n  margin-bottom: 60px;\n}\n\n/* Tables */\n\ndt-article table {\n  border-collapse: collapse;\n}\n\ndt-article table th {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n\ndt-article table td {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\n}\n\ndt-article table th,\ndt-article table td {\n  font-size: 15px;\n  padding: 2px 0;\n}\n\n/* Figure */\n\ndt-article figure {\n  position: relative;\n  margin-top: 30px;\n  margin-bottom: 30px;\n}\n\n@media(min-width: 1024px) {\n  dt-article figure {\n    margin-top: 48px;\n    margin-bottom: 48px;\n  }\n}\n\ndt-article figure img {\n  width: 100%;\n}\n\ndt-article figure svg text,\ndt-article figure svg tspan {\n}\n\ndt-article figure figcaption {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 12px;\n  line-height: 1.5em;\n}\n@media(min-width: 1024px) {\n  dt-article figure figcaption {\n    font-size: 13px;\n  }\n}\n\ndt-article figure.external img {\n  background: white;\n  border: 1px solid rgba(0, 0, 0, 0.1);\n  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);\n  padding: 18px;\n  box-sizing: border-box;\n}\n\ndt-article figure figcaption a {\n  color: rgba(0, 0, 0, 0.6);\n}\n\ndt-article span.equation-mimic {\n  font-family: georgia;\n  font-size: 115%;\n  font-style: italic;\n}\n\ndt-article figure figcaption b {\n  font-weight: 600;\n  color: rgba(0, 0, 0, 1.0);\n}\n\ndt-article > dt-code,\ndt-article section > dt-code  {\n  display: block;\n}\n\ndt-article .citation {\n  color: #668;\n  cursor: pointer;\n}\n\ndt-include {\n  width: auto;\n  display: block;\n}\n";
 
@@ -90,12 +90,12 @@ function isNegativeZero(number) {
 }
 
 
-var isNothing_1 = isNothing;
-var isObject_1 = isObject;
-var toArray_1 = toArray;
-var repeat_1 = repeat;
+var isNothing_1      = isNothing;
+var isObject_1       = isObject;
+var toArray_1        = toArray;
+var repeat_1         = repeat;
 var isNegativeZero_1 = isNegativeZero;
-var extend_1 = extend;
+var extend_1         = extend;
 
 var common$1 = {
 	isNothing: isNothing_1,
@@ -543,7 +543,7 @@ function resolveYamlInteger(data) {
         if (ch !== '0' && ch !== '1') { return false; }
         hasDigits = true;
       }
-      return hasDigits;
+      return hasDigits && ch !== '_';
     }
 
 
@@ -557,7 +557,7 @@ function resolveYamlInteger(data) {
         if (!isHexCode(data.charCodeAt(index))) { return false; }
         hasDigits = true;
       }
-      return hasDigits;
+      return hasDigits && ch !== '_';
     }
 
     // base 8
@@ -567,10 +567,13 @@ function resolveYamlInteger(data) {
       if (!isOctCode(data.charCodeAt(index))) { return false; }
       hasDigits = true;
     }
-    return hasDigits;
+    return hasDigits && ch !== '_';
   }
 
   // base 10 (except 0) or base 60
+
+  // value should not start with `_`;
+  if (ch === '_') { return false; }
 
   for (; index < max; index++) {
     ch = data[index];
@@ -582,7 +585,8 @@ function resolveYamlInteger(data) {
     hasDigits = true;
   }
 
-  if (!hasDigits) { return false; }
+  // Should have digits and should not end with `_`
+  if (!hasDigits || ch === '_') { return false; }
 
   // if !base60 - done;
   if (ch !== ':') { return true; }
@@ -663,16 +667,27 @@ var common$6 = common$1;
 var Type$9   = type;
 
 var YAML_FLOAT_PATTERN = new RegExp(
-  '^(?:[-+]?(?:[0-9][0-9_]*)\\.[0-9_]*(?:[eE][-+][0-9]+)?' +
-  '|\\.[0-9_]+(?:[eE][-+][0-9]+)?' +
+  // 2.5e4, 2.5 and integers
+  '^(?:[-+]?(?:0|[1-9][0-9_]*)(?:\\.[0-9_]*)?(?:[eE][-+]?[0-9]+)?' +
+  // .2e4, .2
+  // special case, seems not from spec
+  '|\\.[0-9_]+(?:[eE][-+]?[0-9]+)?' +
+  // 20:59
   '|[-+]?[0-9][0-9_]*(?::[0-5]?[0-9])+\\.[0-9_]*' +
+  // .inf
   '|[-+]?\\.(?:inf|Inf|INF)' +
+  // .nan
   '|\\.(?:nan|NaN|NAN))$');
 
 function resolveYamlFloat(data) {
   if (data === null) { return false; }
 
-  if (!YAML_FLOAT_PATTERN.test(data)) { return false; }
+  if (!YAML_FLOAT_PATTERN.test(data) ||
+      // Quick hack to not allow integers end with `_`
+      // Probably should update regexp & check speed
+      data[data.length - 1] === '_') {
+    return false;
+  }
 
   return true;
 }
@@ -972,7 +987,10 @@ function constructYamlBinary(data) {
   }
 
   // Wrap into Buffer for NodeJS and leave Array for browser
-  if (NodeBuffer) { return new NodeBuffer(result); }
+  if (NodeBuffer) {
+    // Support node 6.+ Buffer API when available
+    return NodeBuffer.from ? NodeBuffer.from(result) : new NodeBuffer(result);
+  }
 
   return result;
 }
@@ -1637,7 +1655,7 @@ function mergeMappings(state, destination, source, overridableKeys) {
   }
 }
 
-function storeMappingPair(state, _result, overridableKeys, keyTag, keyNode, valueNode) {
+function storeMappingPair(state, _result, overridableKeys, keyTag, keyNode, valueNode, startLine, startPos) {
   var index, quantity;
 
   keyNode = String(keyNode);
@@ -1658,6 +1676,8 @@ function storeMappingPair(state, _result, overridableKeys, keyTag, keyNode, valu
     if (!state.json &&
         !_hasOwnProperty.call(overridableKeys, keyNode) &&
         _hasOwnProperty.call(_result, keyNode)) {
+      state.line = startLine || state.line;
+      state.position = startPos || state.position;
       throwError(state, 'duplicated mapping key');
     }
     _result[keyNode] = valueNode;
@@ -2305,6 +2325,7 @@ function readBlockMapping(state, nodeIndent, flowIndent) {
   var following,
       allowCompact,
       _line,
+      _pos,
       _tag          = state.tag,
       _anchor       = state.anchor,
       _result       = {},
@@ -2325,6 +2346,7 @@ function readBlockMapping(state, nodeIndent, flowIndent) {
   while (ch !== 0) {
     following = state.input.charCodeAt(state.position + 1);
     _line = state.line; // Save the current line.
+    _pos = state.position;
 
     //
     // Explicit notation case. There are two separate blocks:
@@ -2419,7 +2441,7 @@ function readBlockMapping(state, nodeIndent, flowIndent) {
       }
 
       if (!atExplicitKey) {
-        storeMappingPair(state, _result, overridableKeys, keyTag, keyNode, valueNode);
+        storeMappingPair(state, _result, overridableKeys, keyTag, keyNode, valueNode, _line, _pos);
         keyTag = keyNode = valueNode = null;
       }
 
@@ -2937,10 +2959,10 @@ function safeLoad$1(input, options) {
 }
 
 
-var loadAll_1 = loadAll$1;
-var load_1 = load$1;
+var loadAll_1     = loadAll$1;
+var load_1        = load$1;
 var safeLoadAll_1 = safeLoadAll$1;
-var safeLoad_1 = safeLoad$1;
+var safeLoad_1    = safeLoad$1;
 
 var loader$1 = {
 	loadAll: loadAll_1,
@@ -3746,7 +3768,7 @@ function safeDump$1(input, options) {
   return dump$1(input, common$7.extend({ schema: DEFAULT_SAFE_SCHEMA$2 }, options));
 }
 
-var dump_1 = dump$1;
+var dump_1     = dump$1;
 var safeDump_1 = safeDump$1;
 
 var dumper$1 = {
@@ -3765,30 +3787,30 @@ function deprecated(name) {
 }
 
 
-var Type = type;
-var Schema = schema;
-var FAILSAFE_SCHEMA = failsafe;
-var JSON_SCHEMA = json;
-var CORE_SCHEMA = core;
+var Type                = type;
+var Schema              = schema;
+var FAILSAFE_SCHEMA     = failsafe;
+var JSON_SCHEMA         = json;
+var CORE_SCHEMA         = core;
 var DEFAULT_SAFE_SCHEMA = default_safe;
 var DEFAULT_FULL_SCHEMA = default_full;
-var load = loader.load;
-var loadAll = loader.loadAll;
-var safeLoad = loader.safeLoad;
-var safeLoadAll = loader.safeLoadAll;
-var dump = dumper.dump;
-var safeDump = dumper.safeDump;
-var YAMLException = exception;
+var load                = loader.load;
+var loadAll             = loader.loadAll;
+var safeLoad            = loader.safeLoad;
+var safeLoadAll         = loader.safeLoadAll;
+var dump                = dumper.dump;
+var safeDump            = dumper.safeDump;
+var YAMLException       = exception;
 
 // Deprecated schema names from JS-YAML 2.0.x
 var MINIMAL_SCHEMA = failsafe;
-var SAFE_SCHEMA = default_safe;
+var SAFE_SCHEMA    = default_safe;
 var DEFAULT_SCHEMA = default_full;
 
 // Deprecated functions from JS-YAML 1.x.x
-var scan$1 = deprecated('scan');
-var parse$1 = deprecated('parse');
-var compose = deprecated('compose');
+var scan$1           = deprecated('scan');
+var parse$1          = deprecated('parse');
+var compose        = deprecated('compose');
 var addConstructor = deprecated('addConstructor');
 
 var jsYaml = {
