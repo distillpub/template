@@ -90,12 +90,12 @@ function isNegativeZero(number) {
 }
 
 
-var isNothing_1      = isNothing;
-var isObject_1       = isObject;
-var toArray_1        = toArray;
-var repeat_1         = repeat;
+var isNothing_1 = isNothing;
+var isObject_1 = isObject;
+var toArray_1 = toArray;
+var repeat_1 = repeat;
 var isNegativeZero_1 = isNegativeZero;
-var extend_1         = extend;
+var extend_1 = extend;
 
 var common$1 = {
 	isNothing: isNothing_1,
@@ -543,7 +543,7 @@ function resolveYamlInteger(data) {
         if (ch !== '0' && ch !== '1') { return false; }
         hasDigits = true;
       }
-      return hasDigits && ch !== '_';
+      return hasDigits;
     }
 
 
@@ -557,7 +557,7 @@ function resolveYamlInteger(data) {
         if (!isHexCode(data.charCodeAt(index))) { return false; }
         hasDigits = true;
       }
-      return hasDigits && ch !== '_';
+      return hasDigits;
     }
 
     // base 8
@@ -567,13 +567,10 @@ function resolveYamlInteger(data) {
       if (!isOctCode(data.charCodeAt(index))) { return false; }
       hasDigits = true;
     }
-    return hasDigits && ch !== '_';
+    return hasDigits;
   }
 
   // base 10 (except 0) or base 60
-
-  // value should not start with `_`;
-  if (ch === '_') { return false; }
 
   for (; index < max; index++) {
     ch = data[index];
@@ -585,8 +582,7 @@ function resolveYamlInteger(data) {
     hasDigits = true;
   }
 
-  // Should have digits and should not end with `_`
-  if (!hasDigits || ch === '_') { return false; }
+  if (!hasDigits) { return false; }
 
   // if !base60 - done;
   if (ch !== ':') { return true; }
@@ -667,27 +663,16 @@ var common$6 = common$1;
 var Type$9   = type;
 
 var YAML_FLOAT_PATTERN = new RegExp(
-  // 2.5e4, 2.5 and integers
-  '^(?:[-+]?(?:0|[1-9][0-9_]*)(?:\\.[0-9_]*)?(?:[eE][-+]?[0-9]+)?' +
-  // .2e4, .2
-  // special case, seems not from spec
-  '|\\.[0-9_]+(?:[eE][-+]?[0-9]+)?' +
-  // 20:59
+  '^(?:[-+]?(?:[0-9][0-9_]*)\\.[0-9_]*(?:[eE][-+][0-9]+)?' +
+  '|\\.[0-9_]+(?:[eE][-+][0-9]+)?' +
   '|[-+]?[0-9][0-9_]*(?::[0-5]?[0-9])+\\.[0-9_]*' +
-  // .inf
   '|[-+]?\\.(?:inf|Inf|INF)' +
-  // .nan
   '|\\.(?:nan|NaN|NAN))$');
 
 function resolveYamlFloat(data) {
   if (data === null) { return false; }
 
-  if (!YAML_FLOAT_PATTERN.test(data) ||
-      // Quick hack to not allow integers end with `_`
-      // Probably should update regexp & check speed
-      data[data.length - 1] === '_') {
-    return false;
-  }
+  if (!YAML_FLOAT_PATTERN.test(data)) { return false; }
 
   return true;
 }
@@ -987,10 +972,7 @@ function constructYamlBinary(data) {
   }
 
   // Wrap into Buffer for NodeJS and leave Array for browser
-  if (NodeBuffer) {
-    // Support node 6.+ Buffer API when available
-    return NodeBuffer.from ? NodeBuffer.from(result) : new NodeBuffer(result);
-  }
+  if (NodeBuffer) { return new NodeBuffer(result); }
 
   return result;
 }
@@ -1655,7 +1637,7 @@ function mergeMappings(state, destination, source, overridableKeys) {
   }
 }
 
-function storeMappingPair(state, _result, overridableKeys, keyTag, keyNode, valueNode, startLine, startPos) {
+function storeMappingPair(state, _result, overridableKeys, keyTag, keyNode, valueNode) {
   var index, quantity;
 
   keyNode = String(keyNode);
@@ -1676,8 +1658,6 @@ function storeMappingPair(state, _result, overridableKeys, keyTag, keyNode, valu
     if (!state.json &&
         !_hasOwnProperty.call(overridableKeys, keyNode) &&
         _hasOwnProperty.call(_result, keyNode)) {
-      state.line = startLine || state.line;
-      state.position = startPos || state.position;
       throwError(state, 'duplicated mapping key');
     }
     _result[keyNode] = valueNode;
@@ -2325,7 +2305,6 @@ function readBlockMapping(state, nodeIndent, flowIndent) {
   var following,
       allowCompact,
       _line,
-      _pos,
       _tag          = state.tag,
       _anchor       = state.anchor,
       _result       = {},
@@ -2346,7 +2325,6 @@ function readBlockMapping(state, nodeIndent, flowIndent) {
   while (ch !== 0) {
     following = state.input.charCodeAt(state.position + 1);
     _line = state.line; // Save the current line.
-    _pos = state.position;
 
     //
     // Explicit notation case. There are two separate blocks:
@@ -2441,7 +2419,7 @@ function readBlockMapping(state, nodeIndent, flowIndent) {
       }
 
       if (!atExplicitKey) {
-        storeMappingPair(state, _result, overridableKeys, keyTag, keyNode, valueNode, _line, _pos);
+        storeMappingPair(state, _result, overridableKeys, keyTag, keyNode, valueNode);
         keyTag = keyNode = valueNode = null;
       }
 
@@ -2959,10 +2937,10 @@ function safeLoad$1(input, options) {
 }
 
 
-var loadAll_1     = loadAll$1;
-var load_1        = load$1;
+var loadAll_1 = loadAll$1;
+var load_1 = load$1;
 var safeLoadAll_1 = safeLoadAll$1;
-var safeLoad_1    = safeLoad$1;
+var safeLoad_1 = safeLoad$1;
 
 var loader$1 = {
 	loadAll: loadAll_1,
@@ -3768,7 +3746,7 @@ function safeDump$1(input, options) {
   return dump$1(input, common$7.extend({ schema: DEFAULT_SAFE_SCHEMA$2 }, options));
 }
 
-var dump_1     = dump$1;
+var dump_1 = dump$1;
 var safeDump_1 = safeDump$1;
 
 var dumper$1 = {
@@ -3787,30 +3765,30 @@ function deprecated(name) {
 }
 
 
-var Type                = type;
-var Schema              = schema;
-var FAILSAFE_SCHEMA     = failsafe;
-var JSON_SCHEMA         = json;
-var CORE_SCHEMA         = core;
+var Type = type;
+var Schema = schema;
+var FAILSAFE_SCHEMA = failsafe;
+var JSON_SCHEMA = json;
+var CORE_SCHEMA = core;
 var DEFAULT_SAFE_SCHEMA = default_safe;
 var DEFAULT_FULL_SCHEMA = default_full;
-var load                = loader.load;
-var loadAll             = loader.loadAll;
-var safeLoad            = loader.safeLoad;
-var safeLoadAll         = loader.safeLoadAll;
-var dump                = dumper.dump;
-var safeDump            = dumper.safeDump;
-var YAMLException       = exception;
+var load = loader.load;
+var loadAll = loader.loadAll;
+var safeLoad = loader.safeLoad;
+var safeLoadAll = loader.safeLoadAll;
+var dump = dumper.dump;
+var safeDump = dumper.safeDump;
+var YAMLException = exception;
 
 // Deprecated schema names from JS-YAML 2.0.x
 var MINIMAL_SCHEMA = failsafe;
-var SAFE_SCHEMA    = default_safe;
+var SAFE_SCHEMA = default_safe;
 var DEFAULT_SCHEMA = default_full;
 
 // Deprecated functions from JS-YAML 1.x.x
-var scan$1           = deprecated('scan');
-var parse$1          = deprecated('parse');
-var compose        = deprecated('compose');
+var scan$1 = deprecated('scan');
+var parse$1 = deprecated('parse');
+var compose = deprecated('compose');
 var addConstructor = deprecated('addConstructor');
 
 var jsYaml = {
@@ -17901,7 +17879,7 @@ var header = function(dom, data) {
   }
 };
 
-var html$5 = "\n<style>\ndt-footer {\n  display: block;\n  color: rgba(255, 255, 255, 0.4);\n  font-weight: 300;\n  padding: 40px 0;\n  border-top: 1px solid rgba(0, 0, 0, 0.1);\n  background-color: hsl(200, 60%, 15%);\n  text-align: center;\n}\ndt-footer .logo svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: 2px;\n}\ndt-footer .logo svg path {\n  fill: none;\n  stroke: rgba(255, 255, 255, 0.8);\n  stroke-width: 3px;\n}\ndt-footer .logo {\n  font-size: 17px;\n  font-weight: 200;\n  color: rgba(255, 255, 255, 0.8);\n  text-decoration: none;\n  margin-right: 6px;\n}\ndt-footer .nav {\n  margin-top: 12px;\n}\ndt-footer .nav a {\n  color: rgba(255, 255, 255, 0.8);\n  margin-right: 6px;\n}\n</style>\n\n<div class=\"l-page\">\n  <div class=\"description\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a>\n  is dedicated to clear explanations of machine learning\n  </div>\n  <div class=\"nav\">\n    <a href=\"http://distill.pub/about/\">About</a>\n    <a href=\"http://distill.pub/journal/\">Submit</a>\n    <a href=\"http://distill.pub/prize/\">Prize</a>\n    <a href=\"http://distill.pub/archive/\">Archive</a>\n    <a href=\"http://distill.pub/rss.xml\">RSS</a>\n    <a href=\"https://twitter.com/distillpub\">Twitter</a>\n  </div>\n</div>\n";
+var html$5 = "\n<style>\ndt-footer {\n  display: block;\n  color: rgba(255, 255, 255, 0.4);\n  font-weight: 300;\n  padding: 40px 0;\n  border-top: 1px solid rgba(0, 0, 0, 0.1);\n  background-color: hsl(200, 60%, 15%);\n  text-align: center;\n}\ndt-footer .logo svg {\n  width: 24px;\n  position: relative;\n  top: 4px;\n  margin-right: 2px;\n}\ndt-footer .logo svg path {\n  fill: none;\n  stroke: rgba(255, 255, 255, 0.8);\n  stroke-width: 3px;\n}\ndt-footer .logo {\n  font-size: 17px;\n  font-weight: 200;\n  color: rgba(255, 255, 255, 0.8);\n  text-decoration: none;\n  margin-right: 6px;\n}\ndt-footer .nav {\n  margin-top: 12px;\n}\ndt-footer .nav a {\n  color: rgba(255, 255, 255, 0.8);\n  margin-right: 6px;\n}\n</style>\n\n<div class=\"l-page\">\n  <div class=\"description\">\n  <a href=\"/\" class=\"logo\">\n    " + logo + "\n    Distill\n  </a>\n  is dedicated to clear explanations of machine learning\n  </div>\n  <div class=\"nav\">\n    <a href=\"http://distill.pub/about/\">About</a>\n    <a href=\"http://distill.pub/journal/\">Submit</a>\n    <a href=\"http://distill.pub/prize/\">Prize</a>\n    <a href=\"http://distill.pub/archive/\">Archive</a>\n    <a href=\"http://distill.pub/rss.xml\">RSS</a>\n    <a href=\"https://github.com/distillpub\">GitHub</a>\n    <a href=\"https://twitter.com/distillpub\">Twitter</a>\n    &nbsp;&nbsp;&nbsp;&nbsp; ISSN 2476-0757\n  </div>\n</div>\n";
 
 var footer = function(dom, data) {
   var el = dom.querySelector("dt-footer");
