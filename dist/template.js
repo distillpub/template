@@ -5309,7 +5309,7 @@ var meta = function(dom, data) {
 
   appendHead(("\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge,chrome=1\">\n    <link rel=\"icon\" type=\"image/png\" href=\"data:image/png;base64," + favicon + "\">\n    <link href=\"/rss.xml\" rel=\"alternate\" type=\"application/rss+xml\" title=\"Articles from Distill\">\n    <link rel=\"canonical\" href=\"" + (data.url) + "\">\n    <title>" + (data.title) + "</title>\n  "));
 
-  appendHead(("\n    <!--  https://schema.org/Article -->\n    <meta property=\"article:published\" itemprop=\"datePublished\" content=\"" + (data.publishedYear) + "-" + (data.publishedMonthPadded) + "-" + (data.publishedDayPadded) + "\" />\n    <meta property=\"article:modified\" itemprop=\"dateModified\" content=\"" + (data.updatedDate) + "\" />\n  "));
+  appendHead(("\n    <!--  https://schema.org/Article -->\n    <meta property=\"article:published\" itemprop=\"datePublished\" content=\"" + (data.publishedYear) + "-" + (data.publishedMonthPadded) + "-" + (data.publishedDayPadded) + "\" />\n    <meta property=\"article:created\" itemprop=\"dateCreated\" content=\"" + (data.publishedDate) + "\" />\n    <meta property=\"article:modified\" itemprop=\"dateModified\" content=\"" + (data.updatedDate) + "\" />\n  "));
   data.authors.forEach(function (a) {
     appendHtml(head, ("\n      <meta property=\"article:author\" content=\"" + (a.firstName) + " " + (a.lastName) + "\" />"));
   });
