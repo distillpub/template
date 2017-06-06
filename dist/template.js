@@ -17915,18 +17915,23 @@ function renderOnLoad(dom, data) {
 }
 
 // If we are in a browser, render automatically...
-if(window && window.document) {
-  var data = {};
-  renderImmediately(window.document);
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    renderOnLoad(window.document, data);
-    // Add a banner if we're not on localhost.
-    if (window.location.hostname !== "localhost" && window.location.origin !== "file://") {
-      banner(window.document, data);
-    }
-    generateCrossref(data);
-    // console.log(data);
-  });
+var browser = new Function("try { return this === window; }catch(e){ return false; }");
+if (browser) {
+  try {
+    var data = {};
+    renderImmediately(window.document);
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      renderOnLoad(window.document, data);
+      // Add a banner if we're not on localhost.
+      if (window.location.hostname !== "localhost" && window.location.origin !== "file://") {
+        banner(window.document, data);
+      }
+      generateCrossref(data);
+      // console.log(data);
+    });
+  } catch (error) {
+    console.error("Window not defined");
+  }
 }
 
 // If we are in node...
