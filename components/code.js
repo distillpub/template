@@ -1,4 +1,6 @@
 import Prism from "prismjs";
+import "prismjs/components/prism-python"
+import "prismjs/components/prism-clike"
 
 export default function(dom, data) {
   let codeElements = [].slice.call(dom.querySelectorAll("dt-code"));
