@@ -29,13 +29,33 @@ dt-footer .logo {
   text-decoration: none;
   margin-right: 6px;
 }
+dt-footer .nav {
+  margin-top: 12px;
+}
+dt-footer .nav a {
+  color: rgba(255, 255, 255, 0.8);
+  margin-right: 6px;
+}
 </style>
 
-<div class="l-screen-inset">
+<div class="l-page">
+  <div class="description">
   <a href="/" class="logo">
     ${logo}
     Distill
-  </a> is dedicated to clear explanations of machine learning
+  </a>
+  is dedicated to clear explanations of machine learning
+  </div>
+  <div class="nav">
+    <a href="http://distill.pub/about/">About</a>
+    <a href="http://distill.pub/journal/">Submit</a>
+    <a href="http://distill.pub/prize/">Prize</a>
+    <a href="http://distill.pub/archive/">Archive</a>
+    <a href="http://distill.pub/rss.xml">RSS</a>
+    <a href="https://github.com/distillpub">GitHub</a>
+    <a href="https://twitter.com/distillpub">Twitter</a>
+    &nbsp;&nbsp;&nbsp;&nbsp; ISSN 2476-0757
+  </div>
 </div>
 `;
 

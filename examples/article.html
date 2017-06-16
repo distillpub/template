@@ -1,6 +1,9 @@
 <!doctype html>
 <meta charset="utf8">
 <script src="../dist/template.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+
 <script type="text/front-matter">
   title: Article Title
   published: Jan 10, 2017
@@ -17,11 +20,37 @@
   <h1>Hello World</h1>
   <h2>A description of the article</h2>
   <dt-byline></dt-byline>
-  <p>This is the first paragraph of the article.</p>
-  <p>Test a long&thinsp;&mdash;&thinsp;dash -- here it is.</p>
-  <p>Test for owner's possessive.</p>
-  <p>Test for "quoting a passage." And another sentence. Or two.</p>
-  <p>We can also cite <dt-cite key="gregor2015draw,mercier2011humans"></dt-cite> external publications. <dt-cite key="dong2014image,dumoulin2016guide,mordvintsev2015inceptionism"></dt-cite></p>
+  <p>This is the first paragraph of the article. Test a long&thinsp;&mdash;&thinsp;dash -- here it is.</p>
+  <p>Test for owner's possessive. Test for "quoting a passage." And another sentence. Or two.</p>
+  <p>Here's a test of an inline equation <dt-math>c = a^2 + b^2</dt-math>.</p>
+  <dt-math block>c = \pm\sqrt{a^2 + b^2}</dt-math>
+  <p>We can also cite <dt-cite key="gregor2015draw,mercier2011humans"></dt-cite> external publications. <dt-cite key="dong2014image,dumoulin2016guide,mordvintsev2015inceptionism"></dt-cite> We should also be testing footnotes<dt-fn>This will become a hoverable footnote.</dt-fn>.</p>
+  <table>
+    <thead>
+      <tr><th>First</th><th>Second</th><th>Third</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>23</td><td>654</td><td>23</td></tr>
+      <tr><td>14</td><td>54</td><td>34</td></tr>
+      <tr><td>234</td><td>54</td><td>23</td></tr>
+    </tbody>
+  </table>
+  <p>Here's a javascript code block.</p>
+  <dt-code block language="javascript">
+    var x = 25;
+    function(x){
+      return x * x;
+    }
+  </dt-code>
+  <p>We also support python.</p>
+  <dt-code block language="python">
+    # Python 3: Fibonacci series up to n
+      def fib(n):
+        a, b = 0, 1
+          while a < n:
+            print(a, end=' ')
+            a, b = b, a+b
+  </dt-code>
 </dt-article>
 
 <script type="text/bibliography">

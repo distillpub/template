@@ -51,16 +51,19 @@ function punctuation(text){
   text = text.replace(/--/g, '\u2014');
   text = text.replace(/ \u2014 /g,"\u2009\u2014\u2009"); //this has thin spaces
 
+  // The following are temporary commented out because incompatibility
+  // with katex
+
   // Elipses
-  text = text.replace(/\.\.\./g,'…');
+  // text = text.replace(/\.\.\./g,'…');
 
   // Nbsp for punc with spaces
-  var NBSP = "\u00a0";
-  var NBSP_PUNCTUATION_START = /([«¿¡]) /g;
-  var NBSP_PUNCTUATION_END = / ([\!\?:;\.,‽»])/g;
+  // var NBSP = "\u00a0";
+  // var NBSP_PUNCTUATION_START = /([«¿¡]) /g;
+  // var NBSP_PUNCTUATION_END = / ([\!\?:;\.,‽»])/g;
 
-  text = text.replace(NBSP_PUNCTUATION_START, '$1' + NBSP);
-  text = text.replace(NBSP_PUNCTUATION_END, NBSP + '$1');
+  // text = text.replace(NBSP_PUNCTUATION_START, '$1' + NBSP);
+  // text = text.replace(NBSP_PUNCTUATION_END, NBSP + '$1');
 
   return text;
 }
@@ -91,8 +94,8 @@ function quotes(text) {
 
 function ligatures(text){
 
-    text = text.replace(/fi/g, 'ﬁ');
-    text = text.replace(/fl/g, 'ﬂ');
+    // text = text.replace(/fi/g, 'ﬁ');
+    // text = text.replace(/fl/g, 'ﬂ');
 
     return text;
 };

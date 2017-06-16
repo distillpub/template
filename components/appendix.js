@@ -1,4 +1,4 @@
-const html = `
+const templateHTML = `
 <style>
   dt-appendix {
     display: block;
@@ -45,45 +45,28 @@ const html = `
 </style>
 
 <div class="l-body">
-  <h3>References</h3>
-  <dt-bibliography></dt-bibliography>
-  <h3 id="citation">Errors, Reuse, and Citation</h3>
-  <p>If you see mistakes or want to suggest changes, please <a class="github-issue">create an issue on GitHub</a>.</p>
-  <p>Diagrams and text are licensed under Creative Commons Attribution <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY 2.0</a>, unless noted otherwise, with the <a class="github">source available on GitHub</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>
-  <p>For attribution in academic contexts, please cite this work as</p>
-  <pre class="citation short"></pre>
-  <p>BibTeX citation</p>
-  <pre class="citation long"></pre>
 </div>
 `;
 
 export default function(dom, data) {
   let el = dom.querySelector('dt-appendix')
   if (el) {
-    let oldHtml = el.innerHTML;
-    el.innerHTML = html;
-    let div = el.querySelector("div.l-body")
+    let userHTML = el.innerHTML;
+    el.innerHTML = templateHTML;
+    let newHTML = "";
 
+    // If we have some footnotes on the page, render a container for the footnote list.
     if (dom.querySelector("dt-fn")) {
-      div.innerHTML = `<h3>Footnotes</h3><dt-fn-list></dt-fn-list>` + div.innerHTML;
+      newHTML = newHTML + `<h3>Footnotes</h3><dt-fn-list></dt-fn-list>`;
     }
 
-    div.innerHTML = oldHtml + div.innerHTML;
-    if (data.githubCompareUpdatesUrl) {
-      div.innerHTML = `<h3>Updates</h3><p><a href="${data.githubCompareUpdatesUrl}">View all changes</a> to this article since it was first published.</p>` + div.innerHTML;
+    // If we have any citations on the page, render a container for the bibliography.
+    if (dom.querySelector("dt-cite")) {
+      newHTML = newHTML + `<h3>References</h3><dt-bibliography></dt-bibliography>`;
     }
 
-    el.querySelector("a.github").setAttribute("href", data.githubUrl);
-    el.querySelector("a.github-issue").setAttribute("href", data.githubUrl + "/issues/new");
-    el.querySelector(".citation.short").textContent = data.concatenatedAuthors + ", " + '"' + data.title + '", Distill, ' + data.publishedYear + ".";
-    var bibtex  = "@article{" + data.slug + ",\n";
-        bibtex += "  author = {" + data.bibtexAuthors + "},\n";
-        bibtex += "  title = {" + data.title + "},\n";
-        bibtex += "  journal = {Distill},\n";
-        bibtex += "  year = {" + data.publishedYear + "},\n";
-        bibtex += "  note = {" + data.url + "}\n";
-        bibtex += "}";
-    el.querySelector(".citation.long").textContent = bibtex;
+    let div = el.querySelector("div.l-body")
+    div.innerHTML = userHTML + newHTML;
   }
 
 }
