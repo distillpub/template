@@ -1,8 +1,15 @@
 import Prism from "prismjs";
-import "prismjs/components/prism-python"
-import "prismjs/components/prism-clike"
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-clike";
+import "prismjs/components/prism-lua";
+import "prismjs/components/prism-bash";
+import "prismjs/components/prism-go";
+import "prismjs/components/prism-markdown";
+import "prismjs/components/prism-julia";
+
 
 export default function(dom, data) {
+  console.log(Prism.languages);
   let codeElements = [].slice.call(dom.querySelectorAll("dt-code"));
   codeElements.forEach(el => {
     let content = el.textContent;
