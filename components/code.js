@@ -9,7 +9,6 @@ import "prismjs/components/prism-julia";
 
 
 export default function(dom, data) {
-  console.log(Prism.languages);
   let codeElements = [].slice.call(dom.querySelectorAll("dt-code"));
   codeElements.forEach(el => {
     let content = el.textContent;
