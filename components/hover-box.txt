@@ -74,7 +74,7 @@ DtHoverBox.prototype.extendTimeout = function extendTimeout(T) {
   //console.log("extend", T)
   var this_ = this;
   this.stopTimeout();
-  this.timeout = setTimeout(() => this_.hide(), T);
+  this.timeout = setTimeout(function(){this_.hide();}.bind(this), T);
 }
 
 // Bind events to a link to open this box
@@ -83,13 +83,14 @@ DtHoverBox.prototype.bind = function bind(node) {
     node = document.querySelector(node);
   }
 
-  node.addEventListener("mouseover", () => {
+  node.addEventListener("mouseover", function(){
     if (!this.visible) this.showAtNode(node);
     this.stopTimeout();
-  });
-  node.addEventListener("mouseout", () => this.extendTimeout(250) );
+  }.bind(this));
 
-  node.addEventListener("touchstart", e => {
+  node.addEventListener("mouseout", function(){this.extendTimeout(250);}.bind(this));
+
+  node.addEventListener("touchstart", function(e) {
     if (this.visible) {
       this.hide();
     } else {
@@ -97,26 +98,26 @@ DtHoverBox.prototype.bind = function bind(node) {
     }
     // Don't trigger body touchstart event when touching link
     e.stopPropagation();
-  });
+  }.bind(this));
 }
 
 DtHoverBox.prototype.bindDivEvents = function bindDivEvents(){
   // For mice, same behavior as hovering on links
-  this.div.addEventListener("mouseover", () => {
+  this.div.addEventListener("mouseover", function(){
     if (!this.visible) this.showAtNode(node);
     this.stopTimeout();
-  });
-  this.div.addEventListener("mouseout", () => this.extendTimeout(250) );
+  }.bind(this));
+  this.div.addEventListener("mouseout", function(){this.extendTimeout(250);}.bind(this));
 
   // Don't trigger body touchstart event when touching within box
-  this.div.addEventListener("touchstart", e => e.stopPropagation());
+  this.div.addEventListener("touchstart", function(e){e.stopPropagation();});
   // Close box when touching outside box
-  document.body.addEventListener("touchstart", () => this.hide());
+  document.body.addEventListener("touchstart", function(){this.hide();}.bind(this));
 }
 
 var hover_es = document.querySelectorAll("span[data-hover-ref]");
 hover_es = [].slice.apply(hover_es);
-hover_es.forEach((e,n) => {
+hover_es.forEach(function(e,n){
   var ref_id = e.getAttribute("data-hover-ref");
   DtHoverBox.get_box(ref_id).bind(e);
 })
