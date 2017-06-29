@@ -23,6 +23,7 @@
   <p>This is the first paragraph of the article. Test a long&thinsp;&mdash;&thinsp;dash -- here it is.</p>
   <p>Test for owner's possessive. Test for "quoting a passage." And another sentence. Or two.</p>
   <p>Here's a test of an inline equation <dt-math>c = a^2 + b^2</dt-math>.</p>
+  <h3 id='subheadline'>This is a subheadline.</h3>
   <dt-math block>c = \pm\sqrt{a^2 + b^2}</dt-math>
   <p>We can also cite <dt-cite key="gregor2015draw,mercier2011humans"></dt-cite> external publications. <dt-cite key="dong2014image,dumoulin2016guide,mordvintsev2015inceptionism"></dt-cite> We should also be testing footnotes<dt-fn>This will become a hoverable footnote.</dt-fn>.</p>
   <table>
@@ -35,22 +36,6 @@
       <tr><td>234</td><td>54</td><td>23</td></tr>
     </tbody>
   </table>
-  <p>Here's a javascript code block.</p>
-  <dt-code block language="javascript">
-    var x = 25;
-    function(x){
-      return x * x;
-    }
-  </dt-code>
-  <p>We also support python.</p>
-  <dt-code block language="python">
-    # Python 3: Fibonacci series up to n
-      def fib(n):
-        a, b = 0, 1
-          while a < n:
-            print(a, end=' ')
-            a, b = b, a+b
-  </dt-code>
 </dt-article>
 
 <script type="text/bibliography">
@@ -182,6 +167,6 @@
 
 </script>
 <dt-appendix>
-  <h3>Contributions</h3>
+  <h3 id='contributions'>Contributions</h3>
   <p>List of who did what</p>
 </dt-appendix>
