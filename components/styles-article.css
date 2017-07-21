@@ -184,6 +184,45 @@ dt-article section {
   margin-bottom: 60px;
 }
 
+/* Section Links */
+/* TODO: these styles are a little cheesy*/
+
+.section-link {
+  visibility: hidden;
+  margin-left: 0.25em;
+  opacity: 0.667;
+  /*TODO: there must be a better way to get back the main body font, no?*/
+  font: 12px -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  cursor: pointer;
+  user-select: none;
+
+  background-color: rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.1);
+  padding: 0.25em 0.5em 0.25em 0.5em;
+  border-radius: 4px;
+}
+
+.section-link.clipboard-copy-success {
+  background-color: rgba(0,127,0,0.1);
+  border: 1px solid rgba(0,127,0,0.2);
+  color: rgb(0,64,0);
+}
+
+.section-link:active {
+  /*background-color: rgba(0,0,0,0.075);*/
+  /*border: 1px solid rgba(0,0,0,0.125);*/
+  opacity: 0.8;
+}
+
+h1:hover .section-link,
+h2:hover .section-link,
+h3:hover .section-link,
+h4:hover .section-link,
+h5:hover .section-link,
+h6:hover .section-link {
+  visibility: visible;
+}
+
 /* Tables */
 
 dt-article table {

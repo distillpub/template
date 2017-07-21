@@ -18,6 +18,7 @@ import hoverBox from "./components/hover-box-include";
 import generateCrossref from "./components/generate-crossref";
 import header from "./components/header";
 import footer from "./components/footer";
+import sectionLinks from "./components/section-links";
 
 function renderImmediately(dom) {
   html(dom);
@@ -38,6 +39,7 @@ function renderOnLoad(dom, data) {
   footnote(dom, data);
   typeset(dom, data);
   hoverBox(dom, data);
+  sectionLinks(dom, data);
 }
 
 // If we are in a browser, render automatically...

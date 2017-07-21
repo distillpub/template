@@ -57,12 +57,12 @@ export default function(dom, data) {
 
     // If we have some footnotes on the page, render a container for the footnote list.
     if (dom.querySelector("dt-fn")) {
-      newHTML = newHTML + `<h3>Footnotes</h3><dt-fn-list></dt-fn-list>`;
+      newHTML = newHTML + `<h3 id='footnotes'>Footnotes</h3><dt-fn-list></dt-fn-list>`;
     }
 
     // If we have any citations on the page, render a container for the bibliography.
     if (dom.querySelector("dt-cite")) {
-      newHTML = newHTML + `<h3>References</h3><dt-bibliography></dt-bibliography>`;
+      newHTML = newHTML + `<h3 id='references'>References</h3><dt-bibliography></dt-bibliography>`;
     }
 
     let div = el.querySelector("div.l-body")
