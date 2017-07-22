@@ -26,10 +26,6 @@ export default {
     string({
       include: ["**/*.txt", "**/*.svg", "**/*.html", "**/*.css", "**/*.base64"]
     }),
-    buble({
-      exclude: 'node_modules',
-      target: { chrome: 52, safari: 9, edge: 13, firefox: 48, }
-    }),
     commonjs(),
     // uglify(),
     serve({port: PORT})

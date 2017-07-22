@@ -1,9 +1,13 @@
 <!doctype html>
 <meta charset="utf8">
-<script src="../dist/components.js"></script>
+<script src="../dist/components.js" async></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
 
 <d-front-matter>
   <script type="text/yml">
+    title: Article Title
+    published: Jan 10, 2017
     authors:
     - Chris Olah:
     - Shan Carter: http://shancarter.com
@@ -13,31 +17,48 @@
   </script>
 </d-front-matter>
 
-<d-title>
-  <h1>Attention and Augmented Recurrent Neural Networks</h1>
-</d-title>
-
-<d-abstract>
-  <p>We’ve seen a growing number of attempts to augment RNNs with new properties. Four directions stand out as particularly exciting: neural turing machines, attentional interfaces, adaptive computation time and neural programmers.</p>
-  <p>Individually, these techniques are all potent extensions of RNNs, but the really striking thing is that they can be combined together, and seem to just be points in a broader space. Further, they all rely on the same underlying trick — something called attention — to work.</p>
-</d-abstract>
-
 <d-article>
-  <h2>Neural Turing Machines</h2>
-  <p>This is the first paragraph of the article. Test a long&thinsp;&mdash;&thinsp;dash -- here it is. Test for owner's possessive. Test for "quoting a passage." And another sentence. Or two. We can also cite <d-cite key="gregor2015draw"></d-cite> external publications. <d-cite key="dong2014image,dumoulin2016guide,mordvintsev2015inceptionism"></d-cite></p>
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit consectetur deleniti totam perspiciatis neque, eum sapiente, reiciendis velit magnam! Ipsam quas, voluptatum, eligendi velit animi distinctio. Rerum eos iusto sed.</p>
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa minima voluptatibus eos, harum, quae hic veritatis perferendis mollitia ullam alias tempora, ipsum quaerat est, quisquam iste ab saepe deleniti possimus.</p>
+  <script type="text/article"></script>
+  <h1>Hello World</h1>
+  <h2>A description of the article</h2>
+  <d-byline></d-byline>
+  <p>This is the first paragraph of the article. Test a long&thinsp;&mdash;&thinsp;dash -- here it is.</p>
+  <p>Test for owner's possessive. Test for "quoting a passage." And another sentence. Or two.</p>
+  <p>Here's a test of an inline equation <d-math>c = a^2 + b^2</d-math>. And then there's a block equation:</p>
+  <d-math block>c = \pm\sqrt{a^2 + b^2}</d-math>
+  <p>We can also cite <d-cite key="gregor2015draw,mercier2011humans"></d-cite> external publications. <d-cite key="dong2014image,dumoulin2016guide,mordvintsev2015inceptionism"></d-cite> We should also be testing footnotes<d-fn>This will become a hoverable footnote.</d-fn>.</p>
+  <table>
+    <thead>
+      <tr><th>First</th><th>Second</th><th>Third</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>23</td><td>654</td><td>23</td></tr>
+      <tr><td>14</td><td>54</td><td>34</td></tr>
+      <tr><td>234</td><td>54</td><td>23</td></tr>
+    </tbody>
+  </table>
+  <p>Here's a javascript code block.</p>
+  <d-code block language="javascript">
+      var x = 25;
+      function(x){
+        return x * x;
+      }
+  </d-code>
+  <p>We also support python.</p>
+  <d-code>hi<div>hello</div></d-code>
+  <d-code block language="python">
+    # Python 3: Fibonacci series up to n
+      def fib(n):
+        a, b = 0, 1
+          while a < n:
+            print(a, end=' ')
+            a, b = b, a+b
+  </d-code>
 </d-article>
-
-<d-appendix>
-  <h3>Acknowledgments</h3>
-  <p>Thank you to Maithra Raghu, Dario Amodei, Cassandra Xia, Luke Vilnis, Anna Goldie, Jesse Engel, Dan Mané, Natasha Jaques, Emma Pierson and Ian Goodfellow for their feedback and encouragement. We’re also very grateful to our team, Google Brain, for being extremely supportive of our project.</p>
-  <h3>Author Contributions</h3>
-  <p>Augustus and Chris recognized the connection between deconvolution and artifacts. Augustus ran the GAN experiments. Vincent ran the artistic style transfer experiments. Chris ran the DeepDream experiments, created the visualizations and wrote most of the article.</p>
-</d-appendix>
 
 <d-bibliography>
   <script type="text/bibtex">
+
     @article{gregor2015draw,
       title={DRAW: A recurrent neural network for image generation},
       author={Gregor, Karol and Danihelka, Ivo and Graves, Alex and Rezende, Danilo Jimenez and Wierstra, Daan},
@@ -56,6 +77,7 @@
       publisher={Cambridge Univ Press},
       doi={10.1017/S0140525X10000968}
     }
+
     @article{dong2014image,
       title={Image super-resolution using deep convolutional networks},
       author={Dong, Chao and Loy, Chen Change and He, Kaiming and Tang, Xiaoou},
@@ -63,6 +85,7 @@
       year={2014},
       url={https://arxiv.org/pdf/1501.00092.pdf}
     }
+
     @article{dumoulin2016adversarially,
       title={Adversarially Learned Inference},
       author={Dumoulin, Vincent and Belghazi, Ishmael and Poole, Ben and Lamb, Alex and Arjovsky, Martin and Mastropietro, Olivier and Courville, Aaron},
@@ -70,6 +93,7 @@
       year={2016},
       url={https://arxiv.org/pdf/1606.00704.pdf}
     }
+
     @article{dumoulin2016guide,
       title={A guide to convolution arithmetic for deep learning},
       author={Dumoulin, Vincent and Visin, Francesco},
@@ -77,13 +101,7 @@
       year={2016},
       url={https://arxiv.org/pdf/1603.07285.pdf}
     }
-    @article{donahue2016adversarial,
-      title={Adversarial Feature Learning},
-      author={Donahue, Jeff and Kr{\"a}henb{\"u}hl, Philipp and Darrell, Trevor},
-      journal={arXiv preprint arXiv:1605.09782},
-      year={2016},
-      url={https://arxiv.org/pdf/1605.09782.pdf}
-    }
+
     @article{gauthier2014conditional,
       title={Conditional generative adversarial nets for convolutional face generation},
       author={Gauthier, Jon},
@@ -92,13 +110,7 @@
       year={2014},
       url={http://www.foldl.me/uploads/papers/tr-cgans.pdf}
     }
-    @article{henaff2015geodesics,
-      title={Geodesics of learned representations},
-      author={H{\'e}naff, Olivier J and Simoncelli, Eero P},
-      journal={arXiv preprint arXiv:1511.06394},
-      year={2015},
-      url={https://arxiv.org/pdf/1511.06394.pdf}
-    }
+
     @article{johnson2016perceptual,
       title={Perceptual losses for real-time style transfer and super-resolution},
       author={Johnson, Justin and Alahi, Alexandre and Fei-Fei, Li},
@@ -106,6 +118,7 @@
       year={2016},
       url={https://arxiv.org/pdf/1603.08155.pdf}
     }
+
     @article{mordvintsev2015inceptionism,
       title={Inceptionism: Going deeper into neural networks},
       author={Mordvintsev, Alexander and Olah, Christopher and Tyka, Mike},
@@ -113,12 +126,14 @@
       year={2015},
       url={https://research.googleblog.com/2015/06/inceptionism-going-deeper-into-neural.html}
     }
+
     @misc{mordvintsev2016deepdreaming,
       title={DeepDreaming with TensorFlow},
       author={Mordvintsev, Alexander},
       year={2016},
       url={https://github.com/tensorflow/tensorflow/blob/master/tensorflow/examples/tutorials/deepdream/deepdream.ipynb},
     }
+
     @article{radford2015unsupervised,
       title={Unsupervised representation learning with deep convolutional generative adversarial networks},
       author={Radford, Alec and Metz, Luke and Chintala, Soumith},
@@ -126,6 +141,7 @@
       year={2015},
       url={https://arxiv.org/pdf/1511.06434.pdf}
     }
+
     @inproceedings{salimans2016improved,
       title={Improved techniques for training gans},
       author={Salimans, Tim and Goodfellow, Ian and Zaremba, Wojciech and Cheung, Vicki and Radford, Alec and Chen, Xi},
@@ -134,6 +150,7 @@
       year={2016},
       url={https://arxiv.org/pdf/1606.03498.pdf}
     }
+
     @article{shi2016deconvolution,
       title={Is the deconvolution layer the same as a convolutional layer?},
       author={Shi, Wenzhe and Caballero, Jose and Theis, Lucas and Huszar, Ferenc and Aitken, Andrew and Ledig, Christian and Wang, Zehan},
@@ -141,16 +158,10 @@
       year={2016},
       url={https://arxiv.org/pdf/1609.07009.pdf}
     }
-    @inproceedings{shi2016real,
-      title={Real-time single image and video super-resolution using an efficient sub-pixel convolutional neural network},
-      author={Shi, Wenzhe and Caballero, Jose and Husz{\'a}r, Ferenc and Totz, Johannes and Aitken, Andrew P and Bishop, Rob and Rueckert, Daniel and Wang, Zehan},
-      booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
-      pages={1874--1883},
-      year={2016},
-      url={https://arxiv.org/pdf/1609.05158.pdf},
-      doi={10.1109/cvpr.2016.207}
-    }
-  </script>
-</d-bibliography>
 
-<distill-appendix></distill-appendix>
+    </script>
+  </d-bibliography>
+<d-appendix>
+  <h3>Contributions</h3>
+  <p>List of who did what</p>
+</d-appendix>

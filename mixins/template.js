@@ -1,6 +1,6 @@
 // import '@webcomponents/shadycss/scoping-shim';
 
-export const Template = (name, templateString, useShadow = true) => {
+export const Template = (name, templateString, useShadow = false) => {
   const template = document.createElement('template');
   template.innerHTML = templateString;
   // ShadyCSS.prepareTemplate(template, name);

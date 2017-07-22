@@ -4,6 +4,7 @@
   "description": "Template for creating Distill articles.",
   "main": "dist/template.js",
   "scripts": {
+    "start": "rollup -c rollup.config.components.js -w",
     "serve": "python3 -m http.server",
     "test": "mocha",
     "build": "rollup -c rollup.config.components.js && rollup -c rollup.config.transforms.js"
@@ -38,6 +39,7 @@
     "commander": "^2.9.0",
     "d3-time-format": "^2.0.3",
     "handlebars": "^4.0.6",
+    "katex": "^0.7.1",
     "mustache": "^2.3.0",
     "rollup-plugin-babili": "^1.1.1",
     "webcomponents.js": "webcomponents/webcomponentsjs",

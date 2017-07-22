@@ -24,12 +24,12 @@ function acceptNode(node) {
          parent.nodeName !== "CODE" &&
          parent.nodeName !== "PRE" &&
          parent.nodeName !== "SPAN" &&
-         parent.nodeName !== "DT-HEADER" &&
-         parent.nodeName !== "DT-BYLINE" &&
-         parent.nodeName !== "DT-MATH" &&
-         parent.nodeName !== "DT-CODE" &&
-         parent.nodeName !== "DT-BIBLIOGRAPHY" &&
-         parent.nodeName !== "DT-FOOTER" &&
+         parent.nodeName !== "D-HEADER" &&
+         parent.nodeName !== "D-BYLINE" &&
+         parent.nodeName !== "D-MATH" &&
+         parent.nodeName !== "D-CODE" &&
+         parent.nodeName !== "D-BIBLIOGRAPHY" &&
+         parent.nodeName !== "D-FOOTER" &&
          parent.nodeType !== 8 && //comment nodes
          !isMath;
 }
