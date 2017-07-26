@@ -25,16 +25,19 @@
   <p>Here's a test of an inline equation <dt-math>c = a^2 + b^2</dt-math>.</p>
   <dt-math block>c = \pm\sqrt{a^2 + b^2}</dt-math>
   <p>We can also cite <dt-cite key="gregor2015draw,mercier2011humans"></dt-cite> external publications. <dt-cite key="dong2014image,dumoulin2016guide,mordvintsev2015inceptionism"></dt-cite> We should also be testing footnotes<dt-fn>This will become a hoverable footnote.</dt-fn>.</p>
-  <table>
-    <thead>
-      <tr><th>First</th><th>Second</th><th>Third</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>23</td><td>654</td><td>23</td></tr>
-      <tr><td>14</td><td>54</td><td>34</td></tr>
-      <tr><td>234</td><td>54</td><td>23</td></tr>
-    </tbody>
-  </table>
+  <figure>
+    <table>
+      <thead>
+        <tr><th align="left">First</th><th align="left">Second</th><th align="left">Third</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>23</td><td>654</td><td>23</td></tr>
+        <tr><td>14</td><td>54</td><td>34</td></tr>
+        <tr><td>234</td><td>54</td><td>23</td></tr>
+      </tbody>
+      <caption>Some important numbers.</caption>
+    </table>
+  </figure>
   <p>Here's a javascript code block.</p>
   <dt-code block language="javascript">
     var x = 25;
