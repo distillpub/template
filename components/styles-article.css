@@ -219,7 +219,8 @@ dt-article figure {
   }
 }
 
-dt-article figure img {
+dt-article figure img,
+dt-article figure table {
   width: 100%;
 }
 
