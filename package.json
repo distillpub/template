@@ -41,7 +41,8 @@
     "handlebars": "^4.0.6",
     "katex": "^0.7.1",
     "mustache": "^2.3.0",
-    "rollup-plugin-babili": "^1.1.1",
+    "rollup-plugin-babili": "^3.1.0",
+    "rollup-plugin-gzip": "^1.2.0",
     "webcomponents.js": "webcomponents/webcomponentsjs",
     "webpack": "^2.2.1"
   }

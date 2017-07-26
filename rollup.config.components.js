@@ -1,12 +1,12 @@
-import buble from 'rollup-plugin-buble';
-import resolve from 'rollup-plugin-node-resolve';
+import resolve  from 'rollup-plugin-node-resolve';
+import string   from 'rollup-plugin-string';
 import commonjs from 'rollup-plugin-commonjs';
-import serve from 'rollup-plugin-serve';
-// import uglify from 'rollup-plugin-uglify';
-import string from 'rollup-plugin-string';
+import babili   from 'rollup-plugin-babili';
+import gzip     from 'rollup-plugin-gzip';
+import serve    from 'rollup-plugin-serve';
 
 const PORT = 8080;
-console.log(`open http://localhost:${PORT}/`);
+console.log(`opening http://localhost:${PORT} .../`);
 
 export default {
   entry: 'components.js',
@@ -27,7 +27,14 @@ export default {
       include: ["**/*.txt", "**/*.svg", "**/*.html", "**/*.css", "**/*.base64"]
     }),
     commonjs(),
-    // uglify(),
-    serve({port: PORT})
+    // babili({
+    //   comments: false, // means: *don't* preserve comments
+    //   sourceMap: true,
+    // }),
+    // gzip(), // just for testing -- firebase CDN gzips automatically
+    serve({
+      port: PORT,
+      open: true,
+    })
   ]
 };

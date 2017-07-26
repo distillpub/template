@@ -27,6 +27,7 @@ d-article > figure,
 d-article > ul,
 d-article > d-abstract,
 d-article > d-code,
+d-article > d-math,
 d-article section > div,
 d-article section > p,
 d-article section > h1,
@@ -36,7 +37,8 @@ d-article section > h4,
 d-article section > figure,
 d-article section > ul,
 d-article section > d-abstract,
-d-article section > d-code {
+d-article section > d-code,
+d-article section > d-math {
   width: auto;
   margin-left: 24px;
   margin-right: 24px;
@@ -60,6 +62,7 @@ d-article section > d-code {
   d-article > ul,
   d-article > d-abstract,
   d-article > d-code,
+  d-article > d-math,
   d-article section > div,
   d-article section > p,
   d-article section > h1,
@@ -69,7 +72,8 @@ d-article section > d-code {
   d-article section > figure,
   d-article section > ul,
   d-article section > d-abstract,
-  d-article section > d-code {
+  d-article section > d-code,
+  d-article section > d-math {
     margin-left: 72px;
     margin-right: 72px;
   }
@@ -86,6 +90,7 @@ d-article section > d-code {
   d-article > ul,
   d-article > d-abstract,
   d-article > d-code,
+  d-article > d-math,
   d-article section > div,
   d-article section > p,
   d-article section > h2,
@@ -94,7 +99,8 @@ d-article section > d-code {
   d-article section > figure,
   d-article section > ul,
   d-article section > d-abstract,
-  d-article section > d-code {
+  d-article section > d-code,
+  d-article section > d-math {
     margin-left: calc(50% - 984px / 2);
     width: 648px;
   }

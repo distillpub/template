@@ -185,6 +185,10 @@ const T = Template("d-article", `
   d-article section > d-code  {
     display: block;
   }
+  d-article > d-math[block],
+  d-article section > d-math[block]  {
+    display: block;
+  }
   d-article .citation {
     color: #668;
     cursor: pointer;

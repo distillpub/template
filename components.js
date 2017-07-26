@@ -1,4 +1,5 @@
-import "webcomponents.js/webcomponents-hi-ce.js";
+// load `webcomponent` polyfills asynchronously
+// import "webcomponents.js/webcomponents-loader.js";
 
 import * as frontMatter from "./components/d-front-matter";
 import * as title from "./components/d-title";
@@ -11,12 +12,13 @@ import * as appendix from "./components/d-appendix";
 import * as distillAppendix from "./components/distill-appendix";
 import * as bibliography from "./components/d-bibliography";
 import * as references from "./components/d-references";
-import { css as codeCss } from "./components/d-code";
+import * as code from "./components/d-code";
 import * as math from "./components/d-math";
+import * as footnote from "./components/d-footnote";
 
-let codeStyle = document.createElement("style");
-codeStyle.textContent = codeCss;
-document.querySelector("head").appendChild(codeStyle);
+// let codeStyle = document.createElement("style");
+// codeStyle.textContent = codeCss;
+// document.querySelector("head").appendChild(codeStyle);
 
 document.addEventListener("DOMContentLoaded", function() {
   // Render byline with authors list.

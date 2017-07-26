@@ -4,77 +4,6 @@
 	(factory());
 }(this, (function () { 'use strict';
 
-(function(){
-/*
-
- Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
- This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
- The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
- The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
- Code distributed by Google as part of the polymer project is also
- subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-
- Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
- This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
- The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
- The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
- Code distributed by Google as part of the polymer project is also
- subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-
-Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-*/
-'use strict';(function(){function V(b){function a(a,e){Object.defineProperty(a,"innerHTML",{enumerable:e.enumerable,configurable:!0,get:e.get,set:function(a){var f=this,d=void 0;g(this)&&(d=[],t(this,function(b){b!==f&&d.push(b);}));e.set.call(this,a);if(d)for(var c=0;c<d.length;c++){var k=d[c];1===k.__CE_state&&b.disconnectedCallback(k);}this.ownerDocument.__CE_hasRegistry?b.c(this):b.l(this);return a}});}function d(a,e){m(a,"insertAdjacentElement",function(a,f){var d=g(f);a=e.call(this,a,f);d&&b.a(f);
-g(a)&&b.b(f);return a});}H?m(Element.prototype,"attachShadow",function(b){return this.__CE_shadowRoot=b=H.call(this,b)}):console.warn("Custom Elements: `Element#attachShadow` was not patched.");if(v&&v.get)a(Element.prototype,v);else if(w&&w.get)a(HTMLElement.prototype,w);else{var c=z.call(document,"div");b.s(function(b){a(b,{enumerable:!0,configurable:!0,get:function(){return I.call(this,!0).innerHTML},set:function(b){var a="template"===this.localName?this.content:this;for(c.innerHTML=b;0<a.childNodes.length;)C.call(a,
-a.childNodes[0]);for(;0<c.childNodes.length;)y.call(a,c.childNodes[0]);}});});}m(Element.prototype,"setAttribute",function(a,e){if(1!==this.__CE_state)return J.call(this,a,e);var f=D.call(this,a);J.call(this,a,e);e=D.call(this,a);f!==e&&b.attributeChangedCallback(this,a,f,e,null);});m(Element.prototype,"setAttributeNS",function(a,e,d){if(1!==this.__CE_state)return K.call(this,a,e,d);var f=x.call(this,a,e);K.call(this,a,e,d);d=x.call(this,a,e);f!==d&&b.attributeChangedCallback(this,e,f,d,a);});m(Element.prototype,
-"removeAttribute",function(a){if(1!==this.__CE_state)return L.call(this,a);var d=D.call(this,a);L.call(this,a);null!==d&&b.attributeChangedCallback(this,a,d,null,null);});m(Element.prototype,"removeAttributeNS",function(a,d){if(1!==this.__CE_state)return M.call(this,a,d);var f=x.call(this,a,d);M.call(this,a,d);var e=x.call(this,a,d);f!==e&&b.attributeChangedCallback(this,d,f,e,a);});N?d(HTMLElement.prototype,N):O?d(Element.prototype,O):console.warn("Custom Elements: `Element#insertAdjacentElement` was not patched.");
-P(b,Element.prototype,{C:W,append:X});Y(b,{I:Z,H:aa,K:ba,remove:ca});}function Y(b,a){var d=Element.prototype;d.before=function(d){for(var f=[],e=0;e<arguments.length;++e)f[e-0]=arguments[e];e=f.filter(function(b){return b instanceof Node&&g(b)});a.I.apply(this,f);for(var c=0;c<e.length;c++)b.a(e[c]);if(g(this))for(e=0;e<f.length;e++)c=f[e],c instanceof Element&&b.b(c);};d.after=function(d){for(var f=[],e=0;e<arguments.length;++e)f[e-0]=arguments[e];e=f.filter(function(b){return b instanceof Node&&
-g(b)});a.H.apply(this,f);for(var c=0;c<e.length;c++)b.a(e[c]);if(g(this))for(e=0;e<f.length;e++)c=f[e],c instanceof Element&&b.b(c);};d.replaceWith=function(d){for(var f=[],e=0;e<arguments.length;++e)f[e-0]=arguments[e];var e=f.filter(function(b){return b instanceof Node&&g(b)}),c=g(this);a.K.apply(this,f);for(var u=0;u<e.length;u++)b.a(e[u]);if(c)for(b.a(this),e=0;e<f.length;e++)c=f[e],c instanceof Element&&b.b(c);};d.remove=function(){var d=g(this);a.remove.call(this);d&&b.a(this);};}function da(b){function a(a,
-c){Object.defineProperty(a,"textContent",{enumerable:c.enumerable,configurable:!0,get:c.get,set:function(a){if(this.nodeType===Node.TEXT_NODE)c.set.call(this,a);else{var d=void 0;if(this.firstChild){var f=this.childNodes,u=f.length;if(0<u&&g(this))for(var d=Array(u),h=0;h<u;h++)d[h]=f[h];}c.set.call(this,a);if(d)for(a=0;a<d.length;a++)b.a(d[a]);}}});}m(Node.prototype,"insertBefore",function(a,c){if(a instanceof DocumentFragment){var d=Array.prototype.slice.apply(a.childNodes);a=Q.call(this,a,c);if(g(this))for(c=
-0;c<d.length;c++)b.b(d[c]);return a}d=g(a);c=Q.call(this,a,c);d&&b.a(a);g(this)&&b.b(a);return c});m(Node.prototype,"appendChild",function(a){if(a instanceof DocumentFragment){var d=Array.prototype.slice.apply(a.childNodes);a=y.call(this,a);if(g(this))for(var f=0;f<d.length;f++)b.b(d[f]);return a}d=g(a);f=y.call(this,a);d&&b.a(a);g(this)&&b.b(a);return f});m(Node.prototype,"cloneNode",function(a){a=I.call(this,a);this.ownerDocument.__CE_hasRegistry?b.c(a):b.l(a);return a});m(Node.prototype,"removeChild",
-function(a){var d=g(a),f=C.call(this,a);d&&b.a(a);return f});m(Node.prototype,"replaceChild",function(a,c){if(a instanceof DocumentFragment){var d=Array.prototype.slice.apply(a.childNodes);a=R.call(this,a,c);if(g(this))for(b.a(c),c=0;c<d.length;c++)b.b(d[c]);return a}var d=g(a),e=R.call(this,a,c),k=g(this);k&&b.a(c);d&&b.a(a);k&&b.b(a);return e});E&&E.get?a(Node.prototype,E):b.s(function(b){a(b,{enumerable:!0,configurable:!0,get:function(){for(var a=[],b=0;b<this.childNodes.length;b++)a.push(this.childNodes[b].textContent);
-return a.join("")},set:function(a){for(;this.firstChild;)C.call(this,this.firstChild);y.call(this,document.createTextNode(a));}});});}function ea(b){m(Document.prototype,"createElement",function(a){if(this.__CE_hasRegistry){var d=b.f(a);if(d)return new d.constructor}a=z.call(this,a);b.g(a);return a});m(Document.prototype,"importNode",function(a,d){a=fa.call(this,a,d);this.__CE_hasRegistry?b.c(a):b.l(a);return a});m(Document.prototype,"createElementNS",function(a,d){if(this.__CE_hasRegistry&&(null===
-a||"http://www.w3.org/1999/xhtml"===a)){var c=b.f(d);if(c)return new c.constructor}a=ga.call(this,a,d);b.g(a);return a});P(b,Document.prototype,{C:ha,append:ia});}function P(b,a,d){a.prepend=function(a){for(var c=[],e=0;e<arguments.length;++e)c[e-0]=arguments[e];e=c.filter(function(a){return a instanceof Node&&g(a)});d.C.apply(this,c);for(var k=0;k<e.length;k++)b.a(e[k]);if(g(this))for(e=0;e<c.length;e++)k=c[e],k instanceof Element&&b.b(k);};a.append=function(a){for(var c=[],e=0;e<arguments.length;++e)c[e-
-0]=arguments[e];e=c.filter(function(a){return a instanceof Node&&g(a)});d.append.apply(this,c);for(var k=0;k<e.length;k++)b.a(e[k]);if(g(this))for(e=0;e<c.length;e++)k=c[e],k instanceof Element&&b.b(k);};}function ja(b){window.HTMLElement=function(){function a(){var a=this.constructor,c=b.L(a);if(!c)throw Error("The custom element being constructed was not registered with `customElements`.");var f=c.constructionStack;if(!f.length)return f=z.call(document,c.localName),Object.setPrototypeOf(f,a.prototype),
-f.__CE_state=1,f.__CE_definition=c,b.g(f),f;var c=f.length-1,e=f[c];if(e===S)throw Error("The HTMLElement constructor was either called reentrantly for this constructor or called multiple times.");f[c]=S;Object.setPrototypeOf(e,a.prototype);b.g(e);return e}a.prototype=ka.prototype;return a}();}function l(b){this.f=!1;this.a=b;this.i=new Map;this.g=function(a){return a()};this.b=!1;this.c=[];this.l=new F(b,document);}function T(){var b=this;this.b=this.a=void 0;this.f=new Promise(function(a){b.b=a;b.a&&
-a(b.a);});}function F(b,a){this.c=b;this.a=a;this.b=void 0;this.c.c(this.a);"loading"===this.a.readyState&&(this.b=new MutationObserver(this.g.bind(this)),this.b.observe(this.a,{childList:!0,subtree:!0}));}function p(){this.o=new Map;this.m=new Map;this.j=[];this.i=!1;}function U(b){var a=la.has(b);b=/^[a-z][.0-9_a-z]*-[\-.0-9_a-z]*$/.test(b);return!a&&b}function g(b){var a=b.isConnected;if(void 0!==a)return a;for(;b&&!(b.__CE_isImportDocument||b instanceof Document);)b=b.parentNode||(window.ShadowRoot&&
-b instanceof ShadowRoot?b.host:void 0);return!(!b||!(b.__CE_isImportDocument||b instanceof Document))}function G(b,a){for(;a&&a!==b&&!a.nextSibling;)a=a.parentNode;return a&&a!==b?a.nextSibling:null}function t(b,a,d){d=d?d:new Set;for(var c=b;c;){if(c.nodeType===Node.ELEMENT_NODE){var f=c;a(f);var e=f.localName;if("link"===e&&"import"===f.getAttribute("rel")){c=f.import;if(c instanceof Node&&!d.has(c))for(d.add(c),c=c.firstChild;c;c=c.nextSibling)t(c,a,d);c=G(b,f);continue}else if("template"===e){c=
-G(b,f);continue}if(f=f.__CE_shadowRoot)for(f=f.firstChild;f;f=f.nextSibling)t(f,a,d);}c=c.firstChild?c.firstChild:G(b,c);}}function m(b,a,d){b[a]=d;}(function(b){function a(a,b){if("function"===typeof window.CustomEvent)return new CustomEvent(a,b);var c=document.createEvent("CustomEvent");c.initCustomEvent(a,!!b.bubbles,!!b.cancelable,b.detail);return c}function d(a){if(l)return a.ownerDocument!==document?a.ownerDocument:null;var b=a.__importDoc;if(!b&&a.parentNode){b=a.parentNode;if("function"===typeof b.closest)b=
-b.closest("link[rel=import]");else for(;!g(b)&&(b=b.parentNode););a.__importDoc=b;}return b}function c(a){var b=document.querySelectorAll("link[rel=import]:not(import-dependency)"),c=b.length;if(c)for(var d=0,e=b.length,n;d<e&&(n=b[d]);d++)k(n,function(){--c||a();});else a();}function f(a){if("loading"!==document.readyState)a();else{var b=function(){"loading"!==document.readyState&&(document.removeEventListener("readystatechange",b),a());};document.addEventListener("readystatechange",b);}}function e(a){f(function(){return c(function(){return a&&
-a()})});}function k(a,b){if(a.__loaded)b&&b();else if(g(a)&&!l&&null===a.import||a.import&&"complete"===a.import.readyState)a.__loaded=!0,b&&b();else if("script"!==a.localName||a.src){var c=function(d){a.removeEventListener(d.type,c);a.__loaded=!0;b&&b();};a.addEventListener("load",c);v&&"style"===a.localName||a.addEventListener("error",c);}else a.__loaded=!0,b&&b();}function g(a){return a.nodeType===Node.ELEMENT_NODE&&"link"===a.localName&&"import"===a.rel}function h(){var a=this;this.a={};this.b=0;
-this.c=new MutationObserver(function(b){return a.m(b)});f(function(){a.c.observe(document.head,{childList:!0,subtree:!0});a.f(document);});}var l="import"in document.createElement("link"),m=null;!1==="currentScript"in document&&Object.defineProperty(document,"currentScript",{get:function(){return m||("complete"!==document.readyState?document.scripts[document.scripts.length-1]:null)},configurable:!0});var p=/(^\/)|(^#)|(^[\w-\d]*:)/,r=/(url\()([^)]*)(\))/g,t=/(@import[\s]+(?!url\())([^;]*)(;)/g,y=/(<link[^>]*)(rel=['|"]?stylesheet['|"]?[^>]*>)/g,
-q={J:function(a,b){a.href&&a.setAttribute("href",q.w(a.getAttribute("href"),b));a.src&&a.setAttribute("src",q.w(a.getAttribute("src"),b));if("style"===a.localName){var c=q.D(a.textContent,b,r);a.textContent=q.D(c,b,t);}},D:function(a,b,c){return a.replace(c,function(a,c,d,e){a=d.replace(/["']/g,"");b&&(a=q.F(a,b));return c+"'"+a+"'"+e})},w:function(a,b){return a&&p.test(a)?a:q.F(a,b)},F:function(a,b){if(void 0===q.v){q.v=!1;try{var c=new URL("b","http://a");c.pathname="c%20d";q.v="http://a/c%20d"===
-c.href;}catch(na){}}if(q.v)return(new URL(a,b)).href;c=q.G;c||(c=document.implementation.createHTMLDocument("temp"),q.G=c,c.B=c.createElement("base"),c.head.appendChild(c.B),c.A=c.createElement("a"));c.B.href=b;c.A.href=a;return c.A.href||a}},x={async:!0,load:function(a,b,c){if(a)if(a.match(/^data:/)){a=a.split(",");var d=a[1],d=-1<a[0].indexOf(";base64")?atob(d):decodeURIComponent(d);b(d);}else{var e=new XMLHttpRequest;e.open("GET",a,x.async);e.onload=function(){var a=e.getResponseHeader("Location");
-a&&!a.indexOf("/")&&(a=(location.origin||location.protocol+"//"+location.host)+a);var d=e.response||e.responseText;304===e.status||!e.status||200<=e.status&&300>e.status?b(d,a):c(d);};e.send();}else c("error: href must be specified");}},v=/Trident/.test(navigator.userAgent)||/Edge\/\d./i.test(navigator.userAgent);h.prototype.f=function(a){a=a.querySelectorAll("link[rel=import]");for(var b=0,c=a.length;b<c;b++)this.i(a[b]);};h.prototype.i=function(a){var b=this,c=a.href;if(void 0!==this.a[c]){var d=this.a[c];
-d&&d.__loaded&&(a.import=d,this.g(a));}else this.b++,this.a[c]="pending",x.load(c,function(a,d){a=b.o(a,d||c);b.a[c]=a;b.b--;b.f(a);b.j();},function(){b.a[c]=null;b.b--;b.j();});};h.prototype.o=function(a,b){if(!a)return document.createDocumentFragment();v&&(a=a.replace(y,function(a,b,c){return-1===a.indexOf("type=")?b+" type=import-disable "+c:a}));var c=document.createElement("template");c.innerHTML=a;if(c.content)a=c.content;else for(a=document.createDocumentFragment();c.firstChild;)a.appendChild(c.firstChild);
-if(c=a.querySelector("base"))b=q.w(c.getAttribute("href"),b),c.removeAttribute("href");for(var c=a.querySelectorAll('link[rel=import], link[rel=stylesheet][href][type=import-disable],\n    style:not([type]), link[rel=stylesheet][href]:not([type]),\n    script:not([type]), script[type="application/javascript"],\n    script[type="text/javascript"]'),d=0,e=0,f=c.length,n;e<f&&(n=c[e]);e++)k(n),q.J(n,b),n.setAttribute("import-dependency",""),"script"===n.localName&&!n.src&&n.textContent&&(n.setAttribute("src",
-"data:text/javascript;charset=utf-8,"+encodeURIComponent(n.textContent+("\n//# sourceURL="+b+(d?"-"+d:"")+".js\n"))),n.textContent="",d++);return a};h.prototype.j=function(){var a=this;if(!this.b){this.c.disconnect();this.flatten(document);var b=!1,c=!1,d=function(){c&&b&&(a.c.observe(document.head,{childList:!0,subtree:!0}),a.l());};this.u(function(){c=!0;d();});this.s(function(){b=!0;d();});}};h.prototype.flatten=function(a){a=a.querySelectorAll("link[rel=import]");for(var b={},c=0,d=a.length;c<d&&
-(b.n=a[c]);b={n:b.n},c++){var e=this.a[b.n.href];(b.n.import=e)&&e.nodeType===Node.DOCUMENT_FRAGMENT_NODE&&(this.a[b.n.href]=b.n,b.n.readyState="loading",b.n.import=b.n,Object.defineProperty(b.n,"baseURI",{get:function(a){return function(){return a.n.href}}(b),configurable:!0,enumerable:!0}),this.flatten(e),b.n.appendChild(e));}};h.prototype.s=function(a){function b(e){if(e<d){var f=c[e],n=document.createElement("script");f.removeAttribute("import-dependency");for(var g=0,h=f.attributes.length;g<h;g++)n.setAttribute(f.attributes[g].name,
-f.attributes[g].value);m=n;f.parentNode.replaceChild(n,f);k(n,function(){m=null;b(e+1);});}else a();}var c=document.querySelectorAll("script[import-dependency]"),d=c.length;b(0);};h.prototype.u=function(a){var b=document.querySelectorAll("style[import-dependency],\n    link[rel=stylesheet][import-dependency]"),c=b.length;if(c)for(var e=v&&!!document.querySelector("link[rel=stylesheet][href][type=import-disable]"),f={},g=0,n=b.length;g<n&&(f.h=b[g]);f={h:f.h},g++){if(k(f.h,function(b){return function(){b.h.removeAttribute("import-dependency");
---c||a();}}(f)),e&&f.h.parentNode!==document.head){var h=document.createElement(f.h.localName);h.__appliedElement=f.h;h.setAttribute("type","import-placeholder");f.h.parentNode.insertBefore(h,f.h.nextSibling);for(h=d(f.h);h&&d(h);)h=d(h);h.parentNode!==document.head&&(h=null);document.head.insertBefore(f.h,h);f.h.removeAttribute("type");}}else a();};h.prototype.l=function(){for(var a=document.querySelectorAll("link[rel=import]"),b=a.length-1,c;0<=b&&(c=a[b]);b--)this.g(c);};h.prototype.g=function(b){b.__loaded||
-(b.__loaded=!0,b.import&&(b.import.readyState="complete"),b.dispatchEvent(a(b.import?"load":"error",{bubbles:!1,cancelable:!1,detail:void 0})));};h.prototype.m=function(a){for(var b=0;b<a.length;b++){var c=a[b];if(c.addedNodes)for(var d=0;d<c.addedNodes.length;d++){var e=c.addedNodes[d];e&&e.nodeType===Node.ELEMENT_NODE&&(g(e)?this.i(e):this.f(e));}}};if(l){for(var A=document.querySelectorAll("link[rel=import]"),w=0,z=A.length,B;w<z&&(B=A[w]);w++)B.import&&"loading"===B.import.readyState||(B.__loaded=
-!0);A=function(a){a=a.target;g(a)&&(a.__loaded=!0);};document.addEventListener("load",A,!0);document.addEventListener("error",A,!0);}else new h;e(function(){return document.dispatchEvent(a("HTMLImportsLoaded",{cancelable:!0,bubbles:!0,detail:void 0}))});b.useNative=l;b.whenReady=e;b.importForElement=d;})(window.HTMLImports=window.HTMLImports||{});var la=new Set("annotation-xml color-profile font-face font-face-src font-face-uri font-face-format font-face-name missing-glyph".split(" "));p.prototype.M=
-function(b,a){this.o.set(b,a);this.m.set(a.constructor,a);};p.prototype.f=function(b){return this.o.get(b)};p.prototype.L=function(b){return this.m.get(b)};p.prototype.s=function(b){this.i=!0;this.j.push(b);};p.prototype.l=function(b){var a=this;this.i&&t(b,function(b){return a.g(b)});};p.prototype.g=function(b){if(this.i&&!b.__CE_patched){b.__CE_patched=!0;for(var a=0;a<this.j.length;a++)this.j[a](b);}};p.prototype.b=function(b){var a=[];t(b,function(b){return a.push(b)});for(b=0;b<a.length;b++){var d=
-a[b];1===d.__CE_state?this.connectedCallback(d):this.u(d);}};p.prototype.a=function(b){var a=[];t(b,function(b){return a.push(b)});for(b=0;b<a.length;b++){var d=a[b];1===d.__CE_state&&this.disconnectedCallback(d);}};p.prototype.c=function(b,a){a=a?a:new Set;var d=this,c=[];t(b,function(b){if("link"===b.localName&&"import"===b.getAttribute("rel")){var e=b.import;e instanceof Node&&"complete"===e.readyState?(e.__CE_isImportDocument=!0,e.__CE_hasRegistry=!0):b.addEventListener("load",function(){var c=
-b.import;c.__CE_documentLoadHandled||(c.__CE_documentLoadHandled=!0,c.__CE_isImportDocument=!0,c.__CE_hasRegistry=!0,new Set(a),a.delete(c),d.c(c,a));});}else c.push(b);},a);if(this.i)for(b=0;b<c.length;b++)this.g(c[b]);for(b=0;b<c.length;b++)this.u(c[b]);};p.prototype.u=function(b){if(void 0===b.__CE_state){var a=this.f(b.localName);if(a){a.constructionStack.push(b);var d=a.constructor;try{try{if(new d!==b)throw Error("The custom element constructor did not produce the element being upgraded.");}finally{a.constructionStack.pop();}}catch(e){throw b.__CE_state=
-2,e;}b.__CE_state=1;b.__CE_definition=a;if(a.attributeChangedCallback)for(a=a.observedAttributes,d=0;d<a.length;d++){var c=a[d],f=b.getAttribute(c);null!==f&&this.attributeChangedCallback(b,c,null,f,null);}g(b)&&this.connectedCallback(b);}}};p.prototype.connectedCallback=function(b){var a=b.__CE_definition;a.connectedCallback&&a.connectedCallback.call(b);};p.prototype.disconnectedCallback=function(b){var a=b.__CE_definition;a.disconnectedCallback&&a.disconnectedCallback.call(b);};p.prototype.attributeChangedCallback=
-function(b,a,d,c,f){var e=b.__CE_definition;e.attributeChangedCallback&&-1<e.observedAttributes.indexOf(a)&&e.attributeChangedCallback.call(b,a,d,c,f);};F.prototype.f=function(){this.b&&this.b.disconnect();};F.prototype.g=function(b){var a=this.a.readyState;"interactive"!==a&&"complete"!==a||this.f();for(a=0;a<b.length;a++)for(var d=b[a].addedNodes,c=0;c<d.length;c++)this.c.c(d[c]);};T.prototype.c=function(){if(this.a)throw Error("Already resolved.");this.a=void 0;this.b&&this.b(void 0);};l.prototype.j=
-function(b,a){var d=this;if(!(a instanceof Function))throw new TypeError("Custom element constructors must be functions.");if(!U(b))throw new SyntaxError("The element name '"+b+"' is not valid.");if(this.a.f(b))throw Error("A custom element with name '"+b+"' has already been defined.");if(this.f)throw Error("A custom element is already being defined.");this.f=!0;var c,f,e,g,l;try{var h=function(a){var b=m[a];if(void 0!==b&&!(b instanceof Function))throw Error("The '"+a+"' callback must be a function.");
-return b},m=a.prototype;if(!(m instanceof Object))throw new TypeError("The custom element constructor's prototype is not an object.");c=h("connectedCallback");f=h("disconnectedCallback");e=h("adoptedCallback");g=h("attributeChangedCallback");l=a.observedAttributes||[];}catch(ma){return}finally{this.f=!1;}this.a.M(b,{localName:b,constructor:a,connectedCallback:c,disconnectedCallback:f,adoptedCallback:e,attributeChangedCallback:g,observedAttributes:l,constructionStack:[]});this.c.push(b);this.b||(this.b=
-!0,this.g(function(){return d.m()}));};l.prototype.m=function(){if(!1!==this.b)for(this.b=!1,this.a.c(document);0<this.c.length;){var b=this.c.shift();(b=this.i.get(b))&&b.c();}};l.prototype.get=function(b){if(b=this.a.f(b))return b.constructor};l.prototype.s=function(b){if(!U(b))return Promise.reject(new SyntaxError("'"+b+"' is not a valid custom element name."));var a=this.i.get(b);if(a)return a.f;a=new T;this.i.set(b,a);this.a.f(b)&&-1===this.c.indexOf(b)&&a.c();return a.f};l.prototype.o=function(b){this.l.f();
-var a=this.g;this.g=function(d){return b(function(){return a(d)})};};window.CustomElementRegistry=l;l.prototype.define=l.prototype.j;l.prototype.get=l.prototype.get;l.prototype.whenDefined=l.prototype.s;l.prototype.polyfillWrapFlushCallback=l.prototype.o;var z=window.Document.prototype.createElement,ga=window.Document.prototype.createElementNS,fa=window.Document.prototype.importNode,ha=window.Document.prototype.prepend,ia=window.Document.prototype.append,I=window.Node.prototype.cloneNode,y=window.Node.prototype.appendChild,
-Q=window.Node.prototype.insertBefore,C=window.Node.prototype.removeChild,R=window.Node.prototype.replaceChild,E=Object.getOwnPropertyDescriptor(window.Node.prototype,"textContent"),H=window.Element.prototype.attachShadow,v=Object.getOwnPropertyDescriptor(window.Element.prototype,"innerHTML"),D=window.Element.prototype.getAttribute,J=window.Element.prototype.setAttribute,L=window.Element.prototype.removeAttribute,x=window.Element.prototype.getAttributeNS,K=window.Element.prototype.setAttributeNS,M=
-window.Element.prototype.removeAttributeNS,O=window.Element.prototype.insertAdjacentElement,W=window.Element.prototype.prepend,X=window.Element.prototype.append,Z=window.Element.prototype.before,aa=window.Element.prototype.after,ba=window.Element.prototype.replaceWith,ca=window.Element.prototype.remove,ka=window.HTMLElement,w=Object.getOwnPropertyDescriptor(window.HTMLElement.prototype,"innerHTML"),N=window.HTMLElement.prototype.insertAdjacentElement,S=new function(){},r=window.customElements;if(!r||
-r.forcePolyfill||"function"!=typeof r.define||"function"!=typeof r.get)r=new p,ja(r),ea(r),da(r),V(r),document.__CE_hasRegistry=!0,r=new l(r),Object.defineProperty(window,"customElements",{configurable:!0,enumerable:!0,value:r});(function(){var b=window.customElements,a=window.HTMLImports;if(b&&b.polyfillWrapFlushCallback){var d,c=function(){if(d){var a=d;d=null;a();return!0}},f=a.whenReady;b.polyfillWrapFlushCallback(function(a){d=a;f(c);});a.whenReady=function(b){f(function(){c()?a.whenReady(b):
-b();});};}a.whenReady(function(){requestAnimationFrame(function(){window.dispatchEvent(new CustomEvent("WebComponentsReady"));});});})();(function(){var b=document.createElement("style");b.textContent="body {transition: opacity ease-in 0.2s; } \nbody[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } \n";var a=document.querySelector("head");a.insertBefore(b,a.firstChild);})();})();
-}).call(self);
-
-//# sourceMappingURL=webcomponents-hi-ce.js.map
-
 function isNothing(subject) {
   return (typeof subject === 'undefined') || (subject === null);
 }
@@ -316,6 +245,8 @@ function Type$2(tag, options) {
 }
 
 var type = Type$2;
+
+/*eslint-disable max-len*/
 
 var common$4        = common$1;
 var YAMLException$3 = exception;
@@ -926,6 +857,8 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
+/*eslint-disable no-bitwise*/
+
 var NodeBuffer;
 
 try {
@@ -1382,6 +1315,8 @@ var default_full = Schema$6.DEFAULT = new Schema$6({
     _function
   ]
 });
+
+/*eslint-disable max-len,no-use-before-define*/
 
 var common              = common$1;
 var YAMLException$1       = exception;
@@ -2974,6 +2909,8 @@ var loader$1 = {
 	safeLoad: safeLoad_1
 };
 
+/*eslint-disable no-use-before-define*/
+
 var common$7              = common$1;
 var YAMLException$5       = exception;
 var DEFAULT_FULL_SCHEMA$2 = default_full;
@@ -3892,36 +3829,46 @@ customElements.define(FrontMatter.is, FrontMatter);
 
 // import '@webcomponents/shadycss/scoping-shim';
 
-const Template = (name, templateString, useShadow = false) => {
+const Template = (name, templateString, useShadow = true) => {
+
   const template = document.createElement('template');
   template.innerHTML = templateString;
+
   // ShadyCSS.prepareTemplate(template, name);
 
   return (superclass) => {
     return class extends superclass {
+
       constructor() {
         super();
+
         this.clone = document.importNode(template.content, true);
         if (useShadow) {
           // ShadyCSS.applyStyle(this);
-          this.shadow_ = this.attachShadow({mode: 'open'});
-          this.shadow_.appendChild(clone);
+          this.attachShadow({mode: 'open'});
+          this.shadowRoot.appendChild(this.clone);
         }
       }
+
       connectedCallback() {
         if (!useShadow) {
           this.insertBefore(this.clone, this.firstChild);
         }
       }
+
+      /* TODO: Are we using these? Should we even? */
       get root() {
         if (useShadow) {
-          return this.shadow_;
+          return this.shadowRoot;
+        } else {
+          return this;
         }
-        return this;
       }
+
       $(query) {
         return this.root.querySelector(query);
       }
+
       $$(query) {
         return this.root.querySelectorAll(query);
       }
@@ -4795,6 +4742,7 @@ class Byline extends T$1(HTMLElement) {
     return "d-byline";
   }
   render(data) {
+    console.warn("byline!");
     this.innerHTML = mustache.render(mustacheTemplate, data);
   }
 }
@@ -4986,6 +4934,10 @@ const T$2 = Template("d-article", `
   d-article section > d-code  {
     display: block;
   }
+  d-article > d-math[block],
+  d-article section > d-math[block]  {
+    display: block;
+  }
   d-article .citation {
     color: #668;
     cursor: pointer;
@@ -5039,14 +4991,12 @@ customElements.define(Toc.is, Toc);
 
 var base = "html {\n  font-size: 20px;\n\tline-height: 1rem;\n\t/*font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Helvetica Neue\", sans-serif;*/\n\tfont-family: \"Libre Franklin\", \"Helvetica Neue\", sans-serif;\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\n\nbody {\n  margin: 0;\n  /*background-color: hsl(223, 9%, 25%);*/\n}\n\na {\n  color: #004276;\n}\n\nfigure {\n  margin: 0;\n}\n\n/*\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}*/\n";
 
-var layout = "/*\n  Column: 60px\n  Gutter: 24px\n\n  Body: 648px\n    - 8 columns\n    - 7 gutters\n  Middle: 816px\n  Page: 984px\n    - 12 columns\n    - 11 gutters\n*/\n\n.l-body,\n.l-body-outset,\n.l-page,\n.l-page-outset,\n.l-middle,\n.l-middle-outset,\nd-article > div,\nd-article > p,\nd-article > h1,\nd-article > h2,\nd-article > h3,\nd-article > h4,\nd-article > figure,\nd-article > ul,\nd-article > d-abstract,\nd-article > d-code,\nd-article section > div,\nd-article section > p,\nd-article section > h1,\nd-article section > h2,\nd-article section > h3,\nd-article section > h4,\nd-article section > figure,\nd-article section > ul,\nd-article section > d-abstract,\nd-article section > d-code {\n  width: auto;\n  margin-left: 24px;\n  margin-right: 24px;\n  box-sizing: border-box;\n}\n\n@media(min-width: 768px) {\n  .l-body,\n  .l-body-outset,\n  .l-page,\n  .l-page-outset,\n  .l-middle,\n  .l-middle-outset,\n  d-article > div,\n  d-article > p,\n  d-article > h1,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h1,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code {\n    margin-left: 72px;\n    margin-right: 72px;\n  }\n}\n\n@media(min-width: 1080px) {\n  .l-body,\n  d-article > div,\n  d-article > p,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code {\n    margin-left: calc(50% - 984px / 2);\n    width: 648px;\n  }\n  .l-body-outset,\n  d-article .l-body-outset {\n    margin-left: calc(50% - 984px / 2 - 96px/2);\n    width: calc(648px + 96px);\n  }\n  .l-middle,\n  d-article .l-middle {\n    width: 816px;\n    margin-left: calc(50% - 984px / 2);\n    margin-right: auto;\n  }\n  .l-middle-outset,\n  d-article .l-middle-outset {\n    width: calc(816px + 96px);\n    margin-left: calc(50% - 984px / 2 - 48px);\n    margin-right: auto;\n  }\n  d-article > h1,\n  d-article section > h1,\n  .l-page,\n  d-article .l-page,\n  d-article.centered .l-page {\n    width: 984px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-page-outset,\n  d-article .l-page-outset,\n  d-article.centered .l-page-outset {\n    width: 1080px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-screen,\n  d-article .l-screen,\n  d-article.centered .l-screen {\n    margin-left: auto;\n    margin-right: auto;\n    width: auto;\n  }\n  .l-screen-inset,\n  d-article .l-screen-inset,\n  d-article.centered .l-screen-inset {\n    margin-left: 24px;\n    margin-right: 24px;\n    width: auto;\n  }\n  .l-gutter,\n  d-article .l-gutter {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 24px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n    width: calc((984px - 648px) / 2 - 24px);\n  }\n\n  /* Side */\n  .side.l-body,\n  d-article .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px) / 2);\n    width: calc(648px / 2 - 24px - 84px);\n  }\n  .side.l-body-outset,\n  d-article .side.l-body-outset {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px - 48px) / 2);\n    width: calc(648px / 2 - 48px + 24px);\n  }\n  .side.l-middle,\n  d-article .side.l-middle {\n    clear: both;\n    float: right;\n    width: calc(456px - 84px);\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-middle-outset,\n  d-article .side.l-middle-outset {\n    clear: both;\n    float: right;\n    width: 456px;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-page,\n  d-article .side.l-page {\n    clear: both;\n    float: right;\n    margin-left: 48px;\n    width: calc(624px - 84px);\n    margin-right: calc((100vw - 984px) / 2);\n  }\n  .side.l-page-outset,\n  d-article .side.l-page-outset {\n    clear: both;\n    float: right;\n    width: 624px;\n    margin-right: calc((100vw - 984px) / 2);\n  }\n}\n\n\n/* Rows and Columns */\n\n.row {\n  display: flex;\n}\n.column {\n  flex: 1;\n  box-sizing: border-box;\n  margin-right: 24px;\n  margin-left: 24px;\n}\n.row > .column:first-of-type {\n  margin-left: 0;\n}\n.row > .column:last-of-type {\n  margin-right: 0;\n}\n";
-
-var code = "/**\n * prism.js default theme for JavaScript, CSS and HTML\n * Based on dabblet (http://dabblet.com)\n * @author Lea Verou\n */\n\ncode {\n  white-space: nowrap;\n  background: rgba(0, 0, 0, 0.04);\n  border-radius: 2px;\n  padding: 4px 7px;\n  font-size: 15px;\n  color: rgba(0, 0, 0, 0.6);\n}\n\npre code {\n  display: block;\n  background: white;\n  border-left: 3px solid rgba(0, 0, 0, 0.05);\n  padding: 0 0 0 24px;\n}\n\n\ncode[class*=\"language-\"],\npre[class*=\"language-\"] {\n  text-shadow: 0 1px white;\n  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;\n  text-align: left;\n  white-space: pre;\n  word-spacing: normal;\n  word-break: normal;\n  word-wrap: normal;\n  line-height: 1.5;\n\n  -moz-tab-size: 4;\n  -o-tab-size: 4;\n  tab-size: 4;\n\n  -webkit-hyphens: none;\n  -moz-hyphens: none;\n  -ms-hyphens: none;\n  hyphens: none;\n}\n\npre[class*=\"language-\"]::-moz-selection, pre[class*=\"language-\"] ::-moz-selection,\ncode[class*=\"language-\"]::-moz-selection, code[class*=\"language-\"] ::-moz-selection {\n  text-shadow: none;\n  background: #b3d4fc;\n}\n\npre[class*=\"language-\"]::selection, pre[class*=\"language-\"] ::selection,\ncode[class*=\"language-\"]::selection, code[class*=\"language-\"] ::selection {\n  text-shadow: none;\n  background: #b3d4fc;\n}\n\n@media print {\n  code[class*=\"language-\"],\n  pre[class*=\"language-\"] {\n  text-shadow: none;\n  }\n}\n\n/* Code blocks */\npre[class*=\"language-\"] {\n  overflow: auto;\n}\n\n:not(pre) > code[class*=\"language-\"],\npre[class*=\"language-\"] {\n}\n\n/* Inline code */\n:not(pre) > code[class*=\"language-\"] {\n  white-space: normal;\n}\n\n.token.comment,\n.token.prolog,\n.token.doctype,\n.token.cdata {\n  color: slategray;\n}\n\n.token.punctuation {\n  color: #999;\n}\n\n.namespace {\n  opacity: .7;\n}\n\n.token.property,\n.token.tag,\n.token.boolean,\n.token.number,\n.token.constant,\n.token.symbol,\n.token.deleted {\n  color: #905;\n}\n\n.token.selector,\n.token.attr-name,\n.token.string,\n.token.char,\n.token.builtin,\n.token.inserted {\n  color: #690;\n}\n\n.token.operator,\n.token.entity,\n.token.url,\n.language-css .token.string,\n.style .token.string {\n  color: #a67f59;\n  background: hsla(0, 0%, 100%, .5);\n}\n\n.token.atrule,\n.token.attr-value,\n.token.keyword {\n  color: #07a;\n}\n\n.token.function {\n  color: #DD4A68;\n}\n\n.token.regex,\n.token.important,\n.token.variable {\n  color: #e90;\n}\n\n.token.important,\n.token.bold {\n  font-weight: bold;\n}\n.token.italic {\n  font-style: italic;\n}\n\n.token.entity {\n  cursor: help;\n}\n";
+var layout = "/*\n  Column: 60px\n  Gutter: 24px\n\n  Body: 648px\n    - 8 columns\n    - 7 gutters\n  Middle: 816px\n  Page: 984px\n    - 12 columns\n    - 11 gutters\n*/\n\n.l-body,\n.l-body-outset,\n.l-page,\n.l-page-outset,\n.l-middle,\n.l-middle-outset,\nd-article > div,\nd-article > p,\nd-article > h1,\nd-article > h2,\nd-article > h3,\nd-article > h4,\nd-article > figure,\nd-article > ul,\nd-article > d-abstract,\nd-article > d-code,\nd-article > d-math,\nd-article section > div,\nd-article section > p,\nd-article section > h1,\nd-article section > h2,\nd-article section > h3,\nd-article section > h4,\nd-article section > figure,\nd-article section > ul,\nd-article section > d-abstract,\nd-article section > d-code,\nd-article section > d-math {\n  width: auto;\n  margin-left: 24px;\n  margin-right: 24px;\n  box-sizing: border-box;\n}\n\n@media(min-width: 768px) {\n  .l-body,\n  .l-body-outset,\n  .l-page,\n  .l-page-outset,\n  .l-middle,\n  .l-middle-outset,\n  d-article > div,\n  d-article > p,\n  d-article > h1,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article > d-math,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h1,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code,\n  d-article section > d-math {\n    margin-left: 72px;\n    margin-right: 72px;\n  }\n}\n\n@media(min-width: 1080px) {\n  .l-body,\n  d-article > div,\n  d-article > p,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article > d-math,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code,\n  d-article section > d-math {\n    margin-left: calc(50% - 984px / 2);\n    width: 648px;\n  }\n  .l-body-outset,\n  d-article .l-body-outset {\n    margin-left: calc(50% - 984px / 2 - 96px/2);\n    width: calc(648px + 96px);\n  }\n  .l-middle,\n  d-article .l-middle {\n    width: 816px;\n    margin-left: calc(50% - 984px / 2);\n    margin-right: auto;\n  }\n  .l-middle-outset,\n  d-article .l-middle-outset {\n    width: calc(816px + 96px);\n    margin-left: calc(50% - 984px / 2 - 48px);\n    margin-right: auto;\n  }\n  d-article > h1,\n  d-article section > h1,\n  .l-page,\n  d-article .l-page,\n  d-article.centered .l-page {\n    width: 984px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-page-outset,\n  d-article .l-page-outset,\n  d-article.centered .l-page-outset {\n    width: 1080px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-screen,\n  d-article .l-screen,\n  d-article.centered .l-screen {\n    margin-left: auto;\n    margin-right: auto;\n    width: auto;\n  }\n  .l-screen-inset,\n  d-article .l-screen-inset,\n  d-article.centered .l-screen-inset {\n    margin-left: 24px;\n    margin-right: 24px;\n    width: auto;\n  }\n  .l-gutter,\n  d-article .l-gutter {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 24px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n    width: calc((984px - 648px) / 2 - 24px);\n  }\n\n  /* Side */\n  .side.l-body,\n  d-article .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px) / 2);\n    width: calc(648px / 2 - 24px - 84px);\n  }\n  .side.l-body-outset,\n  d-article .side.l-body-outset {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px - 48px) / 2);\n    width: calc(648px / 2 - 48px + 24px);\n  }\n  .side.l-middle,\n  d-article .side.l-middle {\n    clear: both;\n    float: right;\n    width: calc(456px - 84px);\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-middle-outset,\n  d-article .side.l-middle-outset {\n    clear: both;\n    float: right;\n    width: 456px;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-page,\n  d-article .side.l-page {\n    clear: both;\n    float: right;\n    margin-left: 48px;\n    width: calc(624px - 84px);\n    margin-right: calc((100vw - 984px) / 2);\n  }\n  .side.l-page-outset,\n  d-article .side.l-page-outset {\n    clear: both;\n    float: right;\n    width: 624px;\n    margin-right: calc((100vw - 984px) / 2);\n  }\n}\n\n\n/* Rows and Columns */\n\n.row {\n  display: flex;\n}\n.column {\n  flex: 1;\n  box-sizing: border-box;\n  margin-right: 24px;\n  margin-left: 24px;\n}\n.row > .column:first-of-type {\n  margin-left: 0;\n}\n.row > .column:last-of-type {\n  margin-right: 0;\n}\n";
 
 var print = "\n@media print {\n  @page {\n    size: 8in 11in;\n  }\n  html {\n  }\n  p, code {\n    page-break-inside: avoid;\n  }\n  h2, h3 {\n    page-break-after: avoid;\n  }\n  d-header {\n    visibility: hidden;\n  }\n  d-footer {\n    display: none!important;\n  }\n}\n";
 
 let s = document.createElement("style");
-s.textContent =  base + layout + code + print;
+s.textContent =  base + layout + print;
 document.querySelector("head").appendChild(s);
 
 const T$5 = Template("d-appendix", `
@@ -6456,58 +6406,56 @@ Prism.languages.clike = {
 	'punctuation': /[{}[\];(),.:]/
 };
 
-class Code extends HTMLElement {
+var css = "/**\n * prism.js default theme for JavaScript, CSS and HTML\n * Based on dabblet (http://dabblet.com)\n * @author Lea Verou\n */\n\ncode[class*=\"language-\"],\npre[class*=\"language-\"] {\n\tcolor: black;\n\tbackground: none;\n\ttext-shadow: 0 1px white;\n\tfont-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;\n\ttext-align: left;\n\twhite-space: pre;\n\tword-spacing: normal;\n\tword-break: normal;\n\tword-wrap: normal;\n\tline-height: 1.5;\n\n\t-moz-tab-size: 4;\n\t-o-tab-size: 4;\n\ttab-size: 4;\n\n\t-webkit-hyphens: none;\n\t-moz-hyphens: none;\n\t-ms-hyphens: none;\n\thyphens: none;\n}\n\npre[class*=\"language-\"]::-moz-selection, pre[class*=\"language-\"] ::-moz-selection,\ncode[class*=\"language-\"]::-moz-selection, code[class*=\"language-\"] ::-moz-selection {\n\ttext-shadow: none;\n\tbackground: #b3d4fc;\n}\n\npre[class*=\"language-\"]::selection, pre[class*=\"language-\"] ::selection,\ncode[class*=\"language-\"]::selection, code[class*=\"language-\"] ::selection {\n\ttext-shadow: none;\n\tbackground: #b3d4fc;\n}\n\n@media print {\n\tcode[class*=\"language-\"],\n\tpre[class*=\"language-\"] {\n\t\ttext-shadow: none;\n\t}\n}\n\n/* Code blocks */\npre[class*=\"language-\"] {\n\tpadding: 1em;\n\tmargin: .5em 0;\n\toverflow: auto;\n}\n\n:not(pre) > code[class*=\"language-\"],\npre[class*=\"language-\"] {\n\tbackground: #f5f2f0;\n}\n\n/* Inline code */\n:not(pre) > code[class*=\"language-\"] {\n\tpadding: .1em;\n\tborder-radius: .3em;\n\twhite-space: normal;\n}\n\n.token.comment,\n.token.prolog,\n.token.doctype,\n.token.cdata {\n\tcolor: slategray;\n}\n\n.token.punctuation {\n\tcolor: #999;\n}\n\n.namespace {\n\topacity: .7;\n}\n\n.token.property,\n.token.tag,\n.token.boolean,\n.token.number,\n.token.constant,\n.token.symbol,\n.token.deleted {\n\tcolor: #905;\n}\n\n.token.selector,\n.token.attr-name,\n.token.string,\n.token.char,\n.token.builtin,\n.token.inserted {\n\tcolor: #690;\n}\n\n.token.operator,\n.token.entity,\n.token.url,\n.language-css .token.string,\n.style .token.string {\n\tcolor: #a67f59;\n\tbackground: hsla(0, 0%, 100%, .5);\n}\n\n.token.atrule,\n.token.attr-value,\n.token.keyword {\n\tcolor: #07a;\n}\n\n.token.function {\n\tcolor: #DD4A68;\n}\n\n.token.regex,\n.token.important,\n.token.variable {\n\tcolor: #e90;\n}\n\n.token.important,\n.token.bold {\n\tfont-weight: bold;\n}\n.token.italic {\n\tfont-style: italic;\n}\n\n.token.entity {\n\tcursor: help;\n}\n";
 
-  constructor() {
-    super();
+const Mutating = (superclass) => {
+  return class extends superclass {
 
-    const options = {childList: true};
-    let observer = new MutationObserver( (mutations) => {
-      observer.disconnect();
-      this.formatCode();
+    static get observedAttributes() {
+      return ['textContent'];
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+      console.warn(name, oldValue, newValue);
+    }
+
+    constructor() {
+      super();
+
+      // set up mutation observer
+      const options = {childList: true, characterData: true, subtree: true};
+      const observer = new MutationObserver( (mutations) => {
+        observer.disconnect();
+        this.renderIfPossible();
+        observer.observe(this, options);
+      });
+
+      this.renderIfPossible();
+
+      // ...and listen for changes afterwards
       observer.observe(this, options);
-    });
-    observer.observe(this, options);
-    this.formatCode();
-  }
-
-  formatCode() {
-
-    // check if we have content to render
-    let content = this.textContent;
-    if (!content) { return; }
-
-    // check if language can be highlighted
-    this.languageName = this.getAttribute('language');
-    const language = prism.languages[this.languageName];
-    if (language == undefined) {
-      console.warn(`Distill does not support highlighting your code block in "${this.languageName}".`);
-      return;
     }
 
-    this.innerHTML = "";
-    const c = document.createElement("code");
-    if (this.hasAttribute("block")) {
-      // Let's normalize the tab indents
-      content = content.replace(/\n/, "");
-      const tabs = content.match(/\s*/);
-      content = content.replace(new RegExp("\n" + tabs, "g"), "\n");
-      content = content.trim();
-      const p = document.createElement("pre");
-      p.appendChild(c);
-      this.appendChild(p);
-    } else {
-      this.appendChild(c);
+    connectedCallback() {
+      this.renderIfPossible();
     }
 
-    c.setAttribute("class", "language-" + this.languageName);
-    c.innerHTML = prism.highlight(content, language);
-  }
-}
+    // potential TODO: check if this is enough for all our usecases
+    // maybe provide a custom function to tell if we have enough information to render
+    renderIfPossible() {
+      if (this.textContent && this.shadowRoot) { this.renderContent(); }
+    };
 
-customElements.define("d-code", Code);
+    renderContent() {
+      console.error(`Your class ${this.constructor.name} must provide a custom renderContent() method!` );
+    }
 
-const css = `
+  } // end class
+}; // end mixin function
+
+const templateString = `
+<style>
+
 code {
   white-space: nowrap;
   background: rgba(0, 0, 0, 0.04);
@@ -6524,133 +6472,57 @@ pre code {
   padding: 0 0 0 24px;
 }
 
+${css}
+</style>
 
-code[class*="language-"],
-pre[class*="language-"] {
-  text-shadow: 0 1px white;
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  text-align: left;
-  white-space: pre;
-  word-spacing: normal;
-  word-break: normal;
-  word-wrap: normal;
-  line-height: 1.5;
-
-  -moz-tab-size: 4;
-  -o-tab-size: 4;
-  tab-size: 4;
-
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
-}
-
-pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
-code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
-  text-shadow: none;
-  background: #b3d4fc;
-}
-
-pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
-code[class*="language-"]::selection, code[class*="language-"] ::selection {
-  text-shadow: none;
-  background: #b3d4fc;
-}
-
-@media print {
-  code[class*="language-"],
-  pre[class*="language-"] {
-  text-shadow: none;
-  }
-}
-
-/* Code blocks */
-pre[class*="language-"] {
-  overflow: auto;
-}
-
-:not(pre) > code[class*="language-"],
-pre[class*="language-"] {
-}
-
-/* Inline code */
-:not(pre) > code[class*="language-"] {
-  white-space: normal;
-}
-
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-  color: slategray;
-}
-
-.token.punctuation {
-  color: #999;
-}
-
-.namespace {
-  opacity: .7;
-}
-
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number,
-.token.constant,
-.token.symbol,
-.token.deleted {
-  color: #905;
-}
-
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-  color: #690;
-}
-
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-  color: #a67f59;
-  background: hsla(0, 0%, 100%, .5);
-}
-
-.token.atrule,
-.token.attr-value,
-.token.keyword {
-  color: #07a;
-}
-
-.token.function {
-  color: #DD4A68;
-}
-
-.token.regex,
-.token.important,
-.token.variable {
-  color: #e90;
-}
-
-.token.important,
-.token.bold {
-  font-weight: bold;
-}
-.token.italic {
-  font-style: italic;
-}
-
-.token.entity {
-  cursor: help;
-}
+<code id="code-container"></code>
 
 `;
+
+const Templated = Template("d-code", templateString);
+
+class Code extends Mutating(Templated(HTMLElement)) {
+
+  renderContent() {
+
+    // check if language can be highlighted
+    this.languageName = this.getAttribute('language');
+    if (!this.languageName) {
+      console.warn(`You need to provide a language attribute to your <d-code> block to let us know how to highlight your code; e.g.:\n <d-code language="python">zeros = np.zeros(shape)</d-code>.`);
+      return;
+    }
+    const language = prism.languages[this.languageName];
+    if (language == undefined) {
+      console.warn(`Distill does not yet support highlighting your code block in "${this.languageName}".`);
+      return;
+    }
+
+    let content = this.textContent;
+    const codeTag = this.shadowRoot.querySelector("#code-container");
+
+    if (this.hasAttribute("block")) {
+      // normalize the tab indents
+      content = content.replace(/\n/, "");
+      const tabs = content.match(/\s*/);
+      content = content.replace(new RegExp("\n" + tabs, "g"), "\n");
+      content = content.trim();
+      // wrap code block in pre tag if needed
+      if (codeTag.parentNode instanceof ShadowRoot) {
+        const preTag = document.createElement("pre");
+        this.shadowRoot.removeChild(codeTag);
+        preTag.appendChild(codeTag);
+        this.shadowRoot.appendChild(preTag);
+      }
+
+    }
+
+    codeTag.className = `language-${this.languageName}`;
+    codeTag.innerHTML = prism.highlight(content, language);
+  }
+
+}
+
+customElements.define("d-code", Code);
 
 /**
  * This is the ParseError class, which is the main error thrown by KaTeX
@@ -8572,11 +8444,6 @@ var sigmas$1 = {
     axisHeight: [0.250, 0.250, 0.250]  // sigma22
 };
 
-// These font metrics are extracted from TeX by using
-// \font\a=cmex10
-// \showthe\fontdimenX\a
-// where X is the corresponding variable number. These correspond to the font
-// parameters of the extension fonts (family 3). See the TeXbook, page 441.
 var xi8 = 0.04;
 var xi9 = 0.111;
 var xi10 = 0.166;
@@ -8784,6 +8651,14 @@ var fontMetrics$1 = {
     sigmas: sigmas$1,
     getCharacterMetrics: getCharacterMetrics
 };
+
+/**
+ * This file contains information and classes for the various kinds of styles
+ * used in TeX. It provides a generic `Style` class, which holds information
+ * about a specific style. It then provides instances of all the different kinds
+ * of styles possible, and provides functions to move between them and get
+ * information about them.
+ */
 
 var sigmas = fontMetrics$1.sigmas;
 
@@ -9034,6 +8909,15 @@ var utils$4 = {
     clearNode: clearNode
 };
 
+/**
+ * These objects store the data about the DOM nodes we create, as well as some
+ * extra data. They can then be transformed into real DOM nodes with the
+ * `toNode` function or HTML markup using `toMarkup`. They are useful for both
+ * storing extra properties on the nodes, as well as providing a way to easily
+ * work with the DOM.
+ *
+ * Similar functions for working with MathML nodes exist in mathMLTree.js.
+ */
 var unicodeRegexes$2 = unicodeRegexes;
 var utils$3 = utils$4;
 
@@ -10037,6 +9921,12 @@ defineSymbol(text, main, textord, "\u201c", "“");
 defineSymbol(text, main, textord, "\u201d", "”");
 });
 
+/* eslint no-console:0 */
+/**
+ * This module contains general functions that can be used for building
+ * different kinds of domTree nodes in a consistent manner.
+ */
+
 var domTree$1 = domTree$2;
 var fontMetrics$3 = fontMetrics$1;
 var symbols = symbols$1;
@@ -10511,6 +10401,28 @@ var buildCommon$2 = {
     sizingMultiplier: sizingMultiplier,
     spacingFunctions: spacingFunctions
 };
+
+/**
+ * This file deals with creating delimiters of various sizes. The TeXbook
+ * discusses these routines on page 441-442, in the "Another subroutine sets box
+ * x to a specified variable delimiter" paragraph.
+ *
+ * There are three main routines here. `makeSmallDelim` makes a delimiter in the
+ * normal font, but in either text, script, or scriptscript style.
+ * `makeLargeDelim` makes a delimiter in textstyle, but in one of the Size1,
+ * Size2, Size3, or Size4 fonts. `makeStackedDelim` makes a delimiter out of
+ * smaller pieces that are stacked on top of one another.
+ *
+ * The functions take a parameter `center`, which determines if the delimiter
+ * should be centered around the axis.
+ *
+ * Then, there are three exposed functions. `sizedDelim` makes a delimiter in
+ * one of the given sizes. This is used for things like `\bigl`.
+ * `customSizedDelim` makes a delimiter with a given total height+depth. It is
+ * called in places like `\sqrt`. `leftRightDelim` makes an appropriate
+ * delimiter which surrounds an expression of a given height an depth. It is
+ * used in `\left` and `\right`.
+ */
 
 var ParseError$3 = ParseError_1;
 var Style$4 = Style_1;
@@ -11040,6 +10952,14 @@ var delimiter$1 = {
     customSizedDelim: makeCustomSizedDelim,
     leftRightDelim: makeLeftRightDelim
 };
+
+/* eslint no-console:0 */
+/**
+ * This file does the main work of building a domTree structure from a parse
+ * tree. The entry point is the `buildHTML` function, which takes a parse tree.
+ * Then, the buildExpression, buildGroup, and various groupTypes functions are
+ * called, to produce a final HTML tree.
+ */
 
 var ParseError$2 = ParseError_1;
 var Style$1 = Style_1;
@@ -12603,6 +12523,16 @@ var buildHTML$1 = function(tree, options) {
 
 var buildHTML_1 = buildHTML$1;
 
+/**
+ * These objects store data about MathML nodes. This is the MathML equivalent
+ * of the types in domTree.js. Since MathML handles its own rendering, and
+ * since we're mainly using MathML to improve accessibility, we don't manage
+ * any of the styling state that the plain DOM nodes do.
+ *
+ * The `toNode` and `toMarkup` functions work simlarly to how they do in
+ * domTree.js, creating namespaced DOM nodes and HTML text markup respectively.
+ */
+
 var utils$8 = utils$4;
 
 /**
@@ -12695,6 +12625,12 @@ var mathMLTree$1 = {
     MathNode: MathNode,
     TextNode: TextNode
 };
+
+/**
+ * This file converts a parse tree into a cooresponding MathML tree. The main
+ * entry point is the `buildMathML` function, which takes a parse tree from the
+ * parser.
+ */
 
 var buildCommon$5 = buildCommon$2;
 var fontMetrics$5 = fontMetrics$1;
@@ -14495,6 +14431,19 @@ function matchAt$1(re, str, pos) {
 
 var matchAt_1 = matchAt$1;
 
+/**
+ * The Lexer class handles tokenizing the input in various ways. Since our
+ * parser expects us to be able to backtrack, the lexer allows lexing from any
+ * given starting point.
+ *
+ * Its main exposed function is the `lex` function, which takes a position to
+ * lex from and a type of token to lex. It defers to the appropriate `_innerLex`
+ * function.
+ *
+ * The various `_innerLex` functions perform the actual lexing of different
+ * kinds.
+ */
+
 var matchAt = matchAt_1;
 
 var ParseError$6 = ParseError_1;
@@ -14592,6 +14541,11 @@ Lexer$1.prototype.lex = function() {
 
 var Lexer_1 = Lexer$1;
 
+/**
+ * This file contains the “gullet” where macros are expanded
+ * until only non-macro tokens remain.
+ */
+
 var Lexer = Lexer_1;
 
 function MacroExpander$1(input, macros) {
@@ -14658,6 +14612,7 @@ MacroExpander$1.prototype.unget = function(token) {
 
 var MacroExpander_1 = MacroExpander$1;
 
+/* eslint no-constant-condition:0 */
 var functions = functions$1;
 var environments = environments$1;
 var MacroExpander = MacroExpander_1;
@@ -15507,6 +15462,11 @@ Parser$1.prototype.ParseNode = ParseNode;
 
 var Parser_1 = Parser$1;
 
+/**
+ * Provides a single function for parsing an expression using a Parser
+ * TODO(emily): Remove this
+ */
+
 var Parser = Parser_1;
 
 /**
@@ -15522,6 +15482,15 @@ var parseTree$1 = function(toParse, settings) {
 };
 
 var parseTree_1 = parseTree$1;
+
+/* eslint no-console:0 */
+/**
+ * This is the main entry point for KaTeX. Here, we expose functions for
+ * rendering expressions either to DOM nodes or to markup strings.
+ *
+ * We also expose the ParseError class to check if errors thrown from KaTeX are
+ * errors in the expression, or errors in javascript handling.
+ */
 
 var ParseError = ParseError_1;
 var Settings = Settings_1;
@@ -15589,44 +15558,197 @@ var katex = {
     ParseError: ParseError
 };
 
-const html = `
+const templateString$1 = `
 <style>
-dt-math[block] {
+
+d-math[block] {
   display: block;
 }
+
 </style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+
+<span id="katex-container"></span>
 `;
 
-class Math$1 extends HTMLElement {
+const TemplatedMath = Template("d-math", templateString$1);
 
-  constructor() {
-    super();
+class Math$1 extends Mutating(TemplatedMath(HTMLElement)) {
 
-    const options = {childList: true};
-    let observer = new MutationObserver( (mutations) => {
-      observer.disconnect();
-      this.renderComponent();
-      observer.observe(this, options);
-    });
-    // try a first render
-    this.renderComponent();
-    // listen for changes
-    observer.observe(this, options);
-  }
-
-  renderComponent() {
-    const displayMode = this.hasAttribute("block");
-    const options = { displayMode: displayMode };
-    const renderedMath = katex.renderToString(this.textContent, options);
-    this.innerHTML = html + renderedMath;
+  renderContent() {
+    const options = { displayMode: this.hasAttribute("block") };
+    const container = this.shadowRoot.querySelector("#katex-container");
+    katex.render(this.textContent, container, options);
   }
 }
 
 customElements.define("d-math", Math$1);
 
-let codeStyle = document.createElement("style");
-codeStyle.textContent = css;
-document.querySelector("head").appendChild(codeStyle);
+function make_hover_css(pos) {
+  var pretty = window.innerWidth > 600;
+  var padding = pretty? 18 : 12;
+  var outer_padding = pretty ? 18 : 0;
+  var bbox = document.querySelector("body").getBoundingClientRect();
+  var left = pos[0] - bbox.left, top = pos[1] - bbox.top;
+  var width = Math.min(window.innerWidth-2*outer_padding, 648);
+  left = Math.min(left, window.innerWidth-width-outer_padding);
+  width = width - 2*padding;
+  return (`position: absolute;
+     background-color: #FFF;
+     opacity: 0.95;
+     max-width: ${width}px;
+     top: ${top}px;
+     left: ${left}px;
+     border: 1px solid rgba(0, 0, 0, 0.25);
+     padding: ${padding}px;
+     border-radius: ${pretty? 3 : 0}px;
+     box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);
+     z-index: ${1e6};`);
+}
+
+
+class HoverBox {
+
+  constructor(div) {
+    this.div = div;
+    this.visible = false;
+    this.bindDivEvents(div);
+    HoverBox.box_map[div.id] = this;
+  }
+
+}
+
+HoverBox.box_map = {};
+
+HoverBox.get_box = function get_box(div_id) {
+  if (div_id in HoverBox.box_map) {
+    return HoverBox.box_map[div_id];
+  } else {
+    return new HoverBox(div_id);
+  }
+};
+
+HoverBox.prototype.show = function show(pos){
+  this.visible = true;
+  this.div.setAttribute("style", make_hover_css(pos) );
+  for (var box_id in HoverBox.box_map) {
+    var box = HoverBox.box_map[box_id];
+    if (box != this) box.hide();
+  }
+};
+
+HoverBox.prototype.showAtNode = function showAtNode(node){
+    var bbox = node.getBoundingClientRect();
+    this.show([bbox.right, bbox.bottom]);
+};
+
+HoverBox.prototype.hide = function hide(){
+  this.visible = false;
+  if (this.div) this.div.setAttribute("style", "display:none");
+  if (this.timeout) clearTimeout(this.timeout);
+};
+
+HoverBox.prototype.stopTimeout = function stopTimeout() {
+  if (this.timeout) clearTimeout(this.timeout);
+};
+
+HoverBox.prototype.extendTimeout = function extendTimeout(T) {
+  //console.log("extend", T)
+  var this_ = this;
+  this.stopTimeout();
+  this.timeout = setTimeout(function(){this_.hide();}.bind(this), T);
+};
+
+// Bind events to a link to open this box
+HoverBox.prototype.bind = function bind(node) {
+  if (typeof node == "string"){
+    node = document.querySelector(node);
+  }
+
+  node.addEventListener("mouseover", function(){
+    if (!this.visible) this.showAtNode(node);
+    this.stopTimeout();
+  }.bind(this));
+
+  node.addEventListener("mouseout", function(){this.extendTimeout(250);}.bind(this));
+
+  node.addEventListener("touchstart", function(e) {
+    if (this.visible) {
+      this.hide();
+    } else {
+      this.showAtNode(node);
+    }
+    // Don't trigger body touchstart event when touching link
+    e.stopPropagation();
+  }.bind(this));
+};
+
+HoverBox.prototype.bindDivEvents = function bindDivEvents(node){
+  // For mice, same behavior as hovering on links
+  this.div.addEventListener("mouseover", function(){
+    if (!this.visible) this.showAtNode(node);
+    this.stopTimeout();
+  }.bind(this));
+  this.div.addEventListener("mouseout", function(){this.extendTimeout(250);}.bind(this));
+
+  // Don't trigger body touchstart event when touching within box
+  this.div.addEventListener("touchstart", function(e){e.stopPropagation();});
+  // Close box when touching outside box
+  document.body.addEventListener("touchstart", function(){this.hide();}.bind(this));
+};
+
+const templateString$2 = `
+<style>
+
+d-math[block] {
+  display: block;
+}
+
+</style>
+
+<div style="display: none;" class="dt-hover-box">
+  <slot></slot>
+</div>
+
+<sup><span id="fn-" data-hover-ref="" style="cursor:pointer"></span></sup>
+
+`;
+
+const TemplatedFootnote = Template("d-math", templateString$2);
+
+class Footnote extends TemplatedFootnote(HTMLElement) {
+
+  constructor() {
+    super();
+
+    Footnote.currentFootnoteId += 1;
+    const IdString = Footnote.currentFootnoteId.toString();
+    // set up hidden hover box
+    const div = this.root.querySelector('.dt-hover-box');
+    div.id = 'dt-fn-hover-box-' + IdString;
+
+    // set up visible footnote marker
+    const span = this.root.querySelector('#fn-');
+    span.setAttribute('id', 'fn-' + IdString);
+    span.setAttribute('data-hover-ref', div.id);
+    span.textContent = IdString;
+
+    HoverBox.get_box(div).bind(span);
+  }
+
+}
+
+Footnote.currentFootnoteId = 0;
+
+customElements.define("d-footnote", Footnote);
+
+// load `webcomponent` polyfills asynchronously
+// import "webcomponents.js/webcomponents-loader.js";
+
+// let codeStyle = document.createElement("style");
+// codeStyle.textContent = codeCss;
+// document.querySelector("head").appendChild(codeStyle);
 
 document.addEventListener("DOMContentLoaded", function() {
   // Render byline with authors list.

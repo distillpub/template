@@ -157,9 +157,9 @@ export default class Byline extends T(HTMLElement) {
     return "d-byline";
   }
   render(data) {
+    console.warn("byline!");
     this.innerHTML = mustache.render(mustacheTemplate, data);
   }
 }
 
 customElements.define(Byline.is, Byline);
-

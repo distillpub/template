@@ -2,7 +2,8 @@
 <meta charset="utf8">
 <script src="../dist/components.js" async></script>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+
 
 <d-front-matter>
   <script type="text/yml">
@@ -25,8 +26,11 @@
   <p>This is the first paragraph of the article. Test a long&thinsp;&mdash;&thinsp;dash -- here it is.</p>
   <p>Test for owner's possessive. Test for "quoting a passage." And another sentence. Or two.</p>
   <p>Here's a test of an inline equation <d-math>c = a^2 + b^2</d-math>. And then there's a block equation:</p>
-  <d-math block>c = \pm\sqrt{a^2 + b^2}</d-math>
-  <p>We can also cite <d-cite key="gregor2015draw,mercier2011humans"></d-cite> external publications. <d-cite key="dong2014image,dumoulin2016guide,mordvintsev2015inceptionism"></d-cite> We should also be testing footnotes<d-fn>This will become a hoverable footnote.</d-fn>.</p>
+  <d-math block>
+      c = \pm \sqrt{ \sum_{i=0}^{n}{a^{222} + b^2}}
+  </d-math>
+  <p>We can also cite <d-cite key="gregor2015draw,mercier2011humans"></d-cite> external publications. <d-cite key="dong2014image,dumoulin2016guide,mordvintsev2015inceptionism"></d-cite></p>
+  <p>We should also be testing footnotes<d-footnote>This will become a hoverable footnote.</d-footnote>.</p>
   <table>
     <thead>
       <tr><th>First</th><th>Second</th><th>Third</th></tr>
@@ -37,6 +41,8 @@
       <tr><td>234</td><td>54</td><td>23</td></tr>
     </tbody>
   </table>
+  <h3>Displaying code snippets</h3>
+  <p>Some inline javascript:<d-code language="javascript">var x = 25;</d-code></p>
   <p>Here's a javascript code block.</p>
   <d-code block language="javascript">
       var x = 25;
@@ -45,14 +51,13 @@
       }
   </d-code>
   <p>We also support python.</p>
-  <d-code>hi<div>hello</div></d-code>
   <d-code block language="python">
     # Python 3: Fibonacci series up to n
-      def fib(n):
-        a, b = 0, 1
-          while a < n:
-            print(a, end=' ')
-            a, b = b, a+b
+    def fib(n):
+      a, b = 0, 1
+        while a < n:
+          print(a, end=' ')
+          a, b = b, a+b
   </d-code>
 </d-article>
 

@@ -1,35 +1,29 @@
 import katex from "katex";
+import { Mutating } from "../mixins/mutating.js"
+import { Template } from "../mixins/template.js"
 
-export const html = `
+const templateString = `
 <style>
-dt-math[block] {
+
+d-math[block] {
   display: block;
 }
+
 </style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+
+<span id="katex-container"></span>
 `;
 
-export class Math extends HTMLElement {
+const TemplatedMath = Template("d-math", templateString);
 
-  constructor() {
-    super();
+export class Math extends Mutating(TemplatedMath(HTMLElement)) {
 
-    const options = {childList: true};
-    let observer = new MutationObserver( (mutations) => {
-      observer.disconnect();
-      this.renderComponent();
-      observer.observe(this, options);
-    })
-    // try a first render
-    this.renderComponent();
-    // listen for changes
-    observer.observe(this, options);
-  }
-
-  renderComponent() {
-    const displayMode = this.hasAttribute("block");
-    const options = { displayMode: displayMode };
-    const renderedMath = katex.renderToString(this.textContent, options);
-    this.innerHTML = html + renderedMath
+  renderContent() {
+    const options = { displayMode: this.hasAttribute("block") };
+    const container = this.shadowRoot.querySelector("#katex-container")
+    katex.render(this.textContent, container, options);
   }
 }
 

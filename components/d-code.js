@@ -1,59 +1,16 @@
 import Prism from "prismjs";
 import "prismjs/components/prism-python";
 import "prismjs/components/prism-clike";
+import css from "prismjs/themes/prism.css";
 
-export class Code extends HTMLElement {
+import { Template } from "../mixins/template.js"
+import { Mutating } from "../mixins/mutating.js"
 
-  constructor() {
-    super();
 
-    const options = {childList: true};
-    let observer = new MutationObserver( (mutations) => {
-      observer.disconnect();
-      this.formatCode();
-      observer.observe(this, options);
-    })
-    observer.observe(this, options);
-    this.formatCode();
-  }
 
-  formatCode() {
+const templateString = `
+<style>
 
-    // check if we have content to render
-    let content = this.textContent;
-    if (!content) { return; }
-
-    // check if language can be highlighted
-    this.languageName = this.getAttribute('language');
-    const language = Prism.languages[this.languageName];
-    if (language == undefined) {
-      console.warn(`Distill does not support highlighting your code block in "${this.languageName}".`);
-      return;
-    }
-
-    this.innerHTML = "";
-    const c = document.createElement("code");
-    if (this.hasAttribute("block")) {
-      // Let's normalize the tab indents
-      content = content.replace(/\n/, "");
-      const tabs = content.match(/\s*/);
-      content = content.replace(new RegExp("\n" + tabs, "g"), "\n");
-      content = content.trim();
-      const p = document.createElement("pre");
-      p.appendChild(c);
-      this.appendChild(p);
-    } else {
-      this.appendChild(c);
-    }
-
-    c.setAttribute("class", "language-" + this.languageName);
-    c.innerHTML = Prism.highlight(content, language);
-  }
-}
-
-customElements.define("d-code", Code);
-
-export const css = `
 code {
   white-space: nowrap;
   background: rgba(0, 0, 0, 0.04);
@@ -70,130 +27,54 @@ pre code {
   padding: 0 0 0 24px;
 }
 
+${css}
+</style>
 
-code[class*="language-"],
-pre[class*="language-"] {
-  text-shadow: 0 1px white;
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  text-align: left;
-  white-space: pre;
-  word-spacing: normal;
-  word-break: normal;
-  word-wrap: normal;
-  line-height: 1.5;
-
-  -moz-tab-size: 4;
-  -o-tab-size: 4;
-  tab-size: 4;
-
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
-}
-
-pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
-code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
-  text-shadow: none;
-  background: #b3d4fc;
-}
-
-pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
-code[class*="language-"]::selection, code[class*="language-"] ::selection {
-  text-shadow: none;
-  background: #b3d4fc;
-}
-
-@media print {
-  code[class*="language-"],
-  pre[class*="language-"] {
-  text-shadow: none;
-  }
-}
-
-/* Code blocks */
-pre[class*="language-"] {
-  overflow: auto;
-}
-
-:not(pre) > code[class*="language-"],
-pre[class*="language-"] {
-}
-
-/* Inline code */
-:not(pre) > code[class*="language-"] {
-  white-space: normal;
-}
-
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-  color: slategray;
-}
-
-.token.punctuation {
-  color: #999;
-}
-
-.namespace {
-  opacity: .7;
-}
-
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number,
-.token.constant,
-.token.symbol,
-.token.deleted {
-  color: #905;
-}
-
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-  color: #690;
-}
-
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-  color: #a67f59;
-  background: hsla(0, 0%, 100%, .5);
-}
-
-.token.atrule,
-.token.attr-value,
-.token.keyword {
-  color: #07a;
-}
-
-.token.function {
-  color: #DD4A68;
-}
-
-.token.regex,
-.token.important,
-.token.variable {
-  color: #e90;
-}
-
-.token.important,
-.token.bold {
-  font-weight: bold;
-}
-.token.italic {
-  font-style: italic;
-}
-
-.token.entity {
-  cursor: help;
-}
+<code id="code-container"></code>
 
 `
+
+const Templated = Template("d-code", templateString);
+
+export class Code extends Mutating(Templated(HTMLElement)) {
+
+  renderContent() {
+
+    // check if language can be highlighted
+    this.languageName = this.getAttribute('language');
+    if (!this.languageName) {
+      console.warn(`You need to provide a language attribute to your <d-code> block to let us know how to highlight your code; e.g.:\n <d-code language="python">zeros = np.zeros(shape)</d-code>.`);
+      return;
+    }
+    const language = Prism.languages[this.languageName];
+    if (language == undefined) {
+      console.warn(`Distill does not yet support highlighting your code block in "${this.languageName}".`);
+      return;
+    }
+
+    let content = this.textContent;
+    const codeTag = this.shadowRoot.querySelector("#code-container");
+
+    if (this.hasAttribute("block")) {
+      // normalize the tab indents
+      content = content.replace(/\n/, "");
+      const tabs = content.match(/\s*/);
+      content = content.replace(new RegExp("\n" + tabs, "g"), "\n");
+      content = content.trim();
+      // wrap code block in pre tag if needed
+      if (codeTag.parentNode instanceof ShadowRoot) {
+        const preTag = document.createElement("pre");
+        this.shadowRoot.removeChild(codeTag)
+        preTag.appendChild(codeTag);
+        this.shadowRoot.appendChild(preTag);
+      }
+
+    }
+
+    codeTag.className = `language-${this.languageName}`;
+    codeTag.innerHTML = Prism.highlight(content, language);
+  }
+
+}
+
+customElements.define("d-code", Code);
