@@ -21,6 +21,25 @@ figure {
   margin: 0;
 }
 
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+table th {
+	text-align: left;
+}
+
+table thead {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+table thead th {
+  padding-bottom: 0.5em;
+}
+table tbody :first-child td {
+  padding-top: 0.5em;
+}
+
 /*
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,

@@ -4,6 +4,6 @@ import article from "./styles-article.css";
 import print from "./styles-print.css";
 
 let s = document.createElement("style");
-s.textContent =  base + layout + print;
+s.textContent =  base + layout + print + article;
 document.querySelector("head").appendChild(s);
 export default s;

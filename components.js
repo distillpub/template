@@ -15,6 +15,9 @@ import * as references from "./components/d-references";
 import * as code from "./components/d-code";
 import * as math from "./components/d-math";
 import * as footnote from "./components/d-footnote";
+import * as footnoteList from "./components/d-footnote-list";
+import * as acknowledgements from "./components/d-acknowledgements";
+import * as cite from "./components/d-cite";
 
 // let codeStyle = document.createElement("style");
 // codeStyle.textContent = codeCss;

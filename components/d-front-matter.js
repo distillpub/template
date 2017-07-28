@@ -1,4 +1,5 @@
 import ymlParse from "js-yaml";
+import expandData from "../transforms/expand-data"
 
 export default class FrontMatter extends HTMLElement {
   static get is() { return "d-front-matter"; }
@@ -7,15 +8,16 @@ export default class FrontMatter extends HTMLElement {
     this.data = {};
   }
   connectedCallback() {
-    let el = this.querySelector("script");
+    const el = this.querySelector("script");
     if (el) {
-      let text = el.textContent;
-       this.parse(ymlParse.safeLoad(text));
+      const text = el.textContent;
+      this.parse(ymlParse.safeLoad(text));
     }
   }
   parse(localData) {
     this.data.title = localData.title ? localData.title : "Untitled";
     this.data.description = localData.description ? localData.description : "No description.";
+    this.data.publishedDate =  localData.published ? new Date(localData.published) : false;
 
     this.data.authors = localData.authors ? localData.authors : [];
 
@@ -31,7 +33,7 @@ export default class FrontMatter extends HTMLElement {
       a.name = name;
       a.firstName = names.slice(0, names.length - 1).join(" ");
       a.lastName = names[names.length -1];
-      if(localData.affiliations[i]) {
+      if (localData.affiliations[i]) {
         let affiliation = Object.keys(localData.affiliations[i])[0];
         if ((typeof localData.affiliations[i]) === "string") {
           affiliation = localData.affiliations[i]
@@ -42,6 +44,8 @@ export default class FrontMatter extends HTMLElement {
       }
       return a;
     });
+
+    expandData(null, this.data);
   }
 }
 

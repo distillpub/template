@@ -21,16 +21,18 @@ const T = Template("d-article", `
   /* H2 */
 
   d-article h2 {
-    font-weight: 500;
+    font-weight: 400;
     font-size: 26px;
     line-height: 1.25em;
     margin-top: 36px;
     margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
   @media(min-width: 1024px) {
     d-article h2 {
-      margin-top: 48px;
-      font-size: 26px;
+      margin-top: 2em;
+      font-size: 32px;
     }
   }
   d-article h1 + h2 {
@@ -46,7 +48,7 @@ const T = Template("d-article", `
     }
     d-article h1 + h2 {
       margin-top: 12px;
-      font-size: 24px;
+      font-size: 32px;
     }
   }
 

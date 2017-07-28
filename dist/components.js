@@ -246,8 +246,6 @@ function Type$2(tag, options) {
 
 var type = Type$2;
 
-/*eslint-disable max-len*/
-
 var common$4        = common$1;
 var YAMLException$3 = exception;
 var Type$1          = type;
@@ -857,8 +855,6 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-/*eslint-disable no-bitwise*/
-
 var NodeBuffer;
 
 try {
@@ -1315,8 +1311,6 @@ var default_full = Schema$6.DEFAULT = new Schema$6({
     _function
   ]
 });
-
-/*eslint-disable max-len,no-use-before-define*/
 
 var common              = common$1;
 var YAMLException$1       = exception;
@@ -2909,8 +2903,6 @@ var loader$1 = {
 	safeLoad: safeLoad_1
 };
 
-/*eslint-disable no-use-before-define*/
-
 var common$7              = common$1;
 var YAMLException$5       = exception;
 var DEFAULT_FULL_SCHEMA$2 = default_full;
@@ -3780,6 +3772,893 @@ var yaml = jsYaml;
 
 var index = yaml;
 
+var t0 = new Date;
+var t1 = new Date;
+
+function newInterval(floori, offseti, count, field) {
+
+  function interval(date) {
+    return floori(date = new Date(+date)), date;
+  }
+
+  interval.floor = interval;
+
+  interval.ceil = function(date) {
+    return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
+  };
+
+  interval.round = function(date) {
+    var d0 = interval(date),
+        d1 = interval.ceil(date);
+    return date - d0 < d1 - date ? d0 : d1;
+  };
+
+  interval.offset = function(date, step) {
+    return offseti(date = new Date(+date), step == null ? 1 : Math.floor(step)), date;
+  };
+
+  interval.range = function(start, stop, step) {
+    var range = [];
+    start = interval.ceil(start);
+    step = step == null ? 1 : Math.floor(step);
+    if (!(start < stop) || !(step > 0)) return range; // also handles Invalid Date
+    do range.push(new Date(+start)); while (offseti(start, step), floori(start), start < stop)
+    return range;
+  };
+
+  interval.filter = function(test) {
+    return newInterval(function(date) {
+      if (date >= date) while (floori(date), !test(date)) date.setTime(date - 1);
+    }, function(date, step) {
+      if (date >= date) while (--step >= 0) while (offseti(date, 1), !test(date)) {} // eslint-disable-line no-empty
+    });
+  };
+
+  if (count) {
+    interval.count = function(start, end) {
+      t0.setTime(+start), t1.setTime(+end);
+      floori(t0), floori(t1);
+      return Math.floor(count(t0, t1));
+    };
+
+    interval.every = function(step) {
+      step = Math.floor(step);
+      return !isFinite(step) || !(step > 0) ? null
+          : !(step > 1) ? interval
+          : interval.filter(field
+              ? function(d) { return field(d) % step === 0; }
+              : function(d) { return interval.count(0, d) % step === 0; });
+    };
+  }
+
+  return interval;
+}
+
+var millisecond = newInterval(function() {
+  // noop
+}, function(date, step) {
+  date.setTime(+date + step);
+}, function(start, end) {
+  return end - start;
+});
+
+// An optimized implementation for this simple case.
+millisecond.every = function(k) {
+  k = Math.floor(k);
+  if (!isFinite(k) || !(k > 0)) return null;
+  if (!(k > 1)) return millisecond;
+  return newInterval(function(date) {
+    date.setTime(Math.floor(date / k) * k);
+  }, function(date, step) {
+    date.setTime(+date + step * k);
+  }, function(start, end) {
+    return (end - start) / k;
+  });
+};
+
+var durationSecond = 1e3;
+var durationMinute = 6e4;
+var durationHour = 36e5;
+var durationDay = 864e5;
+var durationWeek = 6048e5;
+
+var second = newInterval(function(date) {
+  date.setTime(Math.floor(date / durationSecond) * durationSecond);
+}, function(date, step) {
+  date.setTime(+date + step * durationSecond);
+}, function(start, end) {
+  return (end - start) / durationSecond;
+}, function(date) {
+  return date.getUTCSeconds();
+});
+
+var minute = newInterval(function(date) {
+  date.setTime(Math.floor(date / durationMinute) * durationMinute);
+}, function(date, step) {
+  date.setTime(+date + step * durationMinute);
+}, function(start, end) {
+  return (end - start) / durationMinute;
+}, function(date) {
+  return date.getMinutes();
+});
+
+var hour = newInterval(function(date) {
+  var offset = date.getTimezoneOffset() * durationMinute % durationHour;
+  if (offset < 0) offset += durationHour;
+  date.setTime(Math.floor((+date - offset) / durationHour) * durationHour + offset);
+}, function(date, step) {
+  date.setTime(+date + step * durationHour);
+}, function(start, end) {
+  return (end - start) / durationHour;
+}, function(date) {
+  return date.getHours();
+});
+
+var day = newInterval(function(date) {
+  date.setHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setDate(date.getDate() + step);
+}, function(start, end) {
+  return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * durationMinute) / durationDay;
+}, function(date) {
+  return date.getDate() - 1;
+});
+
+function weekday(i) {
+  return newInterval(function(date) {
+    date.setDate(date.getDate() - (date.getDay() + 7 - i) % 7);
+    date.setHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setDate(date.getDate() + step * 7);
+  }, function(start, end) {
+    return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * durationMinute) / durationWeek;
+  });
+}
+
+var sunday = weekday(0);
+var monday = weekday(1);
+var tuesday = weekday(2);
+var wednesday = weekday(3);
+var thursday = weekday(4);
+var friday = weekday(5);
+var saturday = weekday(6);
+
+var month = newInterval(function(date) {
+  date.setDate(1);
+  date.setHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setMonth(date.getMonth() + step);
+}, function(start, end) {
+  return end.getMonth() - start.getMonth() + (end.getFullYear() - start.getFullYear()) * 12;
+}, function(date) {
+  return date.getMonth();
+});
+
+var year = newInterval(function(date) {
+  date.setMonth(0, 1);
+  date.setHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setFullYear(date.getFullYear() + step);
+}, function(start, end) {
+  return end.getFullYear() - start.getFullYear();
+}, function(date) {
+  return date.getFullYear();
+});
+
+// An optimized implementation for this simple case.
+year.every = function(k) {
+  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function(date) {
+    date.setFullYear(Math.floor(date.getFullYear() / k) * k);
+    date.setMonth(0, 1);
+    date.setHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setFullYear(date.getFullYear() + step * k);
+  });
+};
+
+var utcMinute = newInterval(function(date) {
+  date.setUTCSeconds(0, 0);
+}, function(date, step) {
+  date.setTime(+date + step * durationMinute);
+}, function(start, end) {
+  return (end - start) / durationMinute;
+}, function(date) {
+  return date.getUTCMinutes();
+});
+
+var utcHour = newInterval(function(date) {
+  date.setUTCMinutes(0, 0, 0);
+}, function(date, step) {
+  date.setTime(+date + step * durationHour);
+}, function(start, end) {
+  return (end - start) / durationHour;
+}, function(date) {
+  return date.getUTCHours();
+});
+
+var utcDay = newInterval(function(date) {
+  date.setUTCHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setUTCDate(date.getUTCDate() + step);
+}, function(start, end) {
+  return (end - start) / durationDay;
+}, function(date) {
+  return date.getUTCDate() - 1;
+});
+
+function utcWeekday(i) {
+  return newInterval(function(date) {
+    date.setUTCDate(date.getUTCDate() - (date.getUTCDay() + 7 - i) % 7);
+    date.setUTCHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setUTCDate(date.getUTCDate() + step * 7);
+  }, function(start, end) {
+    return (end - start) / durationWeek;
+  });
+}
+
+var utcSunday = utcWeekday(0);
+var utcMonday = utcWeekday(1);
+var utcTuesday = utcWeekday(2);
+var utcWednesday = utcWeekday(3);
+var utcThursday = utcWeekday(4);
+var utcFriday = utcWeekday(5);
+var utcSaturday = utcWeekday(6);
+
+var utcMonth = newInterval(function(date) {
+  date.setUTCDate(1);
+  date.setUTCHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setUTCMonth(date.getUTCMonth() + step);
+}, function(start, end) {
+  return end.getUTCMonth() - start.getUTCMonth() + (end.getUTCFullYear() - start.getUTCFullYear()) * 12;
+}, function(date) {
+  return date.getUTCMonth();
+});
+
+var utcYear = newInterval(function(date) {
+  date.setUTCMonth(0, 1);
+  date.setUTCHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setUTCFullYear(date.getUTCFullYear() + step);
+}, function(start, end) {
+  return end.getUTCFullYear() - start.getUTCFullYear();
+}, function(date) {
+  return date.getUTCFullYear();
+});
+
+// An optimized implementation for this simple case.
+utcYear.every = function(k) {
+  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function(date) {
+    date.setUTCFullYear(Math.floor(date.getUTCFullYear() / k) * k);
+    date.setUTCMonth(0, 1);
+    date.setUTCHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setUTCFullYear(date.getUTCFullYear() + step * k);
+  });
+};
+
+function localDate(d) {
+  if (0 <= d.y && d.y < 100) {
+    var date = new Date(-1, d.m, d.d, d.H, d.M, d.S, d.L);
+    date.setFullYear(d.y);
+    return date;
+  }
+  return new Date(d.y, d.m, d.d, d.H, d.M, d.S, d.L);
+}
+
+function utcDate(d) {
+  if (0 <= d.y && d.y < 100) {
+    var date = new Date(Date.UTC(-1, d.m, d.d, d.H, d.M, d.S, d.L));
+    date.setUTCFullYear(d.y);
+    return date;
+  }
+  return new Date(Date.UTC(d.y, d.m, d.d, d.H, d.M, d.S, d.L));
+}
+
+function newYear(y) {
+  return {y: y, m: 0, d: 1, H: 0, M: 0, S: 0, L: 0};
+}
+
+function formatLocale(locale) {
+  var locale_dateTime = locale.dateTime,
+      locale_date = locale.date,
+      locale_time = locale.time,
+      locale_periods = locale.periods,
+      locale_weekdays = locale.days,
+      locale_shortWeekdays = locale.shortDays,
+      locale_months = locale.months,
+      locale_shortMonths = locale.shortMonths;
+
+  var periodRe = formatRe(locale_periods),
+      periodLookup = formatLookup(locale_periods),
+      weekdayRe = formatRe(locale_weekdays),
+      weekdayLookup = formatLookup(locale_weekdays),
+      shortWeekdayRe = formatRe(locale_shortWeekdays),
+      shortWeekdayLookup = formatLookup(locale_shortWeekdays),
+      monthRe = formatRe(locale_months),
+      monthLookup = formatLookup(locale_months),
+      shortMonthRe = formatRe(locale_shortMonths),
+      shortMonthLookup = formatLookup(locale_shortMonths);
+
+  var formats = {
+    "a": formatShortWeekday,
+    "A": formatWeekday,
+    "b": formatShortMonth,
+    "B": formatMonth,
+    "c": null,
+    "d": formatDayOfMonth,
+    "e": formatDayOfMonth,
+    "H": formatHour24,
+    "I": formatHour12,
+    "j": formatDayOfYear,
+    "L": formatMilliseconds,
+    "m": formatMonthNumber,
+    "M": formatMinutes,
+    "p": formatPeriod,
+    "S": formatSeconds,
+    "U": formatWeekNumberSunday,
+    "w": formatWeekdayNumber,
+    "W": formatWeekNumberMonday,
+    "x": null,
+    "X": null,
+    "y": formatYear,
+    "Y": formatFullYear,
+    "Z": formatZone,
+    "%": formatLiteralPercent
+  };
+
+  var utcFormats = {
+    "a": formatUTCShortWeekday,
+    "A": formatUTCWeekday,
+    "b": formatUTCShortMonth,
+    "B": formatUTCMonth,
+    "c": null,
+    "d": formatUTCDayOfMonth,
+    "e": formatUTCDayOfMonth,
+    "H": formatUTCHour24,
+    "I": formatUTCHour12,
+    "j": formatUTCDayOfYear,
+    "L": formatUTCMilliseconds,
+    "m": formatUTCMonthNumber,
+    "M": formatUTCMinutes,
+    "p": formatUTCPeriod,
+    "S": formatUTCSeconds,
+    "U": formatUTCWeekNumberSunday,
+    "w": formatUTCWeekdayNumber,
+    "W": formatUTCWeekNumberMonday,
+    "x": null,
+    "X": null,
+    "y": formatUTCYear,
+    "Y": formatUTCFullYear,
+    "Z": formatUTCZone,
+    "%": formatLiteralPercent
+  };
+
+  var parses = {
+    "a": parseShortWeekday,
+    "A": parseWeekday,
+    "b": parseShortMonth,
+    "B": parseMonth,
+    "c": parseLocaleDateTime,
+    "d": parseDayOfMonth,
+    "e": parseDayOfMonth,
+    "H": parseHour24,
+    "I": parseHour24,
+    "j": parseDayOfYear,
+    "L": parseMilliseconds,
+    "m": parseMonthNumber,
+    "M": parseMinutes,
+    "p": parsePeriod,
+    "S": parseSeconds,
+    "U": parseWeekNumberSunday,
+    "w": parseWeekdayNumber,
+    "W": parseWeekNumberMonday,
+    "x": parseLocaleDate,
+    "X": parseLocaleTime,
+    "y": parseYear,
+    "Y": parseFullYear,
+    "Z": parseZone,
+    "%": parseLiteralPercent
+  };
+
+  // These recursive directive definitions must be deferred.
+  formats.x = newFormat(locale_date, formats);
+  formats.X = newFormat(locale_time, formats);
+  formats.c = newFormat(locale_dateTime, formats);
+  utcFormats.x = newFormat(locale_date, utcFormats);
+  utcFormats.X = newFormat(locale_time, utcFormats);
+  utcFormats.c = newFormat(locale_dateTime, utcFormats);
+
+  function newFormat(specifier, formats) {
+    return function(date) {
+      var string = [],
+          i = -1,
+          j = 0,
+          n = specifier.length,
+          c,
+          pad,
+          format;
+
+      if (!(date instanceof Date)) date = new Date(+date);
+
+      while (++i < n) {
+        if (specifier.charCodeAt(i) === 37) {
+          string.push(specifier.slice(j, i));
+          if ((pad = pads[c = specifier.charAt(++i)]) != null) c = specifier.charAt(++i);
+          else pad = c === "e" ? " " : "0";
+          if (format = formats[c]) c = format(date, pad);
+          string.push(c);
+          j = i + 1;
+        }
+      }
+
+      string.push(specifier.slice(j, i));
+      return string.join("");
+    };
+  }
+
+  function newParse(specifier, newDate) {
+    return function(string) {
+      var d = newYear(1900),
+          i = parseSpecifier(d, specifier, string += "", 0);
+      if (i != string.length) return null;
+
+      // The am-pm flag is 0 for AM, and 1 for PM.
+      if ("p" in d) d.H = d.H % 12 + d.p * 12;
+
+      // Convert day-of-week and week-of-year to day-of-year.
+      if ("W" in d || "U" in d) {
+        if (!("w" in d)) d.w = "W" in d ? 1 : 0;
+        var day$$1 = "Z" in d ? utcDate(newYear(d.y)).getUTCDay() : newDate(newYear(d.y)).getDay();
+        d.m = 0;
+        d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day$$1 + 5) % 7 : d.w + d.U * 7 - (day$$1 + 6) % 7;
+      }
+
+      // If a time zone is specified, all fields are interpreted as UTC and then
+      // offset according to the specified time zone.
+      if ("Z" in d) {
+        d.H += d.Z / 100 | 0;
+        d.M += d.Z % 100;
+        return utcDate(d);
+      }
+
+      // Otherwise, all fields are in local time.
+      return newDate(d);
+    };
+  }
+
+  function parseSpecifier(d, specifier, string, j) {
+    var i = 0,
+        n = specifier.length,
+        m = string.length,
+        c,
+        parse;
+
+    while (i < n) {
+      if (j >= m) return -1;
+      c = specifier.charCodeAt(i++);
+      if (c === 37) {
+        c = specifier.charAt(i++);
+        parse = parses[c in pads ? specifier.charAt(i++) : c];
+        if (!parse || ((j = parse(d, string, j)) < 0)) return -1;
+      } else if (c != string.charCodeAt(j++)) {
+        return -1;
+      }
+    }
+
+    return j;
+  }
+
+  function parsePeriod(d, string, i) {
+    var n = periodRe.exec(string.slice(i));
+    return n ? (d.p = periodLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseShortWeekday(d, string, i) {
+    var n = shortWeekdayRe.exec(string.slice(i));
+    return n ? (d.w = shortWeekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseWeekday(d, string, i) {
+    var n = weekdayRe.exec(string.slice(i));
+    return n ? (d.w = weekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseShortMonth(d, string, i) {
+    var n = shortMonthRe.exec(string.slice(i));
+    return n ? (d.m = shortMonthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseMonth(d, string, i) {
+    var n = monthRe.exec(string.slice(i));
+    return n ? (d.m = monthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseLocaleDateTime(d, string, i) {
+    return parseSpecifier(d, locale_dateTime, string, i);
+  }
+
+  function parseLocaleDate(d, string, i) {
+    return parseSpecifier(d, locale_date, string, i);
+  }
+
+  function parseLocaleTime(d, string, i) {
+    return parseSpecifier(d, locale_time, string, i);
+  }
+
+  function formatShortWeekday(d) {
+    return locale_shortWeekdays[d.getDay()];
+  }
+
+  function formatWeekday(d) {
+    return locale_weekdays[d.getDay()];
+  }
+
+  function formatShortMonth(d) {
+    return locale_shortMonths[d.getMonth()];
+  }
+
+  function formatMonth(d) {
+    return locale_months[d.getMonth()];
+  }
+
+  function formatPeriod(d) {
+    return locale_periods[+(d.getHours() >= 12)];
+  }
+
+  function formatUTCShortWeekday(d) {
+    return locale_shortWeekdays[d.getUTCDay()];
+  }
+
+  function formatUTCWeekday(d) {
+    return locale_weekdays[d.getUTCDay()];
+  }
+
+  function formatUTCShortMonth(d) {
+    return locale_shortMonths[d.getUTCMonth()];
+  }
+
+  function formatUTCMonth(d) {
+    return locale_months[d.getUTCMonth()];
+  }
+
+  function formatUTCPeriod(d) {
+    return locale_periods[+(d.getUTCHours() >= 12)];
+  }
+
+  return {
+    format: function(specifier) {
+      var f = newFormat(specifier += "", formats);
+      f.toString = function() { return specifier; };
+      return f;
+    },
+    parse: function(specifier) {
+      var p = newParse(specifier += "", localDate);
+      p.toString = function() { return specifier; };
+      return p;
+    },
+    utcFormat: function(specifier) {
+      var f = newFormat(specifier += "", utcFormats);
+      f.toString = function() { return specifier; };
+      return f;
+    },
+    utcParse: function(specifier) {
+      var p = newParse(specifier, utcDate);
+      p.toString = function() { return specifier; };
+      return p;
+    }
+  };
+}
+
+var pads = {"-": "", "_": " ", "0": "0"};
+var numberRe = /^\s*\d+/;
+var percentRe = /^%/;
+var requoteRe = /[\\\^\$\*\+\?\|\[\]\(\)\.\{\}]/g;
+
+function pad(value, fill, width) {
+  var sign = value < 0 ? "-" : "",
+      string = (sign ? -value : value) + "",
+      length = string.length;
+  return sign + (length < width ? new Array(width - length + 1).join(fill) + string : string);
+}
+
+function requote(s) {
+  return s.replace(requoteRe, "\\$&");
+}
+
+function formatRe(names) {
+  return new RegExp("^(?:" + names.map(requote).join("|") + ")", "i");
+}
+
+function formatLookup(names) {
+  var map = {}, i = -1, n = names.length;
+  while (++i < n) map[names[i].toLowerCase()] = i;
+  return map;
+}
+
+function parseWeekdayNumber(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 1));
+  return n ? (d.w = +n[0], i + n[0].length) : -1;
+}
+
+function parseWeekNumberSunday(d, string, i) {
+  var n = numberRe.exec(string.slice(i));
+  return n ? (d.U = +n[0], i + n[0].length) : -1;
+}
+
+function parseWeekNumberMonday(d, string, i) {
+  var n = numberRe.exec(string.slice(i));
+  return n ? (d.W = +n[0], i + n[0].length) : -1;
+}
+
+function parseFullYear(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 4));
+  return n ? (d.y = +n[0], i + n[0].length) : -1;
+}
+
+function parseYear(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.y = +n[0] + (+n[0] > 68 ? 1900 : 2000), i + n[0].length) : -1;
+}
+
+function parseZone(d, string, i) {
+  var n = /^(Z)|([+-]\d\d)(?:\:?(\d\d))?/.exec(string.slice(i, i + 6));
+  return n ? (d.Z = n[1] ? 0 : -(n[2] + (n[3] || "00")), i + n[0].length) : -1;
+}
+
+function parseMonthNumber(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.m = n[0] - 1, i + n[0].length) : -1;
+}
+
+function parseDayOfMonth(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.d = +n[0], i + n[0].length) : -1;
+}
+
+function parseDayOfYear(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 3));
+  return n ? (d.m = 0, d.d = +n[0], i + n[0].length) : -1;
+}
+
+function parseHour24(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.H = +n[0], i + n[0].length) : -1;
+}
+
+function parseMinutes(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.M = +n[0], i + n[0].length) : -1;
+}
+
+function parseSeconds(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.S = +n[0], i + n[0].length) : -1;
+}
+
+function parseMilliseconds(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 3));
+  return n ? (d.L = +n[0], i + n[0].length) : -1;
+}
+
+function parseLiteralPercent(d, string, i) {
+  var n = percentRe.exec(string.slice(i, i + 1));
+  return n ? i + n[0].length : -1;
+}
+
+function formatDayOfMonth(d, p) {
+  return pad(d.getDate(), p, 2);
+}
+
+function formatHour24(d, p) {
+  return pad(d.getHours(), p, 2);
+}
+
+function formatHour12(d, p) {
+  return pad(d.getHours() % 12 || 12, p, 2);
+}
+
+function formatDayOfYear(d, p) {
+  return pad(1 + day.count(year(d), d), p, 3);
+}
+
+function formatMilliseconds(d, p) {
+  return pad(d.getMilliseconds(), p, 3);
+}
+
+function formatMonthNumber(d, p) {
+  return pad(d.getMonth() + 1, p, 2);
+}
+
+function formatMinutes(d, p) {
+  return pad(d.getMinutes(), p, 2);
+}
+
+function formatSeconds(d, p) {
+  return pad(d.getSeconds(), p, 2);
+}
+
+function formatWeekNumberSunday(d, p) {
+  return pad(sunday.count(year(d), d), p, 2);
+}
+
+function formatWeekdayNumber(d) {
+  return d.getDay();
+}
+
+function formatWeekNumberMonday(d, p) {
+  return pad(monday.count(year(d), d), p, 2);
+}
+
+function formatYear(d, p) {
+  return pad(d.getFullYear() % 100, p, 2);
+}
+
+function formatFullYear(d, p) {
+  return pad(d.getFullYear() % 10000, p, 4);
+}
+
+function formatZone(d) {
+  var z = d.getTimezoneOffset();
+  return (z > 0 ? "-" : (z *= -1, "+"))
+      + pad(z / 60 | 0, "0", 2)
+      + pad(z % 60, "0", 2);
+}
+
+function formatUTCDayOfMonth(d, p) {
+  return pad(d.getUTCDate(), p, 2);
+}
+
+function formatUTCHour24(d, p) {
+  return pad(d.getUTCHours(), p, 2);
+}
+
+function formatUTCHour12(d, p) {
+  return pad(d.getUTCHours() % 12 || 12, p, 2);
+}
+
+function formatUTCDayOfYear(d, p) {
+  return pad(1 + utcDay.count(utcYear(d), d), p, 3);
+}
+
+function formatUTCMilliseconds(d, p) {
+  return pad(d.getUTCMilliseconds(), p, 3);
+}
+
+function formatUTCMonthNumber(d, p) {
+  return pad(d.getUTCMonth() + 1, p, 2);
+}
+
+function formatUTCMinutes(d, p) {
+  return pad(d.getUTCMinutes(), p, 2);
+}
+
+function formatUTCSeconds(d, p) {
+  return pad(d.getUTCSeconds(), p, 2);
+}
+
+function formatUTCWeekNumberSunday(d, p) {
+  return pad(utcSunday.count(utcYear(d), d), p, 2);
+}
+
+function formatUTCWeekdayNumber(d) {
+  return d.getUTCDay();
+}
+
+function formatUTCWeekNumberMonday(d, p) {
+  return pad(utcMonday.count(utcYear(d), d), p, 2);
+}
+
+function formatUTCYear(d, p) {
+  return pad(d.getUTCFullYear() % 100, p, 2);
+}
+
+function formatUTCFullYear(d, p) {
+  return pad(d.getUTCFullYear() % 10000, p, 4);
+}
+
+function formatUTCZone() {
+  return "+0000";
+}
+
+function formatLiteralPercent() {
+  return "%";
+}
+
+var locale$1;
+var timeFormat;
+var timeParse;
+var utcFormat;
+var utcParse;
+
+defaultLocale({
+  dateTime: "%x, %X",
+  date: "%-m/%-d/%Y",
+  time: "%-I:%M:%S %p",
+  periods: ["AM", "PM"],
+  days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  shortDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  shortMonths: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+});
+
+function defaultLocale(definition) {
+  locale$1 = formatLocale(definition);
+  timeFormat = locale$1.format;
+  timeParse = locale$1.parse;
+  utcFormat = locale$1.utcFormat;
+  utcParse = locale$1.utcParse;
+  return locale$1;
+}
+
+var isoSpecifier = "%Y-%m-%dT%H:%M:%S.%LZ";
+
+function formatIsoNative(date) {
+  return date.toISOString();
+}
+
+var formatIso = Date.prototype.toISOString
+    ? formatIsoNative
+    : utcFormat(isoSpecifier);
+
+function parseIsoNative(string) {
+  var date = new Date(string);
+  return isNaN(date) ? null : date;
+}
+
+var parseIso = +new Date("2000-01-01T00:00:00.000Z")
+    ? parseIsoNative
+    : utcParse(isoSpecifier);
+
+var expandData = function(dom, data) {
+
+    data.authors = data.authors || [];
+
+    // paths
+    data.url = "http://distill.pub/" + data.distillPath;
+    data.githubUrl = "https://github.com/" + data.githubPath;
+
+    // Homepage
+    //data.homepage = !post.noHomepage;
+    data.journal = data.journal || {};
+
+    // Dates
+    if (data.publishedDate){//} && data.journal) {
+      data.volume = data.publishedDate.getFullYear() - 2015;
+      data.issue = data.publishedDate.getMonth() + 1;
+    }
+
+    data.publishedDate = data.publishedDate ? data.publishedDate : new Date("Invalid");
+    data.updatedDate = data.updatedDate ? data.updatedDate : new Date("Invalid");
+
+    let RFC = timeFormat("%a, %d %b %Y %H:%M:%S %Z");
+    let months = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    let zeroPad = (n) => { return n < 10 ? "0" + n : n; };
+    data.publishedDateRFC = RFC(data.publishedDate);
+    data.publishedYear = data.publishedDate.getFullYear();
+    data.publishedMonth = months[data.publishedDate.getMonth()];
+    data.publishedDay = data.publishedDate.getDate();
+    data.publishedMonthPadded = zeroPad(data.publishedDate.getMonth() + 1);
+    data.publishedDayPadded = zeroPad(data.publishedDate.getDate());
+    data.updatedDateRFC = RFC(data.updatedDate);
+
+    if (data.authors.length  > 2) {
+      data.concatenatedAuthors = data.authors[0].lastName + ", et al.";
+    } else if (data.authors.length === 2) {
+      data.concatenatedAuthors = data.authors[0].lastName + " & " + data.authors[1].lastName;
+    } else if (data.authors.length === 1) {
+      data.concatenatedAuthors = data.authors[0].lastName;
+    }
+
+    data.bibtexAuthors = data.authors.map(function(author){
+      return author.lastName + ", " + author.firstName;
+    }).join(" and ");
+
+    data.slug = data.authors.length ? data.authors[0].lastName.toLowerCase() + data.publishedYear + data.title.split(" ")[0].toLowerCase() : "Untitled";
+
+};
+
 class FrontMatter extends HTMLElement {
   static get is() { return "d-front-matter"; }
   constructor() {
@@ -3787,15 +4666,16 @@ class FrontMatter extends HTMLElement {
     this.data = {};
   }
   connectedCallback() {
-    let el = this.querySelector("script");
+    const el = this.querySelector("script");
     if (el) {
-      let text = el.textContent;
-       this.parse(index.safeLoad(text));
+      const text = el.textContent;
+      this.parse(index.safeLoad(text));
     }
   }
   parse(localData) {
     this.data.title = localData.title ? localData.title : "Untitled";
     this.data.description = localData.description ? localData.description : "No description.";
+    this.data.publishedDate =  localData.published ? new Date(localData.published) : false;
 
     this.data.authors = localData.authors ? localData.authors : [];
 
@@ -3811,7 +4691,7 @@ class FrontMatter extends HTMLElement {
       a.name = name;
       a.firstName = names.slice(0, names.length - 1).join(" ");
       a.lastName = names[names.length -1];
-      if(localData.affiliations[i]) {
+      if (localData.affiliations[i]) {
         let affiliation = Object.keys(localData.affiliations[i])[0];
         if ((typeof localData.affiliations[i]) === "string") {
           affiliation = localData.affiliations[i];
@@ -3822,6 +4702,8 @@ class FrontMatter extends HTMLElement {
       }
       return a;
     });
+
+    expandData(null, this.data);
   }
 }
 
@@ -3838,6 +4720,8 @@ const Template = (name, templateString, useShadow = true) => {
 
   return (superclass) => {
     return class extends superclass {
+
+      static get is() { return name; }
 
       constructor() {
         super();
@@ -3923,13 +4807,15 @@ function page(selector) {
 
 const T = Template("d-title", `
 <style>
-d-title {
+
+:host {
   box-sizing: border-box;
   display: block;
   width: 100%;
   margin-bottom: 100px;
 }
-d-title h1 {
+
+::slotted(h1) {
   padding-top: 140px;
   padding-bottom: 24px;
   margin: 0;
@@ -3937,19 +4823,30 @@ d-title h1 {
   font-size: 48px;
   font-weight: 600;
 }
-${page("d-title h1")}
+
+d-byline {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+${page("::slotted(h1), ::slotted(h2)")}
+
 </style>
-`, false);
+
+<slot></slot>
+<d-byline></d-byline>
+`);
 
 class Title extends T(HTMLElement) {
+
   static get is() { return "d-title"; }
+
   connectedCallback() {
     super.connectedCallback();
-    this.byline = document.createElement("d-byline");
-    let frontMatter = document.querySelector("d-front-matter");
-    this.byline.render(frontMatter.data);
-    this.appendChild(this.byline);
+
+    // this.byline = document.createElement("d-byline");
+    // this.appendChild(this.byline);
   }
+
 }
 
 customElements.define(Title.is, Title);
@@ -4589,162 +5486,165 @@ var mustache = createCommonjsModule(function (module, exports) {
 
 const T$1 = Template("d-byline", `
 <style>
-  d-byline {
+  :host {
     box-sizing: border-box;
     font-size: 13px;
     line-height: 20px;
     display: block;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    /* border-top: 1px solid rgba(0, 0, 0, 0.1);*/
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
     color: rgba(0, 0, 0, 0.6);
     padding-top: 20px;
     padding-bottom: 20px;
   }
-  ${page("d-byline .byline")}
-  d-article.centered d-byline {
+  ${page(".byline")}
+  d-article.centered {
     text-align: center;
   }
-  d-byline a,
-  d-article d-byline a {
+  a,
+  d-article a {
     color: rgba(0, 0, 0, 0.8);
     text-decoration: none;
     border-bottom: none;
   }
-  d-article d-byline a:hover {
+  d-article a:hover {
     text-decoration: underline;
     border-bottom: none;
   }
-  d-byline .authors {
+  .authors {
     text-align: left;
   }
-  d-byline .name {
+  .name {
     font-weight: 600;
     display: inline;
     text-transform: uppercase;
   }
-  d-byline .affiliation {
+  .affiliation {
     display: inline;
   }
-  d-byline .date {
+  .date {
     display: block;
     text-align: left;
   }
-  d-byline .year, d-byline .month {
+  .year, .month {
     display: inline;
   }
-  d-byline .citation {
+  .citation {
     display: block;
     text-align: left;
   }
-  d-byline .citation div {
+  .citation div {
     display: inline;
   }
 
   @media(min-width: 768px) {
-    d-byline {
+    {
     }
   }
 
   @media(min-width: 1080px) {
-    d-byline {
+    {
       border-bottom: none;
     }
 
-    d-byline a:hover {
+    a:hover {
       color: rgba(0, 0, 0, 0.9);
     }
 
-    d-byline .authors {
+    .authors {
       display: inline-block;
     }
 
-    d-byline .author {
+    .author {
       display: inline-block;
       margin-right: 12px;
       /*padding-left: 20px;*/
       /*border-left: 1px solid #ddd;*/
     }
 
-    d-byline .affiliation {
+    .affiliation {
       display: block;
     }
 
-    d-byline .author:last-child {
+    .author:last-child {
       margin-right: 0;
     }
 
-    d-byline .name {
+    .name {
       display: block;
     }
 
-    d-byline .date {
+    .date {
       border-left: 1px solid rgba(0, 0, 0, 0.1);
       padding-left: 15px;
       margin-left: 15px;
       display: inline-block;
     }
-    d-byline .year, d-byline .month {
+    .year, .month {
       display: block;
     }
 
-    d-byline .citation {
+    .citation {
       border-left: 1px solid rgba(0, 0, 0, 0.15);
       padding-left: 15px;
       margin-left: 15px;
       display: inline-block;
     }
-    d-byline .citation div {
+    .citation div {
       display: block;
     }
   }
 </style>
-`, false);
+
+<div class='byline'></div>
+`);
 
 const mustacheTemplate = `
-<div class="byline">
-  <div class="authors">
-  {{#authors}}
-    <div class="author">
-      {{#personalURL}}
-        <a class="name" href="{{personalURL}}">{{name}}</a>
-      {{/personalURL}}
-      {{^personalURL}}
-        <div class="name">{{name}}</div>
-      {{/personalURL}}
-      {{#affiliation}}
-        {{#affiliationURL}}
-          <a class="affiliation" href="{{affiliationURL}}">{{affiliation}}</a>
-        {{/affiliationURL}}
-        {{^affiliationURL}}
-          <div class="affiliation">{{affiliation}}</div>
-        {{/affiliationURL}}
-      {{/affiliation}}
-    </div>
-    {{/authors}}
+<div class="authors">
+{{#authors}}
+  <div class="author">
+    {{#personalURL}}
+      <a class="name" href="{{personalURL}}">{{name}}</a>
+    {{/personalURL}}
+    {{^personalURL}}
+      <div class="name">{{name}}</div>
+    {{/personalURL}}
+    {{#affiliation}}
+      {{#affiliationURL}}
+        <a class="affiliation" href="{{affiliationURL}}">{{affiliation}}</a>
+      {{/affiliationURL}}
+      {{^affiliationURL}}
+        <div class="affiliation">{{affiliation}}</div>
+      {{/affiliationURL}}
+    {{/affiliation}}
   </div>
-  {{#publishedDate}}
-  <div class="date">
-    <div class="month">{{publishedMonth}}. {{publishedDay}} {{publishedYear}</div>
-    <div class="year">{{publishedYear}}</div>
-  </div>
-  {{/publishedDate}}
-  {{#citation}}
-  <a class="citation" href="#citation">
-    <div>Citation:</div>
-    <div>{{concatenatedAuthors}}, {{publishedYear}}</div>
-  </a>
-  {{/citation}}
+  {{/authors}}
 </div>
+{{#publishedDate}}
+<div class="date">
+  <div class="month">{{publishedMonth}}. {{publishedDay}}</div>
+  <div class="year">{{publishedYear}}</div>
+</div>
+{{/publishedDate}}
+{{#citation}}
+<a class="citation" href="#citation">
+  <div>Citation:</div>
+  <div>{{concatenatedAuthors}}, {{publishedYear}}</div>
+</a>
+{{/citation}}
 `;
 
 class Byline extends T$1(HTMLElement) {
-  static get is() {
-    return "d-byline";
+
+  static get is() { return "d-byline"; }
+
+  connectedCallback() {
+    const frontmatter = document.querySelector('d-front-matter');
+    const container = this.root.querySelector('.byline');
+    container.innerHTML = mustache.render(mustacheTemplate, frontmatter.data);
+    console.log(frontmatter.data);
   }
-  render(data) {
-    console.warn("byline!");
-    this.innerHTML = mustache.render(mustacheTemplate, data);
-  }
+
 }
 
 customElements.define(Byline.is, Byline);
@@ -4770,16 +5670,18 @@ const T$2 = Template("d-article", `
   /* H2 */
 
   d-article h2 {
-    font-weight: 500;
+    font-weight: 400;
     font-size: 26px;
     line-height: 1.25em;
     margin-top: 36px;
     margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
   @media(min-width: 1024px) {
     d-article h2 {
-      margin-top: 48px;
-      font-size: 26px;
+      margin-top: 2em;
+      font-size: 32px;
     }
   }
   d-article h1 + h2 {
@@ -4795,7 +5697,7 @@ const T$2 = Template("d-article", `
     }
     d-article h1 + h2 {
       margin-top: 12px;
-      font-size: 24px;
+      font-size: 32px;
     }
   }
 
@@ -4989,66 +5891,52 @@ class Toc extends T$4(HTMLElement) {
 
 customElements.define(Toc.is, Toc);
 
-var base = "html {\n  font-size: 20px;\n\tline-height: 1rem;\n\t/*font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Helvetica Neue\", sans-serif;*/\n\tfont-family: \"Libre Franklin\", \"Helvetica Neue\", sans-serif;\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\n\nbody {\n  margin: 0;\n  /*background-color: hsl(223, 9%, 25%);*/\n}\n\na {\n  color: #004276;\n}\n\nfigure {\n  margin: 0;\n}\n\n/*\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}*/\n";
+var base = "html {\n  font-size: 20px;\n\tline-height: 1rem;\n\t/*font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Helvetica Neue\", sans-serif;*/\n\tfont-family: \"Libre Franklin\", \"Helvetica Neue\", sans-serif;\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\n\nbody {\n  margin: 0;\n  /*background-color: hsl(223, 9%, 25%);*/\n}\n\na {\n  color: #004276;\n}\n\nfigure {\n  margin: 0;\n}\n\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}\n\ntable th {\n\ttext-align: left;\n}\n\ntable thead {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\n}\ntable thead th {\n  padding-bottom: 0.5em;\n}\ntable tbody :first-child td {\n  padding-top: 0.5em;\n}\n\n/*\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}*/\n";
 
-var layout = "/*\n  Column: 60px\n  Gutter: 24px\n\n  Body: 648px\n    - 8 columns\n    - 7 gutters\n  Middle: 816px\n  Page: 984px\n    - 12 columns\n    - 11 gutters\n*/\n\n.l-body,\n.l-body-outset,\n.l-page,\n.l-page-outset,\n.l-middle,\n.l-middle-outset,\nd-article > div,\nd-article > p,\nd-article > h1,\nd-article > h2,\nd-article > h3,\nd-article > h4,\nd-article > figure,\nd-article > ul,\nd-article > d-abstract,\nd-article > d-code,\nd-article > d-math,\nd-article section > div,\nd-article section > p,\nd-article section > h1,\nd-article section > h2,\nd-article section > h3,\nd-article section > h4,\nd-article section > figure,\nd-article section > ul,\nd-article section > d-abstract,\nd-article section > d-code,\nd-article section > d-math {\n  width: auto;\n  margin-left: 24px;\n  margin-right: 24px;\n  box-sizing: border-box;\n}\n\n@media(min-width: 768px) {\n  .l-body,\n  .l-body-outset,\n  .l-page,\n  .l-page-outset,\n  .l-middle,\n  .l-middle-outset,\n  d-article > div,\n  d-article > p,\n  d-article > h1,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article > d-math,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h1,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code,\n  d-article section > d-math {\n    margin-left: 72px;\n    margin-right: 72px;\n  }\n}\n\n@media(min-width: 1080px) {\n  .l-body,\n  d-article > div,\n  d-article > p,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article > d-math,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code,\n  d-article section > d-math {\n    margin-left: calc(50% - 984px / 2);\n    width: 648px;\n  }\n  .l-body-outset,\n  d-article .l-body-outset {\n    margin-left: calc(50% - 984px / 2 - 96px/2);\n    width: calc(648px + 96px);\n  }\n  .l-middle,\n  d-article .l-middle {\n    width: 816px;\n    margin-left: calc(50% - 984px / 2);\n    margin-right: auto;\n  }\n  .l-middle-outset,\n  d-article .l-middle-outset {\n    width: calc(816px + 96px);\n    margin-left: calc(50% - 984px / 2 - 48px);\n    margin-right: auto;\n  }\n  d-article > h1,\n  d-article section > h1,\n  .l-page,\n  d-article .l-page,\n  d-article.centered .l-page {\n    width: 984px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-page-outset,\n  d-article .l-page-outset,\n  d-article.centered .l-page-outset {\n    width: 1080px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-screen,\n  d-article .l-screen,\n  d-article.centered .l-screen {\n    margin-left: auto;\n    margin-right: auto;\n    width: auto;\n  }\n  .l-screen-inset,\n  d-article .l-screen-inset,\n  d-article.centered .l-screen-inset {\n    margin-left: 24px;\n    margin-right: 24px;\n    width: auto;\n  }\n  .l-gutter,\n  d-article .l-gutter {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 24px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n    width: calc((984px - 648px) / 2 - 24px);\n  }\n\n  /* Side */\n  .side.l-body,\n  d-article .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px) / 2);\n    width: calc(648px / 2 - 24px - 84px);\n  }\n  .side.l-body-outset,\n  d-article .side.l-body-outset {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px - 48px) / 2);\n    width: calc(648px / 2 - 48px + 24px);\n  }\n  .side.l-middle,\n  d-article .side.l-middle {\n    clear: both;\n    float: right;\n    width: calc(456px - 84px);\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-middle-outset,\n  d-article .side.l-middle-outset {\n    clear: both;\n    float: right;\n    width: 456px;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-page,\n  d-article .side.l-page {\n    clear: both;\n    float: right;\n    margin-left: 48px;\n    width: calc(624px - 84px);\n    margin-right: calc((100vw - 984px) / 2);\n  }\n  .side.l-page-outset,\n  d-article .side.l-page-outset {\n    clear: both;\n    float: right;\n    width: 624px;\n    margin-right: calc((100vw - 984px) / 2);\n  }\n}\n\n\n/* Rows and Columns */\n\n.row {\n  display: flex;\n}\n.column {\n  flex: 1;\n  box-sizing: border-box;\n  margin-right: 24px;\n  margin-left: 24px;\n}\n.row > .column:first-of-type {\n  margin-left: 0;\n}\n.row > .column:last-of-type {\n  margin-right: 0;\n}\n";
+var layout = "/*\n  Column: 60px\n  Gutter: 24px\n\n  Body: 648px\n    - 8 columns\n    - 7 gutters\n  Middle: 816px\n  Page: 984px\n    - 12 columns\n    - 11 gutters\n*/\n\n.l-body,\n.l-body-outset,\n.l-page,\n.l-page-outset,\n.l-middle,\n.l-middle-outset,\nd-article > div,\nd-article > p,\nd-article > h1,\nd-article > h2,\nd-article > h3,\nd-article > h4,\nd-article > figure,\nd-article > ul,\nd-article > d-abstract,\nd-article > d-code,\nd-article > d-math,\nd-article > table,\nd-article section > div,\nd-article section > p,\nd-article section > h1,\nd-article section > h2,\nd-article section > h3,\nd-article section > h4,\nd-article section > figure,\nd-article section > ul,\nd-article section > d-abstract,\nd-article section > d-code,\nd-article section > d-math,\nd-article section > table, {\n  width: auto;\n  margin-left: 24px;\n  margin-right: 24px;\n  box-sizing: border-box;\n}\n\n@media(min-width: 768px) {\n  .l-body,\n  .l-body-outset,\n  .l-page,\n  .l-page-outset,\n  .l-middle,\n  .l-middle-outset,\n  d-article > div,\n  d-article > p,\n  d-article > h1,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article > d-math,\n  d-article > d-math,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h1,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code,\n  d-article section > d-math,\n  d-article section > table {\n    margin-left: 72px;\n    margin-right: 72px;\n  }\n}\n\n@media(min-width: 1080px) {\n  .l-body,\n  d-article > div,\n  d-article > p,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article > d-math,\n  d-article > table,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code,\n  d-article section > d-math,\n  d-article section > table {\n    margin-left: calc(50% - 984px / 2);\n    width: 648px;\n  }\n  .l-body-outset,\n  d-article .l-body-outset {\n    margin-left: calc(50% - 984px / 2 - 96px/2);\n    width: calc(648px + 96px);\n  }\n  .l-middle,\n  d-article .l-middle {\n    width: 816px;\n    margin-left: calc(50% - 984px / 2);\n    margin-right: auto;\n  }\n  .l-middle-outset,\n  d-article .l-middle-outset {\n    width: calc(816px + 96px);\n    margin-left: calc(50% - 984px / 2 - 48px);\n    margin-right: auto;\n  }\n  d-article > h1,\n  d-article section > h1,\n  .l-page,\n  d-article .l-page,\n  d-article.centered .l-page {\n    width: 984px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-page-outset,\n  d-article .l-page-outset,\n  d-article.centered .l-page-outset {\n    width: 1080px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-screen,\n  d-article .l-screen,\n  d-article.centered .l-screen {\n    margin-left: auto;\n    margin-right: auto;\n    width: auto;\n  }\n  .l-screen-inset,\n  d-article .l-screen-inset,\n  d-article.centered .l-screen-inset {\n    margin-left: 24px;\n    margin-right: 24px;\n    width: auto;\n  }\n  .l-gutter,\n  d-article .l-gutter {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 24px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n    width: calc((984px - 648px) / 2 - 24px);\n  }\n\n  /* Side */\n  .side.l-body,\n  d-article .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px) / 2);\n    width: calc(648px / 2 - 24px - 84px);\n  }\n  .side.l-body-outset,\n  d-article .side.l-body-outset {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px - 48px) / 2);\n    width: calc(648px / 2 - 48px + 24px);\n  }\n  .side.l-middle,\n  d-article .side.l-middle {\n    clear: both;\n    float: right;\n    width: calc(456px - 84px);\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-middle-outset,\n  d-article .side.l-middle-outset {\n    clear: both;\n    float: right;\n    width: 456px;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-page,\n  d-article .side.l-page {\n    clear: both;\n    float: right;\n    margin-left: 48px;\n    width: calc(624px - 84px);\n    margin-right: calc((100vw - 984px) / 2);\n  }\n  .side.l-page-outset,\n  d-article .side.l-page-outset {\n    clear: both;\n    float: right;\n    width: 624px;\n    margin-right: calc((100vw - 984px) / 2);\n  }\n}\n\n\n/* Rows and Columns */\n\n.row {\n  display: flex;\n}\n.column {\n  flex: 1;\n  box-sizing: border-box;\n  margin-right: 24px;\n  margin-left: 24px;\n}\n.row > .column:first-of-type {\n  margin-left: 0;\n}\n.row > .column:last-of-type {\n  margin-right: 0;\n}\n";
+
+var article = "";
 
 var print = "\n@media print {\n  @page {\n    size: 8in 11in;\n  }\n  html {\n  }\n  p, code {\n    page-break-inside: avoid;\n  }\n  h2, h3 {\n    page-break-after: avoid;\n  }\n  d-header {\n    visibility: hidden;\n  }\n  d-footer {\n    display: none!important;\n  }\n}\n";
 
 let s = document.createElement("style");
-s.textContent =  base + layout + print;
+s.textContent =  base + layout + print + article;
 document.querySelector("head").appendChild(s);
 
 const T$5 = Template("d-appendix", `
 <style>
-  d-appendix {
-    display: block;
-    font-size: 13px;
-    line-height: 1.7em;
-    margin-bottom: 0;
-    border-top: 1px solid rgba(0,0,0,0.1);
-    color: rgba(0,0,0,0.5);
-    background: rgb(250, 250, 250);
-    padding-top: 36px;
-    padding-bottom: 48px;
-  }
-  ${page("d-appendix p, d-appendix h3, d-appendix pre")}
-  d-appendix h3 {
-    font-size: 15px;
-    font-weight: 500;
-    margin-top: 20px;
-    margin-bottom: 0;
-    color: rgba(0,0,0,0.65);
-    line-height: 1em;
-  }
-  d-appendix a {
-    color: rgba(0, 0, 0, 0.6);
-  }
+
+:host {
+  display: block;
+  font-size: 13px;
+  line-height: 1.7em;
+  margin-bottom: 0;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  color: rgba(0,0,0,0.5);
+  background: rgb(250, 250, 250);
+  padding-top: 36px;
+  padding-bottom: 48px;
+}
+
+${page(".l-body")}
+
 </style>
-<!-- slot -->
-<d-references></d-references>
-`, false);
+
+<div class="l-body">
+  <slot></slot>
+</div>
+`);
 
 class Appendix extends T$5(HTMLElement) {
+
   static get is() { return "d-appendix"; }
+
 }
 
 customElements.define(Appendix.is, Appendix);
 
 let mustacheTemplate$1 = `
 <style>
-  distill-appendix {
-    display: block;
-    font-size: 13px;
-    line-height: 1.7em;
-    margin-bottom: 0;
-    border-top: 1px solid rgba(0,0,0,0.1);
-    color: rgba(0,0,0,0.5);
-    background: rgb(250, 250, 250);
-    padding-top: 36px;
-    padding-bottom: 48px;
-  }
-  ${page("distill-appendix p, distill-appendix h3, distill-appendix pre")}
   distill-appendix h3 {
     font-size: 15px;
     font-weight: 500;
@@ -5067,10 +5955,15 @@ let mustacheTemplate$1 = `
   distill-appendix .citation {
     font-size: 11px;
     line-height: 15px;
-    border-left: 2px solid rgba(0, 0, 0, 0.1);
-    padding: 0 0 0 12px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
     overflow: hidden;
-    margin-top: -4px;
+    margin-top: -12px;
   }
 </style>
 
@@ -5095,7 +5988,7 @@ let mustacheTemplate$1 = `
 
 class DistillAppendix extends HTMLElement {
   static get is() { return "distill-appendix"; }
-  render(data) {
+  connectedCallback(data) {
     this.innerHTML = mustache.render(mustacheTemplate$1, data);
   }
 }
@@ -5427,34 +6320,151 @@ var bibtexParse = createCommonjsModule(function (module, exports) {
 /* end bibtexParse */
 });
 
-let mustacheTemplate$2 = `
-<style>
-  d-bibliography {
-    display: block;
-    font-size: 13px;
-    line-height: 1.7em;
-    margin-bottom: 0;
-    border-top: 1px solid rgba(0,0,0,0.1);
-    color: rgba(0,0,0,0.5);
-    background: rgb(250, 250, 250);
-    padding-top: 36px;
-    padding-bottom: 48px;
+function author_string(ent, template, sep, finalSep){
+  var names = ent.author.split(" and ");
+  let name_strings = names.map(name => {
+    name = name.trim();
+    if (name.indexOf(",") != -1){
+      var last = name.split(",")[0].trim();
+      var firsts = name.split(",")[1];
+    } else {
+      var last = name.split(" ").slice(-1)[0].trim();
+      var firsts = name.split(" ").slice(0,-1).join(" ");
+    }
+    var initials = "";
+    if (firsts != undefined) {
+      initials = firsts.trim().split(" ").map(s => s.trim()[0]);
+      initials = initials.join(".")+".";
+    }
+    return template.replace("${F}", firsts)
+                   .replace("${L}", last)
+                   .replace("${I}", initials);
+  });
+  if (names.length > 1) {
+    var str = name_strings.slice(0, names.length-1).join(sep);
+    str += (finalSep || sep) + name_strings[names.length-1];
+    return str;
+  } else {
+    return name_strings[0];
   }
-  ${page("d-bibliography ol, d-bibliography h3")}
-  d-bibliography .references {
+}
+
+function venue_string(ent) {
+  var cite = (ent.journal || ent.booktitle || "");
+  if ("volume" in ent){
+    var issue = ent.issue || ent.number;
+    issue = (issue != undefined)? "("+issue+")" : "";
+    cite += ", Vol " + ent.volume + issue;
+  }
+  if ("pages" in ent){
+    cite += ", pp. " + ent.pages;
+  }
+  if (cite != "") cite += ". ";
+  if ("publisher" in ent){
+    cite += ent.publisher;
+    if (cite[cite.length-1] != ".") cite += ".";
+  }
+  return cite;
+}
+
+function link_string(ent){
+  if ("url" in ent){
+    var url = ent.url;
+    var arxiv_match = (/arxiv\.org\/abs\/([0-9\.]*)/).exec(url);
+    if (arxiv_match != null){
+      url = `http://arxiv.org/pdf/${arxiv_match[1]}.pdf`;
+    }
+
+    if (url.slice(-4) == ".pdf"){
+      var label = "PDF";
+    } else if (url.slice(-5) == ".html") {
+      var label = "HTML";
+    }
+    return ` &ensp;<a href="${url}">[${label||"link"}]</a>`;
+  }/* else if ("doi" in ent){
+    return ` &ensp;<a href="https://doi.org/${ent.doi}" >[DOI]</a>`;
+  }*/ else {
+    return "";
+  }
+}
+function doi_string(ent, new_line){
+  if ("doi" in ent) {
+    return `${new_line?"<br>":""} <a href="https://doi.org/${ent.doi}" style="text-decoration:inherit;">DOI: ${ent.doi}</a>`;
+  } else {
+    return "";
+  }
+}
+
+function bibliography_cite(ent, fancy){
+  if (ent){
+    var cite =  "<b>" + ent.title + "</b> ";
+    cite += link_string(ent) + "<br>";
+    cite += author_string(ent, "${L}, ${I}", ", ", " and ");
+    if (ent.year || ent.date){
+      cite += ", " + (ent.year || ent.date) + ". ";
+    } else {
+      cite += ". ";
+    }
+    cite += venue_string(ent);
+    cite += doi_string(ent);
+    return cite
+    /*var cite =  author_string(ent, "${L}, ${I}", ", ", " and ");
+    if (ent.year || ent.date){
+      cite += ", " + (ent.year || ent.date) + ". "
+    } else {
+      cite += ". "
+    }
+    cite += "<b>" + ent.title + "</b>. ";
+    cite += venue_string(ent);
+    cite += doi_string(ent);
+    cite += link_string(ent);
+    return cite*/
+  } else {
+    return "?";
+  }
+}
+
+function hover_cite(ent){
+  if (ent){
+    var cite = "";
+    cite += "<b>" + ent.title + "</b>";
+    cite += link_string(ent);
+    cite += "<br>";
+
+    var a_str = author_string(ent, "${I} ${L}", ", ") + ".";
+    var v_str = venue_string(ent).trim() + " " + ent.year + ". " + doi_string(ent, true);
+
+    if ((a_str+v_str).length < Math.min(40, ent.title.length)) {
+      cite += a_str + " " + v_str;
+    } else {
+      cite += a_str + "<br>" + v_str;
+    }
+    return cite;
+  } else {
+    return "?";
+  }
+}
+
+
+//https://scholar.google.com/scholar?q=allintitle%3ADocument+author%3Aolah
+
+const name = 'd-bibliography';
+const T$6 = Template(name, `
+<style>
+  .references {
     font-size: 12px;
     line-height: 20px;
   }
-  d-bibliography .title {
+  .title {
     font-weight: 600;
   }
-  d-bibliography ol {
+  ol {
     padding: 0 0 0 18px;
   }
-  d-bibliography li {
+  li {
     margin-bottom: 12px;
   }
-  d-bibliography h3 {
+  h3 {
     font-size: 15px;
     font-weight: 500;
     margin-top: 20px;
@@ -5462,79 +6472,101 @@ let mustacheTemplate$2 = `
     color: rgba(0,0,0,0.65);
     line-height: 1em;
   }
-  d-bibliography a {
+  a {
     color: rgba(0, 0, 0, 0.6);
   }
 </style>
-{{#hasCitations}}
-  <h3>References</h3>
-  <ol>
-    {{#citations}}
-      <li>
-        <div class="title">Unsupervised representation learning with deep convolutional generative adversarial networks   <a href="https://arxiv.org/pdf/1511.06434.pdf">[PDF]</a></div>
-        <div class="details">Radford, A., Metz, L. and Chintala, S., 2015. arXiv preprint arXiv:1511.06434.</div>
-      </li>
-  {{/citations}}
-  </ol>
-{{/hasCitations}}
-`;
 
-class Bibliography extends HTMLElement {
-  static get is() { return "d-bibliography"; }
+<h3>References</h3>
+<ol></ol>
+`);
+
+function parseBibtex(bibtex) {
+  const bibliography = new Map();
+  const parsedEntries = bibtexParse.toJSON(bibtex);
+  for (const entry of parsedEntries) {
+    // normalize tags; note entryTags is an object, not Map
+    for (const tag in entry.entryTags) {
+      let value = entry.entryTags[tag];
+      value = value.replace(/[\t\n ]+/g, " ");
+      value = value.replace(/{\\["^`\.'acu~Hvs]( )?([a-zA-Z])}/g,
+                        (full, x, char) => char);
+      value = value.replace(/{\\([a-zA-Z])}/g,
+                        (full, char) => char);
+      entry.entryTags[tag] = value;
+    }
+    entry.entryTags.type = entry.entryType;
+    // add to bibliography
+    bibliography.set(entry.citationKey, entry.entryTags);
+  }
+  return bibliography;
+}
+
+class Bibliography extends T$6(HTMLElement) {
+
+  constructor() {
+    super();
+
+    this.citations = new Array();
+    this.finishedLoading = false;
+  }
 
   connectedCallback() {
-    let s = this.querySelector("script");
-    if (s) {
-      let bibliography = new Map();
-      let rawBib = s.textContent;
-      let parsed = bibtexParse.toJSON(rawBib);
-      if(parsed) {
-        parsed.forEach(e => {
-          for (var k in e.entryTags) {
-            var val = e.entryTags[k];
-            val = val.replace(/[\t\n ]+/g, " ");
-            val = val.replace(/{\\["^`\.'acu~Hvs]( )?([a-zA-Z])}/g,
-                              (full, x, char) => char);
-            val = val.replace(/{\\([a-zA-Z])}/g,
-                              (full, char) => char);
-            e.entryTags[k] = val;
-          }
-          e.entryTags.type = e.entryType;
-          bibliography.set(e.citationKey, e.entryTags);
-        });
+    this.list = this.root.querySelector('ol');
+    // bibliography is initially hidden
+    this.root.host.style.display = 'none';
+    // parse bibliography
+    const scriptTag = this.querySelector("script");
+    if (scriptTag) {
+      this.bibliography = parseBibtex(scriptTag.textContent);
+      this.finishedLoading = true;
+      // look through document and register existing citations
+      document.querySelectorAll('d-cite')
+        .forEach(citation => this.registerCitation(citation));
+    } else {
+      console.error("No script tag with bibtex found in d-bibliography tag!");
+    }
+
+  }
+
+  getEntry(key) {
+    return this.bibliography.get(key);
+  }
+
+  hasEntry(key) {
+    return this.bibliography.has(key);
+  }
+
+  getIndex(key) {
+    return this.citations.indexOf(key);
+  }
+
+  registerCitation(citation) {
+    // a d-cite element may cite multiple sources
+    const keyString = citation.getAttribute("key");
+    const keys = keyString ? keyString.split(",") : [];
+    for (const key of keys) {
+      if (!this.bibliography.has(key)) {
+        console.error("Citation key '" + key + "' is not present in bibliography!");
+      } else if (this.citations.indexOf(key) === -1) {
+        this.citations.push(key);
+        const entry = this.getEntry(key);
+                // ensure citations list is visible
+        this.root.host.style.display = 'initial';
+        // construct and append list item to show citation
+        const listItem = document.createElement('li');
+        listItem.id = key;
+        listItem.innerHTML = bibliography_cite(entry);
+        this.list.appendChild(listItem);
       }
-      this.data = bibliography;
-      this.render();
     }
   }
 
-  render() {
-    this.citations = [];
-    let citationElements = [].slice.apply(document.querySelectorAll("d-cite"));
-    citationElements.forEach(el => { this.cite(el); });
-    this.innerHTML = mustache.render(mustacheTemplate$2, {hasCitations: this.citations.length > 0, citations: this.citations});
-  }
-
-  cite(el) {
-    let keyString = el.getAttribute("key");
-    let keys = keyString ? keyString.split(",") : [];
-    keys.forEach(key => {
-      let citation = this.data[key];
-      if (!this.data.has(key)) {
-        console.error("Citation key  '" + key + "' not present in bibliography.");
-      } else if (this.citations.indexOf(key) !== -1) {
-        // Bibliography entry has already been cited
-      } else {
-        this.citations.push(key);
-      }
-    });
-
-  }
 }
 
 customElements.define(Bibliography.is, Bibliography);
 
-const T$6 = Template("d-references", `
+const T$7 = Template("d-references", `
 <style>
 d-references {
   display: block;
@@ -5542,7 +6574,7 @@ d-references {
 </style>
 `, false);
 
-class References extends T$6(HTMLElement) {
+class References extends T$7(HTMLElement) {
   static get is() { return "d-references"; }
   connectedCallback() {
     super.connectedCallback();
@@ -8444,6 +9476,11 @@ var sigmas$1 = {
     axisHeight: [0.250, 0.250, 0.250]  // sigma22
 };
 
+// These font metrics are extracted from TeX by using
+// \font\a=cmex10
+// \showthe\fontdimenX\a
+// where X is the corresponding variable number. These correspond to the font
+// parameters of the extension fonts (family 3). See the TeXbook, page 441.
 var xi8 = 0.04;
 var xi9 = 0.111;
 var xi10 = 0.166;
@@ -8652,22 +9689,14 @@ var fontMetrics$1 = {
     getCharacterMetrics: getCharacterMetrics
 };
 
-/**
- * This file contains information and classes for the various kinds of styles
- * used in TeX. It provides a generic `Style` class, which holds information
- * about a specific style. It then provides instances of all the different kinds
- * of styles possible, and provides functions to move between them and get
- * information about them.
- */
-
 var sigmas = fontMetrics$1.sigmas;
 
 var metrics = [{}, {}, {}];
 var i$1;
-for (var key in sigmas) {
-    if (sigmas.hasOwnProperty(key)) {
+for (var key$1 in sigmas) {
+    if (sigmas.hasOwnProperty(key$1)) {
         for (i$1 = 0; i$1 < 3; i$1++) {
-            metrics[i$1][key] = sigmas[key][i$1];
+            metrics[i$1][key$1] = sigmas[key$1][i$1];
         }
     }
 }
@@ -8751,7 +9780,7 @@ Style$2.prototype.isTight = function() {
 // IDs of the different styles
 var D = 0;
 var Dc = 1;
-var T$7 = 2;
+var T$8 = 2;
 var Tc = 3;
 var S = 4;
 var Sc = 5;
@@ -8778,7 +9807,7 @@ var resetNames = [
 var styles = [
     new Style$2(D, 0, 1.0, false),
     new Style$2(Dc, 0, 1.0, true),
-    new Style$2(T$7, 1, 1.0, false),
+    new Style$2(T$8, 1, 1.0, false),
     new Style$2(Tc, 1, 1.0, true),
     new Style$2(S, 2, 0.7, false),
     new Style$2(Sc, 2, 0.7, true),
@@ -8789,7 +9818,7 @@ var styles = [
 // Lookup tables for switching from one style to another
 var sup = [S, Sc, S, Sc, SS, SSc, SS, SSc];
 var sub = [Sc, Sc, Sc, Sc, SSc, SSc, SSc, SSc];
-var fracNum = [T$7, Tc, S, Sc, SS, SSc, SS, SSc];
+var fracNum = [T$8, Tc, S, Sc, SS, SSc, SS, SSc];
 var fracDen = [Tc, Tc, Sc, Sc, SSc, SSc, SSc, SSc];
 var cramp = [Dc, Dc, Tc, Tc, Sc, Sc, SSc, SSc];
 
@@ -8797,7 +9826,7 @@ var cramp = [Dc, Dc, Tc, Tc, Sc, Sc, SSc, SSc];
 // no more styles can be generated.
 var Style_1 = {
     DISPLAY: styles[D],
-    TEXT: styles[T$7],
+    TEXT: styles[T$8],
     SCRIPT: styles[S],
     SCRIPTSCRIPT: styles[SS]
 };
@@ -8909,15 +9938,6 @@ var utils$4 = {
     clearNode: clearNode
 };
 
-/**
- * These objects store the data about the DOM nodes we create, as well as some
- * extra data. They can then be transformed into real DOM nodes with the
- * `toNode` function or HTML markup using `toMarkup`. They are useful for both
- * storing extra properties on the nodes, as well as providing a way to easily
- * work with the DOM.
- *
- * Similar functions for working with MathML nodes exist in mathMLTree.js.
- */
 var unicodeRegexes$2 = unicodeRegexes;
 var utils$3 = utils$4;
 
@@ -9921,12 +10941,6 @@ defineSymbol(text, main, textord, "\u201c", "“");
 defineSymbol(text, main, textord, "\u201d", "”");
 });
 
-/* eslint no-console:0 */
-/**
- * This module contains general functions that can be used for building
- * different kinds of domTree nodes in a consistent manner.
- */
-
 var domTree$1 = domTree$2;
 var fontMetrics$3 = fontMetrics$1;
 var symbols = symbols$1;
@@ -10401,28 +11415,6 @@ var buildCommon$2 = {
     sizingMultiplier: sizingMultiplier,
     spacingFunctions: spacingFunctions
 };
-
-/**
- * This file deals with creating delimiters of various sizes. The TeXbook
- * discusses these routines on page 441-442, in the "Another subroutine sets box
- * x to a specified variable delimiter" paragraph.
- *
- * There are three main routines here. `makeSmallDelim` makes a delimiter in the
- * normal font, but in either text, script, or scriptscript style.
- * `makeLargeDelim` makes a delimiter in textstyle, but in one of the Size1,
- * Size2, Size3, or Size4 fonts. `makeStackedDelim` makes a delimiter out of
- * smaller pieces that are stacked on top of one another.
- *
- * The functions take a parameter `center`, which determines if the delimiter
- * should be centered around the axis.
- *
- * Then, there are three exposed functions. `sizedDelim` makes a delimiter in
- * one of the given sizes. This is used for things like `\bigl`.
- * `customSizedDelim` makes a delimiter with a given total height+depth. It is
- * called in places like `\sqrt`. `leftRightDelim` makes an appropriate
- * delimiter which surrounds an expression of a given height an depth. It is
- * used in `\left` and `\right`.
- */
 
 var ParseError$3 = ParseError_1;
 var Style$4 = Style_1;
@@ -10952,14 +11944,6 @@ var delimiter$1 = {
     customSizedDelim: makeCustomSizedDelim,
     leftRightDelim: makeLeftRightDelim
 };
-
-/* eslint no-console:0 */
-/**
- * This file does the main work of building a domTree structure from a parse
- * tree. The entry point is the `buildHTML` function, which takes a parse tree.
- * Then, the buildExpression, buildGroup, and various groupTypes functions are
- * called, to produce a final HTML tree.
- */
 
 var ParseError$2 = ParseError_1;
 var Style$1 = Style_1;
@@ -12523,16 +13507,6 @@ var buildHTML$1 = function(tree, options) {
 
 var buildHTML_1 = buildHTML$1;
 
-/**
- * These objects store data about MathML nodes. This is the MathML equivalent
- * of the types in domTree.js. Since MathML handles its own rendering, and
- * since we're mainly using MathML to improve accessibility, we don't manage
- * any of the styling state that the plain DOM nodes do.
- *
- * The `toNode` and `toMarkup` functions work simlarly to how they do in
- * domTree.js, creating namespaced DOM nodes and HTML text markup respectively.
- */
-
 var utils$8 = utils$4;
 
 /**
@@ -12625,12 +13599,6 @@ var mathMLTree$1 = {
     MathNode: MathNode,
     TextNode: TextNode
 };
-
-/**
- * This file converts a parse tree into a cooresponding MathML tree. The main
- * entry point is the `buildMathML` function, which takes a parse tree from the
- * parser.
- */
 
 var buildCommon$5 = buildCommon$2;
 var fontMetrics$5 = fontMetrics$1;
@@ -14431,19 +15399,6 @@ function matchAt$1(re, str, pos) {
 
 var matchAt_1 = matchAt$1;
 
-/**
- * The Lexer class handles tokenizing the input in various ways. Since our
- * parser expects us to be able to backtrack, the lexer allows lexing from any
- * given starting point.
- *
- * Its main exposed function is the `lex` function, which takes a position to
- * lex from and a type of token to lex. It defers to the appropriate `_innerLex`
- * function.
- *
- * The various `_innerLex` functions perform the actual lexing of different
- * kinds.
- */
-
 var matchAt = matchAt_1;
 
 var ParseError$6 = ParseError_1;
@@ -14541,11 +15496,6 @@ Lexer$1.prototype.lex = function() {
 
 var Lexer_1 = Lexer$1;
 
-/**
- * This file contains the “gullet” where macros are expanded
- * until only non-macro tokens remain.
- */
-
 var Lexer = Lexer_1;
 
 function MacroExpander$1(input, macros) {
@@ -14612,7 +15562,6 @@ MacroExpander$1.prototype.unget = function(token) {
 
 var MacroExpander_1 = MacroExpander$1;
 
-/* eslint no-constant-condition:0 */
 var functions = functions$1;
 var environments = environments$1;
 var MacroExpander = MacroExpander_1;
@@ -15462,11 +16411,6 @@ Parser$1.prototype.ParseNode = ParseNode;
 
 var Parser_1 = Parser$1;
 
-/**
- * Provides a single function for parsing an expression using a Parser
- * TODO(emily): Remove this
- */
-
 var Parser = Parser_1;
 
 /**
@@ -15482,15 +16426,6 @@ var parseTree$1 = function(toParse, settings) {
 };
 
 var parseTree_1 = parseTree$1;
-
-/* eslint no-console:0 */
-/**
- * This is the main entry point for KaTeX. Here, we expose functions for
- * rendering expressions either to DOM nodes or to markup strings.
- *
- * We also expose the ParseError class to check if errors thrown from KaTeX are
- * errors in the expression, or errors in javascript handling.
- */
 
 var ParseError = ParseError_1;
 var Settings = Settings_1;
@@ -15715,15 +16650,16 @@ d-math[block] {
 
 `;
 
-const TemplatedFootnote = Template("d-math", templateString$2);
+const TemplatedFootnote = Template("d-footnote", templateString$2);
 
 class Footnote extends TemplatedFootnote(HTMLElement) {
 
-  constructor() {
-    super();
-
+  connectedCallback() {
+    // create numeric ID
     Footnote.currentFootnoteId += 1;
     const IdString = Footnote.currentFootnoteId.toString();
+    this.root.host.id = 'd-footnote-' + IdString;
+
     // set up hidden hover box
     const div = this.root.querySelector('.dt-hover-box');
     div.id = 'dt-fn-hover-box-' + IdString;
@@ -15733,8 +16669,16 @@ class Footnote extends TemplatedFootnote(HTMLElement) {
     span.setAttribute('id', 'fn-' + IdString);
     span.setAttribute('data-hover-ref', div.id);
     span.textContent = IdString;
-
+    
     HoverBox.get_box(div).bind(span);
+
+    // register with footnote list should there be one
+    const footnoteList = document.querySelector('d-footnote-list');
+    if (footnoteList) {
+      customElements.whenDefined('d-footnote-list').then(() => {
+        footnoteList.registerFootnote(this);
+      });
+    }
   }
 
 }
@@ -15743,12 +16687,216 @@ Footnote.currentFootnoteId = 0;
 
 customElements.define("d-footnote", Footnote);
 
+const name$1 = 'd-footnote-list';
+const T$9 = Template(name$1, `
+<style>
+ol {
+  padding: 0 0 0 18px;
+}
+li {
+  margin-bottom: 12px;
+}
+h3 {
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 20px;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.65);
+  line-height: 1em;
+}
+a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+a.footnote-backlink {
+  color: rgba(0,0,0,0.3);
+  padding-left: 0.5em;
+}
+
+
+</style>
+
+<h3>Footnotes</h3>
+<ol></ol>
+`);
+
+class FootnoteList extends T$9(HTMLElement) {
+
+  static get is() { return name$1; }
+
+  connectedCallback() {
+    this.list = this.root.querySelector('ol');
+    this.footnotes = new Map();
+    // footnotes list is initially hidden
+    this.root.host.style.display = 'none';
+    // look through document and register existing footnotes
+    document.querySelectorAll('d-footnote')
+      .forEach(footnote => this.registerFootnote(footnote));
+  }
+
+  registerFootnote(element) {
+    // check if we already know about this footnote
+    if (!this.footnotes.has(element.id)) {
+      this.footnotes.set(element.id, element);
+      // ensure footnote list is visible
+      this.root.host.style.display = 'initial';
+      // construct and append list item to show footnote
+      const listItem = document.createElement('li');
+      listItem.innerHTML = element.innerHTML;
+      const backlink = document.createElement('a');
+      backlink.setAttribute('class', 'footnote-backlink');
+      backlink.textContent = '[↩]';
+      backlink.href = `#${element.id}`;
+      listItem.appendChild(backlink);
+      this.list.appendChild(listItem);
+    } /*else {
+      console.debug('Had already registered footnote ' + element.id + '!')
+    }*/
+  }
+
+}
+
+customElements.define(name$1, FootnoteList);
+
+const name$2 = 'd-acknowledgements';
+
+const T$10 = Template(name$2, `
+<style>
+::slotted(h3) {
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 20px;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.65);
+  line-height: 1em;
+}
+::slotted(*) a {
+  color: rgba(0, 0, 0, 0.6);
+}
+</style>
+
+<slot></slot>
+`);
+
+class Acknowledgements extends T$10(HTMLElement) {
+
+  static get is() { return name$2; }
+
+}
+
+customElements.define(name$2, Acknowledgements);
+
+const T$11 = Template('d-cite', `
+<style>
+  .citation {
+    color: hsla(206, 90%, 20%, 0.7);
+  }
+  .citation-number {
+    cursor: default;
+    white-space: nowrap;
+    font-family: -apple-system, BlinkMacSystemFont, "Roboto", Helvetica, sans-serif;
+    font-size: 75%;
+    color: hsla(206, 90%, 20%, 0.7);
+    display: inline-block;
+    line-height: 1.1em;
+    text-align: center;
+    position: relative;
+    top: -2px;
+    margin: 0 2px;
+  }
+  figcaption .citation-number {
+    font-size: 11px;
+    font-weight: normal;
+    top: -2px;
+    line-height: 1em;
+  }
+</style>
+
+<div style="display: none;" class="dt-hover-box">
+</div>
+
+<span id="citation-" class="citation">
+  <slot></slot>
+  <span class="citation-number"></span>
+</span>
+`);
+
+
+function inline_cite_short$1(keys, bibliography) {
+  function cite_string(key) {
+    if (bibliography.hasEntry(key)){
+      return (bibliography.getIndex(key)+1).toString();
+    } else {
+      return "?";
+    }
+  }
+  return "[" + keys.map(cite_string).join(", ") + "]";
+}
+
+
+class Cite extends T$11(HTMLElement) {
+
+  constructor() {
+    super();
+    this._key = null;
+
+    Cite.currentId += 1;
+    this.citeId = Cite.currentId;
+  }
+
+  static get observedAttributes() {
+    return ['key'];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    // name will always be "key" due to observedAttributes
+    this._key = newValue;
+    this.renderContent();
+  }
+
+  get key() {
+    return this._key;
+  }
+
+  set key(value) {
+    this.setAttribute('key', value);
+  }
+
+  renderContent() {
+    const bibliography = document.querySelector('d-bibliography');
+    if (bibliography && bibliography.finishedLoading) {
+      customElements.whenDefined('d-bibliography').then( () => {
+        const keys = this.key.split(",");
+
+        // set up hidden hover box
+        const div = this.root.querySelector('.dt-hover-box');
+        div.innerHTML = keys.map( (key) => {
+          return bibliography.getEntry(key);
+        }).map(hover_cite).join('<br><br>');
+        div.id ='dt-cite-hover-box-' + this.citeId;
+
+        // set up visible citation marker
+        const outerSpan = this.root.querySelector('#citation-');
+        outerSpan.id = `citation-${this.citeId}`;
+        // outerSpan.setAttribute('data-hover', dataHoverString); // directly tell HoverBox instead?
+        const innerSpan = this.root.querySelector('.citation-number');
+        innerSpan.textContent = inline_cite_short$1(keys, bibliography);
+
+        HoverBox.get_box(div).bind(outerSpan);
+      });
+    } else {
+      console.error(`You used a d-cite tag (${key}) without including a d-bibliography tag in your article. We can't lookup your citation this way.`);
+    }
+  }
+
+}
+
+Cite.currentId = 0;
+
+customElements.define(Cite.is, Cite);
+
 // load `webcomponent` polyfills asynchronously
 // import "webcomponents.js/webcomponents-loader.js";
-
-// let codeStyle = document.createElement("style");
-// codeStyle.textContent = codeCss;
-// document.querySelector("head").appendChild(codeStyle);
 
 document.addEventListener("DOMContentLoaded", function() {
   // Render byline with authors list.

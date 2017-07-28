@@ -3,18 +3,6 @@ import mustache from "mustache";
 
 let mustacheTemplate = `
 <style>
-  distill-appendix {
-    display: block;
-    font-size: 13px;
-    line-height: 1.7em;
-    margin-bottom: 0;
-    border-top: 1px solid rgba(0,0,0,0.1);
-    color: rgba(0,0,0,0.5);
-    background: rgb(250, 250, 250);
-    padding-top: 36px;
-    padding-bottom: 48px;
-  }
-  ${page("distill-appendix p, distill-appendix h3, distill-appendix pre")}
   distill-appendix h3 {
     font-size: 15px;
     font-weight: 500;
@@ -33,10 +21,15 @@ let mustacheTemplate = `
   distill-appendix .citation {
     font-size: 11px;
     line-height: 15px;
-    border-left: 2px solid rgba(0, 0, 0, 0.1);
-    padding: 0 0 0 12px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
     overflow: hidden;
-    margin-top: -4px;
+    margin-top: -12px;
   }
 </style>
 
@@ -61,7 +54,7 @@ let mustacheTemplate = `
 
 export default class DistillAppendix extends HTMLElement {
   static get is() { return "distill-appendix"; }
-  render(data) {
+  connectedCallback(data) {
     this.innerHTML = mustache.render(mustacheTemplate, data);
   }
 }

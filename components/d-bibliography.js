@@ -1,38 +1,24 @@
-import {Template} from "../mixins/template";
-import {body} from "./layout";
 import bibtexParse from "bibtex-parse-js";
-import mustache from "mustache";
-import {page} from "./layout";
+import { Template } from "../mixins/template";
+import { bibliography_cite } from "./citation";
 
-
-let mustacheTemplate = `
+const name = 'd-bibliography';
+const T = Template(name, `
 <style>
-  d-bibliography {
-    display: block;
-    font-size: 13px;
-    line-height: 1.7em;
-    margin-bottom: 0;
-    border-top: 1px solid rgba(0,0,0,0.1);
-    color: rgba(0,0,0,0.5);
-    background: rgb(250, 250, 250);
-    padding-top: 36px;
-    padding-bottom: 48px;
-  }
-  ${page("d-bibliography ol, d-bibliography h3")}
-  d-bibliography .references {
+  .references {
     font-size: 12px;
     line-height: 20px;
   }
-  d-bibliography .title {
+  .title {
     font-weight: 600;
   }
-  d-bibliography ol {
+  ol {
     padding: 0 0 0 18px;
   }
-  d-bibliography li {
+  li {
     margin-bottom: 12px;
   }
-  d-bibliography h3 {
+  h3 {
     font-size: 15px;
     font-weight: 500;
     margin-top: 20px;
@@ -40,74 +26,96 @@ let mustacheTemplate = `
     color: rgba(0,0,0,0.65);
     line-height: 1em;
   }
-  d-bibliography a {
+  a {
     color: rgba(0, 0, 0, 0.6);
   }
 </style>
-{{#hasCitations}}
-  <h3>References</h3>
-  <ol>
-    {{#citations}}
-      <li>
-        <div class="title">Unsupervised representation learning with deep convolutional generative adversarial networks   <a href="https://arxiv.org/pdf/1511.06434.pdf">[PDF]</a></div>
-        <div class="details">Radford, A., Metz, L. and Chintala, S., 2015. arXiv preprint arXiv:1511.06434.</div>
-      </li>
-  {{/citations}}
-  </ol>
-{{/hasCitations}}
-`;
 
-export default class Bibliography extends HTMLElement {
-  static get is() { return "d-bibliography"; }
+<h3>References</h3>
+<ol></ol>
+`);
+
+function parseBibtex(bibtex) {
+  const bibliography = new Map();
+  const parsedEntries = bibtexParse.toJSON(bibtex);
+  for (const entry of parsedEntries) {
+    // normalize tags; note entryTags is an object, not Map
+    for (const tag in entry.entryTags) {
+      let value = entry.entryTags[tag];
+      value = value.replace(/[\t\n ]+/g, " ");
+      value = value.replace(/{\\["^`\.'acu~Hvs]( )?([a-zA-Z])}/g,
+                        (full, x, char) => char);
+      value = value.replace(/{\\([a-zA-Z])}/g,
+                        (full, char) => char);
+      entry.entryTags[tag] = value;
+    }
+    entry.entryTags.type = entry.entryType;
+    // add to bibliography
+    bibliography.set(entry.citationKey, entry.entryTags);
+  }
+  return bibliography;
+}
+
+export default class Bibliography extends T(HTMLElement) {
+
+  constructor() {
+    super()
+
+    this.citations = new Array();
+    this.finishedLoading = false;
+  }
 
   connectedCallback() {
-    let s = this.querySelector("script");
-    if (s) {
-      let bibliography = new Map();
-      let rawBib = s.textContent;
-      let parsed = bibtexParse.toJSON(rawBib);
-      if(parsed) {
-        parsed.forEach(e => {
-          for (var k in e.entryTags) {
-            var val = e.entryTags[k];
-            val = val.replace(/[\t\n ]+/g, " ");
-            val = val.replace(/{\\["^`\.'acu~Hvs]( )?([a-zA-Z])}/g,
-                              (full, x, char) => char);
-            val = val.replace(/{\\([a-zA-Z])}/g,
-                              (full, char) => char);
-            e.entryTags[k] = val;
-          }
-          e.entryTags.type = e.entryType;
-          bibliography.set(e.citationKey, e.entryTags);
-        });
+    this.list = this.root.querySelector('ol');
+    // bibliography is initially hidden
+    this.root.host.style.display = 'none';
+    // parse bibliography
+    const scriptTag = this.querySelector("script");
+    if (scriptTag) {
+      this.bibliography = parseBibtex(scriptTag.textContent);
+      this.finishedLoading = true;
+      // look through document and register existing citations
+      document.querySelectorAll('d-cite')
+        .forEach(citation => this.registerCitation(citation));
+    } else {
+      console.error("No script tag with bibtex found in d-bibliography tag!")
+    }
+
+  }
+
+  getEntry(key) {
+    return this.bibliography.get(key);
+  }
+
+  hasEntry(key) {
+    return this.bibliography.has(key);
+  }
+
+  getIndex(key) {
+    return this.citations.indexOf(key);
+  }
+
+  registerCitation(citation) {
+    // a d-cite element may cite multiple sources
+    const keyString = citation.getAttribute("key");
+    const keys = keyString ? keyString.split(",") : [];
+    for (const key of keys) {
+      if (!this.bibliography.has(key)) {
+        console.error("Citation key '" + key + "' is not present in bibliography!")
+      } else if (this.citations.indexOf(key) === -1) {
+        this.citations.push(key);
+        const entry = this.getEntry(key);
+                // ensure citations list is visible
+        this.root.host.style.display = 'initial';
+        // construct and append list item to show citation
+        const listItem = document.createElement('li');
+        listItem.id = key;
+        listItem.innerHTML = bibliography_cite(entry);
+        this.list.appendChild(listItem);
       }
-      this.data = bibliography;
-      this.render();
     }
   }
 
-  render() {
-    this.citations = [];
-    let citationElements = [].slice.apply(document.querySelectorAll("d-cite"));
-    citationElements.forEach(el => { this.cite(el) });
-    this.innerHTML = mustache.render(mustacheTemplate, {hasCitations: this.citations.length > 0, citations: this.citations});
-  }
-
-  cite(el) {
-    let keyString = el.getAttribute("key");
-    let keys = keyString ? keyString.split(",") : [];
-    keys.forEach(key => {
-      let citation = this.data[key];
-      if (!this.data.has(key)) {
-        console.error("Citation key  '" + key + "' not present in bibliography.")
-      } else if (this.citations.indexOf(key) !== -1) {
-        // Bibliography entry has already been cited
-      } else {
-        this.citations.push(key);
-      }
-    })
-
-  }
 }
 
 customElements.define(Bibliography.is, Bibliography);

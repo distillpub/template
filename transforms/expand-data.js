@@ -21,7 +21,6 @@ export default function(dom, data) {
     data.publishedDate = data.publishedDate ? data.publishedDate : new Date("Invalid");
     data.updatedDate = data.updatedDate ? data.updatedDate : new Date("Invalid");
 
-    data.publishedDateRFC
     let RFC = timeFormat("%a, %d %b %Y %H:%M:%S %Z");
     let months = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
     let zeroPad = (n) => { return n < 10 ? "0" + n : n; };

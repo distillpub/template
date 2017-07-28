@@ -10,6 +10,8 @@ export const Template = (name, templateString, useShadow = true) => {
   return (superclass) => {
     return class extends superclass {
 
+      static get is() { return name; }
+
       constructor() {
         super();
 

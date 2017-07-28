@@ -18,15 +18,16 @@ d-math[block] {
 
 `;
 
-const TemplatedFootnote = Template("d-math", templateString);
+const TemplatedFootnote = Template("d-footnote", templateString);
 
 export class Footnote extends TemplatedFootnote(HTMLElement) {
 
-  constructor() {
-    super();
-
+  connectedCallback() {
+    // create numeric ID
     Footnote.currentFootnoteId += 1;
     const IdString = Footnote.currentFootnoteId.toString();
+    this.root.host.id = 'd-footnote-' + IdString;
+
     // set up hidden hover box
     const div = this.root.querySelector('.dt-hover-box');
     div.id = 'dt-fn-hover-box-' + IdString;
@@ -36,8 +37,16 @@ export class Footnote extends TemplatedFootnote(HTMLElement) {
     span.setAttribute('id', 'fn-' + IdString);
     span.setAttribute('data-hover-ref', div.id);
     span.textContent = IdString;
-
+    
     HoverBox.get_box(div).bind(span);
+
+    // register with footnote list should there be one
+    const footnoteList = document.querySelector('d-footnote-list');
+    if (footnoteList) {
+      customElements.whenDefined('d-footnote-list').then(() => {
+        footnoteList.registerFootnote(this);
+      });
+    }
   }
 
 }
