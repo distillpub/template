@@ -8,10 +8,6 @@ d-toc {
 </style>
 `, false);
 
-export default class Toc extends T(HTMLElement) {
-  static get is() {
-    return "d-toc";
-  }
-}
+export class TOC extends T(HTMLElement) {
 
-customElements.define(Toc.is, Toc);
+}

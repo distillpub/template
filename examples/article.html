@@ -1,23 +1,40 @@
 <!doctype html>
-<meta charset="utf8">
-<script src="../dist/components.js" async></script>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+<head>
+  <meta charset="utf8">
 
-
-<d-front-matter>
-  <script type="text/yml">
-    title: Demo Title Attention and Augmented Recurrent Neural Networks
-    published: Jan 10, 2017
-    authors:
-    - Chris Olah:
-    - Shan Carter: http://shancarter.com
-    affiliations:
-    - Google Brain:
-    - Google Brain: http://g.co/brain
+  <script>
+    // checks for webcomponents compatibility
+    if ('registerElement' in document &&
+        'import' in document.createElement('link') &&
+        'content' in document.createElement('template')) {
+      // Platform supports webcomponents natively! :-)
+    } else {
+      // Platform does not support webcomponents--loading polyfills.
+      const scriptTag = document.createElement('script');
+      scriptTag.src = '../node_modules/webcomponents.js/webcomponents-lite.js';
+      scriptTag.src = '../node_modules/webcomponents.js/webcomponents-lite.js';
+      scriptTag.async = false;
+      document.currentScript.parentNode.insertBefore(scriptTag, document.currentScript.nextSibling);
+    }
   </script>
-</d-front-matter>
+  <script src="../dist/components.js"></script>
 
+  <d-front-matter>
+    <script type="text/yml">
+      title: Demo Title Attention and Augmented Recurrent Neural Networks
+      published: Jan 10, 2017
+      authors:
+      - Chris Olah:
+      - Shan Carter: http://shancarter.com
+      affiliations:
+      - Google Brain:
+      - Google Brain: http://g.co/brain
+    </script>
+  </d-front-matter>
+</head>
+
+<body>
 <d-article>
   <d-title>
     <h1>Attention and Augmented Recurrent Neural Networks</h1>
@@ -31,8 +48,8 @@
   <d-math block>
       c = \pm \sqrt{ \sum_{i=0}^{n}{a^{222} + b^2}}
   </d-math>
-  <p>We can also cite <d-cite key="gregor2015draw,mercier2011humans"></d-cite> external publications. <d-cite key="dong2014image,dumoulin2016guide,mordvintsev2015inceptionism"></d-cite></p>
-  <p>We should also be testing footnotes<d-footnote>This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote.</d-footnote>. There are multiple footnotes, and they appear in the appendix<d-footnote>Given I have coded them right. Also, here's math in a footnote: <d-math>c = \sum_0^i{x}<d-math>.</d-footnote> as well.</p>
+  <p>We can<d-cite key="mercier2011humans"></d-cite> also cite <d-cite key="gregor2015draw,mercier2011humans"></d-cite> external publications. <d-cite key="dong2014image,dumoulin2016guide,mordvintsev2015inceptionism"></d-cite></p>
+  <p>We should also be testing footnotes<d-footnote>This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote.</d-footnote>. There are multiple footnotes, and they appear in the appendix<d-footnote>Given I have coded them right. Also, here's math in a footnote: <d-math>c = \sum_0^i{x}</d-math>. Also, a citation. Box-ception<d-cite key='gregor2015draw'></d-cite>!</d-footnote> as well.</p>
   <table>
     <thead>
       <tr><th>First</th><th>Second</th><th>Third</th></tr>
@@ -182,3 +199,4 @@
 
   <distill-appendix> </distill-appendix>
 </d-appendix>
+</body>

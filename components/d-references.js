@@ -1,5 +1,5 @@
-import {Template} from "../mixins/template";
-import {body} from "./layout";
+import { Template } from "../mixins/template";
+import { body } from "./layout";
 
 const T = Template("d-references", `
 <style>
@@ -9,11 +9,10 @@ d-references {
 </style>
 `, false);
 
-export default class References extends T(HTMLElement) {
-  static get is() { return "d-references"; }
+export  class References extends T(HTMLElement) {
+
   connectedCallback() {
     super.connectedCallback();
   }
-}
 
-customElements.define(References.is, References);
+}

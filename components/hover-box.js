@@ -94,7 +94,7 @@ HoverBox.prototype.bind = function bind(node) {
     }
     // Don't trigger body touchstart event when touching link
     e.stopPropagation();
-  }.bind(this));
+  }.bind(this), {passive: true});
 }
 
 HoverBox.prototype.bindDivEvents = function bindDivEvents(node){
@@ -106,7 +106,7 @@ HoverBox.prototype.bindDivEvents = function bindDivEvents(node){
   this.div.addEventListener("mouseout", function(){this.extendTimeout(250);}.bind(this));
 
   // Don't trigger body touchstart event when touching within box
-  this.div.addEventListener("touchstart", function(e){e.stopPropagation();});
+  this.div.addEventListener("touchstart", function(e){e.stopPropagation();}, {passive: true});
   // Close box when touching outside box
-  document.body.addEventListener("touchstart", function(){this.hide();}.bind(this));
+  document.body.addEventListener("touchstart", function(){this.hide();}.bind(this), {passive: true});
 }

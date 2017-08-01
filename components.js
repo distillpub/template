@@ -1,32 +1,42 @@
-// load `webcomponent` polyfills asynchronously
-// import "webcomponents.js/webcomponents-loader.js";
+/* Static styles and other modules */
+import * as Styles from './components/styles';
 
-import * as frontMatter from "./components/d-front-matter";
-import * as title from "./components/d-title";
-import * as byline from "./components/d-byline";
-import * as article from "./components/d-article";
-import * as abstract from "./components/d-abstract";
-import * as toc from "./components/d-toc";
-import * as styles from "./components/styles";
-import * as appendix from "./components/d-appendix";
-import * as distillAppendix from "./components/distill-appendix";
-import * as bibliography from "./components/d-bibliography";
-import * as references from "./components/d-references";
-import * as code from "./components/d-code";
-import * as math from "./components/d-math";
-import * as footnote from "./components/d-footnote";
-import * as footnoteList from "./components/d-footnote-list";
-import * as acknowledgements from "./components/d-acknowledgements";
-import * as cite from "./components/d-cite";
+/* Components */
+import { Abstract }         from './components/d-abstract';
+import { Acknowledgements } from './components/d-acknowledgements';
+import { Appendix }         from './components/d-appendix';
+import { Article }          from './components/d-article';
+import { Bibliography }     from './components/d-bibliography';
+import { Byline }           from './components/d-byline';
+import { Cite }             from './components/d-cite';
+import { Code }             from './components/d-code';
+import { Footnote }         from './components/d-footnote';
+import { FootnoteList }     from './components/d-footnote-list';
+import { FrontMatter }      from './components/d-front-matter';
+import { DMath }            from './components/d-math';
+import { References }       from './components/d-references';
+import { Title }            from './components/d-title';
+import { TOC }              from './components/d-toc';
 
-// let codeStyle = document.createElement("style");
-// codeStyle.textContent = codeCss;
-// document.querySelector("head").appendChild(codeStyle);
+const components = [
+  Abstract, Acknowledgements, Appendix, Article, Bibliography,
+  Byline, Cite, Code, Footnote, FootnoteList, FrontMatter, DMath,
+  References, Title, TOC,
+];
 
-document.addEventListener("DOMContentLoaded", function() {
-  // Render byline with authors list.
+/* Distill website specific components */
+import { DistillHeader } from "./distill-components/distill-header";
+import { DistillAppendix } from "./distill-components/distill-appendix";
 
-  // Render distill appendix with distill journal data.
-  // document.querySelector("distill-appendix").render([]);
+const distillComponents = [
+  DistillHeader, DistillAppendix,
+];
 
-})
+function defineComponents() {
+  const allComponents = components.concat(distillComponents);
+  for (const component of allComponents) {
+    customElements.define(component.is, component);
+  }
+}
+
+defineComponents();

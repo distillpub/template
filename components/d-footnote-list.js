@@ -1,7 +1,7 @@
 import { Template } from "../mixins/template";
+// import { Store } from './store';
 
-const name = 'd-footnote-list';
-const T = Template(name, `
+const T = Template('d-footnote-list', `
 <style>
 ol {
   padding: 0 0 0 18px;
@@ -33,40 +33,47 @@ a.footnote-backlink {
 <ol></ol>
 `);
 
-export default class FootnoteList extends T(HTMLElement) {
-
-  static get is() { return name; }
+export class FootnoteList extends T(HTMLElement) {
 
   connectedCallback() {
     this.list = this.root.querySelector('ol');
-    this.footnotes = new Map();
     // footnotes list is initially hidden
     this.root.host.style.display = 'none';
     // look through document and register existing footnotes
-    document.querySelectorAll('d-footnote')
-      .forEach(footnote => this.registerFootnote(footnote));
+    // Store.subscribeTo('footnotes', (footnote) => {
+    //   this.renderFootnote(footnote);
+    // });
   }
 
-  registerFootnote(element) {
-    // check if we already know about this footnote
-    if (!this.footnotes.has(element.id)) {
-      this.footnotes.set(element.id, element);
+  // TODO: could optimize this to accept individual footnotes?
+  set footnotes(footnotes) {
+    this.list.innerHTML = '';
+    if (footnotes.length) {
       // ensure footnote list is visible
       this.root.host.style.display = 'initial'
-      // construct and append list item to show footnote
-      const listItem = document.createElement('li');
-      listItem.innerHTML = element.innerHTML;
-      const backlink = document.createElement('a');
-      backlink.setAttribute('class', 'footnote-backlink');
-      backlink.textContent = '[↩]';
-      backlink.href = `#${element.id}`;
-      listItem.appendChild(backlink);
-      this.list.appendChild(listItem);
-    } /*else {
-      console.debug('Had already registered footnote ' + element.id + '!')
-    }*/
+
+      for (const footnote of footnotes) {
+        // construct and append list item to show footnote
+        const listItem = document.createElement('li');
+        listItem.id = footnote.id + '-listing';
+        listItem.innerHTML = footnote.innerHTML;
+
+        const backlink = document.createElement('a');
+        backlink.setAttribute('class', 'footnote-backlink');
+        backlink.textContent = '[↩]';
+        backlink.href = `#${footnote.id}`;
+
+        listItem.appendChild(backlink);
+        this.list.appendChild(listItem);
+      }
+    } else {
+      // ensure footnote list is invisible
+      this.shadowRoot.host.style.display = 'none';
+    }
+  }
+
+  renderFootnote(element) {
+
   }
 
 }
-
-customElements.define(name, FootnoteList);

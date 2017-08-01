@@ -3,21 +3,21 @@
   "version": "0.0.21",
   "description": "Template for creating Distill articles.",
   "main": "dist/template.js",
+  "author": "Shan Carter",
+  "homepage": "https://github.com/distillpub/distill-template#readme",
+  "bugs": {
+    "url": "https://github.com/distillpub/distill-template/issues"
+  },
   "scripts": {
     "start": "rollup -c rollup.config.components.js -w",
-    "serve": "python3 -m http.server",
+    "serve": "python3 -m http.server --bind 127.0.0.1",
     "test": "mocha",
-    "build": "rollup -c rollup.config.components.js && rollup -c rollup.config.transforms.js"
+    "build": "rollup -c rollup.config.components.js"
   },
-  "author": "Shan Carter",
   "repository": {
     "url": "git+https://github.com/distillpub/distill-template.git",
     "type": "git"
   },
-  "bugs": {
-    "url": "https://github.com/distillpub/distill-template/issues"
-  },
-  "homepage": "https://github.com/distillpub/distill-template#readme",
   "devDependencies": {
     "bibtex-parse-js": "^0.0.23",
     "chai": "^3.5.0",
@@ -36,12 +36,14 @@
     "rollup-watch": "^2.5.0"
   },
   "dependencies": {
+    "@webcomponents/webcomponentsjs": "webcomponents/webcomponentsjs",
     "commander": "^2.9.0",
     "d3-time-format": "^2.0.3",
     "handlebars": "^4.0.6",
     "katex": "^0.7.1",
     "mustache": "^2.3.0",
     "rollup-plugin-babili": "^3.1.0",
+    "rollup-plugin-copy": "^0.2.3",
     "rollup-plugin-gzip": "^1.2.0",
     "webcomponents.js": "webcomponents/webcomponentsjs",
     "webpack": "^2.2.1"

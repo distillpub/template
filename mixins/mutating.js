@@ -1,15 +1,6 @@
 
-
 export const Mutating = (superclass) => {
   return class extends superclass {
-
-    static get observedAttributes() {
-      return ['textContent'];
-    }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-      console.warn(name, oldValue, newValue);
-    }
 
     constructor() {
       super();
@@ -22,20 +13,22 @@ export const Mutating = (superclass) => {
         observer.observe(this, options);
       });
 
-      this.renderIfPossible();
-
-      // ...and listen for changes afterwards
+      // ...and listen for changes
       observer.observe(this, options);
     }
 
     connectedCallback() {
+      super.connectedCallback();
+
       this.renderIfPossible();
     }
 
     // potential TODO: check if this is enough for all our usecases
     // maybe provide a custom function to tell if we have enough information to render
     renderIfPossible() {
-      if (this.textContent && this.shadowRoot) { this.renderContent(); }
+      if (this.textContent && this.root) {
+        this.renderContent();
+      }
     };
 
     renderContent() {

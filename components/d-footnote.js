@@ -1,7 +1,8 @@
 import { Template } from "../mixins/template.js"
 import { HoverBox } from "./hover-box.js"
+// import { Store } from './store';
 
-const templateString = `
+const T = Template("d-footnote", `
 <style>
 
 d-math[block] {
@@ -11,18 +12,34 @@ d-math[block] {
 </style>
 
 <div style="display: none;" class="dt-hover-box">
-  <slot></slot>
+  <slot id='slot'></slot>
 </div>
 
 <sup><span id="fn-" data-hover-ref="" style="cursor:pointer"></span></sup>
 
-`;
+`);
 
-const TemplatedFootnote = Template("d-footnote", templateString);
+export class Footnote extends T(HTMLElement) {
 
-export class Footnote extends TemplatedFootnote(HTMLElement) {
+  constructor() {
+    super();
+
+    const options = {childList: true, characterData: true, subtree: true};
+    const observer = new MutationObserver(this.notify);
+    observer.observe(this, options);
+  }
+
+  notify() {
+    const options = { detail: this, bubbles: true };
+    const event = new CustomEvent('onFootnoteChanged', options);
+    document.dispatchEvent(event);
+  }
 
   connectedCallback() {
+    // listen and notify about changes to slotted content
+    // const slot = this.shadowRoot.querySelector('#slot');
+    // slot.addEventListener('slotchange', this.notify);
+
     // create numeric ID
     Footnote.currentFootnoteId += 1;
     const IdString = Footnote.currentFootnoteId.toString();
@@ -37,20 +54,10 @@ export class Footnote extends TemplatedFootnote(HTMLElement) {
     span.setAttribute('id', 'fn-' + IdString);
     span.setAttribute('data-hover-ref', div.id);
     span.textContent = IdString;
-    
-    HoverBox.get_box(div).bind(span);
 
-    // register with footnote list should there be one
-    const footnoteList = document.querySelector('d-footnote-list');
-    if (footnoteList) {
-      customElements.whenDefined('d-footnote-list').then(() => {
-        footnoteList.registerFootnote(this);
-      });
-    }
+    HoverBox.get_box(div).bind(span);
   }
 
 }
 
 Footnote.currentFootnoteId = 0;
-
-customElements.define("d-footnote", Footnote);

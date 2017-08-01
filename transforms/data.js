@@ -1,26 +1,27 @@
 import {timeFormat} from "d3-time-format";
 
-const zeroPad = n =>  n < 10 ? "0" + n : n;
+const zeroPad = n => n < 10 ? "0" + n : n;
 const RFC = timeFormat("%a, %d %b %Y %H:%M:%S %Z");
 const months = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
 class Author {
-  constructor() {
-    this.personalURL = ""; // "https://colah.github.io"
-    this.name = ""; // "Chris Olah"
-    this.affiliationURL = ""; // "https://g.co/brain"
-    this.affiliation = ""; // "Google Brain"
+
+  constructor(name='', personalURL='', affiliation='', affiliationURL='') {
+    this.name = name; // "Chris Olah"
+    this.personalURL = personalURL; // "https://colah.github.io"
+    this.affiliation = affiliation; // "Google Brain"
+    this.affiliationURL = affiliationURL; // "https://g.co/brain"
   }
 
   // "Chris"
   get firstName() {
-    let names = this.name.split(" ");
+    const names = this.name.split(" ");
     return names.slice(0, names.length - 1).join(" ");
   }
 
   // "Olah"
   get lastName() {
-    let names = this.name.split(" ");
+    const names = this.name.split(" ");
     return names[names.length -1];
   }
 }
@@ -31,7 +32,7 @@ export class FrontMatter {
     this.description = ""; // "A visual overview of neural attention..."
     this.authors = []; // Array of Author(s)
 
-    this.bibliography = {};
+    this.bibliography = new Map();
     //  {
     //    "gregor2015draw": {
     //      "title": "DRAW: A recurrent neural network for image generation",
@@ -61,7 +62,7 @@ export class FrontMatter {
     //
     // Assigned from journal
     //
-
+    this.journal = {};
     //  journal: {
     //    "title": "Distill",
     //    "full_title": "Distill",
@@ -87,6 +88,34 @@ export class FrontMatter {
 
   }
 
+  // Example:
+  // title: Demo Title Attention and Augmented Recurrent Neural Networks
+  // published: Jan 10, 2017
+  // authors:
+  // - Chris Olah:
+  // - Shan Carter: http://shancarter.com
+  // affiliations:
+  // - Google Brain:
+  // - Google Brain: http://g.co/brain
+  mergeFromYMLFrontmatter(data) {
+    this.title = data.title;
+    this.publishedDate = new Date(data.published);
+    this.description = data.description;
+    const zipped = data.authors.map( (author, index) => [author, data.affiliations[index]]);
+    this.authors = zipped.map( ([authorEntry, affiliationEntry]) => {
+      const name = Object.keys(authorEntry)[0];
+      const author = new Author(name);
+      if (typeof authorEntry === 'object') {
+        author.personalURL = authorEntry[name];
+      }
+      author.affiliation = Object.keys(affiliationEntry)[0];
+      if (typeof affiliationEntry === 'object') {
+        author.affiliationURL = affiliationEntry[author.affiliation]
+      }
+      return author;
+    });
+  }
+
   //
   // Computed Properties
   //
@@ -102,6 +131,8 @@ export class FrontMatter {
       return this.journal.url + "/" + this.distillPath;
     } else if (this.journal.url) {
       return this.journal.url;
+    } else {
+      return
     }
   }
 
@@ -160,23 +191,31 @@ export class FrontMatter {
 
   // 'Olah & Carter',
   get concatenatedAuthors() {
-    if (this.authors.length  > 2) {
+    if (this.authors.length > 2) {
       return this.authors[0].lastName + ", et al.";
     } else if (this.authors.length === 2) {
       return this.authors[0].lastName + " & " + this.authors[1].lastName;
     } else if (this.authors.length === 1) {
-      return this.authors[0].lastName
+      return this.authors[0].lastName;
     }
   }
 
   // 'Olah, Chris and Carter, Shan',
   get bibtexAuthors() {
-    return this.authors.map(author => author.lastName + ", " + author.firstName }).join(" and ");
+    return this.authors.map(author => {
+      return author.lastName + ", " + author.firstName
+    }).join(" and ");
   }
 
   // 'olah2016attention'
   get slug() {
-    return this.authors.length ? this.authors[0].lastName.toLowerCase() + this.publishedYear + this.title.split(" ")[0].toLowerCase() : "Untitled";
+    let slug = '';
+    if (this.authors.length) {
+      slug += this.authors[0].lastName.toLowerCase();
+      slug += this.publishedYear;
+      slug += this.title.split(' ')[0].toLowerCase();
+    }
+    return slug || 'Untitled';
   }
 
 }

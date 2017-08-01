@@ -1,5 +1,5 @@
-import {Template} from "../mixins/template";
-import {body} from "./layout";
+import { Template } from "../mixins/template";
+import { body } from "./layout";
 
 const T = Template("d-abstract", `
 <style>
@@ -13,8 +13,6 @@ const T = Template("d-abstract", `
 </style>
 `, false);
 
-export default class Abstract extends T(HTMLElement) {
-  static get is() { return "d-abstract"; }
-}
+export class Abstract extends T(HTMLElement) {
 
-customElements.define(Abstract.is, Abstract);
+}

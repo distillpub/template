@@ -25,10 +25,6 @@ ${page(".l-body")}
 </div>
 `);
 
-export default class Appendix extends T(HTMLElement) {
-
-  static get is() { return "d-appendix"; }
+export class Appendix extends T(HTMLElement) {
 
 }
-
-customElements.define(Appendix.is, Appendix);

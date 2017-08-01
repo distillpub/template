@@ -28,7 +28,7 @@ const T = Template('d-cite', `
   }
 </style>
 
-<div style="display: none;" class="dt-hover-box">
+<div style="display: none;" id="hover-box" class="dt-hover-box">
 </div>
 
 <span id="citation-" class="citation">
@@ -37,76 +37,120 @@ const T = Template('d-cite', `
 </span>
 `);
 
-
-function inline_cite_short(keys, bibliography) {
-  function cite_string(key) {
-    if (bibliography.hasEntry(key)){
-      return (bibliography.getIndex(key)+1).toString();
-    } else {
-      return "?";
+export function collectCitations() {
+  const citations = new Set();
+  const citeTags = document.querySelectorAll('d-cite');
+  for (const tag of citeTags) {
+    const keys = tag.getAttribute('key').split(',');
+    for (const key of keys) {
+      citations.add(key);
     }
   }
-  return "[" + keys.map(cite_string).join(", ") + "]";
+  return [...citations];
 }
 
+export class Cite extends T(HTMLElement) {
 
-export default class Cite extends T(HTMLElement) {
+  /* Lifecycle */
 
   constructor() {
     super()
-    this._key = null;
-
-    Cite.currentId += 1;
-    this.citeId = Cite.currentId;
+    // Cite.currentId += 1;
+    // this.citeId = Cite.currentId;
   }
+
+  connectedCallback() {
+    // this.notify();
+
+    this.hoverDiv = this.root.querySelector('.dt-hover-box');
+    this.outerSpan = this.root.querySelector('#citation-');
+    this.innerSpan = this.root.querySelector('.citation-number');
+    // this.outerSpan.id = `citation-${this.citeId}`;
+    // this.hoverDiv.id = `dt-cite-hover-box-${this.citeId}`;
+    HoverBox.get_box(this.hoverDiv).bind(this.outerSpan);
+
+  }
+
+  /* Observed Attributes */
+
+  // renderCitationNumbers(citations) {
+  //   const numbers = this._keys.map( (key) => {
+  //     const index = citations.indexOf(key);
+  //     return index == -1 ? '?' : index + 1 + '';
+  //   });
+  //   const text = "[" + numbers.join(", ") + "]";
+  //   this.innerSpan.textContent = text;
+  // }
+
+
+
+  /* observe 'key' attribute */
 
   static get observedAttributes() {
     return ['key'];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    // name will always be "key" due to observedAttributes
-    this._key = newValue;
-    this.renderContent();
-  }
-
-  get key() {
-    return this._key;
+    const eventName = oldValue ? 'onCiteKeyChanged' : 'onCiteKeyCreated';
+    const keys = newValue.split(',');
+    const options = { detail: [this, keys], bubbles: true };
+    const event = new CustomEvent(eventName, options);
+    document.dispatchEvent(event);
   }
 
   set key(value) {
     this.setAttribute('key', value);
   }
 
-  renderContent() {
-    const bibliography = document.querySelector('d-bibliography');
-    if (bibliography && bibliography.finishedLoading) {
-      customElements.whenDefined('d-bibliography').then( () => {
-        const keys = this.key.split(",");
-
-        // set up hidden hover box
-        const div = this.root.querySelector('.dt-hover-box');
-        div.innerHTML = keys.map( (key) => {
-          return bibliography.getEntry(key);
-        }).map(hover_cite).join('<br><br>');
-        div.id ='dt-cite-hover-box-' + this.citeId;
-
-        // set up visible citation marker
-        const outerSpan = this.root.querySelector('#citation-');
-        outerSpan.id = `citation-${this.citeId}`;
-        // outerSpan.setAttribute('data-hover', dataHoverString); // directly tell HoverBox instead?
-        const innerSpan = this.root.querySelector('.citation-number');
-        innerSpan.textContent = inline_cite_short(keys, bibliography);
-
-        HoverBox.get_box(div).bind(outerSpan);
-      });
-    } else {
-      console.error(`You used a d-cite tag (${key}) without including a d-bibliography tag in your article. We can't lookup your citation this way.`)
-    }
+  get key() {
+    return this.getAttribute('key');
   }
 
+  get keys() {
+    return this.getAttribute('key').split(',');
+  }
+
+  /* Setters & Rendering */
+
+  set numbers(numbers) {
+    const numberStrings = numbers.map( index => {
+      return index == -1 ? '?' : index + 1 + '';
+    });
+    const textContent = "[" + numberStrings.join(", ") + "]";
+    const innerSpan = this.root.querySelector('.citation-number');
+    innerSpan.textContent = textContent;
+  }
+
+  set entries(entries) {
+    const div = this.root.querySelector('#hover-box');
+    div.innerHTML = entries.map(hover_cite).join('<br><br>');
+  }
+
+  // renderContent() {
+  //   const bibliography = document.querySelector('d-bibliography');
+  //   if (bibliography && bibliography.finishedLoading) {
+  //     customElements.whenDefined('d-bibliography').then( () => {
+  //       const keys = this.key.split(",");
+  //
+  //       // set up hidden hover box
+  //       const div = this.root.querySelector('.dt-hover-box');
+  //       div.innerHTML = keys.map( (key) => {
+  //         return bibliography.getEntry(key);
+  //       }).map(hover_cite).join('<br><br>');
+  //       div.id ='dt-cite-hover-box-' + this.citeId;
+  //
+  //       // set up visible citation marker
+  //       const outerSpan = this.root.querySelector('#citation-');
+  //       outerSpan.id = `citation-${this.citeId}`;
+  //       // outerSpan.setAttribute('data-hover', dataHoverString); // directly tell HoverBox instead?
+  //       const innerSpan = this.root.querySelector('.citation-number');
+  //       innerSpan.textContent = inline_cite_short(keys, bibliography);
+  //
+  //       HoverBox.get_box(div).bind(outerSpan);
+  //     });
+  //   } else {
+  //     console.error(`You used a d-cite tag (${key}) without including a d-bibliography tag in your article. We can't lookup your citation this way.`)
+  //   }
+  // }
+
 }
-
-Cite.currentId = 0;
-
-customElements.define(Cite.is, Cite);

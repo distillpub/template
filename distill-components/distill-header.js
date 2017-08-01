@@ -1,4 +1,4 @@
-import {Template} from "./mixins/template";
+import {Template} from "../mixins/template";
 
 // import logo from "./distill-logo.svg";
 var logo = "";
@@ -84,10 +84,8 @@ svg path {
 </div>
 `);
 
-export default class DistillHeader extends T(HTMLElement) {
+export class DistillHeader extends T(HTMLElement) {
   static get is() {
     return "distill-header";
   }
 }
-
-customElements.define(DistillHeader.is, DistillHeader);

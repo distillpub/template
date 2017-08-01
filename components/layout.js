@@ -44,29 +44,6 @@ export function page(selector) {
   `;
 }
 
-export function pagePadding(selector) {
-  return `${selector} {
-      width: auto;
-      padding-left: 24px;
-      padding-right: 24px;
-      box-sizing: border-box;
-    }
-    @media(min-width: 768px) {
-      ${selector} {
-        padding-left: 72px;
-        padding-right: 72px;
-      }
-    }
-    @media(min-width: 1080px) {
-      ${selector} {
-        width: 984px;
-        padding-left: auto;
-        padding-right: auto;
-      }
-    }
-  `;
-}
-
 export function screen(selector) {
   return `${selector} {
       width: auto;

@@ -1,5 +1,5 @@
-import {Template} from "../mixins/template";
-import {page} from "./layout";
+import { Template } from "../mixins/template";
+import { page } from "./layout";
 
 const T = Template("d-title", `
 <style>
@@ -32,9 +32,7 @@ ${page("::slotted(h1), ::slotted(h2)")}
 <d-byline></d-byline>
 `);
 
-export default class Title extends T(HTMLElement) {
-
-  static get is() { return "d-title"; }
+export class Title extends T(HTMLElement) {
 
   connectedCallback() {
     super.connectedCallback();
@@ -44,5 +42,3 @@ export default class Title extends T(HTMLElement) {
   }
 
 }
-
-customElements.define(Title.is, Title);

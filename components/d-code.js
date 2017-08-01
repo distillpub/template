@@ -6,9 +6,7 @@ import css from "prismjs/themes/prism.css";
 import { Template } from "../mixins/template.js"
 import { Mutating } from "../mixins/mutating.js"
 
-
-
-const templateString = `
+const T = Template("d-code", `
 <style>
 
 code {
@@ -32,11 +30,9 @@ ${css}
 
 <code id="code-container"></code>
 
-`
+`);
 
-const Templated = Template("d-code", templateString);
-
-export class Code extends Mutating(Templated(HTMLElement)) {
+export class Code extends Mutating(T(HTMLElement)) {
 
   renderContent() {
 
@@ -76,5 +72,3 @@ export class Code extends Mutating(Templated(HTMLElement)) {
   }
 
 }
-
-customElements.define("d-code", Code);

@@ -1,8 +1,4126 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(factory());
-}(this, (function () { 'use strict';
+(function () {
+'use strict';
+
+var base = "html {\n  font-size: 20px;\n\tline-height: 1rem;\n\t/*font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Helvetica Neue\", sans-serif;*/\n\tfont-family: \"Libre Franklin\", \"Helvetica Neue\", sans-serif;\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\n\nbody {\n  margin: 0;\n  /*background-color: hsl(223, 9%, 25%);*/\n}\n\na {\n  color: #004276;\n}\n\nfigure {\n  margin: 0;\n}\n\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}\n\ntable th {\n\ttext-align: left;\n}\n\ntable thead {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\n}\ntable thead th {\n  padding-bottom: 0.5em;\n}\ntable tbody :first-child td {\n  padding-top: 0.5em;\n}\n\n/*\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}*/\n";
+
+var layout = "/*\n  Column: 60px\n  Gutter: 24px\n\n  Body: 648px\n    - 8 columns\n    - 7 gutters\n  Middle: 816px\n  Page: 984px\n    - 12 columns\n    - 11 gutters\n*/\n\n.l-body,\n.l-body-outset,\n.l-page,\n.l-page-outset,\n.l-middle,\n.l-middle-outset,\nd-article > div,\nd-article > p,\nd-article > h1,\nd-article > h2,\nd-article > h3,\nd-article > h4,\nd-article > figure,\nd-article > ul,\nd-article > d-abstract,\nd-article > d-code,\nd-article > d-math,\nd-article > table,\nd-article section > div,\nd-article section > p,\nd-article section > h1,\nd-article section > h2,\nd-article section > h3,\nd-article section > h4,\nd-article section > figure,\nd-article section > ul,\nd-article section > d-abstract,\nd-article section > d-code,\nd-article section > d-math,\nd-article section > table, {\n  width: auto;\n  margin-left: 24px;\n  margin-right: 24px;\n  box-sizing: border-box;\n}\n\n@media(min-width: 768px) {\n  .l-body,\n  .l-body-outset,\n  .l-page,\n  .l-page-outset,\n  .l-middle,\n  .l-middle-outset,\n  d-article > div,\n  d-article > p,\n  d-article > h1,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article > d-math,\n  d-article > d-math,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h1,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code,\n  d-article section > d-math,\n  d-article section > table {\n    margin-left: 72px;\n    margin-right: 72px;\n  }\n}\n\n@media(min-width: 1080px) {\n  .l-body,\n  d-article > div,\n  d-article > p,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article > d-math,\n  d-article > table,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code,\n  d-article section > d-math,\n  d-article section > table {\n    margin-left: calc(50% - 984px / 2);\n    width: 648px;\n  }\n  .l-body-outset,\n  d-article .l-body-outset {\n    margin-left: calc(50% - 984px / 2 - 96px/2);\n    width: calc(648px + 96px);\n  }\n  .l-middle,\n  d-article .l-middle {\n    width: 816px;\n    margin-left: calc(50% - 984px / 2);\n    margin-right: auto;\n  }\n  .l-middle-outset,\n  d-article .l-middle-outset {\n    width: calc(816px + 96px);\n    margin-left: calc(50% - 984px / 2 - 48px);\n    margin-right: auto;\n  }\n  d-article > h1,\n  d-article section > h1,\n  .l-page,\n  d-article .l-page,\n  d-article.centered .l-page {\n    width: 984px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-page-outset,\n  d-article .l-page-outset,\n  d-article.centered .l-page-outset {\n    width: 1080px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-screen,\n  d-article .l-screen,\n  d-article.centered .l-screen {\n    margin-left: auto;\n    margin-right: auto;\n    width: auto;\n  }\n  .l-screen-inset,\n  d-article .l-screen-inset,\n  d-article.centered .l-screen-inset {\n    margin-left: 24px;\n    margin-right: 24px;\n    width: auto;\n  }\n  .l-gutter,\n  d-article .l-gutter {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 24px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n    width: calc((984px - 648px) / 2 - 24px);\n  }\n\n  /* Side */\n  .side.l-body,\n  d-article .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px) / 2);\n    width: calc(648px / 2 - 24px - 84px);\n  }\n  .side.l-body-outset,\n  d-article .side.l-body-outset {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px - 48px) / 2);\n    width: calc(648px / 2 - 48px + 24px);\n  }\n  .side.l-middle,\n  d-article .side.l-middle {\n    clear: both;\n    float: right;\n    width: calc(456px - 84px);\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-middle-outset,\n  d-article .side.l-middle-outset {\n    clear: both;\n    float: right;\n    width: 456px;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-page,\n  d-article .side.l-page {\n    clear: both;\n    float: right;\n    margin-left: 48px;\n    width: calc(624px - 84px);\n    margin-right: calc((100vw - 984px) / 2);\n  }\n  .side.l-page-outset,\n  d-article .side.l-page-outset {\n    clear: both;\n    float: right;\n    width: 624px;\n    margin-right: calc((100vw - 984px) / 2);\n  }\n}\n\n\n/* Rows and Columns */\n\n.row {\n  display: flex;\n}\n.column {\n  flex: 1;\n  box-sizing: border-box;\n  margin-right: 24px;\n  margin-left: 24px;\n}\n.row > .column:first-of-type {\n  margin-left: 0;\n}\n.row > .column:last-of-type {\n  margin-right: 0;\n}\n";
+
+var article = "d-article {\n  display: block;\n  color: rgba(0, 0, 0, 0.8);\n  padding-top: 36px;\n  padding-bottom: 72px;\n  overflow: hidden;\n  font-size: 16px;\n  line-height: 1.6em;\n  border-top: 1px solid rgba(0, 0, 0, 0.2);\n}\n@media(min-width: 1024px) {\n  d-article {\n    font-size: 18px;\n  }\n}\n\n/* H2 */\n\nd-article h2 {\n  font-weight: 400;\n  font-size: 26px;\n  line-height: 1.25em;\n  margin-top: 36px;\n  margin-bottom: 24px;\n  padding-bottom: 24px;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n@media(min-width: 1024px) {\n  d-article h2 {\n    margin-top: 2em;\n    font-size: 32px;\n  }\n}\nd-article h1 + h2 {\n  font-weight: 300;\n  font-size: 20px;\n  line-height: 1.4em;\n  margin-top: 8px;\n  font-style: normal;\n}\n@media(min-width: 1080px) {\n  .centered h1 + h2 {\n    text-align: center;\n  }\n  d-article h1 + h2 {\n    margin-top: 12px;\n    font-size: 32px;\n  }\n}\n\n/* H3 */\n\nd-article h3 {\n  font-weight: 400;\n  font-size: 20px;\n  line-height: 1.4em;\n  margin-top: 36px;\n  margin-bottom: 18px;\n  font-style: italic;\n}\nd-article h1 + h3 {\n  margin-top: 48px;\n}\n@media(min-width: 1024px) {\n  d-article h3 {\n    font-size: 26px;\n  }\n}\n\n/* H4 */\n\nd-article h4 {\n  font-weight: 600;\n  text-transform: uppercase;\n  font-size: 14px;\n  line-height: 1.4em;\n}\nd-article a {\n  color: inherit;\n}\nd-article p,\nd-article ul,\nd-article ol {\n  margin-bottom: 24px;\n}\nd-article p b,\nd-article ul b,\nd-article ol b {\n  -webkit-font-smoothing: antialiased;\n}\nd-article a {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.4);\n  text-decoration: none;\n}\nd-article a:hover {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.8);\n}\nd-article .link {\n  text-decoration: underline;\n  cursor: pointer;\n}\nd-article ul,\nd-article ol {\n  padding-left: 24px;\n}\nd-article li {\n  margin-bottom: 24px;\n  margin-left: 0;\n  padding-left: 0;\n}\nd-article pre {\n  font-size: 14px;\n  margin-bottom: 20px;\n}\nd-article hr {\n  border: none;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n  margin-top: 60px;\n  margin-bottom: 60px;\n}\nd-article section {\n  margin-top: 60px;\n  margin-bottom: 60px;\n}\n\n/* Figure */\n\nd-article figure {\n  position: relative;\n  margin-top: 30px;\n  margin-bottom: 30px;\n}\n@media(min-width: 1024px) {\n  d-article figure {\n    margin-top: 48px;\n    margin-bottom: 48px;\n  }\n}\nd-article figure img {\n  width: 100%;\n}\nd-article figure svg text,\nd-article figure svg tspan {\n}\nd-article figure figcaption {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 12px;\n  line-height: 1.5em;\n}\n@media(min-width: 1024px) {\n  d-article figure figcaption {\n    font-size: 13px;\n  }\n}\nd-article figure.external img {\n  background: white;\n  border: 1px solid rgba(0, 0, 0, 0.1);\n  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);\n  padding: 18px;\n  box-sizing: border-box;\n}\nd-article figure figcaption a {\n  color: rgba(0, 0, 0, 0.6);\n}\n/*d-article figure figcaption::before {\n  position: relative;\n  display: block;\n  top: -20px;\n  content: \"\";\n  width: 25px;\n  border-top: 1px solid rgba(0, 0, 0, 0.3);\n}*/\nd-article span.equation-mimic {\n  font-family: georgia;\n  font-size: 115%;\n  font-style: italic;\n}\nd-article figure figcaption b {\n  font-weight: 600;\n  color: rgba(0, 0, 0, 1.0);\n}\nd-article > d-code,\nd-article section > d-code  {\n  display: block;\n}\nd-article > d-math[block],\nd-article section > d-math[block]  {\n  display: block;\n}\nd-article .citation {\n  color: #668;\n  cursor: pointer;\n}\nd-include {\n  width: auto;\n  display: block;\n}\n";
+
+var print = "\n@media print {\n  @page {\n    size: 8in 11in;\n  }\n  html {\n  }\n  p, code {\n    page-break-inside: avoid;\n  }\n  h2, h3 {\n    page-break-after: avoid;\n  }\n  d-header {\n    visibility: hidden;\n  }\n  d-footer {\n    display: none!important;\n  }\n}\n";
+
+var katexCSS = "@font-face{font-family:KaTeX_AMS;src:url(fonts/KaTeX_AMS-Regular.eot);src:url(fonts/KaTeX_AMS-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_AMS-Regular.woff2) format('woff2'),url(fonts/KaTeX_AMS-Regular.woff) format('woff'),url(fonts/KaTeX_AMS-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Caligraphic;src:url(fonts/KaTeX_Caligraphic-Bold.eot);src:url(fonts/KaTeX_Caligraphic-Bold.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Caligraphic-Bold.woff2) format('woff2'),url(fonts/KaTeX_Caligraphic-Bold.woff) format('woff'),url(fonts/KaTeX_Caligraphic-Bold.ttf) format('truetype');font-weight:700;font-style:normal}@font-face{font-family:KaTeX_Caligraphic;src:url(fonts/KaTeX_Caligraphic-Regular.eot);src:url(fonts/KaTeX_Caligraphic-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Caligraphic-Regular.woff2) format('woff2'),url(fonts/KaTeX_Caligraphic-Regular.woff) format('woff'),url(fonts/KaTeX_Caligraphic-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Fraktur;src:url(fonts/KaTeX_Fraktur-Bold.eot);src:url(fonts/KaTeX_Fraktur-Bold.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Fraktur-Bold.woff2) format('woff2'),url(fonts/KaTeX_Fraktur-Bold.woff) format('woff'),url(fonts/KaTeX_Fraktur-Bold.ttf) format('truetype');font-weight:700;font-style:normal}@font-face{font-family:KaTeX_Fraktur;src:url(fonts/KaTeX_Fraktur-Regular.eot);src:url(fonts/KaTeX_Fraktur-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Fraktur-Regular.woff2) format('woff2'),url(fonts/KaTeX_Fraktur-Regular.woff) format('woff'),url(fonts/KaTeX_Fraktur-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Main;src:url(fonts/KaTeX_Main-Bold.eot);src:url(fonts/KaTeX_Main-Bold.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Main-Bold.woff2) format('woff2'),url(fonts/KaTeX_Main-Bold.woff) format('woff'),url(fonts/KaTeX_Main-Bold.ttf) format('truetype');font-weight:700;font-style:normal}@font-face{font-family:KaTeX_Main;src:url(fonts/KaTeX_Main-Italic.eot);src:url(fonts/KaTeX_Main-Italic.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Main-Italic.woff2) format('woff2'),url(fonts/KaTeX_Main-Italic.woff) format('woff'),url(fonts/KaTeX_Main-Italic.ttf) format('truetype');font-weight:400;font-style:italic}@font-face{font-family:KaTeX_Main;src:url(fonts/KaTeX_Main-Regular.eot);src:url(fonts/KaTeX_Main-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Main-Regular.woff2) format('woff2'),url(fonts/KaTeX_Main-Regular.woff) format('woff'),url(fonts/KaTeX_Main-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Math;src:url(fonts/KaTeX_Math-Italic.eot);src:url(fonts/KaTeX_Math-Italic.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Math-Italic.woff2) format('woff2'),url(fonts/KaTeX_Math-Italic.woff) format('woff'),url(fonts/KaTeX_Math-Italic.ttf) format('truetype');font-weight:400;font-style:italic}@font-face{font-family:KaTeX_SansSerif;src:url(fonts/KaTeX_SansSerif-Regular.eot);src:url(fonts/KaTeX_SansSerif-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_SansSerif-Regular.woff2) format('woff2'),url(fonts/KaTeX_SansSerif-Regular.woff) format('woff'),url(fonts/KaTeX_SansSerif-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Script;src:url(fonts/KaTeX_Script-Regular.eot);src:url(fonts/KaTeX_Script-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Script-Regular.woff2) format('woff2'),url(fonts/KaTeX_Script-Regular.woff) format('woff'),url(fonts/KaTeX_Script-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Size1;src:url(fonts/KaTeX_Size1-Regular.eot);src:url(fonts/KaTeX_Size1-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Size1-Regular.woff2) format('woff2'),url(fonts/KaTeX_Size1-Regular.woff) format('woff'),url(fonts/KaTeX_Size1-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Size2;src:url(fonts/KaTeX_Size2-Regular.eot);src:url(fonts/KaTeX_Size2-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Size2-Regular.woff2) format('woff2'),url(fonts/KaTeX_Size2-Regular.woff) format('woff'),url(fonts/KaTeX_Size2-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Size3;src:url(fonts/KaTeX_Size3-Regular.eot);src:url(fonts/KaTeX_Size3-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Size3-Regular.woff2) format('woff2'),url(fonts/KaTeX_Size3-Regular.woff) format('woff'),url(fonts/KaTeX_Size3-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Size4;src:url(fonts/KaTeX_Size4-Regular.eot);src:url(fonts/KaTeX_Size4-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Size4-Regular.woff2) format('woff2'),url(fonts/KaTeX_Size4-Regular.woff) format('woff'),url(fonts/KaTeX_Size4-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Typewriter;src:url(fonts/KaTeX_Typewriter-Regular.eot);src:url(fonts/KaTeX_Typewriter-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Typewriter-Regular.woff2) format('woff2'),url(fonts/KaTeX_Typewriter-Regular.woff) format('woff'),url(fonts/KaTeX_Typewriter-Regular.ttf) format('truetype');font-weight:400;font-style:normal}.katex-display{display:block;margin:1em 0;text-align:center}.katex-display>.katex{display:inline-block;text-align:initial}.katex{font:400 1.21em KaTeX_Main,Times New Roman,serif;line-height:1.2;white-space:nowrap;text-indent:0}.katex .katex-html{display:inline-block}.katex .katex-mathml{position:absolute;clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}.katex .base,.katex .strut{display:inline-block}.katex .mathrm{font-style:normal}.katex .textit{font-style:italic}.katex .mathit{font-family:KaTeX_Math;font-style:italic}.katex .mathbf{font-family:KaTeX_Main;font-weight:700}.katex .amsrm,.katex .mathbb{font-family:KaTeX_AMS}.katex .mathcal{font-family:KaTeX_Caligraphic}.katex .mathfrak{font-family:KaTeX_Fraktur}.katex .mathtt{font-family:KaTeX_Typewriter}.katex .mathscr{font-family:KaTeX_Script}.katex .mathsf{font-family:KaTeX_SansSerif}.katex .mainit{font-family:KaTeX_Main;font-style:italic}.katex .mord+.mop{margin-left:.16667em}.katex .mord+.mbin{margin-left:.22222em}.katex .mord+.mrel{margin-left:.27778em}.katex .mop+.mop,.katex .mop+.mord,.katex .mord+.minner{margin-left:.16667em}.katex .mop+.mrel{margin-left:.27778em}.katex .mop+.minner{margin-left:.16667em}.katex .mbin+.minner,.katex .mbin+.mop,.katex .mbin+.mopen,.katex .mbin+.mord{margin-left:.22222em}.katex .mrel+.minner,.katex .mrel+.mop,.katex .mrel+.mopen,.katex .mrel+.mord{margin-left:.27778em}.katex .mclose+.mop{margin-left:.16667em}.katex .mclose+.mbin{margin-left:.22222em}.katex .mclose+.mrel{margin-left:.27778em}.katex .mclose+.minner,.katex .minner+.mop,.katex .minner+.mord,.katex .mpunct+.mclose,.katex .mpunct+.minner,.katex .mpunct+.mop,.katex .mpunct+.mopen,.katex .mpunct+.mord,.katex .mpunct+.mpunct,.katex .mpunct+.mrel{margin-left:.16667em}.katex .minner+.mbin{margin-left:.22222em}.katex .minner+.mrel{margin-left:.27778em}.katex .minner+.minner,.katex .minner+.mopen,.katex .minner+.mpunct{margin-left:.16667em}.katex .mbin.mtight,.katex .mclose.mtight,.katex .minner.mtight,.katex .mop.mtight,.katex .mopen.mtight,.katex .mord.mtight,.katex .mpunct.mtight,.katex .mrel.mtight{margin-left:0}.katex .mclose+.mop.mtight,.katex .minner+.mop.mtight,.katex .mop+.mop.mtight,.katex .mop+.mord.mtight,.katex .mord+.mop.mtight{margin-left:.16667em}.katex .reset-textstyle.textstyle{font-size:1em}.katex .reset-textstyle.scriptstyle{font-size:.7em}.katex .reset-textstyle.scriptscriptstyle{font-size:.5em}.katex .reset-scriptstyle.textstyle{font-size:1.42857em}.katex .reset-scriptstyle.scriptstyle{font-size:1em}.katex .reset-scriptstyle.scriptscriptstyle{font-size:.71429em}.katex .reset-scriptscriptstyle.textstyle{font-size:2em}.katex .reset-scriptscriptstyle.scriptstyle{font-size:1.4em}.katex .reset-scriptscriptstyle.scriptscriptstyle{font-size:1em}.katex .style-wrap{position:relative}.katex .vlist{display:inline-block}.katex .vlist>span{display:block;height:0;position:relative}.katex .vlist>span>span{display:inline-block}.katex .vlist .baseline-fix{display:inline-table;table-layout:fixed}.katex .msupsub{text-align:left}.katex .mfrac>span>span{text-align:center}.katex .mfrac .frac-line{width:100%}.katex .mfrac .frac-line:before{border-bottom-style:solid;border-bottom-width:1px;content:\"\";display:block}.katex .mfrac .frac-line:after{border-bottom-style:solid;border-bottom-width:.04em;content:\"\";display:block;margin-top:-1px}.katex .mspace{display:inline-block}.katex .mspace.negativethinspace{margin-left:-.16667em}.katex .mspace.thinspace{width:.16667em}.katex .mspace.negativemediumspace{margin-left:-.22222em}.katex .mspace.mediumspace{width:.22222em}.katex .mspace.thickspace{width:.27778em}.katex .mspace.sixmuspace{width:.333333em}.katex .mspace.eightmuspace{width:.444444em}.katex .mspace.enspace{width:.5em}.katex .mspace.twelvemuspace{width:.666667em}.katex .mspace.quad{width:1em}.katex .mspace.qquad{width:2em}.katex .llap,.katex .rlap{width:0;position:relative}.katex .llap>.inner,.katex .rlap>.inner{position:absolute}.katex .llap>.fix,.katex .rlap>.fix{display:inline-block}.katex .llap>.inner{right:0}.katex .rlap>.inner{left:0}.katex .katex-logo .a{font-size:.75em;margin-left:-.32em;position:relative;top:-.2em}.katex .katex-logo .t{margin-left:-.23em}.katex .katex-logo .e{margin-left:-.1667em;position:relative;top:.2155em}.katex .katex-logo .x{margin-left:-.125em}.katex .rule{display:inline-block;border:0 solid;position:relative}.katex .overline .overline-line,.katex .underline .underline-line{width:100%}.katex .overline .overline-line:before,.katex .underline .underline-line:before{border-bottom-style:solid;border-bottom-width:1px;content:\"\";display:block}.katex .overline .overline-line:after,.katex .underline .underline-line:after{border-bottom-style:solid;border-bottom-width:.04em;content:\"\";display:block;margin-top:-1px}.katex .sqrt>.sqrt-sign{position:relative}.katex .sqrt .sqrt-line{width:100%}.katex .sqrt .sqrt-line:before{border-bottom-style:solid;border-bottom-width:1px;content:\"\";display:block}.katex .sqrt .sqrt-line:after{border-bottom-style:solid;border-bottom-width:.04em;content:\"\";display:block;margin-top:-1px}.katex .sqrt>.root{margin-left:.27777778em;margin-right:-.55555556em}.katex .fontsize-ensurer,.katex .sizing{display:inline-block}.katex .fontsize-ensurer.reset-size1.size1,.katex .sizing.reset-size1.size1{font-size:1em}.katex .fontsize-ensurer.reset-size1.size2,.katex .sizing.reset-size1.size2{font-size:1.4em}.katex .fontsize-ensurer.reset-size1.size3,.katex .sizing.reset-size1.size3{font-size:1.6em}.katex .fontsize-ensurer.reset-size1.size4,.katex .sizing.reset-size1.size4{font-size:1.8em}.katex .fontsize-ensurer.reset-size1.size5,.katex .sizing.reset-size1.size5{font-size:2em}.katex .fontsize-ensurer.reset-size1.size6,.katex .sizing.reset-size1.size6{font-size:2.4em}.katex .fontsize-ensurer.reset-size1.size7,.katex .sizing.reset-size1.size7{font-size:2.88em}.katex .fontsize-ensurer.reset-size1.size8,.katex .sizing.reset-size1.size8{font-size:3.46em}.katex .fontsize-ensurer.reset-size1.size9,.katex .sizing.reset-size1.size9{font-size:4.14em}.katex .fontsize-ensurer.reset-size1.size10,.katex .sizing.reset-size1.size10{font-size:4.98em}.katex .fontsize-ensurer.reset-size2.size1,.katex .sizing.reset-size2.size1{font-size:.71428571em}.katex .fontsize-ensurer.reset-size2.size2,.katex .sizing.reset-size2.size2{font-size:1em}.katex .fontsize-ensurer.reset-size2.size3,.katex .sizing.reset-size2.size3{font-size:1.14285714em}.katex .fontsize-ensurer.reset-size2.size4,.katex .sizing.reset-size2.size4{font-size:1.28571429em}.katex .fontsize-ensurer.reset-size2.size5,.katex .sizing.reset-size2.size5{font-size:1.42857143em}.katex .fontsize-ensurer.reset-size2.size6,.katex .sizing.reset-size2.size6{font-size:1.71428571em}.katex .fontsize-ensurer.reset-size2.size7,.katex .sizing.reset-size2.size7{font-size:2.05714286em}.katex .fontsize-ensurer.reset-size2.size8,.katex .sizing.reset-size2.size8{font-size:2.47142857em}.katex .fontsize-ensurer.reset-size2.size9,.katex .sizing.reset-size2.size9{font-size:2.95714286em}.katex .fontsize-ensurer.reset-size2.size10,.katex .sizing.reset-size2.size10{font-size:3.55714286em}.katex .fontsize-ensurer.reset-size3.size1,.katex .sizing.reset-size3.size1{font-size:.625em}.katex .fontsize-ensurer.reset-size3.size2,.katex .sizing.reset-size3.size2{font-size:.875em}.katex .fontsize-ensurer.reset-size3.size3,.katex .sizing.reset-size3.size3{font-size:1em}.katex .fontsize-ensurer.reset-size3.size4,.katex .sizing.reset-size3.size4{font-size:1.125em}.katex .fontsize-ensurer.reset-size3.size5,.katex .sizing.reset-size3.size5{font-size:1.25em}.katex .fontsize-ensurer.reset-size3.size6,.katex .sizing.reset-size3.size6{font-size:1.5em}.katex .fontsize-ensurer.reset-size3.size7,.katex .sizing.reset-size3.size7{font-size:1.8em}.katex .fontsize-ensurer.reset-size3.size8,.katex .sizing.reset-size3.size8{font-size:2.1625em}.katex .fontsize-ensurer.reset-size3.size9,.katex .sizing.reset-size3.size9{font-size:2.5875em}.katex .fontsize-ensurer.reset-size3.size10,.katex .sizing.reset-size3.size10{font-size:3.1125em}.katex .fontsize-ensurer.reset-size4.size1,.katex .sizing.reset-size4.size1{font-size:.55555556em}.katex .fontsize-ensurer.reset-size4.size2,.katex .sizing.reset-size4.size2{font-size:.77777778em}.katex .fontsize-ensurer.reset-size4.size3,.katex .sizing.reset-size4.size3{font-size:.88888889em}.katex .fontsize-ensurer.reset-size4.size4,.katex .sizing.reset-size4.size4{font-size:1em}.katex .fontsize-ensurer.reset-size4.size5,.katex .sizing.reset-size4.size5{font-size:1.11111111em}.katex .fontsize-ensurer.reset-size4.size6,.katex .sizing.reset-size4.size6{font-size:1.33333333em}.katex .fontsize-ensurer.reset-size4.size7,.katex .sizing.reset-size4.size7{font-size:1.6em}.katex .fontsize-ensurer.reset-size4.size8,.katex .sizing.reset-size4.size8{font-size:1.92222222em}.katex .fontsize-ensurer.reset-size4.size9,.katex .sizing.reset-size4.size9{font-size:2.3em}.katex .fontsize-ensurer.reset-size4.size10,.katex .sizing.reset-size4.size10{font-size:2.76666667em}.katex .fontsize-ensurer.reset-size5.size1,.katex .sizing.reset-size5.size1{font-size:.5em}.katex .fontsize-ensurer.reset-size5.size2,.katex .sizing.reset-size5.size2{font-size:.7em}.katex .fontsize-ensurer.reset-size5.size3,.katex .sizing.reset-size5.size3{font-size:.8em}.katex .fontsize-ensurer.reset-size5.size4,.katex .sizing.reset-size5.size4{font-size:.9em}.katex .fontsize-ensurer.reset-size5.size5,.katex .sizing.reset-size5.size5{font-size:1em}.katex .fontsize-ensurer.reset-size5.size6,.katex .sizing.reset-size5.size6{font-size:1.2em}.katex .fontsize-ensurer.reset-size5.size7,.katex .sizing.reset-size5.size7{font-size:1.44em}.katex .fontsize-ensurer.reset-size5.size8,.katex .sizing.reset-size5.size8{font-size:1.73em}.katex .fontsize-ensurer.reset-size5.size9,.katex .sizing.reset-size5.size9{font-size:2.07em}.katex .fontsize-ensurer.reset-size5.size10,.katex .sizing.reset-size5.size10{font-size:2.49em}.katex .fontsize-ensurer.reset-size6.size1,.katex .sizing.reset-size6.size1{font-size:.41666667em}.katex .fontsize-ensurer.reset-size6.size2,.katex .sizing.reset-size6.size2{font-size:.58333333em}.katex .fontsize-ensurer.reset-size6.size3,.katex .sizing.reset-size6.size3{font-size:.66666667em}.katex .fontsize-ensurer.reset-size6.size4,.katex .sizing.reset-size6.size4{font-size:.75em}.katex .fontsize-ensurer.reset-size6.size5,.katex .sizing.reset-size6.size5{font-size:.83333333em}.katex .fontsize-ensurer.reset-size6.size6,.katex .sizing.reset-size6.size6{font-size:1em}.katex .fontsize-ensurer.reset-size6.size7,.katex .sizing.reset-size6.size7{font-size:1.2em}.katex .fontsize-ensurer.reset-size6.size8,.katex .sizing.reset-size6.size8{font-size:1.44166667em}.katex .fontsize-ensurer.reset-size6.size9,.katex .sizing.reset-size6.size9{font-size:1.725em}.katex .fontsize-ensurer.reset-size6.size10,.katex .sizing.reset-size6.size10{font-size:2.075em}.katex .fontsize-ensurer.reset-size7.size1,.katex .sizing.reset-size7.size1{font-size:.34722222em}.katex .fontsize-ensurer.reset-size7.size2,.katex .sizing.reset-size7.size2{font-size:.48611111em}.katex .fontsize-ensurer.reset-size7.size3,.katex .sizing.reset-size7.size3{font-size:.55555556em}.katex .fontsize-ensurer.reset-size7.size4,.katex .sizing.reset-size7.size4{font-size:.625em}.katex .fontsize-ensurer.reset-size7.size5,.katex .sizing.reset-size7.size5{font-size:.69444444em}.katex .fontsize-ensurer.reset-size7.size6,.katex .sizing.reset-size7.size6{font-size:.83333333em}.katex .fontsize-ensurer.reset-size7.size7,.katex .sizing.reset-size7.size7{font-size:1em}.katex .fontsize-ensurer.reset-size7.size8,.katex .sizing.reset-size7.size8{font-size:1.20138889em}.katex .fontsize-ensurer.reset-size7.size9,.katex .sizing.reset-size7.size9{font-size:1.4375em}.katex .fontsize-ensurer.reset-size7.size10,.katex .sizing.reset-size7.size10{font-size:1.72916667em}.katex .fontsize-ensurer.reset-size8.size1,.katex .sizing.reset-size8.size1{font-size:.28901734em}.katex .fontsize-ensurer.reset-size8.size2,.katex .sizing.reset-size8.size2{font-size:.40462428em}.katex .fontsize-ensurer.reset-size8.size3,.katex .sizing.reset-size8.size3{font-size:.46242775em}.katex .fontsize-ensurer.reset-size8.size4,.katex .sizing.reset-size8.size4{font-size:.52023121em}.katex .fontsize-ensurer.reset-size8.size5,.katex .sizing.reset-size8.size5{font-size:.57803468em}.katex .fontsize-ensurer.reset-size8.size6,.katex .sizing.reset-size8.size6{font-size:.69364162em}.katex .fontsize-ensurer.reset-size8.size7,.katex .sizing.reset-size8.size7{font-size:.83236994em}.katex .fontsize-ensurer.reset-size8.size8,.katex .sizing.reset-size8.size8{font-size:1em}.katex .fontsize-ensurer.reset-size8.size9,.katex .sizing.reset-size8.size9{font-size:1.19653179em}.katex .fontsize-ensurer.reset-size8.size10,.katex .sizing.reset-size8.size10{font-size:1.43930636em}.katex .fontsize-ensurer.reset-size9.size1,.katex .sizing.reset-size9.size1{font-size:.24154589em}.katex .fontsize-ensurer.reset-size9.size2,.katex .sizing.reset-size9.size2{font-size:.33816425em}.katex .fontsize-ensurer.reset-size9.size3,.katex .sizing.reset-size9.size3{font-size:.38647343em}.katex .fontsize-ensurer.reset-size9.size4,.katex .sizing.reset-size9.size4{font-size:.43478261em}.katex .fontsize-ensurer.reset-size9.size5,.katex .sizing.reset-size9.size5{font-size:.48309179em}.katex .fontsize-ensurer.reset-size9.size6,.katex .sizing.reset-size9.size6{font-size:.57971014em}.katex .fontsize-ensurer.reset-size9.size7,.katex .sizing.reset-size9.size7{font-size:.69565217em}.katex .fontsize-ensurer.reset-size9.size8,.katex .sizing.reset-size9.size8{font-size:.83574879em}.katex .fontsize-ensurer.reset-size9.size9,.katex .sizing.reset-size9.size9{font-size:1em}.katex .fontsize-ensurer.reset-size9.size10,.katex .sizing.reset-size9.size10{font-size:1.20289855em}.katex .fontsize-ensurer.reset-size10.size1,.katex .sizing.reset-size10.size1{font-size:.20080321em}.katex .fontsize-ensurer.reset-size10.size2,.katex .sizing.reset-size10.size2{font-size:.2811245em}.katex .fontsize-ensurer.reset-size10.size3,.katex .sizing.reset-size10.size3{font-size:.32128514em}.katex .fontsize-ensurer.reset-size10.size4,.katex .sizing.reset-size10.size4{font-size:.36144578em}.katex .fontsize-ensurer.reset-size10.size5,.katex .sizing.reset-size10.size5{font-size:.40160643em}.katex .fontsize-ensurer.reset-size10.size6,.katex .sizing.reset-size10.size6{font-size:.48192771em}.katex .fontsize-ensurer.reset-size10.size7,.katex .sizing.reset-size10.size7{font-size:.57831325em}.katex .fontsize-ensurer.reset-size10.size8,.katex .sizing.reset-size10.size8{font-size:.69477912em}.katex .fontsize-ensurer.reset-size10.size9,.katex .sizing.reset-size10.size9{font-size:.8313253em}.katex .fontsize-ensurer.reset-size10.size10,.katex .sizing.reset-size10.size10{font-size:1em}.katex .delimsizing.size1{font-family:KaTeX_Size1}.katex .delimsizing.size2{font-family:KaTeX_Size2}.katex .delimsizing.size3{font-family:KaTeX_Size3}.katex .delimsizing.size4{font-family:KaTeX_Size4}.katex .delimsizing.mult .delim-size1>span{font-family:KaTeX_Size1}.katex .delimsizing.mult .delim-size4>span{font-family:KaTeX_Size4}.katex .nulldelimiter{display:inline-block;width:.12em}.katex .op-symbol{position:relative}.katex .op-symbol.small-op{font-family:KaTeX_Size1}.katex .op-symbol.large-op{font-family:KaTeX_Size2}.katex .accent>.vlist>span,.katex .op-limits>.vlist>span{text-align:center}.katex .accent .accent-body>span{width:0}.katex .accent .accent-body.accent-vec>span{position:relative;left:.326em}.katex .mtable .vertical-separator{display:inline-block;margin:0 -.025em;border-right:.05em solid #000}.katex .mtable .arraycolsep{display:inline-block}.katex .mtable .col-align-c>.vlist{text-align:center}.katex .mtable .col-align-l>.vlist{text-align:left}.katex .mtable .col-align-r>.vlist{text-align:right}";
+
+let s = document.createElement("style");
+s.textContent =  base + layout + print + article + katexCSS;
+document.querySelector("head").appendChild(s);
+
+const Template = (name, templateString, useShadow = true) => {
+
+  const template = document.createElement('template');
+  template.innerHTML = templateString;
+
+  if (useShadow && 'ShadyCSS' in window) {
+    ShadyCSS.prepareTemplate(template, name);
+  }
+
+  return (superclass) => {
+    return class extends superclass {
+
+      static get is() { return name; }
+
+      constructor() {
+        super();
+
+        this.clone = document.importNode(template.content, true);
+        if (useShadow) {
+          this.attachShadow({mode: 'open'});
+          this.shadowRoot.appendChild(this.clone);
+        }
+      }
+
+      connectedCallback() {
+        if (useShadow) {
+          if ('ShadyCSS' in window) {
+            ShadyCSS.styleElement(this);
+          }
+        } else {
+          this.insertBefore(this.clone, this.firstChild);
+        }
+      }
+
+      get root() {
+        if (useShadow) {
+          return this.shadowRoot;
+        } else {
+          return this;
+        }
+      }
+
+      /* TODO: Are we using these? Should we even? */
+      $(query) {
+        return this.root.querySelector(query);
+      }
+
+      $$(query) {
+        return this.root.querySelectorAll(query);
+      }
+    }
+  }
+};
+
+function body(selector) {
+  return `${selector} {
+      width: auto;
+      margin-left: 24px;
+      margin-right: 24px;
+      box-sizing: border-box;
+    }
+    @media(min-width: 768px) {
+      ${selector} {
+        margin-left: 72px;
+        margin-right: 72px;
+      }
+    }
+    @media(min-width: 1080px) {
+      ${selector} {
+        margin-left: calc(50% - 984px / 2);
+        width: 648px;
+      }
+    }
+  `;
+}
+
+function page(selector) {
+  return `${selector} {
+      width: auto;
+      margin-left: 24px;
+      margin-right: 24px;
+      box-sizing: border-box;
+    }
+    @media(min-width: 768px) {
+      ${selector} {
+        margin-left: 72px;
+        margin-right: 72px;
+      }
+    }
+    @media(min-width: 1080px) {
+      ${selector} {
+        width: 984px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  `;
+}
+
+const T = Template("d-abstract", `
+<style>
+  d-abstract {
+    display: block;
+    font-size: 23px;
+    line-height: 1.7em;
+    margin-bottom: 140px;
+  }
+  ${body("d-abstract")}
+</style>
+`, false);
+
+class Abstract extends T(HTMLElement) {
+
+}
+
+const T$1 = Template('d-acknowledgements', `
+<style>
+::slotted(h3) {
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 20px;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.65);
+  line-height: 1em;
+}
+::slotted(*) a {
+  color: rgba(0, 0, 0, 0.6);
+}
+</style>
+
+<slot></slot>
+`);
+
+class Acknowledgements extends T$1(HTMLElement) {
+
+}
+
+const T$2 = Template("d-appendix", `
+<style>
+
+:host {
+  display: block;
+  font-size: 13px;
+  line-height: 1.7em;
+  margin-bottom: 0;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  color: rgba(0,0,0,0.5);
+  background: rgb(250, 250, 250);
+  padding-top: 36px;
+  padding-bottom: 48px;
+}
+
+${page(".l-body")}
+
+</style>
+
+<div class="l-body">
+  <slot></slot>
+</div>
+`);
+
+class Appendix extends T$2(HTMLElement) {
+
+}
+
+var t0 = new Date;
+var t1 = new Date;
+
+function newInterval(floori, offseti, count, field) {
+
+  function interval(date) {
+    return floori(date = new Date(+date)), date;
+  }
+
+  interval.floor = interval;
+
+  interval.ceil = function(date) {
+    return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
+  };
+
+  interval.round = function(date) {
+    var d0 = interval(date),
+        d1 = interval.ceil(date);
+    return date - d0 < d1 - date ? d0 : d1;
+  };
+
+  interval.offset = function(date, step) {
+    return offseti(date = new Date(+date), step == null ? 1 : Math.floor(step)), date;
+  };
+
+  interval.range = function(start, stop, step) {
+    var range = [];
+    start = interval.ceil(start);
+    step = step == null ? 1 : Math.floor(step);
+    if (!(start < stop) || !(step > 0)) return range; // also handles Invalid Date
+    do range.push(new Date(+start)); while (offseti(start, step), floori(start), start < stop)
+    return range;
+  };
+
+  interval.filter = function(test) {
+    return newInterval(function(date) {
+      if (date >= date) while (floori(date), !test(date)) date.setTime(date - 1);
+    }, function(date, step) {
+      if (date >= date) while (--step >= 0) while (offseti(date, 1), !test(date)) {} // eslint-disable-line no-empty
+    });
+  };
+
+  if (count) {
+    interval.count = function(start, end) {
+      t0.setTime(+start), t1.setTime(+end);
+      floori(t0), floori(t1);
+      return Math.floor(count(t0, t1));
+    };
+
+    interval.every = function(step) {
+      step = Math.floor(step);
+      return !isFinite(step) || !(step > 0) ? null
+          : !(step > 1) ? interval
+          : interval.filter(field
+              ? function(d) { return field(d) % step === 0; }
+              : function(d) { return interval.count(0, d) % step === 0; });
+    };
+  }
+
+  return interval;
+}
+
+var millisecond = newInterval(function() {
+  // noop
+}, function(date, step) {
+  date.setTime(+date + step);
+}, function(start, end) {
+  return end - start;
+});
+
+// An optimized implementation for this simple case.
+millisecond.every = function(k) {
+  k = Math.floor(k);
+  if (!isFinite(k) || !(k > 0)) return null;
+  if (!(k > 1)) return millisecond;
+  return newInterval(function(date) {
+    date.setTime(Math.floor(date / k) * k);
+  }, function(date, step) {
+    date.setTime(+date + step * k);
+  }, function(start, end) {
+    return (end - start) / k;
+  });
+};
+
+var durationSecond = 1e3;
+var durationMinute = 6e4;
+var durationHour = 36e5;
+var durationDay = 864e5;
+var durationWeek = 6048e5;
+
+var second = newInterval(function(date) {
+  date.setTime(Math.floor(date / durationSecond) * durationSecond);
+}, function(date, step) {
+  date.setTime(+date + step * durationSecond);
+}, function(start, end) {
+  return (end - start) / durationSecond;
+}, function(date) {
+  return date.getUTCSeconds();
+});
+
+var minute = newInterval(function(date) {
+  date.setTime(Math.floor(date / durationMinute) * durationMinute);
+}, function(date, step) {
+  date.setTime(+date + step * durationMinute);
+}, function(start, end) {
+  return (end - start) / durationMinute;
+}, function(date) {
+  return date.getMinutes();
+});
+
+var hour = newInterval(function(date) {
+  var offset = date.getTimezoneOffset() * durationMinute % durationHour;
+  if (offset < 0) offset += durationHour;
+  date.setTime(Math.floor((+date - offset) / durationHour) * durationHour + offset);
+}, function(date, step) {
+  date.setTime(+date + step * durationHour);
+}, function(start, end) {
+  return (end - start) / durationHour;
+}, function(date) {
+  return date.getHours();
+});
+
+var day = newInterval(function(date) {
+  date.setHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setDate(date.getDate() + step);
+}, function(start, end) {
+  return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * durationMinute) / durationDay;
+}, function(date) {
+  return date.getDate() - 1;
+});
+
+function weekday(i) {
+  return newInterval(function(date) {
+    date.setDate(date.getDate() - (date.getDay() + 7 - i) % 7);
+    date.setHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setDate(date.getDate() + step * 7);
+  }, function(start, end) {
+    return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * durationMinute) / durationWeek;
+  });
+}
+
+var sunday = weekday(0);
+var monday = weekday(1);
+var tuesday = weekday(2);
+var wednesday = weekday(3);
+var thursday = weekday(4);
+var friday = weekday(5);
+var saturday = weekday(6);
+
+var month = newInterval(function(date) {
+  date.setDate(1);
+  date.setHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setMonth(date.getMonth() + step);
+}, function(start, end) {
+  return end.getMonth() - start.getMonth() + (end.getFullYear() - start.getFullYear()) * 12;
+}, function(date) {
+  return date.getMonth();
+});
+
+var year = newInterval(function(date) {
+  date.setMonth(0, 1);
+  date.setHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setFullYear(date.getFullYear() + step);
+}, function(start, end) {
+  return end.getFullYear() - start.getFullYear();
+}, function(date) {
+  return date.getFullYear();
+});
+
+// An optimized implementation for this simple case.
+year.every = function(k) {
+  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function(date) {
+    date.setFullYear(Math.floor(date.getFullYear() / k) * k);
+    date.setMonth(0, 1);
+    date.setHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setFullYear(date.getFullYear() + step * k);
+  });
+};
+
+var utcMinute = newInterval(function(date) {
+  date.setUTCSeconds(0, 0);
+}, function(date, step) {
+  date.setTime(+date + step * durationMinute);
+}, function(start, end) {
+  return (end - start) / durationMinute;
+}, function(date) {
+  return date.getUTCMinutes();
+});
+
+var utcHour = newInterval(function(date) {
+  date.setUTCMinutes(0, 0, 0);
+}, function(date, step) {
+  date.setTime(+date + step * durationHour);
+}, function(start, end) {
+  return (end - start) / durationHour;
+}, function(date) {
+  return date.getUTCHours();
+});
+
+var utcDay = newInterval(function(date) {
+  date.setUTCHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setUTCDate(date.getUTCDate() + step);
+}, function(start, end) {
+  return (end - start) / durationDay;
+}, function(date) {
+  return date.getUTCDate() - 1;
+});
+
+function utcWeekday(i) {
+  return newInterval(function(date) {
+    date.setUTCDate(date.getUTCDate() - (date.getUTCDay() + 7 - i) % 7);
+    date.setUTCHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setUTCDate(date.getUTCDate() + step * 7);
+  }, function(start, end) {
+    return (end - start) / durationWeek;
+  });
+}
+
+var utcSunday = utcWeekday(0);
+var utcMonday = utcWeekday(1);
+var utcTuesday = utcWeekday(2);
+var utcWednesday = utcWeekday(3);
+var utcThursday = utcWeekday(4);
+var utcFriday = utcWeekday(5);
+var utcSaturday = utcWeekday(6);
+
+var utcMonth = newInterval(function(date) {
+  date.setUTCDate(1);
+  date.setUTCHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setUTCMonth(date.getUTCMonth() + step);
+}, function(start, end) {
+  return end.getUTCMonth() - start.getUTCMonth() + (end.getUTCFullYear() - start.getUTCFullYear()) * 12;
+}, function(date) {
+  return date.getUTCMonth();
+});
+
+var utcYear = newInterval(function(date) {
+  date.setUTCMonth(0, 1);
+  date.setUTCHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setUTCFullYear(date.getUTCFullYear() + step);
+}, function(start, end) {
+  return end.getUTCFullYear() - start.getUTCFullYear();
+}, function(date) {
+  return date.getUTCFullYear();
+});
+
+// An optimized implementation for this simple case.
+utcYear.every = function(k) {
+  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function(date) {
+    date.setUTCFullYear(Math.floor(date.getUTCFullYear() / k) * k);
+    date.setUTCMonth(0, 1);
+    date.setUTCHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setUTCFullYear(date.getUTCFullYear() + step * k);
+  });
+};
+
+function localDate(d) {
+  if (0 <= d.y && d.y < 100) {
+    var date = new Date(-1, d.m, d.d, d.H, d.M, d.S, d.L);
+    date.setFullYear(d.y);
+    return date;
+  }
+  return new Date(d.y, d.m, d.d, d.H, d.M, d.S, d.L);
+}
+
+function utcDate(d) {
+  if (0 <= d.y && d.y < 100) {
+    var date = new Date(Date.UTC(-1, d.m, d.d, d.H, d.M, d.S, d.L));
+    date.setUTCFullYear(d.y);
+    return date;
+  }
+  return new Date(Date.UTC(d.y, d.m, d.d, d.H, d.M, d.S, d.L));
+}
+
+function newYear(y) {
+  return {y: y, m: 0, d: 1, H: 0, M: 0, S: 0, L: 0};
+}
+
+function formatLocale(locale) {
+  var locale_dateTime = locale.dateTime,
+      locale_date = locale.date,
+      locale_time = locale.time,
+      locale_periods = locale.periods,
+      locale_weekdays = locale.days,
+      locale_shortWeekdays = locale.shortDays,
+      locale_months = locale.months,
+      locale_shortMonths = locale.shortMonths;
+
+  var periodRe = formatRe(locale_periods),
+      periodLookup = formatLookup(locale_periods),
+      weekdayRe = formatRe(locale_weekdays),
+      weekdayLookup = formatLookup(locale_weekdays),
+      shortWeekdayRe = formatRe(locale_shortWeekdays),
+      shortWeekdayLookup = formatLookup(locale_shortWeekdays),
+      monthRe = formatRe(locale_months),
+      monthLookup = formatLookup(locale_months),
+      shortMonthRe = formatRe(locale_shortMonths),
+      shortMonthLookup = formatLookup(locale_shortMonths);
+
+  var formats = {
+    "a": formatShortWeekday,
+    "A": formatWeekday,
+    "b": formatShortMonth,
+    "B": formatMonth,
+    "c": null,
+    "d": formatDayOfMonth,
+    "e": formatDayOfMonth,
+    "H": formatHour24,
+    "I": formatHour12,
+    "j": formatDayOfYear,
+    "L": formatMilliseconds,
+    "m": formatMonthNumber,
+    "M": formatMinutes,
+    "p": formatPeriod,
+    "S": formatSeconds,
+    "U": formatWeekNumberSunday,
+    "w": formatWeekdayNumber,
+    "W": formatWeekNumberMonday,
+    "x": null,
+    "X": null,
+    "y": formatYear,
+    "Y": formatFullYear,
+    "Z": formatZone,
+    "%": formatLiteralPercent
+  };
+
+  var utcFormats = {
+    "a": formatUTCShortWeekday,
+    "A": formatUTCWeekday,
+    "b": formatUTCShortMonth,
+    "B": formatUTCMonth,
+    "c": null,
+    "d": formatUTCDayOfMonth,
+    "e": formatUTCDayOfMonth,
+    "H": formatUTCHour24,
+    "I": formatUTCHour12,
+    "j": formatUTCDayOfYear,
+    "L": formatUTCMilliseconds,
+    "m": formatUTCMonthNumber,
+    "M": formatUTCMinutes,
+    "p": formatUTCPeriod,
+    "S": formatUTCSeconds,
+    "U": formatUTCWeekNumberSunday,
+    "w": formatUTCWeekdayNumber,
+    "W": formatUTCWeekNumberMonday,
+    "x": null,
+    "X": null,
+    "y": formatUTCYear,
+    "Y": formatUTCFullYear,
+    "Z": formatUTCZone,
+    "%": formatLiteralPercent
+  };
+
+  var parses = {
+    "a": parseShortWeekday,
+    "A": parseWeekday,
+    "b": parseShortMonth,
+    "B": parseMonth,
+    "c": parseLocaleDateTime,
+    "d": parseDayOfMonth,
+    "e": parseDayOfMonth,
+    "H": parseHour24,
+    "I": parseHour24,
+    "j": parseDayOfYear,
+    "L": parseMilliseconds,
+    "m": parseMonthNumber,
+    "M": parseMinutes,
+    "p": parsePeriod,
+    "S": parseSeconds,
+    "U": parseWeekNumberSunday,
+    "w": parseWeekdayNumber,
+    "W": parseWeekNumberMonday,
+    "x": parseLocaleDate,
+    "X": parseLocaleTime,
+    "y": parseYear,
+    "Y": parseFullYear,
+    "Z": parseZone,
+    "%": parseLiteralPercent
+  };
+
+  // These recursive directive definitions must be deferred.
+  formats.x = newFormat(locale_date, formats);
+  formats.X = newFormat(locale_time, formats);
+  formats.c = newFormat(locale_dateTime, formats);
+  utcFormats.x = newFormat(locale_date, utcFormats);
+  utcFormats.X = newFormat(locale_time, utcFormats);
+  utcFormats.c = newFormat(locale_dateTime, utcFormats);
+
+  function newFormat(specifier, formats) {
+    return function(date) {
+      var string = [],
+          i = -1,
+          j = 0,
+          n = specifier.length,
+          c,
+          pad,
+          format;
+
+      if (!(date instanceof Date)) date = new Date(+date);
+
+      while (++i < n) {
+        if (specifier.charCodeAt(i) === 37) {
+          string.push(specifier.slice(j, i));
+          if ((pad = pads[c = specifier.charAt(++i)]) != null) c = specifier.charAt(++i);
+          else pad = c === "e" ? " " : "0";
+          if (format = formats[c]) c = format(date, pad);
+          string.push(c);
+          j = i + 1;
+        }
+      }
+
+      string.push(specifier.slice(j, i));
+      return string.join("");
+    };
+  }
+
+  function newParse(specifier, newDate) {
+    return function(string) {
+      var d = newYear(1900),
+          i = parseSpecifier(d, specifier, string += "", 0);
+      if (i != string.length) return null;
+
+      // The am-pm flag is 0 for AM, and 1 for PM.
+      if ("p" in d) d.H = d.H % 12 + d.p * 12;
+
+      // Convert day-of-week and week-of-year to day-of-year.
+      if ("W" in d || "U" in d) {
+        if (!("w" in d)) d.w = "W" in d ? 1 : 0;
+        var day$$1 = "Z" in d ? utcDate(newYear(d.y)).getUTCDay() : newDate(newYear(d.y)).getDay();
+        d.m = 0;
+        d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day$$1 + 5) % 7 : d.w + d.U * 7 - (day$$1 + 6) % 7;
+      }
+
+      // If a time zone is specified, all fields are interpreted as UTC and then
+      // offset according to the specified time zone.
+      if ("Z" in d) {
+        d.H += d.Z / 100 | 0;
+        d.M += d.Z % 100;
+        return utcDate(d);
+      }
+
+      // Otherwise, all fields are in local time.
+      return newDate(d);
+    };
+  }
+
+  function parseSpecifier(d, specifier, string, j) {
+    var i = 0,
+        n = specifier.length,
+        m = string.length,
+        c,
+        parse;
+
+    while (i < n) {
+      if (j >= m) return -1;
+      c = specifier.charCodeAt(i++);
+      if (c === 37) {
+        c = specifier.charAt(i++);
+        parse = parses[c in pads ? specifier.charAt(i++) : c];
+        if (!parse || ((j = parse(d, string, j)) < 0)) return -1;
+      } else if (c != string.charCodeAt(j++)) {
+        return -1;
+      }
+    }
+
+    return j;
+  }
+
+  function parsePeriod(d, string, i) {
+    var n = periodRe.exec(string.slice(i));
+    return n ? (d.p = periodLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseShortWeekday(d, string, i) {
+    var n = shortWeekdayRe.exec(string.slice(i));
+    return n ? (d.w = shortWeekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseWeekday(d, string, i) {
+    var n = weekdayRe.exec(string.slice(i));
+    return n ? (d.w = weekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseShortMonth(d, string, i) {
+    var n = shortMonthRe.exec(string.slice(i));
+    return n ? (d.m = shortMonthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseMonth(d, string, i) {
+    var n = monthRe.exec(string.slice(i));
+    return n ? (d.m = monthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseLocaleDateTime(d, string, i) {
+    return parseSpecifier(d, locale_dateTime, string, i);
+  }
+
+  function parseLocaleDate(d, string, i) {
+    return parseSpecifier(d, locale_date, string, i);
+  }
+
+  function parseLocaleTime(d, string, i) {
+    return parseSpecifier(d, locale_time, string, i);
+  }
+
+  function formatShortWeekday(d) {
+    return locale_shortWeekdays[d.getDay()];
+  }
+
+  function formatWeekday(d) {
+    return locale_weekdays[d.getDay()];
+  }
+
+  function formatShortMonth(d) {
+    return locale_shortMonths[d.getMonth()];
+  }
+
+  function formatMonth(d) {
+    return locale_months[d.getMonth()];
+  }
+
+  function formatPeriod(d) {
+    return locale_periods[+(d.getHours() >= 12)];
+  }
+
+  function formatUTCShortWeekday(d) {
+    return locale_shortWeekdays[d.getUTCDay()];
+  }
+
+  function formatUTCWeekday(d) {
+    return locale_weekdays[d.getUTCDay()];
+  }
+
+  function formatUTCShortMonth(d) {
+    return locale_shortMonths[d.getUTCMonth()];
+  }
+
+  function formatUTCMonth(d) {
+    return locale_months[d.getUTCMonth()];
+  }
+
+  function formatUTCPeriod(d) {
+    return locale_periods[+(d.getUTCHours() >= 12)];
+  }
+
+  return {
+    format: function(specifier) {
+      var f = newFormat(specifier += "", formats);
+      f.toString = function() { return specifier; };
+      return f;
+    },
+    parse: function(specifier) {
+      var p = newParse(specifier += "", localDate);
+      p.toString = function() { return specifier; };
+      return p;
+    },
+    utcFormat: function(specifier) {
+      var f = newFormat(specifier += "", utcFormats);
+      f.toString = function() { return specifier; };
+      return f;
+    },
+    utcParse: function(specifier) {
+      var p = newParse(specifier, utcDate);
+      p.toString = function() { return specifier; };
+      return p;
+    }
+  };
+}
+
+var pads = {"-": "", "_": " ", "0": "0"};
+var numberRe = /^\s*\d+/;
+var percentRe = /^%/;
+var requoteRe = /[\\\^\$\*\+\?\|\[\]\(\)\.\{\}]/g;
+
+function pad(value, fill, width) {
+  var sign = value < 0 ? "-" : "",
+      string = (sign ? -value : value) + "",
+      length = string.length;
+  return sign + (length < width ? new Array(width - length + 1).join(fill) + string : string);
+}
+
+function requote(s) {
+  return s.replace(requoteRe, "\\$&");
+}
+
+function formatRe(names) {
+  return new RegExp("^(?:" + names.map(requote).join("|") + ")", "i");
+}
+
+function formatLookup(names) {
+  var map = {}, i = -1, n = names.length;
+  while (++i < n) map[names[i].toLowerCase()] = i;
+  return map;
+}
+
+function parseWeekdayNumber(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 1));
+  return n ? (d.w = +n[0], i + n[0].length) : -1;
+}
+
+function parseWeekNumberSunday(d, string, i) {
+  var n = numberRe.exec(string.slice(i));
+  return n ? (d.U = +n[0], i + n[0].length) : -1;
+}
+
+function parseWeekNumberMonday(d, string, i) {
+  var n = numberRe.exec(string.slice(i));
+  return n ? (d.W = +n[0], i + n[0].length) : -1;
+}
+
+function parseFullYear(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 4));
+  return n ? (d.y = +n[0], i + n[0].length) : -1;
+}
+
+function parseYear(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.y = +n[0] + (+n[0] > 68 ? 1900 : 2000), i + n[0].length) : -1;
+}
+
+function parseZone(d, string, i) {
+  var n = /^(Z)|([+-]\d\d)(?:\:?(\d\d))?/.exec(string.slice(i, i + 6));
+  return n ? (d.Z = n[1] ? 0 : -(n[2] + (n[3] || "00")), i + n[0].length) : -1;
+}
+
+function parseMonthNumber(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.m = n[0] - 1, i + n[0].length) : -1;
+}
+
+function parseDayOfMonth(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.d = +n[0], i + n[0].length) : -1;
+}
+
+function parseDayOfYear(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 3));
+  return n ? (d.m = 0, d.d = +n[0], i + n[0].length) : -1;
+}
+
+function parseHour24(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.H = +n[0], i + n[0].length) : -1;
+}
+
+function parseMinutes(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.M = +n[0], i + n[0].length) : -1;
+}
+
+function parseSeconds(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.S = +n[0], i + n[0].length) : -1;
+}
+
+function parseMilliseconds(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 3));
+  return n ? (d.L = +n[0], i + n[0].length) : -1;
+}
+
+function parseLiteralPercent(d, string, i) {
+  var n = percentRe.exec(string.slice(i, i + 1));
+  return n ? i + n[0].length : -1;
+}
+
+function formatDayOfMonth(d, p) {
+  return pad(d.getDate(), p, 2);
+}
+
+function formatHour24(d, p) {
+  return pad(d.getHours(), p, 2);
+}
+
+function formatHour12(d, p) {
+  return pad(d.getHours() % 12 || 12, p, 2);
+}
+
+function formatDayOfYear(d, p) {
+  return pad(1 + day.count(year(d), d), p, 3);
+}
+
+function formatMilliseconds(d, p) {
+  return pad(d.getMilliseconds(), p, 3);
+}
+
+function formatMonthNumber(d, p) {
+  return pad(d.getMonth() + 1, p, 2);
+}
+
+function formatMinutes(d, p) {
+  return pad(d.getMinutes(), p, 2);
+}
+
+function formatSeconds(d, p) {
+  return pad(d.getSeconds(), p, 2);
+}
+
+function formatWeekNumberSunday(d, p) {
+  return pad(sunday.count(year(d), d), p, 2);
+}
+
+function formatWeekdayNumber(d) {
+  return d.getDay();
+}
+
+function formatWeekNumberMonday(d, p) {
+  return pad(monday.count(year(d), d), p, 2);
+}
+
+function formatYear(d, p) {
+  return pad(d.getFullYear() % 100, p, 2);
+}
+
+function formatFullYear(d, p) {
+  return pad(d.getFullYear() % 10000, p, 4);
+}
+
+function formatZone(d) {
+  var z = d.getTimezoneOffset();
+  return (z > 0 ? "-" : (z *= -1, "+"))
+      + pad(z / 60 | 0, "0", 2)
+      + pad(z % 60, "0", 2);
+}
+
+function formatUTCDayOfMonth(d, p) {
+  return pad(d.getUTCDate(), p, 2);
+}
+
+function formatUTCHour24(d, p) {
+  return pad(d.getUTCHours(), p, 2);
+}
+
+function formatUTCHour12(d, p) {
+  return pad(d.getUTCHours() % 12 || 12, p, 2);
+}
+
+function formatUTCDayOfYear(d, p) {
+  return pad(1 + utcDay.count(utcYear(d), d), p, 3);
+}
+
+function formatUTCMilliseconds(d, p) {
+  return pad(d.getUTCMilliseconds(), p, 3);
+}
+
+function formatUTCMonthNumber(d, p) {
+  return pad(d.getUTCMonth() + 1, p, 2);
+}
+
+function formatUTCMinutes(d, p) {
+  return pad(d.getUTCMinutes(), p, 2);
+}
+
+function formatUTCSeconds(d, p) {
+  return pad(d.getUTCSeconds(), p, 2);
+}
+
+function formatUTCWeekNumberSunday(d, p) {
+  return pad(utcSunday.count(utcYear(d), d), p, 2);
+}
+
+function formatUTCWeekdayNumber(d) {
+  return d.getUTCDay();
+}
+
+function formatUTCWeekNumberMonday(d, p) {
+  return pad(utcMonday.count(utcYear(d), d), p, 2);
+}
+
+function formatUTCYear(d, p) {
+  return pad(d.getUTCFullYear() % 100, p, 2);
+}
+
+function formatUTCFullYear(d, p) {
+  return pad(d.getUTCFullYear() % 10000, p, 4);
+}
+
+function formatUTCZone() {
+  return "+0000";
+}
+
+function formatLiteralPercent() {
+  return "%";
+}
+
+var locale$1;
+var timeFormat;
+var timeParse;
+var utcFormat;
+var utcParse;
+
+defaultLocale({
+  dateTime: "%x, %X",
+  date: "%-m/%-d/%Y",
+  time: "%-I:%M:%S %p",
+  periods: ["AM", "PM"],
+  days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  shortDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  shortMonths: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+});
+
+function defaultLocale(definition) {
+  locale$1 = formatLocale(definition);
+  timeFormat = locale$1.format;
+  timeParse = locale$1.parse;
+  utcFormat = locale$1.utcFormat;
+  utcParse = locale$1.utcParse;
+  return locale$1;
+}
+
+var isoSpecifier = "%Y-%m-%dT%H:%M:%S.%LZ";
+
+function formatIsoNative(date) {
+  return date.toISOString();
+}
+
+var formatIso = Date.prototype.toISOString
+    ? formatIsoNative
+    : utcFormat(isoSpecifier);
+
+function parseIsoNative(string) {
+  var date = new Date(string);
+  return isNaN(date) ? null : date;
+}
+
+var parseIso = +new Date("2000-01-01T00:00:00.000Z")
+    ? parseIsoNative
+    : utcParse(isoSpecifier);
+
+const zeroPad = n => n < 10 ? "0" + n : n;
+const RFC = timeFormat("%a, %d %b %Y %H:%M:%S %Z");
+const months = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+
+class Author {
+
+  constructor(name='', personalURL='', affiliation='', affiliationURL='') {
+    this.name = name; // "Chris Olah"
+    this.personalURL = personalURL; // "https://colah.github.io"
+    this.affiliation = affiliation; // "Google Brain"
+    this.affiliationURL = affiliationURL; // "https://g.co/brain"
+  }
+
+  // "Chris"
+  get firstName() {
+    const names = this.name.split(" ");
+    return names.slice(0, names.length - 1).join(" ");
+  }
+
+  // "Olah"
+  get lastName() {
+    const names = this.name.split(" ");
+    return names[names.length -1];
+  }
+}
+
+class FrontMatter {
+  constructor() {
+    this.title = ""; // "Attention and Augmented Recurrent Neural Networks"
+    this.description = ""; // "A visual overview of neural attention..."
+    this.authors = []; // Array of Author(s)
+
+    this.bibliography = new Map();
+    //  {
+    //    "gregor2015draw": {
+    //      "title": "DRAW: A recurrent neural network for image generation",
+    //      "author": "Gregor, Karol and Danihelka, Ivo and Graves, Alex and Rezende, Danilo Jimenez and Wierstra, Daan",
+    //      "journal": "arXiv preprint arXiv:1502.04623",
+    //      "year": "2015",
+    //      "url": "https://arxiv.org/pdf/1502.04623.pdf",
+    //      "type": "article"
+    //    },
+    //  }
+
+    // Citation keys should be listed in the order that they are appear in the document.
+    // Each key refers to a key in the bibliography dictionary.
+    this.citations = []; // [ "gregor2015draw", "mercier2011humans" ]
+
+
+    //
+    // Assigned from posts.csv
+    //
+
+    //  publishedDate: 2016-09-08T07:00:00.000Z,
+    //  tags: [ 'rnn' ],
+    //  distillPath: '2016/augmented-rnns',
+    //  githubPath: 'distillpub/post--augmented-rnns',
+    //  doiSuffix: 1,
+
+    //
+    // Assigned from journal
+    //
+    this.journal = {};
+    //  journal: {
+    //    "title": "Distill",
+    //    "full_title": "Distill",
+    //    "abbrev_title": "Distill",
+    //    "url": "http://distill.pub",
+    //    "doi": "10.23915/distill",
+    //    "publisherName": "Distill Working Group",
+    //    "publisherEmail": "admin@distill.pub",
+    //    "issn": "2476-0757",
+    //    "editors": [...],
+    //    "committee": [...]
+    //  }
+    //  volume: 1,
+    //  issue: 9,
+
+    //
+    // Assigned from publishing process
+    //
+
+    //  githubCompareUpdatesUrl: 'https://github.com/distillpub/post--augmented-rnns/compare/1596e094d8943d2dc0ea445d92071129c6419c59...3bd9209e0c24d020f87cf6152dcecc6017cbc193',
+    //  updatedDate: 2017-03-21T07:13:16.000Z,
+    //  doi: '10.23915/distill.00001',
+
+  }
+
+  // Example:
+  // title: Demo Title Attention and Augmented Recurrent Neural Networks
+  // published: Jan 10, 2017
+  // authors:
+  // - Chris Olah:
+  // - Shan Carter: http://shancarter.com
+  // affiliations:
+  // - Google Brain:
+  // - Google Brain: http://g.co/brain
+  mergeFromYMLFrontmatter(data) {
+    this.title = data.title;
+    this.publishedDate = new Date(data.published);
+    this.description = data.description;
+    const zipped = data.authors.map( (author, index) => [author, data.affiliations[index]]);
+    this.authors = zipped.map( ([authorEntry, affiliationEntry]) => {
+      const name = Object.keys(authorEntry)[0];
+      const author = new Author(name);
+      if (typeof authorEntry === 'object') {
+        author.personalURL = authorEntry[name];
+      }
+      author.affiliation = Object.keys(affiliationEntry)[0];
+      if (typeof affiliationEntry === 'object') {
+        author.affiliationURL = affiliationEntry[author.affiliation];
+      }
+      return author;
+    });
+  }
+
+  //
+  // Computed Properties
+  //
+
+  // 'http://distill.pub/2016/augmented-rnns',
+  set url(value) {
+    this._url = value;
+  }
+  get url() {
+    if (this._url) {
+      return this._url
+    } else if (this.distillPath && this.journal.url) {
+      return this.journal.url + "/" + this.distillPath;
+    } else if (this.journal.url) {
+      return this.journal.url;
+    } else {
+      return
+    }
+  }
+
+  // 'https://github.com/distillpub/post--augmented-rnns',
+  get githubUrl() {
+    return "https://github.com/" + this.githubPath;
+  }
+
+  // TODO resolve differences in naming of URL/Url/url.
+  // 'http://distill.pub/2016/augmented-rnns/thumbnail.jpg',
+  set previewURL(value) {
+    this._previewURL = value;
+  }
+  get previewURL() {
+    return this._previewURL ? this._previewURL : this.url + "/thumbnail.jpg";
+  }
+
+  // 'Thu, 08 Sep 2016 00:00:00 -0700',
+  get publishedDateRFC() {
+    return RFC(this.publishedDate);
+  }
+
+  // 'Thu, 08 Sep 2016 00:00:00 -0700',
+  get updatedDateRFC() {
+    return RFC(this.updatedDate);
+  }
+
+  // 2016,
+  get publishedYear() {
+    return this.publishedDate.getFullYear();
+  }
+
+  // 'Sept',
+  get publishedMonth() {
+    return months[data.publishedDate.getMonth()];
+  }
+
+  // 8,
+  get publishedDay() {
+    return data.publishedDate.getDate();
+  }
+
+  // '09',
+  get publishedMonthPadded() {
+    return zeroPad(data.publishedDate.getMonth() + 1);
+  }
+
+  // '08',
+  get publishedDayPadded() {
+    return zeroPad(this.publishedDate.getDate());
+  }
+
+  // 'Tue, 21 Mar 2017 00:13:16 -0700',
+  get updatedDateRFC() {
+  }
+
+  // 'Olah & Carter',
+  get concatenatedAuthors() {
+    if (this.authors.length > 2) {
+      return this.authors[0].lastName + ", et al.";
+    } else if (this.authors.length === 2) {
+      return this.authors[0].lastName + " & " + this.authors[1].lastName;
+    } else if (this.authors.length === 1) {
+      return this.authors[0].lastName;
+    }
+  }
+
+  // 'Olah, Chris and Carter, Shan',
+  get bibtexAuthors() {
+    return this.authors.map(author => {
+      return author.lastName + ", " + author.firstName
+    }).join(" and ");
+  }
+
+  // 'olah2016attention'
+  get slug() {
+    let slug = '';
+    if (this.authors.length) {
+      slug += this.authors[0].lastName.toLowerCase();
+      slug += this.publishedYear;
+      slug += this.title.split(' ')[0].toLowerCase();
+    }
+    return slug || 'Untitled';
+  }
+
+}
+
+function author_string(ent, template, sep, finalSep){
+  var names = ent.author.split(" and ");
+  let name_strings = names.map(name => {
+    name = name.trim();
+    if (name.indexOf(",") != -1){
+      var last = name.split(",")[0].trim();
+      var firsts = name.split(",")[1];
+    } else {
+      var last = name.split(" ").slice(-1)[0].trim();
+      var firsts = name.split(" ").slice(0,-1).join(" ");
+    }
+    var initials = "";
+    if (firsts != undefined) {
+      initials = firsts.trim().split(" ").map(s => s.trim()[0]);
+      initials = initials.join(".")+".";
+    }
+    return template.replace("${F}", firsts)
+                   .replace("${L}", last)
+                   .replace("${I}", initials);
+  });
+  if (names.length > 1) {
+    var str = name_strings.slice(0, names.length-1).join(sep);
+    str += (finalSep || sep) + name_strings[names.length-1];
+    return str;
+  } else {
+    return name_strings[0];
+  }
+}
+
+function venue_string(ent) {
+  var cite = (ent.journal || ent.booktitle || "");
+  if ("volume" in ent){
+    var issue = ent.issue || ent.number;
+    issue = (issue != undefined)? "("+issue+")" : "";
+    cite += ", Vol " + ent.volume + issue;
+  }
+  if ("pages" in ent){
+    cite += ", pp. " + ent.pages;
+  }
+  if (cite != "") cite += ". ";
+  if ("publisher" in ent){
+    cite += ent.publisher;
+    if (cite[cite.length-1] != ".") cite += ".";
+  }
+  return cite;
+}
+
+function link_string(ent){
+  if ("url" in ent){
+    var url = ent.url;
+    var arxiv_match = (/arxiv\.org\/abs\/([0-9\.]*)/).exec(url);
+    if (arxiv_match != null){
+      url = `http://arxiv.org/pdf/${arxiv_match[1]}.pdf`;
+    }
+
+    if (url.slice(-4) == ".pdf"){
+      var label = "PDF";
+    } else if (url.slice(-5) == ".html") {
+      var label = "HTML";
+    }
+    return ` &ensp;<a href="${url}">[${label||"link"}]</a>`;
+  }/* else if ("doi" in ent){
+    return ` &ensp;<a href="https://doi.org/${ent.doi}" >[DOI]</a>`;
+  }*/ else {
+    return "";
+  }
+}
+function doi_string(ent, new_line){
+  if ("doi" in ent) {
+    return `${new_line?"<br>":""} <a href="https://doi.org/${ent.doi}" style="text-decoration:inherit;">DOI: ${ent.doi}</a>`;
+  } else {
+    return "";
+  }
+}
+
+function bibliography_cite(ent, fancy){
+  if (ent){
+    var cite =  "<b>" + ent.title + "</b> ";
+    cite += link_string(ent) + "<br>";
+    cite += author_string(ent, "${L}, ${I}", ", ", " and ");
+    if (ent.year || ent.date){
+      cite += ", " + (ent.year || ent.date) + ". ";
+    } else {
+      cite += ". ";
+    }
+    cite += venue_string(ent);
+    cite += doi_string(ent);
+    return cite
+    /*var cite =  author_string(ent, "${L}, ${I}", ", ", " and ");
+    if (ent.year || ent.date){
+      cite += ", " + (ent.year || ent.date) + ". "
+    } else {
+      cite += ". "
+    }
+    cite += "<b>" + ent.title + "</b>. ";
+    cite += venue_string(ent);
+    cite += doi_string(ent);
+    cite += link_string(ent);
+    return cite*/
+  } else {
+    return "?";
+  }
+}
+
+function hover_cite(ent){
+  if (ent){
+    var cite = "";
+    cite += "<b>" + ent.title + "</b>";
+    cite += link_string(ent);
+    cite += "<br>";
+
+    var a_str = author_string(ent, "${I} ${L}", ", ") + ".";
+    var v_str = venue_string(ent).trim() + " " + ent.year + ". " + doi_string(ent, true);
+
+    if ((a_str+v_str).length < Math.min(40, ent.title.length)) {
+      cite += a_str + " " + v_str;
+    } else {
+      cite += a_str + "<br>" + v_str;
+    }
+    return cite;
+  } else {
+    return "?";
+  }
+}
+
+
+//https://scholar.google.com/scholar?q=allintitle%3ADocument+author%3Aolah
+
+function make_hover_css(pos) {
+  var pretty = window.innerWidth > 600;
+  var padding = pretty? 18 : 12;
+  var outer_padding = pretty ? 18 : 0;
+  var bbox = document.querySelector("body").getBoundingClientRect();
+  var left = pos[0] - bbox.left, top = pos[1] - bbox.top;
+  var width = Math.min(window.innerWidth-2*outer_padding, 648);
+  left = Math.min(left, window.innerWidth-width-outer_padding);
+  width = width - 2*padding;
+  return (`position: absolute;
+     background-color: #FFF;
+     opacity: 0.95;
+     max-width: ${width}px;
+     top: ${top}px;
+     left: ${left}px;
+     border: 1px solid rgba(0, 0, 0, 0.25);
+     padding: ${padding}px;
+     border-radius: ${pretty? 3 : 0}px;
+     box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);
+     z-index: ${1e6};`);
+}
+
+
+class HoverBox {
+
+  constructor(div) {
+    this.div = div;
+    this.visible = false;
+    this.bindDivEvents(div);
+    HoverBox.box_map[div.id] = this;
+  }
+
+}
+
+HoverBox.box_map = {};
+
+HoverBox.get_box = function get_box(div_id) {
+  if (div_id in HoverBox.box_map) {
+    return HoverBox.box_map[div_id];
+  } else {
+    return new HoverBox(div_id);
+  }
+};
+
+HoverBox.prototype.show = function show(pos){
+  this.visible = true;
+  this.div.setAttribute("style", make_hover_css(pos) );
+  for (var box_id in HoverBox.box_map) {
+    var box = HoverBox.box_map[box_id];
+    if (box != this) box.hide();
+  }
+};
+
+HoverBox.prototype.showAtNode = function showAtNode(node){
+    var bbox = node.getBoundingClientRect();
+    this.show([bbox.right, bbox.bottom]);
+};
+
+HoverBox.prototype.hide = function hide(){
+  this.visible = false;
+  if (this.div) this.div.setAttribute("style", "display:none");
+  if (this.timeout) clearTimeout(this.timeout);
+};
+
+HoverBox.prototype.stopTimeout = function stopTimeout() {
+  if (this.timeout) clearTimeout(this.timeout);
+};
+
+HoverBox.prototype.extendTimeout = function extendTimeout(T) {
+  //console.log("extend", T)
+  var this_ = this;
+  this.stopTimeout();
+  this.timeout = setTimeout(function(){this_.hide();}.bind(this), T);
+};
+
+// Bind events to a link to open this box
+HoverBox.prototype.bind = function bind(node) {
+  if (typeof node == "string"){
+    node = document.querySelector(node);
+  }
+
+  node.addEventListener("mouseover", function(){
+    if (!this.visible) this.showAtNode(node);
+    this.stopTimeout();
+  }.bind(this));
+
+  node.addEventListener("mouseout", function(){this.extendTimeout(250);}.bind(this));
+
+  node.addEventListener("touchstart", function(e) {
+    if (this.visible) {
+      this.hide();
+    } else {
+      this.showAtNode(node);
+    }
+    // Don't trigger body touchstart event when touching link
+    e.stopPropagation();
+  }.bind(this), {passive: true});
+};
+
+HoverBox.prototype.bindDivEvents = function bindDivEvents(node){
+  // For mice, same behavior as hovering on links
+  this.div.addEventListener("mouseover", function(){
+    if (!this.visible) this.showAtNode(node);
+    this.stopTimeout();
+  }.bind(this));
+  this.div.addEventListener("mouseout", function(){this.extendTimeout(250);}.bind(this));
+
+  // Don't trigger body touchstart event when touching within box
+  this.div.addEventListener("touchstart", function(e){e.stopPropagation();}, {passive: true});
+  // Close box when touching outside box
+  document.body.addEventListener("touchstart", function(){this.hide();}.bind(this), {passive: true});
+};
+
+const T$4 = Template('d-cite', `
+<style>
+  .citation {
+    color: hsla(206, 90%, 20%, 0.7);
+  }
+  .citation-number {
+    cursor: default;
+    white-space: nowrap;
+    font-family: -apple-system, BlinkMacSystemFont, "Roboto", Helvetica, sans-serif;
+    font-size: 75%;
+    color: hsla(206, 90%, 20%, 0.7);
+    display: inline-block;
+    line-height: 1.1em;
+    text-align: center;
+    position: relative;
+    top: -2px;
+    margin: 0 2px;
+  }
+  figcaption .citation-number {
+    font-size: 11px;
+    font-weight: normal;
+    top: -2px;
+    line-height: 1em;
+  }
+</style>
+
+<div style="display: none;" id="hover-box" class="dt-hover-box">
+</div>
+
+<span id="citation-" class="citation">
+  <slot></slot>
+  <span class="citation-number"></span>
+</span>
+`);
+
+function collectCitations() {
+  const citations = new Set();
+  const citeTags = document.querySelectorAll('d-cite');
+  for (const tag of citeTags) {
+    const keys = tag.getAttribute('key').split(',');
+    for (const key of keys) {
+      citations.add(key);
+    }
+  }
+  return [...citations];
+}
+
+class Cite extends T$4(HTMLElement) {
+
+  /* Lifecycle */
+
+  constructor() {
+    super();
+    // Cite.currentId += 1;
+    // this.citeId = Cite.currentId;
+  }
+
+  connectedCallback() {
+    // this.notify();
+
+    this.hoverDiv = this.root.querySelector('.dt-hover-box');
+    this.outerSpan = this.root.querySelector('#citation-');
+    this.innerSpan = this.root.querySelector('.citation-number');
+    // this.outerSpan.id = `citation-${this.citeId}`;
+    // this.hoverDiv.id = `dt-cite-hover-box-${this.citeId}`;
+    HoverBox.get_box(this.hoverDiv).bind(this.outerSpan);
+
+  }
+
+  /* Observed Attributes */
+
+  // renderCitationNumbers(citations) {
+  //   const numbers = this._keys.map( (key) => {
+  //     const index = citations.indexOf(key);
+  //     return index == -1 ? '?' : index + 1 + '';
+  //   });
+  //   const text = "[" + numbers.join(", ") + "]";
+  //   this.innerSpan.textContent = text;
+  // }
+
+
+
+  /* observe 'key' attribute */
+
+  static get observedAttributes() {
+    return ['key'];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    const eventName = oldValue ? 'onCiteKeyChanged' : 'onCiteKeyCreated';
+    const keys = newValue.split(',');
+    const options = { detail: [this, keys], bubbles: true };
+    const event = new CustomEvent(eventName, options);
+    document.dispatchEvent(event);
+  }
+
+  set key(value) {
+    this.setAttribute('key', value);
+  }
+
+  get key() {
+    return this.getAttribute('key');
+  }
+
+  get keys() {
+    return this.getAttribute('key').split(',');
+  }
+
+  /* Setters & Rendering */
+
+  set numbers(numbers) {
+    const numberStrings = numbers.map( index => {
+      return index == -1 ? '?' : index + 1 + '';
+    });
+    const textContent = "[" + numberStrings.join(", ") + "]";
+    const innerSpan = this.root.querySelector('.citation-number');
+    innerSpan.textContent = textContent;
+  }
+
+  set entries(entries) {
+    const div = this.root.querySelector('#hover-box');
+    div.innerHTML = entries.map(hover_cite).join('<br><br>');
+  }
+
+  // renderContent() {
+  //   const bibliography = document.querySelector('d-bibliography');
+  //   if (bibliography && bibliography.finishedLoading) {
+  //     customElements.whenDefined('d-bibliography').then( () => {
+  //       const keys = this.key.split(",");
+  //
+  //       // set up hidden hover box
+  //       const div = this.root.querySelector('.dt-hover-box');
+  //       div.innerHTML = keys.map( (key) => {
+  //         return bibliography.getEntry(key);
+  //       }).map(hover_cite).join('<br><br>');
+  //       div.id ='dt-cite-hover-box-' + this.citeId;
+  //
+  //       // set up visible citation marker
+  //       const outerSpan = this.root.querySelector('#citation-');
+  //       outerSpan.id = `citation-${this.citeId}`;
+  //       // outerSpan.setAttribute('data-hover', dataHoverString); // directly tell HoverBox instead?
+  //       const innerSpan = this.root.querySelector('.citation-number');
+  //       innerSpan.textContent = inline_cite_short(keys, bibliography);
+  //
+  //       HoverBox.get_box(div).bind(outerSpan);
+  //     });
+  //   } else {
+  //     console.error(`You used a d-cite tag (${key}) without including a d-bibliography tag in your article. We can't lookup your citation this way.`)
+  //   }
+  // }
+
+}
+
+const frontMatter = new FrontMatter();
+
+// set up global controller object
+/* functions whose names start with 'on' will be registered as listeners on d-article */
+const Controller = {
+
+  frontMatter: frontMatter,
+  waitingOn: {
+    bibliography: [],
+    citations: [],
+  },
+  listeners: {
+
+    onCiteKeyCreated(event) {
+      const [citeTag, keys] = event.detail;
+
+      // ensure we have citations
+      if (frontMatter.citations.length === 0) {
+        console.debug('onCiteKeyCreated, but unresolved dependency ("citations"). Enqueing.');
+        Controller.waitingOn.citations.push(() => Controller.listeners.onCiteKeyCreated(event));
+        return;
+      }
+
+      // ensure we have a loaded bibliography
+      if (frontMatter.bibliography.size === 0) {
+        console.debug('onCiteKeyCreated, but unresolved dependency ("bibliography"). Enqueing.');
+        Controller.waitingOn.bibliography.push(() => Controller.listeners.onCiteKeyCreated(event));
+        return;
+      }
+
+      const numbers = keys.map( key => frontMatter.citations.indexOf(key) );
+      citeTag.numbers = numbers;
+      const entries = keys.map( key => frontMatter.bibliography.get(key) );
+      citeTag.entries = entries;
+    },
+
+    onCiteKeyChanged(event) {
+      const [citeTag, keys] = event.detail;
+
+      // update citations
+      frontMatter.citations = collectCitations();
+      for (const waitingCallback of Controller.waitingOn.citations) {
+        waitingCallback();
+      }
+
+      // update bibliography
+      const bibliographyTag = document.querySelector('d-bibliography');
+      const bibliographyEntries = new Map(frontMatter.citations.map( citationKey => {
+        return [citationKey, frontMatter.bibliography.get(citationKey)];
+      }));
+      bibliographyTag.entries = bibliographyEntries;
+
+      const citeTags = document.querySelectorAll('d-cite');
+      for (const citeTag of citeTags) {
+        const keys = citeTag.keys;
+        const numbers = keys.map( key => frontMatter.citations.indexOf(key) );
+        citeTag.numbers = numbers;
+        const entries = keys.map( key => frontMatter.bibliography.get(key) );
+        citeTag.entries = entries;
+      }
+
+      const numbers = keys.map( key => frontMatter.citations.indexOf(key) );
+      citeTag.numbers = numbers;
+      const entries = keys.map( key => frontMatter.bibliography.get(key) );
+      citeTag.entries = entries;
+    },
+
+    onBibliographyChanged(event) {
+      const bibliographyTag = event.target;
+      const bibliography = event.detail;
+
+      frontMatter.bibliography = bibliography;
+      for (const waitingCallback of Controller.waitingOn.bibliography) {
+        waitingCallback();
+      }
+
+      // ensure we have citations
+      if (frontMatter.citations.length === 0) {
+        console.debug('onBibliographyChanged, but unresolved dependency ("citations"). Enqueing.');
+        Controller.waitingOn.citations.push(() => Controller.listeners.onBibliographyChanged(event));
+        return;
+      }
+
+      const entries = new Map(frontMatter.citations.map( citationKey => {
+        return [citationKey, frontMatter.bibliography.get(citationKey)];
+      }));
+      bibliographyTag.entries = entries;
+    },
+
+    onFootnoteChanged(event) {
+      const footnote = event.detail;
+      //TODO: optimize to only update current footnote
+      const footnotesList = document.querySelector('d-footnote-list');
+      if (footnotesList) {
+        const footnotes = document.querySelectorAll('d-footnote');
+        footnotesList.footnotes = footnotes;
+      }
+    },
+
+    onFrontMatterChanged(event) {
+      const data = event.detail;
+      frontMatter.mergeFromYMLFrontmatter(data);
+
+      const appendix = document.querySelector('distill-appendix');
+      appendix.frontMatter = frontMatter;
+    },
+
+    DOMContentLoaded(event) {
+      console.debug('DOMContentLoaded.');
+
+      const frontMatterTag = document.querySelector('d-front-matter');
+      const data = frontMatterTag.parse();
+      frontMatter.mergeFromYMLFrontmatter(data);
+      const appendix = document.querySelector('distill-appendix');
+      appendix.frontMatter = frontMatter;
+
+      console.debug('Resolving "citations" dependency due to initial DOM load.');
+      frontMatter.citations = collectCitations();
+      for (const waitingCallback of Controller.waitingOn.citations) {
+        waitingCallback();
+      }
+
+      const footnotesList = document.querySelector('d-footnote-list');
+      if (footnotesList) {
+        const footnotes = document.querySelectorAll('d-footnote');
+        footnotesList.footnotes = footnotes;
+      }
+
+    }
+
+  }, // listeners
+
+  update: {
+    cite(element) {
+
+    },
+    footnoteList(element) {
+
+    }
+  }
+
+}; // Controller
+
+const T$3 = Template('d-article', `
+<style></style>
+`, false);
+
+
+
+class Article extends T$3(HTMLElement) {
+
+  // constructor() {
+  //   super();
+  // }
+
+  connectedCallback() {
+    for (const [functionName, callback] of Object.entries(Controller.listeners)) {
+      if (typeof callback === 'function') {
+        document.addEventListener(functionName, callback);
+      } else {
+        console.error('Controller listeners need to be functions!');
+      }
+    }
+  }
+
+}
+
+const Mutating = (superclass) => {
+  return class extends superclass {
+
+    constructor() {
+      super();
+
+      // set up mutation observer
+      const options = {childList: true, characterData: true, subtree: true};
+      const observer = new MutationObserver( (mutations) => {
+        observer.disconnect();
+        this.renderIfPossible();
+        observer.observe(this, options);
+      });
+
+      // ...and listen for changes
+      observer.observe(this, options);
+    }
+
+    connectedCallback() {
+      super.connectedCallback();
+
+      this.renderIfPossible();
+    }
+
+    // potential TODO: check if this is enough for all our usecases
+    // maybe provide a custom function to tell if we have enough information to render
+    renderIfPossible() {
+      if (this.textContent && this.root) {
+        this.renderContent();
+      }
+    };
+
+    renderContent() {
+      console.error(`Your class ${this.constructor.name} must provide a custom renderContent() method!` );
+    }
+
+  } // end class
+}; // end mixin function
+
+var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+function commonjsRequire () {
+	throw new Error('Dynamic requires are not currently supported by rollup-plugin-commonjs');
+}
+
+
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var bibtexParse = createCommonjsModule(function (module, exports) {
+/* start bibtexParse 0.0.22 */
+
+//Original work by Henrik Muehe (c) 2010
+//
+//CommonJS port by Mikola Lysenko 2013
+//
+//Port to Browser lib by ORCID / RCPETERS
+//
+//Issues:
+//no comment handling within strings
+//no string concatenation
+//no variable values yet
+//Grammar implemented here:
+//bibtex -> (string | preamble | comment | entry)*;
+//string -> '@STRING' '{' key_equals_value '}';
+//preamble -> '@PREAMBLE' '{' value '}';
+//comment -> '@COMMENT' '{' value '}';
+//entry -> '@' key '{' key ',' key_value_list '}';
+//key_value_list -> key_equals_value (',' key_equals_value)*;
+//key_equals_value -> key '=' value;
+//value -> value_quotes | value_braces | key;
+//value_quotes -> '"' .*? '"'; // not quite
+//value_braces -> '{' .*? '"'; // not quite
+(function(exports) {
+
+    function BibtexParser() {
+        
+        this.months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+        this.notKey = [',','{','}',' ','='];
+        this.pos = 0;
+        this.input = "";
+        this.entries = new Array();
+
+        this.currentEntry = "";
+
+        this.setInput = function(t) {
+            this.input = t;
+        };
+
+        this.getEntries = function() {
+            return this.entries;
+        };
+
+        this.isWhitespace = function(s) {
+            return (s == ' ' || s == '\r' || s == '\t' || s == '\n');
+        };
+
+        this.match = function(s, canCommentOut) {
+            if (canCommentOut == undefined || canCommentOut == null)
+                canCommentOut = true;
+            this.skipWhitespace(canCommentOut);
+            if (this.input.substring(this.pos, this.pos + s.length) == s) {
+                this.pos += s.length;
+            } else {
+                throw "Token mismatch, expected " + s + ", found "
+                        + this.input.substring(this.pos);
+            }
+            this.skipWhitespace(canCommentOut);
+        };
+
+        this.tryMatch = function(s, canCommentOut) {
+            if (canCommentOut == undefined || canCommentOut == null)
+                canCommentOut = true;
+            this.skipWhitespace(canCommentOut);
+            if (this.input.substring(this.pos, this.pos + s.length) == s) {
+                return true;
+            } else {
+                return false;
+            }
+            this.skipWhitespace(canCommentOut);
+        };
+
+        /* when search for a match all text can be ignored, not just white space */
+        this.matchAt = function() {
+            while (this.input.length > this.pos && this.input[this.pos] != '@') {
+                this.pos++;
+            }
+
+            if (this.input[this.pos] == '@') {
+                return true;
+            }
+            return false;
+        };
+
+        this.skipWhitespace = function(canCommentOut) {
+            while (this.isWhitespace(this.input[this.pos])) {
+                this.pos++;
+            }
+            if (this.input[this.pos] == "%" && canCommentOut == true) {
+                while (this.input[this.pos] != "\n") {
+                    this.pos++;
+                }
+                this.skipWhitespace(canCommentOut);
+            }
+        };
+
+        this.value_braces = function() {
+            var bracecount = 0;
+            this.match("{", false);
+            var start = this.pos;
+            var escaped = false;
+            while (true) {
+                if (!escaped) {
+                    if (this.input[this.pos] == '}') {
+                        if (bracecount > 0) {
+                            bracecount--;
+                        } else {
+                            var end = this.pos;
+                            this.match("}", false);
+                            return this.input.substring(start, end);
+                        }
+                    } else if (this.input[this.pos] == '{') {
+                        bracecount++;
+                    } else if (this.pos >= this.input.length - 1) {
+                        throw "Unterminated value";
+                    }
+                }
+                if (this.input[this.pos] == '\\' && escaped == false)
+                    escaped = true;
+                else
+                    escaped = false;
+                this.pos++;
+            }
+        };
+
+        this.value_comment = function() {
+            var str = '';
+            var brcktCnt = 0;
+            while (!(this.tryMatch("}", false) && brcktCnt == 0)) {
+                str = str + this.input[this.pos];
+                if (this.input[this.pos] == '{')
+                    brcktCnt++;
+                if (this.input[this.pos] == '}')
+                    brcktCnt--;
+                if (this.pos >= this.input.length - 1) {
+                    throw "Unterminated value:" + this.input.substring(start);
+                }
+                this.pos++;
+            }
+            return str;
+        };
+
+        this.value_quotes = function() {
+            this.match('"', false);
+            var start = this.pos;
+            var escaped = false;
+            while (true) {
+                if (!escaped) {
+                    if (this.input[this.pos] == '"') {
+                        var end = this.pos;
+                        this.match('"', false);
+                        return this.input.substring(start, end);
+                    } else if (this.pos >= this.input.length - 1) {
+                        throw "Unterminated value:" + this.input.substring(start);
+                    }
+                }
+                if (this.input[this.pos] == '\\' && escaped == false)
+                    escaped = true;
+                else
+                    escaped = false;
+                this.pos++;
+            }
+        };
+
+        this.single_value = function() {
+            var start = this.pos;
+            if (this.tryMatch("{")) {
+                return this.value_braces();
+            } else if (this.tryMatch('"')) {
+                return this.value_quotes();
+            } else {
+                var k = this.key();
+                if (k.match("^[0-9]+$"))
+                    return k;
+                else if (this.months.indexOf(k.toLowerCase()) >= 0)
+                    return k.toLowerCase();
+                else
+                    throw "Value expected:" + this.input.substring(start) + ' for key: ' + k;
+            
+            }
+        };
+
+        this.value = function() {
+            var values = [];
+            values.push(this.single_value());
+            while (this.tryMatch("#")) {
+                this.match("#");
+                values.push(this.single_value());
+            }
+            return values.join("");
+        };
+
+        this.key = function() {
+            var start = this.pos;
+            while (true) {
+                if (this.pos >= this.input.length) {
+                    throw "Runaway key";
+                }
+                                // а-яА-Я is Cyrillic
+                //console.log(this.input[this.pos]);
+                if (this.notKey.indexOf(this.input[this.pos]) >= 0) {
+                    return this.input.substring(start, this.pos);
+                } else {
+                    this.pos++;
+                    
+                }
+            }
+        };
+
+        this.key_equals_value = function() {
+            var key = this.key();
+            if (this.tryMatch("=")) {
+                this.match("=");
+                var val = this.value();
+                return [ key, val ];
+            } else {
+                throw "... = value expected, equals sign missing:"
+                        + this.input.substring(this.pos);
+            }
+        };
+
+        this.key_value_list = function() {
+            var kv = this.key_equals_value();
+            this.currentEntry['entryTags'] = {};
+            this.currentEntry['entryTags'][kv[0]] = kv[1];
+            while (this.tryMatch(",")) {
+                this.match(",");
+                // fixes problems with commas at the end of a list
+                if (this.tryMatch("}")) {
+                    break;
+                }
+                
+                kv = this.key_equals_value();
+                this.currentEntry['entryTags'][kv[0]] = kv[1];
+            }
+        };
+
+        this.entry_body = function(d) {
+            this.currentEntry = {};
+            this.currentEntry['citationKey'] = this.key();
+            this.currentEntry['entryType'] = d.substring(1);
+            this.match(",");
+            this.key_value_list();
+            this.entries.push(this.currentEntry);
+        };
+
+        this.directive = function() {
+            this.match("@");
+            return "@" + this.key();
+        };
+
+        this.preamble = function() {
+            this.currentEntry = {};
+            this.currentEntry['entryType'] = 'PREAMBLE';
+            this.currentEntry['entry'] = this.value_comment();
+            this.entries.push(this.currentEntry);
+        };
+
+        this.comment = function() {
+            this.currentEntry = {};
+            this.currentEntry['entryType'] = 'COMMENT';
+            this.currentEntry['entry'] = this.value_comment();
+            this.entries.push(this.currentEntry);
+        };
+
+        this.entry = function(d) {
+            this.entry_body(d);
+        };
+
+        this.bibtex = function() {
+            while (this.matchAt()) {
+                var d = this.directive();
+                this.match("{");
+                if (d == "@STRING") {
+                    this.string();
+                } else if (d == "@PREAMBLE") {
+                    this.preamble();
+                } else if (d == "@COMMENT") {
+                    this.comment();
+                } else {
+                    this.entry(d);
+                }
+                this.match("}");
+            }
+        };
+    }
+    
+    exports.toJSON = function(bibtex) {
+        var b = new BibtexParser();
+        b.setInput(bibtex);
+        b.bibtex();
+        return b.entries;
+    };
+
+    /* added during hackathon don't hate on me */
+    exports.toBibtex = function(json) {
+        var out = '';
+        for ( var i in json) {
+            out += "@" + json[i].entryType;
+            out += '{';
+            if (json[i].citationKey)
+                out += json[i].citationKey + ', ';
+            if (json[i].entry)
+                out += json[i].entry ;
+            if (json[i].entryTags) {
+                var tags = '';
+                for (var jdx in json[i].entryTags) {
+                    if (tags.length != 0)
+                        tags += ', ';
+                    tags += jdx + '= {' + json[i].entryTags[jdx] + '}';
+                }
+                out += tags;
+            }
+            out += '}\n\n';
+        }
+        return out;
+        
+    };
+
+})(exports);
+
+/* end bibtexParse */
+});
+
+const T$5 = Template('d-bibliography', `
+<style>
+  .references {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .title {
+    font-weight: 600;
+  }
+  ol {
+    padding: 0 0 0 18px;
+  }
+  li {
+    margin-bottom: 12px;
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 20px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+    line-height: 1em;
+  }
+  a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+</style>
+
+<h3>References</h3>
+<ol></ol>
+`);
+
+function parseBibtex(bibtex) {
+  const bibliography = new Map();
+  const parsedEntries = bibtexParse.toJSON(bibtex);
+  for (const entry of parsedEntries) {
+    // normalize tags; note entryTags is an object, not Map
+    for (const tag in entry.entryTags) {
+      let value = entry.entryTags[tag];
+      value = value.replace(/[\t\n ]+/g, " ");
+      value = value.replace(/{\\["^`\.'acu~Hvs]( )?([a-zA-Z])}/g,
+                        (full, x, char) => char);
+      value = value.replace(/{\\([a-zA-Z])}/g,
+                        (full, char) => char);
+      entry.entryTags[tag] = value;
+    }
+    entry.entryTags.type = entry.entryType;
+    // add to bibliography
+    bibliography.set(entry.citationKey, entry.entryTags);
+  }
+  return bibliography;
+}
+
+class Bibliography extends T$5(HTMLElement) {
+
+  constructor() {
+    super();
+
+    // set up mutation observer
+    const options = {childList: true, subtree: true};
+    const observer = new MutationObserver( (mutations) => {
+      observer.disconnect();
+      this.parseIfPossible();
+      observer.observe(this, options);
+    });
+    // ...and listen for changes
+    observer.observe(this, options);
+  }
+
+  parseIfPossible() {
+    if (this.firstElementChild && this.firstElementChild.tagName === 'SCRIPT') {
+      const newBibtex = this.firstElementChild.textContent;
+      if (this.bibtex !== newBibtex) {
+        this.bibtex = newBibtex;
+        const bibliography = parseBibtex(this.bibtex);
+        this.notify(bibliography);
+      }
+    }
+  };
+
+  connectedCallback() {
+    this.list = this.root.querySelector('ol');
+    // bibliography is initially hidden
+    this.root.host.style.display = 'none';
+    // this.parseIfPossible();
+    // Store.subscribeTo('citations', (citations) => {
+    //   // ensure citations list is visible
+    //   this.root.host.style.display = 'initial';
+    //   this.list.innerHTML = '';
+    //   for (const key of citations) {
+    //     const bibliography = Store.get('bibliography');
+    //     const entry = bibliography.get(key);
+    //     // construct and append list item to show citation
+    //     const listItem = document.createElement('li');
+    //     listItem.id = key;
+    //     listItem.innerHTML = bibliography_cite(entry);
+    //     this.list.appendChild(listItem);
+    //   }
+    // });
+  }
+
+  notify(bibliography) {
+    const options = { detail: bibliography, bubbles: true };
+    const event = new CustomEvent('onBibliographyChanged', options);
+    this.dispatchEvent(event);
+  }
+
+  set entries(newEntries) {
+    this.root.host.style.display = 'initial';
+    this.list.innerHTML = '';
+
+    for (const [key, entry] of newEntries) {
+      const listItem = document.createElement('li');
+      listItem.id = key;
+      listItem.innerHTML = bibliography_cite(entry);
+      this.list.appendChild(listItem);
+    }
+  }
+
+  renderContent() {
+    // compute and store bibliography
+    // FrontMatter.bibliography = parseBibtex(this.bibtex);
+    // this.notify();
+    // Store.set('bibliography', bibliography);
+    // compute and store citations
+    // const citations = collectCitations();
+    // Store.set('citations', citations);
+  }
+
+}
+
+var mustache = createCommonjsModule(function (module, exports) {
+/*!
+ * mustache.js - Logic-less {{mustache}} templates with JavaScript
+ * http://github.com/janl/mustache.js
+ */
+
+/*global define: false Mustache: true*/
+
+(function defineMustache (global, factory) {
+  if ('object' === 'object' && exports && typeof exports.nodeName !== 'string') {
+    factory(exports); // CommonJS
+  } else if (typeof undefined === 'function' && undefined.amd) {
+    undefined(['exports'], factory); // AMD
+  } else {
+    global.Mustache = {};
+    factory(global.Mustache); // script, wsh, asp
+  }
+}(commonjsGlobal, function mustacheFactory (mustache) {
+
+  var objectToString = Object.prototype.toString;
+  var isArray = Array.isArray || function isArrayPolyfill (object) {
+    return objectToString.call(object) === '[object Array]';
+  };
+
+  function isFunction (object) {
+    return typeof object === 'function';
+  }
+
+  /**
+   * More correct typeof string handling array
+   * which normally returns typeof 'object'
+   */
+  function typeStr (obj) {
+    return isArray(obj) ? 'array' : typeof obj;
+  }
+
+  function escapeRegExp (string) {
+    return string.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
+  }
+
+  /**
+   * Null safe way of checking whether or not an object,
+   * including its prototype, has a given property
+   */
+  function hasProperty (obj, propName) {
+    return obj != null && typeof obj === 'object' && (propName in obj);
+  }
+
+  // Workaround for https://issues.apache.org/jira/browse/COUCHDB-577
+  // See https://github.com/janl/mustache.js/issues/189
+  var regExpTest = RegExp.prototype.test;
+  function testRegExp (re, string) {
+    return regExpTest.call(re, string);
+  }
+
+  var nonSpaceRe = /\S/;
+  function isWhitespace (string) {
+    return !testRegExp(nonSpaceRe, string);
+  }
+
+  var entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+    '/': '&#x2F;',
+    '`': '&#x60;',
+    '=': '&#x3D;'
+  };
+
+  function escapeHtml (string) {
+    return String(string).replace(/[&<>"'`=\/]/g, function fromEntityMap (s) {
+      return entityMap[s];
+    });
+  }
+
+  var whiteRe = /\s*/;
+  var spaceRe = /\s+/;
+  var equalsRe = /\s*=/;
+  var curlyRe = /\s*\}/;
+  var tagRe = /#|\^|\/|>|\{|&|=|!/;
+
+  /**
+   * Breaks up the given `template` string into a tree of tokens. If the `tags`
+   * argument is given here it must be an array with two string values: the
+   * opening and closing tags used in the template (e.g. [ "<%", "%>" ]). Of
+   * course, the default is to use mustaches (i.e. mustache.tags).
+   *
+   * A token is an array with at least 4 elements. The first element is the
+   * mustache symbol that was used inside the tag, e.g. "#" or "&". If the tag
+   * did not contain a symbol (i.e. {{myValue}}) this element is "name". For
+   * all text that appears outside a symbol this element is "text".
+   *
+   * The second element of a token is its "value". For mustache tags this is
+   * whatever else was inside the tag besides the opening symbol. For text tokens
+   * this is the text itself.
+   *
+   * The third and fourth elements of the token are the start and end indices,
+   * respectively, of the token in the original template.
+   *
+   * Tokens that are the root node of a subtree contain two more elements: 1) an
+   * array of tokens in the subtree and 2) the index in the original template at
+   * which the closing tag for that section begins.
+   */
+  function parseTemplate (template, tags) {
+    if (!template)
+      return [];
+
+    var sections = [];     // Stack to hold section tokens
+    var tokens = [];       // Buffer to hold the tokens
+    var spaces = [];       // Indices of whitespace tokens on the current line
+    var hasTag = false;    // Is there a {{tag}} on the current line?
+    var nonSpace = false;  // Is there a non-space char on the current line?
+
+    // Strips all whitespace tokens array for the current line
+    // if there was a {{#tag}} on it and otherwise only space.
+    function stripSpace () {
+      if (hasTag && !nonSpace) {
+        while (spaces.length)
+          delete tokens[spaces.pop()];
+      } else {
+        spaces = [];
+      }
+
+      hasTag = false;
+      nonSpace = false;
+    }
+
+    var openingTagRe, closingTagRe, closingCurlyRe;
+    function compileTags (tagsToCompile) {
+      if (typeof tagsToCompile === 'string')
+        tagsToCompile = tagsToCompile.split(spaceRe, 2);
+
+      if (!isArray(tagsToCompile) || tagsToCompile.length !== 2)
+        throw new Error('Invalid tags: ' + tagsToCompile);
+
+      openingTagRe = new RegExp(escapeRegExp(tagsToCompile[0]) + '\\s*');
+      closingTagRe = new RegExp('\\s*' + escapeRegExp(tagsToCompile[1]));
+      closingCurlyRe = new RegExp('\\s*' + escapeRegExp('}' + tagsToCompile[1]));
+    }
+
+    compileTags(tags || mustache.tags);
+
+    var scanner = new Scanner(template);
+
+    var start, type, value, chr, token, openSection;
+    while (!scanner.eos()) {
+      start = scanner.pos;
+
+      // Match any text between tags.
+      value = scanner.scanUntil(openingTagRe);
+
+      if (value) {
+        for (var i = 0, valueLength = value.length; i < valueLength; ++i) {
+          chr = value.charAt(i);
+
+          if (isWhitespace(chr)) {
+            spaces.push(tokens.length);
+          } else {
+            nonSpace = true;
+          }
+
+          tokens.push([ 'text', chr, start, start + 1 ]);
+          start += 1;
+
+          // Check for whitespace on the current line.
+          if (chr === '\n')
+            stripSpace();
+        }
+      }
+
+      // Match the opening tag.
+      if (!scanner.scan(openingTagRe))
+        break;
+
+      hasTag = true;
+
+      // Get the tag type.
+      type = scanner.scan(tagRe) || 'name';
+      scanner.scan(whiteRe);
+
+      // Get the tag value.
+      if (type === '=') {
+        value = scanner.scanUntil(equalsRe);
+        scanner.scan(equalsRe);
+        scanner.scanUntil(closingTagRe);
+      } else if (type === '{') {
+        value = scanner.scanUntil(closingCurlyRe);
+        scanner.scan(curlyRe);
+        scanner.scanUntil(closingTagRe);
+        type = '&';
+      } else {
+        value = scanner.scanUntil(closingTagRe);
+      }
+
+      // Match the closing tag.
+      if (!scanner.scan(closingTagRe))
+        throw new Error('Unclosed tag at ' + scanner.pos);
+
+      token = [ type, value, start, scanner.pos ];
+      tokens.push(token);
+
+      if (type === '#' || type === '^') {
+        sections.push(token);
+      } else if (type === '/') {
+        // Check section nesting.
+        openSection = sections.pop();
+
+        if (!openSection)
+          throw new Error('Unopened section "' + value + '" at ' + start);
+
+        if (openSection[1] !== value)
+          throw new Error('Unclosed section "' + openSection[1] + '" at ' + start);
+      } else if (type === 'name' || type === '{' || type === '&') {
+        nonSpace = true;
+      } else if (type === '=') {
+        // Set the tags for the next time around.
+        compileTags(value);
+      }
+    }
+
+    // Make sure there are no open sections when we're done.
+    openSection = sections.pop();
+
+    if (openSection)
+      throw new Error('Unclosed section "' + openSection[1] + '" at ' + scanner.pos);
+
+    return nestTokens(squashTokens(tokens));
+  }
+
+  /**
+   * Combines the values of consecutive text tokens in the given `tokens` array
+   * to a single token.
+   */
+  function squashTokens (tokens) {
+    var squashedTokens = [];
+
+    var token, lastToken;
+    for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
+      token = tokens[i];
+
+      if (token) {
+        if (token[0] === 'text' && lastToken && lastToken[0] === 'text') {
+          lastToken[1] += token[1];
+          lastToken[3] = token[3];
+        } else {
+          squashedTokens.push(token);
+          lastToken = token;
+        }
+      }
+    }
+
+    return squashedTokens;
+  }
+
+  /**
+   * Forms the given array of `tokens` into a nested tree structure where
+   * tokens that represent a section have two additional items: 1) an array of
+   * all tokens that appear in that section and 2) the index in the original
+   * template that represents the end of that section.
+   */
+  function nestTokens (tokens) {
+    var nestedTokens = [];
+    var collector = nestedTokens;
+    var sections = [];
+
+    var token, section;
+    for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
+      token = tokens[i];
+
+      switch (token[0]) {
+        case '#':
+        case '^':
+          collector.push(token);
+          sections.push(token);
+          collector = token[4] = [];
+          break;
+        case '/':
+          section = sections.pop();
+          section[5] = token[2];
+          collector = sections.length > 0 ? sections[sections.length - 1][4] : nestedTokens;
+          break;
+        default:
+          collector.push(token);
+      }
+    }
+
+    return nestedTokens;
+  }
+
+  /**
+   * A simple string scanner that is used by the template parser to find
+   * tokens in template strings.
+   */
+  function Scanner (string) {
+    this.string = string;
+    this.tail = string;
+    this.pos = 0;
+  }
+
+  /**
+   * Returns `true` if the tail is empty (end of string).
+   */
+  Scanner.prototype.eos = function eos () {
+    return this.tail === '';
+  };
+
+  /**
+   * Tries to match the given regular expression at the current position.
+   * Returns the matched text if it can match, the empty string otherwise.
+   */
+  Scanner.prototype.scan = function scan (re) {
+    var match = this.tail.match(re);
+
+    if (!match || match.index !== 0)
+      return '';
+
+    var string = match[0];
+
+    this.tail = this.tail.substring(string.length);
+    this.pos += string.length;
+
+    return string;
+  };
+
+  /**
+   * Skips all text until the given regular expression can be matched. Returns
+   * the skipped string, which is the entire tail if no match can be made.
+   */
+  Scanner.prototype.scanUntil = function scanUntil (re) {
+    var index = this.tail.search(re), match;
+
+    switch (index) {
+      case -1:
+        match = this.tail;
+        this.tail = '';
+        break;
+      case 0:
+        match = '';
+        break;
+      default:
+        match = this.tail.substring(0, index);
+        this.tail = this.tail.substring(index);
+    }
+
+    this.pos += match.length;
+
+    return match;
+  };
+
+  /**
+   * Represents a rendering context by wrapping a view object and
+   * maintaining a reference to the parent context.
+   */
+  function Context (view, parentContext) {
+    this.view = view;
+    this.cache = { '.': this.view };
+    this.parent = parentContext;
+  }
+
+  /**
+   * Creates a new context using the given view with this context
+   * as the parent.
+   */
+  Context.prototype.push = function push (view) {
+    return new Context(view, this);
+  };
+
+  /**
+   * Returns the value of the given name in this context, traversing
+   * up the context hierarchy if the value is absent in this context's view.
+   */
+  Context.prototype.lookup = function lookup (name) {
+    var cache = this.cache;
+
+    var value;
+    if (cache.hasOwnProperty(name)) {
+      value = cache[name];
+    } else {
+      var context = this, names, index, lookupHit = false;
+
+      while (context) {
+        if (name.indexOf('.') > 0) {
+          value = context.view;
+          names = name.split('.');
+          index = 0;
+
+          /**
+           * Using the dot notion path in `name`, we descend through the
+           * nested objects.
+           *
+           * To be certain that the lookup has been successful, we have to
+           * check if the last object in the path actually has the property
+           * we are looking for. We store the result in `lookupHit`.
+           *
+           * This is specially necessary for when the value has been set to
+           * `undefined` and we want to avoid looking up parent contexts.
+           **/
+          while (value != null && index < names.length) {
+            if (index === names.length - 1)
+              lookupHit = hasProperty(value, names[index]);
+
+            value = value[names[index++]];
+          }
+        } else {
+          value = context.view[name];
+          lookupHit = hasProperty(context.view, name);
+        }
+
+        if (lookupHit)
+          break;
+
+        context = context.parent;
+      }
+
+      cache[name] = value;
+    }
+
+    if (isFunction(value))
+      value = value.call(this.view);
+
+    return value;
+  };
+
+  /**
+   * A Writer knows how to take a stream of tokens and render them to a
+   * string, given a context. It also maintains a cache of templates to
+   * avoid the need to parse the same template twice.
+   */
+  function Writer () {
+    this.cache = {};
+  }
+
+  /**
+   * Clears all cached templates in this writer.
+   */
+  Writer.prototype.clearCache = function clearCache () {
+    this.cache = {};
+  };
+
+  /**
+   * Parses and caches the given `template` and returns the array of tokens
+   * that is generated from the parse.
+   */
+  Writer.prototype.parse = function parse (template, tags) {
+    var cache = this.cache;
+    var tokens = cache[template];
+
+    if (tokens == null)
+      tokens = cache[template] = parseTemplate(template, tags);
+
+    return tokens;
+  };
+
+  /**
+   * High-level method that is used to render the given `template` with
+   * the given `view`.
+   *
+   * The optional `partials` argument may be an object that contains the
+   * names and templates of partials that are used in the template. It may
+   * also be a function that is used to load partial templates on the fly
+   * that takes a single argument: the name of the partial.
+   */
+  Writer.prototype.render = function render (template, view, partials) {
+    var tokens = this.parse(template);
+    var context = (view instanceof Context) ? view : new Context(view);
+    return this.renderTokens(tokens, context, partials, template);
+  };
+
+  /**
+   * Low-level method that renders the given array of `tokens` using
+   * the given `context` and `partials`.
+   *
+   * Note: The `originalTemplate` is only ever used to extract the portion
+   * of the original template that was contained in a higher-order section.
+   * If the template doesn't use higher-order sections, this argument may
+   * be omitted.
+   */
+  Writer.prototype.renderTokens = function renderTokens (tokens, context, partials, originalTemplate) {
+    var buffer = '';
+
+    var token, symbol, value;
+    for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
+      value = undefined;
+      token = tokens[i];
+      symbol = token[0];
+
+      if (symbol === '#') value = this.renderSection(token, context, partials, originalTemplate);
+      else if (symbol === '^') value = this.renderInverted(token, context, partials, originalTemplate);
+      else if (symbol === '>') value = this.renderPartial(token, context, partials, originalTemplate);
+      else if (symbol === '&') value = this.unescapedValue(token, context);
+      else if (symbol === 'name') value = this.escapedValue(token, context);
+      else if (symbol === 'text') value = this.rawValue(token);
+
+      if (value !== undefined)
+        buffer += value;
+    }
+
+    return buffer;
+  };
+
+  Writer.prototype.renderSection = function renderSection (token, context, partials, originalTemplate) {
+    var self = this;
+    var buffer = '';
+    var value = context.lookup(token[1]);
+
+    // This function is used to render an arbitrary template
+    // in the current context by higher-order sections.
+    function subRender (template) {
+      return self.render(template, context, partials);
+    }
+
+    if (!value) return;
+
+    if (isArray(value)) {
+      for (var j = 0, valueLength = value.length; j < valueLength; ++j) {
+        buffer += this.renderTokens(token[4], context.push(value[j]), partials, originalTemplate);
+      }
+    } else if (typeof value === 'object' || typeof value === 'string' || typeof value === 'number') {
+      buffer += this.renderTokens(token[4], context.push(value), partials, originalTemplate);
+    } else if (isFunction(value)) {
+      if (typeof originalTemplate !== 'string')
+        throw new Error('Cannot use higher-order sections without the original template');
+
+      // Extract the portion of the original template that the section contains.
+      value = value.call(context.view, originalTemplate.slice(token[3], token[5]), subRender);
+
+      if (value != null)
+        buffer += value;
+    } else {
+      buffer += this.renderTokens(token[4], context, partials, originalTemplate);
+    }
+    return buffer;
+  };
+
+  Writer.prototype.renderInverted = function renderInverted (token, context, partials, originalTemplate) {
+    var value = context.lookup(token[1]);
+
+    // Use JavaScript's definition of falsy. Include empty arrays.
+    // See https://github.com/janl/mustache.js/issues/186
+    if (!value || (isArray(value) && value.length === 0))
+      return this.renderTokens(token[4], context, partials, originalTemplate);
+  };
+
+  Writer.prototype.renderPartial = function renderPartial (token, context, partials) {
+    if (!partials) return;
+
+    var value = isFunction(partials) ? partials(token[1]) : partials[token[1]];
+    if (value != null)
+      return this.renderTokens(this.parse(value), context, partials, value);
+  };
+
+  Writer.prototype.unescapedValue = function unescapedValue (token, context) {
+    var value = context.lookup(token[1]);
+    if (value != null)
+      return value;
+  };
+
+  Writer.prototype.escapedValue = function escapedValue (token, context) {
+    var value = context.lookup(token[1]);
+    if (value != null)
+      return mustache.escape(value);
+  };
+
+  Writer.prototype.rawValue = function rawValue (token) {
+    return token[1];
+  };
+
+  mustache.name = 'mustache.js';
+  mustache.version = '2.3.0';
+  mustache.tags = [ '{{', '}}' ];
+
+  // All high-level mustache.* functions use this writer.
+  var defaultWriter = new Writer();
+
+  /**
+   * Clears all cached templates in the default writer.
+   */
+  mustache.clearCache = function clearCache () {
+    return defaultWriter.clearCache();
+  };
+
+  /**
+   * Parses and caches the given template in the default writer and returns the
+   * array of tokens it contains. Doing this ahead of time avoids the need to
+   * parse templates on the fly as they are rendered.
+   */
+  mustache.parse = function parse (template, tags) {
+    return defaultWriter.parse(template, tags);
+  };
+
+  /**
+   * Renders the `template` with the given `view` and `partials` using the
+   * default writer.
+   */
+  mustache.render = function render (template, view, partials) {
+    if (typeof template !== 'string') {
+      throw new TypeError('Invalid template! Template should be a "string" ' +
+                          'but "' + typeStr(template) + '" was given as the first ' +
+                          'argument for mustache#render(template, view, partials)');
+    }
+
+    return defaultWriter.render(template, view, partials);
+  };
+
+  // This is here for backwards compatibility with 0.4.x.,
+  /*eslint-disable */ // eslint wants camel cased function name
+  mustache.to_html = function to_html (template, view, partials, send) {
+    /*eslint-enable*/
+
+    var result = mustache.render(template, view, partials);
+
+    if (isFunction(send)) {
+      send(result);
+    } else {
+      return result;
+    }
+  };
+
+  // Export the escaping function so that the user may override it.
+  // See https://github.com/janl/mustache.js/issues/244
+  mustache.escape = escapeHtml;
+
+  // Export these mainly for testing, but also for advanced usage.
+  mustache.Scanner = Scanner;
+  mustache.Context = Context;
+  mustache.Writer = Writer;
+
+  return mustache;
+}));
+});
+
+const T$6 = Template("d-byline", `
+<style>
+  :host {
+    box-sizing: border-box;
+    font-size: 13px;
+    line-height: 20px;
+    display: block;
+    /* border-top: 1px solid rgba(0, 0, 0, 0.1);*/
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
+    color: rgba(0, 0, 0, 0.6);
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  ${page(".byline")}
+  d-article.centered {
+    text-align: center;
+  }
+  a,
+  d-article a {
+    color: rgba(0, 0, 0, 0.8);
+    text-decoration: none;
+    border-bottom: none;
+  }
+  d-article a:hover {
+    text-decoration: underline;
+    border-bottom: none;
+  }
+  .authors {
+    text-align: left;
+  }
+  .name {
+    font-weight: 600;
+    display: inline;
+    text-transform: uppercase;
+  }
+  .affiliation {
+    display: inline;
+  }
+  .date {
+    display: block;
+    text-align: left;
+  }
+  .year, .month {
+    display: inline;
+  }
+  .citation {
+    display: block;
+    text-align: left;
+  }
+  .citation div {
+    display: inline;
+  }
+
+  @media(min-width: 1080px) {
+    :host {
+      border-bottom: none;
+    }
+
+    a:hover {
+      color: rgba(0, 0, 0, 0.9);
+    }
+
+    .authors {
+      display: inline-block;
+    }
+
+    .author {
+      display: inline-block;
+      margin-right: 12px;
+      /*padding-left: 20px;*/
+      /*border-left: 1px solid #ddd;*/
+    }
+
+    .affiliation {
+      display: block;
+    }
+
+    .author:last-child {
+      margin-right: 0;
+    }
+
+    .name {
+      display: block;
+    }
+
+    .date {
+      border-left: 1px solid rgba(0, 0, 0, 0.1);
+      padding-left: 15px;
+      margin-left: 15px;
+      display: inline-block;
+    }
+    .year, .month {
+      display: block;
+    }
+
+    .citation {
+      border-left: 1px solid rgba(0, 0, 0, 0.15);
+      padding-left: 15px;
+      margin-left: 15px;
+      display: inline-block;
+    }
+    .citation div {
+      display: block;
+    }
+  }
+</style>
+
+<div class='byline'></div>
+`);
+
+class Byline extends T$6(HTMLElement) {
+
+  connectedCallback() {
+    // const frontmatter = document.querySelector('d-front-matter');
+    // const container = this.root.querySelector('.byline');
+    // container.innerHTML = mustache.render(mustacheTemplate, frontmatter.data);
+    // // console.log(frontmatter.data)
+  }
+
+}
+
+var prism = createCommonjsModule(function (module) {
+/* **********************************************
+     Begin prism-core.js
+********************************************** */
+
+var _self = (typeof window !== 'undefined')
+	? window   // if in browser
+	: (
+		(typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope)
+		? self // if in worker
+		: {}   // if in node js
+	);
+
+/**
+ * Prism: Lightweight, robust, elegant syntax highlighting
+ * MIT license http://www.opensource.org/licenses/mit-license.php/
+ * @author Lea Verou http://lea.verou.me
+ */
+
+var Prism = (function(){
+
+// Private helper vars
+var lang = /\blang(?:uage)?-(\w+)\b/i;
+var uniqueId = 0;
+
+var _ = _self.Prism = {
+	util: {
+		encode: function (tokens) {
+			if (tokens instanceof Token) {
+				return new Token(tokens.type, _.util.encode(tokens.content), tokens.alias);
+			} else if (_.util.type(tokens) === 'Array') {
+				return tokens.map(_.util.encode);
+			} else {
+				return tokens.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\u00a0/g, ' ');
+			}
+		},
+
+		type: function (o) {
+			return Object.prototype.toString.call(o).match(/\[object (\w+)\]/)[1];
+		},
+
+		objId: function (obj) {
+			if (!obj['__id']) {
+				Object.defineProperty(obj, '__id', { value: ++uniqueId });
+			}
+			return obj['__id'];
+		},
+
+		// Deep clone a language definition (e.g. to extend it)
+		clone: function (o) {
+			var type = _.util.type(o);
+
+			switch (type) {
+				case 'Object':
+					var clone = {};
+
+					for (var key in o) {
+						if (o.hasOwnProperty(key)) {
+							clone[key] = _.util.clone(o[key]);
+						}
+					}
+
+					return clone;
+
+				case 'Array':
+					// Check for existence for IE8
+					return o.map && o.map(function(v) { return _.util.clone(v); });
+			}
+
+			return o;
+		}
+	},
+
+	languages: {
+		extend: function (id, redef) {
+			var lang = _.util.clone(_.languages[id]);
+
+			for (var key in redef) {
+				lang[key] = redef[key];
+			}
+
+			return lang;
+		},
+
+		/**
+		 * Insert a token before another token in a language literal
+		 * As this needs to recreate the object (we cannot actually insert before keys in object literals),
+		 * we cannot just provide an object, we need anobject and a key.
+		 * @param inside The key (or language id) of the parent
+		 * @param before The key to insert before. If not provided, the function appends instead.
+		 * @param insert Object with the key/value pairs to insert
+		 * @param root The object that contains `inside`. If equal to Prism.languages, it can be omitted.
+		 */
+		insertBefore: function (inside, before, insert, root) {
+			root = root || _.languages;
+			var grammar = root[inside];
+
+			if (arguments.length == 2) {
+				insert = arguments[1];
+
+				for (var newToken in insert) {
+					if (insert.hasOwnProperty(newToken)) {
+						grammar[newToken] = insert[newToken];
+					}
+				}
+
+				return grammar;
+			}
+
+			var ret = {};
+
+			for (var token in grammar) {
+
+				if (grammar.hasOwnProperty(token)) {
+
+					if (token == before) {
+
+						for (var newToken in insert) {
+
+							if (insert.hasOwnProperty(newToken)) {
+								ret[newToken] = insert[newToken];
+							}
+						}
+					}
+
+					ret[token] = grammar[token];
+				}
+			}
+
+			// Update references in other language definitions
+			_.languages.DFS(_.languages, function(key, value) {
+				if (value === root[inside] && key != inside) {
+					this[key] = ret;
+				}
+			});
+
+			return root[inside] = ret;
+		},
+
+		// Traverse a language definition with Depth First Search
+		DFS: function(o, callback, type, visited) {
+			visited = visited || {};
+			for (var i in o) {
+				if (o.hasOwnProperty(i)) {
+					callback.call(o, i, o[i], type || i);
+
+					if (_.util.type(o[i]) === 'Object' && !visited[_.util.objId(o[i])]) {
+						visited[_.util.objId(o[i])] = true;
+						_.languages.DFS(o[i], callback, null, visited);
+					}
+					else if (_.util.type(o[i]) === 'Array' && !visited[_.util.objId(o[i])]) {
+						visited[_.util.objId(o[i])] = true;
+						_.languages.DFS(o[i], callback, i, visited);
+					}
+				}
+			}
+		}
+	},
+	plugins: {},
+
+	highlightAll: function(async, callback) {
+		var env = {
+			callback: callback,
+			selector: 'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'
+		};
+
+		_.hooks.run("before-highlightall", env);
+
+		var elements = env.elements || document.querySelectorAll(env.selector);
+
+		for (var i=0, element; element = elements[i++];) {
+			_.highlightElement(element, async === true, env.callback);
+		}
+	},
+
+	highlightElement: function(element, async, callback) {
+		// Find language
+		var language, grammar, parent = element;
+
+		while (parent && !lang.test(parent.className)) {
+			parent = parent.parentNode;
+		}
+
+		if (parent) {
+			language = (parent.className.match(lang) || [,''])[1].toLowerCase();
+			grammar = _.languages[language];
+		}
+
+		// Set language on the element, if not present
+		element.className = element.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
+
+		// Set language on the parent, for styling
+		parent = element.parentNode;
+
+		if (/pre/i.test(parent.nodeName)) {
+			parent.className = parent.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
+		}
+
+		var code = element.textContent;
+
+		var env = {
+			element: element,
+			language: language,
+			grammar: grammar,
+			code: code
+		};
+
+		_.hooks.run('before-sanity-check', env);
+
+		if (!env.code || !env.grammar) {
+			if (env.code) {
+				env.element.textContent = env.code;
+			}
+			_.hooks.run('complete', env);
+			return;
+		}
+
+		_.hooks.run('before-highlight', env);
+
+		if (async && _self.Worker) {
+			var worker = new Worker(_.filename);
+
+			worker.onmessage = function(evt) {
+				env.highlightedCode = evt.data;
+
+				_.hooks.run('before-insert', env);
+
+				env.element.innerHTML = env.highlightedCode;
+
+				callback && callback.call(env.element);
+				_.hooks.run('after-highlight', env);
+				_.hooks.run('complete', env);
+			};
+
+			worker.postMessage(JSON.stringify({
+				language: env.language,
+				code: env.code,
+				immediateClose: true
+			}));
+		}
+		else {
+			env.highlightedCode = _.highlight(env.code, env.grammar, env.language);
+
+			_.hooks.run('before-insert', env);
+
+			env.element.innerHTML = env.highlightedCode;
+
+			callback && callback.call(element);
+
+			_.hooks.run('after-highlight', env);
+			_.hooks.run('complete', env);
+		}
+	},
+
+	highlight: function (text, grammar, language) {
+		var tokens = _.tokenize(text, grammar);
+		return Token.stringify(_.util.encode(tokens), language);
+	},
+
+	tokenize: function(text, grammar, language) {
+		var Token = _.Token;
+
+		var strarr = [text];
+
+		var rest = grammar.rest;
+
+		if (rest) {
+			for (var token in rest) {
+				grammar[token] = rest[token];
+			}
+
+			delete grammar.rest;
+		}
+
+		tokenloop: for (var token in grammar) {
+			if(!grammar.hasOwnProperty(token) || !grammar[token]) {
+				continue;
+			}
+
+			var patterns = grammar[token];
+			patterns = (_.util.type(patterns) === "Array") ? patterns : [patterns];
+
+			for (var j = 0; j < patterns.length; ++j) {
+				var pattern = patterns[j],
+					inside = pattern.inside,
+					lookbehind = !!pattern.lookbehind,
+					greedy = !!pattern.greedy,
+					lookbehindLength = 0,
+					alias = pattern.alias;
+
+				if (greedy && !pattern.pattern.global) {
+					// Without the global flag, lastIndex won't work
+					var flags = pattern.pattern.toString().match(/[imuy]*$/)[0];
+					pattern.pattern = RegExp(pattern.pattern.source, flags + "g");
+				}
+
+				pattern = pattern.pattern || pattern;
+
+				// Don’t cache length as it changes during the loop
+				for (var i=0, pos = 0; i<strarr.length; pos += strarr[i].length, ++i) {
+
+					var str = strarr[i];
+
+					if (strarr.length > text.length) {
+						// Something went terribly wrong, ABORT, ABORT!
+						break tokenloop;
+					}
+
+					if (str instanceof Token) {
+						continue;
+					}
+
+					pattern.lastIndex = 0;
+
+					var match = pattern.exec(str),
+					    delNum = 1;
+
+					// Greedy patterns can override/remove up to two previously matched tokens
+					if (!match && greedy && i != strarr.length - 1) {
+						pattern.lastIndex = pos;
+						match = pattern.exec(text);
+						if (!match) {
+							break;
+						}
+
+						var from = match.index + (lookbehind ? match[1].length : 0),
+						    to = match.index + match[0].length,
+						    k = i,
+						    p = pos;
+
+						for (var len = strarr.length; k < len && p < to; ++k) {
+							p += strarr[k].length;
+							// Move the index i to the element in strarr that is closest to from
+							if (from >= p) {
+								++i;
+								pos = p;
+							}
+						}
+
+						/*
+						 * If strarr[i] is a Token, then the match starts inside another Token, which is invalid
+						 * If strarr[k - 1] is greedy we are in conflict with another greedy pattern
+						 */
+						if (strarr[i] instanceof Token || strarr[k - 1].greedy) {
+							continue;
+						}
+
+						// Number of tokens to delete and replace with the new match
+						delNum = k - i;
+						str = text.slice(pos, p);
+						match.index -= pos;
+					}
+
+					if (!match) {
+						continue;
+					}
+
+					if(lookbehind) {
+						lookbehindLength = match[1].length;
+					}
+
+					var from = match.index + lookbehindLength,
+					    match = match[0].slice(lookbehindLength),
+					    to = from + match.length,
+					    before = str.slice(0, from),
+					    after = str.slice(to);
+
+					var args = [i, delNum];
+
+					if (before) {
+						args.push(before);
+					}
+
+					var wrapped = new Token(token, inside? _.tokenize(match, inside) : match, alias, match, greedy);
+
+					args.push(wrapped);
+
+					if (after) {
+						args.push(after);
+					}
+
+					Array.prototype.splice.apply(strarr, args);
+				}
+			}
+		}
+
+		return strarr;
+	},
+
+	hooks: {
+		all: {},
+
+		add: function (name, callback) {
+			var hooks = _.hooks.all;
+
+			hooks[name] = hooks[name] || [];
+
+			hooks[name].push(callback);
+		},
+
+		run: function (name, env) {
+			var callbacks = _.hooks.all[name];
+
+			if (!callbacks || !callbacks.length) {
+				return;
+			}
+
+			for (var i=0, callback; callback = callbacks[i++];) {
+				callback(env);
+			}
+		}
+	}
+};
+
+var Token = _.Token = function(type, content, alias, matchedStr, greedy) {
+	this.type = type;
+	this.content = content;
+	this.alias = alias;
+	// Copy of the full string this token was created from
+	this.length = (matchedStr || "").length|0;
+	this.greedy = !!greedy;
+};
+
+Token.stringify = function(o, language, parent) {
+	if (typeof o == 'string') {
+		return o;
+	}
+
+	if (_.util.type(o) === 'Array') {
+		return o.map(function(element) {
+			return Token.stringify(element, language, o);
+		}).join('');
+	}
+
+	var env = {
+		type: o.type,
+		content: Token.stringify(o.content, language, parent),
+		tag: 'span',
+		classes: ['token', o.type],
+		attributes: {},
+		language: language,
+		parent: parent
+	};
+
+	if (env.type == 'comment') {
+		env.attributes['spellcheck'] = 'true';
+	}
+
+	if (o.alias) {
+		var aliases = _.util.type(o.alias) === 'Array' ? o.alias : [o.alias];
+		Array.prototype.push.apply(env.classes, aliases);
+	}
+
+	_.hooks.run('wrap', env);
+
+	var attributes = Object.keys(env.attributes).map(function(name) {
+		return name + '="' + (env.attributes[name] || '').replace(/"/g, '&quot;') + '"';
+	}).join(' ');
+
+	return '<' + env.tag + ' class="' + env.classes.join(' ') + '"' + (attributes ? ' ' + attributes : '') + '>' + env.content + '</' + env.tag + '>';
+
+};
+
+if (!_self.document) {
+	if (!_self.addEventListener) {
+		// in Node.js
+		return _self.Prism;
+	}
+ 	// In worker
+	_self.addEventListener('message', function(evt) {
+		var message = JSON.parse(evt.data),
+		    lang = message.language,
+		    code = message.code,
+		    immediateClose = message.immediateClose;
+
+		_self.postMessage(_.highlight(code, _.languages[lang], lang));
+		if (immediateClose) {
+			_self.close();
+		}
+	}, false);
+
+	return _self.Prism;
+}
+
+//Get current script and highlight
+var script = document.currentScript || [].slice.call(document.getElementsByTagName("script")).pop();
+
+if (script) {
+	_.filename = script.src;
+
+	if (document.addEventListener && !script.hasAttribute('data-manual')) {
+		if(document.readyState !== "loading") {
+			if (window.requestAnimationFrame) {
+				window.requestAnimationFrame(_.highlightAll);
+			} else {
+				window.setTimeout(_.highlightAll, 16);
+			}
+		}
+		else {
+			document.addEventListener('DOMContentLoaded', _.highlightAll);
+		}
+	}
+}
+
+return _self.Prism;
+
+})();
+
+if ('object' !== 'undefined' && module.exports) {
+	module.exports = Prism;
+}
+
+// hack for components to work correctly in node.js
+if (typeof commonjsGlobal !== 'undefined') {
+	commonjsGlobal.Prism = Prism;
+}
+
+
+/* **********************************************
+     Begin prism-markup.js
+********************************************** */
+
+Prism.languages.markup = {
+	'comment': /<!--[\w\W]*?-->/,
+	'prolog': /<\?[\w\W]+?\?>/,
+	'doctype': /<!DOCTYPE[\w\W]+?>/i,
+	'cdata': /<!\[CDATA\[[\w\W]*?]]>/i,
+	'tag': {
+		pattern: /<\/?(?!\d)[^\s>\/=$<]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\\1|\\?(?!\1)[\w\W])*\1|[^\s'">=]+))?)*\s*\/?>/i,
+		inside: {
+			'tag': {
+				pattern: /^<\/?[^\s>\/]+/i,
+				inside: {
+					'punctuation': /^<\/?/,
+					'namespace': /^[^\s>\/:]+:/
+				}
+			},
+			'attr-value': {
+				pattern: /=(?:('|")[\w\W]*?(\1)|[^\s>]+)/i,
+				inside: {
+					'punctuation': /[=>"']/
+				}
+			},
+			'punctuation': /\/?>/,
+			'attr-name': {
+				pattern: /[^\s>\/]+/,
+				inside: {
+					'namespace': /^[^\s>\/:]+:/
+				}
+			}
+
+		}
+	},
+	'entity': /&#?[\da-z]{1,8};/i
+};
+
+// Plugin to make entity title show the real entity, idea by Roman Komarov
+Prism.hooks.add('wrap', function(env) {
+
+	if (env.type === 'entity') {
+		env.attributes['title'] = env.content.replace(/&amp;/, '&');
+	}
+});
+
+Prism.languages.xml = Prism.languages.markup;
+Prism.languages.html = Prism.languages.markup;
+Prism.languages.mathml = Prism.languages.markup;
+Prism.languages.svg = Prism.languages.markup;
+
+
+/* **********************************************
+     Begin prism-css.js
+********************************************** */
+
+Prism.languages.css = {
+	'comment': /\/\*[\w\W]*?\*\//,
+	'atrule': {
+		pattern: /@[\w-]+?.*?(;|(?=\s*\{))/i,
+		inside: {
+			'rule': /@[\w-]+/
+			// See rest below
+		}
+	},
+	'url': /url\((?:(["'])(\\(?:\r\n|[\w\W])|(?!\1)[^\\\r\n])*\1|.*?)\)/i,
+	'selector': /[^\{\}\s][^\{\};]*?(?=\s*\{)/,
+	'string': {
+		pattern: /("|')(\\(?:\r\n|[\w\W])|(?!\1)[^\\\r\n])*\1/,
+		greedy: true
+	},
+	'property': /(\b|\B)[\w-]+(?=\s*:)/i,
+	'important': /\B!important\b/i,
+	'function': /[-a-z0-9]+(?=\()/i,
+	'punctuation': /[(){};:]/
+};
+
+Prism.languages.css['atrule'].inside.rest = Prism.util.clone(Prism.languages.css);
+
+if (Prism.languages.markup) {
+	Prism.languages.insertBefore('markup', 'tag', {
+		'style': {
+			pattern: /(<style[\w\W]*?>)[\w\W]*?(?=<\/style>)/i,
+			lookbehind: true,
+			inside: Prism.languages.css,
+			alias: 'language-css'
+		}
+	});
+	
+	Prism.languages.insertBefore('inside', 'attr-value', {
+		'style-attr': {
+			pattern: /\s*style=("|').*?\1/i,
+			inside: {
+				'attr-name': {
+					pattern: /^\s*style/i,
+					inside: Prism.languages.markup.tag.inside
+				},
+				'punctuation': /^\s*=\s*['"]|['"]\s*$/,
+				'attr-value': {
+					pattern: /.+/i,
+					inside: Prism.languages.css
+				}
+			},
+			alias: 'language-css'
+		}
+	}, Prism.languages.markup.tag);
+}
+
+/* **********************************************
+     Begin prism-clike.js
+********************************************** */
+
+Prism.languages.clike = {
+	'comment': [
+		{
+			pattern: /(^|[^\\])\/\*[\w\W]*?\*\//,
+			lookbehind: true
+		},
+		{
+			pattern: /(^|[^\\:])\/\/.*/,
+			lookbehind: true
+		}
+	],
+	'string': {
+		pattern: /(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+		greedy: true
+	},
+	'class-name': {
+		pattern: /((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/i,
+		lookbehind: true,
+		inside: {
+			punctuation: /(\.|\\)/
+		}
+	},
+	'keyword': /\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,
+	'boolean': /\b(true|false)\b/,
+	'function': /[a-z0-9_]+(?=\()/i,
+	'number': /\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)\b/i,
+	'operator': /--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,
+	'punctuation': /[{}[\];(),.:]/
+};
+
+
+/* **********************************************
+     Begin prism-javascript.js
+********************************************** */
+
+Prism.languages.javascript = Prism.languages.extend('clike', {
+	'keyword': /\b(as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|var|void|while|with|yield)\b/,
+	'number': /\b-?(0x[\dA-Fa-f]+|0b[01]+|0o[0-7]+|\d*\.?\d+([Ee][+-]?\d+)?|NaN|Infinity)\b/,
+	// Allow for all non-ASCII characters (See http://stackoverflow.com/a/2008444)
+	'function': /[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*(?=\()/i,
+	'operator': /--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*\*?|\/|~|\^|%|\.{3}/
+});
+
+Prism.languages.insertBefore('javascript', 'keyword', {
+	'regex': {
+		pattern: /(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\\\r\n])+\/[gimyu]{0,5}(?=\s*($|[\r\n,.;})]))/,
+		lookbehind: true,
+		greedy: true
+	}
+});
+
+Prism.languages.insertBefore('javascript', 'string', {
+	'template-string': {
+		pattern: /`(?:\\\\|\\?[^\\])*?`/,
+		greedy: true,
+		inside: {
+			'interpolation': {
+				pattern: /\$\{[^}]+\}/,
+				inside: {
+					'interpolation-punctuation': {
+						pattern: /^\$\{|\}$/,
+						alias: 'punctuation'
+					},
+					rest: Prism.languages.javascript
+				}
+			},
+			'string': /[\s\S]+/
+		}
+	}
+});
+
+if (Prism.languages.markup) {
+	Prism.languages.insertBefore('markup', 'tag', {
+		'script': {
+			pattern: /(<script[\w\W]*?>)[\w\W]*?(?=<\/script>)/i,
+			lookbehind: true,
+			inside: Prism.languages.javascript,
+			alias: 'language-javascript'
+		}
+	});
+}
+
+Prism.languages.js = Prism.languages.javascript;
+
+/* **********************************************
+     Begin prism-file-highlight.js
+********************************************** */
+
+(function () {
+	if (typeof self === 'undefined' || !self.Prism || !self.document || !document.querySelector) {
+		return;
+	}
+
+	self.Prism.fileHighlight = function() {
+
+		var Extensions = {
+			'js': 'javascript',
+			'py': 'python',
+			'rb': 'ruby',
+			'ps1': 'powershell',
+			'psm1': 'powershell',
+			'sh': 'bash',
+			'bat': 'batch',
+			'h': 'c',
+			'tex': 'latex'
+		};
+
+		if(Array.prototype.forEach) { // Check to prevent error in IE8
+			Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+				var src = pre.getAttribute('data-src');
+
+				var language, parent = pre;
+				var lang = /\blang(?:uage)?-(?!\*)(\w+)\b/i;
+				while (parent && !lang.test(parent.className)) {
+					parent = parent.parentNode;
+				}
+
+				if (parent) {
+					language = (pre.className.match(lang) || [, ''])[1];
+				}
+
+				if (!language) {
+					var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+					language = Extensions[extension] || extension;
+				}
+
+				var code = document.createElement('code');
+				code.className = 'language-' + language;
+
+				pre.textContent = '';
+
+				code.textContent = 'Loading…';
+
+				pre.appendChild(code);
+
+				var xhr = new XMLHttpRequest();
+
+				xhr.open('GET', src, true);
+
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4) {
+
+						if (xhr.status < 400 && xhr.responseText) {
+							code.textContent = xhr.responseText;
+
+							Prism.highlightElement(code);
+						}
+						else if (xhr.status >= 400) {
+							code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+						}
+						else {
+							code.textContent = '✖ Error: File does not exist or is empty';
+						}
+					}
+				};
+
+				xhr.send(null);
+			});
+		}
+
+	};
+
+	document.addEventListener('DOMContentLoaded', self.Prism.fileHighlight);
+
+})();
+});
+
+Prism.languages.python= {
+	'triple-quoted-string': {
+		pattern: /"""[\s\S]+?"""|'''[\s\S]+?'''/,
+		alias: 'string'
+	},
+	'comment': {
+		pattern: /(^|[^\\])#.*/,
+		lookbehind: true
+	},
+	'string': {
+		pattern: /("|')(?:\\\\|\\?[^\\\r\n])*?\1/,
+		greedy: true
+	},
+	'function' : {
+		pattern: /((?:^|\s)def[ \t]+)[a-zA-Z_][a-zA-Z0-9_]*(?=\()/g,
+		lookbehind: true
+	},
+	'class-name': {
+		pattern: /(\bclass\s+)[a-z0-9_]+/i,
+		lookbehind: true
+	},
+	'keyword' : /\b(?:as|assert|async|await|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|pass|print|raise|return|try|while|with|yield)\b/,
+	'boolean' : /\b(?:True|False)\b/,
+	'number' : /\b-?(?:0[bo])?(?:(?:\d|0x[\da-f])[\da-f]*\.?\d*|\.\d+)(?:e[+-]?\d+)?j?\b/i,
+	'operator' : /[-+%=]=?|!=|\*\*?=?|\/\/?=?|<[<=>]?|>[=>]?|[&|^~]|\b(?:or|and|not)\b/,
+	'punctuation' : /[{}[\];(),.:]/
+};
+
+Prism.languages.clike = {
+	'comment': [
+		{
+			pattern: /(^|[^\\])\/\*[\w\W]*?\*\//,
+			lookbehind: true
+		},
+		{
+			pattern: /(^|[^\\:])\/\/.*/,
+			lookbehind: true
+		}
+	],
+	'string': {
+		pattern: /(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+		greedy: true
+	},
+	'class-name': {
+		pattern: /((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/i,
+		lookbehind: true,
+		inside: {
+			punctuation: /(\.|\\)/
+		}
+	},
+	'keyword': /\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,
+	'boolean': /\b(true|false)\b/,
+	'function': /[a-z0-9_]+(?=\()/i,
+	'number': /\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)\b/i,
+	'operator': /--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,
+	'punctuation': /[{}[\];(),.:]/
+};
+
+var css = "/**\n * prism.js default theme for JavaScript, CSS and HTML\n * Based on dabblet (http://dabblet.com)\n * @author Lea Verou\n */\n\ncode[class*=\"language-\"],\npre[class*=\"language-\"] {\n\tcolor: black;\n\tbackground: none;\n\ttext-shadow: 0 1px white;\n\tfont-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;\n\ttext-align: left;\n\twhite-space: pre;\n\tword-spacing: normal;\n\tword-break: normal;\n\tword-wrap: normal;\n\tline-height: 1.5;\n\n\t-moz-tab-size: 4;\n\t-o-tab-size: 4;\n\ttab-size: 4;\n\n\t-webkit-hyphens: none;\n\t-moz-hyphens: none;\n\t-ms-hyphens: none;\n\thyphens: none;\n}\n\npre[class*=\"language-\"]::-moz-selection, pre[class*=\"language-\"] ::-moz-selection,\ncode[class*=\"language-\"]::-moz-selection, code[class*=\"language-\"] ::-moz-selection {\n\ttext-shadow: none;\n\tbackground: #b3d4fc;\n}\n\npre[class*=\"language-\"]::selection, pre[class*=\"language-\"] ::selection,\ncode[class*=\"language-\"]::selection, code[class*=\"language-\"] ::selection {\n\ttext-shadow: none;\n\tbackground: #b3d4fc;\n}\n\n@media print {\n\tcode[class*=\"language-\"],\n\tpre[class*=\"language-\"] {\n\t\ttext-shadow: none;\n\t}\n}\n\n/* Code blocks */\npre[class*=\"language-\"] {\n\tpadding: 1em;\n\tmargin: .5em 0;\n\toverflow: auto;\n}\n\n:not(pre) > code[class*=\"language-\"],\npre[class*=\"language-\"] {\n\tbackground: #f5f2f0;\n}\n\n/* Inline code */\n:not(pre) > code[class*=\"language-\"] {\n\tpadding: .1em;\n\tborder-radius: .3em;\n\twhite-space: normal;\n}\n\n.token.comment,\n.token.prolog,\n.token.doctype,\n.token.cdata {\n\tcolor: slategray;\n}\n\n.token.punctuation {\n\tcolor: #999;\n}\n\n.namespace {\n\topacity: .7;\n}\n\n.token.property,\n.token.tag,\n.token.boolean,\n.token.number,\n.token.constant,\n.token.symbol,\n.token.deleted {\n\tcolor: #905;\n}\n\n.token.selector,\n.token.attr-name,\n.token.string,\n.token.char,\n.token.builtin,\n.token.inserted {\n\tcolor: #690;\n}\n\n.token.operator,\n.token.entity,\n.token.url,\n.language-css .token.string,\n.style .token.string {\n\tcolor: #a67f59;\n\tbackground: hsla(0, 0%, 100%, .5);\n}\n\n.token.atrule,\n.token.attr-value,\n.token.keyword {\n\tcolor: #07a;\n}\n\n.token.function {\n\tcolor: #DD4A68;\n}\n\n.token.regex,\n.token.important,\n.token.variable {\n\tcolor: #e90;\n}\n\n.token.important,\n.token.bold {\n\tfont-weight: bold;\n}\n.token.italic {\n\tfont-style: italic;\n}\n\n.token.entity {\n\tcursor: help;\n}\n";
+
+const T$7 = Template("d-code", `
+<style>
+
+code {
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 2px;
+  padding: 4px 7px;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+pre code {
+  display: block;
+  background: white;
+  border-left: 3px solid rgba(0, 0, 0, 0.05);
+  padding: 0 0 0 24px;
+}
+
+${css}
+</style>
+
+<code id="code-container"></code>
+
+`);
+
+class Code extends Mutating(T$7(HTMLElement)) {
+
+  renderContent() {
+
+    // check if language can be highlighted
+    this.languageName = this.getAttribute('language');
+    if (!this.languageName) {
+      console.warn(`You need to provide a language attribute to your <d-code> block to let us know how to highlight your code; e.g.:\n <d-code language="python">zeros = np.zeros(shape)</d-code>.`);
+      return;
+    }
+    const language = prism.languages[this.languageName];
+    if (language == undefined) {
+      console.warn(`Distill does not yet support highlighting your code block in "${this.languageName}".`);
+      return;
+    }
+
+    let content = this.textContent;
+    const codeTag = this.shadowRoot.querySelector("#code-container");
+
+    if (this.hasAttribute("block")) {
+      // normalize the tab indents
+      content = content.replace(/\n/, "");
+      const tabs = content.match(/\s*/);
+      content = content.replace(new RegExp("\n" + tabs, "g"), "\n");
+      content = content.trim();
+      // wrap code block in pre tag if needed
+      if (codeTag.parentNode instanceof ShadowRoot) {
+        const preTag = document.createElement("pre");
+        this.shadowRoot.removeChild(codeTag);
+        preTag.appendChild(codeTag);
+        this.shadowRoot.appendChild(preTag);
+      }
+
+    }
+
+    codeTag.className = `language-${this.languageName}`;
+    codeTag.innerHTML = prism.highlight(content, language);
+  }
+
+}
+
+const T$8 = Template("d-footnote", `
+<style>
+
+d-math[block] {
+  display: block;
+}
+
+</style>
+
+<div style="display: none;" class="dt-hover-box">
+  <slot id='slot'></slot>
+</div>
+
+<sup><span id="fn-" data-hover-ref="" style="cursor:pointer"></span></sup>
+
+`);
+
+class Footnote extends T$8(HTMLElement) {
+
+  constructor() {
+    super();
+
+    const options = {childList: true, characterData: true, subtree: true};
+    const observer = new MutationObserver(this.notify);
+    observer.observe(this, options);
+  }
+
+  notify() {
+    const options = { detail: this, bubbles: true };
+    const event = new CustomEvent('onFootnoteChanged', options);
+    document.dispatchEvent(event);
+  }
+
+  connectedCallback() {
+    // listen and notify about changes to slotted content
+    // const slot = this.shadowRoot.querySelector('#slot');
+    // slot.addEventListener('slotchange', this.notify);
+
+    // create numeric ID
+    Footnote.currentFootnoteId += 1;
+    const IdString = Footnote.currentFootnoteId.toString();
+    this.root.host.id = 'd-footnote-' + IdString;
+
+    // set up hidden hover box
+    const div = this.root.querySelector('.dt-hover-box');
+    div.id = 'dt-fn-hover-box-' + IdString;
+
+    // set up visible footnote marker
+    const span = this.root.querySelector('#fn-');
+    span.setAttribute('id', 'fn-' + IdString);
+    span.setAttribute('data-hover-ref', div.id);
+    span.textContent = IdString;
+
+    HoverBox.get_box(div).bind(span);
+  }
+
+}
+
+Footnote.currentFootnoteId = 0;
+
+const T$9 = Template('d-footnote-list', `
+<style>
+ol {
+  padding: 0 0 0 18px;
+}
+li {
+  margin-bottom: 12px;
+}
+h3 {
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 20px;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.65);
+  line-height: 1em;
+}
+a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+a.footnote-backlink {
+  color: rgba(0,0,0,0.3);
+  padding-left: 0.5em;
+}
+
+
+</style>
+
+<h3>Footnotes</h3>
+<ol></ol>
+`);
+
+class FootnoteList extends T$9(HTMLElement) {
+
+  connectedCallback() {
+    this.list = this.root.querySelector('ol');
+    // footnotes list is initially hidden
+    this.root.host.style.display = 'none';
+    // look through document and register existing footnotes
+    // Store.subscribeTo('footnotes', (footnote) => {
+    //   this.renderFootnote(footnote);
+    // });
+  }
+
+  // TODO: could optimize this to accept individual footnotes?
+  set footnotes(footnotes) {
+    this.list.innerHTML = '';
+    if (footnotes.length) {
+      // ensure footnote list is visible
+      this.root.host.style.display = 'initial';
+
+      for (const footnote of footnotes) {
+        // construct and append list item to show footnote
+        const listItem = document.createElement('li');
+        listItem.id = footnote.id + '-listing';
+        listItem.innerHTML = footnote.innerHTML;
+
+        const backlink = document.createElement('a');
+        backlink.setAttribute('class', 'footnote-backlink');
+        backlink.textContent = '[↩]';
+        backlink.href = `#${footnote.id}`;
+
+        listItem.appendChild(backlink);
+        this.list.appendChild(listItem);
+      }
+    } else {
+      // ensure footnote list is invisible
+      this.shadowRoot.host.style.display = 'none';
+    }
+  }
+
+  renderFootnote(element) {
+
+  }
+
+}
 
 function isNothing(subject) {
   return (typeof subject === 'undefined') || (subject === null);
@@ -842,18 +4960,6 @@ var merge = new Type$11('tag:yaml.org,2002:merge', {
   kind: 'scalar',
   resolve: resolveYamlMerge
 });
-
-var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-function commonjsRequire () {
-	throw new Error('Dynamic requires are not currently supported by rollup-plugin-commonjs');
-}
-
-
-
-function createCommonjsModule(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
-}
 
 var NodeBuffer;
 
@@ -3772,3789 +7878,40 @@ var yaml = jsYaml;
 
 var index = yaml;
 
-var t0 = new Date;
-var t1 = new Date;
+class FrontMatter$1 extends HTMLElement {
 
-function newInterval(floori, offseti, count, field) {
-
-  function interval(date) {
-    return floori(date = new Date(+date)), date;
-  }
-
-  interval.floor = interval;
-
-  interval.ceil = function(date) {
-    return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
-  };
-
-  interval.round = function(date) {
-    var d0 = interval(date),
-        d1 = interval.ceil(date);
-    return date - d0 < d1 - date ? d0 : d1;
-  };
-
-  interval.offset = function(date, step) {
-    return offseti(date = new Date(+date), step == null ? 1 : Math.floor(step)), date;
-  };
-
-  interval.range = function(start, stop, step) {
-    var range = [];
-    start = interval.ceil(start);
-    step = step == null ? 1 : Math.floor(step);
-    if (!(start < stop) || !(step > 0)) return range; // also handles Invalid Date
-    do range.push(new Date(+start)); while (offseti(start, step), floori(start), start < stop)
-    return range;
-  };
-
-  interval.filter = function(test) {
-    return newInterval(function(date) {
-      if (date >= date) while (floori(date), !test(date)) date.setTime(date - 1);
-    }, function(date, step) {
-      if (date >= date) while (--step >= 0) while (offseti(date, 1), !test(date)) {} // eslint-disable-line no-empty
-    });
-  };
-
-  if (count) {
-    interval.count = function(start, end) {
-      t0.setTime(+start), t1.setTime(+end);
-      floori(t0), floori(t1);
-      return Math.floor(count(t0, t1));
-    };
-
-    interval.every = function(step) {
-      step = Math.floor(step);
-      return !isFinite(step) || !(step > 0) ? null
-          : !(step > 1) ? interval
-          : interval.filter(field
-              ? function(d) { return field(d) % step === 0; }
-              : function(d) { return interval.count(0, d) % step === 0; });
-    };
-  }
-
-  return interval;
-}
-
-var millisecond = newInterval(function() {
-  // noop
-}, function(date, step) {
-  date.setTime(+date + step);
-}, function(start, end) {
-  return end - start;
-});
-
-// An optimized implementation for this simple case.
-millisecond.every = function(k) {
-  k = Math.floor(k);
-  if (!isFinite(k) || !(k > 0)) return null;
-  if (!(k > 1)) return millisecond;
-  return newInterval(function(date) {
-    date.setTime(Math.floor(date / k) * k);
-  }, function(date, step) {
-    date.setTime(+date + step * k);
-  }, function(start, end) {
-    return (end - start) / k;
-  });
-};
-
-var durationSecond = 1e3;
-var durationMinute = 6e4;
-var durationHour = 36e5;
-var durationDay = 864e5;
-var durationWeek = 6048e5;
-
-var second = newInterval(function(date) {
-  date.setTime(Math.floor(date / durationSecond) * durationSecond);
-}, function(date, step) {
-  date.setTime(+date + step * durationSecond);
-}, function(start, end) {
-  return (end - start) / durationSecond;
-}, function(date) {
-  return date.getUTCSeconds();
-});
-
-var minute = newInterval(function(date) {
-  date.setTime(Math.floor(date / durationMinute) * durationMinute);
-}, function(date, step) {
-  date.setTime(+date + step * durationMinute);
-}, function(start, end) {
-  return (end - start) / durationMinute;
-}, function(date) {
-  return date.getMinutes();
-});
-
-var hour = newInterval(function(date) {
-  var offset = date.getTimezoneOffset() * durationMinute % durationHour;
-  if (offset < 0) offset += durationHour;
-  date.setTime(Math.floor((+date - offset) / durationHour) * durationHour + offset);
-}, function(date, step) {
-  date.setTime(+date + step * durationHour);
-}, function(start, end) {
-  return (end - start) / durationHour;
-}, function(date) {
-  return date.getHours();
-});
-
-var day = newInterval(function(date) {
-  date.setHours(0, 0, 0, 0);
-}, function(date, step) {
-  date.setDate(date.getDate() + step);
-}, function(start, end) {
-  return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * durationMinute) / durationDay;
-}, function(date) {
-  return date.getDate() - 1;
-});
-
-function weekday(i) {
-  return newInterval(function(date) {
-    date.setDate(date.getDate() - (date.getDay() + 7 - i) % 7);
-    date.setHours(0, 0, 0, 0);
-  }, function(date, step) {
-    date.setDate(date.getDate() + step * 7);
-  }, function(start, end) {
-    return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * durationMinute) / durationWeek;
-  });
-}
-
-var sunday = weekday(0);
-var monday = weekday(1);
-var tuesday = weekday(2);
-var wednesday = weekday(3);
-var thursday = weekday(4);
-var friday = weekday(5);
-var saturday = weekday(6);
-
-var month = newInterval(function(date) {
-  date.setDate(1);
-  date.setHours(0, 0, 0, 0);
-}, function(date, step) {
-  date.setMonth(date.getMonth() + step);
-}, function(start, end) {
-  return end.getMonth() - start.getMonth() + (end.getFullYear() - start.getFullYear()) * 12;
-}, function(date) {
-  return date.getMonth();
-});
-
-var year = newInterval(function(date) {
-  date.setMonth(0, 1);
-  date.setHours(0, 0, 0, 0);
-}, function(date, step) {
-  date.setFullYear(date.getFullYear() + step);
-}, function(start, end) {
-  return end.getFullYear() - start.getFullYear();
-}, function(date) {
-  return date.getFullYear();
-});
-
-// An optimized implementation for this simple case.
-year.every = function(k) {
-  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function(date) {
-    date.setFullYear(Math.floor(date.getFullYear() / k) * k);
-    date.setMonth(0, 1);
-    date.setHours(0, 0, 0, 0);
-  }, function(date, step) {
-    date.setFullYear(date.getFullYear() + step * k);
-  });
-};
-
-var utcMinute = newInterval(function(date) {
-  date.setUTCSeconds(0, 0);
-}, function(date, step) {
-  date.setTime(+date + step * durationMinute);
-}, function(start, end) {
-  return (end - start) / durationMinute;
-}, function(date) {
-  return date.getUTCMinutes();
-});
-
-var utcHour = newInterval(function(date) {
-  date.setUTCMinutes(0, 0, 0);
-}, function(date, step) {
-  date.setTime(+date + step * durationHour);
-}, function(start, end) {
-  return (end - start) / durationHour;
-}, function(date) {
-  return date.getUTCHours();
-});
-
-var utcDay = newInterval(function(date) {
-  date.setUTCHours(0, 0, 0, 0);
-}, function(date, step) {
-  date.setUTCDate(date.getUTCDate() + step);
-}, function(start, end) {
-  return (end - start) / durationDay;
-}, function(date) {
-  return date.getUTCDate() - 1;
-});
-
-function utcWeekday(i) {
-  return newInterval(function(date) {
-    date.setUTCDate(date.getUTCDate() - (date.getUTCDay() + 7 - i) % 7);
-    date.setUTCHours(0, 0, 0, 0);
-  }, function(date, step) {
-    date.setUTCDate(date.getUTCDate() + step * 7);
-  }, function(start, end) {
-    return (end - start) / durationWeek;
-  });
-}
-
-var utcSunday = utcWeekday(0);
-var utcMonday = utcWeekday(1);
-var utcTuesday = utcWeekday(2);
-var utcWednesday = utcWeekday(3);
-var utcThursday = utcWeekday(4);
-var utcFriday = utcWeekday(5);
-var utcSaturday = utcWeekday(6);
-
-var utcMonth = newInterval(function(date) {
-  date.setUTCDate(1);
-  date.setUTCHours(0, 0, 0, 0);
-}, function(date, step) {
-  date.setUTCMonth(date.getUTCMonth() + step);
-}, function(start, end) {
-  return end.getUTCMonth() - start.getUTCMonth() + (end.getUTCFullYear() - start.getUTCFullYear()) * 12;
-}, function(date) {
-  return date.getUTCMonth();
-});
-
-var utcYear = newInterval(function(date) {
-  date.setUTCMonth(0, 1);
-  date.setUTCHours(0, 0, 0, 0);
-}, function(date, step) {
-  date.setUTCFullYear(date.getUTCFullYear() + step);
-}, function(start, end) {
-  return end.getUTCFullYear() - start.getUTCFullYear();
-}, function(date) {
-  return date.getUTCFullYear();
-});
-
-// An optimized implementation for this simple case.
-utcYear.every = function(k) {
-  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function(date) {
-    date.setUTCFullYear(Math.floor(date.getUTCFullYear() / k) * k);
-    date.setUTCMonth(0, 1);
-    date.setUTCHours(0, 0, 0, 0);
-  }, function(date, step) {
-    date.setUTCFullYear(date.getUTCFullYear() + step * k);
-  });
-};
-
-function localDate(d) {
-  if (0 <= d.y && d.y < 100) {
-    var date = new Date(-1, d.m, d.d, d.H, d.M, d.S, d.L);
-    date.setFullYear(d.y);
-    return date;
-  }
-  return new Date(d.y, d.m, d.d, d.H, d.M, d.S, d.L);
-}
-
-function utcDate(d) {
-  if (0 <= d.y && d.y < 100) {
-    var date = new Date(Date.UTC(-1, d.m, d.d, d.H, d.M, d.S, d.L));
-    date.setUTCFullYear(d.y);
-    return date;
-  }
-  return new Date(Date.UTC(d.y, d.m, d.d, d.H, d.M, d.S, d.L));
-}
-
-function newYear(y) {
-  return {y: y, m: 0, d: 1, H: 0, M: 0, S: 0, L: 0};
-}
-
-function formatLocale(locale) {
-  var locale_dateTime = locale.dateTime,
-      locale_date = locale.date,
-      locale_time = locale.time,
-      locale_periods = locale.periods,
-      locale_weekdays = locale.days,
-      locale_shortWeekdays = locale.shortDays,
-      locale_months = locale.months,
-      locale_shortMonths = locale.shortMonths;
-
-  var periodRe = formatRe(locale_periods),
-      periodLookup = formatLookup(locale_periods),
-      weekdayRe = formatRe(locale_weekdays),
-      weekdayLookup = formatLookup(locale_weekdays),
-      shortWeekdayRe = formatRe(locale_shortWeekdays),
-      shortWeekdayLookup = formatLookup(locale_shortWeekdays),
-      monthRe = formatRe(locale_months),
-      monthLookup = formatLookup(locale_months),
-      shortMonthRe = formatRe(locale_shortMonths),
-      shortMonthLookup = formatLookup(locale_shortMonths);
-
-  var formats = {
-    "a": formatShortWeekday,
-    "A": formatWeekday,
-    "b": formatShortMonth,
-    "B": formatMonth,
-    "c": null,
-    "d": formatDayOfMonth,
-    "e": formatDayOfMonth,
-    "H": formatHour24,
-    "I": formatHour12,
-    "j": formatDayOfYear,
-    "L": formatMilliseconds,
-    "m": formatMonthNumber,
-    "M": formatMinutes,
-    "p": formatPeriod,
-    "S": formatSeconds,
-    "U": formatWeekNumberSunday,
-    "w": formatWeekdayNumber,
-    "W": formatWeekNumberMonday,
-    "x": null,
-    "X": null,
-    "y": formatYear,
-    "Y": formatFullYear,
-    "Z": formatZone,
-    "%": formatLiteralPercent
-  };
-
-  var utcFormats = {
-    "a": formatUTCShortWeekday,
-    "A": formatUTCWeekday,
-    "b": formatUTCShortMonth,
-    "B": formatUTCMonth,
-    "c": null,
-    "d": formatUTCDayOfMonth,
-    "e": formatUTCDayOfMonth,
-    "H": formatUTCHour24,
-    "I": formatUTCHour12,
-    "j": formatUTCDayOfYear,
-    "L": formatUTCMilliseconds,
-    "m": formatUTCMonthNumber,
-    "M": formatUTCMinutes,
-    "p": formatUTCPeriod,
-    "S": formatUTCSeconds,
-    "U": formatUTCWeekNumberSunday,
-    "w": formatUTCWeekdayNumber,
-    "W": formatUTCWeekNumberMonday,
-    "x": null,
-    "X": null,
-    "y": formatUTCYear,
-    "Y": formatUTCFullYear,
-    "Z": formatUTCZone,
-    "%": formatLiteralPercent
-  };
-
-  var parses = {
-    "a": parseShortWeekday,
-    "A": parseWeekday,
-    "b": parseShortMonth,
-    "B": parseMonth,
-    "c": parseLocaleDateTime,
-    "d": parseDayOfMonth,
-    "e": parseDayOfMonth,
-    "H": parseHour24,
-    "I": parseHour24,
-    "j": parseDayOfYear,
-    "L": parseMilliseconds,
-    "m": parseMonthNumber,
-    "M": parseMinutes,
-    "p": parsePeriod,
-    "S": parseSeconds,
-    "U": parseWeekNumberSunday,
-    "w": parseWeekdayNumber,
-    "W": parseWeekNumberMonday,
-    "x": parseLocaleDate,
-    "X": parseLocaleTime,
-    "y": parseYear,
-    "Y": parseFullYear,
-    "Z": parseZone,
-    "%": parseLiteralPercent
-  };
-
-  // These recursive directive definitions must be deferred.
-  formats.x = newFormat(locale_date, formats);
-  formats.X = newFormat(locale_time, formats);
-  formats.c = newFormat(locale_dateTime, formats);
-  utcFormats.x = newFormat(locale_date, utcFormats);
-  utcFormats.X = newFormat(locale_time, utcFormats);
-  utcFormats.c = newFormat(locale_dateTime, utcFormats);
-
-  function newFormat(specifier, formats) {
-    return function(date) {
-      var string = [],
-          i = -1,
-          j = 0,
-          n = specifier.length,
-          c,
-          pad,
-          format;
-
-      if (!(date instanceof Date)) date = new Date(+date);
-
-      while (++i < n) {
-        if (specifier.charCodeAt(i) === 37) {
-          string.push(specifier.slice(j, i));
-          if ((pad = pads[c = specifier.charAt(++i)]) != null) c = specifier.charAt(++i);
-          else pad = c === "e" ? " " : "0";
-          if (format = formats[c]) c = format(date, pad);
-          string.push(c);
-          j = i + 1;
-        }
-      }
-
-      string.push(specifier.slice(j, i));
-      return string.join("");
-    };
-  }
-
-  function newParse(specifier, newDate) {
-    return function(string) {
-      var d = newYear(1900),
-          i = parseSpecifier(d, specifier, string += "", 0);
-      if (i != string.length) return null;
-
-      // The am-pm flag is 0 for AM, and 1 for PM.
-      if ("p" in d) d.H = d.H % 12 + d.p * 12;
-
-      // Convert day-of-week and week-of-year to day-of-year.
-      if ("W" in d || "U" in d) {
-        if (!("w" in d)) d.w = "W" in d ? 1 : 0;
-        var day$$1 = "Z" in d ? utcDate(newYear(d.y)).getUTCDay() : newDate(newYear(d.y)).getDay();
-        d.m = 0;
-        d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day$$1 + 5) % 7 : d.w + d.U * 7 - (day$$1 + 6) % 7;
-      }
-
-      // If a time zone is specified, all fields are interpreted as UTC and then
-      // offset according to the specified time zone.
-      if ("Z" in d) {
-        d.H += d.Z / 100 | 0;
-        d.M += d.Z % 100;
-        return utcDate(d);
-      }
-
-      // Otherwise, all fields are in local time.
-      return newDate(d);
-    };
-  }
-
-  function parseSpecifier(d, specifier, string, j) {
-    var i = 0,
-        n = specifier.length,
-        m = string.length,
-        c,
-        parse;
-
-    while (i < n) {
-      if (j >= m) return -1;
-      c = specifier.charCodeAt(i++);
-      if (c === 37) {
-        c = specifier.charAt(i++);
-        parse = parses[c in pads ? specifier.charAt(i++) : c];
-        if (!parse || ((j = parse(d, string, j)) < 0)) return -1;
-      } else if (c != string.charCodeAt(j++)) {
-        return -1;
-      }
-    }
-
-    return j;
-  }
-
-  function parsePeriod(d, string, i) {
-    var n = periodRe.exec(string.slice(i));
-    return n ? (d.p = periodLookup[n[0].toLowerCase()], i + n[0].length) : -1;
-  }
-
-  function parseShortWeekday(d, string, i) {
-    var n = shortWeekdayRe.exec(string.slice(i));
-    return n ? (d.w = shortWeekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
-  }
-
-  function parseWeekday(d, string, i) {
-    var n = weekdayRe.exec(string.slice(i));
-    return n ? (d.w = weekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
-  }
-
-  function parseShortMonth(d, string, i) {
-    var n = shortMonthRe.exec(string.slice(i));
-    return n ? (d.m = shortMonthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
-  }
-
-  function parseMonth(d, string, i) {
-    var n = monthRe.exec(string.slice(i));
-    return n ? (d.m = monthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
-  }
-
-  function parseLocaleDateTime(d, string, i) {
-    return parseSpecifier(d, locale_dateTime, string, i);
-  }
-
-  function parseLocaleDate(d, string, i) {
-    return parseSpecifier(d, locale_date, string, i);
-  }
-
-  function parseLocaleTime(d, string, i) {
-    return parseSpecifier(d, locale_time, string, i);
-  }
-
-  function formatShortWeekday(d) {
-    return locale_shortWeekdays[d.getDay()];
-  }
-
-  function formatWeekday(d) {
-    return locale_weekdays[d.getDay()];
-  }
-
-  function formatShortMonth(d) {
-    return locale_shortMonths[d.getMonth()];
-  }
-
-  function formatMonth(d) {
-    return locale_months[d.getMonth()];
-  }
-
-  function formatPeriod(d) {
-    return locale_periods[+(d.getHours() >= 12)];
-  }
-
-  function formatUTCShortWeekday(d) {
-    return locale_shortWeekdays[d.getUTCDay()];
-  }
-
-  function formatUTCWeekday(d) {
-    return locale_weekdays[d.getUTCDay()];
-  }
-
-  function formatUTCShortMonth(d) {
-    return locale_shortMonths[d.getUTCMonth()];
-  }
-
-  function formatUTCMonth(d) {
-    return locale_months[d.getUTCMonth()];
-  }
-
-  function formatUTCPeriod(d) {
-    return locale_periods[+(d.getUTCHours() >= 12)];
-  }
-
-  return {
-    format: function(specifier) {
-      var f = newFormat(specifier += "", formats);
-      f.toString = function() { return specifier; };
-      return f;
-    },
-    parse: function(specifier) {
-      var p = newParse(specifier += "", localDate);
-      p.toString = function() { return specifier; };
-      return p;
-    },
-    utcFormat: function(specifier) {
-      var f = newFormat(specifier += "", utcFormats);
-      f.toString = function() { return specifier; };
-      return f;
-    },
-    utcParse: function(specifier) {
-      var p = newParse(specifier, utcDate);
-      p.toString = function() { return specifier; };
-      return p;
-    }
-  };
-}
-
-var pads = {"-": "", "_": " ", "0": "0"};
-var numberRe = /^\s*\d+/;
-var percentRe = /^%/;
-var requoteRe = /[\\\^\$\*\+\?\|\[\]\(\)\.\{\}]/g;
-
-function pad(value, fill, width) {
-  var sign = value < 0 ? "-" : "",
-      string = (sign ? -value : value) + "",
-      length = string.length;
-  return sign + (length < width ? new Array(width - length + 1).join(fill) + string : string);
-}
-
-function requote(s) {
-  return s.replace(requoteRe, "\\$&");
-}
-
-function formatRe(names) {
-  return new RegExp("^(?:" + names.map(requote).join("|") + ")", "i");
-}
-
-function formatLookup(names) {
-  var map = {}, i = -1, n = names.length;
-  while (++i < n) map[names[i].toLowerCase()] = i;
-  return map;
-}
-
-function parseWeekdayNumber(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 1));
-  return n ? (d.w = +n[0], i + n[0].length) : -1;
-}
-
-function parseWeekNumberSunday(d, string, i) {
-  var n = numberRe.exec(string.slice(i));
-  return n ? (d.U = +n[0], i + n[0].length) : -1;
-}
-
-function parseWeekNumberMonday(d, string, i) {
-  var n = numberRe.exec(string.slice(i));
-  return n ? (d.W = +n[0], i + n[0].length) : -1;
-}
-
-function parseFullYear(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 4));
-  return n ? (d.y = +n[0], i + n[0].length) : -1;
-}
-
-function parseYear(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
-  return n ? (d.y = +n[0] + (+n[0] > 68 ? 1900 : 2000), i + n[0].length) : -1;
-}
-
-function parseZone(d, string, i) {
-  var n = /^(Z)|([+-]\d\d)(?:\:?(\d\d))?/.exec(string.slice(i, i + 6));
-  return n ? (d.Z = n[1] ? 0 : -(n[2] + (n[3] || "00")), i + n[0].length) : -1;
-}
-
-function parseMonthNumber(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
-  return n ? (d.m = n[0] - 1, i + n[0].length) : -1;
-}
-
-function parseDayOfMonth(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
-  return n ? (d.d = +n[0], i + n[0].length) : -1;
-}
-
-function parseDayOfYear(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 3));
-  return n ? (d.m = 0, d.d = +n[0], i + n[0].length) : -1;
-}
-
-function parseHour24(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
-  return n ? (d.H = +n[0], i + n[0].length) : -1;
-}
-
-function parseMinutes(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
-  return n ? (d.M = +n[0], i + n[0].length) : -1;
-}
-
-function parseSeconds(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
-  return n ? (d.S = +n[0], i + n[0].length) : -1;
-}
-
-function parseMilliseconds(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 3));
-  return n ? (d.L = +n[0], i + n[0].length) : -1;
-}
-
-function parseLiteralPercent(d, string, i) {
-  var n = percentRe.exec(string.slice(i, i + 1));
-  return n ? i + n[0].length : -1;
-}
-
-function formatDayOfMonth(d, p) {
-  return pad(d.getDate(), p, 2);
-}
-
-function formatHour24(d, p) {
-  return pad(d.getHours(), p, 2);
-}
-
-function formatHour12(d, p) {
-  return pad(d.getHours() % 12 || 12, p, 2);
-}
-
-function formatDayOfYear(d, p) {
-  return pad(1 + day.count(year(d), d), p, 3);
-}
-
-function formatMilliseconds(d, p) {
-  return pad(d.getMilliseconds(), p, 3);
-}
-
-function formatMonthNumber(d, p) {
-  return pad(d.getMonth() + 1, p, 2);
-}
-
-function formatMinutes(d, p) {
-  return pad(d.getMinutes(), p, 2);
-}
-
-function formatSeconds(d, p) {
-  return pad(d.getSeconds(), p, 2);
-}
-
-function formatWeekNumberSunday(d, p) {
-  return pad(sunday.count(year(d), d), p, 2);
-}
-
-function formatWeekdayNumber(d) {
-  return d.getDay();
-}
-
-function formatWeekNumberMonday(d, p) {
-  return pad(monday.count(year(d), d), p, 2);
-}
-
-function formatYear(d, p) {
-  return pad(d.getFullYear() % 100, p, 2);
-}
-
-function formatFullYear(d, p) {
-  return pad(d.getFullYear() % 10000, p, 4);
-}
-
-function formatZone(d) {
-  var z = d.getTimezoneOffset();
-  return (z > 0 ? "-" : (z *= -1, "+"))
-      + pad(z / 60 | 0, "0", 2)
-      + pad(z % 60, "0", 2);
-}
-
-function formatUTCDayOfMonth(d, p) {
-  return pad(d.getUTCDate(), p, 2);
-}
-
-function formatUTCHour24(d, p) {
-  return pad(d.getUTCHours(), p, 2);
-}
-
-function formatUTCHour12(d, p) {
-  return pad(d.getUTCHours() % 12 || 12, p, 2);
-}
-
-function formatUTCDayOfYear(d, p) {
-  return pad(1 + utcDay.count(utcYear(d), d), p, 3);
-}
-
-function formatUTCMilliseconds(d, p) {
-  return pad(d.getUTCMilliseconds(), p, 3);
-}
-
-function formatUTCMonthNumber(d, p) {
-  return pad(d.getUTCMonth() + 1, p, 2);
-}
-
-function formatUTCMinutes(d, p) {
-  return pad(d.getUTCMinutes(), p, 2);
-}
-
-function formatUTCSeconds(d, p) {
-  return pad(d.getUTCSeconds(), p, 2);
-}
-
-function formatUTCWeekNumberSunday(d, p) {
-  return pad(utcSunday.count(utcYear(d), d), p, 2);
-}
-
-function formatUTCWeekdayNumber(d) {
-  return d.getUTCDay();
-}
-
-function formatUTCWeekNumberMonday(d, p) {
-  return pad(utcMonday.count(utcYear(d), d), p, 2);
-}
-
-function formatUTCYear(d, p) {
-  return pad(d.getUTCFullYear() % 100, p, 2);
-}
-
-function formatUTCFullYear(d, p) {
-  return pad(d.getUTCFullYear() % 10000, p, 4);
-}
-
-function formatUTCZone() {
-  return "+0000";
-}
-
-function formatLiteralPercent() {
-  return "%";
-}
-
-var locale$1;
-var timeFormat;
-var timeParse;
-var utcFormat;
-var utcParse;
-
-defaultLocale({
-  dateTime: "%x, %X",
-  date: "%-m/%-d/%Y",
-  time: "%-I:%M:%S %p",
-  periods: ["AM", "PM"],
-  days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-  shortDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-  months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-  shortMonths: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-});
-
-function defaultLocale(definition) {
-  locale$1 = formatLocale(definition);
-  timeFormat = locale$1.format;
-  timeParse = locale$1.parse;
-  utcFormat = locale$1.utcFormat;
-  utcParse = locale$1.utcParse;
-  return locale$1;
-}
-
-var isoSpecifier = "%Y-%m-%dT%H:%M:%S.%LZ";
-
-function formatIsoNative(date) {
-  return date.toISOString();
-}
-
-var formatIso = Date.prototype.toISOString
-    ? formatIsoNative
-    : utcFormat(isoSpecifier);
-
-function parseIsoNative(string) {
-  var date = new Date(string);
-  return isNaN(date) ? null : date;
-}
-
-var parseIso = +new Date("2000-01-01T00:00:00.000Z")
-    ? parseIsoNative
-    : utcParse(isoSpecifier);
-
-var expandData = function(dom, data) {
-
-    data.authors = data.authors || [];
-
-    // paths
-    data.url = "http://distill.pub/" + data.distillPath;
-    data.githubUrl = "https://github.com/" + data.githubPath;
-
-    // Homepage
-    //data.homepage = !post.noHomepage;
-    data.journal = data.journal || {};
-
-    // Dates
-    if (data.publishedDate){//} && data.journal) {
-      data.volume = data.publishedDate.getFullYear() - 2015;
-      data.issue = data.publishedDate.getMonth() + 1;
-    }
-
-    data.publishedDate = data.publishedDate ? data.publishedDate : new Date("Invalid");
-    data.updatedDate = data.updatedDate ? data.updatedDate : new Date("Invalid");
-
-    let RFC = timeFormat("%a, %d %b %Y %H:%M:%S %Z");
-    let months = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-    let zeroPad = (n) => { return n < 10 ? "0" + n : n; };
-    data.publishedDateRFC = RFC(data.publishedDate);
-    data.publishedYear = data.publishedDate.getFullYear();
-    data.publishedMonth = months[data.publishedDate.getMonth()];
-    data.publishedDay = data.publishedDate.getDate();
-    data.publishedMonthPadded = zeroPad(data.publishedDate.getMonth() + 1);
-    data.publishedDayPadded = zeroPad(data.publishedDate.getDate());
-    data.updatedDateRFC = RFC(data.updatedDate);
-
-    if (data.authors.length  > 2) {
-      data.concatenatedAuthors = data.authors[0].lastName + ", et al.";
-    } else if (data.authors.length === 2) {
-      data.concatenatedAuthors = data.authors[0].lastName + " & " + data.authors[1].lastName;
-    } else if (data.authors.length === 1) {
-      data.concatenatedAuthors = data.authors[0].lastName;
-    }
-
-    data.bibtexAuthors = data.authors.map(function(author){
-      return author.lastName + ", " + author.firstName;
-    }).join(" and ");
-
-    data.slug = data.authors.length ? data.authors[0].lastName.toLowerCase() + data.publishedYear + data.title.split(" ")[0].toLowerCase() : "Untitled";
-
-};
-
-class FrontMatter extends HTMLElement {
   static get is() { return "d-front-matter"; }
-  constructor() {
-    super();
-    this.data = {};
-  }
-  connectedCallback() {
-    const el = this.querySelector("script");
-    if (el) {
-      const text = el.textContent;
-      this.parse(index.safeLoad(text));
-    }
-  }
-  parse(localData) {
-    this.data.title = localData.title ? localData.title : "Untitled";
-    this.data.description = localData.description ? localData.description : "No description.";
-    this.data.publishedDate =  localData.published ? new Date(localData.published) : false;
-
-    this.data.authors = localData.authors ? localData.authors : [];
-
-    this.data.authors = this.data.authors.map((author, i) =>{
-      let a = {};
-      let name = Object.keys(author)[0];
-      if ((typeof author) === "string") {
-        name = author;
-      } else {
-        a.personalURL = author[name];
-      }
-      let names = name.split(" ");
-      a.name = name;
-      a.firstName = names.slice(0, names.length - 1).join(" ");
-      a.lastName = names[names.length -1];
-      if (localData.affiliations[i]) {
-        let affiliation = Object.keys(localData.affiliations[i])[0];
-        if ((typeof localData.affiliations[i]) === "string") {
-          affiliation = localData.affiliations[i];
-        } else {
-          a.affiliationURL = localData.affiliations[i][affiliation];
-        }
-        a.affiliation = affiliation;
-      }
-      return a;
-    });
-
-    expandData(null, this.data);
-  }
-}
-
-customElements.define(FrontMatter.is, FrontMatter);
-
-// import '@webcomponents/shadycss/scoping-shim';
-
-const Template = (name, templateString, useShadow = true) => {
-
-  const template = document.createElement('template');
-  template.innerHTML = templateString;
-
-  // ShadyCSS.prepareTemplate(template, name);
-
-  return (superclass) => {
-    return class extends superclass {
-
-      static get is() { return name; }
-
-      constructor() {
-        super();
-
-        this.clone = document.importNode(template.content, true);
-        if (useShadow) {
-          // ShadyCSS.applyStyle(this);
-          this.attachShadow({mode: 'open'});
-          this.shadowRoot.appendChild(this.clone);
-        }
-      }
-
-      connectedCallback() {
-        if (!useShadow) {
-          this.insertBefore(this.clone, this.firstChild);
-        }
-      }
-
-      /* TODO: Are we using these? Should we even? */
-      get root() {
-        if (useShadow) {
-          return this.shadowRoot;
-        } else {
-          return this;
-        }
-      }
-
-      $(query) {
-        return this.root.querySelector(query);
-      }
-
-      $$(query) {
-        return this.root.querySelectorAll(query);
-      }
-    }
-  }
-};
-
-function body(selector) {
-  return `${selector} {
-      width: auto;
-      margin-left: 24px;
-      margin-right: 24px;
-      box-sizing: border-box;
-    }
-    @media(min-width: 768px) {
-      ${selector} {
-        margin-left: 72px;
-        margin-right: 72px;
-      }
-    }
-    @media(min-width: 1080px) {
-      ${selector} {
-        margin-left: calc(50% - 984px / 2);
-        width: 648px;
-      }
-    }
-  `;
-}
-
-function page(selector) {
-  return `${selector} {
-      width: auto;
-      margin-left: 24px;
-      margin-right: 24px;
-      box-sizing: border-box;
-    }
-    @media(min-width: 768px) {
-      ${selector} {
-        margin-left: 72px;
-        margin-right: 72px;
-      }
-    }
-    @media(min-width: 1080px) {
-      ${selector} {
-        width: 984px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
-  `;
-}
-
-const T = Template("d-title", `
-<style>
-
-:host {
-  box-sizing: border-box;
-  display: block;
-  width: 100%;
-  margin-bottom: 100px;
-}
-
-::slotted(h1) {
-  padding-top: 140px;
-  padding-bottom: 24px;
-  margin: 0;
-  line-height: 1em;
-  font-size: 48px;
-  font-weight: 600;
-}
-
-d-byline {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-${page("::slotted(h1), ::slotted(h2)")}
-
-</style>
-
-<slot></slot>
-<d-byline></d-byline>
-`);
-
-class Title extends T(HTMLElement) {
-
-  static get is() { return "d-title"; }
-
-  connectedCallback() {
-    super.connectedCallback();
-
-    // this.byline = document.createElement("d-byline");
-    // this.appendChild(this.byline);
-  }
-
-}
-
-customElements.define(Title.is, Title);
-
-var mustache = createCommonjsModule(function (module, exports) {
-/*!
- * mustache.js - Logic-less {{mustache}} templates with JavaScript
- * http://github.com/janl/mustache.js
- */
-
-/*global define: false Mustache: true*/
-
-(function defineMustache (global, factory) {
-  if ('object' === 'object' && exports && typeof exports.nodeName !== 'string') {
-    factory(exports); // CommonJS
-  } else if (typeof undefined === 'function' && undefined.amd) {
-    undefined(['exports'], factory); // AMD
-  } else {
-    global.Mustache = {};
-    factory(global.Mustache); // script, wsh, asp
-  }
-}(commonjsGlobal, function mustacheFactory (mustache) {
-
-  var objectToString = Object.prototype.toString;
-  var isArray = Array.isArray || function isArrayPolyfill (object) {
-    return objectToString.call(object) === '[object Array]';
-  };
-
-  function isFunction (object) {
-    return typeof object === 'function';
-  }
-
-  /**
-   * More correct typeof string handling array
-   * which normally returns typeof 'object'
-   */
-  function typeStr (obj) {
-    return isArray(obj) ? 'array' : typeof obj;
-  }
-
-  function escapeRegExp (string) {
-    return string.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
-  }
-
-  /**
-   * Null safe way of checking whether or not an object,
-   * including its prototype, has a given property
-   */
-  function hasProperty (obj, propName) {
-    return obj != null && typeof obj === 'object' && (propName in obj);
-  }
-
-  // Workaround for https://issues.apache.org/jira/browse/COUCHDB-577
-  // See https://github.com/janl/mustache.js/issues/189
-  var regExpTest = RegExp.prototype.test;
-  function testRegExp (re, string) {
-    return regExpTest.call(re, string);
-  }
-
-  var nonSpaceRe = /\S/;
-  function isWhitespace (string) {
-    return !testRegExp(nonSpaceRe, string);
-  }
-
-  var entityMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;',
-    '/': '&#x2F;',
-    '`': '&#x60;',
-    '=': '&#x3D;'
-  };
-
-  function escapeHtml (string) {
-    return String(string).replace(/[&<>"'`=\/]/g, function fromEntityMap (s) {
-      return entityMap[s];
-    });
-  }
-
-  var whiteRe = /\s*/;
-  var spaceRe = /\s+/;
-  var equalsRe = /\s*=/;
-  var curlyRe = /\s*\}/;
-  var tagRe = /#|\^|\/|>|\{|&|=|!/;
-
-  /**
-   * Breaks up the given `template` string into a tree of tokens. If the `tags`
-   * argument is given here it must be an array with two string values: the
-   * opening and closing tags used in the template (e.g. [ "<%", "%>" ]). Of
-   * course, the default is to use mustaches (i.e. mustache.tags).
-   *
-   * A token is an array with at least 4 elements. The first element is the
-   * mustache symbol that was used inside the tag, e.g. "#" or "&". If the tag
-   * did not contain a symbol (i.e. {{myValue}}) this element is "name". For
-   * all text that appears outside a symbol this element is "text".
-   *
-   * The second element of a token is its "value". For mustache tags this is
-   * whatever else was inside the tag besides the opening symbol. For text tokens
-   * this is the text itself.
-   *
-   * The third and fourth elements of the token are the start and end indices,
-   * respectively, of the token in the original template.
-   *
-   * Tokens that are the root node of a subtree contain two more elements: 1) an
-   * array of tokens in the subtree and 2) the index in the original template at
-   * which the closing tag for that section begins.
-   */
-  function parseTemplate (template, tags) {
-    if (!template)
-      return [];
-
-    var sections = [];     // Stack to hold section tokens
-    var tokens = [];       // Buffer to hold the tokens
-    var spaces = [];       // Indices of whitespace tokens on the current line
-    var hasTag = false;    // Is there a {{tag}} on the current line?
-    var nonSpace = false;  // Is there a non-space char on the current line?
-
-    // Strips all whitespace tokens array for the current line
-    // if there was a {{#tag}} on it and otherwise only space.
-    function stripSpace () {
-      if (hasTag && !nonSpace) {
-        while (spaces.length)
-          delete tokens[spaces.pop()];
-      } else {
-        spaces = [];
-      }
-
-      hasTag = false;
-      nonSpace = false;
-    }
-
-    var openingTagRe, closingTagRe, closingCurlyRe;
-    function compileTags (tagsToCompile) {
-      if (typeof tagsToCompile === 'string')
-        tagsToCompile = tagsToCompile.split(spaceRe, 2);
-
-      if (!isArray(tagsToCompile) || tagsToCompile.length !== 2)
-        throw new Error('Invalid tags: ' + tagsToCompile);
-
-      openingTagRe = new RegExp(escapeRegExp(tagsToCompile[0]) + '\\s*');
-      closingTagRe = new RegExp('\\s*' + escapeRegExp(tagsToCompile[1]));
-      closingCurlyRe = new RegExp('\\s*' + escapeRegExp('}' + tagsToCompile[1]));
-    }
-
-    compileTags(tags || mustache.tags);
-
-    var scanner = new Scanner(template);
-
-    var start, type, value, chr, token, openSection;
-    while (!scanner.eos()) {
-      start = scanner.pos;
-
-      // Match any text between tags.
-      value = scanner.scanUntil(openingTagRe);
-
-      if (value) {
-        for (var i = 0, valueLength = value.length; i < valueLength; ++i) {
-          chr = value.charAt(i);
-
-          if (isWhitespace(chr)) {
-            spaces.push(tokens.length);
-          } else {
-            nonSpace = true;
-          }
-
-          tokens.push([ 'text', chr, start, start + 1 ]);
-          start += 1;
-
-          // Check for whitespace on the current line.
-          if (chr === '\n')
-            stripSpace();
-        }
-      }
-
-      // Match the opening tag.
-      if (!scanner.scan(openingTagRe))
-        break;
-
-      hasTag = true;
-
-      // Get the tag type.
-      type = scanner.scan(tagRe) || 'name';
-      scanner.scan(whiteRe);
-
-      // Get the tag value.
-      if (type === '=') {
-        value = scanner.scanUntil(equalsRe);
-        scanner.scan(equalsRe);
-        scanner.scanUntil(closingTagRe);
-      } else if (type === '{') {
-        value = scanner.scanUntil(closingCurlyRe);
-        scanner.scan(curlyRe);
-        scanner.scanUntil(closingTagRe);
-        type = '&';
-      } else {
-        value = scanner.scanUntil(closingTagRe);
-      }
-
-      // Match the closing tag.
-      if (!scanner.scan(closingTagRe))
-        throw new Error('Unclosed tag at ' + scanner.pos);
-
-      token = [ type, value, start, scanner.pos ];
-      tokens.push(token);
-
-      if (type === '#' || type === '^') {
-        sections.push(token);
-      } else if (type === '/') {
-        // Check section nesting.
-        openSection = sections.pop();
-
-        if (!openSection)
-          throw new Error('Unopened section "' + value + '" at ' + start);
-
-        if (openSection[1] !== value)
-          throw new Error('Unclosed section "' + openSection[1] + '" at ' + start);
-      } else if (type === 'name' || type === '{' || type === '&') {
-        nonSpace = true;
-      } else if (type === '=') {
-        // Set the tags for the next time around.
-        compileTags(value);
-      }
-    }
-
-    // Make sure there are no open sections when we're done.
-    openSection = sections.pop();
-
-    if (openSection)
-      throw new Error('Unclosed section "' + openSection[1] + '" at ' + scanner.pos);
-
-    return nestTokens(squashTokens(tokens));
-  }
-
-  /**
-   * Combines the values of consecutive text tokens in the given `tokens` array
-   * to a single token.
-   */
-  function squashTokens (tokens) {
-    var squashedTokens = [];
-
-    var token, lastToken;
-    for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
-      token = tokens[i];
-
-      if (token) {
-        if (token[0] === 'text' && lastToken && lastToken[0] === 'text') {
-          lastToken[1] += token[1];
-          lastToken[3] = token[3];
-        } else {
-          squashedTokens.push(token);
-          lastToken = token;
-        }
-      }
-    }
-
-    return squashedTokens;
-  }
-
-  /**
-   * Forms the given array of `tokens` into a nested tree structure where
-   * tokens that represent a section have two additional items: 1) an array of
-   * all tokens that appear in that section and 2) the index in the original
-   * template that represents the end of that section.
-   */
-  function nestTokens (tokens) {
-    var nestedTokens = [];
-    var collector = nestedTokens;
-    var sections = [];
-
-    var token, section;
-    for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
-      token = tokens[i];
-
-      switch (token[0]) {
-        case '#':
-        case '^':
-          collector.push(token);
-          sections.push(token);
-          collector = token[4] = [];
-          break;
-        case '/':
-          section = sections.pop();
-          section[5] = token[2];
-          collector = sections.length > 0 ? sections[sections.length - 1][4] : nestedTokens;
-          break;
-        default:
-          collector.push(token);
-      }
-    }
-
-    return nestedTokens;
-  }
-
-  /**
-   * A simple string scanner that is used by the template parser to find
-   * tokens in template strings.
-   */
-  function Scanner (string) {
-    this.string = string;
-    this.tail = string;
-    this.pos = 0;
-  }
-
-  /**
-   * Returns `true` if the tail is empty (end of string).
-   */
-  Scanner.prototype.eos = function eos () {
-    return this.tail === '';
-  };
-
-  /**
-   * Tries to match the given regular expression at the current position.
-   * Returns the matched text if it can match, the empty string otherwise.
-   */
-  Scanner.prototype.scan = function scan (re) {
-    var match = this.tail.match(re);
-
-    if (!match || match.index !== 0)
-      return '';
-
-    var string = match[0];
-
-    this.tail = this.tail.substring(string.length);
-    this.pos += string.length;
-
-    return string;
-  };
-
-  /**
-   * Skips all text until the given regular expression can be matched. Returns
-   * the skipped string, which is the entire tail if no match can be made.
-   */
-  Scanner.prototype.scanUntil = function scanUntil (re) {
-    var index = this.tail.search(re), match;
-
-    switch (index) {
-      case -1:
-        match = this.tail;
-        this.tail = '';
-        break;
-      case 0:
-        match = '';
-        break;
-      default:
-        match = this.tail.substring(0, index);
-        this.tail = this.tail.substring(index);
-    }
-
-    this.pos += match.length;
-
-    return match;
-  };
-
-  /**
-   * Represents a rendering context by wrapping a view object and
-   * maintaining a reference to the parent context.
-   */
-  function Context (view, parentContext) {
-    this.view = view;
-    this.cache = { '.': this.view };
-    this.parent = parentContext;
-  }
-
-  /**
-   * Creates a new context using the given view with this context
-   * as the parent.
-   */
-  Context.prototype.push = function push (view) {
-    return new Context(view, this);
-  };
-
-  /**
-   * Returns the value of the given name in this context, traversing
-   * up the context hierarchy if the value is absent in this context's view.
-   */
-  Context.prototype.lookup = function lookup (name) {
-    var cache = this.cache;
-
-    var value;
-    if (cache.hasOwnProperty(name)) {
-      value = cache[name];
-    } else {
-      var context = this, names, index, lookupHit = false;
-
-      while (context) {
-        if (name.indexOf('.') > 0) {
-          value = context.view;
-          names = name.split('.');
-          index = 0;
-
-          /**
-           * Using the dot notion path in `name`, we descend through the
-           * nested objects.
-           *
-           * To be certain that the lookup has been successful, we have to
-           * check if the last object in the path actually has the property
-           * we are looking for. We store the result in `lookupHit`.
-           *
-           * This is specially necessary for when the value has been set to
-           * `undefined` and we want to avoid looking up parent contexts.
-           **/
-          while (value != null && index < names.length) {
-            if (index === names.length - 1)
-              lookupHit = hasProperty(value, names[index]);
-
-            value = value[names[index++]];
-          }
-        } else {
-          value = context.view[name];
-          lookupHit = hasProperty(context.view, name);
-        }
-
-        if (lookupHit)
-          break;
-
-        context = context.parent;
-      }
-
-      cache[name] = value;
-    }
-
-    if (isFunction(value))
-      value = value.call(this.view);
-
-    return value;
-  };
-
-  /**
-   * A Writer knows how to take a stream of tokens and render them to a
-   * string, given a context. It also maintains a cache of templates to
-   * avoid the need to parse the same template twice.
-   */
-  function Writer () {
-    this.cache = {};
-  }
-
-  /**
-   * Clears all cached templates in this writer.
-   */
-  Writer.prototype.clearCache = function clearCache () {
-    this.cache = {};
-  };
-
-  /**
-   * Parses and caches the given `template` and returns the array of tokens
-   * that is generated from the parse.
-   */
-  Writer.prototype.parse = function parse (template, tags) {
-    var cache = this.cache;
-    var tokens = cache[template];
-
-    if (tokens == null)
-      tokens = cache[template] = parseTemplate(template, tags);
-
-    return tokens;
-  };
-
-  /**
-   * High-level method that is used to render the given `template` with
-   * the given `view`.
-   *
-   * The optional `partials` argument may be an object that contains the
-   * names and templates of partials that are used in the template. It may
-   * also be a function that is used to load partial templates on the fly
-   * that takes a single argument: the name of the partial.
-   */
-  Writer.prototype.render = function render (template, view, partials) {
-    var tokens = this.parse(template);
-    var context = (view instanceof Context) ? view : new Context(view);
-    return this.renderTokens(tokens, context, partials, template);
-  };
-
-  /**
-   * Low-level method that renders the given array of `tokens` using
-   * the given `context` and `partials`.
-   *
-   * Note: The `originalTemplate` is only ever used to extract the portion
-   * of the original template that was contained in a higher-order section.
-   * If the template doesn't use higher-order sections, this argument may
-   * be omitted.
-   */
-  Writer.prototype.renderTokens = function renderTokens (tokens, context, partials, originalTemplate) {
-    var buffer = '';
-
-    var token, symbol, value;
-    for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
-      value = undefined;
-      token = tokens[i];
-      symbol = token[0];
-
-      if (symbol === '#') value = this.renderSection(token, context, partials, originalTemplate);
-      else if (symbol === '^') value = this.renderInverted(token, context, partials, originalTemplate);
-      else if (symbol === '>') value = this.renderPartial(token, context, partials, originalTemplate);
-      else if (symbol === '&') value = this.unescapedValue(token, context);
-      else if (symbol === 'name') value = this.escapedValue(token, context);
-      else if (symbol === 'text') value = this.rawValue(token);
-
-      if (value !== undefined)
-        buffer += value;
-    }
-
-    return buffer;
-  };
-
-  Writer.prototype.renderSection = function renderSection (token, context, partials, originalTemplate) {
-    var self = this;
-    var buffer = '';
-    var value = context.lookup(token[1]);
-
-    // This function is used to render an arbitrary template
-    // in the current context by higher-order sections.
-    function subRender (template) {
-      return self.render(template, context, partials);
-    }
-
-    if (!value) return;
-
-    if (isArray(value)) {
-      for (var j = 0, valueLength = value.length; j < valueLength; ++j) {
-        buffer += this.renderTokens(token[4], context.push(value[j]), partials, originalTemplate);
-      }
-    } else if (typeof value === 'object' || typeof value === 'string' || typeof value === 'number') {
-      buffer += this.renderTokens(token[4], context.push(value), partials, originalTemplate);
-    } else if (isFunction(value)) {
-      if (typeof originalTemplate !== 'string')
-        throw new Error('Cannot use higher-order sections without the original template');
-
-      // Extract the portion of the original template that the section contains.
-      value = value.call(context.view, originalTemplate.slice(token[3], token[5]), subRender);
-
-      if (value != null)
-        buffer += value;
-    } else {
-      buffer += this.renderTokens(token[4], context, partials, originalTemplate);
-    }
-    return buffer;
-  };
-
-  Writer.prototype.renderInverted = function renderInverted (token, context, partials, originalTemplate) {
-    var value = context.lookup(token[1]);
-
-    // Use JavaScript's definition of falsy. Include empty arrays.
-    // See https://github.com/janl/mustache.js/issues/186
-    if (!value || (isArray(value) && value.length === 0))
-      return this.renderTokens(token[4], context, partials, originalTemplate);
-  };
-
-  Writer.prototype.renderPartial = function renderPartial (token, context, partials) {
-    if (!partials) return;
-
-    var value = isFunction(partials) ? partials(token[1]) : partials[token[1]];
-    if (value != null)
-      return this.renderTokens(this.parse(value), context, partials, value);
-  };
-
-  Writer.prototype.unescapedValue = function unescapedValue (token, context) {
-    var value = context.lookup(token[1]);
-    if (value != null)
-      return value;
-  };
-
-  Writer.prototype.escapedValue = function escapedValue (token, context) {
-    var value = context.lookup(token[1]);
-    if (value != null)
-      return mustache.escape(value);
-  };
-
-  Writer.prototype.rawValue = function rawValue (token) {
-    return token[1];
-  };
-
-  mustache.name = 'mustache.js';
-  mustache.version = '2.3.0';
-  mustache.tags = [ '{{', '}}' ];
-
-  // All high-level mustache.* functions use this writer.
-  var defaultWriter = new Writer();
-
-  /**
-   * Clears all cached templates in the default writer.
-   */
-  mustache.clearCache = function clearCache () {
-    return defaultWriter.clearCache();
-  };
-
-  /**
-   * Parses and caches the given template in the default writer and returns the
-   * array of tokens it contains. Doing this ahead of time avoids the need to
-   * parse templates on the fly as they are rendered.
-   */
-  mustache.parse = function parse (template, tags) {
-    return defaultWriter.parse(template, tags);
-  };
-
-  /**
-   * Renders the `template` with the given `view` and `partials` using the
-   * default writer.
-   */
-  mustache.render = function render (template, view, partials) {
-    if (typeof template !== 'string') {
-      throw new TypeError('Invalid template! Template should be a "string" ' +
-                          'but "' + typeStr(template) + '" was given as the first ' +
-                          'argument for mustache#render(template, view, partials)');
-    }
-
-    return defaultWriter.render(template, view, partials);
-  };
-
-  // This is here for backwards compatibility with 0.4.x.,
-  /*eslint-disable */ // eslint wants camel cased function name
-  mustache.to_html = function to_html (template, view, partials, send) {
-    /*eslint-enable*/
-
-    var result = mustache.render(template, view, partials);
-
-    if (isFunction(send)) {
-      send(result);
-    } else {
-      return result;
-    }
-  };
-
-  // Export the escaping function so that the user may override it.
-  // See https://github.com/janl/mustache.js/issues/244
-  mustache.escape = escapeHtml;
-
-  // Export these mainly for testing, but also for advanced usage.
-  mustache.Scanner = Scanner;
-  mustache.Context = Context;
-  mustache.Writer = Writer;
-
-  return mustache;
-}));
-});
-
-const T$1 = Template("d-byline", `
-<style>
-  :host {
-    box-sizing: border-box;
-    font-size: 13px;
-    line-height: 20px;
-    display: block;
-    /* border-top: 1px solid rgba(0, 0, 0, 0.1);*/
-    /* border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
-    color: rgba(0, 0, 0, 0.6);
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-  ${page(".byline")}
-  d-article.centered {
-    text-align: center;
-  }
-  a,
-  d-article a {
-    color: rgba(0, 0, 0, 0.8);
-    text-decoration: none;
-    border-bottom: none;
-  }
-  d-article a:hover {
-    text-decoration: underline;
-    border-bottom: none;
-  }
-  .authors {
-    text-align: left;
-  }
-  .name {
-    font-weight: 600;
-    display: inline;
-    text-transform: uppercase;
-  }
-  .affiliation {
-    display: inline;
-  }
-  .date {
-    display: block;
-    text-align: left;
-  }
-  .year, .month {
-    display: inline;
-  }
-  .citation {
-    display: block;
-    text-align: left;
-  }
-  .citation div {
-    display: inline;
-  }
-
-  @media(min-width: 768px) {
-    {
-    }
-  }
-
-  @media(min-width: 1080px) {
-    {
-      border-bottom: none;
-    }
-
-    a:hover {
-      color: rgba(0, 0, 0, 0.9);
-    }
-
-    .authors {
-      display: inline-block;
-    }
-
-    .author {
-      display: inline-block;
-      margin-right: 12px;
-      /*padding-left: 20px;*/
-      /*border-left: 1px solid #ddd;*/
-    }
-
-    .affiliation {
-      display: block;
-    }
-
-    .author:last-child {
-      margin-right: 0;
-    }
-
-    .name {
-      display: block;
-    }
-
-    .date {
-      border-left: 1px solid rgba(0, 0, 0, 0.1);
-      padding-left: 15px;
-      margin-left: 15px;
-      display: inline-block;
-    }
-    .year, .month {
-      display: block;
-    }
-
-    .citation {
-      border-left: 1px solid rgba(0, 0, 0, 0.15);
-      padding-left: 15px;
-      margin-left: 15px;
-      display: inline-block;
-    }
-    .citation div {
-      display: block;
-    }
-  }
-</style>
-
-<div class='byline'></div>
-`);
-
-const mustacheTemplate = `
-<div class="authors">
-{{#authors}}
-  <div class="author">
-    {{#personalURL}}
-      <a class="name" href="{{personalURL}}">{{name}}</a>
-    {{/personalURL}}
-    {{^personalURL}}
-      <div class="name">{{name}}</div>
-    {{/personalURL}}
-    {{#affiliation}}
-      {{#affiliationURL}}
-        <a class="affiliation" href="{{affiliationURL}}">{{affiliation}}</a>
-      {{/affiliationURL}}
-      {{^affiliationURL}}
-        <div class="affiliation">{{affiliation}}</div>
-      {{/affiliationURL}}
-    {{/affiliation}}
-  </div>
-  {{/authors}}
-</div>
-{{#publishedDate}}
-<div class="date">
-  <div class="month">{{publishedMonth}}. {{publishedDay}}</div>
-  <div class="year">{{publishedYear}}</div>
-</div>
-{{/publishedDate}}
-{{#citation}}
-<a class="citation" href="#citation">
-  <div>Citation:</div>
-  <div>{{concatenatedAuthors}}, {{publishedYear}}</div>
-</a>
-{{/citation}}
-`;
-
-class Byline extends T$1(HTMLElement) {
-
-  static get is() { return "d-byline"; }
-
-  connectedCallback() {
-    const frontmatter = document.querySelector('d-front-matter');
-    const container = this.root.querySelector('.byline');
-    container.innerHTML = mustache.render(mustacheTemplate, frontmatter.data);
-    console.log(frontmatter.data);
-  }
-
-}
-
-customElements.define(Byline.is, Byline);
-
-const T$2 = Template("d-article", `
-<style>
-  d-article {
-    display: block;
-    color: rgba(0, 0, 0, 0.8);
-    padding-top: 36px;
-    padding-bottom: 72px;
-    overflow: hidden;
-    font-size: 16px;
-    line-height: 1.6em;
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
-  }
-  @media(min-width: 1024px) {
-    d-article {
-      font-size: 18px;
-    }
-  }
-
-  /* H2 */
-
-  d-article h2 {
-    font-weight: 400;
-    font-size: 26px;
-    line-height: 1.25em;
-    margin-top: 36px;
-    margin-bottom: 24px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  @media(min-width: 1024px) {
-    d-article h2 {
-      margin-top: 2em;
-      font-size: 32px;
-    }
-  }
-  d-article h1 + h2 {
-    font-weight: 300;
-    font-size: 20px;
-    line-height: 1.4em;
-    margin-top: 8px;
-    font-style: normal;
-  }
-  @media(min-width: 1080px) {
-    .centered h1 + h2 {
-      text-align: center;
-    }
-    d-article h1 + h2 {
-      margin-top: 12px;
-      font-size: 32px;
-    }
-  }
-
-  /* H3 */
-
-  d-article h3 {
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 1.4em;
-    margin-top: 36px;
-    margin-bottom: 18px;
-    font-style: italic;
-  }
-  d-article h1 + h3 {
-    margin-top: 48px;
-  }
-  @media(min-width: 1024px) {
-    d-article h3 {
-      font-size: 26px;
-    }
-  }
-
-  /* H4 */
-
-  d-article h4 {
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 14px;
-    line-height: 1.4em;
-  }
-  d-article a {
-    color: inherit;
-  }
-  d-article p,
-  d-article ul,
-  d-article ol {
-    margin-bottom: 24px;
-  }
-  d-article p b,
-  d-article ul b,
-  d-article ol b {
-    -webkit-font-smoothing: antialiased;
-  }
-  d-article a {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-    text-decoration: none;
-  }
-  d-article a:hover {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.8);
-  }
-  d-article .link {
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  d-article ul,
-  d-article ol {
-    padding-left: 24px;
-  }
-  d-article li {
-    margin-bottom: 24px;
-    margin-left: 0;
-    padding-left: 0;
-  }
-  d-article pre {
-    font-size: 14px;
-    margin-bottom: 20px;
-  }
-  d-article hr {
-    border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    margin-top: 60px;
-    margin-bottom: 60px;
-  }
-  d-article section {
-    margin-top: 60px;
-    margin-bottom: 60px;
-  }
-
-  /* Figure */
-
-  d-article figure {
-    position: relative;
-    margin-top: 30px;
-    margin-bottom: 30px;
-  }
-  @media(min-width: 1024px) {
-    d-article figure {
-      margin-top: 48px;
-      margin-bottom: 48px;
-    }
-  }
-  d-article figure img {
-    width: 100%;
-  }
-  d-article figure svg text,
-  d-article figure svg tspan {
-  }
-  d-article figure figcaption {
-    color: rgba(0, 0, 0, 0.6);
-    font-size: 12px;
-    line-height: 1.5em;
-  }
-  @media(min-width: 1024px) {
-    d-article figure figcaption {
-      font-size: 13px;
-    }
-  }
-  d-article figure.external img {
-    background: white;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
-    padding: 18px;
-    box-sizing: border-box;
-  }
-  d-article figure figcaption a {
-    color: rgba(0, 0, 0, 0.6);
-  }
-  /*d-article figure figcaption::before {
-    position: relative;
-    display: block;
-    top: -20px;
-    content: "";
-    width: 25px;
-    border-top: 1px solid rgba(0, 0, 0, 0.3);
-  }*/
-  d-article span.equation-mimic {
-    font-family: georgia;
-    font-size: 115%;
-    font-style: italic;
-  }
-  d-article figure figcaption b {
-    font-weight: 600;
-    color: rgba(0, 0, 0, 1.0);
-  }
-  d-article > d-code,
-  d-article section > d-code  {
-    display: block;
-  }
-  d-article > d-math[block],
-  d-article section > d-math[block]  {
-    display: block;
-  }
-  d-article .citation {
-    color: #668;
-    cursor: pointer;
-  }
-  d-include {
-    width: auto;
-    display: block;
-  }
-</style>
-`, false);
-
-class Article extends T$2(HTMLElement) {
-  static get is() { return "d-article"; }
-}
-
-customElements.define(Article.is, Article);
-
-const T$3 = Template("d-abstract", `
-<style>
-  d-abstract {
-    display: block;
-    font-size: 23px;
-    line-height: 1.7em;
-    margin-bottom: 140px;
-  }
-  ${body("d-abstract")}
-</style>
-`, false);
-
-class Abstract extends T$3(HTMLElement) {
-  static get is() { return "d-abstract"; }
-}
-
-customElements.define(Abstract.is, Abstract);
-
-const T$4 = Template("d-toc", `
-<style>
-d-toc {
-  display: block;
-}
-</style>
-`, false);
-
-class Toc extends T$4(HTMLElement) {
-  static get is() {
-    return "d-toc";
-  }
-}
-
-customElements.define(Toc.is, Toc);
-
-var base = "html {\n  font-size: 20px;\n\tline-height: 1rem;\n\t/*font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Helvetica Neue\", sans-serif;*/\n\tfont-family: \"Libre Franklin\", \"Helvetica Neue\", sans-serif;\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\n\nbody {\n  margin: 0;\n  /*background-color: hsl(223, 9%, 25%);*/\n}\n\na {\n  color: #004276;\n}\n\nfigure {\n  margin: 0;\n}\n\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}\n\ntable th {\n\ttext-align: left;\n}\n\ntable thead {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\n}\ntable thead th {\n  padding-bottom: 0.5em;\n}\ntable tbody :first-child td {\n  padding-top: 0.5em;\n}\n\n/*\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}*/\n";
-
-var layout = "/*\n  Column: 60px\n  Gutter: 24px\n\n  Body: 648px\n    - 8 columns\n    - 7 gutters\n  Middle: 816px\n  Page: 984px\n    - 12 columns\n    - 11 gutters\n*/\n\n.l-body,\n.l-body-outset,\n.l-page,\n.l-page-outset,\n.l-middle,\n.l-middle-outset,\nd-article > div,\nd-article > p,\nd-article > h1,\nd-article > h2,\nd-article > h3,\nd-article > h4,\nd-article > figure,\nd-article > ul,\nd-article > d-abstract,\nd-article > d-code,\nd-article > d-math,\nd-article > table,\nd-article section > div,\nd-article section > p,\nd-article section > h1,\nd-article section > h2,\nd-article section > h3,\nd-article section > h4,\nd-article section > figure,\nd-article section > ul,\nd-article section > d-abstract,\nd-article section > d-code,\nd-article section > d-math,\nd-article section > table, {\n  width: auto;\n  margin-left: 24px;\n  margin-right: 24px;\n  box-sizing: border-box;\n}\n\n@media(min-width: 768px) {\n  .l-body,\n  .l-body-outset,\n  .l-page,\n  .l-page-outset,\n  .l-middle,\n  .l-middle-outset,\n  d-article > div,\n  d-article > p,\n  d-article > h1,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article > d-math,\n  d-article > d-math,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h1,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code,\n  d-article section > d-math,\n  d-article section > table {\n    margin-left: 72px;\n    margin-right: 72px;\n  }\n}\n\n@media(min-width: 1080px) {\n  .l-body,\n  d-article > div,\n  d-article > p,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article > d-math,\n  d-article > table,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code,\n  d-article section > d-math,\n  d-article section > table {\n    margin-left: calc(50% - 984px / 2);\n    width: 648px;\n  }\n  .l-body-outset,\n  d-article .l-body-outset {\n    margin-left: calc(50% - 984px / 2 - 96px/2);\n    width: calc(648px + 96px);\n  }\n  .l-middle,\n  d-article .l-middle {\n    width: 816px;\n    margin-left: calc(50% - 984px / 2);\n    margin-right: auto;\n  }\n  .l-middle-outset,\n  d-article .l-middle-outset {\n    width: calc(816px + 96px);\n    margin-left: calc(50% - 984px / 2 - 48px);\n    margin-right: auto;\n  }\n  d-article > h1,\n  d-article section > h1,\n  .l-page,\n  d-article .l-page,\n  d-article.centered .l-page {\n    width: 984px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-page-outset,\n  d-article .l-page-outset,\n  d-article.centered .l-page-outset {\n    width: 1080px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-screen,\n  d-article .l-screen,\n  d-article.centered .l-screen {\n    margin-left: auto;\n    margin-right: auto;\n    width: auto;\n  }\n  .l-screen-inset,\n  d-article .l-screen-inset,\n  d-article.centered .l-screen-inset {\n    margin-left: 24px;\n    margin-right: 24px;\n    width: auto;\n  }\n  .l-gutter,\n  d-article .l-gutter {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 24px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n    width: calc((984px - 648px) / 2 - 24px);\n  }\n\n  /* Side */\n  .side.l-body,\n  d-article .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px) / 2);\n    width: calc(648px / 2 - 24px - 84px);\n  }\n  .side.l-body-outset,\n  d-article .side.l-body-outset {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px - 48px) / 2);\n    width: calc(648px / 2 - 48px + 24px);\n  }\n  .side.l-middle,\n  d-article .side.l-middle {\n    clear: both;\n    float: right;\n    width: calc(456px - 84px);\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-middle-outset,\n  d-article .side.l-middle-outset {\n    clear: both;\n    float: right;\n    width: 456px;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-page,\n  d-article .side.l-page {\n    clear: both;\n    float: right;\n    margin-left: 48px;\n    width: calc(624px - 84px);\n    margin-right: calc((100vw - 984px) / 2);\n  }\n  .side.l-page-outset,\n  d-article .side.l-page-outset {\n    clear: both;\n    float: right;\n    width: 624px;\n    margin-right: calc((100vw - 984px) / 2);\n  }\n}\n\n\n/* Rows and Columns */\n\n.row {\n  display: flex;\n}\n.column {\n  flex: 1;\n  box-sizing: border-box;\n  margin-right: 24px;\n  margin-left: 24px;\n}\n.row > .column:first-of-type {\n  margin-left: 0;\n}\n.row > .column:last-of-type {\n  margin-right: 0;\n}\n";
-
-var article = "";
-
-var print = "\n@media print {\n  @page {\n    size: 8in 11in;\n  }\n  html {\n  }\n  p, code {\n    page-break-inside: avoid;\n  }\n  h2, h3 {\n    page-break-after: avoid;\n  }\n  d-header {\n    visibility: hidden;\n  }\n  d-footer {\n    display: none!important;\n  }\n}\n";
-
-let s = document.createElement("style");
-s.textContent =  base + layout + print + article;
-document.querySelector("head").appendChild(s);
-
-const T$5 = Template("d-appendix", `
-<style>
-
-:host {
-  display: block;
-  font-size: 13px;
-  line-height: 1.7em;
-  margin-bottom: 0;
-  border-top: 1px solid rgba(0,0,0,0.1);
-  color: rgba(0,0,0,0.5);
-  background: rgb(250, 250, 250);
-  padding-top: 36px;
-  padding-bottom: 48px;
-}
-
-${page(".l-body")}
-
-</style>
-
-<div class="l-body">
-  <slot></slot>
-</div>
-`);
-
-class Appendix extends T$5(HTMLElement) {
-
-  static get is() { return "d-appendix"; }
-
-}
-
-customElements.define(Appendix.is, Appendix);
-
-let mustacheTemplate$1 = `
-<style>
-  distill-appendix h3 {
-    font-size: 15px;
-    font-weight: 500;
-    margin-top: 20px;
-    margin-bottom: 0;
-    color: rgba(0,0,0,0.65);
-    line-height: 1em;
-  }
-  distill-appendix a {
-    color: rgba(0, 0, 0, 0.6);
-  }
-  distill-appendix ol,
-  distill-appendix ul {
-    padding-left: 24px;
-  }
-  distill-appendix .citation {
-    font-size: 11px;
-    line-height: 15px;
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
-    padding-left: 18px;
-    border: 1px solid rgba(0,0,0,0.1);
-    background: rgba(0, 0, 0, 0.02);
-    padding: 10px 18px;
-    border-radius: 3px;
-    color: rgba(150, 150, 150, 1);
-    overflow: hidden;
-    margin-top: -12px;
-  }
-</style>
-
-<h3>Updates and Corrections</h3>
-<p><a href="">View all changes</a> to this article since it was first published. If you see mistakes or want to suggest changes, please <a href="">create an issue on GitHub</a>. </p>
-
-<h3>Reuse</h3>
-<p>Diagrams and text are licensed under Creative Commons Attribution <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY 2.0</a> with the <a class="github" href="https://github.com/distillpub/post--augmented-rnns">source available on GitHub</a>, unless noted otherwise. The figures that have been reused from other sources don’t fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>
-
-<h3>Citation</h3>
-<p>For attribution in academic contexts, please cite this work as</p>
-<pre class="citation short">Olah &amp; Carter, "Attention and Augmented Recurrent Neural Networks", Distill, 2016.</pre>
-<p>BibTeX citation</p>
-<pre class="citation long">@article{olah2016attention,
-  author = {Olah, Chris and Carter, Shan},
-  title = {Attention and Augmented Recurrent Neural Networks},
-  journal = {Distill},
-  year = {2016},
-  note = {http://distill.pub/2016/augmented-rnns}
-}</pre>
-`;
-
-class DistillAppendix extends HTMLElement {
-  static get is() { return "distill-appendix"; }
-  connectedCallback(data) {
-    this.innerHTML = mustache.render(mustacheTemplate$1, data);
-  }
-}
-
-customElements.define(DistillAppendix.is, DistillAppendix);
-
-var bibtexParse = createCommonjsModule(function (module, exports) {
-/* start bibtexParse 0.0.22 */
-
-//Original work by Henrik Muehe (c) 2010
-//
-//CommonJS port by Mikola Lysenko 2013
-//
-//Port to Browser lib by ORCID / RCPETERS
-//
-//Issues:
-//no comment handling within strings
-//no string concatenation
-//no variable values yet
-//Grammar implemented here:
-//bibtex -> (string | preamble | comment | entry)*;
-//string -> '@STRING' '{' key_equals_value '}';
-//preamble -> '@PREAMBLE' '{' value '}';
-//comment -> '@COMMENT' '{' value '}';
-//entry -> '@' key '{' key ',' key_value_list '}';
-//key_value_list -> key_equals_value (',' key_equals_value)*;
-//key_equals_value -> key '=' value;
-//value -> value_quotes | value_braces | key;
-//value_quotes -> '"' .*? '"'; // not quite
-//value_braces -> '{' .*? '"'; // not quite
-(function(exports) {
-
-    function BibtexParser() {
-        
-        this.months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
-        this.notKey = [',','{','}',' ','='];
-        this.pos = 0;
-        this.input = "";
-        this.entries = new Array();
-
-        this.currentEntry = "";
-
-        this.setInput = function(t) {
-            this.input = t;
-        };
-
-        this.getEntries = function() {
-            return this.entries;
-        };
-
-        this.isWhitespace = function(s) {
-            return (s == ' ' || s == '\r' || s == '\t' || s == '\n');
-        };
-
-        this.match = function(s, canCommentOut) {
-            if (canCommentOut == undefined || canCommentOut == null)
-                canCommentOut = true;
-            this.skipWhitespace(canCommentOut);
-            if (this.input.substring(this.pos, this.pos + s.length) == s) {
-                this.pos += s.length;
-            } else {
-                throw "Token mismatch, expected " + s + ", found "
-                        + this.input.substring(this.pos);
-            }
-            this.skipWhitespace(canCommentOut);
-        };
-
-        this.tryMatch = function(s, canCommentOut) {
-            if (canCommentOut == undefined || canCommentOut == null)
-                canCommentOut = true;
-            this.skipWhitespace(canCommentOut);
-            if (this.input.substring(this.pos, this.pos + s.length) == s) {
-                return true;
-            } else {
-                return false;
-            }
-            this.skipWhitespace(canCommentOut);
-        };
-
-        /* when search for a match all text can be ignored, not just white space */
-        this.matchAt = function() {
-            while (this.input.length > this.pos && this.input[this.pos] != '@') {
-                this.pos++;
-            }
-
-            if (this.input[this.pos] == '@') {
-                return true;
-            }
-            return false;
-        };
-
-        this.skipWhitespace = function(canCommentOut) {
-            while (this.isWhitespace(this.input[this.pos])) {
-                this.pos++;
-            }
-            if (this.input[this.pos] == "%" && canCommentOut == true) {
-                while (this.input[this.pos] != "\n") {
-                    this.pos++;
-                }
-                this.skipWhitespace(canCommentOut);
-            }
-        };
-
-        this.value_braces = function() {
-            var bracecount = 0;
-            this.match("{", false);
-            var start = this.pos;
-            var escaped = false;
-            while (true) {
-                if (!escaped) {
-                    if (this.input[this.pos] == '}') {
-                        if (bracecount > 0) {
-                            bracecount--;
-                        } else {
-                            var end = this.pos;
-                            this.match("}", false);
-                            return this.input.substring(start, end);
-                        }
-                    } else if (this.input[this.pos] == '{') {
-                        bracecount++;
-                    } else if (this.pos >= this.input.length - 1) {
-                        throw "Unterminated value";
-                    }
-                }
-                if (this.input[this.pos] == '\\' && escaped == false)
-                    escaped = true;
-                else
-                    escaped = false;
-                this.pos++;
-            }
-        };
-
-        this.value_comment = function() {
-            var str = '';
-            var brcktCnt = 0;
-            while (!(this.tryMatch("}", false) && brcktCnt == 0)) {
-                str = str + this.input[this.pos];
-                if (this.input[this.pos] == '{')
-                    brcktCnt++;
-                if (this.input[this.pos] == '}')
-                    brcktCnt--;
-                if (this.pos >= this.input.length - 1) {
-                    throw "Unterminated value:" + this.input.substring(start);
-                }
-                this.pos++;
-            }
-            return str;
-        };
-
-        this.value_quotes = function() {
-            this.match('"', false);
-            var start = this.pos;
-            var escaped = false;
-            while (true) {
-                if (!escaped) {
-                    if (this.input[this.pos] == '"') {
-                        var end = this.pos;
-                        this.match('"', false);
-                        return this.input.substring(start, end);
-                    } else if (this.pos >= this.input.length - 1) {
-                        throw "Unterminated value:" + this.input.substring(start);
-                    }
-                }
-                if (this.input[this.pos] == '\\' && escaped == false)
-                    escaped = true;
-                else
-                    escaped = false;
-                this.pos++;
-            }
-        };
-
-        this.single_value = function() {
-            var start = this.pos;
-            if (this.tryMatch("{")) {
-                return this.value_braces();
-            } else if (this.tryMatch('"')) {
-                return this.value_quotes();
-            } else {
-                var k = this.key();
-                if (k.match("^[0-9]+$"))
-                    return k;
-                else if (this.months.indexOf(k.toLowerCase()) >= 0)
-                    return k.toLowerCase();
-                else
-                    throw "Value expected:" + this.input.substring(start) + ' for key: ' + k;
-            
-            }
-        };
-
-        this.value = function() {
-            var values = [];
-            values.push(this.single_value());
-            while (this.tryMatch("#")) {
-                this.match("#");
-                values.push(this.single_value());
-            }
-            return values.join("");
-        };
-
-        this.key = function() {
-            var start = this.pos;
-            while (true) {
-                if (this.pos >= this.input.length) {
-                    throw "Runaway key";
-                }
-                                // а-яА-Я is Cyrillic
-                //console.log(this.input[this.pos]);
-                if (this.notKey.indexOf(this.input[this.pos]) >= 0) {
-                    return this.input.substring(start, this.pos);
-                } else {
-                    this.pos++;
-                    
-                }
-            }
-        };
-
-        this.key_equals_value = function() {
-            var key = this.key();
-            if (this.tryMatch("=")) {
-                this.match("=");
-                var val = this.value();
-                return [ key, val ];
-            } else {
-                throw "... = value expected, equals sign missing:"
-                        + this.input.substring(this.pos);
-            }
-        };
-
-        this.key_value_list = function() {
-            var kv = this.key_equals_value();
-            this.currentEntry['entryTags'] = {};
-            this.currentEntry['entryTags'][kv[0]] = kv[1];
-            while (this.tryMatch(",")) {
-                this.match(",");
-                // fixes problems with commas at the end of a list
-                if (this.tryMatch("}")) {
-                    break;
-                }
-                
-                kv = this.key_equals_value();
-                this.currentEntry['entryTags'][kv[0]] = kv[1];
-            }
-        };
-
-        this.entry_body = function(d) {
-            this.currentEntry = {};
-            this.currentEntry['citationKey'] = this.key();
-            this.currentEntry['entryType'] = d.substring(1);
-            this.match(",");
-            this.key_value_list();
-            this.entries.push(this.currentEntry);
-        };
-
-        this.directive = function() {
-            this.match("@");
-            return "@" + this.key();
-        };
-
-        this.preamble = function() {
-            this.currentEntry = {};
-            this.currentEntry['entryType'] = 'PREAMBLE';
-            this.currentEntry['entry'] = this.value_comment();
-            this.entries.push(this.currentEntry);
-        };
-
-        this.comment = function() {
-            this.currentEntry = {};
-            this.currentEntry['entryType'] = 'COMMENT';
-            this.currentEntry['entry'] = this.value_comment();
-            this.entries.push(this.currentEntry);
-        };
-
-        this.entry = function(d) {
-            this.entry_body(d);
-        };
-
-        this.bibtex = function() {
-            while (this.matchAt()) {
-                var d = this.directive();
-                this.match("{");
-                if (d == "@STRING") {
-                    this.string();
-                } else if (d == "@PREAMBLE") {
-                    this.preamble();
-                } else if (d == "@COMMENT") {
-                    this.comment();
-                } else {
-                    this.entry(d);
-                }
-                this.match("}");
-            }
-        };
-    }
-    
-    exports.toJSON = function(bibtex) {
-        var b = new BibtexParser();
-        b.setInput(bibtex);
-        b.bibtex();
-        return b.entries;
-    };
-
-    /* added during hackathon don't hate on me */
-    exports.toBibtex = function(json) {
-        var out = '';
-        for ( var i in json) {
-            out += "@" + json[i].entryType;
-            out += '{';
-            if (json[i].citationKey)
-                out += json[i].citationKey + ', ';
-            if (json[i].entry)
-                out += json[i].entry ;
-            if (json[i].entryTags) {
-                var tags = '';
-                for (var jdx in json[i].entryTags) {
-                    if (tags.length != 0)
-                        tags += ', ';
-                    tags += jdx + '= {' + json[i].entryTags[jdx] + '}';
-                }
-                out += tags;
-            }
-            out += '}\n\n';
-        }
-        return out;
-        
-    };
-
-})(exports);
-
-/* end bibtexParse */
-});
-
-function author_string(ent, template, sep, finalSep){
-  var names = ent.author.split(" and ");
-  let name_strings = names.map(name => {
-    name = name.trim();
-    if (name.indexOf(",") != -1){
-      var last = name.split(",")[0].trim();
-      var firsts = name.split(",")[1];
-    } else {
-      var last = name.split(" ").slice(-1)[0].trim();
-      var firsts = name.split(" ").slice(0,-1).join(" ");
-    }
-    var initials = "";
-    if (firsts != undefined) {
-      initials = firsts.trim().split(" ").map(s => s.trim()[0]);
-      initials = initials.join(".")+".";
-    }
-    return template.replace("${F}", firsts)
-                   .replace("${L}", last)
-                   .replace("${I}", initials);
-  });
-  if (names.length > 1) {
-    var str = name_strings.slice(0, names.length-1).join(sep);
-    str += (finalSep || sep) + name_strings[names.length-1];
-    return str;
-  } else {
-    return name_strings[0];
-  }
-}
-
-function venue_string(ent) {
-  var cite = (ent.journal || ent.booktitle || "");
-  if ("volume" in ent){
-    var issue = ent.issue || ent.number;
-    issue = (issue != undefined)? "("+issue+")" : "";
-    cite += ", Vol " + ent.volume + issue;
-  }
-  if ("pages" in ent){
-    cite += ", pp. " + ent.pages;
-  }
-  if (cite != "") cite += ". ";
-  if ("publisher" in ent){
-    cite += ent.publisher;
-    if (cite[cite.length-1] != ".") cite += ".";
-  }
-  return cite;
-}
-
-function link_string(ent){
-  if ("url" in ent){
-    var url = ent.url;
-    var arxiv_match = (/arxiv\.org\/abs\/([0-9\.]*)/).exec(url);
-    if (arxiv_match != null){
-      url = `http://arxiv.org/pdf/${arxiv_match[1]}.pdf`;
-    }
-
-    if (url.slice(-4) == ".pdf"){
-      var label = "PDF";
-    } else if (url.slice(-5) == ".html") {
-      var label = "HTML";
-    }
-    return ` &ensp;<a href="${url}">[${label||"link"}]</a>`;
-  }/* else if ("doi" in ent){
-    return ` &ensp;<a href="https://doi.org/${ent.doi}" >[DOI]</a>`;
-  }*/ else {
-    return "";
-  }
-}
-function doi_string(ent, new_line){
-  if ("doi" in ent) {
-    return `${new_line?"<br>":""} <a href="https://doi.org/${ent.doi}" style="text-decoration:inherit;">DOI: ${ent.doi}</a>`;
-  } else {
-    return "";
-  }
-}
-
-function bibliography_cite(ent, fancy){
-  if (ent){
-    var cite =  "<b>" + ent.title + "</b> ";
-    cite += link_string(ent) + "<br>";
-    cite += author_string(ent, "${L}, ${I}", ", ", " and ");
-    if (ent.year || ent.date){
-      cite += ", " + (ent.year || ent.date) + ". ";
-    } else {
-      cite += ". ";
-    }
-    cite += venue_string(ent);
-    cite += doi_string(ent);
-    return cite
-    /*var cite =  author_string(ent, "${L}, ${I}", ", ", " and ");
-    if (ent.year || ent.date){
-      cite += ", " + (ent.year || ent.date) + ". "
-    } else {
-      cite += ". "
-    }
-    cite += "<b>" + ent.title + "</b>. ";
-    cite += venue_string(ent);
-    cite += doi_string(ent);
-    cite += link_string(ent);
-    return cite*/
-  } else {
-    return "?";
-  }
-}
-
-function hover_cite(ent){
-  if (ent){
-    var cite = "";
-    cite += "<b>" + ent.title + "</b>";
-    cite += link_string(ent);
-    cite += "<br>";
-
-    var a_str = author_string(ent, "${I} ${L}", ", ") + ".";
-    var v_str = venue_string(ent).trim() + " " + ent.year + ". " + doi_string(ent, true);
-
-    if ((a_str+v_str).length < Math.min(40, ent.title.length)) {
-      cite += a_str + " " + v_str;
-    } else {
-      cite += a_str + "<br>" + v_str;
-    }
-    return cite;
-  } else {
-    return "?";
-  }
-}
-
-
-//https://scholar.google.com/scholar?q=allintitle%3ADocument+author%3Aolah
-
-const name = 'd-bibliography';
-const T$6 = Template(name, `
-<style>
-  .references {
-    font-size: 12px;
-    line-height: 20px;
-  }
-  .title {
-    font-weight: 600;
-  }
-  ol {
-    padding: 0 0 0 18px;
-  }
-  li {
-    margin-bottom: 12px;
-  }
-  h3 {
-    font-size: 15px;
-    font-weight: 500;
-    margin-top: 20px;
-    margin-bottom: 0;
-    color: rgba(0,0,0,0.65);
-    line-height: 1em;
-  }
-  a {
-    color: rgba(0, 0, 0, 0.6);
-  }
-</style>
-
-<h3>References</h3>
-<ol></ol>
-`);
-
-function parseBibtex(bibtex) {
-  const bibliography = new Map();
-  const parsedEntries = bibtexParse.toJSON(bibtex);
-  for (const entry of parsedEntries) {
-    // normalize tags; note entryTags is an object, not Map
-    for (const tag in entry.entryTags) {
-      let value = entry.entryTags[tag];
-      value = value.replace(/[\t\n ]+/g, " ");
-      value = value.replace(/{\\["^`\.'acu~Hvs]( )?([a-zA-Z])}/g,
-                        (full, x, char) => char);
-      value = value.replace(/{\\([a-zA-Z])}/g,
-                        (full, char) => char);
-      entry.entryTags[tag] = value;
-    }
-    entry.entryTags.type = entry.entryType;
-    // add to bibliography
-    bibliography.set(entry.citationKey, entry.entryTags);
-  }
-  return bibliography;
-}
-
-class Bibliography extends T$6(HTMLElement) {
 
   constructor() {
     super();
 
-    this.citations = new Array();
-    this.finishedLoading = false;
+    const options = {childList: true, characterData: true, subtree: true};
+    const observer = new MutationObserver( (mutation) => {
+      const data = this.parse();
+      this.notify(data);
+    });
+    observer.observe(this, options);
   }
 
-  connectedCallback() {
-    this.list = this.root.querySelector('ol');
-    // bibliography is initially hidden
-    this.root.host.style.display = 'none';
-    // parse bibliography
+  parse(){
     const scriptTag = this.querySelector("script");
     if (scriptTag) {
-      this.bibliography = parseBibtex(scriptTag.textContent);
-      this.finishedLoading = true;
-      // look through document and register existing citations
-      document.querySelectorAll('d-cite')
-        .forEach(citation => this.registerCitation(citation));
+      const yml = scriptTag.textContent;
+      const data = index.safeLoad(yml);
+      return data;
     } else {
-      console.error("No script tag with bibtex found in d-bibliography tag!");
-    }
-
-  }
-
-  getEntry(key) {
-    return this.bibliography.get(key);
-  }
-
-  hasEntry(key) {
-    return this.bibliography.has(key);
-  }
-
-  getIndex(key) {
-    return this.citations.indexOf(key);
-  }
-
-  registerCitation(citation) {
-    // a d-cite element may cite multiple sources
-    const keyString = citation.getAttribute("key");
-    const keys = keyString ? keyString.split(",") : [];
-    for (const key of keys) {
-      if (!this.bibliography.has(key)) {
-        console.error("Citation key '" + key + "' is not present in bibliography!");
-      } else if (this.citations.indexOf(key) === -1) {
-        this.citations.push(key);
-        const entry = this.getEntry(key);
-                // ensure citations list is visible
-        this.root.host.style.display = 'initial';
-        // construct and append list item to show citation
-        const listItem = document.createElement('li');
-        listItem.id = key;
-        listItem.innerHTML = bibliography_cite(entry);
-        this.list.appendChild(listItem);
-      }
+      console.error('You added a frontmatter tag but did not provide a script tag with front matter data in it. Please take a look at our templates.');
+      return {};
     }
   }
 
-}
-
-customElements.define(Bibliography.is, Bibliography);
-
-const T$7 = Template("d-references", `
-<style>
-d-references {
-  display: block;
-}
-</style>
-`, false);
-
-class References extends T$7(HTMLElement) {
-  static get is() { return "d-references"; }
-  connectedCallback() {
-    super.connectedCallback();
-  }
-}
-
-customElements.define(References.is, References);
-
-var prism = createCommonjsModule(function (module) {
-/* **********************************************
-     Begin prism-core.js
-********************************************** */
-
-var _self = (typeof window !== 'undefined')
-	? window   // if in browser
-	: (
-		(typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope)
-		? self // if in worker
-		: {}   // if in node js
-	);
-
-/**
- * Prism: Lightweight, robust, elegant syntax highlighting
- * MIT license http://www.opensource.org/licenses/mit-license.php/
- * @author Lea Verou http://lea.verou.me
- */
-
-var Prism = (function(){
-
-// Private helper vars
-var lang = /\blang(?:uage)?-(\w+)\b/i;
-var uniqueId = 0;
-
-var _ = _self.Prism = {
-	util: {
-		encode: function (tokens) {
-			if (tokens instanceof Token) {
-				return new Token(tokens.type, _.util.encode(tokens.content), tokens.alias);
-			} else if (_.util.type(tokens) === 'Array') {
-				return tokens.map(_.util.encode);
-			} else {
-				return tokens.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\u00a0/g, ' ');
-			}
-		},
-
-		type: function (o) {
-			return Object.prototype.toString.call(o).match(/\[object (\w+)\]/)[1];
-		},
-
-		objId: function (obj) {
-			if (!obj['__id']) {
-				Object.defineProperty(obj, '__id', { value: ++uniqueId });
-			}
-			return obj['__id'];
-		},
-
-		// Deep clone a language definition (e.g. to extend it)
-		clone: function (o) {
-			var type = _.util.type(o);
-
-			switch (type) {
-				case 'Object':
-					var clone = {};
-
-					for (var key in o) {
-						if (o.hasOwnProperty(key)) {
-							clone[key] = _.util.clone(o[key]);
-						}
-					}
-
-					return clone;
-
-				case 'Array':
-					// Check for existence for IE8
-					return o.map && o.map(function(v) { return _.util.clone(v); });
-			}
-
-			return o;
-		}
-	},
-
-	languages: {
-		extend: function (id, redef) {
-			var lang = _.util.clone(_.languages[id]);
-
-			for (var key in redef) {
-				lang[key] = redef[key];
-			}
-
-			return lang;
-		},
-
-		/**
-		 * Insert a token before another token in a language literal
-		 * As this needs to recreate the object (we cannot actually insert before keys in object literals),
-		 * we cannot just provide an object, we need anobject and a key.
-		 * @param inside The key (or language id) of the parent
-		 * @param before The key to insert before. If not provided, the function appends instead.
-		 * @param insert Object with the key/value pairs to insert
-		 * @param root The object that contains `inside`. If equal to Prism.languages, it can be omitted.
-		 */
-		insertBefore: function (inside, before, insert, root) {
-			root = root || _.languages;
-			var grammar = root[inside];
-
-			if (arguments.length == 2) {
-				insert = arguments[1];
-
-				for (var newToken in insert) {
-					if (insert.hasOwnProperty(newToken)) {
-						grammar[newToken] = insert[newToken];
-					}
-				}
-
-				return grammar;
-			}
-
-			var ret = {};
-
-			for (var token in grammar) {
-
-				if (grammar.hasOwnProperty(token)) {
-
-					if (token == before) {
-
-						for (var newToken in insert) {
-
-							if (insert.hasOwnProperty(newToken)) {
-								ret[newToken] = insert[newToken];
-							}
-						}
-					}
-
-					ret[token] = grammar[token];
-				}
-			}
-
-			// Update references in other language definitions
-			_.languages.DFS(_.languages, function(key, value) {
-				if (value === root[inside] && key != inside) {
-					this[key] = ret;
-				}
-			});
-
-			return root[inside] = ret;
-		},
-
-		// Traverse a language definition with Depth First Search
-		DFS: function(o, callback, type, visited) {
-			visited = visited || {};
-			for (var i in o) {
-				if (o.hasOwnProperty(i)) {
-					callback.call(o, i, o[i], type || i);
-
-					if (_.util.type(o[i]) === 'Object' && !visited[_.util.objId(o[i])]) {
-						visited[_.util.objId(o[i])] = true;
-						_.languages.DFS(o[i], callback, null, visited);
-					}
-					else if (_.util.type(o[i]) === 'Array' && !visited[_.util.objId(o[i])]) {
-						visited[_.util.objId(o[i])] = true;
-						_.languages.DFS(o[i], callback, i, visited);
-					}
-				}
-			}
-		}
-	},
-	plugins: {},
-
-	highlightAll: function(async, callback) {
-		var env = {
-			callback: callback,
-			selector: 'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'
-		};
-
-		_.hooks.run("before-highlightall", env);
-
-		var elements = env.elements || document.querySelectorAll(env.selector);
-
-		for (var i=0, element; element = elements[i++];) {
-			_.highlightElement(element, async === true, env.callback);
-		}
-	},
-
-	highlightElement: function(element, async, callback) {
-		// Find language
-		var language, grammar, parent = element;
-
-		while (parent && !lang.test(parent.className)) {
-			parent = parent.parentNode;
-		}
-
-		if (parent) {
-			language = (parent.className.match(lang) || [,''])[1].toLowerCase();
-			grammar = _.languages[language];
-		}
-
-		// Set language on the element, if not present
-		element.className = element.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
-
-		// Set language on the parent, for styling
-		parent = element.parentNode;
-
-		if (/pre/i.test(parent.nodeName)) {
-			parent.className = parent.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
-		}
-
-		var code = element.textContent;
-
-		var env = {
-			element: element,
-			language: language,
-			grammar: grammar,
-			code: code
-		};
-
-		_.hooks.run('before-sanity-check', env);
-
-		if (!env.code || !env.grammar) {
-			if (env.code) {
-				env.element.textContent = env.code;
-			}
-			_.hooks.run('complete', env);
-			return;
-		}
-
-		_.hooks.run('before-highlight', env);
-
-		if (async && _self.Worker) {
-			var worker = new Worker(_.filename);
-
-			worker.onmessage = function(evt) {
-				env.highlightedCode = evt.data;
-
-				_.hooks.run('before-insert', env);
-
-				env.element.innerHTML = env.highlightedCode;
-
-				callback && callback.call(env.element);
-				_.hooks.run('after-highlight', env);
-				_.hooks.run('complete', env);
-			};
-
-			worker.postMessage(JSON.stringify({
-				language: env.language,
-				code: env.code,
-				immediateClose: true
-			}));
-		}
-		else {
-			env.highlightedCode = _.highlight(env.code, env.grammar, env.language);
-
-			_.hooks.run('before-insert', env);
-
-			env.element.innerHTML = env.highlightedCode;
-
-			callback && callback.call(element);
-
-			_.hooks.run('after-highlight', env);
-			_.hooks.run('complete', env);
-		}
-	},
-
-	highlight: function (text, grammar, language) {
-		var tokens = _.tokenize(text, grammar);
-		return Token.stringify(_.util.encode(tokens), language);
-	},
-
-	tokenize: function(text, grammar, language) {
-		var Token = _.Token;
-
-		var strarr = [text];
-
-		var rest = grammar.rest;
-
-		if (rest) {
-			for (var token in rest) {
-				grammar[token] = rest[token];
-			}
-
-			delete grammar.rest;
-		}
-
-		tokenloop: for (var token in grammar) {
-			if(!grammar.hasOwnProperty(token) || !grammar[token]) {
-				continue;
-			}
-
-			var patterns = grammar[token];
-			patterns = (_.util.type(patterns) === "Array") ? patterns : [patterns];
-
-			for (var j = 0; j < patterns.length; ++j) {
-				var pattern = patterns[j],
-					inside = pattern.inside,
-					lookbehind = !!pattern.lookbehind,
-					greedy = !!pattern.greedy,
-					lookbehindLength = 0,
-					alias = pattern.alias;
-
-				if (greedy && !pattern.pattern.global) {
-					// Without the global flag, lastIndex won't work
-					var flags = pattern.pattern.toString().match(/[imuy]*$/)[0];
-					pattern.pattern = RegExp(pattern.pattern.source, flags + "g");
-				}
-
-				pattern = pattern.pattern || pattern;
-
-				// Don’t cache length as it changes during the loop
-				for (var i=0, pos = 0; i<strarr.length; pos += strarr[i].length, ++i) {
-
-					var str = strarr[i];
-
-					if (strarr.length > text.length) {
-						// Something went terribly wrong, ABORT, ABORT!
-						break tokenloop;
-					}
-
-					if (str instanceof Token) {
-						continue;
-					}
-
-					pattern.lastIndex = 0;
-
-					var match = pattern.exec(str),
-					    delNum = 1;
-
-					// Greedy patterns can override/remove up to two previously matched tokens
-					if (!match && greedy && i != strarr.length - 1) {
-						pattern.lastIndex = pos;
-						match = pattern.exec(text);
-						if (!match) {
-							break;
-						}
-
-						var from = match.index + (lookbehind ? match[1].length : 0),
-						    to = match.index + match[0].length,
-						    k = i,
-						    p = pos;
-
-						for (var len = strarr.length; k < len && p < to; ++k) {
-							p += strarr[k].length;
-							// Move the index i to the element in strarr that is closest to from
-							if (from >= p) {
-								++i;
-								pos = p;
-							}
-						}
-
-						/*
-						 * If strarr[i] is a Token, then the match starts inside another Token, which is invalid
-						 * If strarr[k - 1] is greedy we are in conflict with another greedy pattern
-						 */
-						if (strarr[i] instanceof Token || strarr[k - 1].greedy) {
-							continue;
-						}
-
-						// Number of tokens to delete and replace with the new match
-						delNum = k - i;
-						str = text.slice(pos, p);
-						match.index -= pos;
-					}
-
-					if (!match) {
-						continue;
-					}
-
-					if(lookbehind) {
-						lookbehindLength = match[1].length;
-					}
-
-					var from = match.index + lookbehindLength,
-					    match = match[0].slice(lookbehindLength),
-					    to = from + match.length,
-					    before = str.slice(0, from),
-					    after = str.slice(to);
-
-					var args = [i, delNum];
-
-					if (before) {
-						args.push(before);
-					}
-
-					var wrapped = new Token(token, inside? _.tokenize(match, inside) : match, alias, match, greedy);
-
-					args.push(wrapped);
-
-					if (after) {
-						args.push(after);
-					}
-
-					Array.prototype.splice.apply(strarr, args);
-				}
-			}
-		}
-
-		return strarr;
-	},
-
-	hooks: {
-		all: {},
-
-		add: function (name, callback) {
-			var hooks = _.hooks.all;
-
-			hooks[name] = hooks[name] || [];
-
-			hooks[name].push(callback);
-		},
-
-		run: function (name, env) {
-			var callbacks = _.hooks.all[name];
-
-			if (!callbacks || !callbacks.length) {
-				return;
-			}
-
-			for (var i=0, callback; callback = callbacks[i++];) {
-				callback(env);
-			}
-		}
-	}
-};
-
-var Token = _.Token = function(type, content, alias, matchedStr, greedy) {
-	this.type = type;
-	this.content = content;
-	this.alias = alias;
-	// Copy of the full string this token was created from
-	this.length = (matchedStr || "").length|0;
-	this.greedy = !!greedy;
-};
-
-Token.stringify = function(o, language, parent) {
-	if (typeof o == 'string') {
-		return o;
-	}
-
-	if (_.util.type(o) === 'Array') {
-		return o.map(function(element) {
-			return Token.stringify(element, language, o);
-		}).join('');
-	}
-
-	var env = {
-		type: o.type,
-		content: Token.stringify(o.content, language, parent),
-		tag: 'span',
-		classes: ['token', o.type],
-		attributes: {},
-		language: language,
-		parent: parent
-	};
-
-	if (env.type == 'comment') {
-		env.attributes['spellcheck'] = 'true';
-	}
-
-	if (o.alias) {
-		var aliases = _.util.type(o.alias) === 'Array' ? o.alias : [o.alias];
-		Array.prototype.push.apply(env.classes, aliases);
-	}
-
-	_.hooks.run('wrap', env);
-
-	var attributes = Object.keys(env.attributes).map(function(name) {
-		return name + '="' + (env.attributes[name] || '').replace(/"/g, '&quot;') + '"';
-	}).join(' ');
-
-	return '<' + env.tag + ' class="' + env.classes.join(' ') + '"' + (attributes ? ' ' + attributes : '') + '>' + env.content + '</' + env.tag + '>';
-
-};
-
-if (!_self.document) {
-	if (!_self.addEventListener) {
-		// in Node.js
-		return _self.Prism;
-	}
- 	// In worker
-	_self.addEventListener('message', function(evt) {
-		var message = JSON.parse(evt.data),
-		    lang = message.language,
-		    code = message.code,
-		    immediateClose = message.immediateClose;
-
-		_self.postMessage(_.highlight(code, _.languages[lang], lang));
-		if (immediateClose) {
-			_self.close();
-		}
-	}, false);
-
-	return _self.Prism;
-}
-
-//Get current script and highlight
-var script = document.currentScript || [].slice.call(document.getElementsByTagName("script")).pop();
-
-if (script) {
-	_.filename = script.src;
-
-	if (document.addEventListener && !script.hasAttribute('data-manual')) {
-		if(document.readyState !== "loading") {
-			if (window.requestAnimationFrame) {
-				window.requestAnimationFrame(_.highlightAll);
-			} else {
-				window.setTimeout(_.highlightAll, 16);
-			}
-		}
-		else {
-			document.addEventListener('DOMContentLoaded', _.highlightAll);
-		}
-	}
-}
-
-return _self.Prism;
-
-})();
-
-if ('object' !== 'undefined' && module.exports) {
-	module.exports = Prism;
-}
-
-// hack for components to work correctly in node.js
-if (typeof commonjsGlobal !== 'undefined') {
-	commonjsGlobal.Prism = Prism;
-}
-
-
-/* **********************************************
-     Begin prism-markup.js
-********************************************** */
-
-Prism.languages.markup = {
-	'comment': /<!--[\w\W]*?-->/,
-	'prolog': /<\?[\w\W]+?\?>/,
-	'doctype': /<!DOCTYPE[\w\W]+?>/i,
-	'cdata': /<!\[CDATA\[[\w\W]*?]]>/i,
-	'tag': {
-		pattern: /<\/?(?!\d)[^\s>\/=$<]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\\1|\\?(?!\1)[\w\W])*\1|[^\s'">=]+))?)*\s*\/?>/i,
-		inside: {
-			'tag': {
-				pattern: /^<\/?[^\s>\/]+/i,
-				inside: {
-					'punctuation': /^<\/?/,
-					'namespace': /^[^\s>\/:]+:/
-				}
-			},
-			'attr-value': {
-				pattern: /=(?:('|")[\w\W]*?(\1)|[^\s>]+)/i,
-				inside: {
-					'punctuation': /[=>"']/
-				}
-			},
-			'punctuation': /\/?>/,
-			'attr-name': {
-				pattern: /[^\s>\/]+/,
-				inside: {
-					'namespace': /^[^\s>\/:]+:/
-				}
-			}
-
-		}
-	},
-	'entity': /&#?[\da-z]{1,8};/i
-};
-
-// Plugin to make entity title show the real entity, idea by Roman Komarov
-Prism.hooks.add('wrap', function(env) {
-
-	if (env.type === 'entity') {
-		env.attributes['title'] = env.content.replace(/&amp;/, '&');
-	}
-});
-
-Prism.languages.xml = Prism.languages.markup;
-Prism.languages.html = Prism.languages.markup;
-Prism.languages.mathml = Prism.languages.markup;
-Prism.languages.svg = Prism.languages.markup;
-
-
-/* **********************************************
-     Begin prism-css.js
-********************************************** */
-
-Prism.languages.css = {
-	'comment': /\/\*[\w\W]*?\*\//,
-	'atrule': {
-		pattern: /@[\w-]+?.*?(;|(?=\s*\{))/i,
-		inside: {
-			'rule': /@[\w-]+/
-			// See rest below
-		}
-	},
-	'url': /url\((?:(["'])(\\(?:\r\n|[\w\W])|(?!\1)[^\\\r\n])*\1|.*?)\)/i,
-	'selector': /[^\{\}\s][^\{\};]*?(?=\s*\{)/,
-	'string': {
-		pattern: /("|')(\\(?:\r\n|[\w\W])|(?!\1)[^\\\r\n])*\1/,
-		greedy: true
-	},
-	'property': /(\b|\B)[\w-]+(?=\s*:)/i,
-	'important': /\B!important\b/i,
-	'function': /[-a-z0-9]+(?=\()/i,
-	'punctuation': /[(){};:]/
-};
-
-Prism.languages.css['atrule'].inside.rest = Prism.util.clone(Prism.languages.css);
-
-if (Prism.languages.markup) {
-	Prism.languages.insertBefore('markup', 'tag', {
-		'style': {
-			pattern: /(<style[\w\W]*?>)[\w\W]*?(?=<\/style>)/i,
-			lookbehind: true,
-			inside: Prism.languages.css,
-			alias: 'language-css'
-		}
-	});
-	
-	Prism.languages.insertBefore('inside', 'attr-value', {
-		'style-attr': {
-			pattern: /\s*style=("|').*?\1/i,
-			inside: {
-				'attr-name': {
-					pattern: /^\s*style/i,
-					inside: Prism.languages.markup.tag.inside
-				},
-				'punctuation': /^\s*=\s*['"]|['"]\s*$/,
-				'attr-value': {
-					pattern: /.+/i,
-					inside: Prism.languages.css
-				}
-			},
-			alias: 'language-css'
-		}
-	}, Prism.languages.markup.tag);
-}
-
-/* **********************************************
-     Begin prism-clike.js
-********************************************** */
-
-Prism.languages.clike = {
-	'comment': [
-		{
-			pattern: /(^|[^\\])\/\*[\w\W]*?\*\//,
-			lookbehind: true
-		},
-		{
-			pattern: /(^|[^\\:])\/\/.*/,
-			lookbehind: true
-		}
-	],
-	'string': {
-		pattern: /(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
-		greedy: true
-	},
-	'class-name': {
-		pattern: /((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/i,
-		lookbehind: true,
-		inside: {
-			punctuation: /(\.|\\)/
-		}
-	},
-	'keyword': /\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,
-	'boolean': /\b(true|false)\b/,
-	'function': /[a-z0-9_]+(?=\()/i,
-	'number': /\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)\b/i,
-	'operator': /--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,
-	'punctuation': /[{}[\];(),.:]/
-};
-
-
-/* **********************************************
-     Begin prism-javascript.js
-********************************************** */
-
-Prism.languages.javascript = Prism.languages.extend('clike', {
-	'keyword': /\b(as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|var|void|while|with|yield)\b/,
-	'number': /\b-?(0x[\dA-Fa-f]+|0b[01]+|0o[0-7]+|\d*\.?\d+([Ee][+-]?\d+)?|NaN|Infinity)\b/,
-	// Allow for all non-ASCII characters (See http://stackoverflow.com/a/2008444)
-	'function': /[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*(?=\()/i,
-	'operator': /--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*\*?|\/|~|\^|%|\.{3}/
-});
-
-Prism.languages.insertBefore('javascript', 'keyword', {
-	'regex': {
-		pattern: /(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\\\r\n])+\/[gimyu]{0,5}(?=\s*($|[\r\n,.;})]))/,
-		lookbehind: true,
-		greedy: true
-	}
-});
-
-Prism.languages.insertBefore('javascript', 'string', {
-	'template-string': {
-		pattern: /`(?:\\\\|\\?[^\\])*?`/,
-		greedy: true,
-		inside: {
-			'interpolation': {
-				pattern: /\$\{[^}]+\}/,
-				inside: {
-					'interpolation-punctuation': {
-						pattern: /^\$\{|\}$/,
-						alias: 'punctuation'
-					},
-					rest: Prism.languages.javascript
-				}
-			},
-			'string': /[\s\S]+/
-		}
-	}
-});
-
-if (Prism.languages.markup) {
-	Prism.languages.insertBefore('markup', 'tag', {
-		'script': {
-			pattern: /(<script[\w\W]*?>)[\w\W]*?(?=<\/script>)/i,
-			lookbehind: true,
-			inside: Prism.languages.javascript,
-			alias: 'language-javascript'
-		}
-	});
-}
-
-Prism.languages.js = Prism.languages.javascript;
-
-/* **********************************************
-     Begin prism-file-highlight.js
-********************************************** */
-
-(function () {
-	if (typeof self === 'undefined' || !self.Prism || !self.document || !document.querySelector) {
-		return;
-	}
-
-	self.Prism.fileHighlight = function() {
-
-		var Extensions = {
-			'js': 'javascript',
-			'py': 'python',
-			'rb': 'ruby',
-			'ps1': 'powershell',
-			'psm1': 'powershell',
-			'sh': 'bash',
-			'bat': 'batch',
-			'h': 'c',
-			'tex': 'latex'
-		};
-
-		if(Array.prototype.forEach) { // Check to prevent error in IE8
-			Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
-				var src = pre.getAttribute('data-src');
-
-				var language, parent = pre;
-				var lang = /\blang(?:uage)?-(?!\*)(\w+)\b/i;
-				while (parent && !lang.test(parent.className)) {
-					parent = parent.parentNode;
-				}
-
-				if (parent) {
-					language = (pre.className.match(lang) || [, ''])[1];
-				}
-
-				if (!language) {
-					var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
-					language = Extensions[extension] || extension;
-				}
-
-				var code = document.createElement('code');
-				code.className = 'language-' + language;
-
-				pre.textContent = '';
-
-				code.textContent = 'Loading…';
-
-				pre.appendChild(code);
-
-				var xhr = new XMLHttpRequest();
-
-				xhr.open('GET', src, true);
-
-				xhr.onreadystatechange = function () {
-					if (xhr.readyState == 4) {
-
-						if (xhr.status < 400 && xhr.responseText) {
-							code.textContent = xhr.responseText;
-
-							Prism.highlightElement(code);
-						}
-						else if (xhr.status >= 400) {
-							code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
-						}
-						else {
-							code.textContent = '✖ Error: File does not exist or is empty';
-						}
-					}
-				};
-
-				xhr.send(null);
-			});
-		}
-
-	};
-
-	document.addEventListener('DOMContentLoaded', self.Prism.fileHighlight);
-
-})();
-});
-
-Prism.languages.python= {
-	'triple-quoted-string': {
-		pattern: /"""[\s\S]+?"""|'''[\s\S]+?'''/,
-		alias: 'string'
-	},
-	'comment': {
-		pattern: /(^|[^\\])#.*/,
-		lookbehind: true
-	},
-	'string': {
-		pattern: /("|')(?:\\\\|\\?[^\\\r\n])*?\1/,
-		greedy: true
-	},
-	'function' : {
-		pattern: /((?:^|\s)def[ \t]+)[a-zA-Z_][a-zA-Z0-9_]*(?=\()/g,
-		lookbehind: true
-	},
-	'class-name': {
-		pattern: /(\bclass\s+)[a-z0-9_]+/i,
-		lookbehind: true
-	},
-	'keyword' : /\b(?:as|assert|async|await|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|pass|print|raise|return|try|while|with|yield)\b/,
-	'boolean' : /\b(?:True|False)\b/,
-	'number' : /\b-?(?:0[bo])?(?:(?:\d|0x[\da-f])[\da-f]*\.?\d*|\.\d+)(?:e[+-]?\d+)?j?\b/i,
-	'operator' : /[-+%=]=?|!=|\*\*?=?|\/\/?=?|<[<=>]?|>[=>]?|[&|^~]|\b(?:or|and|not)\b/,
-	'punctuation' : /[{}[\];(),.:]/
-};
-
-Prism.languages.clike = {
-	'comment': [
-		{
-			pattern: /(^|[^\\])\/\*[\w\W]*?\*\//,
-			lookbehind: true
-		},
-		{
-			pattern: /(^|[^\\:])\/\/.*/,
-			lookbehind: true
-		}
-	],
-	'string': {
-		pattern: /(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
-		greedy: true
-	},
-	'class-name': {
-		pattern: /((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/i,
-		lookbehind: true,
-		inside: {
-			punctuation: /(\.|\\)/
-		}
-	},
-	'keyword': /\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,
-	'boolean': /\b(true|false)\b/,
-	'function': /[a-z0-9_]+(?=\()/i,
-	'number': /\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)\b/i,
-	'operator': /--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,
-	'punctuation': /[{}[\];(),.:]/
-};
-
-var css = "/**\n * prism.js default theme for JavaScript, CSS and HTML\n * Based on dabblet (http://dabblet.com)\n * @author Lea Verou\n */\n\ncode[class*=\"language-\"],\npre[class*=\"language-\"] {\n\tcolor: black;\n\tbackground: none;\n\ttext-shadow: 0 1px white;\n\tfont-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;\n\ttext-align: left;\n\twhite-space: pre;\n\tword-spacing: normal;\n\tword-break: normal;\n\tword-wrap: normal;\n\tline-height: 1.5;\n\n\t-moz-tab-size: 4;\n\t-o-tab-size: 4;\n\ttab-size: 4;\n\n\t-webkit-hyphens: none;\n\t-moz-hyphens: none;\n\t-ms-hyphens: none;\n\thyphens: none;\n}\n\npre[class*=\"language-\"]::-moz-selection, pre[class*=\"language-\"] ::-moz-selection,\ncode[class*=\"language-\"]::-moz-selection, code[class*=\"language-\"] ::-moz-selection {\n\ttext-shadow: none;\n\tbackground: #b3d4fc;\n}\n\npre[class*=\"language-\"]::selection, pre[class*=\"language-\"] ::selection,\ncode[class*=\"language-\"]::selection, code[class*=\"language-\"] ::selection {\n\ttext-shadow: none;\n\tbackground: #b3d4fc;\n}\n\n@media print {\n\tcode[class*=\"language-\"],\n\tpre[class*=\"language-\"] {\n\t\ttext-shadow: none;\n\t}\n}\n\n/* Code blocks */\npre[class*=\"language-\"] {\n\tpadding: 1em;\n\tmargin: .5em 0;\n\toverflow: auto;\n}\n\n:not(pre) > code[class*=\"language-\"],\npre[class*=\"language-\"] {\n\tbackground: #f5f2f0;\n}\n\n/* Inline code */\n:not(pre) > code[class*=\"language-\"] {\n\tpadding: .1em;\n\tborder-radius: .3em;\n\twhite-space: normal;\n}\n\n.token.comment,\n.token.prolog,\n.token.doctype,\n.token.cdata {\n\tcolor: slategray;\n}\n\n.token.punctuation {\n\tcolor: #999;\n}\n\n.namespace {\n\topacity: .7;\n}\n\n.token.property,\n.token.tag,\n.token.boolean,\n.token.number,\n.token.constant,\n.token.symbol,\n.token.deleted {\n\tcolor: #905;\n}\n\n.token.selector,\n.token.attr-name,\n.token.string,\n.token.char,\n.token.builtin,\n.token.inserted {\n\tcolor: #690;\n}\n\n.token.operator,\n.token.entity,\n.token.url,\n.language-css .token.string,\n.style .token.string {\n\tcolor: #a67f59;\n\tbackground: hsla(0, 0%, 100%, .5);\n}\n\n.token.atrule,\n.token.attr-value,\n.token.keyword {\n\tcolor: #07a;\n}\n\n.token.function {\n\tcolor: #DD4A68;\n}\n\n.token.regex,\n.token.important,\n.token.variable {\n\tcolor: #e90;\n}\n\n.token.important,\n.token.bold {\n\tfont-weight: bold;\n}\n.token.italic {\n\tfont-style: italic;\n}\n\n.token.entity {\n\tcursor: help;\n}\n";
-
-const Mutating = (superclass) => {
-  return class extends superclass {
-
-    static get observedAttributes() {
-      return ['textContent'];
-    }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-      console.warn(name, oldValue, newValue);
-    }
-
-    constructor() {
-      super();
-
-      // set up mutation observer
-      const options = {childList: true, characterData: true, subtree: true};
-      const observer = new MutationObserver( (mutations) => {
-        observer.disconnect();
-        this.renderIfPossible();
-        observer.observe(this, options);
-      });
-
-      this.renderIfPossible();
-
-      // ...and listen for changes afterwards
-      observer.observe(this, options);
-    }
-
-    connectedCallback() {
-      this.renderIfPossible();
-    }
-
-    // potential TODO: check if this is enough for all our usecases
-    // maybe provide a custom function to tell if we have enough information to render
-    renderIfPossible() {
-      if (this.textContent && this.shadowRoot) { this.renderContent(); }
-    };
-
-    renderContent() {
-      console.error(`Your class ${this.constructor.name} must provide a custom renderContent() method!` );
-    }
-
-  } // end class
-}; // end mixin function
-
-const templateString = `
-<style>
-
-code {
-  white-space: nowrap;
-  background: rgba(0, 0, 0, 0.04);
-  border-radius: 2px;
-  padding: 4px 7px;
-  font-size: 15px;
-  color: rgba(0, 0, 0, 0.6);
-}
-
-pre code {
-  display: block;
-  background: white;
-  border-left: 3px solid rgba(0, 0, 0, 0.05);
-  padding: 0 0 0 24px;
-}
-
-${css}
-</style>
-
-<code id="code-container"></code>
-
-`;
-
-const Templated = Template("d-code", templateString);
-
-class Code extends Mutating(Templated(HTMLElement)) {
-
-  renderContent() {
-
-    // check if language can be highlighted
-    this.languageName = this.getAttribute('language');
-    if (!this.languageName) {
-      console.warn(`You need to provide a language attribute to your <d-code> block to let us know how to highlight your code; e.g.:\n <d-code language="python">zeros = np.zeros(shape)</d-code>.`);
-      return;
-    }
-    const language = prism.languages[this.languageName];
-    if (language == undefined) {
-      console.warn(`Distill does not yet support highlighting your code block in "${this.languageName}".`);
-      return;
-    }
-
-    let content = this.textContent;
-    const codeTag = this.shadowRoot.querySelector("#code-container");
-
-    if (this.hasAttribute("block")) {
-      // normalize the tab indents
-      content = content.replace(/\n/, "");
-      const tabs = content.match(/\s*/);
-      content = content.replace(new RegExp("\n" + tabs, "g"), "\n");
-      content = content.trim();
-      // wrap code block in pre tag if needed
-      if (codeTag.parentNode instanceof ShadowRoot) {
-        const preTag = document.createElement("pre");
-        this.shadowRoot.removeChild(codeTag);
-        preTag.appendChild(codeTag);
-        this.shadowRoot.appendChild(preTag);
-      }
-
-    }
-
-    codeTag.className = `language-${this.languageName}`;
-    codeTag.innerHTML = prism.highlight(content, language);
+  notify(data) {
+    const options = { detail: data, bubbles: true };
+    const event = new CustomEvent('onFrontMatterChanged', options);
+    document.dispatchEvent(event);
   }
 
 }
-
-customElements.define("d-code", Code);
 
 /**
  * This is the ParseError class, which is the main error thrown by KaTeX
@@ -9693,10 +10050,10 @@ var sigmas = fontMetrics$1.sigmas;
 
 var metrics = [{}, {}, {}];
 var i$1;
-for (var key$1 in sigmas) {
-    if (sigmas.hasOwnProperty(key$1)) {
+for (var key in sigmas) {
+    if (sigmas.hasOwnProperty(key)) {
         for (i$1 = 0; i$1 < 3; i$1++) {
-            metrics[i$1][key$1] = sigmas[key$1][i$1];
+            metrics[i$1][key] = sigmas[key][i$1];
         }
     }
 }
@@ -9780,7 +10137,7 @@ Style$2.prototype.isTight = function() {
 // IDs of the different styles
 var D = 0;
 var Dc = 1;
-var T$8 = 2;
+var T$11 = 2;
 var Tc = 3;
 var S = 4;
 var Sc = 5;
@@ -9807,7 +10164,7 @@ var resetNames = [
 var styles = [
     new Style$2(D, 0, 1.0, false),
     new Style$2(Dc, 0, 1.0, true),
-    new Style$2(T$8, 1, 1.0, false),
+    new Style$2(T$11, 1, 1.0, false),
     new Style$2(Tc, 1, 1.0, true),
     new Style$2(S, 2, 0.7, false),
     new Style$2(Sc, 2, 0.7, true),
@@ -9818,7 +10175,7 @@ var styles = [
 // Lookup tables for switching from one style to another
 var sup = [S, Sc, S, Sc, SS, SSc, SS, SSc];
 var sub = [Sc, Sc, Sc, Sc, SSc, SSc, SSc, SSc];
-var fracNum = [T$8, Tc, S, Sc, SS, SSc, SS, SSc];
+var fracNum = [T$11, Tc, S, Sc, SS, SSc, SS, SSc];
 var fracDen = [Tc, Tc, Sc, Sc, SSc, SSc, SSc, SSc];
 var cramp = [Dc, Dc, Tc, Tc, Sc, Sc, SSc, SSc];
 
@@ -9826,7 +10183,7 @@ var cramp = [Dc, Dc, Tc, Tc, Sc, Sc, SSc, SSc];
 // no more styles can be generated.
 var Style_1 = {
     DISPLAY: styles[D],
-    TEXT: styles[T$8],
+    TEXT: styles[T$11],
     SCRIPT: styles[S],
     SCRIPTSCRIPT: styles[SS]
 };
@@ -16493,418 +16850,276 @@ var katex = {
     ParseError: ParseError
 };
 
-const templateString$1 = `
+const T$10 = Template("d-math", `
 <style>
 
 d-math[block] {
   display: block;
 }
 
+${katexCSS}
+
 </style>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
-
 <span id="katex-container"></span>
-`;
+`);
 
-const TemplatedMath = Template("d-math", templateString$1);
-
-class Math$1 extends Mutating(TemplatedMath(HTMLElement)) {
+class DMath extends Mutating(T$10(HTMLElement)) {
 
   renderContent() {
     const options = { displayMode: this.hasAttribute("block") };
-    const container = this.shadowRoot.querySelector("#katex-container");
+    const container = this.root.querySelector("#katex-container");
     katex.render(this.textContent, container, options);
   }
-}
-
-customElements.define("d-math", Math$1);
-
-function make_hover_css(pos) {
-  var pretty = window.innerWidth > 600;
-  var padding = pretty? 18 : 12;
-  var outer_padding = pretty ? 18 : 0;
-  var bbox = document.querySelector("body").getBoundingClientRect();
-  var left = pos[0] - bbox.left, top = pos[1] - bbox.top;
-  var width = Math.min(window.innerWidth-2*outer_padding, 648);
-  left = Math.min(left, window.innerWidth-width-outer_padding);
-  width = width - 2*padding;
-  return (`position: absolute;
-     background-color: #FFF;
-     opacity: 0.95;
-     max-width: ${width}px;
-     top: ${top}px;
-     left: ${left}px;
-     border: 1px solid rgba(0, 0, 0, 0.25);
-     padding: ${padding}px;
-     border-radius: ${pretty? 3 : 0}px;
-     box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);
-     z-index: ${1e6};`);
-}
-
-
-class HoverBox {
-
-  constructor(div) {
-    this.div = div;
-    this.visible = false;
-    this.bindDivEvents(div);
-    HoverBox.box_map[div.id] = this;
-  }
 
 }
 
-HoverBox.box_map = {};
-
-HoverBox.get_box = function get_box(div_id) {
-  if (div_id in HoverBox.box_map) {
-    return HoverBox.box_map[div_id];
-  } else {
-    return new HoverBox(div_id);
-  }
-};
-
-HoverBox.prototype.show = function show(pos){
-  this.visible = true;
-  this.div.setAttribute("style", make_hover_css(pos) );
-  for (var box_id in HoverBox.box_map) {
-    var box = HoverBox.box_map[box_id];
-    if (box != this) box.hide();
-  }
-};
-
-HoverBox.prototype.showAtNode = function showAtNode(node){
-    var bbox = node.getBoundingClientRect();
-    this.show([bbox.right, bbox.bottom]);
-};
-
-HoverBox.prototype.hide = function hide(){
-  this.visible = false;
-  if (this.div) this.div.setAttribute("style", "display:none");
-  if (this.timeout) clearTimeout(this.timeout);
-};
-
-HoverBox.prototype.stopTimeout = function stopTimeout() {
-  if (this.timeout) clearTimeout(this.timeout);
-};
-
-HoverBox.prototype.extendTimeout = function extendTimeout(T) {
-  //console.log("extend", T)
-  var this_ = this;
-  this.stopTimeout();
-  this.timeout = setTimeout(function(){this_.hide();}.bind(this), T);
-};
-
-// Bind events to a link to open this box
-HoverBox.prototype.bind = function bind(node) {
-  if (typeof node == "string"){
-    node = document.querySelector(node);
-  }
-
-  node.addEventListener("mouseover", function(){
-    if (!this.visible) this.showAtNode(node);
-    this.stopTimeout();
-  }.bind(this));
-
-  node.addEventListener("mouseout", function(){this.extendTimeout(250);}.bind(this));
-
-  node.addEventListener("touchstart", function(e) {
-    if (this.visible) {
-      this.hide();
-    } else {
-      this.showAtNode(node);
-    }
-    // Don't trigger body touchstart event when touching link
-    e.stopPropagation();
-  }.bind(this));
-};
-
-HoverBox.prototype.bindDivEvents = function bindDivEvents(node){
-  // For mice, same behavior as hovering on links
-  this.div.addEventListener("mouseover", function(){
-    if (!this.visible) this.showAtNode(node);
-    this.stopTimeout();
-  }.bind(this));
-  this.div.addEventListener("mouseout", function(){this.extendTimeout(250);}.bind(this));
-
-  // Don't trigger body touchstart event when touching within box
-  this.div.addEventListener("touchstart", function(e){e.stopPropagation();});
-  // Close box when touching outside box
-  document.body.addEventListener("touchstart", function(){this.hide();}.bind(this));
-};
-
-const templateString$2 = `
+const T$12 = Template("d-references", `
 <style>
-
-d-math[block] {
+d-references {
   display: block;
 }
-
 </style>
+`, false);
 
-<div style="display: none;" class="dt-hover-box">
-  <slot></slot>
-</div>
-
-<sup><span id="fn-" data-hover-ref="" style="cursor:pointer"></span></sup>
-
-`;
-
-const TemplatedFootnote = Template("d-footnote", templateString$2);
-
-class Footnote extends TemplatedFootnote(HTMLElement) {
+class References extends T$12(HTMLElement) {
 
   connectedCallback() {
-    // create numeric ID
-    Footnote.currentFootnoteId += 1;
-    const IdString = Footnote.currentFootnoteId.toString();
-    this.root.host.id = 'd-footnote-' + IdString;
-
-    // set up hidden hover box
-    const div = this.root.querySelector('.dt-hover-box');
-    div.id = 'dt-fn-hover-box-' + IdString;
-
-    // set up visible footnote marker
-    const span = this.root.querySelector('#fn-');
-    span.setAttribute('id', 'fn-' + IdString);
-    span.setAttribute('data-hover-ref', div.id);
-    span.textContent = IdString;
-    
-    HoverBox.get_box(div).bind(span);
-
-    // register with footnote list should there be one
-    const footnoteList = document.querySelector('d-footnote-list');
-    if (footnoteList) {
-      customElements.whenDefined('d-footnote-list').then(() => {
-        footnoteList.registerFootnote(this);
-      });
-    }
+    super.connectedCallback();
   }
 
 }
 
-Footnote.currentFootnoteId = 0;
-
-customElements.define("d-footnote", Footnote);
-
-const name$1 = 'd-footnote-list';
-const T$9 = Template(name$1, `
+const T$13 = Template("d-title", `
 <style>
-ol {
-  padding: 0 0 0 18px;
+
+:host {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  margin-bottom: 100px;
 }
-li {
-  margin-bottom: 12px;
-}
-h3 {
-  font-size: 15px;
-  font-weight: 500;
-  margin-top: 20px;
-  margin-bottom: 0;
-  color: rgba(0,0,0,0.65);
+
+::slotted(h1) {
+  padding-top: 140px;
+  padding-bottom: 24px;
+  margin: 0;
   line-height: 1em;
-}
-a {
-  color: rgba(0, 0, 0, 0.6);
-}
-
-a.footnote-backlink {
-  color: rgba(0,0,0,0.3);
-  padding-left: 0.5em;
+  font-size: 48px;
+  font-weight: 600;
 }
 
-
-</style>
-
-<h3>Footnotes</h3>
-<ol></ol>
-`);
-
-class FootnoteList extends T$9(HTMLElement) {
-
-  static get is() { return name$1; }
-
-  connectedCallback() {
-    this.list = this.root.querySelector('ol');
-    this.footnotes = new Map();
-    // footnotes list is initially hidden
-    this.root.host.style.display = 'none';
-    // look through document and register existing footnotes
-    document.querySelectorAll('d-footnote')
-      .forEach(footnote => this.registerFootnote(footnote));
-  }
-
-  registerFootnote(element) {
-    // check if we already know about this footnote
-    if (!this.footnotes.has(element.id)) {
-      this.footnotes.set(element.id, element);
-      // ensure footnote list is visible
-      this.root.host.style.display = 'initial';
-      // construct and append list item to show footnote
-      const listItem = document.createElement('li');
-      listItem.innerHTML = element.innerHTML;
-      const backlink = document.createElement('a');
-      backlink.setAttribute('class', 'footnote-backlink');
-      backlink.textContent = '[↩]';
-      backlink.href = `#${element.id}`;
-      listItem.appendChild(backlink);
-      this.list.appendChild(listItem);
-    } /*else {
-      console.debug('Had already registered footnote ' + element.id + '!')
-    }*/
-  }
-
+d-byline {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-customElements.define(name$1, FootnoteList);
+${page("::slotted(h1), ::slotted(h2)")}
 
-const name$2 = 'd-acknowledgements';
-
-const T$10 = Template(name$2, `
-<style>
-::slotted(h3) {
-  font-size: 15px;
-  font-weight: 500;
-  margin-top: 20px;
-  margin-bottom: 0;
-  color: rgba(0,0,0,0.65);
-  line-height: 1em;
-}
-::slotted(*) a {
-  color: rgba(0, 0, 0, 0.6);
-}
 </style>
 
 <slot></slot>
+<d-byline></d-byline>
 `);
 
-class Acknowledgements extends T$10(HTMLElement) {
+class Title extends T$13(HTMLElement) {
 
-  static get is() { return name$2; }
+  connectedCallback() {
+    super.connectedCallback();
+
+    // this.byline = document.createElement("d-byline");
+    // this.appendChild(this.byline);
+  }
 
 }
 
-customElements.define(name$2, Acknowledgements);
-
-const T$11 = Template('d-cite', `
+const T$14 = Template("d-toc", `
 <style>
-  .citation {
-    color: hsla(206, 90%, 20%, 0.7);
+d-toc {
+  display: block;
+}
+</style>
+`, false);
+
+class TOC extends T$14(HTMLElement) {
+
+}
+
+var logo = "";
+
+const T$15 = Template("distill-header", `
+<style>
+:host {
+  box-sizing: border-box;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: hsl(200, 60%, 15%);
+  z-index: ${1e6};
+  color: rgba(0, 0, 0, 0.8);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+}
+.content {
+  height: 70px;
+}
+a {
+  font-size: 16px;
+  height: 60px;
+  line-height: 60px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 22px 0;
+}
+a:hover {
+  color: rgba(255, 255, 255, 1);
+}
+svg {
+  width: 24px;
+  position: relative;
+  top: 4px;
+  margin-right: 2px;
+}
+@media(min-width: 1080px) {
+  :host {
+    height: 70px;
   }
-  .citation-number {
-    cursor: default;
-    white-space: nowrap;
-    font-family: -apple-system, BlinkMacSystemFont, "Roboto", Helvetica, sans-serif;
-    font-size: 75%;
-    color: hsla(206, 90%, 20%, 0.7);
-    display: inline-block;
-    line-height: 1.1em;
-    text-align: center;
-    position: relative;
-    top: -2px;
-    margin: 0 2px;
+  a {
+    height: 70px;
+    line-height: 70px;
+    padding: 28px 0;
   }
-  figcaption .citation-number {
-    font-size: 11px;
-    font-weight: normal;
-    top: -2px;
-    line-height: 1em;
+  .logo {
   }
+}
+svg path {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.8);
+  stroke-width: 3px;
+}
+.logo {
+  font-size: 17px;
+  font-weight: 200;
+}
+.nav {
+  float: right;
+  font-weight: 300;
+}
+.nav a {
+  font-size: 12px;
+  margin-left: 24px;
+  text-transform: uppercase;
+}
 </style>
 
-<div style="display: none;" class="dt-hover-box">
+<div class="content l-page">
+  <a href="/" class="logo">
+    ${logo}
+    Distill
+  </a>
+  <div class="nav">
+    <a href="/faq">About</a>
+    <a href="https://github.com/distillpub">GitHub</a>
+    <!-- https://twitter.com/distillpub -->
+  </div>
 </div>
-
-<span id="citation-" class="citation">
-  <slot></slot>
-  <span class="citation-number"></span>
-</span>
 `);
 
-
-function inline_cite_short$1(keys, bibliography) {
-  function cite_string(key) {
-    if (bibliography.hasEntry(key)){
-      return (bibliography.getIndex(key)+1).toString();
-    } else {
-      return "?";
-    }
+class DistillHeader extends T$15(HTMLElement) {
+  static get is() {
+    return "distill-header";
   }
-  return "[" + keys.map(cite_string).join(", ") + "]";
 }
 
-
-class Cite extends T$11(HTMLElement) {
-
-  constructor() {
-    super();
-    this._key = null;
-
-    Cite.currentId += 1;
-    this.citeId = Cite.currentId;
+const styles$1 = `
+<style>
+  distill-appendix h3 {
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 20px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+    line-height: 1em;
   }
-
-  static get observedAttributes() {
-    return ['key'];
+  distill-appendix a {
+    color: rgba(0, 0, 0, 0.6);
   }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    // name will always be "key" due to observedAttributes
-    this._key = newValue;
-    this.renderContent();
+  distill-appendix ol,
+  distill-appendix ul {
+    padding-left: 24px;
   }
-
-  get key() {
-    return this._key;
+  distill-appendix .citation {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
   }
+</style>
+`;
 
-  set key(value) {
-    this.setAttribute('key', value);
-  }
+function appendixTemplate(frontMatter) {
+  return `
+  ${styles$1}
 
-  renderContent() {
-    const bibliography = document.querySelector('d-bibliography');
-    if (bibliography && bibliography.finishedLoading) {
-      customElements.whenDefined('d-bibliography').then( () => {
-        const keys = this.key.split(",");
+  <h3>Updates and Corrections</h3>
+  <p><a href="">View all changes</a> to this article since it was first published. If you see mistakes or want to suggest changes, please <a href="${frontMatter.githubUrl + '/issues/new'}">create an issue on GitHub</a>. </p>
 
-        // set up hidden hover box
-        const div = this.root.querySelector('.dt-hover-box');
-        div.innerHTML = keys.map( (key) => {
-          return bibliography.getEntry(key);
-        }).map(hover_cite).join('<br><br>');
-        div.id ='dt-cite-hover-box-' + this.citeId;
+  <h3>Reuse</h3>
+  <p>Diagrams and text are licensed under Creative Commons Attribution <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY 2.0</a> with the <a class="github" href="${frontMatter.githubUrl}">source available on GitHub</a>, unless noted otherwise. The figures that have been reused from other sources don’t fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>
 
-        // set up visible citation marker
-        const outerSpan = this.root.querySelector('#citation-');
-        outerSpan.id = `citation-${this.citeId}`;
-        // outerSpan.setAttribute('data-hover', dataHoverString); // directly tell HoverBox instead?
-        const innerSpan = this.root.querySelector('.citation-number');
-        innerSpan.textContent = inline_cite_short$1(keys, bibliography);
+  <h3>Citation</h3>
+  <p>For attribution in academic contexts, please cite this work as</p>
+  <pre class="citation short">${frontMatter.concatenatedAuthors}, "${frontMatter.title}", Distill, ${frontMatter.publishedYear}.</pre>
+  <p>BibTeX citation</p>
+  <pre class="citation long">@article{${frontMatter.slug},
+  author = {${frontMatter.bibtexAuthors}},
+  title = {${frontMatter.title}},
+  journal = {Distill},
+  year = {${frontMatter.publishedYear}},
+  note = {${frontMatter.url}}
+  }</pre>
+  `;
+}
 
-        HoverBox.get_box(div).bind(outerSpan);
-      });
-    } else {
-      console.error(`You used a d-cite tag (${key}) without including a d-bibliography tag in your article. We can't lookup your citation this way.`);
-    }
+class DistillAppendix extends HTMLElement {
+
+  static get is() { return "distill-appendix"; }
+
+  set frontMatter(frontMatter) {
+    this.innerHTML = appendixTemplate(frontMatter);
   }
 
 }
 
-Cite.currentId = 0;
+/* Static styles and other modules */
+const components = [
+  Abstract, Acknowledgements, Appendix, Article, Bibliography,
+  Byline, Cite, Code, Footnote, FootnoteList, FrontMatter$1, DMath,
+  References, Title, TOC,
+];
 
-customElements.define(Cite.is, Cite);
+/* Distill website specific components */
+const distillComponents = [
+  DistillHeader, DistillAppendix,
+];
 
-// load `webcomponent` polyfills asynchronously
-// import "webcomponents.js/webcomponents-loader.js";
+function defineComponents() {
+  const allComponents = components.concat(distillComponents);
+  for (const component of allComponents) {
+    customElements.define(component.is, component);
+  }
+}
 
-document.addEventListener("DOMContentLoaded", function() {
-  // Render byline with authors list.
+defineComponents();
 
-  // Render distill appendix with distill journal data.
-  // document.querySelector("distill-appendix").render([]);
-
-});
-
-})));
+}());
 //# sourceMappingURL=components.js.map

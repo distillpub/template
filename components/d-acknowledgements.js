@@ -1,8 +1,6 @@
 import { Template } from "../mixins/template";
 
-const name = 'd-acknowledgements';
-
-const T = Template(name, `
+const T = Template('d-acknowledgements', `
 <style>
 ::slotted(h3) {
   font-size: 15px;
@@ -20,10 +18,6 @@ const T = Template(name, `
 <slot></slot>
 `);
 
-export default class Acknowledgements extends T(HTMLElement) {
-
-  static get is() { return name; }
+export class Acknowledgements extends T(HTMLElement) {
 
 }
-
-customElements.define(name, Acknowledgements);

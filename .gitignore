@@ -34,3 +34,8 @@ jspm_packages
 
 # Yarn Integrity file
 .yarn-integrity
+
+# Copied fonts
+examples/fonts
+dist/examples/fonts
+dist/fonts

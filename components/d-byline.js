@@ -55,13 +55,8 @@ const T = Template("d-byline", `
     display: inline;
   }
 
-  @media(min-width: 768px) {
-    {
-    }
-  }
-
   @media(min-width: 1080px) {
-    {
+    :host {
       border-bottom: none;
     }
 
@@ -152,17 +147,13 @@ const mustacheTemplate = `
 {{/citation}}
 `;
 
-export default class Byline extends T(HTMLElement) {
-
-  static get is() { return "d-byline"; }
+export class Byline extends T(HTMLElement) {
 
   connectedCallback() {
-    const frontmatter = document.querySelector('d-front-matter');
-    const container = this.root.querySelector('.byline');
-    container.innerHTML = mustache.render(mustacheTemplate, frontmatter.data);
-    console.log(frontmatter.data)
+    // const frontmatter = document.querySelector('d-front-matter');
+    // const container = this.root.querySelector('.byline');
+    // container.innerHTML = mustache.render(mustacheTemplate, frontmatter.data);
+    // // console.log(frontmatter.data)
   }
 
 }
-
-customElements.define(Byline.is, Byline);
