@@ -14,7 +14,7 @@ export class FrontMatter {
     this.description = "";
     //  description: 'A visual overview of neural attention, and the powerful extensions of neural networks being built on top of it.',
     this.authors = [];
-    //  authors: [
+    //  [
     //    {
     //      "personalURL": null,
     //      "name": "Chris Olah",
@@ -25,7 +25,7 @@ export class FrontMatter {
     //    }
     //  ]
     this.bibliography = {};
-    //  bibliography: {
+    //  {
     //    "gregor2015draw": {
     //      "title": "DRAW: A recurrent neural network for image generation",
     //      "author": "Gregor, Karol and Danihelka, Ivo and Graves, Alex and Rezende, Danilo Jimenez and Wierstra, Daan",
@@ -36,14 +36,14 @@ export class FrontMatter {
     //    },
     //  }
     this.citations = [];
-    //  citations: [
+    //  [
     //    "gregor2015draw",
     //    "mercier2011humans",
     //    "dong2014image",
     //    "dumoulin2016guide",
     //    "mordvintsev2015inceptionism"
     //  ]
-    // In the order that they are appear.
+    // Listed in the order that they are appear in the document.
 
 
     //
@@ -89,10 +89,6 @@ export class FrontMatter {
   // Computed Properties
   //
 
-  //   data.publishedDate = data.publishedDate ? data.publishedDate : new Date("Invalid");
-  //   data.updatedDate = data.updatedDate ? data.updatedDate : new Date("Invalid");
-
-
   // 'http://distill.pub/2016/augmented-rnns',
   set url(value) {
     this._url = value;
@@ -112,7 +108,7 @@ export class FrontMatter {
     return "https://github.com/" + this.githubPath;
   }
 
-  // TODO resolve differences in URL, url capitalizations.
+  // TODO resolve differences in naming of URL/Url/url.
   // 'http://distill.pub/2016/augmented-rnns/thumbnail.jpg',
   set previewURL(value) {
     this._previewURL = value;
@@ -182,38 +178,3 @@ export class FrontMatter {
   }
 
 }
-
-//   // Homepage
-//   //data.homepage = !post.noHomepage;
-
-//
-// let localData = {};
-//
-// data.title = localData.title ? localData.title : "Untitled";
-// data.description = localData.description ? localData.description : "No description.";
-//
-// data.authors = localData.authors ? localData.authors : [];
-//
-// data.authors = data.authors.map((author, i) =>{
-//   let a = {};
-//   let name = Object.keys(author)[0];
-//   if ((typeof author) === "string") {
-//     name = author;
-//   } else {
-//     a.personalURL = author[name];
-//   }
-//   let names = name.split(" ");
-//   a.name = name;
-//   a.firstName = names.slice(0, names.length - 1).join(" ");
-//   a.lastName = names[names.length -1];
-//   if(localData.affiliations[i]) {
-//     let affiliation = Object.keys(localData.affiliations[i])[0];
-//     if ((typeof localData.affiliations[i]) === "string") {
-//       affiliation = localData.affiliations[i]
-//     } else {
-//       a.affiliationURL = localData.affiliations[i][affiliation];
-//     }
-//     a.affiliation = affiliation;
-//   }
-//   return a;
-// });
