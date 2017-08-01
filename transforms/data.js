@@ -1,29 +1,36 @@
 import {timeFormat} from "d3-time-format";
 
-function zeroPad(n) {
-  return n < 10 ? "0" + n : n;
-}
-let RFC = timeFormat("%a, %d %b %Y %H:%M:%S %Z");
-let months = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+const zeroPad = n =>  n < 10 ? "0" + n : n;
+const RFC = timeFormat("%a, %d %b %Y %H:%M:%S %Z");
+const months = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
+class Author {
+  constructor() {
+    this.personalURL = ""; // "https://colah.github.io"
+    this.name = ""; // "Chris Olah"
+    this.affiliationURL = ""; // "https://g.co/brain"
+    this.affiliation = ""; // "Google Brain"
+  }
+
+  // "Chris"
+  get firstName() {
+    let names = this.name.split(" ");
+    return names.slice(0, names.length - 1).join(" ");
+  }
+
+  // "Olah"
+  get lastName() {
+    let names = this.name.split(" ");
+    return names[names.length -1];
+  }
+}
 
 export class FrontMatter {
   constructor() {
-    this.title = "";
-    //  title: 'Attention and Augmented Recurrent Neural Networks',
-    this.description = "";
-    //  description: 'A visual overview of neural attention, and the powerful extensions of neural networks being built on top of it.',
-    this.authors = [];
-    //  [
-    //    {
-    //      "personalURL": null,
-    //      "name": "Chris Olah",
-    //      "firstName": "Chris",
-    //      "lastName": "Olah",
-    //      "affiliationURL": null,
-    //      "affiliation": "Google Brain"
-    //    }
-    //  ]
+    this.title = ""; // "Attention and Augmented Recurrent Neural Networks"
+    this.description = ""; // "A visual overview of neural attention..."
+    this.authors = []; // Array of Author(s)
+
     this.bibliography = {};
     //  {
     //    "gregor2015draw": {
@@ -35,15 +42,10 @@ export class FrontMatter {
     //      "type": "article"
     //    },
     //  }
-    this.citations = [];
-    //  [
-    //    "gregor2015draw",
-    //    "mercier2011humans",
-    //    "dong2014image",
-    //    "dumoulin2016guide",
-    //    "mordvintsev2015inceptionism"
-    //  ]
-    // Listed in the order that they are appear in the document.
+
+    // Citation keys should be listed in the order that they are appear in the document.
+    // Each key refers to a key in the bibliography dictionary.
+    this.citations = []; // [ "gregor2015draw", "mercier2011humans" ]
 
 
     //
