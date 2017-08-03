@@ -29,16 +29,8 @@ ${page("::slotted(h1), ::slotted(h2)")}
 </style>
 
 <slot></slot>
-<d-byline></d-byline>
 `);
 
 export class Title extends T(HTMLElement) {
-
-  connectedCallback() {
-    super.connectedCallback();
-
-    // this.byline = document.createElement("d-byline");
-    // this.appendChild(this.byline);
-  }
 
 }

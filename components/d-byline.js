@@ -1,10 +1,9 @@
-import mustache from "mustache";
-import {Template} from "../mixins/template";
-import {page} from "./layout";
+import { Template } from "../mixins/template";
+import { page } from "./layout";
 
 const T = Template("d-byline", `
 <style>
-  :host {
+  d-byline {
     box-sizing: border-box;
     font-size: 13px;
     line-height: 20px;
@@ -56,7 +55,7 @@ const T = Template("d-byline", `
   }
 
   @media(min-width: 1080px) {
-    :host {
+    d-byline {
       border-bottom: none;
     }
 
@@ -109,51 +108,42 @@ const T = Template("d-byline", `
   }
 </style>
 
-<div class='byline'></div>
-`);
+<div class='byline'>
+</div>
+`, false);
 
-const mustacheTemplate = `
-<div class="authors">
-{{#authors}}
-  <div class="author">
-    {{#personalURL}}
-      <a class="name" href="{{personalURL}}">{{name}}</a>
-    {{/personalURL}}
-    {{^personalURL}}
-      <div class="name">{{name}}</div>
-    {{/personalURL}}
-    {{#affiliation}}
-      {{#affiliationURL}}
-        <a class="affiliation" href="{{affiliationURL}}">{{affiliation}}</a>
-      {{/affiliationURL}}
-      {{^affiliationURL}}
-        <div class="affiliation">{{affiliation}}</div>
-      {{/affiliationURL}}
-    {{/affiliation}}
+export function bylineTemplate(frontMatter) {
+  return `
+  <div class="authors">
+    ${frontMatter.authors.map( author => `<div class="author">
+      ${author.personalURL ?
+        `<a class="name" href="${author.personalURL}">${author.name}</a>`
+      :
+        `<div class="name">${author.name}</div>`
+      }
+      ${author.affiliationURL ?
+        `<a class="affiliation" href="${author.affiliationURL}">${author.affiliation}</a>`
+      :
+        `<div class="affiliation">${author.affiliation}</div>`
+      }
+    </div>`).join('\n')}
   </div>
-  {{/authors}}
-</div>
-{{#publishedDate}}
-<div class="date">
-  <div class="month">{{publishedMonth}}. {{publishedDay}}</div>
-  <div class="year">{{publishedYear}}</div>
-</div>
-{{/publishedDate}}
-{{#citation}}
-<a class="citation" href="#citation">
-  <div>Citation:</div>
-  <div>{{concatenatedAuthors}}, {{publishedYear}}</div>
-</a>
-{{/citation}}
-`;
+  <div class="date">
+    <div class="month">${frontMatter.publishedMonth}. ${frontMatter.publishedDay}</div>
+    <div class="year">${frontMatter.publishedYear}</div>
+  </div>
+  <a class="citation" href="#citation">
+    <div>Citation:</div>
+    <div>${frontMatter.concatenatedAuthors}, ${frontMatter.publishedYear}</div>
+  </a>
+  `;
+}
 
 export class Byline extends T(HTMLElement) {
 
-  connectedCallback() {
-    // const frontmatter = document.querySelector('d-front-matter');
-    // const container = this.root.querySelector('.byline');
-    // container.innerHTML = mustache.render(mustacheTemplate, frontmatter.data);
-    // // console.log(frontmatter.data)
+  set frontMatter(frontMatter) {
+    const container = this.querySelector('.byline');
+    container.innerHTML = bylineTemplate(frontMatter);
   }
 
 }

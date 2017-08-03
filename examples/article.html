@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf8">
 
-  <script>
+  <script id='polyfills'>
     // checks for webcomponents compatibility
     if ('registerElement' in document &&
         'import' in document.createElement('link') &&
@@ -12,7 +12,6 @@
     } else {
       // Platform does not support webcomponents--loading polyfills.
       const scriptTag = document.createElement('script');
-      scriptTag.src = '../node_modules/webcomponents.js/webcomponents-lite.js';
       scriptTag.src = '../node_modules/webcomponents.js/webcomponents-lite.js';
       scriptTag.async = false;
       document.currentScript.parentNode.insertBefore(scriptTag, document.currentScript.nextSibling);
@@ -38,7 +37,10 @@
 <d-article>
   <d-title>
     <h1>Attention and Augmented Recurrent Neural Networks</h1>
+    <!-- <h2>Some people want a deck</h2> -->
+    <d-byline></d-byline>
   </d-title>
+
   <d-abstract>
     <p>This is the first paragraph of the article. Test a long&thinsp;&mdash;&thinsp;dash -- here it is.</p>
   </d-abstract>

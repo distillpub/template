@@ -106,6 +106,9 @@ export const Controller = {
 
       const appendix = document.querySelector('distill-appendix');
       appendix.frontMatter = frontMatter;
+
+      const byline = document.querySelector('d-byline');
+      byline.frontMatter = frontMatter;
     },
 
     DOMContentLoaded(event) {
@@ -113,9 +116,7 @@ export const Controller = {
 
       const frontMatterTag = document.querySelector('d-front-matter');
       const data = frontMatterTag.parse();
-      frontMatter.mergeFromYMLFrontmatter(data);
-      const appendix = document.querySelector('distill-appendix');
-      appendix.frontMatter = frontMatter;
+      Controller.listeners.onFrontMatterChanged({detail: data});
 
       console.debug('Resolving "citations" dependency due to initial DOM load.');
       frontMatter.citations = collectCitations();

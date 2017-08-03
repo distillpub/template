@@ -167,17 +167,17 @@ export class FrontMatter {
 
   // 'Sept',
   get publishedMonth() {
-    return months[data.publishedDate.getMonth()];
+    return months[this.publishedDate.getMonth()];
   }
 
   // 8,
   get publishedDay() {
-    return data.publishedDate.getDate();
+    return this.publishedDate.getDate();
   }
 
   // '09',
   get publishedMonthPadded() {
-    return zeroPad(data.publishedDate.getMonth() + 1);
+    return zeroPad(this.publishedDate.getMonth() + 1);
   }
 
   // '08',
