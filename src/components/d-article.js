@@ -1,5 +1,5 @@
 import { Template } from '../mixins/template';
-import { Controller } from './controller';
+import { Controller } from '../controller';
 
 const T = Template('d-article', `
 <style></style>

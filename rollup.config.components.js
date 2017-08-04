@@ -2,21 +2,20 @@ import copy     from 'rollup-plugin-copy';
 import resolve  from 'rollup-plugin-node-resolve';
 import string   from 'rollup-plugin-string';
 import commonjs from 'rollup-plugin-commonjs';
-// import babili   from 'rollup-plugin-babili';
-// import gzip     from 'rollup-plugin-gzip';
-import serve    from 'rollup-plugin-serve';
+import babili   from 'rollup-plugin-babili';
 
 const PORT = 8080;
+
 console.log(`opening http://localhost:${PORT} .../`);
 
 export default {
-  entry: 'components.js',
+  entry: 'src/components.js',
   sourceMap: true,
   targets: [
     {
       format: 'iife',
       moduleName: 'dl',
-      dest: `dist/components.js`,
+      dest: 'dist/components.js',
     }
   ],
   plugins: [
@@ -25,18 +24,13 @@ export default {
       browser: true,
     }),
     string({
-      include: ["**/*.txt", "**/*.svg", "**/*.html", "**/*.css", "**/*.base64"]
+      include: ['**/*.txt', '**/*.svg', '**/*.html', '**/*.css', '**/*.base64']
     }),
     commonjs(),
-    // babili({
-    //   comments: false, // means: *remove comments
-    //   sourceMap: true,
-    // }),
-    // gzip(), // just for testing -- firebase CDN gzips automatically
-    // serve({
-    //   port: PORT,
-    //   open: true,
-    // })
+    babili({
+      comments: false, // means: *remove* comments
+      sourceMap: true,
+    }),
     copy({
       'node_modules/katex/dist/fonts': 'examples/fonts',
     }),

@@ -1,7 +1,7 @@
 import katex from "katex";
 import { Mutating } from "../mixins/mutating.js"
 import { Template } from "../mixins/template.js"
-import katexCSS from "../node_modules/katex/dist/katex.min.css"
+import katexCSS from "../../node_modules/katex/dist/katex.min.css"
 
 const T = Template("d-math", `
 <style>

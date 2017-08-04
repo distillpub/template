@@ -1,6 +1,6 @@
 {
   "name": "distill-template",
-  "version": "0.0.21",
+  "version": "2.0.0",
   "description": "Template for creating Distill articles.",
   "main": "dist/template.js",
   "author": "Shan Carter",
@@ -12,6 +12,7 @@
     "start": "rollup -c rollup.config.components.js -w",
     "serve": "python3 -m http.server --bind 127.0.0.1",
     "test": "mocha",
+    "lint": "eslint",
     "build": "rollup -c rollup.config.components.js"
   },
   "repository": {
@@ -21,29 +22,29 @@
   "devDependencies": {
     "bibtex-parse-js": "^0.0.23",
     "chai": "^3.5.0",
+    "commander": "^2.9.0",
+    "eslint": "^4.3.0",
+    "eslint-config-google": "^0.9.1",
     "js-yaml": "^3.7.0",
     "jsdom": "^9.10.0",
     "marked": "^0.3.6",
     "mocha": "^3.2.0",
     "prismjs": "^1.6.0",
     "rollup": "latest",
-    "rollup-plugin-buble": "^0.14.0",
+    "rollup-plugin-babili": "^3.1.0",
     "rollup-plugin-commonjs": "^7.0.0",
+    "rollup-plugin-copy": "^0.2.3",
+    "rollup-plugin-gzip": "^1.2.0",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-serve": "^0.1.0",
     "rollup-plugin-string": "^2.0.2",
     "rollup-plugin-uglify": "^1.0.1",
-    "rollup-watch": "^2.5.0"
+    "rollup-watch": "^2.5.0",
+    "webpack": "^2.2.1"
   },
   "dependencies": {
-    "@webcomponents/webcomponentsjs": "webcomponents/webcomponentsjs",
-    "commander": "^2.9.0",
     "d3-time-format": "^2.0.3",
     "katex": "^0.7.1",
-    "rollup-plugin-babili": "^3.1.0",
-    "rollup-plugin-copy": "^0.2.3",
-    "rollup-plugin-gzip": "^1.2.0",
-    "webcomponents.js": "webcomponents/webcomponentsjs",
-    "webpack": "^2.2.1"
+    "webcomponents.js": "webcomponents/webcomponentsjs"
   }
 }

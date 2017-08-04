@@ -1,10 +1,8 @@
-import { FrontMatter } from '../transforms/data';
-import { collectCitations } from './d-cite';
+import { FrontMatter } from './front-matter';
+import { collectCitations } from './components/d-cite';
 
 const frontMatter = new FrontMatter();
 
-// set up global controller object
-/* functions whose names start with 'on' will be registered as listeners on d-article */
 export const Controller = {
 
   frontMatter: frontMatter,
@@ -19,14 +17,14 @@ export const Controller = {
 
       // ensure we have citations
       if (frontMatter.citations.length === 0) {
-        console.debug('onCiteKeyCreated, but unresolved dependency ("citations"). Enqueing.');
+        // console.debug('onCiteKeyCreated, but unresolved dependency ("citations"). Enqueing.');
         Controller.waitingOn.citations.push(() => Controller.listeners.onCiteKeyCreated(event));
         return;
       }
 
       // ensure we have a loaded bibliography
       if (frontMatter.bibliography.size === 0) {
-        console.debug('onCiteKeyCreated, but unresolved dependency ("bibliography"). Enqueing.');
+        // console.debug('onCiteKeyCreated, but unresolved dependency ("bibliography"). Enqueing.');
         Controller.waitingOn.bibliography.push(() => Controller.listeners.onCiteKeyCreated(event));
         return;
       }
@@ -79,7 +77,7 @@ export const Controller = {
 
       // ensure we have citations
       if (frontMatter.citations.length === 0) {
-        console.debug('onBibliographyChanged, but unresolved dependency ("citations"). Enqueing.');
+        // console.debug('onBibliographyChanged, but unresolved dependency ("citations"). Enqueing.');
         Controller.waitingOn.citations.push(() => Controller.listeners.onBibliographyChanged(event));
         return;
       }
@@ -90,8 +88,8 @@ export const Controller = {
       bibliographyTag.entries = entries;
     },
 
-    onFootnoteChanged(event) {
-      const footnote = event.detail;
+    onFootnoteChanged() {
+      // const footnote = event.detail;
       //TODO: optimize to only update current footnote
       const footnotesList = document.querySelector('d-footnote-list');
       if (footnotesList) {
@@ -111,14 +109,14 @@ export const Controller = {
       byline.frontMatter = frontMatter;
     },
 
-    DOMContentLoaded(event) {
-      console.debug('DOMContentLoaded.');
+    DOMContentLoaded() {
+      // console.debug('DOMContentLoaded.');
 
       const frontMatterTag = document.querySelector('d-front-matter');
       const data = frontMatterTag.parse();
       Controller.listeners.onFrontMatterChanged({detail: data});
 
-      console.debug('Resolving "citations" dependency due to initial DOM load.');
+      // console.debug('Resolving "citations" dependency due to initial DOM load.');
       frontMatter.citations = collectCitations();
       for (const waitingCallback of Controller.waitingOn.citations) {
         waitingCallback();
@@ -129,18 +127,8 @@ export const Controller = {
         const footnotes = document.querySelectorAll('d-footnote');
         footnotesList.footnotes = footnotes;
       }
-
     }
 
   }, // listeners
 
-  update: {
-    cite(element) {
-
-    },
-    footnoteList(element) {
-
-    }
-  }
-
-} // Controller
+}; // Controller

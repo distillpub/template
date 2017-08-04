@@ -1,5 +1,5 @@
 /* Static styles and other modules */
-import * as Styles from './components/styles';
+import './styles/styles';
 
 /* Components */
 import { Abstract }         from './components/d-abstract';
@@ -25,8 +25,8 @@ const components = [
 ];
 
 /* Distill website specific components */
-import { DistillHeader } from "./distill-components/distill-header";
-import { DistillAppendix } from "./distill-components/distill-appendix";
+import { DistillHeader } from './distill-components/distill-header';
+import { DistillAppendix } from './distill-components/distill-appendix';
 
 const distillComponents = [
   DistillHeader, DistillAppendix,

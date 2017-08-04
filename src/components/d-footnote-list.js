@@ -1,5 +1,4 @@
-import { Template } from "../mixins/template";
-// import { Store } from './store';
+import { Template } from '../mixins/template';
 
 const T = Template('d-footnote-list', `
 <style>
@@ -50,7 +49,7 @@ export class FootnoteList extends T(HTMLElement) {
     this.list.innerHTML = '';
     if (footnotes.length) {
       // ensure footnote list is visible
-      this.root.host.style.display = 'initial'
+      this.root.host.style.display = 'initial';
 
       for (const footnote of footnotes) {
         // construct and append list item to show footnote
@@ -61,7 +60,7 @@ export class FootnoteList extends T(HTMLElement) {
         const backlink = document.createElement('a');
         backlink.setAttribute('class', 'footnote-backlink');
         backlink.textContent = '[↩]';
-        backlink.href = `#${footnote.id}`;
+        backlink.href = '#' + footnote.id;
 
         listItem.appendChild(backlink);
         this.list.appendChild(listItem);
@@ -70,10 +69,6 @@ export class FootnoteList extends T(HTMLElement) {
       // ensure footnote list is invisible
       this.shadowRoot.host.style.display = 'none';
     }
-  }
-
-  renderFootnote(element) {
-
   }
 
 }

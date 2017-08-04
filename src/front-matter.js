@@ -97,6 +97,7 @@ export class FrontMatter {
   // affiliations:
   // - Google Brain:
   // - Google Brain: http://g.co/brain
+
   mergeFromYMLFrontmatter(data) {
     this.title = data.title;
     this.publishedDate = new Date(data.published);
@@ -131,8 +132,6 @@ export class FrontMatter {
       return this.journal.url + "/" + this.distillPath;
     } else if (this.journal.url) {
       return this.journal.url;
-    } else {
-      return
     }
   }
 

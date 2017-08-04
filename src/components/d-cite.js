@@ -1,6 +1,6 @@
 import { Template } from "../mixins/template";
-import { hover_cite } from "./citation";
-import { HoverBox } from "./hover-box";
+import { hover_cite } from "../helpers/citation";
+import { HoverBox } from "../helpers/hover-box";
 
 const T = Template('d-cite', `
 <style>

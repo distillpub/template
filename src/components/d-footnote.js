@@ -1,5 +1,5 @@
-import { Template } from "../mixins/template.js"
-import { HoverBox } from "./hover-box.js"
+import { Template } from "../mixins/template.js";
+import { HoverBox } from "../helpers/hover-box";
 // import { Store } from './store';
 
 const T = Template("d-footnote", `

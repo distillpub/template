@@ -1,5 +1,5 @@
 import { Template } from "../mixins/template";
-import { page } from "./layout";
+import { page } from "../helpers/layout";
 
 const T = Template("d-title", `
 <style>

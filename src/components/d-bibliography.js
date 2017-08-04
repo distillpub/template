@@ -2,7 +2,7 @@ import { Template } from "../mixins/template";
 import { Mutating } from "../mixins/mutating";
 import { collectCitations } from './d-cite'
 import bibtexParse from "bibtex-parse-js";
-import { bibliography_cite } from "./citation";
+import { bibliography_cite } from "../helpers/citation";
 
 const T = Template('d-bibliography', `
 <style>

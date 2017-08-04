@@ -1,5 +1,5 @@
 import { Template } from "../mixins/template";
-import { body } from "./layout";
+import { body } from "../helpers/layout";
 
 const T = Template("d-abstract", `
 <style>
