@@ -1,46 +1,27 @@
-import bibtexParse from 'bibtex-parse-js';
+import { renderBibliography, templateString } from '../components/d-bibliography';
 
 export default function(dom, data) {
-  let el = dom.querySelector('script[type="text/bibliography"]');
-  let citations = [];
-  let bibliography = {};
-  //TODO If we don't have a local element, make a request for the document.
-  if (el) {
-    let rawBib = el.textContent;
-    let parsed = bibtexParse.toJSON(rawBib);
-    if(parsed) {
-      parsed.forEach(e => {
-        for (var k in e.entryTags){
-          var val = e.entryTags[k];
-          val = val.replace(/[\t\n ]+/g, ' ');
-          val = val.replace(/{\\["^`.'acu~Hvs]( )?([a-zA-Z])}/g,
-            (full, x, char) => char);
-          val = val.replace(/{\\([a-zA-Z])}/g,
-            (full, char) => char);
-          e.entryTags[k] = val;
-        }
-        bibliography[e.citationKey] = e.entryTags;
-        bibliography[e.citationKey].type = e.entryType;
-      });
-    }
-
-
-    var citeTags = [].slice.apply(dom.querySelectorAll('dt-cite'));
-    citeTags.forEach(el => {
-      let key = el.getAttribute('key');
-      if (key) {
-        let citationKeys = key.split(',');
-        citationKeys.forEach(key => {
-          if (citations.indexOf(key) == -1){
-            citations.push(key);
-            if (!(key in bibliography)){
-              console.warn('No bibliography entry found for: ' + key);
-            }
-          }
-        });
-      }
-    });
+  const bibliographyTag = dom.querySelector('d-bibliography');
+  if (!bibliographyTag) {
+    console.warn('No bibliography tag found!');
+    return;
   }
-  data.bibliography = bibliography;
-  data.citations = citations;
+
+  const bibliographyEntries = new Map(data.citations.map( citationKey => {
+    const entry = data.bibliography.get(citationKey);
+    return [citationKey, entry];
+  }));
+
+  const prerenderedBibliography = dom.createElement('d-bibliography-prerendered');
+
+
+  const template = dom.createElement('template');
+  template.innerHTML = templateString;
+  const clone = dom.importNode(template.content, true);
+  prerenderedBibliography.innerHTML = template.content;
+  renderBibliography(prerenderedBibliography, bibliographyEntries, dom);
+
+  bibliographyTag.parentElement.insertBefore(bibliographyTag, prerenderedBibliography);
+  bibliographyTag.parentElement.removeChild(bibliographyTag);
+
 }

@@ -9,11 +9,11 @@
     "url": "https://github.com/distillpub/distill-template/issues"
   },
   "scripts": {
-    "start": "rollup -c rollup.config.components.js -w",
+    "start": "rollup -c rollup.config.js -w",
     "serve": "python3 -m http.server --bind 127.0.0.1",
     "test": "mocha",
     "lint": "eslint",
-    "build": "rollup -c rollup.config.components.js"
+    "build": "rollup -c rollup.config.js"
   },
   "repository": {
     "url": "git+https://github.com/distillpub/distill-template.git",
@@ -43,7 +43,9 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
+    "assert": "^1.4.1",
     "d3-time-format": "^2.0.3",
+    "jsdom-wc": "^11.0.0-alpha-1",
     "katex": "^0.7.1",
     "webcomponents.js": "webcomponents/webcomponentsjs"
   }

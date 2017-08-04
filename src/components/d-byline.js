@@ -3,13 +3,13 @@ import { page } from '../helpers/layout';
 
 const T = Template('d-byline', `
 <style>
-  d-byline {
+  :host {
     box-sizing: border-box;
     font-size: 13px;
     line-height: 20px;
     display: block;
-    /* border-top: 1px solid rgba(0, 0, 0, 0.1);*/
-    /* border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     color: rgba(0, 0, 0, 0.6);
     padding-top: 20px;
     padding-bottom: 20px;
@@ -42,6 +42,7 @@ const T = Template('d-byline', `
   .date {
     display: block;
     text-align: left;
+    margin-top: 8px;
   }
   .year, .month {
     display: inline;
@@ -54,7 +55,7 @@ const T = Template('d-byline', `
     display: inline;
   }
 
-  @media(min-width: 1080px) {
+  @media screen and (min-width: 768px), print {
     d-byline {
       border-bottom: none;
     }
@@ -87,9 +88,11 @@ const T = Template('d-byline', `
     }
 
     .date {
+
       border-left: 1px solid rgba(0, 0, 0, 0.1);
       padding-left: 15px;
       margin-left: 15px;
+      margin-top: 0;
       display: inline-block;
     }
     .year, .month {
@@ -97,6 +100,7 @@ const T = Template('d-byline', `
     }
 
     .citation {
+      align-self: flex-end;
       border-left: 1px solid rgba(0, 0, 0, 0.15);
       padding-left: 15px;
       margin-left: 15px;
@@ -105,12 +109,16 @@ const T = Template('d-byline', `
     .citation div {
       display: block;
     }
+
+    .byline {
+      display: flex;
+    }
   }
 </style>
 
 <div class='byline'>
 </div>
-`, false);
+`, true);
 
 export function bylineTemplate(frontMatter) {
   return `
@@ -142,7 +150,7 @@ export function bylineTemplate(frontMatter) {
 export class Byline extends T(HTMLElement) {
 
   set frontMatter(frontMatter) {
-    const container = this.querySelector('.byline');
+    const container = this.root.querySelector('.byline');
     container.innerHTML = bylineTemplate(frontMatter);
   }
 

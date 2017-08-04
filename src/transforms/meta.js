@@ -1,4 +1,4 @@
-import favicon from './distill-favicon.base64';
+import favicon from '../assets/distill-favicon.base64';
 
 export default function(dom, data) {
   let head = dom.querySelector('head');
@@ -68,7 +68,6 @@ export default function(dom, data) {
     meta('citation_publisher', journal.publisher);
 
     if (data.publishedDate){
-      let zeroPad = (n) => { return n < 10 ? '0' + n : n; };
       meta('citation_publication_date', `${data.publishedYear}/${data.publishedMonthPadded}/${data.publishedDayPadded}`);
     }
 

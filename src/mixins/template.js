@@ -2,14 +2,15 @@
 
 export const Template = (name, templateString, useShadow = true) => {
 
-  const template = document.createElement('template');
-  template.innerHTML = templateString;
-
-  if (useShadow && 'ShadyCSS' in window) {
-    ShadyCSS.prepareTemplate(template, name);
-  }
-
   return (superclass) => {
+
+    const template = document.createElement('template');
+    template.innerHTML = templateString;
+
+    if (useShadow && 'ShadyCSS' in window) {
+      ShadyCSS.prepareTemplate(template, name);
+    }
+
     return class extends superclass {
 
       static get is() { return name; }

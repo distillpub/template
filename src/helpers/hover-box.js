@@ -1,12 +1,12 @@
 function make_hover_css(pos) {
-  var pretty = window.innerWidth > 600;
-  var padding = pretty? 18 : 12;
-  var outer_padding = pretty ? 18 : 0;
-  var bbox = document.querySelector('body').getBoundingClientRect();
-  var left = pos[0] - bbox.left, top = pos[1] - bbox.top;
-  var width = Math.min(window.innerWidth-2*outer_padding, 648);
+  const pretty = window.innerWidth > 600;
+  const padding = pretty? 18 : 12;
+  const outer_padding = pretty ? 18 : 0;
+  const bbox = document.querySelector('body').getBoundingClientRect();
+  let left = pos[0] - bbox.left, top = pos[1] - bbox.top;
+  let width = Math.min(window.innerWidth-2*outer_padding, 648);
   left = Math.min(left, window.innerWidth-width-outer_padding);
-  width = width - 2*padding;
+  width = width - 2 * padding;
   return (`position: absolute;
      background-color: #FFF;
      opacity: 0.95;
@@ -20,93 +20,89 @@ function make_hover_css(pos) {
      z-index: ${1e6};`);
 }
 
-
 export class HoverBox {
 
-  constructor(div) {
-    this.div = div;
+  constructor(contentHTML, triggerElement) {
     this.visible = false;
-    this.bindDivEvents(div);
-    HoverBox.box_map[div.id] = this;
+    // div hold teh contents of the box that will become visible
+    this.div = contentHTML;
+    this.bindDivEvents(this.div);
+    // triggerElement holds the element that needs to be hovered etc to show contents
+    this.triggerElement = triggerElement;
+    this.bindTriggerEvents(this.triggerElement);
+    this.hide();
+  }
+
+  bindDivEvents(node) {
+    // For mice, same behavior as hovering on links
+    this.div.addEventListener('mouseover', () => {
+      if (!this.visible) this.showAtNode(node);
+      this.stopTimeout();
+    });
+    this.div.addEventListener('mouseout', () => {
+      this.extendTimeout(250);
+    });
+    // Don't trigger body touchstart event when touching within box
+    this.div.addEventListener('touchstart', (event) => {
+      event.stopPropagation();
+    }, {passive: true});
+    // Close box when touching outside box
+    document.body.addEventListener('touchstart', () => {
+      this.hide();
+    }, {passive: true});
+  }
+
+  bindTriggerEvents(node) {
+    node.addEventListener('mouseover', () => {
+      if (!this.visible) {
+        this.showAtNode(node);
+      }
+      this.stopTimeout();
+    });
+
+    node.addEventListener('mouseout', () => {
+      this.extendTimeout(250);
+    });
+
+    node.addEventListener('touchstart', (event) => {
+      if (this.visible) {
+        this.hide();
+      } else {
+        this.showAtNode(node);
+      }
+      // Don't trigger body touchstart event when touching link
+      event.stopPropagation();
+    }, {passive: true});
+  }
+
+  show(position) {
+    this.visible = true;
+    const css = make_hover_css(position);
+    this.div.setAttribute('style', css );
+  }
+
+  showAtNode(node) {
+    const bbox = node.getBoundingClientRect();
+    this.show([bbox.right, bbox.bottom]);
+  }
+
+  hide() {
+    this.visible = false;
+    this.div.setAttribute('style', 'display:none');
+    this.stopTimeout();
+  }
+
+  stopTimeout() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+  }
+
+  extendTimeout(time) {
+    this.stopTimeout();
+    this.timeout = setTimeout(() => {
+      this.hide();
+    }, time);
   }
 
 }
-
-HoverBox.box_map = {};
-
-HoverBox.get_box = function get_box(div_id) {
-  if (div_id in HoverBox.box_map) {
-    return HoverBox.box_map[div_id];
-  } else {
-    return new HoverBox(div_id);
-  }
-};
-
-HoverBox.prototype.show = function show(pos){
-  this.visible = true;
-  this.div.setAttribute('style', make_hover_css(pos) );
-  for (var box_id in HoverBox.box_map) {
-    var box = HoverBox.box_map[box_id];
-    if (box != this) box.hide();
-  }
-};
-
-HoverBox.prototype.showAtNode = function showAtNode(node){
-  var bbox = node.getBoundingClientRect();
-  this.show([bbox.right, bbox.bottom]);
-};
-
-HoverBox.prototype.hide = function hide(){
-  this.visible = false;
-  if (this.div) this.div.setAttribute('style', 'display:none');
-  if (this.timeout) clearTimeout(this.timeout);
-};
-
-HoverBox.prototype.stopTimeout = function stopTimeout() {
-  if (this.timeout) clearTimeout(this.timeout);
-};
-
-HoverBox.prototype.extendTimeout = function extendTimeout(T) {
-  //console.log("extend", T)
-  var this_ = this;
-  this.stopTimeout();
-  this.timeout = setTimeout(function(){this_.hide();}.bind(this), T);
-};
-
-// Bind events to a link to open this box
-HoverBox.prototype.bind = function bind(node) {
-  if (typeof node == 'string'){
-    node = document.querySelector(node);
-  }
-
-  node.addEventListener('mouseover', function(){
-    if (!this.visible) this.showAtNode(node);
-    this.stopTimeout();
-  }.bind(this));
-
-  node.addEventListener('mouseout', function(){this.extendTimeout(250);}.bind(this));
-
-  node.addEventListener('touchstart', function(e) {
-    if (this.visible) {
-      this.hide();
-    } else {
-      this.showAtNode(node);
-    }
-    // Don't trigger body touchstart event when touching link
-    e.stopPropagation();
-  }.bind(this), {passive: true});
-};
-
-HoverBox.prototype.bindDivEvents = function bindDivEvents(node){
-  // For mice, same behavior as hovering on links
-  this.div.addEventListener('mouseover', function(){
-    if (!this.visible) this.showAtNode(node);
-    this.stopTimeout();
-  }.bind(this));
-  this.div.addEventListener('mouseout', function(){this.extendTimeout(250);}.bind(this));
-
-  // Don't trigger body touchstart event when touching within box
-  this.div.addEventListener('touchstart', function(e){e.stopPropagation();}, {passive: true});
-  // Close box when touching outside box
-  document.body.addEventListener('touchstart', function(){this.hide();}.bind(this), {passive: true});
-};

@@ -1,8 +1,8 @@
 import { Template } from '../mixins/template';
-import bibtexParse from 'bibtex-parse-js';
+import { parseBibtex } from '../helpers/bibtex';
 import { bibliography_cite } from '../helpers/citation';
 
-const T = Template('d-bibliography', `
+export const templateString = `
 <style>
   .references {
     font-size: 12px;
@@ -31,28 +31,33 @@ const T = Template('d-bibliography', `
 </style>
 
 <h3>References</h3>
-<ol></ol>
-`);
+<ol class='references' id='references-list' ></ol>
+`;
+const T = Template('d-bibliography', templateString);
 
-export function parseBibtex(bibtex) {
-  const bibliography = new Map();
-  const parsedEntries = bibtexParse.toJSON(bibtex);
-  for (const entry of parsedEntries) {
-    // normalize tags; note entryTags is an object, not Map
-    for (const tag in entry.entryTags) {
-      let value = entry.entryTags[tag];
-      value = value.replace(/[\t\n ]+/g, ' ');
-      value = value.replace(/{\\["^`.'acu~Hvs]( )?([a-zA-Z])}/g,
-        (full, x, char) => char);
-      value = value.replace(/{\\([a-zA-Z])}/g,
-        (full, char) => char);
-      entry.entryTags[tag] = value;
-    }
-    entry.entryTags.type = entry.entryType;
-    // add to bibliography
-    bibliography.set(entry.citationKey, entry.entryTags);
+export function parseBibliography(element) {
+  if (element.firstElementChild && element.firstElementChild.tagName === 'SCRIPT') {
+    const bibtex = element.firstElementChild.textContent;
+    const bibliography = parseBibtex(bibtex);
+    return bibliography;
   }
-  return bibliography;
+}
+
+export function renderBibliography(element, entries) {
+  if (entries.size) {
+    element.host.style.display = 'initial';
+    let list = element.querySelector('#references-list');
+    list.innerHTML = '';
+
+    for (const [key, entry] of entries) {
+      const listItem = document.createElement('li');
+      listItem.id = key;
+      listItem.innerHTML = bibliography_cite(entry);
+      list.appendChild(listItem);
+    }
+  } else {
+    element.host.style.display = 'none';
+  }
 }
 
 export class Bibliography extends T(HTMLElement) {
@@ -67,6 +72,7 @@ export class Bibliography extends T(HTMLElement) {
       this.parseIfPossible();
       observer.observe(this, options);
     });
+    this.parseIfPossible();
     // ...and listen for changes
     observer.observe(this, options);
   }
@@ -82,10 +88,6 @@ export class Bibliography extends T(HTMLElement) {
     }
   }
 
-  connectedCallback() {
-    this.list = this.root.querySelector('ol');
-  }
-
   notify(bibliography) {
     const options = { detail: bibliography, bubbles: true };
     const event = new CustomEvent('onBibliographyChanged', options);
@@ -93,30 +95,7 @@ export class Bibliography extends T(HTMLElement) {
   }
 
   set entries(newEntries) {
-    if (newEntries.size) {
-      this.root.host.style.display = 'initial';
-      this.list.innerHTML = '';
-
-      for (const [key, entry] of newEntries) {
-        const listItem = document.createElement('li');
-        listItem.id = key;
-        listItem.innerHTML = bibliography_cite(entry);
-        this.list.appendChild(listItem);
-      }
-    } else {
-      this.root.host.style.display = 'none';
-    }
-
-  }
-
-  renderContent() {
-    // compute and store bibliography
-    // FrontMatter.bibliography = parseBibtex(this.bibtex);
-    // this.notify();
-    // Store.set('bibliography', bibliography);
-    // compute and store citations
-    // const citations = collectCitations();
-    // Store.set('citations', citations);
+    renderBibliography(this.root, newEntries);
   }
 
 }

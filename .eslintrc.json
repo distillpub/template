@@ -15,6 +15,8 @@
         "indent": [ "warn", 2 ],
         "linebreak-style": [ "error", "unix" ],
         "quotes": [ "warn", "single" ],
-        "semi": [ "warn", "always" ]
+        "semi": [ "warn", "always" ],
+        "no-extra-semi": [ "warn" ],
+        "no-debugger": [ "warn" ]
     }
 }

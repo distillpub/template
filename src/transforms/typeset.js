@@ -1,4 +1,4 @@
-export default function(dom, data) {
+export default function(dom) {
 
   var textNodes = dom.createTreeWalker(
     dom.body,
@@ -10,6 +10,7 @@ export default function(dom, data) {
     if (text && acceptNode(n)) {
       text = quotes(text);
       text = punctuation(text);
+      text = ligatures(text);
       n.nodeValue = text;
     }
   }
@@ -30,6 +31,9 @@ function acceptNode(node) {
          parent.nodeName !== 'D-CODE' &&
          parent.nodeName !== 'D-BIBLIOGRAPHY' &&
          parent.nodeName !== 'D-FOOTER' &&
+         parent.nodeName !== 'D-APPENDIX' &&
+         parent.nodeName !== 'D-FRONTMATTER' &&
+         parent.nodeName !== 'D-TOC' &&
          parent.nodeType !== 8 && //comment nodes
          !isMath;
 }
@@ -57,7 +61,7 @@ function punctuation(text){
   // Nbsp for punc with spaces
   var NBSP = '\u00a0';
   var NBSP_PUNCTUATION_START = /([«¿¡]) /g;
-  var NBSP_PUNCTUATION_END = / ([\!\?:;\.,‽»])/g;
+  var NBSP_PUNCTUATION_END = / ([!?:;.,‽»])/g;
 
   text = text.replace(NBSP_PUNCTUATION_START, '$1' + NBSP);
   text = text.replace(NBSP_PUNCTUATION_END, NBSP + '$1');
@@ -68,7 +72,7 @@ function punctuation(text){
 function quotes(text) {
 
   text = text
-    .replace(/(\W|^)"([^\s\!\?:;\.,‽»])/g, '$1\u201c$2') // beginning "
+    .replace(/(\W|^)"([^\s!?:;.,‽»])/g, '$1\u201c$2') // beginning "
     .replace(/(\u201c[^"]*)"([^"]*$|[^\u201c"]*\u201c)/g, '$1\u201d$2') // ending "
     .replace(/([^0-9])"/g,'$1\u201d') // remaining " at end of word
     .replace(/(\W|^)'(\S)/g, '$1\u2018$2') // beginning '
@@ -81,8 +85,8 @@ function quotes(text) {
     .replace(/'/g, '\u2032');
 
   // Allow escaped quotes
-  text = text.replace(/\\“/, '\"');
-  text = text.replace(/\\”/, '\"');
+  text = text.replace(/\\“/, '"');
+  text = text.replace(/\\”/, '"');
   text = text.replace(/\\’/, '\'');
   text = text.replace(/\\‘/, '\'');
 

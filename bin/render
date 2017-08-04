@@ -1,18 +1,20 @@
 #!/usr/bin/env node
 
-var fs = require("fs"),
-    jsdom = require("jsdom").jsdom,
-    serializeDocument = require("jsdom").serializeDocument,
-    distill = require("../dist/template.js"),
-    program = require('commander');
+const fs = require('fs');
+const jsdom = require('jsdom').jsdom;
+const serialize = require('jsdom').serializeDocument;
+const program = require('commander');
+const transforms = require('../dist/transforms.js');
 
 program
   .version('0.0.1')
   .option('-i, --input <path>', 'path to input file.')
   .parse(process.argv);
 
-let htmlString = fs.readFileSync(program.input, "utf8");
-var dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
-distill.render(dom, {});
-let transformedHtml = serializeDocument(dom);
+const htmlString = fs.readFileSync(program.input, 'utf8');
+const data = {};
+const dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false, runScripts: 'dangerously'}});
+transforms.render(dom, data);
+transforms.distillify(dom, data);
+const transformedHtml = serialize(dom);
 process.stdout.write(transformedHtml);

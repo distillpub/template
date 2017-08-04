@@ -1,68 +1,33 @@
+// const marginSmall = 16;
+// const marginLarge = 3 * marginSmall;
+// const margin = marginSmall + marginLarge;
+// const gutter = marginSmall;
+// const outsetAmount = margin / 2;
+// const numCols = 4;
+// const numGutters = numCols - 1;
+// const columnWidth = (768 - 2 * marginLarge - numGutters * gutter) / numCols;
+//
+// const screenwidth = 768;
+// const pageWidth = screenwidth - 2 * marginLarge;
+// const bodyWidth = pageWidth - columnWidth - gutter;
 
 export function body(selector) {
   return `${selector} {
-      width: auto;
-      margin-left: 24px;
-      margin-right: 24px;
-      box-sizing: border-box;
-    }
-    @media(min-width: 768px) {
-      ${selector} {
-        margin-left: 72px;
-        margin-right: 72px;
-      }
-    }
-    @media(min-width: 1080px) {
-      ${selector} {
-        margin-left: calc(50% - 984px / 2);
-        width: 648px;
-      }
+      grid-column: margin-left / body;
     }
   `;
 }
 
 export function page(selector) {
   return `${selector} {
-      width: auto;
-      margin-left: 24px;
-      margin-right: 24px;
-      box-sizing: border-box;
-    }
-    @media(min-width: 768px) {
-      ${selector} {
-        margin-left: 72px;
-        margin-right: 72px;
-      }
-    }
-    @media(min-width: 1080px) {
-      ${selector} {
-        width: 984px;
-        margin-left: auto;
-        margin-right: auto;
-      }
+      grid-column: margin-left / page;
     }
   `;
 }
 
 export function screen(selector) {
   return `${selector} {
-      width: auto;
-      margin-left: 24px;
-      margin-right: 24px;
-      box-sizing: border-box;
-    }
-    @media(min-width: 768px) {
-      ${selector} {
-        margin-left: 72px;
-        margin-right: 72px;
-      }
-    }
-    @media(min-width: 1080px) {
-      ${selector} {
-        margin-left: auto;
-        margin-right: auto;
-        width: auto;
-      }
-    }
+    grid-column: start / end;
+  }
   `;
 }

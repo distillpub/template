@@ -1,23 +1,21 @@
-import {Template} from '../mixins/template';
+import { Template } from '../mixins/template';
 
-// import logo from "./distill-logo.svg";
-var logo = '';
+import logo from '../assets/distill-logo.svg';
 
 const T = Template('distill-header', `
 <style>
 :host {
   box-sizing: border-box;
   display: block;
-  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 60px;
-  background-color: hsl(200, 60%, 15%);
+  background-color: transparent;
   z-index: ${1e6};
   color: rgba(0, 0, 0, 0.8);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  /*border-bottom: 1px solid rgba(0, 0, 0, 0.08);*/
+  /*box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);*/
 }
 .content {
   height: 70px;
@@ -34,11 +32,22 @@ a:hover {
   color: rgba(255, 255, 255, 1);
 }
 svg {
+  background-color: hsl(0, 0%, 15%);;
+  padding: 8px;
+  border-radius: 12px;
   width: 24px;
   position: relative;
-  top: 4px;
+  top: 16px;
+  left: 16px;
   margin-right: 2px;
 }
+@media(min-width: 768px) {
+  svg {
+    top: 40px;
+    left: 40px;
+  }
+}
+
 @media(min-width: 1080px) {
   :host {
     height: 70px;
@@ -52,8 +61,8 @@ svg {
   }
 }
 svg path {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.8);
+  fill: white;
+  stroke: rgba(255, 255, 255, 1.0);
   stroke-width: 3px;
 }
 .logo {
@@ -69,23 +78,33 @@ svg path {
   margin-left: 24px;
   text-transform: uppercase;
 }
+
+.name {
+  opacity: 0.0;
+  transition: opacity 0.5s
+}
+
+a:hover .name {
+  opacity: 1.0;
+}
 </style>
 
 <div class="content l-page">
   <a href="/" class="logo">
     ${logo}
-    Distill
   </a>
-  <div class="nav">
-    <a href="/faq">About</a>
-    <a href="https://github.com/distillpub">GitHub</a>
-    <!-- https://twitter.com/distillpub -->
-  </div>
+  <span class='name'>
+    Distill
+  </span>
 </div>
 `);
 
+// <div class="nav">
+//   <a href="/faq">About</a>
+//   <a href="https://github.com/distillpub">GitHub</a>
+//   <!-- https://twitter.com/distillpub -->
+// </div>
+
 export class DistillHeader extends T(HTMLElement) {
-  static get is() {
-    return 'distill-header';
-  }
+
 }

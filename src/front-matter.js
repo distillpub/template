@@ -77,6 +77,7 @@ export class FrontMatter {
     //  }
     //  volume: 1,
     //  issue: 9,
+    this.publishedDate = new Date();
 
     //
     // Assigned from publishing process
@@ -104,15 +105,34 @@ export class FrontMatter {
     this.description = data.description;
     const zipped = data.authors.map( (author, index) => [author, data.affiliations[index]]);
     this.authors = zipped.map( ([authorEntry, affiliationEntry]) => {
-      const name = Object.keys(authorEntry)[0];
-      const author = new Author(name);
-      if (typeof authorEntry === 'object') {
-        author.personalURL = authorEntry[name];
+      const author = new Author();
+
+      // try to get name and personal url
+      switch (typeof authorEntry) {
+      case 'object':
+        author.name = Object.keys(authorEntry)[0];
+        author.personalURL = authorEntry[author.name];
+        break;
+      case 'string':
+        author.name = authorEntry;
+        break;
+      default:
+        throw new Error('Invalid type in frontmatter author field: ' + authorEntry);
       }
-      author.affiliation = Object.keys(affiliationEntry)[0];
-      if (typeof affiliationEntry === 'object') {
+
+      // try to get affiliation name and affiliation url
+      switch (typeof affiliationEntry) {
+      case 'object':
+        author.affiliation = Object.keys(affiliationEntry)[0];
         author.affiliationURL = affiliationEntry[author.affiliation];
+        break;
+      case 'string':
+        author.affiliation = affiliationEntry;
+        break;
+      default:
+        throw new Error('Invalid type in frontmatter affiliation field: ' + affiliationEntry);
       }
+
       return author;
     });
   }
@@ -211,6 +231,13 @@ export class FrontMatter {
       slug += this.title.split(' ')[0].toLowerCase();
     }
     return slug || 'Untitled';
+  }
+
+  get bibliographyEntries() {
+    return new Map(this.citations.map( citationKey => {
+      const entry = this.bibliography.get(citationKey);
+      return [citationKey, entry];
+    }));
   }
 
 }

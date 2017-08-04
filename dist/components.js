@@ -1,96 +1,126 @@
-(function(){"use strict";function e(e){return`${e} {
-      width: auto;
-      margin-left: 24px;
-      margin-right: 24px;
-      box-sizing: border-box;
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(factory());
+}(this, (function () { 'use strict';
+
+var base = "html {\n  font-size: 20px;\n\tline-height: 1rem;\n\tfont-family: \"Libre Franklin\", \"Helvetica Neue\", sans-serif;\n  text-size-adjust: 100%;\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n}\n\nbody {\n  margin: 0;\n}\n\na {\n  color: #004276;\n}\n\nfigure {\n  margin: 0;\n}\n\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}\n\ntable th {\n\ttext-align: left;\n}\n\ntable thead {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\n}\n\ntable thead th {\n  padding-bottom: 0.5em;\n}\n\ntable tbody :first-child td {\n  padding-top: 0.5em;\n}\n\npre {\n  overflow: auto;\n  max-width: 100%;\n}\n";
+
+var layout = "@supports not (display: grid) {\n  d-article,\n  d-title,\n  d-byline,\n  d-appendix,\n  distill-footer {\n    display: block;\n    padding: 8px;\n  }\n}\n\nd-article,\nd-title,\nd-byline,\nd-appendix,\ndistill-footer {\n  display: grid;\n  justify-items: stretch;\n  grid-template-columns: [start] 8px [margin-left-outset] 8px [margin-left] 1fr [body] 0px [page] 8px [body-outset] 0px [page-outset] 8px [end];\n}\n\n@media(min-width: 768px) {\n\n  d-article,\n  d-title,\n  d-byline,\n  d-appendix,\n  distill-footer {\n    grid-template-columns: [start] 32px [margin-left-outset] 32px [margin-left] 3fr [body] 32px [body-outset] 1fr [page] 32px [page-outset] 32px [end];\n  }\n}\n\n@media(min-width: 1024px) {\n  d-article,\n  d-title,\n  d-byline,\n  d-appendix,\n  distill-footer {\n    grid-template-columns: [start] 1fr [margin-left-outset] 32px [margin-left] 672px [body] 32px [body-outset] 224px [page] 32px [page-outset] 1fr [end];\n  }\n}\n\nd-appendix,\nd-article > d-title,\nd-article > d-title > d-byline,\nd-article > distill-footer {\n  grid-column: start / end;\n}\n\n.l-body,\nd-article > * {\n  grid-column: margin-left / body;\n}\n\n.l-page {\n  grid-column: margin-left / page;\n}\n\n.l-body-outset {\n  grid-column: margin-left-outset / body-outset;\n}\n\n.l-page-outset {\n  grid-column: margin-left-outset / page-outset;\n}\n\n.l-screen {\n  grid-column: start / end;\n}\n\n.l-screen-inset {\n  grid-column: start / end;\n  padding-left: 16px;\n  padding-left: 16px;\n}\n\n\n/* Aside */\n\naside {\n  grid-column: margin-left / body;\n}\n\n@media(min-width: 768px) {\n  aside {\n    grid-column: body-outset / page;\n    font-size: 14px;\n    line-height: 1.3;\n  }\n}\n/*\n.l-body,\n.l-page,\n.l-middle,\nd-article > div,\nd-article > p,\nd-article > h1,\nd-article > h2,\nd-article > h3,\nd-article > h4,\nd-article > figure,\nd-article > ul,\nd-article > d-abstract,\nd-article > d-code,\nd-article > d-math,\nd-article > table,\nd-article section > div,\nd-article section > p,\nd-article section > h1,\nd-article section > h2,\nd-article section > h3,\nd-article section > h4,\nd-article section > figure,\nd-article section > ul,\nd-article section > d-abstract,\nd-article section > d-code,\nd-article section > d-math,\nd-article section > table {\n  width: calc(100% - 32px);\n  margin-left: 16px;\n  margin-right: 16px;\n  box-sizing: border-box;\n}\n\n.l-body-outset,\n.l-page-outset,\n.l-middle-outset {\n  width: calc(100% - 16px);\n  margin-left: 8px;\n  margin-right: 8px;\n}\n\n.l-screen {\n  margin-left: 0px;\n  margin-right: 0px;\n  width: 100%;\n  background-color: #F8F8FC;\n  border-top: 1px solid #E8E8EC;\n  border-bottom: 1px solid #E8E8EC;\n}\n\n@media(min-width: 768px) {\n  .l-body,\n  d-article > div,\n  d-article > p,\n  d-article > h1,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article > d-math,\n  d-article > d-math,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h1,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code,\n  d-article section > d-math,\n  d-article section > table {\n    margin-left: 64px;\n    width: calc((100% - 2 * 64px - 3 * 16px)/4*3 + 2*16px );\n  }\n\n  .l-body-outset {\n    margin-left: 32px;\n    width: calc((100% - 2 * 64px - 3 * 16px)/4*3 + 2*16px + 64px );;\n  }\n\n  .l-middle,\n  .l-middle-outset,\n  .l-page {\n    margin-left: 64px;\n    margin-right: 64px;\n    width: calc(100% - 2*64px);\n  }\n\n  .l-page-outset {\n    margin-left: 32px;\n    margin-right: 32px;\n    width: calc(100% - 64px);\n  }\n\n  .margin {\n    font-size: 14px;\n    line-height: normal;\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 0;\n    margin-right: 64px;\n    width: calc((100% - 2 * 64px - 3 * 16px)/4);\n  }\n}\n\n@media(min-width: 1024px) {\n  .l-body,\n  d-article > div,\n  d-article > p,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article > d-math,\n  d-article > table,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code,\n  d-article section > d-math,\n  d-article section > table {\n    margin-left: calc(50% - (1024px - 2*64px) / 2);\n    width: 668px;\n  }\n\n  .l-body-outset {\n    margin-left: calc((50% - (1024px - 2*64px) / 2) - 32px);\n    width: calc(668px + 64px)\n  }\n\n  .l-middle,\n  .l-middle-outset,\n  .l-page {\n    margin-left: calc(50% - (1024px - 2*64px) / 2);\n    width: calc(100% - 2* (50% - (1024px - 2*64px) / 2));\n  }\n\n  .l-page-outset {\n    margin-left: calc((50% - (1024px - 2*64px) / 2) - 32px);\n    width: calc(100% - 2* (50% - (1024px - 2*64px) / 2) + 64px);\n  }\n\n  .margin {\n    font-size: 14px;\n    line-height: normal;\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 0;\n    margin-right: calc(50% - (1024px - 2*64px) / 2);\n    width: 206px;\n  }\n\n\n  /* Side */\n\n  /*\n  .side.l-body,\n  d-article .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px) / 2);\n    width: calc(648px / 2 - 24px - 84px);\n  }\n  .side.l-body-outset,\n  d-article .side.l-body-outset {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px - 48px) / 2);\n    width: calc(648px / 2 - 48px + 24px);\n  }\n  .side.l-middle,\n  d-article .side.l-middle {\n    clear: both;\n    float: right;\n    width: calc(456px - 84px);\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-middle-outset,\n  d-article .side.l-middle-outset {\n    clear: both;\n    float: right;\n    width: 456px;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-page,\n  d-article .side.l-page {\n    clear: both;\n    float: right;\n    margin-left: 48px;\n    width: calc(624px - 84px);\n    margin-right: calc((100vw - 984px) / 2);\n  }\n  .side.l-page-outset,\n  d-article .side.l-page-outset {\n    clear: both;\n    float: right;\n    width: 624px;\n    margin-right: calc((100vw - 984px) / 2);\n  }\n}*/\n\n/* Rows and Columns */\n\n.row {\n  display: flex;\n}\n.column {\n  flex: 1;\n  box-sizing: border-box;\n  margin-right: 24px;\n  margin-left: 24px;\n}\n.row > .column:first-of-type {\n  margin-left: 0;\n}\n.row > .column:last-of-type {\n  margin-right: 0;\n}\n";
+
+var article = "\nd-article {\n  color: rgba(0, 0, 0, 0.8);\n  padding-top: 0;\n  padding-bottom: 72px;\n  overflow: hidden;\n  font-size: 14px;\n  line-height: 1.6em;\n  /*border-top: 1px solid rgba(0, 0, 0, 0.2);*/\n}\n@media(min-width: 768px) {\n  d-article {\n    font-size: 16px;\n  }\n}\n@media(min-width: 1024px) {\n  d-article {\n    font-size: 18px;\n  }\n}\n\n/* H2 */\n\nd-article h2 {\n  font-weight: 600;\n  font-size: 26px;\n  line-height: 1.25em;\n  margin-top: 16px;\n  margin-bottom: 24px;\n  padding-bottom: 24px;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n@media(min-width: 1024px) {\n  d-article h2 {\n    margin-top: 2em;\n    font-size: 32px;\n  }\n}\nd-article h1 + h2 {\n  font-weight: 300;\n  font-size: 20px;\n  line-height: 1.4em;\n  margin-top: 8px;\n  font-style: normal;\n}\n@media(min-width: 1080px) {\n  .centered h1 + h2 {\n    text-align: center;\n  }\n  d-article h1 + h2 {\n    margin-top: 12px;\n    font-size: 32px;\n  }\n}\n\n/* H3 */\n\nd-article h3 {\n  font-weight: 600;\n  font-size: 20px;\n  line-height: 1.4em;\n  margin-top: 36px;\n  margin-bottom: 18px;\n  font-style: italic;\n}\nd-article h1 + h3 {\n  margin-top: 48px;\n}\n@media(min-width: 1024px) {\n  d-article h3 {\n    font-size: 26px;\n  }\n}\n\n/* H4 */\n\nd-article h4 {\n  font-weight: 600;\n  text-transform: uppercase;\n  font-size: 14px;\n  line-height: 1.4em;\n}\nd-article a {\n  color: inherit;\n}\nd-article p,\nd-article ul,\nd-article ol {\n  margin-bottom: 24px;\n}\nd-article p b,\nd-article ul b,\nd-article ol b {\n  -webkit-font-smoothing: antialiased;\n}\nd-article a {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.4);\n  text-decoration: none;\n}\nd-article a:hover {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.8);\n}\nd-article .link {\n  text-decoration: underline;\n  cursor: pointer;\n}\nd-article ul,\nd-article ol {\n  padding-left: 24px;\n}\nd-article li {\n  margin-bottom: 24px;\n  margin-left: 0;\n  padding-left: 0;\n}\nd-article pre {\n  font-size: 14px;\n  margin-bottom: 20px;\n}\nd-article hr {\n  border: none;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n  margin-top: 60px;\n  margin-bottom: 60px;\n}\nd-article section {\n  margin-top: 60px;\n  margin-bottom: 60px;\n}\n\n/* Figure */\n\nd-article figure {\n  position: relative;\n  margin-top: 30px;\n  margin-bottom: 30px;\n}\n@media(min-width: 1024px) {\n  d-article figure {\n    margin-top: 48px;\n    margin-bottom: 48px;\n  }\n}\nd-article figure img {\n  width: 100%;\n}\nd-article figure svg text,\nd-article figure svg tspan {\n}\nd-article figure figcaption {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 12px;\n  line-height: 1.5em;\n}\n@media(min-width: 1024px) {\n  d-article figure figcaption {\n    font-size: 13px;\n  }\n}\nd-article figure.external img {\n  background: white;\n  border: 1px solid rgba(0, 0, 0, 0.1);\n  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);\n  padding: 18px;\n  box-sizing: border-box;\n}\nd-article figure figcaption a {\n  color: rgba(0, 0, 0, 0.6);\n}\n/*d-article figure figcaption::before {\n  position: relative;\n  display: block;\n  top: -20px;\n  content: \"\";\n  width: 25px;\n  border-top: 1px solid rgba(0, 0, 0, 0.3);\n}*/\nd-article span.equation-mimic {\n  font-family: georgia;\n  font-size: 115%;\n  font-style: italic;\n}\nd-article figure figcaption b {\n  font-weight: 600;\n  color: rgba(0, 0, 0, 1.0);\n}\nd-article > d-code,\nd-article section > d-code  {\n  display: block;\n}\nd-article > d-math[block],\nd-article section > d-math[block]  {\n  display: block;\n}\nd-article .citation {\n  color: #668;\n  cursor: pointer;\n}\nd-include {\n  width: auto;\n  display: block;\n}\n";
+
+var print = "@media print {\n\n  @page {\n    size: 8in 11in;\n    @bottom-right {\n      content: counter(page) \" of \" counter(pages);\n    }\n  }\n\n  html {\n    /* no general margins -- CSS Grid takes care of those */\n  }\n\n  p, code {\n    page-break-inside: avoid;\n  }\n\n  h2, h3 {\n    page-break-after: avoid;\n  }\n\n  d-header {\n    visibility: hidden;\n  }\n\n  d-footer {\n    display: none!important;\n  }\n\n}\n";
+
+var katexCSS = "@font-face{font-family:KaTeX_AMS;src:url(fonts/KaTeX_AMS-Regular.eot);src:url(fonts/KaTeX_AMS-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_AMS-Regular.woff2) format('woff2'),url(fonts/KaTeX_AMS-Regular.woff) format('woff'),url(fonts/KaTeX_AMS-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Caligraphic;src:url(fonts/KaTeX_Caligraphic-Bold.eot);src:url(fonts/KaTeX_Caligraphic-Bold.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Caligraphic-Bold.woff2) format('woff2'),url(fonts/KaTeX_Caligraphic-Bold.woff) format('woff'),url(fonts/KaTeX_Caligraphic-Bold.ttf) format('truetype');font-weight:700;font-style:normal}@font-face{font-family:KaTeX_Caligraphic;src:url(fonts/KaTeX_Caligraphic-Regular.eot);src:url(fonts/KaTeX_Caligraphic-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Caligraphic-Regular.woff2) format('woff2'),url(fonts/KaTeX_Caligraphic-Regular.woff) format('woff'),url(fonts/KaTeX_Caligraphic-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Fraktur;src:url(fonts/KaTeX_Fraktur-Bold.eot);src:url(fonts/KaTeX_Fraktur-Bold.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Fraktur-Bold.woff2) format('woff2'),url(fonts/KaTeX_Fraktur-Bold.woff) format('woff'),url(fonts/KaTeX_Fraktur-Bold.ttf) format('truetype');font-weight:700;font-style:normal}@font-face{font-family:KaTeX_Fraktur;src:url(fonts/KaTeX_Fraktur-Regular.eot);src:url(fonts/KaTeX_Fraktur-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Fraktur-Regular.woff2) format('woff2'),url(fonts/KaTeX_Fraktur-Regular.woff) format('woff'),url(fonts/KaTeX_Fraktur-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Main;src:url(fonts/KaTeX_Main-Bold.eot);src:url(fonts/KaTeX_Main-Bold.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Main-Bold.woff2) format('woff2'),url(fonts/KaTeX_Main-Bold.woff) format('woff'),url(fonts/KaTeX_Main-Bold.ttf) format('truetype');font-weight:700;font-style:normal}@font-face{font-family:KaTeX_Main;src:url(fonts/KaTeX_Main-Italic.eot);src:url(fonts/KaTeX_Main-Italic.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Main-Italic.woff2) format('woff2'),url(fonts/KaTeX_Main-Italic.woff) format('woff'),url(fonts/KaTeX_Main-Italic.ttf) format('truetype');font-weight:400;font-style:italic}@font-face{font-family:KaTeX_Main;src:url(fonts/KaTeX_Main-Regular.eot);src:url(fonts/KaTeX_Main-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Main-Regular.woff2) format('woff2'),url(fonts/KaTeX_Main-Regular.woff) format('woff'),url(fonts/KaTeX_Main-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Math;src:url(fonts/KaTeX_Math-Italic.eot);src:url(fonts/KaTeX_Math-Italic.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Math-Italic.woff2) format('woff2'),url(fonts/KaTeX_Math-Italic.woff) format('woff'),url(fonts/KaTeX_Math-Italic.ttf) format('truetype');font-weight:400;font-style:italic}@font-face{font-family:KaTeX_SansSerif;src:url(fonts/KaTeX_SansSerif-Regular.eot);src:url(fonts/KaTeX_SansSerif-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_SansSerif-Regular.woff2) format('woff2'),url(fonts/KaTeX_SansSerif-Regular.woff) format('woff'),url(fonts/KaTeX_SansSerif-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Script;src:url(fonts/KaTeX_Script-Regular.eot);src:url(fonts/KaTeX_Script-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Script-Regular.woff2) format('woff2'),url(fonts/KaTeX_Script-Regular.woff) format('woff'),url(fonts/KaTeX_Script-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Size1;src:url(fonts/KaTeX_Size1-Regular.eot);src:url(fonts/KaTeX_Size1-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Size1-Regular.woff2) format('woff2'),url(fonts/KaTeX_Size1-Regular.woff) format('woff'),url(fonts/KaTeX_Size1-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Size2;src:url(fonts/KaTeX_Size2-Regular.eot);src:url(fonts/KaTeX_Size2-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Size2-Regular.woff2) format('woff2'),url(fonts/KaTeX_Size2-Regular.woff) format('woff'),url(fonts/KaTeX_Size2-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Size3;src:url(fonts/KaTeX_Size3-Regular.eot);src:url(fonts/KaTeX_Size3-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Size3-Regular.woff2) format('woff2'),url(fonts/KaTeX_Size3-Regular.woff) format('woff'),url(fonts/KaTeX_Size3-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Size4;src:url(fonts/KaTeX_Size4-Regular.eot);src:url(fonts/KaTeX_Size4-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Size4-Regular.woff2) format('woff2'),url(fonts/KaTeX_Size4-Regular.woff) format('woff'),url(fonts/KaTeX_Size4-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Typewriter;src:url(fonts/KaTeX_Typewriter-Regular.eot);src:url(fonts/KaTeX_Typewriter-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Typewriter-Regular.woff2) format('woff2'),url(fonts/KaTeX_Typewriter-Regular.woff) format('woff'),url(fonts/KaTeX_Typewriter-Regular.ttf) format('truetype');font-weight:400;font-style:normal}.katex-display{display:block;margin:1em 0;text-align:center}.katex-display>.katex{display:inline-block;text-align:initial}.katex{font:400 1.21em KaTeX_Main,Times New Roman,serif;line-height:1.2;white-space:nowrap;text-indent:0}.katex .katex-html{display:inline-block}.katex .katex-mathml{position:absolute;clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}.katex .base,.katex .strut{display:inline-block}.katex .mathrm{font-style:normal}.katex .textit{font-style:italic}.katex .mathit{font-family:KaTeX_Math;font-style:italic}.katex .mathbf{font-family:KaTeX_Main;font-weight:700}.katex .amsrm,.katex .mathbb{font-family:KaTeX_AMS}.katex .mathcal{font-family:KaTeX_Caligraphic}.katex .mathfrak{font-family:KaTeX_Fraktur}.katex .mathtt{font-family:KaTeX_Typewriter}.katex .mathscr{font-family:KaTeX_Script}.katex .mathsf{font-family:KaTeX_SansSerif}.katex .mainit{font-family:KaTeX_Main;font-style:italic}.katex .mord+.mop{margin-left:.16667em}.katex .mord+.mbin{margin-left:.22222em}.katex .mord+.mrel{margin-left:.27778em}.katex .mop+.mop,.katex .mop+.mord,.katex .mord+.minner{margin-left:.16667em}.katex .mop+.mrel{margin-left:.27778em}.katex .mop+.minner{margin-left:.16667em}.katex .mbin+.minner,.katex .mbin+.mop,.katex .mbin+.mopen,.katex .mbin+.mord{margin-left:.22222em}.katex .mrel+.minner,.katex .mrel+.mop,.katex .mrel+.mopen,.katex .mrel+.mord{margin-left:.27778em}.katex .mclose+.mop{margin-left:.16667em}.katex .mclose+.mbin{margin-left:.22222em}.katex .mclose+.mrel{margin-left:.27778em}.katex .mclose+.minner,.katex .minner+.mop,.katex .minner+.mord,.katex .mpunct+.mclose,.katex .mpunct+.minner,.katex .mpunct+.mop,.katex .mpunct+.mopen,.katex .mpunct+.mord,.katex .mpunct+.mpunct,.katex .mpunct+.mrel{margin-left:.16667em}.katex .minner+.mbin{margin-left:.22222em}.katex .minner+.mrel{margin-left:.27778em}.katex .minner+.minner,.katex .minner+.mopen,.katex .minner+.mpunct{margin-left:.16667em}.katex .mbin.mtight,.katex .mclose.mtight,.katex .minner.mtight,.katex .mop.mtight,.katex .mopen.mtight,.katex .mord.mtight,.katex .mpunct.mtight,.katex .mrel.mtight{margin-left:0}.katex .mclose+.mop.mtight,.katex .minner+.mop.mtight,.katex .mop+.mop.mtight,.katex .mop+.mord.mtight,.katex .mord+.mop.mtight{margin-left:.16667em}.katex .reset-textstyle.textstyle{font-size:1em}.katex .reset-textstyle.scriptstyle{font-size:.7em}.katex .reset-textstyle.scriptscriptstyle{font-size:.5em}.katex .reset-scriptstyle.textstyle{font-size:1.42857em}.katex .reset-scriptstyle.scriptstyle{font-size:1em}.katex .reset-scriptstyle.scriptscriptstyle{font-size:.71429em}.katex .reset-scriptscriptstyle.textstyle{font-size:2em}.katex .reset-scriptscriptstyle.scriptstyle{font-size:1.4em}.katex .reset-scriptscriptstyle.scriptscriptstyle{font-size:1em}.katex .style-wrap{position:relative}.katex .vlist{display:inline-block}.katex .vlist>span{display:block;height:0;position:relative}.katex .vlist>span>span{display:inline-block}.katex .vlist .baseline-fix{display:inline-table;table-layout:fixed}.katex .msupsub{text-align:left}.katex .mfrac>span>span{text-align:center}.katex .mfrac .frac-line{width:100%}.katex .mfrac .frac-line:before{border-bottom-style:solid;border-bottom-width:1px;content:\"\";display:block}.katex .mfrac .frac-line:after{border-bottom-style:solid;border-bottom-width:.04em;content:\"\";display:block;margin-top:-1px}.katex .mspace{display:inline-block}.katex .mspace.negativethinspace{margin-left:-.16667em}.katex .mspace.thinspace{width:.16667em}.katex .mspace.negativemediumspace{margin-left:-.22222em}.katex .mspace.mediumspace{width:.22222em}.katex .mspace.thickspace{width:.27778em}.katex .mspace.sixmuspace{width:.333333em}.katex .mspace.eightmuspace{width:.444444em}.katex .mspace.enspace{width:.5em}.katex .mspace.twelvemuspace{width:.666667em}.katex .mspace.quad{width:1em}.katex .mspace.qquad{width:2em}.katex .llap,.katex .rlap{width:0;position:relative}.katex .llap>.inner,.katex .rlap>.inner{position:absolute}.katex .llap>.fix,.katex .rlap>.fix{display:inline-block}.katex .llap>.inner{right:0}.katex .rlap>.inner{left:0}.katex .katex-logo .a{font-size:.75em;margin-left:-.32em;position:relative;top:-.2em}.katex .katex-logo .t{margin-left:-.23em}.katex .katex-logo .e{margin-left:-.1667em;position:relative;top:.2155em}.katex .katex-logo .x{margin-left:-.125em}.katex .rule{display:inline-block;border:0 solid;position:relative}.katex .overline .overline-line,.katex .underline .underline-line{width:100%}.katex .overline .overline-line:before,.katex .underline .underline-line:before{border-bottom-style:solid;border-bottom-width:1px;content:\"\";display:block}.katex .overline .overline-line:after,.katex .underline .underline-line:after{border-bottom-style:solid;border-bottom-width:.04em;content:\"\";display:block;margin-top:-1px}.katex .sqrt>.sqrt-sign{position:relative}.katex .sqrt .sqrt-line{width:100%}.katex .sqrt .sqrt-line:before{border-bottom-style:solid;border-bottom-width:1px;content:\"\";display:block}.katex .sqrt .sqrt-line:after{border-bottom-style:solid;border-bottom-width:.04em;content:\"\";display:block;margin-top:-1px}.katex .sqrt>.root{margin-left:.27777778em;margin-right:-.55555556em}.katex .fontsize-ensurer,.katex .sizing{display:inline-block}.katex .fontsize-ensurer.reset-size1.size1,.katex .sizing.reset-size1.size1{font-size:1em}.katex .fontsize-ensurer.reset-size1.size2,.katex .sizing.reset-size1.size2{font-size:1.4em}.katex .fontsize-ensurer.reset-size1.size3,.katex .sizing.reset-size1.size3{font-size:1.6em}.katex .fontsize-ensurer.reset-size1.size4,.katex .sizing.reset-size1.size4{font-size:1.8em}.katex .fontsize-ensurer.reset-size1.size5,.katex .sizing.reset-size1.size5{font-size:2em}.katex .fontsize-ensurer.reset-size1.size6,.katex .sizing.reset-size1.size6{font-size:2.4em}.katex .fontsize-ensurer.reset-size1.size7,.katex .sizing.reset-size1.size7{font-size:2.88em}.katex .fontsize-ensurer.reset-size1.size8,.katex .sizing.reset-size1.size8{font-size:3.46em}.katex .fontsize-ensurer.reset-size1.size9,.katex .sizing.reset-size1.size9{font-size:4.14em}.katex .fontsize-ensurer.reset-size1.size10,.katex .sizing.reset-size1.size10{font-size:4.98em}.katex .fontsize-ensurer.reset-size2.size1,.katex .sizing.reset-size2.size1{font-size:.71428571em}.katex .fontsize-ensurer.reset-size2.size2,.katex .sizing.reset-size2.size2{font-size:1em}.katex .fontsize-ensurer.reset-size2.size3,.katex .sizing.reset-size2.size3{font-size:1.14285714em}.katex .fontsize-ensurer.reset-size2.size4,.katex .sizing.reset-size2.size4{font-size:1.28571429em}.katex .fontsize-ensurer.reset-size2.size5,.katex .sizing.reset-size2.size5{font-size:1.42857143em}.katex .fontsize-ensurer.reset-size2.size6,.katex .sizing.reset-size2.size6{font-size:1.71428571em}.katex .fontsize-ensurer.reset-size2.size7,.katex .sizing.reset-size2.size7{font-size:2.05714286em}.katex .fontsize-ensurer.reset-size2.size8,.katex .sizing.reset-size2.size8{font-size:2.47142857em}.katex .fontsize-ensurer.reset-size2.size9,.katex .sizing.reset-size2.size9{font-size:2.95714286em}.katex .fontsize-ensurer.reset-size2.size10,.katex .sizing.reset-size2.size10{font-size:3.55714286em}.katex .fontsize-ensurer.reset-size3.size1,.katex .sizing.reset-size3.size1{font-size:.625em}.katex .fontsize-ensurer.reset-size3.size2,.katex .sizing.reset-size3.size2{font-size:.875em}.katex .fontsize-ensurer.reset-size3.size3,.katex .sizing.reset-size3.size3{font-size:1em}.katex .fontsize-ensurer.reset-size3.size4,.katex .sizing.reset-size3.size4{font-size:1.125em}.katex .fontsize-ensurer.reset-size3.size5,.katex .sizing.reset-size3.size5{font-size:1.25em}.katex .fontsize-ensurer.reset-size3.size6,.katex .sizing.reset-size3.size6{font-size:1.5em}.katex .fontsize-ensurer.reset-size3.size7,.katex .sizing.reset-size3.size7{font-size:1.8em}.katex .fontsize-ensurer.reset-size3.size8,.katex .sizing.reset-size3.size8{font-size:2.1625em}.katex .fontsize-ensurer.reset-size3.size9,.katex .sizing.reset-size3.size9{font-size:2.5875em}.katex .fontsize-ensurer.reset-size3.size10,.katex .sizing.reset-size3.size10{font-size:3.1125em}.katex .fontsize-ensurer.reset-size4.size1,.katex .sizing.reset-size4.size1{font-size:.55555556em}.katex .fontsize-ensurer.reset-size4.size2,.katex .sizing.reset-size4.size2{font-size:.77777778em}.katex .fontsize-ensurer.reset-size4.size3,.katex .sizing.reset-size4.size3{font-size:.88888889em}.katex .fontsize-ensurer.reset-size4.size4,.katex .sizing.reset-size4.size4{font-size:1em}.katex .fontsize-ensurer.reset-size4.size5,.katex .sizing.reset-size4.size5{font-size:1.11111111em}.katex .fontsize-ensurer.reset-size4.size6,.katex .sizing.reset-size4.size6{font-size:1.33333333em}.katex .fontsize-ensurer.reset-size4.size7,.katex .sizing.reset-size4.size7{font-size:1.6em}.katex .fontsize-ensurer.reset-size4.size8,.katex .sizing.reset-size4.size8{font-size:1.92222222em}.katex .fontsize-ensurer.reset-size4.size9,.katex .sizing.reset-size4.size9{font-size:2.3em}.katex .fontsize-ensurer.reset-size4.size10,.katex .sizing.reset-size4.size10{font-size:2.76666667em}.katex .fontsize-ensurer.reset-size5.size1,.katex .sizing.reset-size5.size1{font-size:.5em}.katex .fontsize-ensurer.reset-size5.size2,.katex .sizing.reset-size5.size2{font-size:.7em}.katex .fontsize-ensurer.reset-size5.size3,.katex .sizing.reset-size5.size3{font-size:.8em}.katex .fontsize-ensurer.reset-size5.size4,.katex .sizing.reset-size5.size4{font-size:.9em}.katex .fontsize-ensurer.reset-size5.size5,.katex .sizing.reset-size5.size5{font-size:1em}.katex .fontsize-ensurer.reset-size5.size6,.katex .sizing.reset-size5.size6{font-size:1.2em}.katex .fontsize-ensurer.reset-size5.size7,.katex .sizing.reset-size5.size7{font-size:1.44em}.katex .fontsize-ensurer.reset-size5.size8,.katex .sizing.reset-size5.size8{font-size:1.73em}.katex .fontsize-ensurer.reset-size5.size9,.katex .sizing.reset-size5.size9{font-size:2.07em}.katex .fontsize-ensurer.reset-size5.size10,.katex .sizing.reset-size5.size10{font-size:2.49em}.katex .fontsize-ensurer.reset-size6.size1,.katex .sizing.reset-size6.size1{font-size:.41666667em}.katex .fontsize-ensurer.reset-size6.size2,.katex .sizing.reset-size6.size2{font-size:.58333333em}.katex .fontsize-ensurer.reset-size6.size3,.katex .sizing.reset-size6.size3{font-size:.66666667em}.katex .fontsize-ensurer.reset-size6.size4,.katex .sizing.reset-size6.size4{font-size:.75em}.katex .fontsize-ensurer.reset-size6.size5,.katex .sizing.reset-size6.size5{font-size:.83333333em}.katex .fontsize-ensurer.reset-size6.size6,.katex .sizing.reset-size6.size6{font-size:1em}.katex .fontsize-ensurer.reset-size6.size7,.katex .sizing.reset-size6.size7{font-size:1.2em}.katex .fontsize-ensurer.reset-size6.size8,.katex .sizing.reset-size6.size8{font-size:1.44166667em}.katex .fontsize-ensurer.reset-size6.size9,.katex .sizing.reset-size6.size9{font-size:1.725em}.katex .fontsize-ensurer.reset-size6.size10,.katex .sizing.reset-size6.size10{font-size:2.075em}.katex .fontsize-ensurer.reset-size7.size1,.katex .sizing.reset-size7.size1{font-size:.34722222em}.katex .fontsize-ensurer.reset-size7.size2,.katex .sizing.reset-size7.size2{font-size:.48611111em}.katex .fontsize-ensurer.reset-size7.size3,.katex .sizing.reset-size7.size3{font-size:.55555556em}.katex .fontsize-ensurer.reset-size7.size4,.katex .sizing.reset-size7.size4{font-size:.625em}.katex .fontsize-ensurer.reset-size7.size5,.katex .sizing.reset-size7.size5{font-size:.69444444em}.katex .fontsize-ensurer.reset-size7.size6,.katex .sizing.reset-size7.size6{font-size:.83333333em}.katex .fontsize-ensurer.reset-size7.size7,.katex .sizing.reset-size7.size7{font-size:1em}.katex .fontsize-ensurer.reset-size7.size8,.katex .sizing.reset-size7.size8{font-size:1.20138889em}.katex .fontsize-ensurer.reset-size7.size9,.katex .sizing.reset-size7.size9{font-size:1.4375em}.katex .fontsize-ensurer.reset-size7.size10,.katex .sizing.reset-size7.size10{font-size:1.72916667em}.katex .fontsize-ensurer.reset-size8.size1,.katex .sizing.reset-size8.size1{font-size:.28901734em}.katex .fontsize-ensurer.reset-size8.size2,.katex .sizing.reset-size8.size2{font-size:.40462428em}.katex .fontsize-ensurer.reset-size8.size3,.katex .sizing.reset-size8.size3{font-size:.46242775em}.katex .fontsize-ensurer.reset-size8.size4,.katex .sizing.reset-size8.size4{font-size:.52023121em}.katex .fontsize-ensurer.reset-size8.size5,.katex .sizing.reset-size8.size5{font-size:.57803468em}.katex .fontsize-ensurer.reset-size8.size6,.katex .sizing.reset-size8.size6{font-size:.69364162em}.katex .fontsize-ensurer.reset-size8.size7,.katex .sizing.reset-size8.size7{font-size:.83236994em}.katex .fontsize-ensurer.reset-size8.size8,.katex .sizing.reset-size8.size8{font-size:1em}.katex .fontsize-ensurer.reset-size8.size9,.katex .sizing.reset-size8.size9{font-size:1.19653179em}.katex .fontsize-ensurer.reset-size8.size10,.katex .sizing.reset-size8.size10{font-size:1.43930636em}.katex .fontsize-ensurer.reset-size9.size1,.katex .sizing.reset-size9.size1{font-size:.24154589em}.katex .fontsize-ensurer.reset-size9.size2,.katex .sizing.reset-size9.size2{font-size:.33816425em}.katex .fontsize-ensurer.reset-size9.size3,.katex .sizing.reset-size9.size3{font-size:.38647343em}.katex .fontsize-ensurer.reset-size9.size4,.katex .sizing.reset-size9.size4{font-size:.43478261em}.katex .fontsize-ensurer.reset-size9.size5,.katex .sizing.reset-size9.size5{font-size:.48309179em}.katex .fontsize-ensurer.reset-size9.size6,.katex .sizing.reset-size9.size6{font-size:.57971014em}.katex .fontsize-ensurer.reset-size9.size7,.katex .sizing.reset-size9.size7{font-size:.69565217em}.katex .fontsize-ensurer.reset-size9.size8,.katex .sizing.reset-size9.size8{font-size:.83574879em}.katex .fontsize-ensurer.reset-size9.size9,.katex .sizing.reset-size9.size9{font-size:1em}.katex .fontsize-ensurer.reset-size9.size10,.katex .sizing.reset-size9.size10{font-size:1.20289855em}.katex .fontsize-ensurer.reset-size10.size1,.katex .sizing.reset-size10.size1{font-size:.20080321em}.katex .fontsize-ensurer.reset-size10.size2,.katex .sizing.reset-size10.size2{font-size:.2811245em}.katex .fontsize-ensurer.reset-size10.size3,.katex .sizing.reset-size10.size3{font-size:.32128514em}.katex .fontsize-ensurer.reset-size10.size4,.katex .sizing.reset-size10.size4{font-size:.36144578em}.katex .fontsize-ensurer.reset-size10.size5,.katex .sizing.reset-size10.size5{font-size:.40160643em}.katex .fontsize-ensurer.reset-size10.size6,.katex .sizing.reset-size10.size6{font-size:.48192771em}.katex .fontsize-ensurer.reset-size10.size7,.katex .sizing.reset-size10.size7{font-size:.57831325em}.katex .fontsize-ensurer.reset-size10.size8,.katex .sizing.reset-size10.size8{font-size:.69477912em}.katex .fontsize-ensurer.reset-size10.size9,.katex .sizing.reset-size10.size9{font-size:.8313253em}.katex .fontsize-ensurer.reset-size10.size10,.katex .sizing.reset-size10.size10{font-size:1em}.katex .delimsizing.size1{font-family:KaTeX_Size1}.katex .delimsizing.size2{font-family:KaTeX_Size2}.katex .delimsizing.size3{font-family:KaTeX_Size3}.katex .delimsizing.size4{font-family:KaTeX_Size4}.katex .delimsizing.mult .delim-size1>span{font-family:KaTeX_Size1}.katex .delimsizing.mult .delim-size4>span{font-family:KaTeX_Size4}.katex .nulldelimiter{display:inline-block;width:.12em}.katex .op-symbol{position:relative}.katex .op-symbol.small-op{font-family:KaTeX_Size1}.katex .op-symbol.large-op{font-family:KaTeX_Size2}.katex .accent>.vlist>span,.katex .op-limits>.vlist>span{text-align:center}.katex .accent .accent-body>span{width:0}.katex .accent .accent-body.accent-vec>span{position:relative;left:.326em}.katex .mtable .vertical-separator{display:inline-block;margin:0 -.025em;border-right:.05em solid #000}.katex .mtable .arraycolsep{display:inline-block}.katex .mtable .col-align-c>.vlist{text-align:center}.katex .mtable .col-align-l>.vlist{text-align:left}.katex .mtable .col-align-r>.vlist{text-align:right}";
+
+let s = document.createElement('style');
+s.textContent =  base + layout + print + article + katexCSS;
+document.querySelector('head').appendChild(s);
+
+/*global ShadyCSS*/
+
+const Template = (name, templateString, useShadow = true) => {
+
+  return (superclass) => {
+
+    const template = document.createElement('template');
+    template.innerHTML = templateString;
+
+    if (useShadow && 'ShadyCSS' in window) {
+      ShadyCSS.prepareTemplate(template, name);
     }
-    @media(min-width: 768px) {
-      ${e} {
-        margin-left: 72px;
-        margin-right: 72px;
+
+    return class extends superclass {
+
+      static get is() { return name; }
+
+      constructor() {
+        super();
+
+        this.clone = document.importNode(template.content, true);
+        if (useShadow) {
+          this.attachShadow({mode: 'open'});
+          this.shadowRoot.appendChild(this.clone);
+        }
       }
-    }
-    @media(min-width: 1080px) {
-      ${e} {
-        width: 984px;
-        margin-left: auto;
-        margin-right: auto;
+
+      connectedCallback() {
+        if (useShadow) {
+          if ('ShadyCSS' in window) {
+            ShadyCSS.styleElement(this);
+          }
+        } else {
+          this.insertBefore(this.clone, this.firstChild);
+        }
       }
+
+      get root() {
+        if (useShadow) {
+          return this.shadowRoot;
+        } else {
+          return this;
+        }
+      }
+
+      /* TODO: Are we using these? Should we even? */
+      $(query) {
+        return this.root.querySelector(query);
+      }
+
+      $$(query) {
+        return this.root.querySelectorAll(query);
+      }
+    };
+  };
+};
+
+// const marginSmall = 16;
+// const marginLarge = 3 * marginSmall;
+// const margin = marginSmall + marginLarge;
+// const gutter = marginSmall;
+// const outsetAmount = margin / 2;
+// const numCols = 4;
+// const numGutters = numCols - 1;
+// const columnWidth = (768 - 2 * marginLarge - numGutters * gutter) / numCols;
+//
+// const screenwidth = 768;
+// const pageWidth = screenwidth - 2 * marginLarge;
+// const bodyWidth = pageWidth - columnWidth - gutter;
+
+function body(selector) {
+  return `${selector} {
+      grid-column: margin-left / body;
     }
-  `}function t(e,i,n,a){function s(t){return e(t=new Date(+t)),t}return s.floor=s,s.ceil=function(t){return e(t=new Date(t-1)),i(t,1),e(t),t},s.round=function(e){var t=s(e),i=s.ceil(e);return e-t<i-e?t:i},s.offset=function(e,t){return i(e=new Date(+e),null==t?1:li(t)),e},s.range=function(t,n,a){var r=[];if(t=s.ceil(t),a=null==a?1:li(a),!(t<n)||!(0<a))return r;do r.push(new Date(+t));while((i(t,a),e(t),t<n));return r},s.filter=function(n){return t(function(t){if(t>=t)for(;e(t),!n(t);)t.setTime(t-1)},function(e,t){if(e>=e)if(0>t)for(;0>=++t;)for(;i(e,-1),!n(e););else for(;0<=--t;)for(;i(e,1),!n(e););})},n&&(s.count=function(t,i){return fi.setTime(+t),yi.setTime(+i),e(fi),e(yi),li(n(fi,yi))},s.every=function(e){return e=li(e),isFinite(e)&&0<e?1<e?s.filter(a?function(t){return 0==a(t)%e}:function(t){return 0==s.count(0,t)%e}):s:null}),s}function n(e){return t(function(t){t.setDate(t.getDate()-(t.getDay()+7-e)%7),t.setHours(0,0,0,0)},function(e,t){e.setDate(e.getDate()+7*t)},function(e,t){return(t-e-(t.getTimezoneOffset()-e.getTimezoneOffset())*bi)/wi})}function a(e){return t(function(t){t.setUTCDate(t.getUTCDate()-(t.getUTCDay()+7-e)%7),t.setUTCHours(0,0,0,0)},function(e,t){e.setUTCDate(e.getUTCDate()+7*t)},function(e,t){return(t-e)/wi})}function r(e){if(0<=e.y&&100>e.y){var t=new Date(-1,e.m,e.d,e.H,e.M,e.S,e.L);return t.setFullYear(e.y),t}return new Date(e.y,e.m,e.d,e.H,e.M,e.S,e.L)}function o(e){if(0<=e.y&&100>e.y){var t=new Date(Date.UTC(-1,e.m,e.d,e.H,e.M,e.S,e.L));return t.setUTCFullYear(e.y),t}return new Date(Date.UTC(e.y,e.m,e.d,e.H,e.M,e.S,e.L))}function l(e){return{y:e,m:0,d:1,H:0,M:0,S:0,L:0}}function d(e){function t(e,t){return function(a){var s=[],r=-1,i=0,o=e.length,n,l,d;for(a instanceof Date||(a=new Date(+a));++r<o;)37===e.charCodeAt(r)&&(s.push(e.slice(i,r)),null==(l=Vi[n=e.charAt(++r)])?l="e"===n?" ":"0":n=e.charAt(++r),(d=t[n])&&(n=d(a,l)),s.push(n),i=r+1);return s.push(e.slice(i,r)),s.join("")}}function i(e,t){return function(a){var s=l(1900),r=n(s,e,a+="",0);if(r!=a.length)return null;if("p"in s&&(s.H=s.H%12+12*s.p),"W"in s||"U"in s){"w"in s||(s.w="W"in s?1:0);var i="Z"in s?o(l(s.y)).getUTCDay():t(l(s.y)).getDay();s.m=0,s.d="W"in s?(s.w+6)%7+7*s.W-(i+5)%7:s.w+7*s.U-(i+6)%7}return"Z"in s?(s.H+=0|s.Z/100,s.M+=s.Z%100,o(s)):t(s)}}function n(e,t,a,s){for(var r=0,i=t.length,n=a.length,o,l;r<i;){if(s>=n)return-1;if(o=t.charCodeAt(r++),37===o){if(o=t.charAt(r++),l=xe[o in Vi?t.charAt(r++):o],!l||0>(s=l(e,a,s)))return-1;}else if(o!=a.charCodeAt(s++))return-1}return s}var a=e.dateTime,s=e.date,p=e.time,u=e.periods,T=e.days,S=e.shortDays,D=e.months,re=e.shortMonths,oe=c(u),le=m(u),de=c(T),pe=m(T),ue=c(S),ce=m(S),me=c(D),ge=m(D),he=c(re),fe=m(re),d={a:function(e){return S[e.getDay()]},A:function(e){return T[e.getDay()]},b:function(e){return re[e.getMonth()]},B:function(e){return D[e.getMonth()]},c:null,d:_,e:_,H:q,I:R,j:E,L:L,m:F,M:I,p:function(e){return u[+(12<=e.getHours())]},S:O,U:X,w:K,W:U,x:null,X:null,y:P,Y:B,Z:j,"%":se},ye={a:function(e){return S[e.getUTCDay()]},A:function(e){return T[e.getUTCDay()]},b:function(e){return re[e.getUTCMonth()]},B:function(e){return D[e.getUTCMonth()]},c:null,d:H,e:H,H:Y,I:G,j:W,L:V,m:$,M:J,p:function(e){return u[+(12<=e.getUTCHours())]},S:Z,U:Q,w:ee,W:te,x:null,X:null,y:ie,Y:ne,Z:ae,"%":se},xe={a:function(e,t,a){var i=ue.exec(t.slice(a));return i?(e.w=ce[i[0].toLowerCase()],a+i[0].length):-1},A:function(e,t,a){var i=de.exec(t.slice(a));return i?(e.w=pe[i[0].toLowerCase()],a+i[0].length):-1},b:function(e,t,a){var i=he.exec(t.slice(a));return i?(e.m=fe[i[0].toLowerCase()],a+i[0].length):-1},B:function(e,t,a){var i=me.exec(t.slice(a));return i?(e.m=ge[i[0].toLowerCase()],a+i[0].length):-1},c:function(e,t,s){return n(e,a,t,s)},d:k,e:k,H:w,I:w,j:v,L:M,m:b,M:A,p:function(e,t,a){var i=oe.exec(t.slice(a));return i?(e.p=le[i[0].toLowerCase()],a+i[0].length):-1},S:C,U:h,w:g,W:f,x:function(e,t,a){return n(e,s,t,a)},X:function(e,t,a){return n(e,p,t,a)},y:x,Y:y,Z:z,"%":N};return d.x=t(s,d),d.X=t(p,d),d.c=t(a,d),ye.x=t(s,ye),ye.X=t(p,ye),ye.c=t(a,ye),{format:function(e){var i=t(e+="",d);return i.toString=function(){return e},i},parse:function(e){var t=i(e+="",r);return t.toString=function(){return e},t},utcFormat:function(e){var i=t(e+="",ye);return i.toString=function(){return e},i},utcParse:function(e){var t=i(e,o);return t.toString=function(){return e},t}}}function u(e,t,i){var n=0>e?"-":"",a=(n?-e:e)+"",s=a.length;return n+(s<i?Array(i-s+1).join(t)+a:a)}function p(e){return e.replace(Zi,"\\$&")}function c(e){return new RegExp("^(?:"+e.map(p).join("|")+")","i")}function m(e){for(var t={},a=-1,i=e.length;++a<i;)t[e[a].toLowerCase()]=a;return t}function g(e,t,a){var i=$i.exec(t.slice(a,a+1));return i?(e.w=+i[0],a+i[0].length):-1}function h(e,t,a){var i=$i.exec(t.slice(a));return i?(e.U=+i[0],a+i[0].length):-1}function f(e,t,a){var i=$i.exec(t.slice(a));return i?(e.W=+i[0],a+i[0].length):-1}function y(e,t,a){var i=$i.exec(t.slice(a,a+4));return i?(e.y=+i[0],a+i[0].length):-1}function x(e,t,a){var i=$i.exec(t.slice(a,a+2));return i?(e.y=+i[0]+(68<+i[0]?1900:2e3),a+i[0].length):-1}function z(e,t,a){var i=/^(Z)|([+-]\d\d)(?:\:?(\d\d))?/.exec(t.slice(a,a+6));return i?(e.Z=i[1]?0:-(i[2]+(i[3]||"00")),a+i[0].length):-1}function b(e,t,a){var i=$i.exec(t.slice(a,a+2));return i?(e.m=i[0]-1,a+i[0].length):-1}function k(e,t,a){var i=$i.exec(t.slice(a,a+2));return i?(e.d=+i[0],a+i[0].length):-1}function v(e,t,a){var i=$i.exec(t.slice(a,a+3));return i?(e.m=0,e.d=+i[0],a+i[0].length):-1}function w(e,t,a){var i=$i.exec(t.slice(a,a+2));return i?(e.H=+i[0],a+i[0].length):-1}function A(e,t,a){var i=$i.exec(t.slice(a,a+2));return i?(e.M=+i[0],a+i[0].length):-1}function C(e,t,a){var i=$i.exec(t.slice(a,a+2));return i?(e.S=+i[0],a+i[0].length):-1}function M(e,t,a){var i=$i.exec(t.slice(a,a+3));return i?(e.L=+i[0],a+i[0].length):-1}function N(e,t,a){var i=Ji.exec(t.slice(a,a+1));return i?a+i[0].length:-1}function _(e,t){return u(e.getDate(),t,2)}function q(e,t){return u(e.getHours(),t,2)}function R(e,t){return u(e.getHours()%12||12,t,2)}function E(e,t){return u(1+Ci.count(Ii(e),e),t,3)}function L(e,t){return u(e.getMilliseconds(),t,3)}function F(e,t){return u(e.getMonth()+1,t,2)}function I(e,t){return u(e.getMinutes(),t,2)}function O(e,t){return u(e.getSeconds(),t,2)}function X(e,t){return u(Mi.count(Ii(e),e),t,2)}function K(e){return e.getDay()}function U(e,t){return u(Ni.count(Ii(e),e),t,2)}function P(e,t){return u(e.getFullYear()%100,t,2)}function B(e,t){return u(e.getFullYear()%1e4,t,4)}function j(e){var t=e.getTimezoneOffset();return(0<t?"-":(t*=-1,"+"))+u(0|t/60,"0",2)+u(t%60,"0",2)}function H(e,t){return u(e.getUTCDate(),t,2)}function Y(e,t){return u(e.getUTCHours(),t,2)}function G(e,t){return u(e.getUTCHours()%12||12,t,2)}function W(e,t){return u(1+Xi.count(Wi(e),e),t,3)}function V(e,t){return u(e.getUTCMilliseconds(),t,3)}function $(e,t){return u(e.getUTCMonth()+1,t,2)}function J(e,t){return u(e.getUTCMinutes(),t,2)}function Z(e,t){return u(e.getUTCSeconds(),t,2)}function Q(e,t){return u(Ki.count(Wi(e),e),t,2)}function ee(e){return e.getUTCDay()}function te(e,t){return u(Ui.count(Wi(e),e),t,2)}function ie(e,t){return u(e.getUTCFullYear()%100,t,2)}function ne(e,t){return u(e.getUTCFullYear()%1e4,t,4)}function ae(){return"+0000"}function se(){return"%"}function re(e,t,i,n){var a=e.author.split(" and ");let s=a.map((e)=>{if(e=e.trim(),-1!=e.indexOf(","))var i=e.split(",")[0].trim(),n=e.split(",")[1];else var i=e.split(" ").slice(-1)[0].trim(),n=e.split(" ").slice(0,-1).join(" ");var a="";return void 0!=n&&(a=n.trim().split(" ").map((e)=>e.trim()[0]),a=a.join(".")+"."),t.replace("${F}",n).replace("${L}",i).replace("${I}",a)});if(1<a.length){var r=s.slice(0,a.length-1).join(i);return r+=(n||i)+s[a.length-1],r}return s[0]}function oe(e){var t=e.journal||e.booktitle||"";if("volume"in e){var i=e.issue||e.number;i=void 0==i?"":"("+i+")",t+=", Vol "+e.volume+i}return"pages"in e&&(t+=", pp. "+e.pages),""!=t&&(t+=". "),"publisher"in e&&(t+=e.publisher,"."!=t[t.length-1]&&(t+=".")),t}function le(e){if("url"in e){var t=e.url,i=/arxiv\.org\/abs\/([0-9\.]*)/.exec(t);if(null!=i&&(t=`http://arxiv.org/pdf/${i[1]}.pdf`),".pdf"==t.slice(-4))var n="PDF";else if(".html"==t.slice(-5))var n="HTML";return` &ensp;<a href="${t}">[${n||"link"}]</a>`}return""}function de(e,t){return"doi"in e?`${t?"<br>":""} <a href="https://doi.org/${e.doi}" style="text-decoration:inherit;">DOI: ${e.doi}</a>`:""}function pe(e){if(e){var t="<b>"+e.title+"</b> ";return t+=le(e)+"<br>",t+=re(e,"${L}, ${I}",", "," and "),t+=e.year||e.date?", "+(e.year||e.date)+". ":". ",t+=oe(e),t+=de(e),t}return"?"}function ue(e){if(e){var t="";t+="<b>"+e.title+"</b>",t+=le(e),t+="<br>";var i=re(e,"${I} ${L}",", ")+".",n=oe(e).trim()+" "+e.year+". "+de(e,!0);return t+=(i+n).length<oi(40,e.title.length)?i+" "+n:i+"<br>"+n,t}return"?"}function ce(e){var t=600<window.innerWidth,i=t?18:12,n=t?18:0,a=document.querySelector("body").getBoundingClientRect(),s=e[0]-a.left,r=e[1]-a.top,o=oi(window.innerWidth-2*n,648);return s=oi(s,window.innerWidth-o-n),o-=2*i,`position: absolute;
-     background-color: #FFF;
-     opacity: 0.95;
-     max-width: ${o}px;
-     top: ${r}px;
-     left: ${s}px;
-     border: 1px solid rgba(0, 0, 0, 0.25);
-     padding: ${i}px;
-     border-radius: ${t?3:0}px;
-     box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);
-     z-index: ${1e6};`}function me(){const e=new Set,t=document.querySelectorAll("d-cite");for(const i of t){const t=i.getAttribute("key").split(",");for(const i of t)e.add(i)}return[...e]}function ge(){throw new Error("Dynamic requires are not currently supported by rollup-plugin-commonjs")}function he(e,t){return t={exports:{}},e(t,t.exports),t.exports}function fe(e){const t=new Map,i=vn.toJSON(e);for(const n of i){for(const e in n.entryTags){let t=n.entryTags[e];t=t.replace(/[\t\n ]+/g," "),t=t.replace(/{\\["^`\.'acu~Hvs]( )?([a-zA-Z])}/g,(e,t,i)=>i),t=t.replace(/{\\([a-zA-Z])}/g,(e,t)=>t),n.entryTags[e]=t}n.entryTags.type=n.entryType,t.set(n.citationKey,n.entryTags)}return t}function ye(e){return`
-  <div class="authors">
-    ${e.authors.map((e)=>`<div class="author">
-      ${e.personalURL?`<a class="name" href="${e.personalURL}">${e.name}</a>`:`<div class="name">${e.name}</div>`}
-      ${e.affiliationURL?`<a class="affiliation" href="${e.affiliationURL}">${e.affiliation}</a>`:`<div class="affiliation">${e.affiliation}</div>`}
-    </div>`).join("\n")}
-  </div>
-  <div class="date">
-    <div class="month">${e.publishedMonth}. ${e.publishedDay}</div>
-    <div class="year">${e.publishedYear}</div>
-  </div>
-  <a class="citation" href="#citation">
-    <div>Citation:</div>
-    <div>${e.concatenatedAuthors}, ${e.publishedYear}</div>
-  </a>
-  `}function xe(e){return"undefined"==typeof e||null===e}function ze(e,t){Error.call(this),this.name="YAMLException",this.reason=e,this.mark=t,this.message=(this.reason||"(unknown reason)")+(this.mark?" "+this.mark.toString():""),Error.captureStackTrace?Error.captureStackTrace(this,this.constructor):this.stack=new Error().stack||""}function be(e,t,i,n,a){this.name=e,this.buffer=t,this.position=i,this.line=n,this.column=a}function ke(e){var t={};return null!==e&&Object.keys(e).forEach(function(i){e[i].forEach(function(e){t[e+""]=i})}),t}function ve(e,t,i){var n=[];return e.include.forEach(function(e){i=ve(e,t,i)}),e[t].forEach(function(e){i.forEach(function(t,i){t.tag===e.tag&&t.kind===e.kind&&n.push(i)}),i.push(e)}),i.filter(function(e,t){return-1===n.indexOf(t)})}function we(){function e(e){t[e.kind][e.tag]=t.fallback[e.tag]=e}var t={scalar:{},sequence:{},mapping:{},fallback:{}},i,n;for(i=0,n=arguments.length;i<n;i+=1)arguments[i].forEach(e);return t}function Te(e){this.include=e.include||[],this.implicit=e.implicit||[],this.explicit=e.explicit||[],this.implicit.forEach(function(e){if(e.loadKind&&"scalar"!==e.loadKind)throw new Pn("There is a non-scalar type in the implicit list of a schema. Implicit resolving of such types is not supported.")}),this.compiledImplicit=ve(this,"implicit",[]),this.compiledExplicit=ve(this,"explicit",[]),this.compiledTypeMap=we(this.compiledImplicit,this.compiledExplicit)}function Se(e){return 48<=e&&57>=e||65<=e&&70>=e||97<=e&&102>=e}function Ae(e){return 48<=e&&55>=e}function Ce(e){return 48<=e&&57>=e}function Me(e){if(null===e)return!1;try{var t=ba.parse("("+e+")",{range:!0});return"Program"!==t.type||1!==t.body.length||"ExpressionStatement"!==t.body[0].type||"FunctionExpression"!==t.body[0].expression.type?!1:!0}catch(e){return!1}}function Ne(e){var t="("+e+")",i=ba.parse(t,{range:!0}),n=[],a;if("Program"!==i.type||1!==i.body.length||"ExpressionStatement"!==i.body[0].type||"FunctionExpression"!==i.body[0].expression.type)throw new Error("Failed to resolve function");return i.body[0].expression.params.forEach(function(e){n.push(e.name)}),a=i.body[0].expression.body.range,new Function(n,t.slice(a[0]+1,a[1]-1))}function _e(e){return e.toString()}function qe(e){return"[object Function]"===Object.prototype.toString.call(e)}function Re(e){return 10===e||13===e}function Ee(e){return 9===e||32===e}function Le(e){return 9===e||32===e||10===e||13===e}function Fe(e){return 44===e||91===e||93===e||123===e||125===e}function Ie(e){var t;return 48<=e&&57>=e?e-48:(t=32|e,97<=t&&102>=t?t-97+10:-1)}function Oe(e){return 120===e?2:117===e?4:85===e?8:0}function De(e){return 48<=e&&57>=e?e-48:-1}function Xe(e){return 48===e?"\0":97===e?"\x07":98===e?"\b":116===e?"\t":9===e?"\t":110===e?"\n":118===e?"\x0B":102===e?"\f":114===e?"\r":101===e?"\x1B":32===e?" ":34===e?"\"":47===e?"/":92===e?"\\":78===e?"\x85":95===e?"\xA0":76===e?"\u2028":80===e?"\u2029":""}function Ke(e){return 65535>=e?ai(e):ai((e-65536>>10)+55296,(1023&e-65536)+56320)}function Ue(e,t){this.input=e,this.filename=t.filename||null,this.schema=t.schema||Ma,this.onWarning=t.onWarning||null,this.legacy=t.legacy||!1,this.json=t.json||!1,this.listener=t.listener||null,this.implicitTypes=this.schema.compiledImplicit,this.typeMap=this.schema.compiledTypeMap,this.length=e.length,this.position=0,this.line=0,this.lineStart=0,this.lineIndent=0,this.documents=[]}function Pe(e,t){return new Sa(t,new Aa(e.filename,e.input,e.position,e.line,e.position-e.lineStart))}function Be(e,t){throw Pe(e,t)}function je(e,t){e.onWarning&&e.onWarning.call(null,Pe(e,t))}function He(e,t,i,n){var a,s,r,o;if(t<i){if(o=e.input.slice(t,i),n)for(a=0,s=o.length;a<s;a+=1)r=o.charCodeAt(a),9===r||32<=r&&1114111>=r||Be(e,"expected valid JSON character");else Oa.test(o)&&Be(e,"the stream contains non-printable characters");e.result+=o}}function Ye(e,t,i,n){var a,s,r,o;for(Ta.isObject(i)||Be(e,"cannot merge mappings; the provided source object is unacceptable"),a=Object.keys(i),(r=0,o=a.length);r<o;r+=1)s=a[r],Na.call(t,s)||(t[s]=i[s],n[s]=!0)}function Ge(e,t,i,n,a,s,r,o){var l,d;if(a+="",null===t&&(t={}),"tag:yaml.org,2002:merge"!==n)e.json||Na.call(i,a)||!Na.call(t,a)||(e.line=r||e.line,e.position=o||e.position,Be(e,"duplicated mapping key")),t[a]=s,delete i[a];else if(Array.isArray(s))for(l=0,d=s.length;l<d;l+=1)Ye(e,t,s[l],i);else Ye(e,t,s,i);return t}function We(e){var t;t=e.input.charCodeAt(e.position),10===t?e.position++:13===t?(e.position++,10===e.input.charCodeAt(e.position)&&e.position++):Be(e,"a line break is expected"),e.line+=1,e.lineStart=e.position}function Ve(e,t,i){for(var n=0,a=e.input.charCodeAt(e.position);0!==a;){for(;Ee(a);)a=e.input.charCodeAt(++e.position);if(t&&35===a)do a=e.input.charCodeAt(++e.position);while(10!=a&&13!=a&&0!=a);if(Re(a))for(We(e),a=e.input.charCodeAt(e.position),n++,e.lineIndent=0;32===a;)e.lineIndent++,a=e.input.charCodeAt(++e.position);else break}return-1!==i&&0!=n&&e.lineIndent<i&&je(e,"deficient indentation"),n}function $e(e){var t=e.position,i;return i=e.input.charCodeAt(t),(45===i||46===i)&&i===e.input.charCodeAt(t+1)&&i===e.input.charCodeAt(t+2)&&(t+=3,i=e.input.charCodeAt(t),0===i||Le(i))}function Je(e,t){1===t?e.result+=" ":1<t&&(e.result+=Ta.repeat("\n",t-1))}function Ze(e,t,i){var n=e.kind,a=e.result,s,r,o,l,d,p,u,c,m;if(m=e.input.charCodeAt(e.position),Le(m)||Fe(m)||35===m||38===m||42===m||33===m||124===m||62===m||39===m||34===m||37===m||64===m||96===m)return!1;if((63===m||45===m)&&(r=e.input.charCodeAt(e.position+1),Le(r)||i&&Fe(r)))return!1;for(e.kind="scalar",e.result="",o=l=e.position,d=!1;0!==m;){if(58===m){if(r=e.input.charCodeAt(e.position+1),Le(r)||i&&Fe(r))break;}else if(35===m){if(s=e.input.charCodeAt(e.position-1),Le(s))break;}else if(e.position===e.lineStart&&$e(e)||i&&Fe(m))break;else if(Re(m))if(p=e.line,u=e.lineStart,c=e.lineIndent,Ve(e,!1,-1),e.lineIndent>=t){d=!0,m=e.input.charCodeAt(e.position);continue}else{e.position=l,e.line=p,e.lineStart=u,e.lineIndent=c;break}d&&(He(e,o,l,!1),Je(e,e.line-p),o=l=e.position,d=!1),Ee(m)||(l=e.position+1),m=e.input.charCodeAt(++e.position)}return!(He(e,o,l,!1),!e.result)||(e.kind=n,e.result=a,!1)}function Qe(e,t){var i,n,a;if(i=e.input.charCodeAt(e.position),39!==i)return!1;for(e.kind="scalar",e.result="",e.position++,n=a=e.position;0!==(i=e.input.charCodeAt(e.position));)if(39!==i)Re(i)?(He(e,n,a,!0),Je(e,Ve(e,!1,t)),n=a=e.position):e.position===e.lineStart&&$e(e)?Be(e,"unexpected end of the document within a single quoted scalar"):(e.position++,a=e.position);else if(He(e,n,e.position,!0),i=e.input.charCodeAt(++e.position),39===i)n=e.position,e.position++,a=e.position;else return!0;Be(e,"unexpected end of the stream within a single quoted scalar")}function et(e,t){var i,n,a,s,r,o;if(o=e.input.charCodeAt(e.position),34!==o)return!1;for(e.kind="scalar",e.result="",e.position++,i=n=e.position;0!==(o=e.input.charCodeAt(e.position));){if(34===o)return He(e,i,e.position,!0),e.position++,!0;if(92===o){if(He(e,i,e.position,!0),o=e.input.charCodeAt(++e.position),Re(o))Ve(e,!1,t);else if(256>o&&Pa[o])e.result+=Ba[o],e.position++;else if(0<(r=Oe(o))){for(a=r,s=0;0<a;a--)o=e.input.charCodeAt(++e.position),0<=(r=Ie(o))?s=(s<<4)+r:Be(e,"expected hexadecimal character");e.result+=Ke(s),e.position++}else Be(e,"unknown escape sequence");i=n=e.position}else Re(o)?(He(e,i,n,!0),Je(e,Ve(e,!1,t)),i=n=e.position):e.position===e.lineStart&&$e(e)?Be(e,"unexpected end of the document within a double quoted scalar"):(e.position++,n=e.position)}Be(e,"unexpected end of the stream within a double quoted scalar")}function tt(e,t){var i=!0,n=e.tag,a=e.anchor,s={},r,o,l,d,p,u,c,m,g,h,f;if(f=e.input.charCodeAt(e.position),91===f)d=93,c=!1,o=[];else if(123===f)d=125,c=!0,o={};else return!1;for(null!==e.anchor&&(e.anchorMap[e.anchor]=o),f=e.input.charCodeAt(++e.position);0!==f;){if(Ve(e,!0,t),f=e.input.charCodeAt(e.position),f===d)return e.position++,e.tag=n,e.anchor=a,e.kind=c?"mapping":"sequence",e.result=o,!0;i||Be(e,"missed comma between flow collection entries"),g=m=h=null,p=u=!1,63===f&&(l=e.input.charCodeAt(e.position+1),Le(l)&&(p=u=!0,e.position++,Ve(e,!0,t))),r=e.line,lt(e,t,_a,!1,!0),g=e.tag,m=e.result,Ve(e,!0,t),f=e.input.charCodeAt(e.position),(u||e.line===r)&&58===f&&(p=!0,f=e.input.charCodeAt(++e.position),Ve(e,!0,t),lt(e,t,_a,!1,!0),h=e.result),c?Ge(e,o,s,g,m,h):p?o.push(Ge(e,null,s,g,m,h)):o.push(m),Ve(e,!0,t),f=e.input.charCodeAt(e.position),44===f?(i=!0,f=e.input.charCodeAt(++e.position)):i=!1}Be(e,"unexpected end of the stream within a flow collection")}function it(e,t){var i=La,n=!1,a=!1,s=t,r=0,o=!1,l,d,p,u;if(u=e.input.charCodeAt(e.position),124===u)d=!1;else if(62===u)d=!0;else return!1;for(e.kind="scalar",e.result="";0!==u;)if(u=e.input.charCodeAt(++e.position),43===u||45===u)La==i?i=43===u?Ia:Fa:Be(e,"repeat of a chomping mode identifier");else if(0<=(p=De(u)))0===p?Be(e,"bad explicit indentation width of a block scalar; it cannot be less than one"):a?Be(e,"repeat of an indentation width identifier"):(s=t+p-1,a=!0);else break;if(Ee(u)){do u=e.input.charCodeAt(++e.position);while(Ee(u));if(35===u)do u=e.input.charCodeAt(++e.position);while(!Re(u)&&0!=u)}for(;0!==u;){for(We(e),e.lineIndent=0,u=e.input.charCodeAt(e.position);(!a||e.lineIndent<s)&&32===u;)e.lineIndent++,u=e.input.charCodeAt(++e.position);if(!a&&e.lineIndent>s&&(s=e.lineIndent),Re(u)){r++;continue}if(e.lineIndent<s){i==Ia?e.result+=Ta.repeat("\n",n?1+r:r):i==La&&n&&(e.result+="\n");break}for(d?Ee(u)?(o=!0,e.result+=Ta.repeat("\n",n?1+r:r)):o?(o=!1,e.result+=Ta.repeat("\n",r+1)):0==r?n&&(e.result+=" "):e.result+=Ta.repeat("\n",r):e.result+=Ta.repeat("\n",n?1+r:r),n=!0,a=!0,r=0,l=e.position;!Re(u)&&0!==u;)u=e.input.charCodeAt(++e.position);He(e,l,e.position,!1)}return!0}function nt(e,t){var i=e.tag,n=e.anchor,a=[],s=!1,r,o,l;for(null!==e.anchor&&(e.anchorMap[e.anchor]=a),l=e.input.charCodeAt(e.position);0!==l&&45===l&&!(o=e.input.charCodeAt(e.position+1),!Le(o));){if(s=!0,e.position++,Ve(e,!0,-1)&&e.lineIndent<=t){a.push(null),l=e.input.charCodeAt(e.position);continue}if(r=e.line,lt(e,t,Ra,!1,!0),a.push(e.result),Ve(e,!0,-1),l=e.input.charCodeAt(e.position),(e.line===r||e.lineIndent>t)&&0!==l)Be(e,"bad indentation of a sequence entry");else if(e.lineIndent<t)break}return!!s&&(e.tag=i,e.anchor=n,e.kind="sequence",e.result=a,!0)}function at(e,t,i){var n=e.tag,a=e.anchor,s={},r={},o=null,l=null,d=null,p=!1,u=!1,c,m,g,h,f;for(null!==e.anchor&&(e.anchorMap[e.anchor]=s),f=e.input.charCodeAt(e.position);0!==f;){if(c=e.input.charCodeAt(e.position+1),g=e.line,h=e.position,(63===f||58===f)&&Le(c))63===f?(p&&(Ge(e,s,r,o,l,null),o=l=d=null),u=!0,p=!0,m=!0):p?(p=!1,m=!0):Be(e,"incomplete explicit mapping pair; a key node is missed"),e.position+=1,f=c;else if(!lt(e,i,qa,!1,!0))break;else if(e.line===g){for(f=e.input.charCodeAt(e.position);Ee(f);)f=e.input.charCodeAt(++e.position);if(58===f)f=e.input.charCodeAt(++e.position),Le(f)||Be(e,"a whitespace character is expected after the key-value separator within a block mapping"),p&&(Ge(e,s,r,o,l,null),o=l=d=null),u=!0,p=!1,m=!1,o=e.tag,l=e.result;else if(u)Be(e,"can not read an implicit mapping pair; a colon is missed");else return e.tag=n,e.anchor=a,!0}else if(u)Be(e,"can not read a block mapping entry; a multiline key may not be an implicit key");else return e.tag=n,e.anchor=a,!0;if((e.line===g||e.lineIndent>t)&&(lt(e,t,Ea,!0,m)&&(p?l=e.result:d=e.result),!p&&(Ge(e,s,r,o,l,d,g,h),o=l=d=null),Ve(e,!0,-1),f=e.input.charCodeAt(e.position)),e.lineIndent>t&&0!==f)Be(e,"bad indentation of a mapping entry");else if(e.lineIndent<t)break}return p&&Ge(e,s,r,o,l,null),u&&(e.tag=n,e.anchor=a,e.kind="mapping",e.result=s),u}function st(e){var t=!1,i=!1,n,a,s,r;if(r=e.input.charCodeAt(e.position),33!==r)return!1;if(null!==e.tag&&Be(e,"duplication of a tag property"),r=e.input.charCodeAt(++e.position),60===r?(t=!0,r=e.input.charCodeAt(++e.position)):33===r?(i=!0,a="!!",r=e.input.charCodeAt(++e.position)):a="!",n=e.position,t){do r=e.input.charCodeAt(++e.position);while(0!==r&&62!==r);e.position<e.length?(s=e.input.slice(n,e.position),r=e.input.charCodeAt(++e.position)):Be(e,"unexpected end of the stream within a verbatim tag")}else{for(;0!==r&&!Le(r);)33===r&&(i?Be(e,"tag suffix cannot contain exclamation marks"):(a=e.input.slice(n-1,e.position+1),!Ka.test(a)&&Be(e,"named tag handle cannot contain such characters"),i=!0,n=e.position+1)),r=e.input.charCodeAt(++e.position);s=e.input.slice(n,e.position),Xa.test(s)&&Be(e,"tag suffix cannot contain flow indicator characters")}return s&&!Ua.test(s)&&Be(e,"tag name cannot contain such characters: "+s),t?e.tag=s:Na.call(e.tagMap,a)?e.tag=e.tagMap[a]+s:"!"===a?e.tag="!"+s:"!!"===a?e.tag="tag:yaml.org,2002:"+s:Be(e,"undeclared tag handle \""+a+"\""),!0}function rt(e){var t,i;if(i=e.input.charCodeAt(e.position),38!==i)return!1;for(null!==e.anchor&&Be(e,"duplication of an anchor property"),i=e.input.charCodeAt(++e.position),t=e.position;0!==i&&!Le(i)&&!Fe(i);)i=e.input.charCodeAt(++e.position);return e.position===t&&Be(e,"name of an anchor node must contain at least one character"),e.anchor=e.input.slice(t,e.position),!0}function ot(e){var t,i,n;if(n=e.input.charCodeAt(e.position),42!==n)return!1;for(n=e.input.charCodeAt(++e.position),t=e.position;0!==n&&!Le(n)&&!Fe(n);)n=e.input.charCodeAt(++e.position);return e.position===t&&Be(e,"name of an alias node must contain at least one character"),i=e.input.slice(t,e.position),e.anchorMap.hasOwnProperty(i)||Be(e,"unidentified alias \""+i+"\""),e.result=e.anchorMap[i],Ve(e,!0,-1),!0}function lt(e,t,i,n,a){var s=1,r=!1,o=!1,l,d,p,u,c,m,g,h;if(null!==e.listener&&e.listener("open",e),e.tag=null,e.anchor=null,e.kind=null,e.result=null,l=d=p=Ea===i||Ra===i,n&&Ve(e,!0,-1)&&(r=!0,e.lineIndent>t?s=1:e.lineIndent===t?s=0:e.lineIndent<t&&(s=-1)),1==s)for(;st(e)||rt(e);)Ve(e,!0,-1)?(r=!0,p=l,e.lineIndent>t?s=1:e.lineIndent===t?s=0:e.lineIndent<t&&(s=-1)):p=!1;if(p&&(p=r||a),(1==s||Ea===i)&&(g=_a===i||qa===i?t:t+1,h=e.position-e.lineStart,1==s?p&&(nt(e,h)||at(e,h,g))||tt(e,g)?o=!0:(d&&it(e,g)||Qe(e,g)||et(e,g)?o=!0:ot(e)?(o=!0,(null!==e.tag||null!==e.anchor)&&Be(e,"alias node should not have any properties")):Ze(e,g,_a===i)&&(o=!0,null===e.tag&&(e.tag="?")),null!==e.anchor&&(e.anchorMap[e.anchor]=e.result)):0==s&&(o=p&&nt(e,h))),null!==e.tag&&"!"!==e.tag)if("?"===e.tag){for(u=0,c=e.implicitTypes.length;u<c;u+=1)if(m=e.implicitTypes[u],m.resolve(e.result)){e.result=m.construct(e.result),e.tag=m.tag,null!==e.anchor&&(e.anchorMap[e.anchor]=e.result);break}}else Na.call(e.typeMap[e.kind||"fallback"],e.tag)?(m=e.typeMap[e.kind||"fallback"][e.tag],null!==e.result&&m.kind!==e.kind&&Be(e,"unacceptable node kind for !<"+e.tag+"> tag; it should be \""+m.kind+"\", not \""+e.kind+"\""),m.resolve(e.result)?(e.result=m.construct(e.result),null!==e.anchor&&(e.anchorMap[e.anchor]=e.result)):Be(e,"cannot resolve a node with !<"+e.tag+"> explicit tag")):Be(e,"unknown tag !<"+e.tag+">");return null!==e.listener&&e.listener("close",e),null!==e.tag||null!==e.anchor||o}function dt(e){var t=e.position,n=!1,a,s,r,o;for(e.version=null,e.checkLineBreaks=e.legacy,e.tagMap={},e.anchorMap={};0!==(o=e.input.charCodeAt(e.position))&&(Ve(e,!0,-1),o=e.input.charCodeAt(e.position),!(0<e.lineIndent||37!==o));){for(n=!0,o=e.input.charCodeAt(++e.position),a=e.position;0!==o&&!Le(o);)o=e.input.charCodeAt(++e.position);for(s=e.input.slice(a,e.position),r=[],1>s.length&&Be(e,"directive name must not be less than one character in length");0!==o;){for(;Ee(o);)o=e.input.charCodeAt(++e.position);if(35===o){do o=e.input.charCodeAt(++e.position);while(0!=o&&!Re(o));break}if(Re(o))break;for(a=e.position;0!==o&&!Le(o);)o=e.input.charCodeAt(++e.position);r.push(e.input.slice(a,e.position))}0!==o&&We(e),Na.call(i,s)?i[s](e,s,r):je(e,"unknown document directive \""+s+"\"")}return Ve(e,!0,-1),0===e.lineIndent&&45===e.input.charCodeAt(e.position)&&45===e.input.charCodeAt(e.position+1)&&45===e.input.charCodeAt(e.position+2)?(e.position+=3,Ve(e,!0,-1)):n&&Be(e,"directives end mark is expected"),lt(e,e.lineIndent-1,Ea,!1,!0),Ve(e,!0,-1),e.checkLineBreaks&&Da.test(e.input.slice(t,e.position))&&je(e,"non-ASCII line breaks are interpreted as content"),e.documents.push(e.result),e.position===e.lineStart&&$e(e)?void(46===e.input.charCodeAt(e.position)&&(e.position+=3,Ve(e,!0,-1))):void(e.position<e.length-1&&Be(e,"end of the stream or a document separator is expected"))}function pt(e,t){e=e+"",t=t||{},0!==e.length&&(10!==e.charCodeAt(e.length-1)&&13!==e.charCodeAt(e.length-1)&&(e+="\n"),65279===e.charCodeAt(0)&&(e=e.slice(1)));var i=new Ue(e,t);for(i.input+="\0";32===i.input.charCodeAt(i.position);)i.lineIndent+=1,i.position+=1;for(;i.position<i.length-1;)dt(i);return i.documents}function ut(e,t,i){var n=pt(e,i),a,s;if("function"!=typeof t)return n;for(a=0,s=n.length;a<s;a+=1)t(n[a])}function ct(e,t){var i=pt(e,t);if(0!==i.length){if(1===i.length)return i[0];throw new Sa("expected a single document in the stream, but found more")}}function mt(e,t){var i,n,a,s,r,o,l;if(null===t)return{};for(i={},n=Object.keys(t),(a=0,s=n.length);a<s;a+=1)r=n[a],o=t[r]+"","!!"===r.slice(0,2)&&(r="tag:yaml.org,2002:"+r.slice(2)),l=e.compiledTypeMap.fallback[r],l&&Va.call(l.styleAliases,o)&&(o=l.styleAliases[o]),i[r]=o;return i}function gt(e){var t,i,n;if(t=e.toString(16).toUpperCase(),255>=e)i="x",n=2;else if(65535>=e)i="u",n=4;else if(4294967295>=e)i="U",n=8;else throw new Ya("code point within a string may not be greater than 0xFFFFFFFF");return"\\"+i+Ha.repeat("0",n-t.length)+t}function ht(e){this.schema=e.schema||Ga,this.indent=ni(1,e.indent||2),this.skipInvalid=e.skipInvalid||!1,this.flowLevel=Ha.isNothing(e.flowLevel)?-1:e.flowLevel,this.styleMap=mt(this.schema,e.styles||null),this.sortKeys=e.sortKeys||!1,this.lineWidth=e.lineWidth||80,this.noRefs=e.noRefs||!1,this.noCompatMode=e.noCompatMode||!1,this.condenseFlow=e.condenseFlow||!1,this.implicitTypes=this.schema.compiledImplicit,this.explicitTypes=this.schema.compiledExplicit,this.tag=null,this.result="",this.duplicates=[],this.usedDuplicates=null}function ft(e,t){for(var i=Ha.repeat(" ",t),n=0,a=-1,s="",r=e.length,o;n<r;)a=e.indexOf("\n",n),-1===a?(o=e.slice(n),n=r):(o=e.slice(n,a+1),n=a+1),o.length&&"\n"!==o&&(s+=i),s+=o;return s}function yt(e,t){return"\n"+Ha.repeat(" ",e.indent*t)}function xt(e,t){var i,n,a;for(i=0,n=e.implicitTypes.length;i<n;i+=1)if(a=e.implicitTypes[i],a.resolve(t))return!0;return!1}function zt(e){return e===Za||e===$a}function bt(e){return 32<=e&&126>=e||161<=e&&55295>=e&&8232!==e&&8233!==e||57344<=e&&65533>=e&&65279!==e||65536<=e&&1114111>=e}function kt(e){return bt(e)&&65279!==e&&e!==rs&&e!==cs&&e!==ms&&e!==hs&&e!==ys&&e!==ls&&e!==ts}function vt(e){return bt(e)&&65279!==e&&!zt(e)&&e!==os&&e!==ps&&e!==ls&&e!==rs&&e!==cs&&e!==ms&&e!==hs&&e!==ys&&e!==ts&&e!==ns&&e!==ss&&e!==Qa&&e!==fs&&e!==ds&&e!==as&&e!==es&&e!==is&&e!==us&&e!==gs}function wt(e,t,n,a,s){var r=!1,o=!1,l=-1!==a,d=-1,p=vt(e.charCodeAt(0))&&!zt(e.charCodeAt(e.length-1)),u,i;if(t)for(u=0;u<e.length;u++){if(i=e.charCodeAt(u),!bt(i))return Ts;p=p&&kt(i)}else{for(u=0;u<e.length;u++){if(i=e.charCodeAt(u),i===Ja)r=!0,l&&(o=o||u-d-1>a&&" "!==e[d+1],d=u);else if(!bt(i))return Ts;p=p&&kt(i)}o=o||l&&u-d-1>a&&" "!==e[d+1]}return r||o?" "===e[0]&&9<n?Ts:o?ws:vs:p&&!s(e)?bs:ks}function Tt(e,t,i,n){e.dump=function(){function a(t){return xt(e,t)}if(0===t.length)return"''";if(!e.noCompatMode&&-1!==zs.indexOf(t))return"'"+t+"'";var s=e.indent*ni(1,i),r=-1===e.lineWidth?-1:ni(oi(e.lineWidth,40),e.lineWidth-s),o=n||-1<e.flowLevel&&i>=e.flowLevel;switch(wt(t,o,e.indent,r,a)){case bs:return t;case ks:return"'"+t.replace(/'/g,"''")+"'";case vs:return"|"+St(t,e.indent)+At(ft(t,s));case ws:return">"+St(t,e.indent)+At(ft(Ct(t,r),s));case Ts:return"\""+Nt(t,r)+"\"";default:throw new Ya("impossible error: invalid scalar style");}}()}function St(e,t){var i=" "===e[0]?t+"":"",n="\n"===e[e.length-1],a=n&&("\n"===e[e.length-2]||"\n"===e),s=a?"+":n?"":"-";return i+s+"\n"}function At(e){return"\n"===e[e.length-1]?e.slice(0,-1):e}function Ct(e,t){for(var i=/(\n+)([^\n]*)/g,n=function(){var n=e.indexOf("\n");return n=-1===n?e.length:n,i.lastIndex=n,Mt(e.slice(0,n),t)}(),a="\n"===e[0]||" "===e[0],s,r;r=i.exec(e);){var o=r[1],l=r[2];s=" "===l[0],n+=o+(a||s||""===l?"":"\n")+Mt(l,t),a=s}return n}function Mt(e,t){if(""===e||" "===e[0])return e;for(var i=/ [^ ]/g,n=0,a=0,s=0,r="",o,l;o=i.exec(e);)s=o.index,s-n>t&&(l=a>n?a:s,r+="\n"+e.slice(n,l),n=l+1),a=s;return r+="\n",r+=e.length-n>t&&a>n?e.slice(n,a)+"\n"+e.slice(a+1):e.slice(n),r.slice(1)}function Nt(e){for(var t="",n=0,i,a;n<e.length;n++)i=e.charCodeAt(n),a=xs[i],t+=!a&&bt(i)?e[n]:a||gt(i);return t}function _t(e,t,i){var n="",a=e.tag,s,r;for(s=0,r=i.length;s<r;s+=1)Ft(e,t,i[s],!1,!1)&&(0!==s&&(n+=","+(e.condenseFlow?"":" ")),n+=e.dump);e.tag=a,e.dump="["+n+"]"}function qt(e,t,i,n){var a="",s=e.tag,r,o;for(r=0,o=i.length;r<o;r+=1)Ft(e,t+1,i[r],!0,!0)&&(n&&0===r||(a+=yt(e,t)),a+=e.dump&&Ja===e.dump.charCodeAt(0)?"-":"- ",a+=e.dump);e.tag=s,e.dump=a||"[]"}function Rt(e,t,i){var n="",a=e.tag,s=Object.keys(i),r,o,l,d,p;for(r=0,o=s.length;r<o;r+=1)(p="",0!==r&&(p+=", "),l=s[r],d=i[l],!!Ft(e,t,l,!1,!1))&&(1024<e.dump.length&&(p+="? "),p+=e.dump+":"+(e.condenseFlow?"":" "),!!Ft(e,t,d,!1,!1))&&(p+=e.dump,n+=p);e.tag=a,e.dump="{"+n+"}"}function Et(e,t,i,n){var a="",s=e.tag,r=Object.keys(i),o,l,d,p,u,c;if(!0===e.sortKeys)r.sort();else if("function"==typeof e.sortKeys)r.sort(e.sortKeys);else if(e.sortKeys)throw new Ya("sortKeys must be a boolean or a function");for(o=0,l=r.length;o<l;o+=1)(c="",n&&0===o||(c+=yt(e,t)),d=r[o],p=i[d],!!Ft(e,t+1,d,!0,!0,!0))&&(u=null!==e.tag&&"?"!==e.tag||e.dump&&1024<e.dump.length,u&&(e.dump&&Ja===e.dump.charCodeAt(0)?c+="?":c+="? "),c+=e.dump,u&&(c+=yt(e,t)),!!Ft(e,t+1,p,!0,u))&&(c+=e.dump&&Ja===e.dump.charCodeAt(0)?":":": ",c+=e.dump,a+=c);e.tag=s,e.dump=a||"{}"}function Lt(e,t,i){var n,a,s,r,o,l;for(a=i?e.explicitTypes:e.implicitTypes,s=0,r=a.length;s<r;s+=1)if(o=a[s],(o.instanceOf||o.predicate)&&(!o.instanceOf||"object"==typeof t&&t instanceof o.instanceOf)&&(!o.predicate||o.predicate(t))){if(e.tag=i?o.tag:"?",o.represent){if(l=e.styleMap[o.tag]||o.defaultStyle,"[object Function]"===Wa.call(o.represent))n=o.represent(t,l);else if(Va.call(o.represent,l))n=o.represent[l](t,l);else throw new Ya("!<"+o.tag+"> tag resolver accepts not \""+l+"\" style");e.dump=n}return!0}return!1}function Ft(e,t,i,n,a,s){e.tag=null,e.dump=i,Lt(e,i,!1)||Lt(e,i,!0);var r=Wa.call(e.dump);n&&(n=0>e.flowLevel||e.flowLevel>t);var o="[object Object]"===r||"[object Array]"===r,l,d;if(o&&(l=e.duplicates.indexOf(i),d=-1!==l),(null!==e.tag&&"?"!==e.tag||d||2!==e.indent&&0<t)&&(a=!1),d&&e.usedDuplicates[l])e.dump="*ref_"+l;else{if(o&&d&&!e.usedDuplicates[l]&&(e.usedDuplicates[l]=!0),"[object Object]"===r)n&&0!==Object.keys(e.dump).length?(Et(e,t,e.dump,a),d&&(e.dump="&ref_"+l+e.dump)):(Rt(e,t,e.dump),d&&(e.dump="&ref_"+l+" "+e.dump));else if("[object Array]"===r)n&&0!==e.dump.length?(qt(e,t,e.dump,a),d&&(e.dump="&ref_"+l+e.dump)):(_t(e,t,e.dump),d&&(e.dump="&ref_"+l+" "+e.dump));else if("[object String]"===r)"?"!==e.tag&&Tt(e,e.dump,t,s);else{if(e.skipInvalid)return!1;throw new Ya("unacceptable kind of an object to dump "+r)}null!==e.tag&&"?"!==e.tag&&(e.dump="!<"+e.tag+"> "+e.dump)}return!0}function It(e,t){var i=[],n=[],a,s;for(Ot(e,i,n),a=0,s=n.length;a<s;a+=1)t.duplicates.push(i[n[a]]);t.usedDuplicates=Array(s)}function Ot(e,t,i){var n,a,s;if(null!==e&&"object"==typeof e)if(a=t.indexOf(e),-1!==a)-1===i.indexOf(a)&&i.push(a);else if(t.push(e),Array.isArray(e))for(a=0,s=e.length;a<s;a+=1)Ot(e[a],t,i);else for(n=Object.keys(e),a=0,s=n.length;a<s;a+=1)Ot(e[n[a]],t,i)}function Dt(e,t){t=t||{};var i=new ht(t);return i.noRefs||It(e,i),Ft(i,0,e,!0,!0)?i.dump+"\n":""}function Xt(e){return function(){throw new Error("Function "+e+" is deprecated and cannot be used.")}}function Kt(e,t){var i="KaTeX parse error: "+e,n,a;if(t&&t.lexer&&t.start<=t.end){var s=t.lexer.input;n=t.start,a=t.end,i+=n===s.length?" at end of input: ":" at position "+(n+1)+": ";var r=s.slice(n,a).replace(/[^]/g,"$&\u0332"),o;o=15<n?"\u2026"+s.slice(n-15,n):s.slice(0,n);var l;l=a+15<s.length?s.slice(a,a+15)+"\u2026":s.slice(a),i+=o+r+l}var d=new Error(i);return d.name="ParseError",d.__proto__=Kt.prototype,d.position=n,d}function Ut(e,t){return e===void 0?t:e}function Pt(e,t,i,n){this.id=e,this.size=t,this.cramped=n,this.sizeMultiplier=i,this.metrics=$s[0<t?t-1:0]}function Bt(e){return yr[e]}function jt(e,t,i){this.classes=e||[],this.children=t||[],this.height=0,this.depth=0,this.maxFontSize=0,this.style={},this.attributes={},i&&(i.style.isTight()&&this.classes.push("mtight"),i.getColor()&&(this.style.color=i.getColor()))}function Ht(e){this.children=e||[],this.height=0,this.depth=0,this.maxFontSize=0}function Yt(e,t,i,n,a,s,r){this.value=e||"",this.height=t||0,this.depth=i||0,this.italic=n||0,this.skew=a||0,this.classes=s||[],this.style=r||{},this.maxFontSize=0,vr.cjkRegex.test(e)&&(vr.hangulRegex.test(e)?this.classes.push("hangul_fallback"):this.classes.push("cjk_fallback")),/[îïíì]/.test(this.value)&&(this.value=Sr[this.value])}function Gt(e,t){this.type=e,this.attributes={},this.children=t||[]}function Wt(e){this.text=e}function Vt(e){this.style=e.style,this.color=e.color,this.size=e.size,this.phantom=e.phantom,this.font=e.font,this.parentStyle=void 0===e.parentStyle?e.style:e.parentStyle,this.parentSize=void 0===e.parentSize?e.size:e.parentSize}function $t(e){if(!e.__matchAtRelocatable){var t=e.source+"|()",i="g"+(e.ignoreCase?"i":"")+(e.multiline?"m":"")+(e.unicode?"u":"");e.__matchAtRelocatable=new RegExp(t,i)}return e.__matchAtRelocatable}function Jt(e){this.input=e,this.pos=0}function Zt(e,t,i,n){this.text=e,this.start=t,this.end=i,this.lexer=n}function Qt(e,t){this.lexer=new el(e),this.macros=t,this.stack=[],this.discardedWhiteSpace=[]}function ei(e,t){this.gullet=new nl(e,t.macros),this.settings=t,this.leftrightDepth=0}function ti(e,t,i){this.result=e,this.isFunction=t,this.token=i}function ii(e){return`
-  ${Ml}
+  `;
+}
 
-  <h3 id="updates-and-corrections">Updates and Corrections</h3>
-  <p><a href="">View all changes</a> to this article since it was first published. If you see mistakes or want to suggest changes, please <a href="${e.githubUrl+"/issues/new"}">create an issue on GitHub</a>. </p>
+function page(selector) {
+  return `${selector} {
+      grid-column: margin-left / page;
+    }
+  `;
+}
 
-  <h3 id="reuse">Reuse</h3>
-  <p>Diagrams and text are licensed under Creative Commons Attribution <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY 2.0</a> with the <a class="github" href="${e.githubUrl}">source available on GitHub</a>, unless noted otherwise. The figures that have been reused from other sources don’t fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>
-
-  <h3 id="citation">Citation</h3>
-  <p>For attribution in academic contexts, please cite this work as</p>
-  <pre class="citation short">${e.concatenatedAuthors}, "${e.title}", Distill, ${e.publishedYear}.</pre>
-  <p>BibTeX citation</p>
-  <pre class="citation long">@article{${e.slug},
-  author = {${e.bibtexAuthors}},
-  title = {${e.title}},
-  journal = {Distill},
-  year = {${e.publishedYear}},
-  note = {${e.url}}
-  }</pre>
-  `}var ni=Math.max,ai=String.fromCharCode,si=Number.POSITIVE_INFINITY,ri=Number.NEGATIVE_INFINITY,oi=Math.min,li=Math.floor,di="@font-face{font-family:KaTeX_AMS;src:url(fonts/KaTeX_AMS-Regular.eot);src:url(fonts/KaTeX_AMS-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_AMS-Regular.woff2) format('woff2'),url(fonts/KaTeX_AMS-Regular.woff) format('woff'),url(fonts/KaTeX_AMS-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Caligraphic;src:url(fonts/KaTeX_Caligraphic-Bold.eot);src:url(fonts/KaTeX_Caligraphic-Bold.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Caligraphic-Bold.woff2) format('woff2'),url(fonts/KaTeX_Caligraphic-Bold.woff) format('woff'),url(fonts/KaTeX_Caligraphic-Bold.ttf) format('truetype');font-weight:700;font-style:normal}@font-face{font-family:KaTeX_Caligraphic;src:url(fonts/KaTeX_Caligraphic-Regular.eot);src:url(fonts/KaTeX_Caligraphic-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Caligraphic-Regular.woff2) format('woff2'),url(fonts/KaTeX_Caligraphic-Regular.woff) format('woff'),url(fonts/KaTeX_Caligraphic-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Fraktur;src:url(fonts/KaTeX_Fraktur-Bold.eot);src:url(fonts/KaTeX_Fraktur-Bold.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Fraktur-Bold.woff2) format('woff2'),url(fonts/KaTeX_Fraktur-Bold.woff) format('woff'),url(fonts/KaTeX_Fraktur-Bold.ttf) format('truetype');font-weight:700;font-style:normal}@font-face{font-family:KaTeX_Fraktur;src:url(fonts/KaTeX_Fraktur-Regular.eot);src:url(fonts/KaTeX_Fraktur-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Fraktur-Regular.woff2) format('woff2'),url(fonts/KaTeX_Fraktur-Regular.woff) format('woff'),url(fonts/KaTeX_Fraktur-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Main;src:url(fonts/KaTeX_Main-Bold.eot);src:url(fonts/KaTeX_Main-Bold.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Main-Bold.woff2) format('woff2'),url(fonts/KaTeX_Main-Bold.woff) format('woff'),url(fonts/KaTeX_Main-Bold.ttf) format('truetype');font-weight:700;font-style:normal}@font-face{font-family:KaTeX_Main;src:url(fonts/KaTeX_Main-Italic.eot);src:url(fonts/KaTeX_Main-Italic.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Main-Italic.woff2) format('woff2'),url(fonts/KaTeX_Main-Italic.woff) format('woff'),url(fonts/KaTeX_Main-Italic.ttf) format('truetype');font-weight:400;font-style:italic}@font-face{font-family:KaTeX_Main;src:url(fonts/KaTeX_Main-Regular.eot);src:url(fonts/KaTeX_Main-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Main-Regular.woff2) format('woff2'),url(fonts/KaTeX_Main-Regular.woff) format('woff'),url(fonts/KaTeX_Main-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Math;src:url(fonts/KaTeX_Math-Italic.eot);src:url(fonts/KaTeX_Math-Italic.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Math-Italic.woff2) format('woff2'),url(fonts/KaTeX_Math-Italic.woff) format('woff'),url(fonts/KaTeX_Math-Italic.ttf) format('truetype');font-weight:400;font-style:italic}@font-face{font-family:KaTeX_SansSerif;src:url(fonts/KaTeX_SansSerif-Regular.eot);src:url(fonts/KaTeX_SansSerif-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_SansSerif-Regular.woff2) format('woff2'),url(fonts/KaTeX_SansSerif-Regular.woff) format('woff'),url(fonts/KaTeX_SansSerif-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Script;src:url(fonts/KaTeX_Script-Regular.eot);src:url(fonts/KaTeX_Script-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Script-Regular.woff2) format('woff2'),url(fonts/KaTeX_Script-Regular.woff) format('woff'),url(fonts/KaTeX_Script-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Size1;src:url(fonts/KaTeX_Size1-Regular.eot);src:url(fonts/KaTeX_Size1-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Size1-Regular.woff2) format('woff2'),url(fonts/KaTeX_Size1-Regular.woff) format('woff'),url(fonts/KaTeX_Size1-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Size2;src:url(fonts/KaTeX_Size2-Regular.eot);src:url(fonts/KaTeX_Size2-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Size2-Regular.woff2) format('woff2'),url(fonts/KaTeX_Size2-Regular.woff) format('woff'),url(fonts/KaTeX_Size2-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Size3;src:url(fonts/KaTeX_Size3-Regular.eot);src:url(fonts/KaTeX_Size3-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Size3-Regular.woff2) format('woff2'),url(fonts/KaTeX_Size3-Regular.woff) format('woff'),url(fonts/KaTeX_Size3-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Size4;src:url(fonts/KaTeX_Size4-Regular.eot);src:url(fonts/KaTeX_Size4-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Size4-Regular.woff2) format('woff2'),url(fonts/KaTeX_Size4-Regular.woff) format('woff'),url(fonts/KaTeX_Size4-Regular.ttf) format('truetype');font-weight:400;font-style:normal}@font-face{font-family:KaTeX_Typewriter;src:url(fonts/KaTeX_Typewriter-Regular.eot);src:url(fonts/KaTeX_Typewriter-Regular.eot#iefix) format('embedded-opentype'),url(fonts/KaTeX_Typewriter-Regular.woff2) format('woff2'),url(fonts/KaTeX_Typewriter-Regular.woff) format('woff'),url(fonts/KaTeX_Typewriter-Regular.ttf) format('truetype');font-weight:400;font-style:normal}.katex-display{display:block;margin:1em 0;text-align:center}.katex-display>.katex{display:inline-block;text-align:initial}.katex{font:400 1.21em KaTeX_Main,Times New Roman,serif;line-height:1.2;white-space:nowrap;text-indent:0}.katex .katex-html{display:inline-block}.katex .katex-mathml{position:absolute;clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}.katex .base,.katex .strut{display:inline-block}.katex .mathrm{font-style:normal}.katex .textit{font-style:italic}.katex .mathit{font-family:KaTeX_Math;font-style:italic}.katex .mathbf{font-family:KaTeX_Main;font-weight:700}.katex .amsrm,.katex .mathbb{font-family:KaTeX_AMS}.katex .mathcal{font-family:KaTeX_Caligraphic}.katex .mathfrak{font-family:KaTeX_Fraktur}.katex .mathtt{font-family:KaTeX_Typewriter}.katex .mathscr{font-family:KaTeX_Script}.katex .mathsf{font-family:KaTeX_SansSerif}.katex .mainit{font-family:KaTeX_Main;font-style:italic}.katex .mord+.mop{margin-left:.16667em}.katex .mord+.mbin{margin-left:.22222em}.katex .mord+.mrel{margin-left:.27778em}.katex .mop+.mop,.katex .mop+.mord,.katex .mord+.minner{margin-left:.16667em}.katex .mop+.mrel{margin-left:.27778em}.katex .mop+.minner{margin-left:.16667em}.katex .mbin+.minner,.katex .mbin+.mop,.katex .mbin+.mopen,.katex .mbin+.mord{margin-left:.22222em}.katex .mrel+.minner,.katex .mrel+.mop,.katex .mrel+.mopen,.katex .mrel+.mord{margin-left:.27778em}.katex .mclose+.mop{margin-left:.16667em}.katex .mclose+.mbin{margin-left:.22222em}.katex .mclose+.mrel{margin-left:.27778em}.katex .mclose+.minner,.katex .minner+.mop,.katex .minner+.mord,.katex .mpunct+.mclose,.katex .mpunct+.minner,.katex .mpunct+.mop,.katex .mpunct+.mopen,.katex .mpunct+.mord,.katex .mpunct+.mpunct,.katex .mpunct+.mrel{margin-left:.16667em}.katex .minner+.mbin{margin-left:.22222em}.katex .minner+.mrel{margin-left:.27778em}.katex .minner+.minner,.katex .minner+.mopen,.katex .minner+.mpunct{margin-left:.16667em}.katex .mbin.mtight,.katex .mclose.mtight,.katex .minner.mtight,.katex .mop.mtight,.katex .mopen.mtight,.katex .mord.mtight,.katex .mpunct.mtight,.katex .mrel.mtight{margin-left:0}.katex .mclose+.mop.mtight,.katex .minner+.mop.mtight,.katex .mop+.mop.mtight,.katex .mop+.mord.mtight,.katex .mord+.mop.mtight{margin-left:.16667em}.katex .reset-textstyle.textstyle{font-size:1em}.katex .reset-textstyle.scriptstyle{font-size:.7em}.katex .reset-textstyle.scriptscriptstyle{font-size:.5em}.katex .reset-scriptstyle.textstyle{font-size:1.42857em}.katex .reset-scriptstyle.scriptstyle{font-size:1em}.katex .reset-scriptstyle.scriptscriptstyle{font-size:.71429em}.katex .reset-scriptscriptstyle.textstyle{font-size:2em}.katex .reset-scriptscriptstyle.scriptstyle{font-size:1.4em}.katex .reset-scriptscriptstyle.scriptscriptstyle{font-size:1em}.katex .style-wrap{position:relative}.katex .vlist{display:inline-block}.katex .vlist>span{display:block;height:0;position:relative}.katex .vlist>span>span{display:inline-block}.katex .vlist .baseline-fix{display:inline-table;table-layout:fixed}.katex .msupsub{text-align:left}.katex .mfrac>span>span{text-align:center}.katex .mfrac .frac-line{width:100%}.katex .mfrac .frac-line:before{border-bottom-style:solid;border-bottom-width:1px;content:\"\";display:block}.katex .mfrac .frac-line:after{border-bottom-style:solid;border-bottom-width:.04em;content:\"\";display:block;margin-top:-1px}.katex .mspace{display:inline-block}.katex .mspace.negativethinspace{margin-left:-.16667em}.katex .mspace.thinspace{width:.16667em}.katex .mspace.negativemediumspace{margin-left:-.22222em}.katex .mspace.mediumspace{width:.22222em}.katex .mspace.thickspace{width:.27778em}.katex .mspace.sixmuspace{width:.333333em}.katex .mspace.eightmuspace{width:.444444em}.katex .mspace.enspace{width:.5em}.katex .mspace.twelvemuspace{width:.666667em}.katex .mspace.quad{width:1em}.katex .mspace.qquad{width:2em}.katex .llap,.katex .rlap{width:0;position:relative}.katex .llap>.inner,.katex .rlap>.inner{position:absolute}.katex .llap>.fix,.katex .rlap>.fix{display:inline-block}.katex .llap>.inner{right:0}.katex .rlap>.inner{left:0}.katex .katex-logo .a{font-size:.75em;margin-left:-.32em;position:relative;top:-.2em}.katex .katex-logo .t{margin-left:-.23em}.katex .katex-logo .e{margin-left:-.1667em;position:relative;top:.2155em}.katex .katex-logo .x{margin-left:-.125em}.katex .rule{display:inline-block;border:0 solid;position:relative}.katex .overline .overline-line,.katex .underline .underline-line{width:100%}.katex .overline .overline-line:before,.katex .underline .underline-line:before{border-bottom-style:solid;border-bottom-width:1px;content:\"\";display:block}.katex .overline .overline-line:after,.katex .underline .underline-line:after{border-bottom-style:solid;border-bottom-width:.04em;content:\"\";display:block;margin-top:-1px}.katex .sqrt>.sqrt-sign{position:relative}.katex .sqrt .sqrt-line{width:100%}.katex .sqrt .sqrt-line:before{border-bottom-style:solid;border-bottom-width:1px;content:\"\";display:block}.katex .sqrt .sqrt-line:after{border-bottom-style:solid;border-bottom-width:.04em;content:\"\";display:block;margin-top:-1px}.katex .sqrt>.root{margin-left:.27777778em;margin-right:-.55555556em}.katex .fontsize-ensurer,.katex .sizing{display:inline-block}.katex .fontsize-ensurer.reset-size1.size1,.katex .sizing.reset-size1.size1{font-size:1em}.katex .fontsize-ensurer.reset-size1.size2,.katex .sizing.reset-size1.size2{font-size:1.4em}.katex .fontsize-ensurer.reset-size1.size3,.katex .sizing.reset-size1.size3{font-size:1.6em}.katex .fontsize-ensurer.reset-size1.size4,.katex .sizing.reset-size1.size4{font-size:1.8em}.katex .fontsize-ensurer.reset-size1.size5,.katex .sizing.reset-size1.size5{font-size:2em}.katex .fontsize-ensurer.reset-size1.size6,.katex .sizing.reset-size1.size6{font-size:2.4em}.katex .fontsize-ensurer.reset-size1.size7,.katex .sizing.reset-size1.size7{font-size:2.88em}.katex .fontsize-ensurer.reset-size1.size8,.katex .sizing.reset-size1.size8{font-size:3.46em}.katex .fontsize-ensurer.reset-size1.size9,.katex .sizing.reset-size1.size9{font-size:4.14em}.katex .fontsize-ensurer.reset-size1.size10,.katex .sizing.reset-size1.size10{font-size:4.98em}.katex .fontsize-ensurer.reset-size2.size1,.katex .sizing.reset-size2.size1{font-size:.71428571em}.katex .fontsize-ensurer.reset-size2.size2,.katex .sizing.reset-size2.size2{font-size:1em}.katex .fontsize-ensurer.reset-size2.size3,.katex .sizing.reset-size2.size3{font-size:1.14285714em}.katex .fontsize-ensurer.reset-size2.size4,.katex .sizing.reset-size2.size4{font-size:1.28571429em}.katex .fontsize-ensurer.reset-size2.size5,.katex .sizing.reset-size2.size5{font-size:1.42857143em}.katex .fontsize-ensurer.reset-size2.size6,.katex .sizing.reset-size2.size6{font-size:1.71428571em}.katex .fontsize-ensurer.reset-size2.size7,.katex .sizing.reset-size2.size7{font-size:2.05714286em}.katex .fontsize-ensurer.reset-size2.size8,.katex .sizing.reset-size2.size8{font-size:2.47142857em}.katex .fontsize-ensurer.reset-size2.size9,.katex .sizing.reset-size2.size9{font-size:2.95714286em}.katex .fontsize-ensurer.reset-size2.size10,.katex .sizing.reset-size2.size10{font-size:3.55714286em}.katex .fontsize-ensurer.reset-size3.size1,.katex .sizing.reset-size3.size1{font-size:.625em}.katex .fontsize-ensurer.reset-size3.size2,.katex .sizing.reset-size3.size2{font-size:.875em}.katex .fontsize-ensurer.reset-size3.size3,.katex .sizing.reset-size3.size3{font-size:1em}.katex .fontsize-ensurer.reset-size3.size4,.katex .sizing.reset-size3.size4{font-size:1.125em}.katex .fontsize-ensurer.reset-size3.size5,.katex .sizing.reset-size3.size5{font-size:1.25em}.katex .fontsize-ensurer.reset-size3.size6,.katex .sizing.reset-size3.size6{font-size:1.5em}.katex .fontsize-ensurer.reset-size3.size7,.katex .sizing.reset-size3.size7{font-size:1.8em}.katex .fontsize-ensurer.reset-size3.size8,.katex .sizing.reset-size3.size8{font-size:2.1625em}.katex .fontsize-ensurer.reset-size3.size9,.katex .sizing.reset-size3.size9{font-size:2.5875em}.katex .fontsize-ensurer.reset-size3.size10,.katex .sizing.reset-size3.size10{font-size:3.1125em}.katex .fontsize-ensurer.reset-size4.size1,.katex .sizing.reset-size4.size1{font-size:.55555556em}.katex .fontsize-ensurer.reset-size4.size2,.katex .sizing.reset-size4.size2{font-size:.77777778em}.katex .fontsize-ensurer.reset-size4.size3,.katex .sizing.reset-size4.size3{font-size:.88888889em}.katex .fontsize-ensurer.reset-size4.size4,.katex .sizing.reset-size4.size4{font-size:1em}.katex .fontsize-ensurer.reset-size4.size5,.katex .sizing.reset-size4.size5{font-size:1.11111111em}.katex .fontsize-ensurer.reset-size4.size6,.katex .sizing.reset-size4.size6{font-size:1.33333333em}.katex .fontsize-ensurer.reset-size4.size7,.katex .sizing.reset-size4.size7{font-size:1.6em}.katex .fontsize-ensurer.reset-size4.size8,.katex .sizing.reset-size4.size8{font-size:1.92222222em}.katex .fontsize-ensurer.reset-size4.size9,.katex .sizing.reset-size4.size9{font-size:2.3em}.katex .fontsize-ensurer.reset-size4.size10,.katex .sizing.reset-size4.size10{font-size:2.76666667em}.katex .fontsize-ensurer.reset-size5.size1,.katex .sizing.reset-size5.size1{font-size:.5em}.katex .fontsize-ensurer.reset-size5.size2,.katex .sizing.reset-size5.size2{font-size:.7em}.katex .fontsize-ensurer.reset-size5.size3,.katex .sizing.reset-size5.size3{font-size:.8em}.katex .fontsize-ensurer.reset-size5.size4,.katex .sizing.reset-size5.size4{font-size:.9em}.katex .fontsize-ensurer.reset-size5.size5,.katex .sizing.reset-size5.size5{font-size:1em}.katex .fontsize-ensurer.reset-size5.size6,.katex .sizing.reset-size5.size6{font-size:1.2em}.katex .fontsize-ensurer.reset-size5.size7,.katex .sizing.reset-size5.size7{font-size:1.44em}.katex .fontsize-ensurer.reset-size5.size8,.katex .sizing.reset-size5.size8{font-size:1.73em}.katex .fontsize-ensurer.reset-size5.size9,.katex .sizing.reset-size5.size9{font-size:2.07em}.katex .fontsize-ensurer.reset-size5.size10,.katex .sizing.reset-size5.size10{font-size:2.49em}.katex .fontsize-ensurer.reset-size6.size1,.katex .sizing.reset-size6.size1{font-size:.41666667em}.katex .fontsize-ensurer.reset-size6.size2,.katex .sizing.reset-size6.size2{font-size:.58333333em}.katex .fontsize-ensurer.reset-size6.size3,.katex .sizing.reset-size6.size3{font-size:.66666667em}.katex .fontsize-ensurer.reset-size6.size4,.katex .sizing.reset-size6.size4{font-size:.75em}.katex .fontsize-ensurer.reset-size6.size5,.katex .sizing.reset-size6.size5{font-size:.83333333em}.katex .fontsize-ensurer.reset-size6.size6,.katex .sizing.reset-size6.size6{font-size:1em}.katex .fontsize-ensurer.reset-size6.size7,.katex .sizing.reset-size6.size7{font-size:1.2em}.katex .fontsize-ensurer.reset-size6.size8,.katex .sizing.reset-size6.size8{font-size:1.44166667em}.katex .fontsize-ensurer.reset-size6.size9,.katex .sizing.reset-size6.size9{font-size:1.725em}.katex .fontsize-ensurer.reset-size6.size10,.katex .sizing.reset-size6.size10{font-size:2.075em}.katex .fontsize-ensurer.reset-size7.size1,.katex .sizing.reset-size7.size1{font-size:.34722222em}.katex .fontsize-ensurer.reset-size7.size2,.katex .sizing.reset-size7.size2{font-size:.48611111em}.katex .fontsize-ensurer.reset-size7.size3,.katex .sizing.reset-size7.size3{font-size:.55555556em}.katex .fontsize-ensurer.reset-size7.size4,.katex .sizing.reset-size7.size4{font-size:.625em}.katex .fontsize-ensurer.reset-size7.size5,.katex .sizing.reset-size7.size5{font-size:.69444444em}.katex .fontsize-ensurer.reset-size7.size6,.katex .sizing.reset-size7.size6{font-size:.83333333em}.katex .fontsize-ensurer.reset-size7.size7,.katex .sizing.reset-size7.size7{font-size:1em}.katex .fontsize-ensurer.reset-size7.size8,.katex .sizing.reset-size7.size8{font-size:1.20138889em}.katex .fontsize-ensurer.reset-size7.size9,.katex .sizing.reset-size7.size9{font-size:1.4375em}.katex .fontsize-ensurer.reset-size7.size10,.katex .sizing.reset-size7.size10{font-size:1.72916667em}.katex .fontsize-ensurer.reset-size8.size1,.katex .sizing.reset-size8.size1{font-size:.28901734em}.katex .fontsize-ensurer.reset-size8.size2,.katex .sizing.reset-size8.size2{font-size:.40462428em}.katex .fontsize-ensurer.reset-size8.size3,.katex .sizing.reset-size8.size3{font-size:.46242775em}.katex .fontsize-ensurer.reset-size8.size4,.katex .sizing.reset-size8.size4{font-size:.52023121em}.katex .fontsize-ensurer.reset-size8.size5,.katex .sizing.reset-size8.size5{font-size:.57803468em}.katex .fontsize-ensurer.reset-size8.size6,.katex .sizing.reset-size8.size6{font-size:.69364162em}.katex .fontsize-ensurer.reset-size8.size7,.katex .sizing.reset-size8.size7{font-size:.83236994em}.katex .fontsize-ensurer.reset-size8.size8,.katex .sizing.reset-size8.size8{font-size:1em}.katex .fontsize-ensurer.reset-size8.size9,.katex .sizing.reset-size8.size9{font-size:1.19653179em}.katex .fontsize-ensurer.reset-size8.size10,.katex .sizing.reset-size8.size10{font-size:1.43930636em}.katex .fontsize-ensurer.reset-size9.size1,.katex .sizing.reset-size9.size1{font-size:.24154589em}.katex .fontsize-ensurer.reset-size9.size2,.katex .sizing.reset-size9.size2{font-size:.33816425em}.katex .fontsize-ensurer.reset-size9.size3,.katex .sizing.reset-size9.size3{font-size:.38647343em}.katex .fontsize-ensurer.reset-size9.size4,.katex .sizing.reset-size9.size4{font-size:.43478261em}.katex .fontsize-ensurer.reset-size9.size5,.katex .sizing.reset-size9.size5{font-size:.48309179em}.katex .fontsize-ensurer.reset-size9.size6,.katex .sizing.reset-size9.size6{font-size:.57971014em}.katex .fontsize-ensurer.reset-size9.size7,.katex .sizing.reset-size9.size7{font-size:.69565217em}.katex .fontsize-ensurer.reset-size9.size8,.katex .sizing.reset-size9.size8{font-size:.83574879em}.katex .fontsize-ensurer.reset-size9.size9,.katex .sizing.reset-size9.size9{font-size:1em}.katex .fontsize-ensurer.reset-size9.size10,.katex .sizing.reset-size9.size10{font-size:1.20289855em}.katex .fontsize-ensurer.reset-size10.size1,.katex .sizing.reset-size10.size1{font-size:.20080321em}.katex .fontsize-ensurer.reset-size10.size2,.katex .sizing.reset-size10.size2{font-size:.2811245em}.katex .fontsize-ensurer.reset-size10.size3,.katex .sizing.reset-size10.size3{font-size:.32128514em}.katex .fontsize-ensurer.reset-size10.size4,.katex .sizing.reset-size10.size4{font-size:.36144578em}.katex .fontsize-ensurer.reset-size10.size5,.katex .sizing.reset-size10.size5{font-size:.40160643em}.katex .fontsize-ensurer.reset-size10.size6,.katex .sizing.reset-size10.size6{font-size:.48192771em}.katex .fontsize-ensurer.reset-size10.size7,.katex .sizing.reset-size10.size7{font-size:.57831325em}.katex .fontsize-ensurer.reset-size10.size8,.katex .sizing.reset-size10.size8{font-size:.69477912em}.katex .fontsize-ensurer.reset-size10.size9,.katex .sizing.reset-size10.size9{font-size:.8313253em}.katex .fontsize-ensurer.reset-size10.size10,.katex .sizing.reset-size10.size10{font-size:1em}.katex .delimsizing.size1{font-family:KaTeX_Size1}.katex .delimsizing.size2{font-family:KaTeX_Size2}.katex .delimsizing.size3{font-family:KaTeX_Size3}.katex .delimsizing.size4{font-family:KaTeX_Size4}.katex .delimsizing.mult .delim-size1>span{font-family:KaTeX_Size1}.katex .delimsizing.mult .delim-size4>span{font-family:KaTeX_Size4}.katex .nulldelimiter{display:inline-block;width:.12em}.katex .op-symbol{position:relative}.katex .op-symbol.small-op{font-family:KaTeX_Size1}.katex .op-symbol.large-op{font-family:KaTeX_Size2}.katex .accent>.vlist>span,.katex .op-limits>.vlist>span{text-align:center}.katex .accent .accent-body>span{width:0}.katex .accent .accent-body.accent-vec>span{position:relative;left:.326em}.katex .mtable .vertical-separator{display:inline-block;margin:0 -.025em;border-right:.05em solid #000}.katex .mtable .arraycolsep{display:inline-block}.katex .mtable .col-align-c>.vlist{text-align:center}.katex .mtable .col-align-l>.vlist{text-align:left}.katex .mtable .col-align-r>.vlist{text-align:right}";let pi=document.createElement("style");pi.textContent="html {\n  font-size: 20px;\n\tline-height: 1rem;\n\t/*font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Helvetica Neue\", sans-serif;*/\n\tfont-family: \"Libre Franklin\", \"Helvetica Neue\", sans-serif;\n  -ms-text-size-adjust: 100%;\n  -webkit-text-size-adjust: 100%;\n  text-size-adjust: 100%;\n}\n\nbody {\n  margin: 0;\n  /*background-color: hsl(223, 9%, 25%);*/\n}\n\na {\n  color: #004276;\n}\n\nfigure {\n  margin: 0;\n}\n\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}\n\ntable th {\n\ttext-align: left;\n}\n\ntable thead {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.05);\n}\ntable thead th {\n  padding-bottom: 0.5em;\n}\ntable tbody :first-child td {\n  padding-top: 0.5em;\n}\n\n/*\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}*/\n"+"/*\n  Column: 60px\n  Gutter: 24px\n\n  Body: 648px\n    - 8 columns\n    - 7 gutters\n  Middle: 816px\n  Page: 984px\n    - 12 columns\n    - 11 gutters\n*/\n\n.l-body,\n.l-body-outset,\n.l-page,\n.l-page-outset,\n.l-middle,\n.l-middle-outset,\nd-article > div,\nd-article > p,\nd-article > h1,\nd-article > h2,\nd-article > h3,\nd-article > h4,\nd-article > figure,\nd-article > ul,\nd-article > d-abstract,\nd-article > d-code,\nd-article > d-math,\nd-article > table,\nd-article section > div,\nd-article section > p,\nd-article section > h1,\nd-article section > h2,\nd-article section > h3,\nd-article section > h4,\nd-article section > figure,\nd-article section > ul,\nd-article section > d-abstract,\nd-article section > d-code,\nd-article section > d-math,\nd-article section > table, {\n  width: auto;\n  margin-left: 24px;\n  margin-right: 24px;\n  box-sizing: border-box;\n}\n\n@media(min-width: 768px) {\n  .l-body,\n  .l-body-outset,\n  .l-page,\n  .l-page-outset,\n  .l-middle,\n  .l-middle-outset,\n  d-article > div,\n  d-article > p,\n  d-article > h1,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article > d-math,\n  d-article > d-math,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h1,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code,\n  d-article section > d-math,\n  d-article section > table {\n    margin-left: 72px;\n    margin-right: 72px;\n  }\n}\n\n@media(min-width: 1080px) {\n  .l-body,\n  d-article > div,\n  d-article > p,\n  d-article > h2,\n  d-article > h3,\n  d-article > h4,\n  d-article > figure,\n  d-article > ul,\n  d-article > d-abstract,\n  d-article > d-code,\n  d-article > d-math,\n  d-article > table,\n  d-article section > div,\n  d-article section > p,\n  d-article section > h2,\n  d-article section > h3,\n  d-article section > h4,\n  d-article section > figure,\n  d-article section > ul,\n  d-article section > d-abstract,\n  d-article section > d-code,\n  d-article section > d-math,\n  d-article section > table {\n    margin-left: calc(50% - 984px / 2);\n    width: 648px;\n  }\n  .l-body-outset,\n  d-article .l-body-outset {\n    margin-left: calc(50% - 984px / 2 - 96px/2);\n    width: calc(648px + 96px);\n  }\n  .l-middle,\n  d-article .l-middle {\n    width: 816px;\n    margin-left: calc(50% - 984px / 2);\n    margin-right: auto;\n  }\n  .l-middle-outset,\n  d-article .l-middle-outset {\n    width: calc(816px + 96px);\n    margin-left: calc(50% - 984px / 2 - 48px);\n    margin-right: auto;\n  }\n  d-article > h1,\n  d-article section > h1,\n  .l-page,\n  d-article .l-page,\n  d-article.centered .l-page {\n    width: 984px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-page-outset,\n  d-article .l-page-outset,\n  d-article.centered .l-page-outset {\n    width: 1080px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n  .l-screen,\n  d-article .l-screen,\n  d-article.centered .l-screen {\n    margin-left: auto;\n    margin-right: auto;\n    width: auto;\n  }\n  .l-screen-inset,\n  d-article .l-screen-inset,\n  d-article.centered .l-screen-inset {\n    margin-left: 24px;\n    margin-right: 24px;\n    width: auto;\n  }\n  .l-gutter,\n  d-article .l-gutter {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 24px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n    width: calc((984px - 648px) / 2 - 24px);\n  }\n\n  /* Side */\n  .side.l-body,\n  d-article .side.l-body {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px) / 2);\n    width: calc(648px / 2 - 24px - 84px);\n  }\n  .side.l-body-outset,\n  d-article .side.l-body-outset {\n    clear: both;\n    float: right;\n    margin-top: 0;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px + 648px - 48px) / 2);\n    width: calc(648px / 2 - 48px + 24px);\n  }\n  .side.l-middle,\n  d-article .side.l-middle {\n    clear: both;\n    float: right;\n    width: calc(456px - 84px);\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-middle-outset,\n  d-article .side.l-middle-outset {\n    clear: both;\n    float: right;\n    width: 456px;\n    margin-left: 48px;\n    margin-right: calc((100vw - 984px) / 2 + 168px);\n  }\n  .side.l-page,\n  d-article .side.l-page {\n    clear: both;\n    float: right;\n    margin-left: 48px;\n    width: calc(624px - 84px);\n    margin-right: calc((100vw - 984px) / 2);\n  }\n  .side.l-page-outset,\n  d-article .side.l-page-outset {\n    clear: both;\n    float: right;\n    width: 624px;\n    margin-right: calc((100vw - 984px) / 2);\n  }\n}\n\n\n/* Rows and Columns */\n\n.row {\n  display: flex;\n}\n.column {\n  flex: 1;\n  box-sizing: border-box;\n  margin-right: 24px;\n  margin-left: 24px;\n}\n.row > .column:first-of-type {\n  margin-left: 0;\n}\n.row > .column:last-of-type {\n  margin-right: 0;\n}\n"+"\n@media print {\n  @page {\n    size: 8in 11in;\n  }\n  html {\n  }\n  p, code {\n    page-break-inside: avoid;\n  }\n  h2, h3 {\n    page-break-after: avoid;\n  }\n  d-header {\n    visibility: hidden;\n  }\n  d-footer {\n    display: none!important;\n  }\n}\n"+"d-article {\n  display: block;\n  color: rgba(0, 0, 0, 0.8);\n  padding-top: 36px;\n  padding-bottom: 72px;\n  overflow: hidden;\n  font-size: 16px;\n  line-height: 1.6em;\n  border-top: 1px solid rgba(0, 0, 0, 0.2);\n}\n@media(min-width: 1024px) {\n  d-article {\n    font-size: 18px;\n  }\n}\n\n/* H2 */\n\nd-article h2 {\n  font-weight: 400;\n  font-size: 26px;\n  line-height: 1.25em;\n  margin-top: 36px;\n  margin-bottom: 24px;\n  padding-bottom: 24px;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n@media(min-width: 1024px) {\n  d-article h2 {\n    margin-top: 2em;\n    font-size: 32px;\n  }\n}\nd-article h1 + h2 {\n  font-weight: 300;\n  font-size: 20px;\n  line-height: 1.4em;\n  margin-top: 8px;\n  font-style: normal;\n}\n@media(min-width: 1080px) {\n  .centered h1 + h2 {\n    text-align: center;\n  }\n  d-article h1 + h2 {\n    margin-top: 12px;\n    font-size: 32px;\n  }\n}\n\n/* H3 */\n\nd-article h3 {\n  font-weight: 400;\n  font-size: 20px;\n  line-height: 1.4em;\n  margin-top: 36px;\n  margin-bottom: 18px;\n  font-style: italic;\n}\nd-article h1 + h3 {\n  margin-top: 48px;\n}\n@media(min-width: 1024px) {\n  d-article h3 {\n    font-size: 26px;\n  }\n}\n\n/* H4 */\n\nd-article h4 {\n  font-weight: 600;\n  text-transform: uppercase;\n  font-size: 14px;\n  line-height: 1.4em;\n}\nd-article a {\n  color: inherit;\n}\nd-article p,\nd-article ul,\nd-article ol {\n  margin-bottom: 24px;\n}\nd-article p b,\nd-article ul b,\nd-article ol b {\n  -webkit-font-smoothing: antialiased;\n}\nd-article a {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.4);\n  text-decoration: none;\n}\nd-article a:hover {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.8);\n}\nd-article .link {\n  text-decoration: underline;\n  cursor: pointer;\n}\nd-article ul,\nd-article ol {\n  padding-left: 24px;\n}\nd-article li {\n  margin-bottom: 24px;\n  margin-left: 0;\n  padding-left: 0;\n}\nd-article pre {\n  font-size: 14px;\n  margin-bottom: 20px;\n}\nd-article hr {\n  border: none;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.2);\n  margin-top: 60px;\n  margin-bottom: 60px;\n}\nd-article section {\n  margin-top: 60px;\n  margin-bottom: 60px;\n}\n\n/* Figure */\n\nd-article figure {\n  position: relative;\n  margin-top: 30px;\n  margin-bottom: 30px;\n}\n@media(min-width: 1024px) {\n  d-article figure {\n    margin-top: 48px;\n    margin-bottom: 48px;\n  }\n}\nd-article figure img {\n  width: 100%;\n}\nd-article figure svg text,\nd-article figure svg tspan {\n}\nd-article figure figcaption {\n  color: rgba(0, 0, 0, 0.6);\n  font-size: 12px;\n  line-height: 1.5em;\n}\n@media(min-width: 1024px) {\n  d-article figure figcaption {\n    font-size: 13px;\n  }\n}\nd-article figure.external img {\n  background: white;\n  border: 1px solid rgba(0, 0, 0, 0.1);\n  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);\n  padding: 18px;\n  box-sizing: border-box;\n}\nd-article figure figcaption a {\n  color: rgba(0, 0, 0, 0.6);\n}\n/*d-article figure figcaption::before {\n  position: relative;\n  display: block;\n  top: -20px;\n  content: \"\";\n  width: 25px;\n  border-top: 1px solid rgba(0, 0, 0, 0.3);\n}*/\nd-article span.equation-mimic {\n  font-family: georgia;\n  font-size: 115%;\n  font-style: italic;\n}\nd-article figure figcaption b {\n  font-weight: 600;\n  color: rgba(0, 0, 0, 1.0);\n}\nd-article > d-code,\nd-article section > d-code  {\n  display: block;\n}\nd-article > d-math[block],\nd-article section > d-math[block]  {\n  display: block;\n}\nd-article .citation {\n  color: #668;\n  cursor: pointer;\n}\nd-include {\n  width: auto;\n  display: block;\n}\n"+di,document.querySelector("head").appendChild(pi);const s=(e,t,i=!0)=>{const n=document.createElement("template");return n.innerHTML=t,i&&"ShadyCSS"in window&&ShadyCSS.prepareTemplate(n,e),(t)=>{return class extends t{static get is(){return e}constructor(){super(),this.clone=document.importNode(n.content,!0),i&&(this.attachShadow({mode:"open"}),this.shadowRoot.appendChild(this.clone))}connectedCallback(){i?"ShadyCSS"in window&&ShadyCSS.styleElement(this):this.insertBefore(this.clone,this.firstChild)}get root(){return i?this.shadowRoot:this}$(e){return this.root.querySelector(e)}$$(e){return this.root.querySelectorAll(e)}}}},ui=s("d-abstract",`
+const T = Template('d-abstract', `
 <style>
-  d-abstract {
+  :host {
     display: block;
     font-size: 23px;
     line-height: 1.7em;
     margin-bottom: 140px;
   }
-  ${function(e){return`${e} {
-      width: auto;
-      margin-left: 24px;
-      margin-right: 24px;
-      box-sizing: border-box;
-    }
-    @media(min-width: 768px) {
-      ${e} {
-        margin-left: 72px;
-        margin-right: 72px;
-      }
-    }
-    @media(min-width: 1080px) {
-      ${e} {
-        margin-left: calc(50% - 984px / 2);
-        width: 648px;
-      }
-    }
-  `}("d-abstract")}
+  ${body('d-abstract')}
 </style>
-`,!1);class T extends ui(HTMLElement){}const ci=s("d-acknowledgements",`
+
+<slot></slot>
+`);
+
+class Abstract extends T(HTMLElement) {
+
+}
+
+const T$1 = Template('d-acknowledgements', `
 <style>
 ::slotted(h3) {
   font-size: 15px;
@@ -106,29 +136,1368 @@
 </style>
 
 <slot></slot>
-`);class mi extends ci(HTMLElement){}const gi=s("d-appendix",`
+`);
+
+class Acknowledgements extends T$1(HTMLElement) {
+
+}
+
+const T$2 = Template('d-appendix', `
 <style>
 
 :host {
+  box-sizing: border-box;
   display: block;
+  width: 100%;
+
   font-size: 13px;
   line-height: 1.7em;
   margin-bottom: 0;
   border-top: 1px solid rgba(0,0,0,0.1);
   color: rgba(0,0,0,0.5);
-  background: rgb(250, 250, 250);
+  background: hsl(180, 5%, 98%);
   padding-top: 36px;
   padding-bottom: 48px;
 }
 
-${e(".l-body")}
+${body('.content')}
 
 </style>
 
-<div class="l-body">
-  <slot></slot>
+<div class='content'>
+<slot></slot>
 </div>
-`);class hi extends gi(HTMLElement){}var fi=new Date,yi=new Date,xi=t(function(){},function(e,t){e.setTime(+e+t)},function(e,t){return t-e});xi.every=function(e){return e=li(e),isFinite(e)&&0<e?1<e?t(function(t){t.setTime(li(t/e)*e)},function(t,i){t.setTime(+t+i*e)},function(t,i){return(i-t)/e}):xi:null};var zi=1e3,bi=6e4,ki=36e5,vi=864e5,wi=6048e5,Ti=t(function(e){e.setTime(li(e/zi)*zi)},function(e,t){e.setTime(+e+t*zi)},function(e,t){return(t-e)/zi},function(e){return e.getUTCSeconds()}),Si=t(function(e){e.setTime(li(e/bi)*bi)},function(e,t){e.setTime(+e+t*bi)},function(e,t){return(t-e)/bi},function(e){return e.getMinutes()}),Ai=t(function(e){var t=e.getTimezoneOffset()*bi%ki;0>t&&(t+=ki),e.setTime(li((+e-t)/ki)*ki+t)},function(e,t){e.setTime(+e+t*ki)},function(e,t){return(t-e)/ki},function(e){return e.getHours()}),Ci=t(function(e){e.setHours(0,0,0,0)},function(e,t){e.setDate(e.getDate()+t)},function(e,t){return(t-e-(t.getTimezoneOffset()-e.getTimezoneOffset())*bi)/vi},function(e){return e.getDate()-1}),Mi=n(0),Ni=n(1),_i=n(2),qi=n(3),Ri=n(4),Ei=n(5),Li=n(6),Fi=t(function(e){e.setDate(1),e.setHours(0,0,0,0)},function(e,t){e.setMonth(e.getMonth()+t)},function(e,t){return t.getMonth()-e.getMonth()+12*(t.getFullYear()-e.getFullYear())},function(e){return e.getMonth()}),Ii=t(function(e){e.setMonth(0,1),e.setHours(0,0,0,0)},function(e,t){e.setFullYear(e.getFullYear()+t)},function(e,t){return t.getFullYear()-e.getFullYear()},function(e){return e.getFullYear()});Ii.every=function(e){return isFinite(e=li(e))&&0<e?t(function(t){t.setFullYear(li(t.getFullYear()/e)*e),t.setMonth(0,1),t.setHours(0,0,0,0)},function(t,i){t.setFullYear(t.getFullYear()+i*e)}):null};var Oi=t(function(e){e.setUTCSeconds(0,0)},function(e,t){e.setTime(+e+t*bi)},function(e,t){return(t-e)/bi},function(e){return e.getUTCMinutes()}),Di=t(function(e){e.setUTCMinutes(0,0,0)},function(e,t){e.setTime(+e+t*ki)},function(e,t){return(t-e)/ki},function(e){return e.getUTCHours()}),Xi=t(function(e){e.setUTCHours(0,0,0,0)},function(e,t){e.setUTCDate(e.getUTCDate()+t)},function(e,t){return(t-e)/vi},function(e){return e.getUTCDate()-1}),Ki=a(0),Ui=a(1),Pi=a(2),Bi=a(3),ji=a(4),Hi=a(5),Yi=a(6),Gi=t(function(e){e.setUTCDate(1),e.setUTCHours(0,0,0,0)},function(e,t){e.setUTCMonth(e.getUTCMonth()+t)},function(e,t){return t.getUTCMonth()-e.getUTCMonth()+12*(t.getUTCFullYear()-e.getUTCFullYear())},function(e){return e.getUTCMonth()}),Wi=t(function(e){e.setUTCMonth(0,1),e.setUTCHours(0,0,0,0)},function(e,t){e.setUTCFullYear(e.getUTCFullYear()+t)},function(e,t){return t.getUTCFullYear()-e.getUTCFullYear()},function(e){return e.getUTCFullYear()});Wi.every=function(e){return isFinite(e=li(e))&&0<e?t(function(t){t.setUTCFullYear(li(t.getUTCFullYear()/e)*e),t.setUTCMonth(0,1),t.setUTCHours(0,0,0,0)},function(t,i){t.setUTCFullYear(t.getUTCFullYear()+i*e)}):null};var Vi={0:"0","-":"",_:" "},$i=/^\s*\d+/,Ji=/^%/,Zi=/[\\\^\$\*\+\?\|\[\]\(\)\.\{\}]/g,Qi,en,tn,nn,an;(function(e){return Qi=d(e),en=Qi.format,tn=Qi.parse,nn=Qi.utcFormat,an=Qi.utcParse,Qi})({dateTime:"%x, %X",date:"%-m/%-d/%Y",time:"%-I:%M:%S %p",periods:["AM","PM"],days:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],shortDays:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],months:["January","February","March","April","May","June","July","August","September","October","November","December"],shortMonths:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]});var sn="%Y-%m-%dT%H:%M:%S.%LZ",rn=Date.prototype.toISOString?function(e){return e.toISOString()}:nn(sn),on=+new Date("2000-01-01T00:00:00.000Z")?function(e){var t=new Date(e);return isNaN(t)?null:t}:an(sn);const ln=(e)=>10>e?"0"+e:e,dn=en("%a, %d %b %Y %H:%M:%S %Z"),pn=["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec"];class un{constructor(e="",t="",i="",n=""){this.name=e,this.personalURL=t,this.affiliation=i,this.affiliationURL=n}get firstName(){const e=this.name.split(" ");return e.slice(0,e.length-1).join(" ")}get lastName(){const e=this.name.split(" ");return e[e.length-1]}}class cn{constructor(){this.title="",this.description="",this.authors=[],this.bibliography=new Map,this.citations=[],this.journal={}}mergeFromYMLFrontmatter(e){this.title=e.title,this.publishedDate=new Date(e.published),this.description=e.description;const t=e.authors.map((t,i)=>[t,e.affiliations[i]]);this.authors=t.map(([e,t])=>{const i=Object.keys(e)[0],n=new un(i);return"object"==typeof e&&(n.personalURL=e[i]),n.affiliation=Object.keys(t)[0],"object"==typeof t&&(n.affiliationURL=t[n.affiliation]),n})}set url(e){this._url=e}get url(){if(this._url)return this._url;return this.distillPath&&this.journal.url?this.journal.url+"/"+this.distillPath:this.journal.url?this.journal.url:void 0}get githubUrl(){return"https://github.com/"+this.githubPath}set previewURL(e){this._previewURL=e}get previewURL(){return this._previewURL?this._previewURL:this.url+"/thumbnail.jpg"}get publishedDateRFC(){return dn(this.publishedDate)}get updatedDateRFC(){return dn(this.updatedDate)}get publishedYear(){return this.publishedDate.getFullYear()}get publishedMonth(){return pn[this.publishedDate.getMonth()]}get publishedDay(){return this.publishedDate.getDate()}get publishedMonthPadded(){return ln(this.publishedDate.getMonth()+1)}get publishedDayPadded(){return ln(this.publishedDate.getDate())}get updatedDateRFC(){}get concatenatedAuthors(){if(2<this.authors.length)return this.authors[0].lastName+", et al.";return 2===this.authors.length?this.authors[0].lastName+" & "+this.authors[1].lastName:1===this.authors.length?this.authors[0].lastName:void 0}get bibtexAuthors(){return this.authors.map((e)=>{return e.lastName+", "+e.firstName}).join(" and ")}get slug(){let e="";return this.authors.length&&(e+=this.authors[0].lastName.toLowerCase(),e+=this.publishedYear,e+=this.title.split(" ")[0].toLowerCase()),e||"Untitled"}}class mn{constructor(e){this.div=e,this.visible=!1,this.bindDivEvents(e),mn.box_map[e.id]=this}}mn.box_map={},mn.get_box=function(e){return e in mn.box_map?mn.box_map[e]:new mn(e)},mn.prototype.show=function(e){for(var t in this.visible=!0,this.div.setAttribute("style",ce(e)),mn.box_map){var i=mn.box_map[t];i!=this&&i.hide()}},mn.prototype.showAtNode=function(e){var t=e.getBoundingClientRect();this.show([t.right,t.bottom])},mn.prototype.hide=function(){this.visible=!1,this.div&&this.div.setAttribute("style","display:none"),this.timeout&&clearTimeout(this.timeout)},mn.prototype.stopTimeout=function(){this.timeout&&clearTimeout(this.timeout)},mn.prototype.extendTimeout=function(e){var t=this;this.stopTimeout(),this.timeout=setTimeout(function(){t.hide()}.bind(this),e)},mn.prototype.bind=function(t){"string"==typeof t&&(t=document.querySelector(t)),t.addEventListener("mouseover",function(){this.visible||this.showAtNode(t),this.stopTimeout()}.bind(this)),t.addEventListener("mouseout",function(){this.extendTimeout(250)}.bind(this)),t.addEventListener("touchstart",function(i){this.visible?this.hide():this.showAtNode(t),i.stopPropagation()}.bind(this),{passive:!0})},mn.prototype.bindDivEvents=function(e){this.div.addEventListener("mouseover",function(){this.visible||this.showAtNode(e),this.stopTimeout()}.bind(this)),this.div.addEventListener("mouseout",function(){this.extendTimeout(250)}.bind(this)),this.div.addEventListener("touchstart",function(t){t.stopPropagation()},{passive:!0}),document.body.addEventListener("touchstart",function(){this.hide()}.bind(this),{passive:!0})};const gn=s("d-cite",`
+`, true);
+
+class Appendix extends T$2(HTMLElement) {
+
+}
+
+var t0 = new Date;
+var t1 = new Date;
+
+function newInterval(floori, offseti, count, field) {
+
+  function interval(date) {
+    return floori(date = new Date(+date)), date;
+  }
+
+  interval.floor = interval;
+
+  interval.ceil = function(date) {
+    return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
+  };
+
+  interval.round = function(date) {
+    var d0 = interval(date),
+        d1 = interval.ceil(date);
+    return date - d0 < d1 - date ? d0 : d1;
+  };
+
+  interval.offset = function(date, step) {
+    return offseti(date = new Date(+date), step == null ? 1 : Math.floor(step)), date;
+  };
+
+  interval.range = function(start, stop, step) {
+    var range = [];
+    start = interval.ceil(start);
+    step = step == null ? 1 : Math.floor(step);
+    if (!(start < stop) || !(step > 0)) return range; // also handles Invalid Date
+    do range.push(new Date(+start)); while (offseti(start, step), floori(start), start < stop)
+    return range;
+  };
+
+  interval.filter = function(test) {
+    return newInterval(function(date) {
+      if (date >= date) while (floori(date), !test(date)) date.setTime(date - 1);
+    }, function(date, step) {
+      if (date >= date) {
+        if (step < 0) while (++step <= 0) {
+          while (offseti(date, -1), !test(date)) {} // eslint-disable-line no-empty
+        } else while (--step >= 0) {
+          while (offseti(date, +1), !test(date)) {} // eslint-disable-line no-empty
+        }
+      }
+    });
+  };
+
+  if (count) {
+    interval.count = function(start, end) {
+      t0.setTime(+start), t1.setTime(+end);
+      floori(t0), floori(t1);
+      return Math.floor(count(t0, t1));
+    };
+
+    interval.every = function(step) {
+      step = Math.floor(step);
+      return !isFinite(step) || !(step > 0) ? null
+          : !(step > 1) ? interval
+          : interval.filter(field
+              ? function(d) { return field(d) % step === 0; }
+              : function(d) { return interval.count(0, d) % step === 0; });
+    };
+  }
+
+  return interval;
+}
+
+var millisecond = newInterval(function() {
+  // noop
+}, function(date, step) {
+  date.setTime(+date + step);
+}, function(start, end) {
+  return end - start;
+});
+
+// An optimized implementation for this simple case.
+millisecond.every = function(k) {
+  k = Math.floor(k);
+  if (!isFinite(k) || !(k > 0)) return null;
+  if (!(k > 1)) return millisecond;
+  return newInterval(function(date) {
+    date.setTime(Math.floor(date / k) * k);
+  }, function(date, step) {
+    date.setTime(+date + step * k);
+  }, function(start, end) {
+    return (end - start) / k;
+  });
+};
+
+var durationSecond = 1e3;
+var durationMinute = 6e4;
+var durationHour = 36e5;
+var durationDay = 864e5;
+var durationWeek = 6048e5;
+
+var second = newInterval(function(date) {
+  date.setTime(Math.floor(date / durationSecond) * durationSecond);
+}, function(date, step) {
+  date.setTime(+date + step * durationSecond);
+}, function(start, end) {
+  return (end - start) / durationSecond;
+}, function(date) {
+  return date.getUTCSeconds();
+});
+
+var minute = newInterval(function(date) {
+  date.setTime(Math.floor(date / durationMinute) * durationMinute);
+}, function(date, step) {
+  date.setTime(+date + step * durationMinute);
+}, function(start, end) {
+  return (end - start) / durationMinute;
+}, function(date) {
+  return date.getMinutes();
+});
+
+var hour = newInterval(function(date) {
+  var offset = date.getTimezoneOffset() * durationMinute % durationHour;
+  if (offset < 0) offset += durationHour;
+  date.setTime(Math.floor((+date - offset) / durationHour) * durationHour + offset);
+}, function(date, step) {
+  date.setTime(+date + step * durationHour);
+}, function(start, end) {
+  return (end - start) / durationHour;
+}, function(date) {
+  return date.getHours();
+});
+
+var day = newInterval(function(date) {
+  date.setHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setDate(date.getDate() + step);
+}, function(start, end) {
+  return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * durationMinute) / durationDay;
+}, function(date) {
+  return date.getDate() - 1;
+});
+
+function weekday(i) {
+  return newInterval(function(date) {
+    date.setDate(date.getDate() - (date.getDay() + 7 - i) % 7);
+    date.setHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setDate(date.getDate() + step * 7);
+  }, function(start, end) {
+    return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * durationMinute) / durationWeek;
+  });
+}
+
+var sunday = weekday(0);
+var monday = weekday(1);
+var tuesday = weekday(2);
+var wednesday = weekday(3);
+var thursday = weekday(4);
+var friday = weekday(5);
+var saturday = weekday(6);
+
+var month = newInterval(function(date) {
+  date.setDate(1);
+  date.setHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setMonth(date.getMonth() + step);
+}, function(start, end) {
+  return end.getMonth() - start.getMonth() + (end.getFullYear() - start.getFullYear()) * 12;
+}, function(date) {
+  return date.getMonth();
+});
+
+var year = newInterval(function(date) {
+  date.setMonth(0, 1);
+  date.setHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setFullYear(date.getFullYear() + step);
+}, function(start, end) {
+  return end.getFullYear() - start.getFullYear();
+}, function(date) {
+  return date.getFullYear();
+});
+
+// An optimized implementation for this simple case.
+year.every = function(k) {
+  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function(date) {
+    date.setFullYear(Math.floor(date.getFullYear() / k) * k);
+    date.setMonth(0, 1);
+    date.setHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setFullYear(date.getFullYear() + step * k);
+  });
+};
+
+var utcMinute = newInterval(function(date) {
+  date.setUTCSeconds(0, 0);
+}, function(date, step) {
+  date.setTime(+date + step * durationMinute);
+}, function(start, end) {
+  return (end - start) / durationMinute;
+}, function(date) {
+  return date.getUTCMinutes();
+});
+
+var utcHour = newInterval(function(date) {
+  date.setUTCMinutes(0, 0, 0);
+}, function(date, step) {
+  date.setTime(+date + step * durationHour);
+}, function(start, end) {
+  return (end - start) / durationHour;
+}, function(date) {
+  return date.getUTCHours();
+});
+
+var utcDay = newInterval(function(date) {
+  date.setUTCHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setUTCDate(date.getUTCDate() + step);
+}, function(start, end) {
+  return (end - start) / durationDay;
+}, function(date) {
+  return date.getUTCDate() - 1;
+});
+
+function utcWeekday(i) {
+  return newInterval(function(date) {
+    date.setUTCDate(date.getUTCDate() - (date.getUTCDay() + 7 - i) % 7);
+    date.setUTCHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setUTCDate(date.getUTCDate() + step * 7);
+  }, function(start, end) {
+    return (end - start) / durationWeek;
+  });
+}
+
+var utcSunday = utcWeekday(0);
+var utcMonday = utcWeekday(1);
+var utcTuesday = utcWeekday(2);
+var utcWednesday = utcWeekday(3);
+var utcThursday = utcWeekday(4);
+var utcFriday = utcWeekday(5);
+var utcSaturday = utcWeekday(6);
+
+var utcMonth = newInterval(function(date) {
+  date.setUTCDate(1);
+  date.setUTCHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setUTCMonth(date.getUTCMonth() + step);
+}, function(start, end) {
+  return end.getUTCMonth() - start.getUTCMonth() + (end.getUTCFullYear() - start.getUTCFullYear()) * 12;
+}, function(date) {
+  return date.getUTCMonth();
+});
+
+var utcYear = newInterval(function(date) {
+  date.setUTCMonth(0, 1);
+  date.setUTCHours(0, 0, 0, 0);
+}, function(date, step) {
+  date.setUTCFullYear(date.getUTCFullYear() + step);
+}, function(start, end) {
+  return end.getUTCFullYear() - start.getUTCFullYear();
+}, function(date) {
+  return date.getUTCFullYear();
+});
+
+// An optimized implementation for this simple case.
+utcYear.every = function(k) {
+  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function(date) {
+    date.setUTCFullYear(Math.floor(date.getUTCFullYear() / k) * k);
+    date.setUTCMonth(0, 1);
+    date.setUTCHours(0, 0, 0, 0);
+  }, function(date, step) {
+    date.setUTCFullYear(date.getUTCFullYear() + step * k);
+  });
+};
+
+function localDate(d) {
+  if (0 <= d.y && d.y < 100) {
+    var date = new Date(-1, d.m, d.d, d.H, d.M, d.S, d.L);
+    date.setFullYear(d.y);
+    return date;
+  }
+  return new Date(d.y, d.m, d.d, d.H, d.M, d.S, d.L);
+}
+
+function utcDate(d) {
+  if (0 <= d.y && d.y < 100) {
+    var date = new Date(Date.UTC(-1, d.m, d.d, d.H, d.M, d.S, d.L));
+    date.setUTCFullYear(d.y);
+    return date;
+  }
+  return new Date(Date.UTC(d.y, d.m, d.d, d.H, d.M, d.S, d.L));
+}
+
+function newYear(y) {
+  return {y: y, m: 0, d: 1, H: 0, M: 0, S: 0, L: 0};
+}
+
+function formatLocale(locale) {
+  var locale_dateTime = locale.dateTime,
+      locale_date = locale.date,
+      locale_time = locale.time,
+      locale_periods = locale.periods,
+      locale_weekdays = locale.days,
+      locale_shortWeekdays = locale.shortDays,
+      locale_months = locale.months,
+      locale_shortMonths = locale.shortMonths;
+
+  var periodRe = formatRe(locale_periods),
+      periodLookup = formatLookup(locale_periods),
+      weekdayRe = formatRe(locale_weekdays),
+      weekdayLookup = formatLookup(locale_weekdays),
+      shortWeekdayRe = formatRe(locale_shortWeekdays),
+      shortWeekdayLookup = formatLookup(locale_shortWeekdays),
+      monthRe = formatRe(locale_months),
+      monthLookup = formatLookup(locale_months),
+      shortMonthRe = formatRe(locale_shortMonths),
+      shortMonthLookup = formatLookup(locale_shortMonths);
+
+  var formats = {
+    "a": formatShortWeekday,
+    "A": formatWeekday,
+    "b": formatShortMonth,
+    "B": formatMonth,
+    "c": null,
+    "d": formatDayOfMonth,
+    "e": formatDayOfMonth,
+    "H": formatHour24,
+    "I": formatHour12,
+    "j": formatDayOfYear,
+    "L": formatMilliseconds,
+    "m": formatMonthNumber,
+    "M": formatMinutes,
+    "p": formatPeriod,
+    "S": formatSeconds,
+    "U": formatWeekNumberSunday,
+    "w": formatWeekdayNumber,
+    "W": formatWeekNumberMonday,
+    "x": null,
+    "X": null,
+    "y": formatYear,
+    "Y": formatFullYear,
+    "Z": formatZone,
+    "%": formatLiteralPercent
+  };
+
+  var utcFormats = {
+    "a": formatUTCShortWeekday,
+    "A": formatUTCWeekday,
+    "b": formatUTCShortMonth,
+    "B": formatUTCMonth,
+    "c": null,
+    "d": formatUTCDayOfMonth,
+    "e": formatUTCDayOfMonth,
+    "H": formatUTCHour24,
+    "I": formatUTCHour12,
+    "j": formatUTCDayOfYear,
+    "L": formatUTCMilliseconds,
+    "m": formatUTCMonthNumber,
+    "M": formatUTCMinutes,
+    "p": formatUTCPeriod,
+    "S": formatUTCSeconds,
+    "U": formatUTCWeekNumberSunday,
+    "w": formatUTCWeekdayNumber,
+    "W": formatUTCWeekNumberMonday,
+    "x": null,
+    "X": null,
+    "y": formatUTCYear,
+    "Y": formatUTCFullYear,
+    "Z": formatUTCZone,
+    "%": formatLiteralPercent
+  };
+
+  var parses = {
+    "a": parseShortWeekday,
+    "A": parseWeekday,
+    "b": parseShortMonth,
+    "B": parseMonth,
+    "c": parseLocaleDateTime,
+    "d": parseDayOfMonth,
+    "e": parseDayOfMonth,
+    "H": parseHour24,
+    "I": parseHour24,
+    "j": parseDayOfYear,
+    "L": parseMilliseconds,
+    "m": parseMonthNumber,
+    "M": parseMinutes,
+    "p": parsePeriod,
+    "S": parseSeconds,
+    "U": parseWeekNumberSunday,
+    "w": parseWeekdayNumber,
+    "W": parseWeekNumberMonday,
+    "x": parseLocaleDate,
+    "X": parseLocaleTime,
+    "y": parseYear,
+    "Y": parseFullYear,
+    "Z": parseZone,
+    "%": parseLiteralPercent
+  };
+
+  // These recursive directive definitions must be deferred.
+  formats.x = newFormat(locale_date, formats);
+  formats.X = newFormat(locale_time, formats);
+  formats.c = newFormat(locale_dateTime, formats);
+  utcFormats.x = newFormat(locale_date, utcFormats);
+  utcFormats.X = newFormat(locale_time, utcFormats);
+  utcFormats.c = newFormat(locale_dateTime, utcFormats);
+
+  function newFormat(specifier, formats) {
+    return function(date) {
+      var string = [],
+          i = -1,
+          j = 0,
+          n = specifier.length,
+          c,
+          pad,
+          format;
+
+      if (!(date instanceof Date)) date = new Date(+date);
+
+      while (++i < n) {
+        if (specifier.charCodeAt(i) === 37) {
+          string.push(specifier.slice(j, i));
+          if ((pad = pads[c = specifier.charAt(++i)]) != null) c = specifier.charAt(++i);
+          else pad = c === "e" ? " " : "0";
+          if (format = formats[c]) c = format(date, pad);
+          string.push(c);
+          j = i + 1;
+        }
+      }
+
+      string.push(specifier.slice(j, i));
+      return string.join("");
+    };
+  }
+
+  function newParse(specifier, newDate) {
+    return function(string) {
+      var d = newYear(1900),
+          i = parseSpecifier(d, specifier, string += "", 0);
+      if (i != string.length) return null;
+
+      // The am-pm flag is 0 for AM, and 1 for PM.
+      if ("p" in d) d.H = d.H % 12 + d.p * 12;
+
+      // Convert day-of-week and week-of-year to day-of-year.
+      if ("W" in d || "U" in d) {
+        if (!("w" in d)) d.w = "W" in d ? 1 : 0;
+        var day$$1 = "Z" in d ? utcDate(newYear(d.y)).getUTCDay() : newDate(newYear(d.y)).getDay();
+        d.m = 0;
+        d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day$$1 + 5) % 7 : d.w + d.U * 7 - (day$$1 + 6) % 7;
+      }
+
+      // If a time zone is specified, all fields are interpreted as UTC and then
+      // offset according to the specified time zone.
+      if ("Z" in d) {
+        d.H += d.Z / 100 | 0;
+        d.M += d.Z % 100;
+        return utcDate(d);
+      }
+
+      // Otherwise, all fields are in local time.
+      return newDate(d);
+    };
+  }
+
+  function parseSpecifier(d, specifier, string, j) {
+    var i = 0,
+        n = specifier.length,
+        m = string.length,
+        c,
+        parse;
+
+    while (i < n) {
+      if (j >= m) return -1;
+      c = specifier.charCodeAt(i++);
+      if (c === 37) {
+        c = specifier.charAt(i++);
+        parse = parses[c in pads ? specifier.charAt(i++) : c];
+        if (!parse || ((j = parse(d, string, j)) < 0)) return -1;
+      } else if (c != string.charCodeAt(j++)) {
+        return -1;
+      }
+    }
+
+    return j;
+  }
+
+  function parsePeriod(d, string, i) {
+    var n = periodRe.exec(string.slice(i));
+    return n ? (d.p = periodLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseShortWeekday(d, string, i) {
+    var n = shortWeekdayRe.exec(string.slice(i));
+    return n ? (d.w = shortWeekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseWeekday(d, string, i) {
+    var n = weekdayRe.exec(string.slice(i));
+    return n ? (d.w = weekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseShortMonth(d, string, i) {
+    var n = shortMonthRe.exec(string.slice(i));
+    return n ? (d.m = shortMonthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseMonth(d, string, i) {
+    var n = monthRe.exec(string.slice(i));
+    return n ? (d.m = monthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseLocaleDateTime(d, string, i) {
+    return parseSpecifier(d, locale_dateTime, string, i);
+  }
+
+  function parseLocaleDate(d, string, i) {
+    return parseSpecifier(d, locale_date, string, i);
+  }
+
+  function parseLocaleTime(d, string, i) {
+    return parseSpecifier(d, locale_time, string, i);
+  }
+
+  function formatShortWeekday(d) {
+    return locale_shortWeekdays[d.getDay()];
+  }
+
+  function formatWeekday(d) {
+    return locale_weekdays[d.getDay()];
+  }
+
+  function formatShortMonth(d) {
+    return locale_shortMonths[d.getMonth()];
+  }
+
+  function formatMonth(d) {
+    return locale_months[d.getMonth()];
+  }
+
+  function formatPeriod(d) {
+    return locale_periods[+(d.getHours() >= 12)];
+  }
+
+  function formatUTCShortWeekday(d) {
+    return locale_shortWeekdays[d.getUTCDay()];
+  }
+
+  function formatUTCWeekday(d) {
+    return locale_weekdays[d.getUTCDay()];
+  }
+
+  function formatUTCShortMonth(d) {
+    return locale_shortMonths[d.getUTCMonth()];
+  }
+
+  function formatUTCMonth(d) {
+    return locale_months[d.getUTCMonth()];
+  }
+
+  function formatUTCPeriod(d) {
+    return locale_periods[+(d.getUTCHours() >= 12)];
+  }
+
+  return {
+    format: function(specifier) {
+      var f = newFormat(specifier += "", formats);
+      f.toString = function() { return specifier; };
+      return f;
+    },
+    parse: function(specifier) {
+      var p = newParse(specifier += "", localDate);
+      p.toString = function() { return specifier; };
+      return p;
+    },
+    utcFormat: function(specifier) {
+      var f = newFormat(specifier += "", utcFormats);
+      f.toString = function() { return specifier; };
+      return f;
+    },
+    utcParse: function(specifier) {
+      var p = newParse(specifier, utcDate);
+      p.toString = function() { return specifier; };
+      return p;
+    }
+  };
+}
+
+var pads = {"-": "", "_": " ", "0": "0"};
+var numberRe = /^\s*\d+/;
+var percentRe = /^%/;
+var requoteRe = /[\\\^\$\*\+\?\|\[\]\(\)\.\{\}]/g;
+
+function pad(value, fill, width) {
+  var sign = value < 0 ? "-" : "",
+      string = (sign ? -value : value) + "",
+      length = string.length;
+  return sign + (length < width ? new Array(width - length + 1).join(fill) + string : string);
+}
+
+function requote(s) {
+  return s.replace(requoteRe, "\\$&");
+}
+
+function formatRe(names) {
+  return new RegExp("^(?:" + names.map(requote).join("|") + ")", "i");
+}
+
+function formatLookup(names) {
+  var map = {}, i = -1, n = names.length;
+  while (++i < n) map[names[i].toLowerCase()] = i;
+  return map;
+}
+
+function parseWeekdayNumber(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 1));
+  return n ? (d.w = +n[0], i + n[0].length) : -1;
+}
+
+function parseWeekNumberSunday(d, string, i) {
+  var n = numberRe.exec(string.slice(i));
+  return n ? (d.U = +n[0], i + n[0].length) : -1;
+}
+
+function parseWeekNumberMonday(d, string, i) {
+  var n = numberRe.exec(string.slice(i));
+  return n ? (d.W = +n[0], i + n[0].length) : -1;
+}
+
+function parseFullYear(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 4));
+  return n ? (d.y = +n[0], i + n[0].length) : -1;
+}
+
+function parseYear(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.y = +n[0] + (+n[0] > 68 ? 1900 : 2000), i + n[0].length) : -1;
+}
+
+function parseZone(d, string, i) {
+  var n = /^(Z)|([+-]\d\d)(?:\:?(\d\d))?/.exec(string.slice(i, i + 6));
+  return n ? (d.Z = n[1] ? 0 : -(n[2] + (n[3] || "00")), i + n[0].length) : -1;
+}
+
+function parseMonthNumber(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.m = n[0] - 1, i + n[0].length) : -1;
+}
+
+function parseDayOfMonth(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.d = +n[0], i + n[0].length) : -1;
+}
+
+function parseDayOfYear(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 3));
+  return n ? (d.m = 0, d.d = +n[0], i + n[0].length) : -1;
+}
+
+function parseHour24(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.H = +n[0], i + n[0].length) : -1;
+}
+
+function parseMinutes(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.M = +n[0], i + n[0].length) : -1;
+}
+
+function parseSeconds(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.S = +n[0], i + n[0].length) : -1;
+}
+
+function parseMilliseconds(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 3));
+  return n ? (d.L = +n[0], i + n[0].length) : -1;
+}
+
+function parseLiteralPercent(d, string, i) {
+  var n = percentRe.exec(string.slice(i, i + 1));
+  return n ? i + n[0].length : -1;
+}
+
+function formatDayOfMonth(d, p) {
+  return pad(d.getDate(), p, 2);
+}
+
+function formatHour24(d, p) {
+  return pad(d.getHours(), p, 2);
+}
+
+function formatHour12(d, p) {
+  return pad(d.getHours() % 12 || 12, p, 2);
+}
+
+function formatDayOfYear(d, p) {
+  return pad(1 + day.count(year(d), d), p, 3);
+}
+
+function formatMilliseconds(d, p) {
+  return pad(d.getMilliseconds(), p, 3);
+}
+
+function formatMonthNumber(d, p) {
+  return pad(d.getMonth() + 1, p, 2);
+}
+
+function formatMinutes(d, p) {
+  return pad(d.getMinutes(), p, 2);
+}
+
+function formatSeconds(d, p) {
+  return pad(d.getSeconds(), p, 2);
+}
+
+function formatWeekNumberSunday(d, p) {
+  return pad(sunday.count(year(d), d), p, 2);
+}
+
+function formatWeekdayNumber(d) {
+  return d.getDay();
+}
+
+function formatWeekNumberMonday(d, p) {
+  return pad(monday.count(year(d), d), p, 2);
+}
+
+function formatYear(d, p) {
+  return pad(d.getFullYear() % 100, p, 2);
+}
+
+function formatFullYear(d, p) {
+  return pad(d.getFullYear() % 10000, p, 4);
+}
+
+function formatZone(d) {
+  var z = d.getTimezoneOffset();
+  return (z > 0 ? "-" : (z *= -1, "+"))
+      + pad(z / 60 | 0, "0", 2)
+      + pad(z % 60, "0", 2);
+}
+
+function formatUTCDayOfMonth(d, p) {
+  return pad(d.getUTCDate(), p, 2);
+}
+
+function formatUTCHour24(d, p) {
+  return pad(d.getUTCHours(), p, 2);
+}
+
+function formatUTCHour12(d, p) {
+  return pad(d.getUTCHours() % 12 || 12, p, 2);
+}
+
+function formatUTCDayOfYear(d, p) {
+  return pad(1 + utcDay.count(utcYear(d), d), p, 3);
+}
+
+function formatUTCMilliseconds(d, p) {
+  return pad(d.getUTCMilliseconds(), p, 3);
+}
+
+function formatUTCMonthNumber(d, p) {
+  return pad(d.getUTCMonth() + 1, p, 2);
+}
+
+function formatUTCMinutes(d, p) {
+  return pad(d.getUTCMinutes(), p, 2);
+}
+
+function formatUTCSeconds(d, p) {
+  return pad(d.getUTCSeconds(), p, 2);
+}
+
+function formatUTCWeekNumberSunday(d, p) {
+  return pad(utcSunday.count(utcYear(d), d), p, 2);
+}
+
+function formatUTCWeekdayNumber(d) {
+  return d.getUTCDay();
+}
+
+function formatUTCWeekNumberMonday(d, p) {
+  return pad(utcMonday.count(utcYear(d), d), p, 2);
+}
+
+function formatUTCYear(d, p) {
+  return pad(d.getUTCFullYear() % 100, p, 2);
+}
+
+function formatUTCFullYear(d, p) {
+  return pad(d.getUTCFullYear() % 10000, p, 4);
+}
+
+function formatUTCZone() {
+  return "+0000";
+}
+
+function formatLiteralPercent() {
+  return "%";
+}
+
+var locale$1;
+var timeFormat;
+var timeParse;
+var utcFormat;
+var utcParse;
+
+defaultLocale({
+  dateTime: "%x, %X",
+  date: "%-m/%-d/%Y",
+  time: "%-I:%M:%S %p",
+  periods: ["AM", "PM"],
+  days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  shortDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  shortMonths: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+});
+
+function defaultLocale(definition) {
+  locale$1 = formatLocale(definition);
+  timeFormat = locale$1.format;
+  timeParse = locale$1.parse;
+  utcFormat = locale$1.utcFormat;
+  utcParse = locale$1.utcParse;
+  return locale$1;
+}
+
+var isoSpecifier = "%Y-%m-%dT%H:%M:%S.%LZ";
+
+function formatIsoNative(date) {
+  return date.toISOString();
+}
+
+var formatIso = Date.prototype.toISOString
+    ? formatIsoNative
+    : utcFormat(isoSpecifier);
+
+function parseIsoNative(string) {
+  var date = new Date(string);
+  return isNaN(date) ? null : date;
+}
+
+var parseIso = +new Date("2000-01-01T00:00:00.000Z")
+    ? parseIsoNative
+    : utcParse(isoSpecifier);
+
+const zeroPad = n => n < 10 ? '0' + n : n;
+const RFC = timeFormat('%a, %d %b %Y %H:%M:%S %Z');
+const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
+class Author {
+
+  constructor(name='', personalURL='', affiliation='', affiliationURL='') {
+    this.name = name; // "Chris Olah"
+    this.personalURL = personalURL; // "https://colah.github.io"
+    this.affiliation = affiliation; // "Google Brain"
+    this.affiliationURL = affiliationURL; // "https://g.co/brain"
+  }
+
+  // "Chris"
+  get firstName() {
+    const names = this.name.split(' ');
+    return names.slice(0, names.length - 1).join(' ');
+  }
+
+  // "Olah"
+  get lastName() {
+    const names = this.name.split(' ');
+    return names[names.length -1];
+  }
+}
+
+class FrontMatter {
+  constructor() {
+    this.title = ''; // "Attention and Augmented Recurrent Neural Networks"
+    this.description = ''; // "A visual overview of neural attention..."
+    this.authors = []; // Array of Author(s)
+
+    this.bibliography = new Map();
+    //  {
+    //    "gregor2015draw": {
+    //      "title": "DRAW: A recurrent neural network for image generation",
+    //      "author": "Gregor, Karol and Danihelka, Ivo and Graves, Alex and Rezende, Danilo Jimenez and Wierstra, Daan",
+    //      "journal": "arXiv preprint arXiv:1502.04623",
+    //      "year": "2015",
+    //      "url": "https://arxiv.org/pdf/1502.04623.pdf",
+    //      "type": "article"
+    //    },
+    //  }
+
+    // Citation keys should be listed in the order that they are appear in the document.
+    // Each key refers to a key in the bibliography dictionary.
+    this.citations = []; // [ "gregor2015draw", "mercier2011humans" ]
+
+
+    //
+    // Assigned from posts.csv
+    //
+
+    //  publishedDate: 2016-09-08T07:00:00.000Z,
+    //  tags: [ 'rnn' ],
+    //  distillPath: '2016/augmented-rnns',
+    //  githubPath: 'distillpub/post--augmented-rnns',
+    //  doiSuffix: 1,
+
+    //
+    // Assigned from journal
+    //
+    this.journal = {};
+    //  journal: {
+    //    "title": "Distill",
+    //    "full_title": "Distill",
+    //    "abbrev_title": "Distill",
+    //    "url": "http://distill.pub",
+    //    "doi": "10.23915/distill",
+    //    "publisherName": "Distill Working Group",
+    //    "publisherEmail": "admin@distill.pub",
+    //    "issn": "2476-0757",
+    //    "editors": [...],
+    //    "committee": [...]
+    //  }
+    //  volume: 1,
+    //  issue: 9,
+    this.publishedDate = new Date();
+
+    //
+    // Assigned from publishing process
+    //
+
+    //  githubCompareUpdatesUrl: 'https://github.com/distillpub/post--augmented-rnns/compare/1596e094d8943d2dc0ea445d92071129c6419c59...3bd9209e0c24d020f87cf6152dcecc6017cbc193',
+    //  updatedDate: 2017-03-21T07:13:16.000Z,
+    //  doi: '10.23915/distill.00001',
+
+  }
+
+  // Example:
+  // title: Demo Title Attention and Augmented Recurrent Neural Networks
+  // published: Jan 10, 2017
+  // authors:
+  // - Chris Olah:
+  // - Shan Carter: http://shancarter.com
+  // affiliations:
+  // - Google Brain:
+  // - Google Brain: http://g.co/brain
+
+  mergeFromYMLFrontmatter(data) {
+    this.title = data.title;
+    this.publishedDate = new Date(data.published);
+    this.description = data.description;
+    const zipped = data.authors.map( (author, index) => [author, data.affiliations[index]]);
+    this.authors = zipped.map( ([authorEntry, affiliationEntry]) => {
+      const author = new Author();
+
+      // try to get name and personal url
+      switch (typeof authorEntry) {
+      case 'object':
+        author.name = Object.keys(authorEntry)[0];
+        author.personalURL = authorEntry[author.name];
+        break;
+      case 'string':
+        author.name = authorEntry;
+        break;
+      default:
+        throw new Error('Invalid type in frontmatter author field: ' + authorEntry);
+      }
+
+      // try to get affiliation name and affiliation url
+      switch (typeof affiliationEntry) {
+      case 'object':
+        author.affiliation = Object.keys(affiliationEntry)[0];
+        author.affiliationURL = affiliationEntry[author.affiliation];
+        break;
+      case 'string':
+        author.affiliation = affiliationEntry;
+        break;
+      default:
+        throw new Error('Invalid type in frontmatter affiliation field: ' + affiliationEntry);
+      }
+
+      return author;
+    });
+  }
+
+  //
+  // Computed Properties
+  //
+
+  // 'http://distill.pub/2016/augmented-rnns',
+  set url(value) {
+    this._url = value;
+  }
+  get url() {
+    if (this._url) {
+      return this._url;
+    } else if (this.distillPath && this.journal.url) {
+      return this.journal.url + '/' + this.distillPath;
+    } else if (this.journal.url) {
+      return this.journal.url;
+    }
+  }
+
+  // 'https://github.com/distillpub/post--augmented-rnns',
+  get githubUrl() {
+    return 'https://github.com/' + this.githubPath;
+  }
+
+  // TODO resolve differences in naming of URL/Url/url.
+  // 'http://distill.pub/2016/augmented-rnns/thumbnail.jpg',
+  set previewURL(value) {
+    this._previewURL = value;
+  }
+  get previewURL() {
+    return this._previewURL ? this._previewURL : this.url + '/thumbnail.jpg';
+  }
+
+  // 'Thu, 08 Sep 2016 00:00:00 -0700',
+  get publishedDateRFC() {
+    return RFC(this.publishedDate);
+  }
+
+  // 'Thu, 08 Sep 2016 00:00:00 -0700',
+  get updatedDateRFC() {
+    return RFC(this.updatedDate);
+  }
+
+  // 2016,
+  get publishedYear() {
+    return this.publishedDate.getFullYear();
+  }
+
+  // 'Sept',
+  get publishedMonth() {
+    return months[this.publishedDate.getMonth()];
+  }
+
+  // 8,
+  get publishedDay() {
+    return this.publishedDate.getDate();
+  }
+
+  // '09',
+  get publishedMonthPadded() {
+    return zeroPad(this.publishedDate.getMonth() + 1);
+  }
+
+  // '08',
+  get publishedDayPadded() {
+    return zeroPad(this.publishedDate.getDate());
+  }
+
+  // 'Olah & Carter',
+  get concatenatedAuthors() {
+    if (this.authors.length > 2) {
+      return this.authors[0].lastName + ', et al.';
+    } else if (this.authors.length === 2) {
+      return this.authors[0].lastName + ' & ' + this.authors[1].lastName;
+    } else if (this.authors.length === 1) {
+      return this.authors[0].lastName;
+    }
+  }
+
+  // 'Olah, Chris and Carter, Shan',
+  get bibtexAuthors() {
+    return this.authors.map(author => {
+      return author.lastName + ', ' + author.firstName;
+    }).join(' and ');
+  }
+
+  // 'olah2016attention'
+  get slug() {
+    let slug = '';
+    if (this.authors.length) {
+      slug += this.authors[0].lastName.toLowerCase();
+      slug += this.publishedYear;
+      slug += this.title.split(' ')[0].toLowerCase();
+    }
+    return slug || 'Untitled';
+  }
+
+  get bibliographyEntries() {
+    return new Map(this.citations.map( citationKey => {
+      const entry = this.bibliography.get(citationKey);
+      return [citationKey, entry];
+    }));
+  }
+
+}
+
+function author_string(ent, template, sep, finalSep){
+  var names = ent.author.split(' and ');
+  let name_strings = names.map(name => {
+    name = name.trim();
+    if (name.indexOf(',') != -1){
+      var last = name.split(',')[0].trim();
+      var firsts = name.split(',')[1];
+    } else {
+      var last = name.split(' ').slice(-1)[0].trim();
+      var firsts = name.split(' ').slice(0,-1).join(' ');
+    }
+    var initials = '';
+    if (firsts != undefined) {
+      initials = firsts.trim().split(' ').map(s => s.trim()[0]);
+      initials = initials.join('.')+'.';
+    }
+    return template.replace('${F}', firsts)
+      .replace('${L}', last)
+      .replace('${I}', initials);
+  });
+  if (names.length > 1) {
+    var str = name_strings.slice(0, names.length-1).join(sep);
+    str += (finalSep || sep) + name_strings[names.length-1];
+    return str;
+  } else {
+    return name_strings[0];
+  }
+}
+
+function venue_string(ent) {
+  var cite = (ent.journal || ent.booktitle || '');
+  if ('volume' in ent){
+    var issue = ent.issue || ent.number;
+    issue = (issue != undefined)? '('+issue+')' : '';
+    cite += ', Vol ' + ent.volume + issue;
+  }
+  if ('pages' in ent){
+    cite += ', pp. ' + ent.pages;
+  }
+  if (cite != '') cite += '. ';
+  if ('publisher' in ent){
+    cite += ent.publisher;
+    if (cite[cite.length-1] != '.') cite += '.';
+  }
+  return cite;
+}
+
+function link_string(ent){
+  if ('url' in ent){
+    var url = ent.url;
+    var arxiv_match = (/arxiv\.org\/abs\/([0-9\.]*)/).exec(url);
+    if (arxiv_match != null){
+      url = `http://arxiv.org/pdf/${arxiv_match[1]}.pdf`;
+    }
+
+    if (url.slice(-4) == '.pdf'){
+      var label = 'PDF';
+    } else if (url.slice(-5) == '.html') {
+      var label = 'HTML';
+    }
+    return ` &ensp;<a href="${url}">[${label||'link'}]</a>`;
+  }/* else if ("doi" in ent){
+    return ` &ensp;<a href="https://doi.org/${ent.doi}" >[DOI]</a>`;
+  }*/ else {
+    return '';
+  }
+}
+function doi_string(ent, new_line){
+  if ('doi' in ent) {
+    return `${new_line?'<br>':''} <a href="https://doi.org/${ent.doi}" style="text-decoration:inherit;">DOI: ${ent.doi}</a>`;
+  } else {
+    return '';
+  }
+}
+
+function bibliography_cite(ent, fancy){
+  if (ent){
+    var cite =  '<b>' + ent.title + '</b> ';
+    cite += link_string(ent) + '<br>';
+    cite += author_string(ent, '${L}, ${I}', ', ', ' and ');
+    if (ent.year || ent.date){
+      cite += ', ' + (ent.year || ent.date) + '. ';
+    } else {
+      cite += '. ';
+    }
+    cite += venue_string(ent);
+    cite += doi_string(ent);
+    return cite;
+    /*var cite =  author_string(ent, "${L}, ${I}", ", ", " and ");
+    if (ent.year || ent.date){
+      cite += ", " + (ent.year || ent.date) + ". "
+    } else {
+      cite += ". "
+    }
+    cite += "<b>" + ent.title + "</b>. ";
+    cite += venue_string(ent);
+    cite += doi_string(ent);
+    cite += link_string(ent);
+    return cite*/
+  } else {
+    return '?';
+  }
+}
+
+function hover_cite(ent){
+  if (ent){
+    var cite = '';
+    cite += '<b>' + ent.title + '</b>';
+    cite += link_string(ent);
+    cite += '<br>';
+
+    var a_str = author_string(ent, '${I} ${L}', ', ') + '.';
+    var v_str = venue_string(ent).trim() + ' ' + ent.year + '. ' + doi_string(ent, true);
+
+    if ((a_str+v_str).length < Math.min(40, ent.title.length)) {
+      cite += a_str + ' ' + v_str;
+    } else {
+      cite += a_str + '<br>' + v_str;
+    }
+    return cite;
+  } else {
+    return '?';
+  }
+}
+
+
+//https://scholar.google.com/scholar?q=allintitle%3ADocument+author%3Aolah
+
+function make_hover_css(pos) {
+  const pretty = window.innerWidth > 600;
+  const padding = pretty? 18 : 12;
+  const outer_padding = pretty ? 18 : 0;
+  const bbox = document.querySelector('body').getBoundingClientRect();
+  let left = pos[0] - bbox.left, top = pos[1] - bbox.top;
+  let width = Math.min(window.innerWidth-2*outer_padding, 648);
+  left = Math.min(left, window.innerWidth-width-outer_padding);
+  width = width - 2 * padding;
+  return (`position: absolute;
+     background-color: #FFF;
+     opacity: 0.95;
+     max-width: ${width}px;
+     top: ${top}px;
+     left: ${left}px;
+     border: 1px solid rgba(0, 0, 0, 0.25);
+     padding: ${padding}px;
+     border-radius: ${pretty? 3 : 0}px;
+     box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);
+     z-index: ${1e6};`);
+}
+
+class HoverBox {
+
+  constructor(contentHTML, triggerElement) {
+    this.visible = false;
+    // div hold teh contents of the box that will become visible
+    this.div = contentHTML;
+    this.bindDivEvents(this.div);
+    // triggerElement holds the element that needs to be hovered etc to show contents
+    this.triggerElement = triggerElement;
+    this.bindTriggerEvents(this.triggerElement);
+    this.hide();
+  }
+
+  bindDivEvents(node) {
+    // For mice, same behavior as hovering on links
+    this.div.addEventListener('mouseover', () => {
+      if (!this.visible) this.showAtNode(node);
+      this.stopTimeout();
+    });
+    this.div.addEventListener('mouseout', () => {
+      this.extendTimeout(250);
+    });
+    // Don't trigger body touchstart event when touching within box
+    this.div.addEventListener('touchstart', (event) => {
+      event.stopPropagation();
+    }, {passive: true});
+    // Close box when touching outside box
+    document.body.addEventListener('touchstart', () => {
+      this.hide();
+    }, {passive: true});
+  }
+
+  bindTriggerEvents(node) {
+    node.addEventListener('mouseover', () => {
+      if (!this.visible) {
+        this.showAtNode(node);
+      }
+      this.stopTimeout();
+    });
+
+    node.addEventListener('mouseout', () => {
+      this.extendTimeout(250);
+    });
+
+    node.addEventListener('touchstart', (event) => {
+      if (this.visible) {
+        this.hide();
+      } else {
+        this.showAtNode(node);
+      }
+      // Don't trigger body touchstart event when touching link
+      event.stopPropagation();
+    }, {passive: true});
+  }
+
+  show(position) {
+    this.visible = true;
+    const css = make_hover_css(position);
+    this.div.setAttribute('style', css );
+  }
+
+  showAtNode(node) {
+    const bbox = node.getBoundingClientRect();
+    this.show([bbox.right, bbox.bottom]);
+  }
+
+  hide() {
+    this.visible = false;
+    this.div.setAttribute('style', 'display:none');
+    this.stopTimeout();
+  }
+
+  stopTimeout() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+  }
+
+  extendTimeout(time) {
+    this.stopTimeout();
+    this.timeout = setTimeout(() => {
+      this.hide();
+    }, time);
+  }
+
+}
+
+const T$4 = Template('d-cite', `
 <style>
   .citation {
     color: hsla(206, 90%, 20%, 0.7);
@@ -154,16 +1523,4507 @@ ${e(".l-body")}
   }
 </style>
 
-<div style="display: none;" id="hover-box" class="dt-hover-box">
+<div id="hover-box" class="dt-hover-box">
 </div>
 
 <span id="citation-" class="citation">
   <slot></slot>
   <span class="citation-number"></span>
 </span>
-`);class hn extends gn(HTMLElement){constructor(){super()}connectedCallback(){this.hoverDiv=this.root.querySelector(".dt-hover-box"),this.outerSpan=this.root.querySelector("#citation-"),this.innerSpan=this.root.querySelector(".citation-number"),mn.get_box(this.hoverDiv).bind(this.outerSpan)}static get observedAttributes(){return["key"]}attributeChangedCallback(e,t,i){const n=t?"onCiteKeyChanged":"onCiteKeyCreated",a=i.split(","),s={detail:[this,a],bubbles:!0},r=new CustomEvent(n,s);document.dispatchEvent(r)}set key(e){this.setAttribute("key",e)}get key(){return this.getAttribute("key")}get keys(){return this.getAttribute("key").split(",")}set numbers(e){const t=e.map((e)=>{return-1==e?"?":e+1+""}),i="["+t.join(", ")+"]",n=this.root.querySelector(".citation-number");n.textContent=i}set entries(e){const t=this.root.querySelector("#hover-box");t.innerHTML=e.map(ue).join("<br><br>")}}const fn=new cn,yn={frontMatter:fn,waitingOn:{bibliography:[],citations:[]},listeners:{onCiteKeyCreated(e){const[t,i]=e.detail;if(0===fn.citations.length)return void yn.waitingOn.citations.push(()=>yn.listeners.onCiteKeyCreated(e));if(0===fn.bibliography.size)return void yn.waitingOn.bibliography.push(()=>yn.listeners.onCiteKeyCreated(e));const n=i.map((e)=>fn.citations.indexOf(e));t.numbers=n;const a=i.map((e)=>fn.bibliography.get(e));t.entries=a},onCiteKeyChanged(e){const[t,i]=e.detail;fn.citations=me();for(const t of yn.waitingOn.citations)t();const n=document.querySelector("d-bibliography"),a=new Map(fn.citations.map((e)=>{return[e,fn.bibliography.get(e)]}));n.entries=a;const s=document.querySelectorAll("d-cite");for(const t of s){const e=t.keys,i=e.map((e)=>fn.citations.indexOf(e));t.numbers=i;const n=e.map((e)=>fn.bibliography.get(e));t.entries=n}const r=i.map((e)=>fn.citations.indexOf(e));t.numbers=r;const o=i.map((e)=>fn.bibliography.get(e));t.entries=o},onBibliographyChanged(e){const t=e.target,i=e.detail;fn.bibliography=i;for(const t of yn.waitingOn.bibliography)t();if(0===fn.citations.length)return void yn.waitingOn.citations.push(()=>yn.listeners.onBibliographyChanged(e));const n=new Map(fn.citations.map((e)=>{return[e,fn.bibliography.get(e)]}));t.entries=n},onFootnoteChanged(){const e=document.querySelector("d-footnote-list");if(e){const t=document.querySelectorAll("d-footnote");e.footnotes=t}},onFrontMatterChanged(e){const t=e.detail;fn.mergeFromYMLFrontmatter(t);const i=document.querySelector("distill-appendix");i.frontMatter=fn;const n=document.querySelector("d-byline");n.frontMatter=fn},DOMContentLoaded(){const e=document.querySelector("d-front-matter"),t=e.parse();yn.listeners.onFrontMatterChanged({detail:t}),fn.citations=me();for(const e of yn.waitingOn.citations)e();const i=document.querySelector("d-footnote-list");if(i){const e=document.querySelectorAll("d-footnote");i.footnotes=e}}}},xn=s("d-article",`
+`);
+
+function collectCitations(dom=document) {
+  const citations = new Set();
+  const citeTags = dom.querySelectorAll('d-cite');
+  for (const tag of citeTags) {
+    const keys = tag.getAttribute('key').split(',');
+    for (const key of keys) {
+      citations.add(key);
+    }
+  }
+  return [...citations];
+}
+
+class Cite extends T$4(HTMLElement) {
+
+  /* Lifecycle */
+
+  // constructor() {
+  //   super();
+  //   // Cite.currentId += 1;
+  //   // this.citeId = Cite.currentId;
+  // }
+
+  connectedCallback() {
+    // this.notify();
+
+    this.hoverDiv = this.root.querySelector('.dt-hover-box');
+    this.outerSpan = this.root.querySelector('#citation-');
+    this.innerSpan = this.root.querySelector('.citation-number');
+    // this.outerSpan.id = `citation-${this.citeId}`;
+    // this.hoverDiv.id = `dt-cite-hover-box-${this.citeId}`;
+    // console.log(this, this.hoverDiv, this.outerSpan, this.innerSpan);
+    this.hoverbox = new HoverBox(this.hoverDiv, this.outerSpan);
+
+  }
+
+  /* Observed Attributes */
+
+  // renderCitationNumbers(citations) {
+  //   const numbers = this._keys.map( (key) => {
+  //     const index = citations.indexOf(key);
+  //     return index == -1 ? '?' : index + 1 + '';
+  //   });
+  //   const text = "[" + numbers.join(", ") + "]";
+  //   this.innerSpan.textContent = text;
+  // }
+
+
+
+  /* observe 'key' attribute */
+
+  static get observedAttributes() {
+    return ['key'];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    const eventName = oldValue ? 'onCiteKeyChanged' : 'onCiteKeyCreated';
+    const keys = newValue.split(',');
+    const options = { detail: [this, keys], bubbles: true };
+    const event = new CustomEvent(eventName, options);
+    document.dispatchEvent(event);
+  }
+
+  set key(value) {
+    this.setAttribute('key', value);
+  }
+
+  get key() {
+    return this.getAttribute('key');
+  }
+
+  get keys() {
+    return this.getAttribute('key').split(',');
+  }
+
+  /* Setters & Rendering */
+
+  set numbers(numbers) {
+    const numberStrings = numbers.map( index => {
+      return index == -1 ? '?' : index + 1 + '';
+    });
+    const textContent = '[' + numberStrings.join(', ') + ']';
+    const innerSpan = this.root.querySelector('.citation-number');
+    innerSpan.textContent = textContent;
+  }
+
+  set entries(entries) {
+    const div = this.root.querySelector('#hover-box');
+    div.innerHTML = entries.map(hover_cite).join('<br><br>');
+  }
+
+  // renderContent() {
+  //   const bibliography = document.querySelector('d-bibliography');
+  //   if (bibliography && bibliography.finishedLoading) {
+  //     customElements.whenDefined('d-bibliography').then( () => {
+  //       const keys = this.key.split(",");
+  //
+  //       // set up hidden hover box
+  //       const div = this.root.querySelector('.dt-hover-box');
+  //       div.innerHTML = keys.map( (key) => {
+  //         return bibliography.getEntry(key);
+  //       }).map(hover_cite).join('<br><br>');
+  //       div.id ='dt-cite-hover-box-' + this.citeId;
+  //
+  //       // set up visible citation marker
+  //       const outerSpan = this.root.querySelector('#citation-');
+  //       outerSpan.id = `citation-${this.citeId}`;
+  //       // outerSpan.setAttribute('data-hover', dataHoverString); // directly tell HoverBox instead?
+  //       const innerSpan = this.root.querySelector('.citation-number');
+  //       innerSpan.textContent = inline_cite_short(keys, bibliography);
+  //
+  //       HoverBox.get_box(div).bind(outerSpan);
+  //     });
+  //   } else {
+  //     console.error(`You used a d-cite tag (${key}) without including a d-bibliography tag in your article. We can't lookup your citation this way.`)
+  //   }
+  // }
+
+}
+
+function isNothing(subject) {
+  return (typeof subject === 'undefined') || (subject === null);
+}
+
+
+function isObject(subject) {
+  return (typeof subject === 'object') && (subject !== null);
+}
+
+
+function toArray(sequence) {
+  if (Array.isArray(sequence)) return sequence;
+  else if (isNothing(sequence)) return [];
+
+  return [ sequence ];
+}
+
+
+function extend(target, source) {
+  var index, length, key, sourceKeys;
+
+  if (source) {
+    sourceKeys = Object.keys(source);
+
+    for (index = 0, length = sourceKeys.length; index < length; index += 1) {
+      key = sourceKeys[index];
+      target[key] = source[key];
+    }
+  }
+
+  return target;
+}
+
+
+function repeat(string, count) {
+  var result = '', cycle;
+
+  for (cycle = 0; cycle < count; cycle += 1) {
+    result += string;
+  }
+
+  return result;
+}
+
+
+function isNegativeZero(number) {
+  return (number === 0) && (Number.NEGATIVE_INFINITY === 1 / number);
+}
+
+
+var isNothing_1      = isNothing;
+var isObject_1       = isObject;
+var toArray_1        = toArray;
+var repeat_1         = repeat;
+var isNegativeZero_1 = isNegativeZero;
+var extend_1         = extend;
+
+var common$1 = {
+	isNothing: isNothing_1,
+	isObject: isObject_1,
+	toArray: toArray_1,
+	repeat: repeat_1,
+	isNegativeZero: isNegativeZero_1,
+	extend: extend_1
+};
+
+// YAML error class. http://stackoverflow.com/questions/8458984
+//
+function YAMLException$2(reason, mark) {
+  // Super constructor
+  Error.call(this);
+
+  this.name = 'YAMLException';
+  this.reason = reason;
+  this.mark = mark;
+  this.message = (this.reason || '(unknown reason)') + (this.mark ? ' ' + this.mark.toString() : '');
+
+  // Include stack trace in error object
+  if (Error.captureStackTrace) {
+    // Chrome and NodeJS
+    Error.captureStackTrace(this, this.constructor);
+  } else {
+    // FF, IE 10+ and Safari 6+. Fallback for others
+    this.stack = (new Error()).stack || '';
+  }
+}
+
+
+// Inherit from Error
+YAMLException$2.prototype = Object.create(Error.prototype);
+YAMLException$2.prototype.constructor = YAMLException$2;
+
+
+YAMLException$2.prototype.toString = function toString(compact) {
+  var result = this.name + ': ';
+
+  result += this.reason || '(unknown reason)';
+
+  if (!compact && this.mark) {
+    result += ' ' + this.mark.toString();
+  }
+
+  return result;
+};
+
+
+var exception = YAMLException$2;
+
+var common$3 = common$1;
+
+
+function Mark$1(name, buffer, position, line, column) {
+  this.name     = name;
+  this.buffer   = buffer;
+  this.position = position;
+  this.line     = line;
+  this.column   = column;
+}
+
+
+Mark$1.prototype.getSnippet = function getSnippet(indent, maxLength) {
+  var head, start, tail, end, snippet;
+
+  if (!this.buffer) return null;
+
+  indent = indent || 4;
+  maxLength = maxLength || 75;
+
+  head = '';
+  start = this.position;
+
+  while (start > 0 && '\x00\r\n\x85\u2028\u2029'.indexOf(this.buffer.charAt(start - 1)) === -1) {
+    start -= 1;
+    if (this.position - start > (maxLength / 2 - 1)) {
+      head = ' ... ';
+      start += 5;
+      break;
+    }
+  }
+
+  tail = '';
+  end = this.position;
+
+  while (end < this.buffer.length && '\x00\r\n\x85\u2028\u2029'.indexOf(this.buffer.charAt(end)) === -1) {
+    end += 1;
+    if (end - this.position > (maxLength / 2 - 1)) {
+      tail = ' ... ';
+      end -= 5;
+      break;
+    }
+  }
+
+  snippet = this.buffer.slice(start, end);
+
+  return common$3.repeat(' ', indent) + head + snippet + tail + '\n' +
+         common$3.repeat(' ', indent + this.position - start + head.length) + '^';
+};
+
+
+Mark$1.prototype.toString = function toString(compact) {
+  var snippet, where = '';
+
+  if (this.name) {
+    where += 'in "' + this.name + '" ';
+  }
+
+  where += 'at line ' + (this.line + 1) + ', column ' + (this.column + 1);
+
+  if (!compact) {
+    snippet = this.getSnippet();
+
+    if (snippet) {
+      where += ':\n' + snippet;
+    }
+  }
+
+  return where;
+};
+
+
+var mark = Mark$1;
+
+var YAMLException$4 = exception;
+
+var TYPE_CONSTRUCTOR_OPTIONS = [
+  'kind',
+  'resolve',
+  'construct',
+  'instanceOf',
+  'predicate',
+  'represent',
+  'defaultStyle',
+  'styleAliases'
+];
+
+var YAML_NODE_KINDS = [
+  'scalar',
+  'sequence',
+  'mapping'
+];
+
+function compileStyleAliases(map) {
+  var result = {};
+
+  if (map !== null) {
+    Object.keys(map).forEach(function (style) {
+      map[style].forEach(function (alias) {
+        result[String(alias)] = style;
+      });
+    });
+  }
+
+  return result;
+}
+
+function Type$2(tag, options) {
+  options = options || {};
+
+  Object.keys(options).forEach(function (name) {
+    if (TYPE_CONSTRUCTOR_OPTIONS.indexOf(name) === -1) {
+      throw new YAMLException$4('Unknown option "' + name + '" is met in definition of "' + tag + '" YAML type.');
+    }
+  });
+
+  // TODO: Add tag format check.
+  this.tag          = tag;
+  this.kind         = options['kind']         || null;
+  this.resolve      = options['resolve']      || function () { return true; };
+  this.construct    = options['construct']    || function (data) { return data; };
+  this.instanceOf   = options['instanceOf']   || null;
+  this.predicate    = options['predicate']    || null;
+  this.represent    = options['represent']    || null;
+  this.defaultStyle = options['defaultStyle'] || null;
+  this.styleAliases = compileStyleAliases(options['styleAliases'] || null);
+
+  if (YAML_NODE_KINDS.indexOf(this.kind) === -1) {
+    throw new YAMLException$4('Unknown kind "' + this.kind + '" is specified for "' + tag + '" YAML type.');
+  }
+}
+
+var type = Type$2;
+
+var common$4        = common$1;
+var YAMLException$3 = exception;
+var Type$1          = type;
+
+
+function compileList(schema, name, result) {
+  var exclude = [];
+
+  schema.include.forEach(function (includedSchema) {
+    result = compileList(includedSchema, name, result);
+  });
+
+  schema[name].forEach(function (currentType) {
+    result.forEach(function (previousType, previousIndex) {
+      if (previousType.tag === currentType.tag && previousType.kind === currentType.kind) {
+        exclude.push(previousIndex);
+      }
+    });
+
+    result.push(currentType);
+  });
+
+  return result.filter(function (type$$1, index) {
+    return exclude.indexOf(index) === -1;
+  });
+}
+
+
+function compileMap(/* lists... */) {
+  var result = {
+        scalar: {},
+        sequence: {},
+        mapping: {},
+        fallback: {}
+      }, index, length;
+
+  function collectType(type$$1) {
+    result[type$$1.kind][type$$1.tag] = result['fallback'][type$$1.tag] = type$$1;
+  }
+
+  for (index = 0, length = arguments.length; index < length; index += 1) {
+    arguments[index].forEach(collectType);
+  }
+  return result;
+}
+
+
+function Schema$2(definition) {
+  this.include  = definition.include  || [];
+  this.implicit = definition.implicit || [];
+  this.explicit = definition.explicit || [];
+
+  this.implicit.forEach(function (type$$1) {
+    if (type$$1.loadKind && type$$1.loadKind !== 'scalar') {
+      throw new YAMLException$3('There is a non-scalar type in the implicit list of a schema. Implicit resolving of such types is not supported.');
+    }
+  });
+
+  this.compiledImplicit = compileList(this, 'implicit', []);
+  this.compiledExplicit = compileList(this, 'explicit', []);
+  this.compiledTypeMap  = compileMap(this.compiledImplicit, this.compiledExplicit);
+}
+
+
+Schema$2.DEFAULT = null;
+
+
+Schema$2.create = function createSchema() {
+  var schemas, types;
+
+  switch (arguments.length) {
+    case 1:
+      schemas = Schema$2.DEFAULT;
+      types = arguments[0];
+      break;
+
+    case 2:
+      schemas = arguments[0];
+      types = arguments[1];
+      break;
+
+    default:
+      throw new YAMLException$3('Wrong number of arguments for Schema.create function');
+  }
+
+  schemas = common$4.toArray(schemas);
+  types = common$4.toArray(types);
+
+  if (!schemas.every(function (schema) { return schema instanceof Schema$2; })) {
+    throw new YAMLException$3('Specified list of super schemas (or a single Schema object) contains a non-Schema object.');
+  }
+
+  if (!types.every(function (type$$1) { return type$$1 instanceof Type$1; })) {
+    throw new YAMLException$3('Specified list of YAML types (or a single Type object) contains a non-Type object.');
+  }
+
+  return new Schema$2({
+    include: schemas,
+    explicit: types
+  });
+};
+
+
+var schema = Schema$2;
+
+var Type$3 = type;
+
+var str = new Type$3('tag:yaml.org,2002:str', {
+  kind: 'scalar',
+  construct: function (data) { return data !== null ? data : ''; }
+});
+
+var Type$4 = type;
+
+var seq = new Type$4('tag:yaml.org,2002:seq', {
+  kind: 'sequence',
+  construct: function (data) { return data !== null ? data : []; }
+});
+
+var Type$5 = type;
+
+var map = new Type$5('tag:yaml.org,2002:map', {
+  kind: 'mapping',
+  construct: function (data) { return data !== null ? data : {}; }
+});
+
+var Schema$5 = schema;
+
+
+var failsafe = new Schema$5({
+  explicit: [
+    str,
+    seq,
+    map
+  ]
+});
+
+var Type$6 = type;
+
+function resolveYamlNull(data) {
+  if (data === null) return true;
+
+  var max = data.length;
+
+  return (max === 1 && data === '~') ||
+         (max === 4 && (data === 'null' || data === 'Null' || data === 'NULL'));
+}
+
+function constructYamlNull() {
+  return null;
+}
+
+function isNull(object) {
+  return object === null;
+}
+
+var _null = new Type$6('tag:yaml.org,2002:null', {
+  kind: 'scalar',
+  resolve: resolveYamlNull,
+  construct: constructYamlNull,
+  predicate: isNull,
+  represent: {
+    canonical: function () { return '~';    },
+    lowercase: function () { return 'null'; },
+    uppercase: function () { return 'NULL'; },
+    camelcase: function () { return 'Null'; }
+  },
+  defaultStyle: 'lowercase'
+});
+
+var Type$7 = type;
+
+function resolveYamlBoolean(data) {
+  if (data === null) return false;
+
+  var max = data.length;
+
+  return (max === 4 && (data === 'true' || data === 'True' || data === 'TRUE')) ||
+         (max === 5 && (data === 'false' || data === 'False' || data === 'FALSE'));
+}
+
+function constructYamlBoolean(data) {
+  return data === 'true' ||
+         data === 'True' ||
+         data === 'TRUE';
+}
+
+function isBoolean(object) {
+  return Object.prototype.toString.call(object) === '[object Boolean]';
+}
+
+var bool = new Type$7('tag:yaml.org,2002:bool', {
+  kind: 'scalar',
+  resolve: resolveYamlBoolean,
+  construct: constructYamlBoolean,
+  predicate: isBoolean,
+  represent: {
+    lowercase: function (object) { return object ? 'true' : 'false'; },
+    uppercase: function (object) { return object ? 'TRUE' : 'FALSE'; },
+    camelcase: function (object) { return object ? 'True' : 'False'; }
+  },
+  defaultStyle: 'lowercase'
+});
+
+var common$5 = common$1;
+var Type$8   = type;
+
+function isHexCode(c) {
+  return ((0x30/* 0 */ <= c) && (c <= 0x39/* 9 */)) ||
+         ((0x41/* A */ <= c) && (c <= 0x46/* F */)) ||
+         ((0x61/* a */ <= c) && (c <= 0x66/* f */));
+}
+
+function isOctCode(c) {
+  return ((0x30/* 0 */ <= c) && (c <= 0x37/* 7 */));
+}
+
+function isDecCode(c) {
+  return ((0x30/* 0 */ <= c) && (c <= 0x39/* 9 */));
+}
+
+function resolveYamlInteger(data) {
+  if (data === null) return false;
+
+  var max = data.length,
+      index = 0,
+      hasDigits = false,
+      ch;
+
+  if (!max) return false;
+
+  ch = data[index];
+
+  // sign
+  if (ch === '-' || ch === '+') {
+    ch = data[++index];
+  }
+
+  if (ch === '0') {
+    // 0
+    if (index + 1 === max) return true;
+    ch = data[++index];
+
+    // base 2, base 8, base 16
+
+    if (ch === 'b') {
+      // base 2
+      index++;
+
+      for (; index < max; index++) {
+        ch = data[index];
+        if (ch === '_') continue;
+        if (ch !== '0' && ch !== '1') return false;
+        hasDigits = true;
+      }
+      return hasDigits && ch !== '_';
+    }
+
+
+    if (ch === 'x') {
+      // base 16
+      index++;
+
+      for (; index < max; index++) {
+        ch = data[index];
+        if (ch === '_') continue;
+        if (!isHexCode(data.charCodeAt(index))) return false;
+        hasDigits = true;
+      }
+      return hasDigits && ch !== '_';
+    }
+
+    // base 8
+    for (; index < max; index++) {
+      ch = data[index];
+      if (ch === '_') continue;
+      if (!isOctCode(data.charCodeAt(index))) return false;
+      hasDigits = true;
+    }
+    return hasDigits && ch !== '_';
+  }
+
+  // base 10 (except 0) or base 60
+
+  // value should not start with `_`;
+  if (ch === '_') return false;
+
+  for (; index < max; index++) {
+    ch = data[index];
+    if (ch === '_') continue;
+    if (ch === ':') break;
+    if (!isDecCode(data.charCodeAt(index))) {
+      return false;
+    }
+    hasDigits = true;
+  }
+
+  // Should have digits and should not end with `_`
+  if (!hasDigits || ch === '_') return false;
+
+  // if !base60 - done;
+  if (ch !== ':') return true;
+
+  // base60 almost not used, no needs to optimize
+  return /^(:[0-5]?[0-9])+$/.test(data.slice(index));
+}
+
+function constructYamlInteger(data) {
+  var value = data, sign = 1, ch, base, digits = [];
+
+  if (value.indexOf('_') !== -1) {
+    value = value.replace(/_/g, '');
+  }
+
+  ch = value[0];
+
+  if (ch === '-' || ch === '+') {
+    if (ch === '-') sign = -1;
+    value = value.slice(1);
+    ch = value[0];
+  }
+
+  if (value === '0') return 0;
+
+  if (ch === '0') {
+    if (value[1] === 'b') return sign * parseInt(value.slice(2), 2);
+    if (value[1] === 'x') return sign * parseInt(value, 16);
+    return sign * parseInt(value, 8);
+  }
+
+  if (value.indexOf(':') !== -1) {
+    value.split(':').forEach(function (v) {
+      digits.unshift(parseInt(v, 10));
+    });
+
+    value = 0;
+    base = 1;
+
+    digits.forEach(function (d) {
+      value += (d * base);
+      base *= 60;
+    });
+
+    return sign * value;
+
+  }
+
+  return sign * parseInt(value, 10);
+}
+
+function isInteger(object) {
+  return (Object.prototype.toString.call(object)) === '[object Number]' &&
+         (object % 1 === 0 && !common$5.isNegativeZero(object));
+}
+
+var int_1 = new Type$8('tag:yaml.org,2002:int', {
+  kind: 'scalar',
+  resolve: resolveYamlInteger,
+  construct: constructYamlInteger,
+  predicate: isInteger,
+  represent: {
+    binary:      function (object) { return '0b' + object.toString(2); },
+    octal:       function (object) { return '0'  + object.toString(8); },
+    decimal:     function (object) { return        object.toString(10); },
+    hexadecimal: function (object) { return '0x' + object.toString(16).toUpperCase(); }
+  },
+  defaultStyle: 'decimal',
+  styleAliases: {
+    binary:      [ 2,  'bin' ],
+    octal:       [ 8,  'oct' ],
+    decimal:     [ 10, 'dec' ],
+    hexadecimal: [ 16, 'hex' ]
+  }
+});
+
+var common$6 = common$1;
+var Type$9   = type;
+
+var YAML_FLOAT_PATTERN = new RegExp(
+  // 2.5e4, 2.5 and integers
+  '^(?:[-+]?(?:0|[1-9][0-9_]*)(?:\\.[0-9_]*)?(?:[eE][-+]?[0-9]+)?' +
+  // .2e4, .2
+  // special case, seems not from spec
+  '|\\.[0-9_]+(?:[eE][-+]?[0-9]+)?' +
+  // 20:59
+  '|[-+]?[0-9][0-9_]*(?::[0-5]?[0-9])+\\.[0-9_]*' +
+  // .inf
+  '|[-+]?\\.(?:inf|Inf|INF)' +
+  // .nan
+  '|\\.(?:nan|NaN|NAN))$');
+
+function resolveYamlFloat(data) {
+  if (data === null) return false;
+
+  if (!YAML_FLOAT_PATTERN.test(data) ||
+      // Quick hack to not allow integers end with `_`
+      // Probably should update regexp & check speed
+      data[data.length - 1] === '_') {
+    return false;
+  }
+
+  return true;
+}
+
+function constructYamlFloat(data) {
+  var value, sign, base, digits;
+
+  value  = data.replace(/_/g, '').toLowerCase();
+  sign   = value[0] === '-' ? -1 : 1;
+  digits = [];
+
+  if ('+-'.indexOf(value[0]) >= 0) {
+    value = value.slice(1);
+  }
+
+  if (value === '.inf') {
+    return (sign === 1) ? Number.POSITIVE_INFINITY : Number.NEGATIVE_INFINITY;
+
+  } else if (value === '.nan') {
+    return NaN;
+
+  } else if (value.indexOf(':') >= 0) {
+    value.split(':').forEach(function (v) {
+      digits.unshift(parseFloat(v, 10));
+    });
+
+    value = 0.0;
+    base = 1;
+
+    digits.forEach(function (d) {
+      value += d * base;
+      base *= 60;
+    });
+
+    return sign * value;
+
+  }
+  return sign * parseFloat(value, 10);
+}
+
+
+var SCIENTIFIC_WITHOUT_DOT = /^[-+]?[0-9]+e/;
+
+function representYamlFloat(object, style) {
+  var res;
+
+  if (isNaN(object)) {
+    switch (style) {
+      case 'lowercase': return '.nan';
+      case 'uppercase': return '.NAN';
+      case 'camelcase': return '.NaN';
+    }
+  } else if (Number.POSITIVE_INFINITY === object) {
+    switch (style) {
+      case 'lowercase': return '.inf';
+      case 'uppercase': return '.INF';
+      case 'camelcase': return '.Inf';
+    }
+  } else if (Number.NEGATIVE_INFINITY === object) {
+    switch (style) {
+      case 'lowercase': return '-.inf';
+      case 'uppercase': return '-.INF';
+      case 'camelcase': return '-.Inf';
+    }
+  } else if (common$6.isNegativeZero(object)) {
+    return '-0.0';
+  }
+
+  res = object.toString(10);
+
+  // JS stringifier can build scientific format without dots: 5e-100,
+  // while YAML requres dot: 5.e-100. Fix it with simple hack
+
+  return SCIENTIFIC_WITHOUT_DOT.test(res) ? res.replace('e', '.e') : res;
+}
+
+function isFloat(object) {
+  return (Object.prototype.toString.call(object) === '[object Number]') &&
+         (object % 1 !== 0 || common$6.isNegativeZero(object));
+}
+
+var float_1 = new Type$9('tag:yaml.org,2002:float', {
+  kind: 'scalar',
+  resolve: resolveYamlFloat,
+  construct: constructYamlFloat,
+  predicate: isFloat,
+  represent: representYamlFloat,
+  defaultStyle: 'lowercase'
+});
+
+var Schema$4 = schema;
+
+
+var json = new Schema$4({
+  include: [
+    failsafe
+  ],
+  implicit: [
+    _null,
+    bool,
+    int_1,
+    float_1
+  ]
+});
+
+var Schema$3 = schema;
+
+
+var core = new Schema$3({
+  include: [
+    json
+  ]
+});
+
+var Type$10 = type;
+
+var YAML_DATE_REGEXP = new RegExp(
+  '^([0-9][0-9][0-9][0-9])'          + // [1] year
+  '-([0-9][0-9])'                    + // [2] month
+  '-([0-9][0-9])$');                   // [3] day
+
+var YAML_TIMESTAMP_REGEXP = new RegExp(
+  '^([0-9][0-9][0-9][0-9])'          + // [1] year
+  '-([0-9][0-9]?)'                   + // [2] month
+  '-([0-9][0-9]?)'                   + // [3] day
+  '(?:[Tt]|[ \\t]+)'                 + // ...
+  '([0-9][0-9]?)'                    + // [4] hour
+  ':([0-9][0-9])'                    + // [5] minute
+  ':([0-9][0-9])'                    + // [6] second
+  '(?:\\.([0-9]*))?'                 + // [7] fraction
+  '(?:[ \\t]*(Z|([-+])([0-9][0-9]?)' + // [8] tz [9] tz_sign [10] tz_hour
+  '(?::([0-9][0-9]))?))?$');           // [11] tz_minute
+
+function resolveYamlTimestamp(data) {
+  if (data === null) return false;
+  if (YAML_DATE_REGEXP.exec(data) !== null) return true;
+  if (YAML_TIMESTAMP_REGEXP.exec(data) !== null) return true;
+  return false;
+}
+
+function constructYamlTimestamp(data) {
+  var match, year, month, day, hour, minute, second, fraction = 0,
+      delta = null, tz_hour, tz_minute, date;
+
+  match = YAML_DATE_REGEXP.exec(data);
+  if (match === null) match = YAML_TIMESTAMP_REGEXP.exec(data);
+
+  if (match === null) throw new Error('Date resolve error');
+
+  // match: [1] year [2] month [3] day
+
+  year = +(match[1]);
+  month = +(match[2]) - 1; // JS month starts with 0
+  day = +(match[3]);
+
+  if (!match[4]) { // no hour
+    return new Date(Date.UTC(year, month, day));
+  }
+
+  // match: [4] hour [5] minute [6] second [7] fraction
+
+  hour = +(match[4]);
+  minute = +(match[5]);
+  second = +(match[6]);
+
+  if (match[7]) {
+    fraction = match[7].slice(0, 3);
+    while (fraction.length < 3) { // milli-seconds
+      fraction += '0';
+    }
+    fraction = +fraction;
+  }
+
+  // match: [8] tz [9] tz_sign [10] tz_hour [11] tz_minute
+
+  if (match[9]) {
+    tz_hour = +(match[10]);
+    tz_minute = +(match[11] || 0);
+    delta = (tz_hour * 60 + tz_minute) * 60000; // delta in mili-seconds
+    if (match[9] === '-') delta = -delta;
+  }
+
+  date = new Date(Date.UTC(year, month, day, hour, minute, second, fraction));
+
+  if (delta) date.setTime(date.getTime() - delta);
+
+  return date;
+}
+
+function representYamlTimestamp(object /*, style*/) {
+  return object.toISOString();
+}
+
+var timestamp = new Type$10('tag:yaml.org,2002:timestamp', {
+  kind: 'scalar',
+  resolve: resolveYamlTimestamp,
+  construct: constructYamlTimestamp,
+  instanceOf: Date,
+  represent: representYamlTimestamp
+});
+
+var Type$11 = type;
+
+function resolveYamlMerge(data) {
+  return data === '<<' || data === null;
+}
+
+var merge = new Type$11('tag:yaml.org,2002:merge', {
+  kind: 'scalar',
+  resolve: resolveYamlMerge
+});
+
+var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+function commonjsRequire () {
+	throw new Error('Dynamic requires are not currently supported by rollup-plugin-commonjs');
+}
+
+
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var NodeBuffer;
+
+try {
+  // A trick for browserified version, to not include `Buffer` shim
+  var _require = commonjsRequire;
+  NodeBuffer = _require('buffer').Buffer;
+} catch (__) {}
+
+var Type$12       = type;
+
+
+// [ 64, 65, 66 ] -> [ padding, CR, LF ]
+var BASE64_MAP = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=\n\r';
+
+
+function resolveYamlBinary(data) {
+  if (data === null) return false;
+
+  var code, idx, bitlen = 0, max = data.length, map = BASE64_MAP;
+
+  // Convert one by one.
+  for (idx = 0; idx < max; idx++) {
+    code = map.indexOf(data.charAt(idx));
+
+    // Skip CR/LF
+    if (code > 64) continue;
+
+    // Fail on illegal characters
+    if (code < 0) return false;
+
+    bitlen += 6;
+  }
+
+  // If there are any bits left, source was corrupted
+  return (bitlen % 8) === 0;
+}
+
+function constructYamlBinary(data) {
+  var idx, tailbits,
+      input = data.replace(/[\r\n=]/g, ''), // remove CR/LF & padding to simplify scan
+      max = input.length,
+      map = BASE64_MAP,
+      bits = 0,
+      result = [];
+
+  // Collect by 6*4 bits (3 bytes)
+
+  for (idx = 0; idx < max; idx++) {
+    if ((idx % 4 === 0) && idx) {
+      result.push((bits >> 16) & 0xFF);
+      result.push((bits >> 8) & 0xFF);
+      result.push(bits & 0xFF);
+    }
+
+    bits = (bits << 6) | map.indexOf(input.charAt(idx));
+  }
+
+  // Dump tail
+
+  tailbits = (max % 4) * 6;
+
+  if (tailbits === 0) {
+    result.push((bits >> 16) & 0xFF);
+    result.push((bits >> 8) & 0xFF);
+    result.push(bits & 0xFF);
+  } else if (tailbits === 18) {
+    result.push((bits >> 10) & 0xFF);
+    result.push((bits >> 2) & 0xFF);
+  } else if (tailbits === 12) {
+    result.push((bits >> 4) & 0xFF);
+  }
+
+  // Wrap into Buffer for NodeJS and leave Array for browser
+  if (NodeBuffer) {
+    // Support node 6.+ Buffer API when available
+    return NodeBuffer.from ? NodeBuffer.from(result) : new NodeBuffer(result);
+  }
+
+  return result;
+}
+
+function representYamlBinary(object /*, style*/) {
+  var result = '', bits = 0, idx, tail,
+      max = object.length,
+      map = BASE64_MAP;
+
+  // Convert every three bytes to 4 ASCII characters.
+
+  for (idx = 0; idx < max; idx++) {
+    if ((idx % 3 === 0) && idx) {
+      result += map[(bits >> 18) & 0x3F];
+      result += map[(bits >> 12) & 0x3F];
+      result += map[(bits >> 6) & 0x3F];
+      result += map[bits & 0x3F];
+    }
+
+    bits = (bits << 8) + object[idx];
+  }
+
+  // Dump tail
+
+  tail = max % 3;
+
+  if (tail === 0) {
+    result += map[(bits >> 18) & 0x3F];
+    result += map[(bits >> 12) & 0x3F];
+    result += map[(bits >> 6) & 0x3F];
+    result += map[bits & 0x3F];
+  } else if (tail === 2) {
+    result += map[(bits >> 10) & 0x3F];
+    result += map[(bits >> 4) & 0x3F];
+    result += map[(bits << 2) & 0x3F];
+    result += map[64];
+  } else if (tail === 1) {
+    result += map[(bits >> 2) & 0x3F];
+    result += map[(bits << 4) & 0x3F];
+    result += map[64];
+    result += map[64];
+  }
+
+  return result;
+}
+
+function isBinary(object) {
+  return NodeBuffer && NodeBuffer.isBuffer(object);
+}
+
+var binary = new Type$12('tag:yaml.org,2002:binary', {
+  kind: 'scalar',
+  resolve: resolveYamlBinary,
+  construct: constructYamlBinary,
+  predicate: isBinary,
+  represent: representYamlBinary
+});
+
+var Type$13 = type;
+
+var _hasOwnProperty$1 = Object.prototype.hasOwnProperty;
+var _toString       = Object.prototype.toString;
+
+function resolveYamlOmap(data) {
+  if (data === null) return true;
+
+  var objectKeys = [], index, length, pair, pairKey, pairHasKey,
+      object = data;
+
+  for (index = 0, length = object.length; index < length; index += 1) {
+    pair = object[index];
+    pairHasKey = false;
+
+    if (_toString.call(pair) !== '[object Object]') return false;
+
+    for (pairKey in pair) {
+      if (_hasOwnProperty$1.call(pair, pairKey)) {
+        if (!pairHasKey) pairHasKey = true;
+        else return false;
+      }
+    }
+
+    if (!pairHasKey) return false;
+
+    if (objectKeys.indexOf(pairKey) === -1) objectKeys.push(pairKey);
+    else return false;
+  }
+
+  return true;
+}
+
+function constructYamlOmap(data) {
+  return data !== null ? data : [];
+}
+
+var omap = new Type$13('tag:yaml.org,2002:omap', {
+  kind: 'sequence',
+  resolve: resolveYamlOmap,
+  construct: constructYamlOmap
+});
+
+var Type$14 = type;
+
+var _toString$1 = Object.prototype.toString;
+
+function resolveYamlPairs(data) {
+  if (data === null) return true;
+
+  var index, length, pair, keys, result,
+      object = data;
+
+  result = new Array(object.length);
+
+  for (index = 0, length = object.length; index < length; index += 1) {
+    pair = object[index];
+
+    if (_toString$1.call(pair) !== '[object Object]') return false;
+
+    keys = Object.keys(pair);
+
+    if (keys.length !== 1) return false;
+
+    result[index] = [ keys[0], pair[keys[0]] ];
+  }
+
+  return true;
+}
+
+function constructYamlPairs(data) {
+  if (data === null) return [];
+
+  var index, length, pair, keys, result,
+      object = data;
+
+  result = new Array(object.length);
+
+  for (index = 0, length = object.length; index < length; index += 1) {
+    pair = object[index];
+
+    keys = Object.keys(pair);
+
+    result[index] = [ keys[0], pair[keys[0]] ];
+  }
+
+  return result;
+}
+
+var pairs = new Type$14('tag:yaml.org,2002:pairs', {
+  kind: 'sequence',
+  resolve: resolveYamlPairs,
+  construct: constructYamlPairs
+});
+
+var Type$15 = type;
+
+var _hasOwnProperty$2 = Object.prototype.hasOwnProperty;
+
+function resolveYamlSet(data) {
+  if (data === null) return true;
+
+  var key, object = data;
+
+  for (key in object) {
+    if (_hasOwnProperty$2.call(object, key)) {
+      if (object[key] !== null) return false;
+    }
+  }
+
+  return true;
+}
+
+function constructYamlSet(data) {
+  return data !== null ? data : {};
+}
+
+var set = new Type$15('tag:yaml.org,2002:set', {
+  kind: 'mapping',
+  resolve: resolveYamlSet,
+  construct: constructYamlSet
+});
+
+var Schema$1 = schema;
+
+
+var default_safe = new Schema$1({
+  include: [
+    core
+  ],
+  implicit: [
+    timestamp,
+    merge
+  ],
+  explicit: [
+    binary,
+    omap,
+    pairs,
+    set
+  ]
+});
+
+var Type$16 = type;
+
+function resolveJavascriptUndefined() {
+  return true;
+}
+
+function constructJavascriptUndefined() {
+  /*eslint-disable no-undefined*/
+  return undefined;
+}
+
+function representJavascriptUndefined() {
+  return '';
+}
+
+function isUndefined(object) {
+  return typeof object === 'undefined';
+}
+
+var _undefined = new Type$16('tag:yaml.org,2002:js/undefined', {
+  kind: 'scalar',
+  resolve: resolveJavascriptUndefined,
+  construct: constructJavascriptUndefined,
+  predicate: isUndefined,
+  represent: representJavascriptUndefined
+});
+
+var Type$17 = type;
+
+function resolveJavascriptRegExp(data) {
+  if (data === null) return false;
+  if (data.length === 0) return false;
+
+  var regexp = data,
+      tail   = /\/([gim]*)$/.exec(data),
+      modifiers = '';
+
+  // if regexp starts with '/' it can have modifiers and must be properly closed
+  // `/foo/gim` - modifiers tail can be maximum 3 chars
+  if (regexp[0] === '/') {
+    if (tail) modifiers = tail[1];
+
+    if (modifiers.length > 3) return false;
+    // if expression starts with /, is should be properly terminated
+    if (regexp[regexp.length - modifiers.length - 1] !== '/') return false;
+  }
+
+  return true;
+}
+
+function constructJavascriptRegExp(data) {
+  var regexp = data,
+      tail   = /\/([gim]*)$/.exec(data),
+      modifiers = '';
+
+  // `/foo/gim` - tail can be maximum 4 chars
+  if (regexp[0] === '/') {
+    if (tail) modifiers = tail[1];
+    regexp = regexp.slice(1, regexp.length - modifiers.length - 1);
+  }
+
+  return new RegExp(regexp, modifiers);
+}
+
+function representJavascriptRegExp(object /*, style*/) {
+  var result = '/' + object.source + '/';
+
+  if (object.global) result += 'g';
+  if (object.multiline) result += 'm';
+  if (object.ignoreCase) result += 'i';
+
+  return result;
+}
+
+function isRegExp(object) {
+  return Object.prototype.toString.call(object) === '[object RegExp]';
+}
+
+var regexp = new Type$17('tag:yaml.org,2002:js/regexp', {
+  kind: 'scalar',
+  resolve: resolveJavascriptRegExp,
+  construct: constructJavascriptRegExp,
+  predicate: isRegExp,
+  represent: representJavascriptRegExp
+});
+
+var esprima;
+
+// Browserified version does not have esprima
+//
+// 1. For node.js just require module as deps
+// 2. For browser try to require mudule via external AMD system.
+//    If not found - try to fallback to window.esprima. If not
+//    found too - then fail to parse.
+//
+try {
+  // workaround to exclude package from browserify list.
+  var _require$1 = commonjsRequire;
+  esprima = _require$1('esprima');
+} catch (_) {
+  /*global window */
+  if (typeof window !== 'undefined') esprima = window.esprima;
+}
+
+var Type$18 = type;
+
+function resolveJavascriptFunction(data) {
+  if (data === null) return false;
+
+  try {
+    var source = '(' + data + ')',
+        ast    = esprima.parse(source, { range: true });
+
+    if (ast.type                    !== 'Program'             ||
+        ast.body.length             !== 1                     ||
+        ast.body[0].type            !== 'ExpressionStatement' ||
+        ast.body[0].expression.type !== 'FunctionExpression') {
+      return false;
+    }
+
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
+function constructJavascriptFunction(data) {
+  /*jslint evil:true*/
+
+  var source = '(' + data + ')',
+      ast    = esprima.parse(source, { range: true }),
+      params = [],
+      body;
+
+  if (ast.type                    !== 'Program'             ||
+      ast.body.length             !== 1                     ||
+      ast.body[0].type            !== 'ExpressionStatement' ||
+      ast.body[0].expression.type !== 'FunctionExpression') {
+    throw new Error('Failed to resolve function');
+  }
+
+  ast.body[0].expression.params.forEach(function (param) {
+    params.push(param.name);
+  });
+
+  body = ast.body[0].expression.body.range;
+
+  // Esprima's ranges include the first '{' and the last '}' characters on
+  // function expressions. So cut them out.
+  /*eslint-disable no-new-func*/
+  return new Function(params, source.slice(body[0] + 1, body[1] - 1));
+}
+
+function representJavascriptFunction(object /*, style*/) {
+  return object.toString();
+}
+
+function isFunction(object) {
+  return Object.prototype.toString.call(object) === '[object Function]';
+}
+
+var _function = new Type$18('tag:yaml.org,2002:js/function', {
+  kind: 'scalar',
+  resolve: resolveJavascriptFunction,
+  construct: constructJavascriptFunction,
+  predicate: isFunction,
+  represent: representJavascriptFunction
+});
+
+var Schema$6 = schema;
+
+
+var default_full = Schema$6.DEFAULT = new Schema$6({
+  include: [
+    default_safe
+  ],
+  explicit: [
+    _undefined,
+    regexp,
+    _function
+  ]
+});
+
+var common              = common$1;
+var YAMLException$1       = exception;
+var Mark                = mark;
+var DEFAULT_SAFE_SCHEMA$1 = default_safe;
+var DEFAULT_FULL_SCHEMA$1 = default_full;
+
+
+var _hasOwnProperty = Object.prototype.hasOwnProperty;
+
+
+var CONTEXT_FLOW_IN   = 1;
+var CONTEXT_FLOW_OUT  = 2;
+var CONTEXT_BLOCK_IN  = 3;
+var CONTEXT_BLOCK_OUT = 4;
+
+
+var CHOMPING_CLIP  = 1;
+var CHOMPING_STRIP = 2;
+var CHOMPING_KEEP  = 3;
+
+
+var PATTERN_NON_PRINTABLE         = /[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x84\x86-\x9F\uFFFE\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]/;
+var PATTERN_NON_ASCII_LINE_BREAKS = /[\x85\u2028\u2029]/;
+var PATTERN_FLOW_INDICATORS       = /[,\[\]\{\}]/;
+var PATTERN_TAG_HANDLE            = /^(?:!|!!|![a-z\-]+!)$/i;
+var PATTERN_TAG_URI               = /^(?:!|[^,\[\]\{\}])(?:%[0-9a-f]{2}|[0-9a-z\-#;\/\?:@&=\+\$,_\.!~\*'\(\)\[\]])*$/i;
+
+
+function is_EOL(c) {
+  return (c === 0x0A/* LF */) || (c === 0x0D/* CR */);
+}
+
+function is_WHITE_SPACE(c) {
+  return (c === 0x09/* Tab */) || (c === 0x20/* Space */);
+}
+
+function is_WS_OR_EOL(c) {
+  return (c === 0x09/* Tab */) ||
+         (c === 0x20/* Space */) ||
+         (c === 0x0A/* LF */) ||
+         (c === 0x0D/* CR */);
+}
+
+function is_FLOW_INDICATOR(c) {
+  return c === 0x2C/* , */ ||
+         c === 0x5B/* [ */ ||
+         c === 0x5D/* ] */ ||
+         c === 0x7B/* { */ ||
+         c === 0x7D/* } */;
+}
+
+function fromHexCode(c) {
+  var lc;
+
+  if ((0x30/* 0 */ <= c) && (c <= 0x39/* 9 */)) {
+    return c - 0x30;
+  }
+
+  /*eslint-disable no-bitwise*/
+  lc = c | 0x20;
+
+  if ((0x61/* a */ <= lc) && (lc <= 0x66/* f */)) {
+    return lc - 0x61 + 10;
+  }
+
+  return -1;
+}
+
+function escapedHexLen(c) {
+  if (c === 0x78/* x */) { return 2; }
+  if (c === 0x75/* u */) { return 4; }
+  if (c === 0x55/* U */) { return 8; }
+  return 0;
+}
+
+function fromDecimalCode(c) {
+  if ((0x30/* 0 */ <= c) && (c <= 0x39/* 9 */)) {
+    return c - 0x30;
+  }
+
+  return -1;
+}
+
+function simpleEscapeSequence(c) {
+  /* eslint-disable indent */
+  return (c === 0x30/* 0 */) ? '\x00' :
+        (c === 0x61/* a */) ? '\x07' :
+        (c === 0x62/* b */) ? '\x08' :
+        (c === 0x74/* t */) ? '\x09' :
+        (c === 0x09/* Tab */) ? '\x09' :
+        (c === 0x6E/* n */) ? '\x0A' :
+        (c === 0x76/* v */) ? '\x0B' :
+        (c === 0x66/* f */) ? '\x0C' :
+        (c === 0x72/* r */) ? '\x0D' :
+        (c === 0x65/* e */) ? '\x1B' :
+        (c === 0x20/* Space */) ? ' ' :
+        (c === 0x22/* " */) ? '\x22' :
+        (c === 0x2F/* / */) ? '/' :
+        (c === 0x5C/* \ */) ? '\x5C' :
+        (c === 0x4E/* N */) ? '\x85' :
+        (c === 0x5F/* _ */) ? '\xA0' :
+        (c === 0x4C/* L */) ? '\u2028' :
+        (c === 0x50/* P */) ? '\u2029' : '';
+}
+
+function charFromCodepoint(c) {
+  if (c <= 0xFFFF) {
+    return String.fromCharCode(c);
+  }
+  // Encode UTF-16 surrogate pair
+  // https://en.wikipedia.org/wiki/UTF-16#Code_points_U.2B010000_to_U.2B10FFFF
+  return String.fromCharCode(
+    ((c - 0x010000) >> 10) + 0xD800,
+    ((c - 0x010000) & 0x03FF) + 0xDC00
+  );
+}
+
+var simpleEscapeCheck = new Array(256); // integer, for fast access
+var simpleEscapeMap = new Array(256);
+for (var i = 0; i < 256; i++) {
+  simpleEscapeCheck[i] = simpleEscapeSequence(i) ? 1 : 0;
+  simpleEscapeMap[i] = simpleEscapeSequence(i);
+}
+
+
+function State(input, options) {
+  this.input = input;
+
+  this.filename  = options['filename']  || null;
+  this.schema    = options['schema']    || DEFAULT_FULL_SCHEMA$1;
+  this.onWarning = options['onWarning'] || null;
+  this.legacy    = options['legacy']    || false;
+  this.json      = options['json']      || false;
+  this.listener  = options['listener']  || null;
+
+  this.implicitTypes = this.schema.compiledImplicit;
+  this.typeMap       = this.schema.compiledTypeMap;
+
+  this.length     = input.length;
+  this.position   = 0;
+  this.line       = 0;
+  this.lineStart  = 0;
+  this.lineIndent = 0;
+
+  this.documents = [];
+
+  /*
+  this.version;
+  this.checkLineBreaks;
+  this.tagMap;
+  this.anchorMap;
+  this.tag;
+  this.anchor;
+  this.kind;
+  this.result;*/
+
+}
+
+
+function generateError(state, message) {
+  return new YAMLException$1(
+    message,
+    new Mark(state.filename, state.input, state.position, state.line, (state.position - state.lineStart)));
+}
+
+function throwError(state, message) {
+  throw generateError(state, message);
+}
+
+function throwWarning(state, message) {
+  if (state.onWarning) {
+    state.onWarning.call(null, generateError(state, message));
+  }
+}
+
+
+var directiveHandlers = {
+
+  YAML: function handleYamlDirective(state, name, args) {
+
+    var match, major, minor;
+
+    if (state.version !== null) {
+      throwError(state, 'duplication of %YAML directive');
+    }
+
+    if (args.length !== 1) {
+      throwError(state, 'YAML directive accepts exactly one argument');
+    }
+
+    match = /^([0-9]+)\.([0-9]+)$/.exec(args[0]);
+
+    if (match === null) {
+      throwError(state, 'ill-formed argument of the YAML directive');
+    }
+
+    major = parseInt(match[1], 10);
+    minor = parseInt(match[2], 10);
+
+    if (major !== 1) {
+      throwError(state, 'unacceptable YAML version of the document');
+    }
+
+    state.version = args[0];
+    state.checkLineBreaks = (minor < 2);
+
+    if (minor !== 1 && minor !== 2) {
+      throwWarning(state, 'unsupported YAML version of the document');
+    }
+  },
+
+  TAG: function handleTagDirective(state, name, args) {
+
+    var handle, prefix;
+
+    if (args.length !== 2) {
+      throwError(state, 'TAG directive accepts exactly two arguments');
+    }
+
+    handle = args[0];
+    prefix = args[1];
+
+    if (!PATTERN_TAG_HANDLE.test(handle)) {
+      throwError(state, 'ill-formed tag handle (first argument) of the TAG directive');
+    }
+
+    if (_hasOwnProperty.call(state.tagMap, handle)) {
+      throwError(state, 'there is a previously declared suffix for "' + handle + '" tag handle');
+    }
+
+    if (!PATTERN_TAG_URI.test(prefix)) {
+      throwError(state, 'ill-formed tag prefix (second argument) of the TAG directive');
+    }
+
+    state.tagMap[handle] = prefix;
+  }
+};
+
+
+function captureSegment(state, start, end, checkJson) {
+  var _position, _length, _character, _result;
+
+  if (start < end) {
+    _result = state.input.slice(start, end);
+
+    if (checkJson) {
+      for (_position = 0, _length = _result.length; _position < _length; _position += 1) {
+        _character = _result.charCodeAt(_position);
+        if (!(_character === 0x09 ||
+              (0x20 <= _character && _character <= 0x10FFFF))) {
+          throwError(state, 'expected valid JSON character');
+        }
+      }
+    } else if (PATTERN_NON_PRINTABLE.test(_result)) {
+      throwError(state, 'the stream contains non-printable characters');
+    }
+
+    state.result += _result;
+  }
+}
+
+function mergeMappings(state, destination, source, overridableKeys) {
+  var sourceKeys, key, index, quantity;
+
+  if (!common.isObject(source)) {
+    throwError(state, 'cannot merge mappings; the provided source object is unacceptable');
+  }
+
+  sourceKeys = Object.keys(source);
+
+  for (index = 0, quantity = sourceKeys.length; index < quantity; index += 1) {
+    key = sourceKeys[index];
+
+    if (!_hasOwnProperty.call(destination, key)) {
+      destination[key] = source[key];
+      overridableKeys[key] = true;
+    }
+  }
+}
+
+function storeMappingPair(state, _result, overridableKeys, keyTag, keyNode, valueNode, startLine, startPos) {
+  var index, quantity;
+
+  keyNode = String(keyNode);
+
+  if (_result === null) {
+    _result = {};
+  }
+
+  if (keyTag === 'tag:yaml.org,2002:merge') {
+    if (Array.isArray(valueNode)) {
+      for (index = 0, quantity = valueNode.length; index < quantity; index += 1) {
+        mergeMappings(state, _result, valueNode[index], overridableKeys);
+      }
+    } else {
+      mergeMappings(state, _result, valueNode, overridableKeys);
+    }
+  } else {
+    if (!state.json &&
+        !_hasOwnProperty.call(overridableKeys, keyNode) &&
+        _hasOwnProperty.call(_result, keyNode)) {
+      state.line = startLine || state.line;
+      state.position = startPos || state.position;
+      throwError(state, 'duplicated mapping key');
+    }
+    _result[keyNode] = valueNode;
+    delete overridableKeys[keyNode];
+  }
+
+  return _result;
+}
+
+function readLineBreak(state) {
+  var ch;
+
+  ch = state.input.charCodeAt(state.position);
+
+  if (ch === 0x0A/* LF */) {
+    state.position++;
+  } else if (ch === 0x0D/* CR */) {
+    state.position++;
+    if (state.input.charCodeAt(state.position) === 0x0A/* LF */) {
+      state.position++;
+    }
+  } else {
+    throwError(state, 'a line break is expected');
+  }
+
+  state.line += 1;
+  state.lineStart = state.position;
+}
+
+function skipSeparationSpace(state, allowComments, checkIndent) {
+  var lineBreaks = 0,
+      ch = state.input.charCodeAt(state.position);
+
+  while (ch !== 0) {
+    while (is_WHITE_SPACE(ch)) {
+      ch = state.input.charCodeAt(++state.position);
+    }
+
+    if (allowComments && ch === 0x23/* # */) {
+      do {
+        ch = state.input.charCodeAt(++state.position);
+      } while (ch !== 0x0A/* LF */ && ch !== 0x0D/* CR */ && ch !== 0);
+    }
+
+    if (is_EOL(ch)) {
+      readLineBreak(state);
+
+      ch = state.input.charCodeAt(state.position);
+      lineBreaks++;
+      state.lineIndent = 0;
+
+      while (ch === 0x20/* Space */) {
+        state.lineIndent++;
+        ch = state.input.charCodeAt(++state.position);
+      }
+    } else {
+      break;
+    }
+  }
+
+  if (checkIndent !== -1 && lineBreaks !== 0 && state.lineIndent < checkIndent) {
+    throwWarning(state, 'deficient indentation');
+  }
+
+  return lineBreaks;
+}
+
+function testDocumentSeparator(state) {
+  var _position = state.position,
+      ch;
+
+  ch = state.input.charCodeAt(_position);
+
+  // Condition state.position === state.lineStart is tested
+  // in parent on each call, for efficiency. No needs to test here again.
+  if ((ch === 0x2D/* - */ || ch === 0x2E/* . */) &&
+      ch === state.input.charCodeAt(_position + 1) &&
+      ch === state.input.charCodeAt(_position + 2)) {
+
+    _position += 3;
+
+    ch = state.input.charCodeAt(_position);
+
+    if (ch === 0 || is_WS_OR_EOL(ch)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function writeFoldedLines(state, count) {
+  if (count === 1) {
+    state.result += ' ';
+  } else if (count > 1) {
+    state.result += common.repeat('\n', count - 1);
+  }
+}
+
+
+function readPlainScalar(state, nodeIndent, withinFlowCollection) {
+  var preceding,
+      following,
+      captureStart,
+      captureEnd,
+      hasPendingContent,
+      _line,
+      _lineStart,
+      _lineIndent,
+      _kind = state.kind,
+      _result = state.result,
+      ch;
+
+  ch = state.input.charCodeAt(state.position);
+
+  if (is_WS_OR_EOL(ch)      ||
+      is_FLOW_INDICATOR(ch) ||
+      ch === 0x23/* # */    ||
+      ch === 0x26/* & */    ||
+      ch === 0x2A/* * */    ||
+      ch === 0x21/* ! */    ||
+      ch === 0x7C/* | */    ||
+      ch === 0x3E/* > */    ||
+      ch === 0x27/* ' */    ||
+      ch === 0x22/* " */    ||
+      ch === 0x25/* % */    ||
+      ch === 0x40/* @ */    ||
+      ch === 0x60/* ` */) {
+    return false;
+  }
+
+  if (ch === 0x3F/* ? */ || ch === 0x2D/* - */) {
+    following = state.input.charCodeAt(state.position + 1);
+
+    if (is_WS_OR_EOL(following) ||
+        withinFlowCollection && is_FLOW_INDICATOR(following)) {
+      return false;
+    }
+  }
+
+  state.kind = 'scalar';
+  state.result = '';
+  captureStart = captureEnd = state.position;
+  hasPendingContent = false;
+
+  while (ch !== 0) {
+    if (ch === 0x3A/* : */) {
+      following = state.input.charCodeAt(state.position + 1);
+
+      if (is_WS_OR_EOL(following) ||
+          withinFlowCollection && is_FLOW_INDICATOR(following)) {
+        break;
+      }
+
+    } else if (ch === 0x23/* # */) {
+      preceding = state.input.charCodeAt(state.position - 1);
+
+      if (is_WS_OR_EOL(preceding)) {
+        break;
+      }
+
+    } else if ((state.position === state.lineStart && testDocumentSeparator(state)) ||
+               withinFlowCollection && is_FLOW_INDICATOR(ch)) {
+      break;
+
+    } else if (is_EOL(ch)) {
+      _line = state.line;
+      _lineStart = state.lineStart;
+      _lineIndent = state.lineIndent;
+      skipSeparationSpace(state, false, -1);
+
+      if (state.lineIndent >= nodeIndent) {
+        hasPendingContent = true;
+        ch = state.input.charCodeAt(state.position);
+        continue;
+      } else {
+        state.position = captureEnd;
+        state.line = _line;
+        state.lineStart = _lineStart;
+        state.lineIndent = _lineIndent;
+        break;
+      }
+    }
+
+    if (hasPendingContent) {
+      captureSegment(state, captureStart, captureEnd, false);
+      writeFoldedLines(state, state.line - _line);
+      captureStart = captureEnd = state.position;
+      hasPendingContent = false;
+    }
+
+    if (!is_WHITE_SPACE(ch)) {
+      captureEnd = state.position + 1;
+    }
+
+    ch = state.input.charCodeAt(++state.position);
+  }
+
+  captureSegment(state, captureStart, captureEnd, false);
+
+  if (state.result) {
+    return true;
+  }
+
+  state.kind = _kind;
+  state.result = _result;
+  return false;
+}
+
+function readSingleQuotedScalar(state, nodeIndent) {
+  var ch,
+      captureStart, captureEnd;
+
+  ch = state.input.charCodeAt(state.position);
+
+  if (ch !== 0x27/* ' */) {
+    return false;
+  }
+
+  state.kind = 'scalar';
+  state.result = '';
+  state.position++;
+  captureStart = captureEnd = state.position;
+
+  while ((ch = state.input.charCodeAt(state.position)) !== 0) {
+    if (ch === 0x27/* ' */) {
+      captureSegment(state, captureStart, state.position, true);
+      ch = state.input.charCodeAt(++state.position);
+
+      if (ch === 0x27/* ' */) {
+        captureStart = state.position;
+        state.position++;
+        captureEnd = state.position;
+      } else {
+        return true;
+      }
+
+    } else if (is_EOL(ch)) {
+      captureSegment(state, captureStart, captureEnd, true);
+      writeFoldedLines(state, skipSeparationSpace(state, false, nodeIndent));
+      captureStart = captureEnd = state.position;
+
+    } else if (state.position === state.lineStart && testDocumentSeparator(state)) {
+      throwError(state, 'unexpected end of the document within a single quoted scalar');
+
+    } else {
+      state.position++;
+      captureEnd = state.position;
+    }
+  }
+
+  throwError(state, 'unexpected end of the stream within a single quoted scalar');
+}
+
+function readDoubleQuotedScalar(state, nodeIndent) {
+  var captureStart,
+      captureEnd,
+      hexLength,
+      hexResult,
+      tmp,
+      ch;
+
+  ch = state.input.charCodeAt(state.position);
+
+  if (ch !== 0x22/* " */) {
+    return false;
+  }
+
+  state.kind = 'scalar';
+  state.result = '';
+  state.position++;
+  captureStart = captureEnd = state.position;
+
+  while ((ch = state.input.charCodeAt(state.position)) !== 0) {
+    if (ch === 0x22/* " */) {
+      captureSegment(state, captureStart, state.position, true);
+      state.position++;
+      return true;
+
+    } else if (ch === 0x5C/* \ */) {
+      captureSegment(state, captureStart, state.position, true);
+      ch = state.input.charCodeAt(++state.position);
+
+      if (is_EOL(ch)) {
+        skipSeparationSpace(state, false, nodeIndent);
+
+        // TODO: rework to inline fn with no type cast?
+      } else if (ch < 256 && simpleEscapeCheck[ch]) {
+        state.result += simpleEscapeMap[ch];
+        state.position++;
+
+      } else if ((tmp = escapedHexLen(ch)) > 0) {
+        hexLength = tmp;
+        hexResult = 0;
+
+        for (; hexLength > 0; hexLength--) {
+          ch = state.input.charCodeAt(++state.position);
+
+          if ((tmp = fromHexCode(ch)) >= 0) {
+            hexResult = (hexResult << 4) + tmp;
+
+          } else {
+            throwError(state, 'expected hexadecimal character');
+          }
+        }
+
+        state.result += charFromCodepoint(hexResult);
+
+        state.position++;
+
+      } else {
+        throwError(state, 'unknown escape sequence');
+      }
+
+      captureStart = captureEnd = state.position;
+
+    } else if (is_EOL(ch)) {
+      captureSegment(state, captureStart, captureEnd, true);
+      writeFoldedLines(state, skipSeparationSpace(state, false, nodeIndent));
+      captureStart = captureEnd = state.position;
+
+    } else if (state.position === state.lineStart && testDocumentSeparator(state)) {
+      throwError(state, 'unexpected end of the document within a double quoted scalar');
+
+    } else {
+      state.position++;
+      captureEnd = state.position;
+    }
+  }
+
+  throwError(state, 'unexpected end of the stream within a double quoted scalar');
+}
+
+function readFlowCollection(state, nodeIndent) {
+  var readNext = true,
+      _line,
+      _tag     = state.tag,
+      _result,
+      _anchor  = state.anchor,
+      following,
+      terminator,
+      isPair,
+      isExplicitPair,
+      isMapping,
+      overridableKeys = {},
+      keyNode,
+      keyTag,
+      valueNode,
+      ch;
+
+  ch = state.input.charCodeAt(state.position);
+
+  if (ch === 0x5B/* [ */) {
+    terminator = 0x5D;/* ] */
+    isMapping = false;
+    _result = [];
+  } else if (ch === 0x7B/* { */) {
+    terminator = 0x7D;/* } */
+    isMapping = true;
+    _result = {};
+  } else {
+    return false;
+  }
+
+  if (state.anchor !== null) {
+    state.anchorMap[state.anchor] = _result;
+  }
+
+  ch = state.input.charCodeAt(++state.position);
+
+  while (ch !== 0) {
+    skipSeparationSpace(state, true, nodeIndent);
+
+    ch = state.input.charCodeAt(state.position);
+
+    if (ch === terminator) {
+      state.position++;
+      state.tag = _tag;
+      state.anchor = _anchor;
+      state.kind = isMapping ? 'mapping' : 'sequence';
+      state.result = _result;
+      return true;
+    } else if (!readNext) {
+      throwError(state, 'missed comma between flow collection entries');
+    }
+
+    keyTag = keyNode = valueNode = null;
+    isPair = isExplicitPair = false;
+
+    if (ch === 0x3F/* ? */) {
+      following = state.input.charCodeAt(state.position + 1);
+
+      if (is_WS_OR_EOL(following)) {
+        isPair = isExplicitPair = true;
+        state.position++;
+        skipSeparationSpace(state, true, nodeIndent);
+      }
+    }
+
+    _line = state.line;
+    composeNode(state, nodeIndent, CONTEXT_FLOW_IN, false, true);
+    keyTag = state.tag;
+    keyNode = state.result;
+    skipSeparationSpace(state, true, nodeIndent);
+
+    ch = state.input.charCodeAt(state.position);
+
+    if ((isExplicitPair || state.line === _line) && ch === 0x3A/* : */) {
+      isPair = true;
+      ch = state.input.charCodeAt(++state.position);
+      skipSeparationSpace(state, true, nodeIndent);
+      composeNode(state, nodeIndent, CONTEXT_FLOW_IN, false, true);
+      valueNode = state.result;
+    }
+
+    if (isMapping) {
+      storeMappingPair(state, _result, overridableKeys, keyTag, keyNode, valueNode);
+    } else if (isPair) {
+      _result.push(storeMappingPair(state, null, overridableKeys, keyTag, keyNode, valueNode));
+    } else {
+      _result.push(keyNode);
+    }
+
+    skipSeparationSpace(state, true, nodeIndent);
+
+    ch = state.input.charCodeAt(state.position);
+
+    if (ch === 0x2C/* , */) {
+      readNext = true;
+      ch = state.input.charCodeAt(++state.position);
+    } else {
+      readNext = false;
+    }
+  }
+
+  throwError(state, 'unexpected end of the stream within a flow collection');
+}
+
+function readBlockScalar(state, nodeIndent) {
+  var captureStart,
+      folding,
+      chomping       = CHOMPING_CLIP,
+      didReadContent = false,
+      detectedIndent = false,
+      textIndent     = nodeIndent,
+      emptyLines     = 0,
+      atMoreIndented = false,
+      tmp,
+      ch;
+
+  ch = state.input.charCodeAt(state.position);
+
+  if (ch === 0x7C/* | */) {
+    folding = false;
+  } else if (ch === 0x3E/* > */) {
+    folding = true;
+  } else {
+    return false;
+  }
+
+  state.kind = 'scalar';
+  state.result = '';
+
+  while (ch !== 0) {
+    ch = state.input.charCodeAt(++state.position);
+
+    if (ch === 0x2B/* + */ || ch === 0x2D/* - */) {
+      if (CHOMPING_CLIP === chomping) {
+        chomping = (ch === 0x2B/* + */) ? CHOMPING_KEEP : CHOMPING_STRIP;
+      } else {
+        throwError(state, 'repeat of a chomping mode identifier');
+      }
+
+    } else if ((tmp = fromDecimalCode(ch)) >= 0) {
+      if (tmp === 0) {
+        throwError(state, 'bad explicit indentation width of a block scalar; it cannot be less than one');
+      } else if (!detectedIndent) {
+        textIndent = nodeIndent + tmp - 1;
+        detectedIndent = true;
+      } else {
+        throwError(state, 'repeat of an indentation width identifier');
+      }
+
+    } else {
+      break;
+    }
+  }
+
+  if (is_WHITE_SPACE(ch)) {
+    do { ch = state.input.charCodeAt(++state.position); }
+    while (is_WHITE_SPACE(ch));
+
+    if (ch === 0x23/* # */) {
+      do { ch = state.input.charCodeAt(++state.position); }
+      while (!is_EOL(ch) && (ch !== 0));
+    }
+  }
+
+  while (ch !== 0) {
+    readLineBreak(state);
+    state.lineIndent = 0;
+
+    ch = state.input.charCodeAt(state.position);
+
+    while ((!detectedIndent || state.lineIndent < textIndent) &&
+           (ch === 0x20/* Space */)) {
+      state.lineIndent++;
+      ch = state.input.charCodeAt(++state.position);
+    }
+
+    if (!detectedIndent && state.lineIndent > textIndent) {
+      textIndent = state.lineIndent;
+    }
+
+    if (is_EOL(ch)) {
+      emptyLines++;
+      continue;
+    }
+
+    // End of the scalar.
+    if (state.lineIndent < textIndent) {
+
+      // Perform the chomping.
+      if (chomping === CHOMPING_KEEP) {
+        state.result += common.repeat('\n', didReadContent ? 1 + emptyLines : emptyLines);
+      } else if (chomping === CHOMPING_CLIP) {
+        if (didReadContent) { // i.e. only if the scalar is not empty.
+          state.result += '\n';
+        }
+      }
+
+      // Break this `while` cycle and go to the funciton's epilogue.
+      break;
+    }
+
+    // Folded style: use fancy rules to handle line breaks.
+    if (folding) {
+
+      // Lines starting with white space characters (more-indented lines) are not folded.
+      if (is_WHITE_SPACE(ch)) {
+        atMoreIndented = true;
+        // except for the first content line (cf. Example 8.1)
+        state.result += common.repeat('\n', didReadContent ? 1 + emptyLines : emptyLines);
+
+      // End of more-indented block.
+      } else if (atMoreIndented) {
+        atMoreIndented = false;
+        state.result += common.repeat('\n', emptyLines + 1);
+
+      // Just one line break - perceive as the same line.
+      } else if (emptyLines === 0) {
+        if (didReadContent) { // i.e. only if we have already read some scalar content.
+          state.result += ' ';
+        }
+
+      // Several line breaks - perceive as different lines.
+      } else {
+        state.result += common.repeat('\n', emptyLines);
+      }
+
+    // Literal style: just add exact number of line breaks between content lines.
+    } else {
+      // Keep all line breaks except the header line break.
+      state.result += common.repeat('\n', didReadContent ? 1 + emptyLines : emptyLines);
+    }
+
+    didReadContent = true;
+    detectedIndent = true;
+    emptyLines = 0;
+    captureStart = state.position;
+
+    while (!is_EOL(ch) && (ch !== 0)) {
+      ch = state.input.charCodeAt(++state.position);
+    }
+
+    captureSegment(state, captureStart, state.position, false);
+  }
+
+  return true;
+}
+
+function readBlockSequence(state, nodeIndent) {
+  var _line,
+      _tag      = state.tag,
+      _anchor   = state.anchor,
+      _result   = [],
+      following,
+      detected  = false,
+      ch;
+
+  if (state.anchor !== null) {
+    state.anchorMap[state.anchor] = _result;
+  }
+
+  ch = state.input.charCodeAt(state.position);
+
+  while (ch !== 0) {
+
+    if (ch !== 0x2D/* - */) {
+      break;
+    }
+
+    following = state.input.charCodeAt(state.position + 1);
+
+    if (!is_WS_OR_EOL(following)) {
+      break;
+    }
+
+    detected = true;
+    state.position++;
+
+    if (skipSeparationSpace(state, true, -1)) {
+      if (state.lineIndent <= nodeIndent) {
+        _result.push(null);
+        ch = state.input.charCodeAt(state.position);
+        continue;
+      }
+    }
+
+    _line = state.line;
+    composeNode(state, nodeIndent, CONTEXT_BLOCK_IN, false, true);
+    _result.push(state.result);
+    skipSeparationSpace(state, true, -1);
+
+    ch = state.input.charCodeAt(state.position);
+
+    if ((state.line === _line || state.lineIndent > nodeIndent) && (ch !== 0)) {
+      throwError(state, 'bad indentation of a sequence entry');
+    } else if (state.lineIndent < nodeIndent) {
+      break;
+    }
+  }
+
+  if (detected) {
+    state.tag = _tag;
+    state.anchor = _anchor;
+    state.kind = 'sequence';
+    state.result = _result;
+    return true;
+  }
+  return false;
+}
+
+function readBlockMapping(state, nodeIndent, flowIndent) {
+  var following,
+      allowCompact,
+      _line,
+      _pos,
+      _tag          = state.tag,
+      _anchor       = state.anchor,
+      _result       = {},
+      overridableKeys = {},
+      keyTag        = null,
+      keyNode       = null,
+      valueNode     = null,
+      atExplicitKey = false,
+      detected      = false,
+      ch;
+
+  if (state.anchor !== null) {
+    state.anchorMap[state.anchor] = _result;
+  }
+
+  ch = state.input.charCodeAt(state.position);
+
+  while (ch !== 0) {
+    following = state.input.charCodeAt(state.position + 1);
+    _line = state.line; // Save the current line.
+    _pos = state.position;
+
+    //
+    // Explicit notation case. There are two separate blocks:
+    // first for the key (denoted by "?") and second for the value (denoted by ":")
+    //
+    if ((ch === 0x3F/* ? */ || ch === 0x3A/* : */) && is_WS_OR_EOL(following)) {
+
+      if (ch === 0x3F/* ? */) {
+        if (atExplicitKey) {
+          storeMappingPair(state, _result, overridableKeys, keyTag, keyNode, null);
+          keyTag = keyNode = valueNode = null;
+        }
+
+        detected = true;
+        atExplicitKey = true;
+        allowCompact = true;
+
+      } else if (atExplicitKey) {
+        // i.e. 0x3A/* : */ === character after the explicit key.
+        atExplicitKey = false;
+        allowCompact = true;
+
+      } else {
+        throwError(state, 'incomplete explicit mapping pair; a key node is missed');
+      }
+
+      state.position += 1;
+      ch = following;
+
+    //
+    // Implicit notation case. Flow-style node as the key first, then ":", and the value.
+    //
+    } else if (composeNode(state, flowIndent, CONTEXT_FLOW_OUT, false, true)) {
+
+      if (state.line === _line) {
+        ch = state.input.charCodeAt(state.position);
+
+        while (is_WHITE_SPACE(ch)) {
+          ch = state.input.charCodeAt(++state.position);
+        }
+
+        if (ch === 0x3A/* : */) {
+          ch = state.input.charCodeAt(++state.position);
+
+          if (!is_WS_OR_EOL(ch)) {
+            throwError(state, 'a whitespace character is expected after the key-value separator within a block mapping');
+          }
+
+          if (atExplicitKey) {
+            storeMappingPair(state, _result, overridableKeys, keyTag, keyNode, null);
+            keyTag = keyNode = valueNode = null;
+          }
+
+          detected = true;
+          atExplicitKey = false;
+          allowCompact = false;
+          keyTag = state.tag;
+          keyNode = state.result;
+
+        } else if (detected) {
+          throwError(state, 'can not read an implicit mapping pair; a colon is missed');
+
+        } else {
+          state.tag = _tag;
+          state.anchor = _anchor;
+          return true; // Keep the result of `composeNode`.
+        }
+
+      } else if (detected) {
+        throwError(state, 'can not read a block mapping entry; a multiline key may not be an implicit key');
+
+      } else {
+        state.tag = _tag;
+        state.anchor = _anchor;
+        return true; // Keep the result of `composeNode`.
+      }
+
+    } else {
+      break; // Reading is done. Go to the epilogue.
+    }
+
+    //
+    // Common reading code for both explicit and implicit notations.
+    //
+    if (state.line === _line || state.lineIndent > nodeIndent) {
+      if (composeNode(state, nodeIndent, CONTEXT_BLOCK_OUT, true, allowCompact)) {
+        if (atExplicitKey) {
+          keyNode = state.result;
+        } else {
+          valueNode = state.result;
+        }
+      }
+
+      if (!atExplicitKey) {
+        storeMappingPair(state, _result, overridableKeys, keyTag, keyNode, valueNode, _line, _pos);
+        keyTag = keyNode = valueNode = null;
+      }
+
+      skipSeparationSpace(state, true, -1);
+      ch = state.input.charCodeAt(state.position);
+    }
+
+    if (state.lineIndent > nodeIndent && (ch !== 0)) {
+      throwError(state, 'bad indentation of a mapping entry');
+    } else if (state.lineIndent < nodeIndent) {
+      break;
+    }
+  }
+
+  //
+  // Epilogue.
+  //
+
+  // Special case: last mapping's node contains only the key in explicit notation.
+  if (atExplicitKey) {
+    storeMappingPair(state, _result, overridableKeys, keyTag, keyNode, null);
+  }
+
+  // Expose the resulting mapping.
+  if (detected) {
+    state.tag = _tag;
+    state.anchor = _anchor;
+    state.kind = 'mapping';
+    state.result = _result;
+  }
+
+  return detected;
+}
+
+function readTagProperty(state) {
+  var _position,
+      isVerbatim = false,
+      isNamed    = false,
+      tagHandle,
+      tagName,
+      ch;
+
+  ch = state.input.charCodeAt(state.position);
+
+  if (ch !== 0x21/* ! */) return false;
+
+  if (state.tag !== null) {
+    throwError(state, 'duplication of a tag property');
+  }
+
+  ch = state.input.charCodeAt(++state.position);
+
+  if (ch === 0x3C/* < */) {
+    isVerbatim = true;
+    ch = state.input.charCodeAt(++state.position);
+
+  } else if (ch === 0x21/* ! */) {
+    isNamed = true;
+    tagHandle = '!!';
+    ch = state.input.charCodeAt(++state.position);
+
+  } else {
+    tagHandle = '!';
+  }
+
+  _position = state.position;
+
+  if (isVerbatim) {
+    do { ch = state.input.charCodeAt(++state.position); }
+    while (ch !== 0 && ch !== 0x3E/* > */);
+
+    if (state.position < state.length) {
+      tagName = state.input.slice(_position, state.position);
+      ch = state.input.charCodeAt(++state.position);
+    } else {
+      throwError(state, 'unexpected end of the stream within a verbatim tag');
+    }
+  } else {
+    while (ch !== 0 && !is_WS_OR_EOL(ch)) {
+
+      if (ch === 0x21/* ! */) {
+        if (!isNamed) {
+          tagHandle = state.input.slice(_position - 1, state.position + 1);
+
+          if (!PATTERN_TAG_HANDLE.test(tagHandle)) {
+            throwError(state, 'named tag handle cannot contain such characters');
+          }
+
+          isNamed = true;
+          _position = state.position + 1;
+        } else {
+          throwError(state, 'tag suffix cannot contain exclamation marks');
+        }
+      }
+
+      ch = state.input.charCodeAt(++state.position);
+    }
+
+    tagName = state.input.slice(_position, state.position);
+
+    if (PATTERN_FLOW_INDICATORS.test(tagName)) {
+      throwError(state, 'tag suffix cannot contain flow indicator characters');
+    }
+  }
+
+  if (tagName && !PATTERN_TAG_URI.test(tagName)) {
+    throwError(state, 'tag name cannot contain such characters: ' + tagName);
+  }
+
+  if (isVerbatim) {
+    state.tag = tagName;
+
+  } else if (_hasOwnProperty.call(state.tagMap, tagHandle)) {
+    state.tag = state.tagMap[tagHandle] + tagName;
+
+  } else if (tagHandle === '!') {
+    state.tag = '!' + tagName;
+
+  } else if (tagHandle === '!!') {
+    state.tag = 'tag:yaml.org,2002:' + tagName;
+
+  } else {
+    throwError(state, 'undeclared tag handle "' + tagHandle + '"');
+  }
+
+  return true;
+}
+
+function readAnchorProperty(state) {
+  var _position,
+      ch;
+
+  ch = state.input.charCodeAt(state.position);
+
+  if (ch !== 0x26/* & */) return false;
+
+  if (state.anchor !== null) {
+    throwError(state, 'duplication of an anchor property');
+  }
+
+  ch = state.input.charCodeAt(++state.position);
+  _position = state.position;
+
+  while (ch !== 0 && !is_WS_OR_EOL(ch) && !is_FLOW_INDICATOR(ch)) {
+    ch = state.input.charCodeAt(++state.position);
+  }
+
+  if (state.position === _position) {
+    throwError(state, 'name of an anchor node must contain at least one character');
+  }
+
+  state.anchor = state.input.slice(_position, state.position);
+  return true;
+}
+
+function readAlias(state) {
+  var _position, alias,
+      ch;
+
+  ch = state.input.charCodeAt(state.position);
+
+  if (ch !== 0x2A/* * */) return false;
+
+  ch = state.input.charCodeAt(++state.position);
+  _position = state.position;
+
+  while (ch !== 0 && !is_WS_OR_EOL(ch) && !is_FLOW_INDICATOR(ch)) {
+    ch = state.input.charCodeAt(++state.position);
+  }
+
+  if (state.position === _position) {
+    throwError(state, 'name of an alias node must contain at least one character');
+  }
+
+  alias = state.input.slice(_position, state.position);
+
+  if (!state.anchorMap.hasOwnProperty(alias)) {
+    throwError(state, 'unidentified alias "' + alias + '"');
+  }
+
+  state.result = state.anchorMap[alias];
+  skipSeparationSpace(state, true, -1);
+  return true;
+}
+
+function composeNode(state, parentIndent, nodeContext, allowToSeek, allowCompact) {
+  var allowBlockStyles,
+      allowBlockScalars,
+      allowBlockCollections,
+      indentStatus = 1, // 1: this>parent, 0: this=parent, -1: this<parent
+      atNewLine  = false,
+      hasContent = false,
+      typeIndex,
+      typeQuantity,
+      type,
+      flowIndent,
+      blockIndent;
+
+  if (state.listener !== null) {
+    state.listener('open', state);
+  }
+
+  state.tag    = null;
+  state.anchor = null;
+  state.kind   = null;
+  state.result = null;
+
+  allowBlockStyles = allowBlockScalars = allowBlockCollections =
+    CONTEXT_BLOCK_OUT === nodeContext ||
+    CONTEXT_BLOCK_IN  === nodeContext;
+
+  if (allowToSeek) {
+    if (skipSeparationSpace(state, true, -1)) {
+      atNewLine = true;
+
+      if (state.lineIndent > parentIndent) {
+        indentStatus = 1;
+      } else if (state.lineIndent === parentIndent) {
+        indentStatus = 0;
+      } else if (state.lineIndent < parentIndent) {
+        indentStatus = -1;
+      }
+    }
+  }
+
+  if (indentStatus === 1) {
+    while (readTagProperty(state) || readAnchorProperty(state)) {
+      if (skipSeparationSpace(state, true, -1)) {
+        atNewLine = true;
+        allowBlockCollections = allowBlockStyles;
+
+        if (state.lineIndent > parentIndent) {
+          indentStatus = 1;
+        } else if (state.lineIndent === parentIndent) {
+          indentStatus = 0;
+        } else if (state.lineIndent < parentIndent) {
+          indentStatus = -1;
+        }
+      } else {
+        allowBlockCollections = false;
+      }
+    }
+  }
+
+  if (allowBlockCollections) {
+    allowBlockCollections = atNewLine || allowCompact;
+  }
+
+  if (indentStatus === 1 || CONTEXT_BLOCK_OUT === nodeContext) {
+    if (CONTEXT_FLOW_IN === nodeContext || CONTEXT_FLOW_OUT === nodeContext) {
+      flowIndent = parentIndent;
+    } else {
+      flowIndent = parentIndent + 1;
+    }
+
+    blockIndent = state.position - state.lineStart;
+
+    if (indentStatus === 1) {
+      if (allowBlockCollections &&
+          (readBlockSequence(state, blockIndent) ||
+           readBlockMapping(state, blockIndent, flowIndent)) ||
+          readFlowCollection(state, flowIndent)) {
+        hasContent = true;
+      } else {
+        if ((allowBlockScalars && readBlockScalar(state, flowIndent)) ||
+            readSingleQuotedScalar(state, flowIndent) ||
+            readDoubleQuotedScalar(state, flowIndent)) {
+          hasContent = true;
+
+        } else if (readAlias(state)) {
+          hasContent = true;
+
+          if (state.tag !== null || state.anchor !== null) {
+            throwError(state, 'alias node should not have any properties');
+          }
+
+        } else if (readPlainScalar(state, flowIndent, CONTEXT_FLOW_IN === nodeContext)) {
+          hasContent = true;
+
+          if (state.tag === null) {
+            state.tag = '?';
+          }
+        }
+
+        if (state.anchor !== null) {
+          state.anchorMap[state.anchor] = state.result;
+        }
+      }
+    } else if (indentStatus === 0) {
+      // Special case: block sequences are allowed to have same indentation level as the parent.
+      // http://www.yaml.org/spec/1.2/spec.html#id2799784
+      hasContent = allowBlockCollections && readBlockSequence(state, blockIndent);
+    }
+  }
+
+  if (state.tag !== null && state.tag !== '!') {
+    if (state.tag === '?') {
+      for (typeIndex = 0, typeQuantity = state.implicitTypes.length; typeIndex < typeQuantity; typeIndex += 1) {
+        type = state.implicitTypes[typeIndex];
+
+        // Implicit resolving is not allowed for non-scalar types, and '?'
+        // non-specific tag is only assigned to plain scalars. So, it isn't
+        // needed to check for 'kind' conformity.
+
+        if (type.resolve(state.result)) { // `state.result` updated in resolver if matched
+          state.result = type.construct(state.result);
+          state.tag = type.tag;
+          if (state.anchor !== null) {
+            state.anchorMap[state.anchor] = state.result;
+          }
+          break;
+        }
+      }
+    } else if (_hasOwnProperty.call(state.typeMap[state.kind || 'fallback'], state.tag)) {
+      type = state.typeMap[state.kind || 'fallback'][state.tag];
+
+      if (state.result !== null && type.kind !== state.kind) {
+        throwError(state, 'unacceptable node kind for !<' + state.tag + '> tag; it should be "' + type.kind + '", not "' + state.kind + '"');
+      }
+
+      if (!type.resolve(state.result)) { // `state.result` updated in resolver if matched
+        throwError(state, 'cannot resolve a node with !<' + state.tag + '> explicit tag');
+      } else {
+        state.result = type.construct(state.result);
+        if (state.anchor !== null) {
+          state.anchorMap[state.anchor] = state.result;
+        }
+      }
+    } else {
+      throwError(state, 'unknown tag !<' + state.tag + '>');
+    }
+  }
+
+  if (state.listener !== null) {
+    state.listener('close', state);
+  }
+  return state.tag !== null ||  state.anchor !== null || hasContent;
+}
+
+function readDocument(state) {
+  var documentStart = state.position,
+      _position,
+      directiveName,
+      directiveArgs,
+      hasDirectives = false,
+      ch;
+
+  state.version = null;
+  state.checkLineBreaks = state.legacy;
+  state.tagMap = {};
+  state.anchorMap = {};
+
+  while ((ch = state.input.charCodeAt(state.position)) !== 0) {
+    skipSeparationSpace(state, true, -1);
+
+    ch = state.input.charCodeAt(state.position);
+
+    if (state.lineIndent > 0 || ch !== 0x25/* % */) {
+      break;
+    }
+
+    hasDirectives = true;
+    ch = state.input.charCodeAt(++state.position);
+    _position = state.position;
+
+    while (ch !== 0 && !is_WS_OR_EOL(ch)) {
+      ch = state.input.charCodeAt(++state.position);
+    }
+
+    directiveName = state.input.slice(_position, state.position);
+    directiveArgs = [];
+
+    if (directiveName.length < 1) {
+      throwError(state, 'directive name must not be less than one character in length');
+    }
+
+    while (ch !== 0) {
+      while (is_WHITE_SPACE(ch)) {
+        ch = state.input.charCodeAt(++state.position);
+      }
+
+      if (ch === 0x23/* # */) {
+        do { ch = state.input.charCodeAt(++state.position); }
+        while (ch !== 0 && !is_EOL(ch));
+        break;
+      }
+
+      if (is_EOL(ch)) break;
+
+      _position = state.position;
+
+      while (ch !== 0 && !is_WS_OR_EOL(ch)) {
+        ch = state.input.charCodeAt(++state.position);
+      }
+
+      directiveArgs.push(state.input.slice(_position, state.position));
+    }
+
+    if (ch !== 0) readLineBreak(state);
+
+    if (_hasOwnProperty.call(directiveHandlers, directiveName)) {
+      directiveHandlers[directiveName](state, directiveName, directiveArgs);
+    } else {
+      throwWarning(state, 'unknown document directive "' + directiveName + '"');
+    }
+  }
+
+  skipSeparationSpace(state, true, -1);
+
+  if (state.lineIndent === 0 &&
+      state.input.charCodeAt(state.position)     === 0x2D/* - */ &&
+      state.input.charCodeAt(state.position + 1) === 0x2D/* - */ &&
+      state.input.charCodeAt(state.position + 2) === 0x2D/* - */) {
+    state.position += 3;
+    skipSeparationSpace(state, true, -1);
+
+  } else if (hasDirectives) {
+    throwError(state, 'directives end mark is expected');
+  }
+
+  composeNode(state, state.lineIndent - 1, CONTEXT_BLOCK_OUT, false, true);
+  skipSeparationSpace(state, true, -1);
+
+  if (state.checkLineBreaks &&
+      PATTERN_NON_ASCII_LINE_BREAKS.test(state.input.slice(documentStart, state.position))) {
+    throwWarning(state, 'non-ASCII line breaks are interpreted as content');
+  }
+
+  state.documents.push(state.result);
+
+  if (state.position === state.lineStart && testDocumentSeparator(state)) {
+
+    if (state.input.charCodeAt(state.position) === 0x2E/* . */) {
+      state.position += 3;
+      skipSeparationSpace(state, true, -1);
+    }
+    return;
+  }
+
+  if (state.position < (state.length - 1)) {
+    throwError(state, 'end of the stream or a document separator is expected');
+  } else {
+    return;
+  }
+}
+
+
+function loadDocuments(input, options) {
+  input = String(input);
+  options = options || {};
+
+  if (input.length !== 0) {
+
+    // Add tailing `\n` if not exists
+    if (input.charCodeAt(input.length - 1) !== 0x0A/* LF */ &&
+        input.charCodeAt(input.length - 1) !== 0x0D/* CR */) {
+      input += '\n';
+    }
+
+    // Strip BOM
+    if (input.charCodeAt(0) === 0xFEFF) {
+      input = input.slice(1);
+    }
+  }
+
+  var state = new State(input, options);
+
+  // Use 0 as string terminator. That significantly simplifies bounds check.
+  state.input += '\0';
+
+  while (state.input.charCodeAt(state.position) === 0x20/* Space */) {
+    state.lineIndent += 1;
+    state.position += 1;
+  }
+
+  while (state.position < (state.length - 1)) {
+    readDocument(state);
+  }
+
+  return state.documents;
+}
+
+
+function loadAll$1(input, iterator, options) {
+  var documents = loadDocuments(input, options), index, length;
+
+  if (typeof iterator !== 'function') {
+    return documents;
+  }
+
+  for (index = 0, length = documents.length; index < length; index += 1) {
+    iterator(documents[index]);
+  }
+}
+
+
+function load$1(input, options) {
+  var documents = loadDocuments(input, options);
+
+  if (documents.length === 0) {
+    /*eslint-disable no-undefined*/
+    return undefined;
+  } else if (documents.length === 1) {
+    return documents[0];
+  }
+  throw new YAMLException$1('expected a single document in the stream, but found more');
+}
+
+
+function safeLoadAll$1(input, output, options) {
+  if (typeof output === 'function') {
+    loadAll$1(input, output, common.extend({ schema: DEFAULT_SAFE_SCHEMA$1 }, options));
+  } else {
+    return loadAll$1(input, common.extend({ schema: DEFAULT_SAFE_SCHEMA$1 }, options));
+  }
+}
+
+
+function safeLoad$1(input, options) {
+  return load$1(input, common.extend({ schema: DEFAULT_SAFE_SCHEMA$1 }, options));
+}
+
+
+var loadAll_1     = loadAll$1;
+var load_1        = load$1;
+var safeLoadAll_1 = safeLoadAll$1;
+var safeLoad_1    = safeLoad$1;
+
+var loader$1 = {
+	loadAll: loadAll_1,
+	load: load_1,
+	safeLoadAll: safeLoadAll_1,
+	safeLoad: safeLoad_1
+};
+
+var common$7              = common$1;
+var YAMLException$5       = exception;
+var DEFAULT_FULL_SCHEMA$2 = default_full;
+var DEFAULT_SAFE_SCHEMA$2 = default_safe;
+
+var _toString$2       = Object.prototype.toString;
+var _hasOwnProperty$3 = Object.prototype.hasOwnProperty;
+
+var CHAR_TAB                  = 0x09; /* Tab */
+var CHAR_LINE_FEED            = 0x0A; /* LF */
+var CHAR_SPACE                = 0x20; /* Space */
+var CHAR_EXCLAMATION          = 0x21; /* ! */
+var CHAR_DOUBLE_QUOTE         = 0x22; /* " */
+var CHAR_SHARP                = 0x23; /* # */
+var CHAR_PERCENT              = 0x25; /* % */
+var CHAR_AMPERSAND            = 0x26; /* & */
+var CHAR_SINGLE_QUOTE         = 0x27; /* ' */
+var CHAR_ASTERISK             = 0x2A; /* * */
+var CHAR_COMMA                = 0x2C; /* , */
+var CHAR_MINUS                = 0x2D; /* - */
+var CHAR_COLON                = 0x3A; /* : */
+var CHAR_GREATER_THAN         = 0x3E; /* > */
+var CHAR_QUESTION             = 0x3F; /* ? */
+var CHAR_COMMERCIAL_AT        = 0x40; /* @ */
+var CHAR_LEFT_SQUARE_BRACKET  = 0x5B; /* [ */
+var CHAR_RIGHT_SQUARE_BRACKET = 0x5D; /* ] */
+var CHAR_GRAVE_ACCENT         = 0x60; /* ` */
+var CHAR_LEFT_CURLY_BRACKET   = 0x7B; /* { */
+var CHAR_VERTICAL_LINE        = 0x7C; /* | */
+var CHAR_RIGHT_CURLY_BRACKET  = 0x7D; /* } */
+
+var ESCAPE_SEQUENCES = {};
+
+ESCAPE_SEQUENCES[0x00]   = '\\0';
+ESCAPE_SEQUENCES[0x07]   = '\\a';
+ESCAPE_SEQUENCES[0x08]   = '\\b';
+ESCAPE_SEQUENCES[0x09]   = '\\t';
+ESCAPE_SEQUENCES[0x0A]   = '\\n';
+ESCAPE_SEQUENCES[0x0B]   = '\\v';
+ESCAPE_SEQUENCES[0x0C]   = '\\f';
+ESCAPE_SEQUENCES[0x0D]   = '\\r';
+ESCAPE_SEQUENCES[0x1B]   = '\\e';
+ESCAPE_SEQUENCES[0x22]   = '\\"';
+ESCAPE_SEQUENCES[0x5C]   = '\\\\';
+ESCAPE_SEQUENCES[0x85]   = '\\N';
+ESCAPE_SEQUENCES[0xA0]   = '\\_';
+ESCAPE_SEQUENCES[0x2028] = '\\L';
+ESCAPE_SEQUENCES[0x2029] = '\\P';
+
+var DEPRECATED_BOOLEANS_SYNTAX = [
+  'y', 'Y', 'yes', 'Yes', 'YES', 'on', 'On', 'ON',
+  'n', 'N', 'no', 'No', 'NO', 'off', 'Off', 'OFF'
+];
+
+function compileStyleMap(schema, map) {
+  var result, keys, index, length, tag, style, type;
+
+  if (map === null) return {};
+
+  result = {};
+  keys = Object.keys(map);
+
+  for (index = 0, length = keys.length; index < length; index += 1) {
+    tag = keys[index];
+    style = String(map[tag]);
+
+    if (tag.slice(0, 2) === '!!') {
+      tag = 'tag:yaml.org,2002:' + tag.slice(2);
+    }
+    type = schema.compiledTypeMap['fallback'][tag];
+
+    if (type && _hasOwnProperty$3.call(type.styleAliases, style)) {
+      style = type.styleAliases[style];
+    }
+
+    result[tag] = style;
+  }
+
+  return result;
+}
+
+function encodeHex(character) {
+  var string, handle, length;
+
+  string = character.toString(16).toUpperCase();
+
+  if (character <= 0xFF) {
+    handle = 'x';
+    length = 2;
+  } else if (character <= 0xFFFF) {
+    handle = 'u';
+    length = 4;
+  } else if (character <= 0xFFFFFFFF) {
+    handle = 'U';
+    length = 8;
+  } else {
+    throw new YAMLException$5('code point within a string may not be greater than 0xFFFFFFFF');
+  }
+
+  return '\\' + handle + common$7.repeat('0', length - string.length) + string;
+}
+
+function State$1(options) {
+  this.schema       = options['schema'] || DEFAULT_FULL_SCHEMA$2;
+  this.indent       = Math.max(1, (options['indent'] || 2));
+  this.skipInvalid  = options['skipInvalid'] || false;
+  this.flowLevel    = (common$7.isNothing(options['flowLevel']) ? -1 : options['flowLevel']);
+  this.styleMap     = compileStyleMap(this.schema, options['styles'] || null);
+  this.sortKeys     = options['sortKeys'] || false;
+  this.lineWidth    = options['lineWidth'] || 80;
+  this.noRefs       = options['noRefs'] || false;
+  this.noCompatMode = options['noCompatMode'] || false;
+  this.condenseFlow = options['condenseFlow'] || false;
+
+  this.implicitTypes = this.schema.compiledImplicit;
+  this.explicitTypes = this.schema.compiledExplicit;
+
+  this.tag = null;
+  this.result = '';
+
+  this.duplicates = [];
+  this.usedDuplicates = null;
+}
+
+// Indents every line in a string. Empty lines (\n only) are not indented.
+function indentString(string, spaces) {
+  var ind = common$7.repeat(' ', spaces),
+      position = 0,
+      next = -1,
+      result = '',
+      line,
+      length = string.length;
+
+  while (position < length) {
+    next = string.indexOf('\n', position);
+    if (next === -1) {
+      line = string.slice(position);
+      position = length;
+    } else {
+      line = string.slice(position, next + 1);
+      position = next + 1;
+    }
+
+    if (line.length && line !== '\n') result += ind;
+
+    result += line;
+  }
+
+  return result;
+}
+
+function generateNextLine(state, level) {
+  return '\n' + common$7.repeat(' ', state.indent * level);
+}
+
+function testImplicitResolving(state, str) {
+  var index, length, type;
+
+  for (index = 0, length = state.implicitTypes.length; index < length; index += 1) {
+    type = state.implicitTypes[index];
+
+    if (type.resolve(str)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+// [33] s-white ::= s-space | s-tab
+function isWhitespace(c) {
+  return c === CHAR_SPACE || c === CHAR_TAB;
+}
+
+// Returns true if the character can be printed without escaping.
+// From YAML 1.2: "any allowed characters known to be non-printable
+// should also be escaped. [However,] This isn’t mandatory"
+// Derived from nb-char - \t - #x85 - #xA0 - #x2028 - #x2029.
+function isPrintable(c) {
+  return  (0x00020 <= c && c <= 0x00007E)
+      || ((0x000A1 <= c && c <= 0x00D7FF) && c !== 0x2028 && c !== 0x2029)
+      || ((0x0E000 <= c && c <= 0x00FFFD) && c !== 0xFEFF /* BOM */)
+      ||  (0x10000 <= c && c <= 0x10FFFF);
+}
+
+// Simplified test for values allowed after the first character in plain style.
+function isPlainSafe(c) {
+  // Uses a subset of nb-char - c-flow-indicator - ":" - "#"
+  // where nb-char ::= c-printable - b-char - c-byte-order-mark.
+  return isPrintable(c) && c !== 0xFEFF
+    // - c-flow-indicator
+    && c !== CHAR_COMMA
+    && c !== CHAR_LEFT_SQUARE_BRACKET
+    && c !== CHAR_RIGHT_SQUARE_BRACKET
+    && c !== CHAR_LEFT_CURLY_BRACKET
+    && c !== CHAR_RIGHT_CURLY_BRACKET
+    // - ":" - "#"
+    && c !== CHAR_COLON
+    && c !== CHAR_SHARP;
+}
+
+// Simplified test for values allowed as the first character in plain style.
+function isPlainSafeFirst(c) {
+  // Uses a subset of ns-char - c-indicator
+  // where ns-char = nb-char - s-white.
+  return isPrintable(c) && c !== 0xFEFF
+    && !isWhitespace(c) // - s-white
+    // - (c-indicator ::=
+    // “-” | “?” | “:” | “,” | “[” | “]” | “{” | “}”
+    && c !== CHAR_MINUS
+    && c !== CHAR_QUESTION
+    && c !== CHAR_COLON
+    && c !== CHAR_COMMA
+    && c !== CHAR_LEFT_SQUARE_BRACKET
+    && c !== CHAR_RIGHT_SQUARE_BRACKET
+    && c !== CHAR_LEFT_CURLY_BRACKET
+    && c !== CHAR_RIGHT_CURLY_BRACKET
+    // | “#” | “&” | “*” | “!” | “|” | “>” | “'” | “"”
+    && c !== CHAR_SHARP
+    && c !== CHAR_AMPERSAND
+    && c !== CHAR_ASTERISK
+    && c !== CHAR_EXCLAMATION
+    && c !== CHAR_VERTICAL_LINE
+    && c !== CHAR_GREATER_THAN
+    && c !== CHAR_SINGLE_QUOTE
+    && c !== CHAR_DOUBLE_QUOTE
+    // | “%” | “@” | “`”)
+    && c !== CHAR_PERCENT
+    && c !== CHAR_COMMERCIAL_AT
+    && c !== CHAR_GRAVE_ACCENT;
+}
+
+var STYLE_PLAIN   = 1;
+var STYLE_SINGLE  = 2;
+var STYLE_LITERAL = 3;
+var STYLE_FOLDED  = 4;
+var STYLE_DOUBLE  = 5;
+
+// Determines which scalar styles are possible and returns the preferred style.
+// lineWidth = -1 => no limit.
+// Pre-conditions: str.length > 0.
+// Post-conditions:
+//    STYLE_PLAIN or STYLE_SINGLE => no \n are in the string.
+//    STYLE_LITERAL => no lines are suitable for folding (or lineWidth is -1).
+//    STYLE_FOLDED => a line > lineWidth and can be folded (and lineWidth != -1).
+function chooseScalarStyle(string, singleLineOnly, indentPerLevel, lineWidth, testAmbiguousType) {
+  var i;
+  var char;
+  var hasLineBreak = false;
+  var hasFoldableLine = false; // only checked if shouldTrackWidth
+  var shouldTrackWidth = lineWidth !== -1;
+  var previousLineBreak = -1; // count the first line correctly
+  var plain = isPlainSafeFirst(string.charCodeAt(0))
+          && !isWhitespace(string.charCodeAt(string.length - 1));
+
+  if (singleLineOnly) {
+    // Case: no block styles.
+    // Check for disallowed characters to rule out plain and single.
+    for (i = 0; i < string.length; i++) {
+      char = string.charCodeAt(i);
+      if (!isPrintable(char)) {
+        return STYLE_DOUBLE;
+      }
+      plain = plain && isPlainSafe(char);
+    }
+  } else {
+    // Case: block styles permitted.
+    for (i = 0; i < string.length; i++) {
+      char = string.charCodeAt(i);
+      if (char === CHAR_LINE_FEED) {
+        hasLineBreak = true;
+        // Check if any line can be folded.
+        if (shouldTrackWidth) {
+          hasFoldableLine = hasFoldableLine ||
+            // Foldable line = too long, and not more-indented.
+            (i - previousLineBreak - 1 > lineWidth &&
+             string[previousLineBreak + 1] !== ' ');
+          previousLineBreak = i;
+        }
+      } else if (!isPrintable(char)) {
+        return STYLE_DOUBLE;
+      }
+      plain = plain && isPlainSafe(char);
+    }
+    // in case the end is missing a \n
+    hasFoldableLine = hasFoldableLine || (shouldTrackWidth &&
+      (i - previousLineBreak - 1 > lineWidth &&
+       string[previousLineBreak + 1] !== ' '));
+  }
+  // Although every style can represent \n without escaping, prefer block styles
+  // for multiline, since they're more readable and they don't add empty lines.
+  // Also prefer folding a super-long line.
+  if (!hasLineBreak && !hasFoldableLine) {
+    // Strings interpretable as another type have to be quoted;
+    // e.g. the string 'true' vs. the boolean true.
+    return plain && !testAmbiguousType(string)
+      ? STYLE_PLAIN : STYLE_SINGLE;
+  }
+  // Edge case: block indentation indicator can only have one digit.
+  if (string[0] === ' ' && indentPerLevel > 9) {
+    return STYLE_DOUBLE;
+  }
+  // At this point we know block styles are valid.
+  // Prefer literal style unless we want to fold.
+  return hasFoldableLine ? STYLE_FOLDED : STYLE_LITERAL;
+}
+
+// Note: line breaking/folding is implemented for only the folded style.
+// NB. We drop the last trailing newline (if any) of a returned block scalar
+//  since the dumper adds its own newline. This always works:
+//    • No ending newline => unaffected; already using strip "-" chomping.
+//    • Ending newline    => removed then restored.
+//  Importantly, this keeps the "+" chomp indicator from gaining an extra line.
+function writeScalar(state, string, level, iskey) {
+  state.dump = (function () {
+    if (string.length === 0) {
+      return "''";
+    }
+    if (!state.noCompatMode &&
+        DEPRECATED_BOOLEANS_SYNTAX.indexOf(string) !== -1) {
+      return "'" + string + "'";
+    }
+
+    var indent = state.indent * Math.max(1, level); // no 0-indent scalars
+    // As indentation gets deeper, let the width decrease monotonically
+    // to the lower bound min(state.lineWidth, 40).
+    // Note that this implies
+    //  state.lineWidth ≤ 40 + state.indent: width is fixed at the lower bound.
+    //  state.lineWidth > 40 + state.indent: width decreases until the lower bound.
+    // This behaves better than a constant minimum width which disallows narrower options,
+    // or an indent threshold which causes the width to suddenly increase.
+    var lineWidth = state.lineWidth === -1
+      ? -1 : Math.max(Math.min(state.lineWidth, 40), state.lineWidth - indent);
+
+    // Without knowing if keys are implicit/explicit, assume implicit for safety.
+    var singleLineOnly = iskey
+      // No block styles in flow mode.
+      || (state.flowLevel > -1 && level >= state.flowLevel);
+    function testAmbiguity(string) {
+      return testImplicitResolving(state, string);
+    }
+
+    switch (chooseScalarStyle(string, singleLineOnly, state.indent, lineWidth, testAmbiguity)) {
+      case STYLE_PLAIN:
+        return string;
+      case STYLE_SINGLE:
+        return "'" + string.replace(/'/g, "''") + "'";
+      case STYLE_LITERAL:
+        return '|' + blockHeader(string, state.indent)
+          + dropEndingNewline(indentString(string, indent));
+      case STYLE_FOLDED:
+        return '>' + blockHeader(string, state.indent)
+          + dropEndingNewline(indentString(foldString(string, lineWidth), indent));
+      case STYLE_DOUBLE:
+        return '"' + escapeString(string, lineWidth) + '"';
+      default:
+        throw new YAMLException$5('impossible error: invalid scalar style');
+    }
+  }());
+}
+
+// Pre-conditions: string is valid for a block scalar, 1 <= indentPerLevel <= 9.
+function blockHeader(string, indentPerLevel) {
+  var indentIndicator = (string[0] === ' ') ? String(indentPerLevel) : '';
+
+  // note the special case: the string '\n' counts as a "trailing" empty line.
+  var clip =          string[string.length - 1] === '\n';
+  var keep = clip && (string[string.length - 2] === '\n' || string === '\n');
+  var chomp = keep ? '+' : (clip ? '' : '-');
+
+  return indentIndicator + chomp + '\n';
+}
+
+// (See the note for writeScalar.)
+function dropEndingNewline(string) {
+  return string[string.length - 1] === '\n' ? string.slice(0, -1) : string;
+}
+
+// Note: a long line without a suitable break point will exceed the width limit.
+// Pre-conditions: every char in str isPrintable, str.length > 0, width > 0.
+function foldString(string, width) {
+  // In folded style, $k$ consecutive newlines output as $k+1$ newlines—
+  // unless they're before or after a more-indented line, or at the very
+  // beginning or end, in which case $k$ maps to $k$.
+  // Therefore, parse each chunk as newline(s) followed by a content line.
+  var lineRe = /(\n+)([^\n]*)/g;
+
+  // first line (possibly an empty line)
+  var result = (function () {
+    var nextLF = string.indexOf('\n');
+    nextLF = nextLF !== -1 ? nextLF : string.length;
+    lineRe.lastIndex = nextLF;
+    return foldLine(string.slice(0, nextLF), width);
+  }());
+  // If we haven't reached the first content line yet, don't add an extra \n.
+  var prevMoreIndented = string[0] === '\n' || string[0] === ' ';
+  var moreIndented;
+
+  // rest of the lines
+  var match;
+  while ((match = lineRe.exec(string))) {
+    var prefix = match[1], line = match[2];
+    moreIndented = (line[0] === ' ');
+    result += prefix
+      + (!prevMoreIndented && !moreIndented && line !== ''
+        ? '\n' : '')
+      + foldLine(line, width);
+    prevMoreIndented = moreIndented;
+  }
+
+  return result;
+}
+
+// Greedy line breaking.
+// Picks the longest line under the limit each time,
+// otherwise settles for the shortest line over the limit.
+// NB. More-indented lines *cannot* be folded, as that would add an extra \n.
+function foldLine(line, width) {
+  if (line === '' || line[0] === ' ') return line;
+
+  // Since a more-indented line adds a \n, breaks can't be followed by a space.
+  var breakRe = / [^ ]/g; // note: the match index will always be <= length-2.
+  var match;
+  // start is an inclusive index. end, curr, and next are exclusive.
+  var start = 0, end, curr = 0, next = 0;
+  var result = '';
+
+  // Invariants: 0 <= start <= length-1.
+  //   0 <= curr <= next <= max(0, length-2). curr - start <= width.
+  // Inside the loop:
+  //   A match implies length >= 2, so curr and next are <= length-2.
+  while ((match = breakRe.exec(line))) {
+    next = match.index;
+    // maintain invariant: curr - start <= width
+    if (next - start > width) {
+      end = (curr > start) ? curr : next; // derive end <= length-2
+      result += '\n' + line.slice(start, end);
+      // skip the space that was output as \n
+      start = end + 1;                    // derive start <= length-1
+    }
+    curr = next;
+  }
+
+  // By the invariants, start <= length-1, so there is something left over.
+  // It is either the whole string or a part starting from non-whitespace.
+  result += '\n';
+  // Insert a break if the remainder is too long and there is a break available.
+  if (line.length - start > width && curr > start) {
+    result += line.slice(start, curr) + '\n' + line.slice(curr + 1);
+  } else {
+    result += line.slice(start);
+  }
+
+  return result.slice(1); // drop extra \n joiner
+}
+
+// Escapes a double-quoted string.
+function escapeString(string) {
+  var result = '';
+  var char;
+  var escapeSeq;
+
+  for (var i = 0; i < string.length; i++) {
+    char = string.charCodeAt(i);
+    escapeSeq = ESCAPE_SEQUENCES[char];
+    result += !escapeSeq && isPrintable(char)
+      ? string[i]
+      : escapeSeq || encodeHex(char);
+  }
+
+  return result;
+}
+
+function writeFlowSequence(state, level, object) {
+  var _result = '',
+      _tag    = state.tag,
+      index,
+      length;
+
+  for (index = 0, length = object.length; index < length; index += 1) {
+    // Write only valid elements.
+    if (writeNode(state, level, object[index], false, false)) {
+      if (index !== 0) _result += ',' + (!state.condenseFlow ? ' ' : '');
+      _result += state.dump;
+    }
+  }
+
+  state.tag = _tag;
+  state.dump = '[' + _result + ']';
+}
+
+function writeBlockSequence(state, level, object, compact) {
+  var _result = '',
+      _tag    = state.tag,
+      index,
+      length;
+
+  for (index = 0, length = object.length; index < length; index += 1) {
+    // Write only valid elements.
+    if (writeNode(state, level + 1, object[index], true, true)) {
+      if (!compact || index !== 0) {
+        _result += generateNextLine(state, level);
+      }
+
+      if (state.dump && CHAR_LINE_FEED === state.dump.charCodeAt(0)) {
+        _result += '-';
+      } else {
+        _result += '- ';
+      }
+
+      _result += state.dump;
+    }
+  }
+
+  state.tag = _tag;
+  state.dump = _result || '[]'; // Empty sequence if no valid values.
+}
+
+function writeFlowMapping(state, level, object) {
+  var _result       = '',
+      _tag          = state.tag,
+      objectKeyList = Object.keys(object),
+      index,
+      length,
+      objectKey,
+      objectValue,
+      pairBuffer;
+
+  for (index = 0, length = objectKeyList.length; index < length; index += 1) {
+    pairBuffer = '';
+
+    if (index !== 0) pairBuffer += ', ';
+
+    objectKey = objectKeyList[index];
+    objectValue = object[objectKey];
+
+    if (!writeNode(state, level, objectKey, false, false)) {
+      continue; // Skip this pair because of invalid key;
+    }
+
+    if (state.dump.length > 1024) pairBuffer += '? ';
+
+    pairBuffer += state.dump + ':' + (state.condenseFlow ? '' : ' ');
+
+    if (!writeNode(state, level, objectValue, false, false)) {
+      continue; // Skip this pair because of invalid value.
+    }
+
+    pairBuffer += state.dump;
+
+    // Both key and value are valid.
+    _result += pairBuffer;
+  }
+
+  state.tag = _tag;
+  state.dump = '{' + _result + '}';
+}
+
+function writeBlockMapping(state, level, object, compact) {
+  var _result       = '',
+      _tag          = state.tag,
+      objectKeyList = Object.keys(object),
+      index,
+      length,
+      objectKey,
+      objectValue,
+      explicitPair,
+      pairBuffer;
+
+  // Allow sorting keys so that the output file is deterministic
+  if (state.sortKeys === true) {
+    // Default sorting
+    objectKeyList.sort();
+  } else if (typeof state.sortKeys === 'function') {
+    // Custom sort function
+    objectKeyList.sort(state.sortKeys);
+  } else if (state.sortKeys) {
+    // Something is wrong
+    throw new YAMLException$5('sortKeys must be a boolean or a function');
+  }
+
+  for (index = 0, length = objectKeyList.length; index < length; index += 1) {
+    pairBuffer = '';
+
+    if (!compact || index !== 0) {
+      pairBuffer += generateNextLine(state, level);
+    }
+
+    objectKey = objectKeyList[index];
+    objectValue = object[objectKey];
+
+    if (!writeNode(state, level + 1, objectKey, true, true, true)) {
+      continue; // Skip this pair because of invalid key.
+    }
+
+    explicitPair = (state.tag !== null && state.tag !== '?') ||
+                   (state.dump && state.dump.length > 1024);
+
+    if (explicitPair) {
+      if (state.dump && CHAR_LINE_FEED === state.dump.charCodeAt(0)) {
+        pairBuffer += '?';
+      } else {
+        pairBuffer += '? ';
+      }
+    }
+
+    pairBuffer += state.dump;
+
+    if (explicitPair) {
+      pairBuffer += generateNextLine(state, level);
+    }
+
+    if (!writeNode(state, level + 1, objectValue, true, explicitPair)) {
+      continue; // Skip this pair because of invalid value.
+    }
+
+    if (state.dump && CHAR_LINE_FEED === state.dump.charCodeAt(0)) {
+      pairBuffer += ':';
+    } else {
+      pairBuffer += ': ';
+    }
+
+    pairBuffer += state.dump;
+
+    // Both key and value are valid.
+    _result += pairBuffer;
+  }
+
+  state.tag = _tag;
+  state.dump = _result || '{}'; // Empty mapping if no valid pairs.
+}
+
+function detectType(state, object, explicit) {
+  var _result, typeList, index, length, type, style;
+
+  typeList = explicit ? state.explicitTypes : state.implicitTypes;
+
+  for (index = 0, length = typeList.length; index < length; index += 1) {
+    type = typeList[index];
+
+    if ((type.instanceOf  || type.predicate) &&
+        (!type.instanceOf || ((typeof object === 'object') && (object instanceof type.instanceOf))) &&
+        (!type.predicate  || type.predicate(object))) {
+
+      state.tag = explicit ? type.tag : '?';
+
+      if (type.represent) {
+        style = state.styleMap[type.tag] || type.defaultStyle;
+
+        if (_toString$2.call(type.represent) === '[object Function]') {
+          _result = type.represent(object, style);
+        } else if (_hasOwnProperty$3.call(type.represent, style)) {
+          _result = type.represent[style](object, style);
+        } else {
+          throw new YAMLException$5('!<' + type.tag + '> tag resolver accepts not "' + style + '" style');
+        }
+
+        state.dump = _result;
+      }
+
+      return true;
+    }
+  }
+
+  return false;
+}
+
+// Serializes `object` and writes it to global `result`.
+// Returns true on success, or false on invalid object.
+//
+function writeNode(state, level, object, block, compact, iskey) {
+  state.tag = null;
+  state.dump = object;
+
+  if (!detectType(state, object, false)) {
+    detectType(state, object, true);
+  }
+
+  var type = _toString$2.call(state.dump);
+
+  if (block) {
+    block = (state.flowLevel < 0 || state.flowLevel > level);
+  }
+
+  var objectOrArray = type === '[object Object]' || type === '[object Array]',
+      duplicateIndex,
+      duplicate;
+
+  if (objectOrArray) {
+    duplicateIndex = state.duplicates.indexOf(object);
+    duplicate = duplicateIndex !== -1;
+  }
+
+  if ((state.tag !== null && state.tag !== '?') || duplicate || (state.indent !== 2 && level > 0)) {
+    compact = false;
+  }
+
+  if (duplicate && state.usedDuplicates[duplicateIndex]) {
+    state.dump = '*ref_' + duplicateIndex;
+  } else {
+    if (objectOrArray && duplicate && !state.usedDuplicates[duplicateIndex]) {
+      state.usedDuplicates[duplicateIndex] = true;
+    }
+    if (type === '[object Object]') {
+      if (block && (Object.keys(state.dump).length !== 0)) {
+        writeBlockMapping(state, level, state.dump, compact);
+        if (duplicate) {
+          state.dump = '&ref_' + duplicateIndex + state.dump;
+        }
+      } else {
+        writeFlowMapping(state, level, state.dump);
+        if (duplicate) {
+          state.dump = '&ref_' + duplicateIndex + ' ' + state.dump;
+        }
+      }
+    } else if (type === '[object Array]') {
+      if (block && (state.dump.length !== 0)) {
+        writeBlockSequence(state, level, state.dump, compact);
+        if (duplicate) {
+          state.dump = '&ref_' + duplicateIndex + state.dump;
+        }
+      } else {
+        writeFlowSequence(state, level, state.dump);
+        if (duplicate) {
+          state.dump = '&ref_' + duplicateIndex + ' ' + state.dump;
+        }
+      }
+    } else if (type === '[object String]') {
+      if (state.tag !== '?') {
+        writeScalar(state, state.dump, level, iskey);
+      }
+    } else {
+      if (state.skipInvalid) return false;
+      throw new YAMLException$5('unacceptable kind of an object to dump ' + type);
+    }
+
+    if (state.tag !== null && state.tag !== '?') {
+      state.dump = '!<' + state.tag + '> ' + state.dump;
+    }
+  }
+
+  return true;
+}
+
+function getDuplicateReferences(object, state) {
+  var objects = [],
+      duplicatesIndexes = [],
+      index,
+      length;
+
+  inspectNode(object, objects, duplicatesIndexes);
+
+  for (index = 0, length = duplicatesIndexes.length; index < length; index += 1) {
+    state.duplicates.push(objects[duplicatesIndexes[index]]);
+  }
+  state.usedDuplicates = new Array(length);
+}
+
+function inspectNode(object, objects, duplicatesIndexes) {
+  var objectKeyList,
+      index,
+      length;
+
+  if (object !== null && typeof object === 'object') {
+    index = objects.indexOf(object);
+    if (index !== -1) {
+      if (duplicatesIndexes.indexOf(index) === -1) {
+        duplicatesIndexes.push(index);
+      }
+    } else {
+      objects.push(object);
+
+      if (Array.isArray(object)) {
+        for (index = 0, length = object.length; index < length; index += 1) {
+          inspectNode(object[index], objects, duplicatesIndexes);
+        }
+      } else {
+        objectKeyList = Object.keys(object);
+
+        for (index = 0, length = objectKeyList.length; index < length; index += 1) {
+          inspectNode(object[objectKeyList[index]], objects, duplicatesIndexes);
+        }
+      }
+    }
+  }
+}
+
+function dump$1(input, options) {
+  options = options || {};
+
+  var state = new State$1(options);
+
+  if (!state.noRefs) getDuplicateReferences(input, state);
+
+  if (writeNode(state, 0, input, true, true)) return state.dump + '\n';
+
+  return '';
+}
+
+function safeDump$1(input, options) {
+  return dump$1(input, common$7.extend({ schema: DEFAULT_SAFE_SCHEMA$2 }, options));
+}
+
+var dump_1     = dump$1;
+var safeDump_1 = safeDump$1;
+
+var dumper$1 = {
+	dump: dump_1,
+	safeDump: safeDump_1
+};
+
+var loader = loader$1;
+var dumper = dumper$1;
+
+
+function deprecated(name) {
+  return function () {
+    throw new Error('Function ' + name + ' is deprecated and cannot be used.');
+  };
+}
+
+
+var Type                = type;
+var Schema              = schema;
+var FAILSAFE_SCHEMA     = failsafe;
+var JSON_SCHEMA         = json;
+var CORE_SCHEMA         = core;
+var DEFAULT_SAFE_SCHEMA = default_safe;
+var DEFAULT_FULL_SCHEMA = default_full;
+var load                = loader.load;
+var loadAll             = loader.loadAll;
+var safeLoad            = loader.safeLoad;
+var safeLoadAll         = loader.safeLoadAll;
+var dump                = dumper.dump;
+var safeDump            = dumper.safeDump;
+var YAMLException       = exception;
+
+// Deprecated schema names from JS-YAML 2.0.x
+var MINIMAL_SCHEMA = failsafe;
+var SAFE_SCHEMA    = default_safe;
+var DEFAULT_SCHEMA = default_full;
+
+// Deprecated functions from JS-YAML 1.x.x
+var scan           = deprecated('scan');
+var parse          = deprecated('parse');
+var compose        = deprecated('compose');
+var addConstructor = deprecated('addConstructor');
+
+var jsYaml = {
+	Type: Type,
+	Schema: Schema,
+	FAILSAFE_SCHEMA: FAILSAFE_SCHEMA,
+	JSON_SCHEMA: JSON_SCHEMA,
+	CORE_SCHEMA: CORE_SCHEMA,
+	DEFAULT_SAFE_SCHEMA: DEFAULT_SAFE_SCHEMA,
+	DEFAULT_FULL_SCHEMA: DEFAULT_FULL_SCHEMA,
+	load: load,
+	loadAll: loadAll,
+	safeLoad: safeLoad,
+	safeLoadAll: safeLoadAll,
+	dump: dump,
+	safeDump: safeDump,
+	YAMLException: YAMLException,
+	MINIMAL_SCHEMA: MINIMAL_SCHEMA,
+	SAFE_SCHEMA: SAFE_SCHEMA,
+	DEFAULT_SCHEMA: DEFAULT_SCHEMA,
+	scan: scan,
+	parse: parse,
+	compose: compose,
+	addConstructor: addConstructor
+};
+
+var yaml = jsYaml;
+
+
+var index = yaml;
+
+function parseFrontmatter(element) {
+  const scriptTag = element.querySelector('script');
+  if (scriptTag) {
+    const yml = scriptTag.textContent;
+    const data = index.safeLoad(yml);
+    return data;
+  } else {
+    console.error('You added a frontmatter tag but did not provide a script tag with front matter data in it. Please take a look at our templates.');
+    return {};
+  }
+}
+
+class FrontMatter$1 extends HTMLElement {
+
+  static get is() { return 'd-front-matter'; }
+
+  constructor() {
+    super();
+
+    const options = {childList: true, characterData: true, subtree: true};
+    const observer = new MutationObserver( () => {
+      const data = parseFrontmatter(this);
+      this.notify(data);
+    });
+    observer.observe(this, options);
+  }
+
+  notify(data) {
+    const options = { detail: data, bubbles: true };
+    const event = new CustomEvent('onFrontMatterChanged', options);
+    document.dispatchEvent(event);
+  }
+
+}
+
+const frontMatter = new FrontMatter();
+
+const Controller = {
+
+  frontMatter: frontMatter,
+  waitingOn: {
+    bibliography: [],
+    citations: [],
+  },
+  listeners: {
+
+    onCiteKeyCreated(event) {
+      const [citeTag, keys] = event.detail;
+
+      // ensure we have citations
+      if (frontMatter.citations.length === 0) {
+        // console.debug('onCiteKeyCreated, but unresolved dependency ("citations"). Enqueing.');
+        Controller.waitingOn.citations.push(() => Controller.listeners.onCiteKeyCreated(event));
+        return;
+      }
+
+      // ensure we have a loaded bibliography
+      if (frontMatter.bibliography.size === 0) {
+        // console.debug('onCiteKeyCreated, but unresolved dependency ("bibliography"). Enqueing.');
+        Controller.waitingOn.bibliography.push(() => Controller.listeners.onCiteKeyCreated(event));
+        return;
+      }
+
+      const numbers = keys.map( key => frontMatter.citations.indexOf(key) );
+      citeTag.numbers = numbers;
+      const entries = keys.map( key => frontMatter.bibliography.get(key) );
+      citeTag.entries = entries;
+    },
+
+    onCiteKeyChanged(event) {
+      const [citeTag, keys] = event.detail;
+
+      // update citations
+      frontMatter.citations = collectCitations();
+      for (const waitingCallback of Controller.waitingOn.citations) {
+        waitingCallback();
+      }
+
+      // update bibliography
+      const bibliographyTag = document.querySelector('d-bibliography');
+      const bibliographyEntries = new Map(frontMatter.citations.map( citationKey => {
+        return [citationKey, frontMatter.bibliography.get(citationKey)];
+      }));
+      bibliographyTag.entries = bibliographyEntries;
+
+      const citeTags = document.querySelectorAll('d-cite');
+      for (const citeTag of citeTags) {
+        const keys = citeTag.keys;
+        const numbers = keys.map( key => frontMatter.citations.indexOf(key) );
+        citeTag.numbers = numbers;
+        const entries = keys.map( key => frontMatter.bibliography.get(key) );
+        citeTag.entries = entries;
+      }
+
+      const numbers = keys.map( key => frontMatter.citations.indexOf(key) );
+      citeTag.numbers = numbers;
+      const entries = keys.map( key => frontMatter.bibliography.get(key) );
+      citeTag.entries = entries;
+    },
+
+    onBibliographyChanged(event) {
+      const bibliographyTag = event.target;
+      const bibliography = event.detail;
+
+      frontMatter.bibliography = bibliography;
+      for (const waitingCallback of Controller.waitingOn.bibliography) {
+        waitingCallback();
+      }
+
+      // ensure we have citations
+      if (frontMatter.citations.length === 0) {
+        Controller.waitingOn.citations.push( function() {
+          Controller.listeners.onBibliographyChanged({target: event.target, detail: event.detail});
+        });
+        return;
+      }
+
+      const entries = new Map(frontMatter.citations.map( citationKey => {
+        return [citationKey, frontMatter.bibliography.get(citationKey)];
+      }));
+      bibliographyTag.entries = entries;
+    },
+
+    onFootnoteChanged() {
+      // const footnote = event.detail;
+      //TODO: optimize to only update current footnote
+      const footnotesList = document.querySelector('d-footnote-list');
+      if (footnotesList) {
+        const footnotes = document.querySelectorAll('d-footnote');
+        footnotesList.footnotes = footnotes;
+      }
+    },
+
+    onFrontMatterChanged(event) {
+      const data = event.detail;
+      frontMatter.mergeFromYMLFrontmatter(data);
+
+      const appendix = document.querySelector('distill-appendix');
+      if (appendix) {
+        appendix.frontMatter = frontMatter;
+      }
+
+      const byline = document.querySelector('d-byline');
+      byline.frontMatter = frontMatter;
+    },
+
+    DOMContentLoaded() {
+      // console.debug('DOMContentLoaded.');
+
+      const frontMatterTag = document.querySelector('d-front-matter');
+      const data = parseFrontmatter(frontMatterTag);
+      Controller.listeners.onFrontMatterChanged({detail: data});
+
+      // console.debug('Resolving "citations" dependency due to initial DOM load.');
+      frontMatter.citations = collectCitations();
+      for (const waitingCallback of Controller.waitingOn.citations) {
+        waitingCallback();
+      }
+
+      const footnotesList = document.querySelector('d-footnote-list');
+      if (footnotesList) {
+        const footnotes = document.querySelectorAll('d-footnote');
+        footnotesList.footnotes = footnotes;
+      }
+    }
+
+  }, // listeners
+
+}; // Controller
+
+const T$3 = Template('d-article', `
 <style></style>
-`,!1);class zn extends xn(HTMLElement){connectedCallback(){for(const[e,t]of Object.entries(yn.listeners))"function"==typeof t?document.addEventListener(e,t):console.error("Controller listeners need to be functions!")}}const bn=(e)=>{return class extends e{constructor(){super();const e={childList:!0,characterData:!0,subtree:!0},t=new MutationObserver(()=>{t.disconnect(),this.renderIfPossible(),t.observe(this,e)});t.observe(this,e)}connectedCallback(){super.connectedCallback(),this.renderIfPossible()}renderIfPossible(){this.textContent&&this.root&&this.renderContent()}renderContent(){console.error(`Your class ${this.constructor.name} must provide a custom renderContent() method!`)}}};var kn="undefined"==typeof window?"undefined"==typeof global?"undefined"==typeof self?{}:self:global:window,vn=he(function(e,t){(function(e){function t(){this.months=["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"],this.notKey=[",","{","}"," ","="],this.pos=0,this.input="",this.entries=[],this.currentEntry="",this.setInput=function(e){this.input=e},this.getEntries=function(){return this.entries},this.isWhitespace=function(e){return" "==e||"\r"==e||"\t"==e||"\n"==e},this.match=function(e,t){if((void 0==t||null==t)&&(t=!0),this.skipWhitespace(t),this.input.substring(this.pos,this.pos+e.length)==e)this.pos+=e.length;else throw"Token mismatch, expected "+e+", found "+this.input.substring(this.pos);this.skipWhitespace(t)},this.tryMatch=function(e,t){return(void 0==t||null==t)&&(t=!0),this.skipWhitespace(t),this.input.substring(this.pos,this.pos+e.length)==e},this.matchAt=function(){for(;this.input.length>this.pos&&"@"!=this.input[this.pos];)this.pos++;return!("@"!=this.input[this.pos])},this.skipWhitespace=function(e){for(;this.isWhitespace(this.input[this.pos]);)this.pos++;if("%"==this.input[this.pos]&&!0==e){for(;"\n"!=this.input[this.pos];)this.pos++;this.skipWhitespace(e)}},this.value_braces=function(){var e=0;this.match("{",!1);for(var t=this.pos,i=!1;;){if(!i)if("}"==this.input[this.pos]){if(0<e)e--;else{var n=this.pos;return this.match("}",!1),this.input.substring(t,n)}}else if("{"==this.input[this.pos])e++;else if(this.pos>=this.input.length-1)throw"Unterminated value";i="\\"==this.input[this.pos]&&!1==i,this.pos++}},this.value_comment=function(){for(var e="",t=0;!(this.tryMatch("}",!1)&&0==t);){if(e+=this.input[this.pos],"{"==this.input[this.pos]&&t++,"}"==this.input[this.pos]&&t--,this.pos>=this.input.length-1)throw"Unterminated value:"+this.input.substring(start);this.pos++}return e},this.value_quotes=function(){this.match("\"",!1);for(var e=this.pos,t=!1;;){if(!t){if("\""==this.input[this.pos]){var i=this.pos;return this.match("\"",!1),this.input.substring(e,i)}if(this.pos>=this.input.length-1)throw"Unterminated value:"+this.input.substring(e)}t="\\"==this.input[this.pos]&&!1==t,this.pos++}},this.single_value=function(){var e=this.pos;if(this.tryMatch("{"))return this.value_braces();if(this.tryMatch("\""))return this.value_quotes();var t=this.key();if(t.match("^[0-9]+$"))return t;if(0<=this.months.indexOf(t.toLowerCase()))return t.toLowerCase();throw"Value expected:"+this.input.substring(e)+" for key: "+t},this.value=function(){for(var e=[this.single_value()];this.tryMatch("#");)this.match("#"),e.push(this.single_value());return e.join("")},this.key=function(){for(var e=this.pos;;){if(this.pos>=this.input.length)throw"Runaway key";if(0<=this.notKey.indexOf(this.input[this.pos]))return this.input.substring(e,this.pos);this.pos++}},this.key_equals_value=function(){var e=this.key();if(this.tryMatch("=")){this.match("=");var t=this.value();return[e,t]}throw"... = value expected, equals sign missing:"+this.input.substring(this.pos)},this.key_value_list=function(){var e=this.key_equals_value();for(this.currentEntry.entryTags={},this.currentEntry.entryTags[e[0]]=e[1];this.tryMatch(",")&&(this.match(","),!this.tryMatch("}"));)e=this.key_equals_value(),this.currentEntry.entryTags[e[0]]=e[1]},this.entry_body=function(e){this.currentEntry={},this.currentEntry.citationKey=this.key(),this.currentEntry.entryType=e.substring(1),this.match(","),this.key_value_list(),this.entries.push(this.currentEntry)},this.directive=function(){return this.match("@"),"@"+this.key()},this.preamble=function(){this.currentEntry={},this.currentEntry.entryType="PREAMBLE",this.currentEntry.entry=this.value_comment(),this.entries.push(this.currentEntry)},this.comment=function(){this.currentEntry={},this.currentEntry.entryType="COMMENT",this.currentEntry.entry=this.value_comment(),this.entries.push(this.currentEntry)},this.entry=function(e){this.entry_body(e)},this.bibtex=function(){for(;this.matchAt();){var e=this.directive();this.match("{"),"@STRING"==e?this.string():"@PREAMBLE"==e?this.preamble():"@COMMENT"==e?this.comment():this.entry(e),this.match("}")}}}e.toJSON=function(e){var i=new t;return i.setInput(e),i.bibtex(),i.entries},e.toBibtex=function(e){var t="";for(var n in e){if(t+="@"+e[n].entryType,t+="{",e[n].citationKey&&(t+=e[n].citationKey+", "),e[n].entry&&(t+=e[n].entry),e[n].entryTags){var i="";for(var a in e[n].entryTags)0!=i.length&&(i+=", "),i+=a+"= {"+e[n].entryTags[a]+"}";t+=i}t+="}\n\n"}return t}})(t)});const wn=s("d-bibliography",`
+`, false);
+
+// export function addInferableTags(dom, frontMatter) {
+//   const title = frontMatter.title;
+//   if (title) {
+//     const titleTag = document.querySelector()
+//
+//   }
+// }
+
+class Article extends T$3(HTMLElement) {
+
+  constructor() {
+    super();
+
+    new MutationObserver( (mutations) => {
+      for (const mutation of mutations) {
+        for (const addedNode of mutation.addedNodes) {
+          if (addedNode.nodeName === 'HR') {
+            console.warn('Use of <hr> tags in distill articles is discouraged!');
+          }
+        }
+      }
+    }).observe(this, {childList: true});
+  }
+
+  connectedCallback() {
+    for (const [functionName, callback] of Object.entries(Controller.listeners)) {
+      if (typeof callback === 'function') {
+        document.addEventListener(functionName, callback);
+      } else {
+        console.error('Controller listeners need to be functions!');
+      }
+    }
+  }
+
+}
+
+var bibtexParse = createCommonjsModule(function (module, exports) {
+/* start bibtexParse 0.0.22 */
+
+//Original work by Henrik Muehe (c) 2010
+//
+//CommonJS port by Mikola Lysenko 2013
+//
+//Port to Browser lib by ORCID / RCPETERS
+//
+//Issues:
+//no comment handling within strings
+//no string concatenation
+//no variable values yet
+//Grammar implemented here:
+//bibtex -> (string | preamble | comment | entry)*;
+//string -> '@STRING' '{' key_equals_value '}';
+//preamble -> '@PREAMBLE' '{' value '}';
+//comment -> '@COMMENT' '{' value '}';
+//entry -> '@' key '{' key ',' key_value_list '}';
+//key_value_list -> key_equals_value (',' key_equals_value)*;
+//key_equals_value -> key '=' value;
+//value -> value_quotes | value_braces | key;
+//value_quotes -> '"' .*? '"'; // not quite
+//value_braces -> '{' .*? '"'; // not quite
+(function(exports) {
+
+    function BibtexParser() {
+        
+        this.months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+        this.notKey = [',','{','}',' ','='];
+        this.pos = 0;
+        this.input = "";
+        this.entries = new Array();
+
+        this.currentEntry = "";
+
+        this.setInput = function(t) {
+            this.input = t;
+        };
+
+        this.getEntries = function() {
+            return this.entries;
+        };
+
+        this.isWhitespace = function(s) {
+            return (s == ' ' || s == '\r' || s == '\t' || s == '\n');
+        };
+
+        this.match = function(s, canCommentOut) {
+            if (canCommentOut == undefined || canCommentOut == null)
+                canCommentOut = true;
+            this.skipWhitespace(canCommentOut);
+            if (this.input.substring(this.pos, this.pos + s.length) == s) {
+                this.pos += s.length;
+            } else {
+                throw "Token mismatch, expected " + s + ", found "
+                        + this.input.substring(this.pos);
+            }
+            this.skipWhitespace(canCommentOut);
+        };
+
+        this.tryMatch = function(s, canCommentOut) {
+            if (canCommentOut == undefined || canCommentOut == null)
+                canCommentOut = true;
+            this.skipWhitespace(canCommentOut);
+            if (this.input.substring(this.pos, this.pos + s.length) == s) {
+                return true;
+            } else {
+                return false;
+            }
+            this.skipWhitespace(canCommentOut);
+        };
+
+        /* when search for a match all text can be ignored, not just white space */
+        this.matchAt = function() {
+            while (this.input.length > this.pos && this.input[this.pos] != '@') {
+                this.pos++;
+            }
+
+            if (this.input[this.pos] == '@') {
+                return true;
+            }
+            return false;
+        };
+
+        this.skipWhitespace = function(canCommentOut) {
+            while (this.isWhitespace(this.input[this.pos])) {
+                this.pos++;
+            }
+            if (this.input[this.pos] == "%" && canCommentOut == true) {
+                while (this.input[this.pos] != "\n") {
+                    this.pos++;
+                }
+                this.skipWhitespace(canCommentOut);
+            }
+        };
+
+        this.value_braces = function() {
+            var bracecount = 0;
+            this.match("{", false);
+            var start = this.pos;
+            var escaped = false;
+            while (true) {
+                if (!escaped) {
+                    if (this.input[this.pos] == '}') {
+                        if (bracecount > 0) {
+                            bracecount--;
+                        } else {
+                            var end = this.pos;
+                            this.match("}", false);
+                            return this.input.substring(start, end);
+                        }
+                    } else if (this.input[this.pos] == '{') {
+                        bracecount++;
+                    } else if (this.pos >= this.input.length - 1) {
+                        throw "Unterminated value";
+                    }
+                }
+                if (this.input[this.pos] == '\\' && escaped == false)
+                    escaped = true;
+                else
+                    escaped = false;
+                this.pos++;
+            }
+        };
+
+        this.value_comment = function() {
+            var str = '';
+            var brcktCnt = 0;
+            while (!(this.tryMatch("}", false) && brcktCnt == 0)) {
+                str = str + this.input[this.pos];
+                if (this.input[this.pos] == '{')
+                    brcktCnt++;
+                if (this.input[this.pos] == '}')
+                    brcktCnt--;
+                if (this.pos >= this.input.length - 1) {
+                    throw "Unterminated value:" + this.input.substring(start);
+                }
+                this.pos++;
+            }
+            return str;
+        };
+
+        this.value_quotes = function() {
+            this.match('"', false);
+            var start = this.pos;
+            var escaped = false;
+            while (true) {
+                if (!escaped) {
+                    if (this.input[this.pos] == '"') {
+                        var end = this.pos;
+                        this.match('"', false);
+                        return this.input.substring(start, end);
+                    } else if (this.pos >= this.input.length - 1) {
+                        throw "Unterminated value:" + this.input.substring(start);
+                    }
+                }
+                if (this.input[this.pos] == '\\' && escaped == false)
+                    escaped = true;
+                else
+                    escaped = false;
+                this.pos++;
+            }
+        };
+
+        this.single_value = function() {
+            var start = this.pos;
+            if (this.tryMatch("{")) {
+                return this.value_braces();
+            } else if (this.tryMatch('"')) {
+                return this.value_quotes();
+            } else {
+                var k = this.key();
+                if (k.match("^[0-9]+$"))
+                    return k;
+                else if (this.months.indexOf(k.toLowerCase()) >= 0)
+                    return k.toLowerCase();
+                else
+                    throw "Value expected:" + this.input.substring(start) + ' for key: ' + k;
+            
+            }
+        };
+
+        this.value = function() {
+            var values = [];
+            values.push(this.single_value());
+            while (this.tryMatch("#")) {
+                this.match("#");
+                values.push(this.single_value());
+            }
+            return values.join("");
+        };
+
+        this.key = function() {
+            var start = this.pos;
+            while (true) {
+                if (this.pos >= this.input.length) {
+                    throw "Runaway key";
+                }
+                                // а-яА-Я is Cyrillic
+                //console.log(this.input[this.pos]);
+                if (this.notKey.indexOf(this.input[this.pos]) >= 0) {
+                    return this.input.substring(start, this.pos);
+                } else {
+                    this.pos++;
+                    
+                }
+            }
+        };
+
+        this.key_equals_value = function() {
+            var key = this.key();
+            if (this.tryMatch("=")) {
+                this.match("=");
+                var val = this.value();
+                return [ key, val ];
+            } else {
+                throw "... = value expected, equals sign missing:"
+                        + this.input.substring(this.pos);
+            }
+        };
+
+        this.key_value_list = function() {
+            var kv = this.key_equals_value();
+            this.currentEntry['entryTags'] = {};
+            this.currentEntry['entryTags'][kv[0]] = kv[1];
+            while (this.tryMatch(",")) {
+                this.match(",");
+                // fixes problems with commas at the end of a list
+                if (this.tryMatch("}")) {
+                    break;
+                }
+                
+                kv = this.key_equals_value();
+                this.currentEntry['entryTags'][kv[0]] = kv[1];
+            }
+        };
+
+        this.entry_body = function(d) {
+            this.currentEntry = {};
+            this.currentEntry['citationKey'] = this.key();
+            this.currentEntry['entryType'] = d.substring(1);
+            this.match(",");
+            this.key_value_list();
+            this.entries.push(this.currentEntry);
+        };
+
+        this.directive = function() {
+            this.match("@");
+            return "@" + this.key();
+        };
+
+        this.preamble = function() {
+            this.currentEntry = {};
+            this.currentEntry['entryType'] = 'PREAMBLE';
+            this.currentEntry['entry'] = this.value_comment();
+            this.entries.push(this.currentEntry);
+        };
+
+        this.comment = function() {
+            this.currentEntry = {};
+            this.currentEntry['entryType'] = 'COMMENT';
+            this.currentEntry['entry'] = this.value_comment();
+            this.entries.push(this.currentEntry);
+        };
+
+        this.entry = function(d) {
+            this.entry_body(d);
+        };
+
+        this.bibtex = function() {
+            while (this.matchAt()) {
+                var d = this.directive();
+                this.match("{");
+                if (d == "@STRING") {
+                    this.string();
+                } else if (d == "@PREAMBLE") {
+                    this.preamble();
+                } else if (d == "@COMMENT") {
+                    this.comment();
+                } else {
+                    this.entry(d);
+                }
+                this.match("}");
+            }
+        };
+    }
+    
+    exports.toJSON = function(bibtex) {
+        var b = new BibtexParser();
+        b.setInput(bibtex);
+        b.bibtex();
+        return b.entries;
+    };
+
+    /* added during hackathon don't hate on me */
+    exports.toBibtex = function(json) {
+        var out = '';
+        for ( var i in json) {
+            out += "@" + json[i].entryType;
+            out += '{';
+            if (json[i].citationKey)
+                out += json[i].citationKey + ', ';
+            if (json[i].entry)
+                out += json[i].entry ;
+            if (json[i].entryTags) {
+                var tags = '';
+                for (var jdx in json[i].entryTags) {
+                    if (tags.length != 0)
+                        tags += ', ';
+                    tags += jdx + '= {' + json[i].entryTags[jdx] + '}';
+                }
+                out += tags;
+            }
+            out += '}\n\n';
+        }
+        return out;
+        
+    };
+
+})(exports);
+
+/* end bibtexParse */
+});
+
+function normalizeTag(string) {
+  return string
+    .replace(/[\t\n ]+/g, ' ')
+    .replace(/{\\["^`.'acu~Hvs]( )?([a-zA-Z])}/g, (full, x, char) => char)
+    .replace(/{\\([a-zA-Z])}/g, (full, char) => char);
+}
+
+function parseBibtex(bibtex) {
+  const bibliography = new Map();
+  const parsedEntries = bibtexParse.toJSON(bibtex);
+  for (const entry of parsedEntries) {
+    // normalize tags; note entryTags is an object, not Map
+    for (const [key, value] of Object.entries(entry.entryTags)) {
+      entry.entryTags[key] = normalizeTag(value);
+    }
+    entry.entryTags.type = entry.entryType;
+    // add to bibliography
+    bibliography.set(entry.citationKey, entry.entryTags);
+  }
+  return bibliography;
+}
+
+function serializeFrontmatterToBibtex(frontMatter) {
+  return `@article{${frontMatter.slug},
+  author = {${frontMatter.bibtexAuthors}},
+  title = {${frontMatter.title}},
+  journal = {${frontMatter.journal.title}},
+  year = {${frontMatter.publishedYear}},
+  note = {${frontMatter.url}}
+}`;
+}
+
+const templateString = `
 <style>
   .references {
     font-size: 12px;
@@ -192,21 +6052,83 @@ ${e(".l-body")}
 </style>
 
 <h3>References</h3>
-<ol></ol>
-`);class Tn extends wn(HTMLElement){constructor(){super();const e={childList:!0,subtree:!0},t=new MutationObserver(()=>{t.disconnect(),this.parseIfPossible(),t.observe(this,e)});t.observe(this,e)}parseIfPossible(){if(this.firstElementChild&&"SCRIPT"===this.firstElementChild.tagName){const e=this.firstElementChild.textContent;if(this.bibtex!==e){this.bibtex=e;const t=fe(this.bibtex);this.notify(t)}}}connectedCallback(){this.list=this.root.querySelector("ol"),this.root.host.style.display="none"}notify(e){const t=new CustomEvent("onBibliographyChanged",{detail:e,bubbles:!0});this.dispatchEvent(t)}set entries(e){this.root.host.style.display="initial",this.list.innerHTML="";for(const[t,i]of e){const e=document.createElement("li");e.id=t,e.innerHTML=pe(i),this.list.appendChild(e)}}renderContent(){}}const Sn=s("d-byline",`
+<ol class='references' id='references-list' ></ol>
+`;
+const T$5 = Template('d-bibliography', templateString);
+
+
+
+function renderBibliography(element, entries) {
+  if (entries.size) {
+    element.host.style.display = 'initial';
+    let list = element.querySelector('#references-list');
+    list.innerHTML = '';
+
+    for (const [key, entry] of entries) {
+      const listItem = document.createElement('li');
+      listItem.id = key;
+      listItem.innerHTML = bibliography_cite(entry);
+      list.appendChild(listItem);
+    }
+  } else {
+    element.host.style.display = 'none';
+  }
+}
+
+class Bibliography extends T$5(HTMLElement) {
+
+  constructor() {
+    super();
+
+    // set up mutation observer
+    const options = {childList: true, characterData: true, subtree: true};
+    const observer = new MutationObserver( () => {
+      observer.disconnect();
+      this.parseIfPossible();
+      observer.observe(this, options);
+    });
+    this.parseIfPossible();
+    // ...and listen for changes
+    observer.observe(this, options);
+  }
+
+  parseIfPossible() {
+    if (this.firstElementChild && this.firstElementChild.tagName === 'SCRIPT') {
+      const newBibtex = this.firstElementChild.textContent;
+      if (this.bibtex !== newBibtex) {
+        this.bibtex = newBibtex;
+        const bibliography = parseBibtex(this.bibtex);
+        this.notify(bibliography);
+      }
+    }
+  }
+
+  notify(bibliography) {
+    const options = { detail: bibliography, bubbles: true };
+    const event = new CustomEvent('onBibliographyChanged', options);
+    this.dispatchEvent(event);
+  }
+
+  set entries(newEntries) {
+    renderBibliography(this.root, newEntries);
+  }
+
+}
+
+const T$6 = Template('d-byline', `
 <style>
-  d-byline {
+  :host {
     box-sizing: border-box;
     font-size: 13px;
     line-height: 20px;
     display: block;
-    /* border-top: 1px solid rgba(0, 0, 0, 0.1);*/
-    /* border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     color: rgba(0, 0, 0, 0.6);
     padding-top: 20px;
     padding-bottom: 20px;
   }
-  ${e(".byline")}
+  ${page('.byline')}
   d-article.centered {
     text-align: center;
   }
@@ -234,6 +6156,7 @@ ${e(".l-body")}
   .date {
     display: block;
     text-align: left;
+    margin-top: 8px;
   }
   .year, .month {
     display: inline;
@@ -246,7 +6169,7 @@ ${e(".l-body")}
     display: inline;
   }
 
-  @media(min-width: 1080px) {
+  @media screen and (min-width: 768px), print {
     d-byline {
       border-bottom: none;
     }
@@ -279,9 +6202,11 @@ ${e(".l-body")}
     }
 
     .date {
+
       border-left: 1px solid rgba(0, 0, 0, 0.1);
       padding-left: 15px;
       margin-left: 15px;
+      margin-top: 0;
       display: inline-block;
     }
     .year, .month {
@@ -289,6 +6214,7 @@ ${e(".l-body")}
     }
 
     .citation {
+      align-self: flex-end;
       border-left: 1px solid rgba(0, 0, 0, 0.15);
       padding-left: 15px;
       margin-left: 15px;
@@ -297,12 +6223,950 @@ ${e(".l-body")}
     .citation div {
       display: block;
     }
+
+    .byline {
+      display: flex;
+    }
   }
 </style>
 
 <div class='byline'>
 </div>
-`,!1);class An extends Sn(HTMLElement){set frontMatter(e){const t=this.querySelector(".byline");t.innerHTML=ye(e)}}var Cn=he(function(e){var t="undefined"==typeof window?"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{}:window,i=function(){var e=/\blang(?:uage)?-(\w+)\b/i,i=0,n=t.Prism={util:{encode:function(e){return e instanceof a?new a(e.type,n.util.encode(e.content),e.alias):"Array"===n.util.type(e)?e.map(n.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++i}),e.__id},clone:function(e){var t=n.util.type(e);switch(t){case"Object":var i={};for(var a in e)e.hasOwnProperty(a)&&(i[a]=n.util.clone(e[a]));return i;case"Array":return e.map&&e.map(function(e){return n.util.clone(e)});}return e}},languages:{extend:function(e,t){var i=n.util.clone(n.languages[e]);for(var a in t)i[a]=t[a];return i},insertBefore:function(e,t,i,a){a=a||n.languages;var s=a[e];if(2==arguments.length){for(var r in i=arguments[1],i)i.hasOwnProperty(r)&&(s[r]=i[r]);return s}var o={};for(var l in s)if(s.hasOwnProperty(l)){if(l==t)for(var r in i)i.hasOwnProperty(r)&&(o[r]=i[r]);o[l]=s[l]}return n.languages.DFS(n.languages,function(t,i){i===a[e]&&t!=e&&(this[t]=o)}),a[e]=o},DFS:function(e,t,a,s){for(var r in s=s||{},e)e.hasOwnProperty(r)&&(t.call(e,r,e[r],a||r),"Object"!==n.util.type(e[r])||s[n.util.objId(e[r])]?"Array"===n.util.type(e[r])&&!s[n.util.objId(e[r])]&&(s[n.util.objId(e[r])]=!0,n.languages.DFS(e[r],t,r,s)):(s[n.util.objId(e[r])]=!0,n.languages.DFS(e[r],t,null,s)))}},plugins:{},highlightAll:function(e,t){var a={callback:t,selector:"code[class*=\"language-\"], [class*=\"language-\"] code, code[class*=\"lang-\"], [class*=\"lang-\"] code"};n.hooks.run("before-highlightall",a);for(var s=a.elements||document.querySelectorAll(a.selector),r=0,i;i=s[r++];)n.highlightElement(i,!0===e,a.callback)},highlightElement:function(i,a,s){for(var r=i,o,l;r&&!e.test(r.className);)r=r.parentNode;r&&(o=(r.className.match(e)||[,""])[1].toLowerCase(),l=n.languages[o]),i.className=i.className.replace(e,"").replace(/\s+/g," ")+" language-"+o,r=i.parentNode,/pre/i.test(r.nodeName)&&(r.className=r.className.replace(e,"").replace(/\s+/g," ")+" language-"+o);var d=i.textContent,p={element:i,language:o,grammar:l,code:d};if(n.hooks.run("before-sanity-check",p),!p.code||!p.grammar)return p.code&&(p.element.textContent=p.code),void n.hooks.run("complete",p);if(n.hooks.run("before-highlight",p),a&&t.Worker){var u=new Worker(n.filename);u.onmessage=function(e){p.highlightedCode=e.data,n.hooks.run("before-insert",p),p.element.innerHTML=p.highlightedCode,s&&s.call(p.element),n.hooks.run("after-highlight",p),n.hooks.run("complete",p)},u.postMessage(JSON.stringify({language:p.language,code:p.code,immediateClose:!0}))}else p.highlightedCode=n.highlight(p.code,p.grammar,p.language),n.hooks.run("before-insert",p),p.element.innerHTML=p.highlightedCode,s&&s.call(i),n.hooks.run("after-highlight",p),n.hooks.run("complete",p)},highlight:function(e,t,i){var s=n.tokenize(e,t);return a.stringify(n.util.encode(s),i)},tokenize:function(e,t){var a=n.Token,s=[e],r=t.rest;if(r){for(var o in r)t[o]=r[o];delete t.rest}tokenloop:for(var o in t)if(t.hasOwnProperty(o)&&t[o]){var l=t[o];l="Array"===n.util.type(l)?l:[l];for(var d=0;d<l.length;++d){var u=l[d],c=u.inside,m=!!u.lookbehind,g=!!u.greedy,h=0,f=u.alias;if(g&&!u.pattern.global){var y=u.pattern.toString().match(/[imuy]*$/)[0];u.pattern=RegExp(u.pattern.source,y+"g")}u=u.pattern||u;for(var x=0,i=0,z;x<s.length;i+=s[x].length,++x){if(z=s[x],s.length>e.length)break tokenloop;if(!(z instanceof a)){u.lastIndex=0;var b=u.exec(z),v=1;if(!b&&g&&x!=s.length-1){if(u.lastIndex=i,b=u.exec(e),!b)break;for(var w=b.index+(m?b[1].length:0),T=b.index+b[0].length,S=x,k=i,p=s.length;S<p&&k<T;++S)k+=s[S].length,w>=k&&(++x,i=k);if(s[x]instanceof a||s[S-1].greedy)continue;v=S-x,z=e.slice(i,k),b.index-=i}if(b){m&&(h=b[1].length);var w=b.index+h,b=b[0].slice(h),T=w+b.length,A=z.slice(0,w),C=z.slice(T),M=[x,v];A&&M.push(A);var N=new a(o,c?n.tokenize(b,c):b,f,b,g);M.push(N),C&&M.push(C),Array.prototype.splice.apply(s,M)}}}}}return s},hooks:{all:{},add:function(e,t){var i=n.hooks.all;i[e]=i[e]||[],i[e].push(t)},run:function(e,t){var a=n.hooks.all[e];if(a&&a.length)for(var s=0,i;i=a[s++];)i(t)}}},a=n.Token=function(e,t,i,n,a){this.type=e,this.content=t,this.alias=i,this.length=0|(n||"").length,this.greedy=!!a};if(a.stringify=function(e,t,i){if("string"==typeof e)return e;if("Array"===n.util.type(e))return e.map(function(i){return a.stringify(i,t,e)}).join("");var s={type:e.type,content:a.stringify(e.content,t,i),tag:"span",classes:["token",e.type],attributes:{},language:t,parent:i};if("comment"==s.type&&(s.attributes.spellcheck="true"),e.alias){var r="Array"===n.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(s.classes,r)}n.hooks.run("wrap",s);var l=Object.keys(s.attributes).map(function(e){return e+"=\""+(s.attributes[e]||"").replace(/"/g,"&quot;")+"\""}).join(" ");return"<"+s.tag+" class=\""+s.classes.join(" ")+"\""+(l?" "+l:"")+">"+s.content+"</"+s.tag+">"},!t.document)return t.addEventListener?(t.addEventListener("message",function(e){var i=JSON.parse(e.data),a=i.language,s=i.code,r=i.immediateClose;t.postMessage(n.highlight(s,n.languages[a],a)),r&&t.close()},!1),t.Prism):t.Prism;var s=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return s&&(n.filename=s.src,document.addEventListener&&!s.hasAttribute("data-manual")&&("loading"===document.readyState?document.addEventListener("DOMContentLoaded",n.highlightAll):window.requestAnimationFrame?window.requestAnimationFrame(n.highlightAll):window.setTimeout(n.highlightAll,16))),t.Prism}();e.exports&&(e.exports=i),"undefined"!=typeof kn&&(kn.Prism=i),i.languages.markup={comment:/<!--[\w\W]*?-->/,prolog:/<\?[\w\W]+?\?>/,doctype:/<!DOCTYPE[\w\W]+?>/i,cdata:/<!\[CDATA\[[\w\W]*?]]>/i,tag:{pattern:/<\/?(?!\d)[^\s>\/=$<]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\\1|\\?(?!\1)[\w\W])*\1|[^\s'">=]+))?)*\s*\/?>/i,inside:{tag:{pattern:/^<\/?[^\s>\/]+/i,inside:{punctuation:/^<\/?/,namespace:/^[^\s>\/:]+:/}},"attr-value":{pattern:/=(?:('|")[\w\W]*?(\1)|[^\s>]+)/i,inside:{punctuation:/[=>"']/}},punctuation:/\/?>/,"attr-name":{pattern:/[^\s>\/]+/,inside:{namespace:/^[^\s>\/:]+:/}}}},entity:/&#?[\da-z]{1,8};/i},i.hooks.add("wrap",function(e){"entity"===e.type&&(e.attributes.title=e.content.replace(/&amp;/,"&"))}),i.languages.xml=i.languages.markup,i.languages.html=i.languages.markup,i.languages.mathml=i.languages.markup,i.languages.svg=i.languages.markup,i.languages.css={comment:/\/\*[\w\W]*?\*\//,atrule:{pattern:/@[\w-]+?.*?(;|(?=\s*\{))/i,inside:{rule:/@[\w-]+/}},url:/url\((?:(["'])(\\(?:\r\n|[\w\W])|(?!\1)[^\\\r\n])*\1|.*?)\)/i,selector:/[^\{\}\s][^\{\};]*?(?=\s*\{)/,string:{pattern:/("|')(\\(?:\r\n|[\w\W])|(?!\1)[^\\\r\n])*\1/,greedy:!0},property:/(\b|\B)[\w-]+(?=\s*:)/i,important:/\B!important\b/i,function:/[-a-z0-9]+(?=\()/i,punctuation:/[(){};:]/},i.languages.css.atrule.inside.rest=i.util.clone(i.languages.css),i.languages.markup&&(i.languages.insertBefore("markup","tag",{style:{pattern:/(<style[\w\W]*?>)[\w\W]*?(?=<\/style>)/i,lookbehind:!0,inside:i.languages.css,alias:"language-css"}}),i.languages.insertBefore("inside","attr-value",{"style-attr":{pattern:/\s*style=("|').*?\1/i,inside:{"attr-name":{pattern:/^\s*style/i,inside:i.languages.markup.tag.inside},punctuation:/^\s*=\s*['"]|['"]\s*$/,"attr-value":{pattern:/.+/i,inside:i.languages.css}},alias:"language-css"}},i.languages.markup.tag)),i.languages.clike={comment:[{pattern:/(^|[^\\])\/\*[\w\W]*?\*\//,lookbehind:!0},{pattern:/(^|[^\\:])\/\/.*/,lookbehind:!0}],string:{pattern:/(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,greedy:!0},"class-name":{pattern:/((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/i,lookbehind:!0,inside:{punctuation:/(\.|\\)/}},keyword:/\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,boolean:/\b(true|false)\b/,function:/[a-z0-9_]+(?=\()/i,number:/\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)\b/i,operator:/--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,punctuation:/[{}[\];(),.:]/},i.languages.javascript=i.languages.extend("clike",{keyword:/\b(as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|var|void|while|with|yield)\b/,number:/\b-?(0x[\dA-Fa-f]+|0b[01]+|0o[0-7]+|\d*\.?\d+([Ee][+-]?\d+)?|NaN|Infinity)\b/,function:/[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*(?=\()/i,operator:/--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*\*?|\/|~|\^|%|\.{3}/}),i.languages.insertBefore("javascript","keyword",{regex:{pattern:/(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\\\r\n])+\/[gimyu]{0,5}(?=\s*($|[\r\n,.;})]))/,lookbehind:!0,greedy:!0}}),i.languages.insertBefore("javascript","string",{"template-string":{pattern:/`(?:\\\\|\\?[^\\])*?`/,greedy:!0,inside:{interpolation:{pattern:/\$\{[^}]+\}/,inside:{"interpolation-punctuation":{pattern:/^\$\{|\}$/,alias:"punctuation"},rest:i.languages.javascript}},string:/[\s\S]+/}}}),i.languages.markup&&i.languages.insertBefore("markup","tag",{script:{pattern:/(<script[\w\W]*?>)[\w\W]*?(?=<\/script>)/i,lookbehind:!0,inside:i.languages.javascript,alias:"language-javascript"}}),i.languages.js=i.languages.javascript,function(){"undefined"!=typeof self&&self.Prism&&self.document&&document.querySelector&&(self.Prism.fileHighlight=function(){var e={js:"javascript",py:"python",rb:"ruby",ps1:"powershell",psm1:"powershell",sh:"bash",bat:"batch",h:"c",tex:"latex"};Array.prototype.forEach&&Array.prototype.slice.call(document.querySelectorAll("pre[data-src]")).forEach(function(t){for(var n=t.getAttribute("data-src"),a=t,s=/\blang(?:uage)?-(?!\*)(\w+)\b/i,r;a&&!s.test(a.className);)a=a.parentNode;if(a&&(r=(t.className.match(s)||[,""])[1]),!r){var o=(n.match(/\.(\w+)$/)||[,""])[1];r=e[o]||o}var l=document.createElement("code");l.className="language-"+r,t.textContent="",l.textContent="Loading\u2026",t.appendChild(l);var d=new XMLHttpRequest;d.open("GET",n,!0),d.onreadystatechange=function(){4==d.readyState&&(400>d.status&&d.responseText?(l.textContent=d.responseText,i.highlightElement(l)):400<=d.status?l.textContent="\u2716 Error "+d.status+" while fetching file: "+d.statusText:l.textContent="\u2716 Error: File does not exist or is empty")},d.send(null)})},document.addEventListener("DOMContentLoaded",self.Prism.fileHighlight))}()});Prism.languages.python={"triple-quoted-string":{pattern:/"""[\s\S]+?"""|'''[\s\S]+?'''/,alias:"string"},comment:{pattern:/(^|[^\\])#.*/,lookbehind:!0},string:{pattern:/("|')(?:\\\\|\\?[^\\\r\n])*?\1/,greedy:!0},function:{pattern:/((?:^|\s)def[ \t]+)[a-zA-Z_][a-zA-Z0-9_]*(?=\()/g,lookbehind:!0},"class-name":{pattern:/(\bclass\s+)[a-z0-9_]+/i,lookbehind:!0},keyword:/\b(?:as|assert|async|await|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|pass|print|raise|return|try|while|with|yield)\b/,boolean:/\b(?:True|False)\b/,number:/\b-?(?:0[bo])?(?:(?:\d|0x[\da-f])[\da-f]*\.?\d*|\.\d+)(?:e[+-]?\d+)?j?\b/i,operator:/[-+%=]=?|!=|\*\*?=?|\/\/?=?|<[<=>]?|>[=>]?|[&|^~]|\b(?:or|and|not)\b/,punctuation:/[{}[\];(),.:]/},Prism.languages.clike={comment:[{pattern:/(^|[^\\])\/\*[\w\W]*?\*\//,lookbehind:!0},{pattern:/(^|[^\\:])\/\/.*/,lookbehind:!0}],string:{pattern:/(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,greedy:!0},"class-name":{pattern:/((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/i,lookbehind:!0,inside:{punctuation:/(\.|\\)/}},keyword:/\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,boolean:/\b(true|false)\b/,function:/[a-z0-9_]+(?=\()/i,number:/\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)\b/i,operator:/--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,punctuation:/[{}[\];(),.:]/};const Mn=s("d-code",`
+`, true);
+
+function bylineTemplate(frontMatter) {
+  return `
+  <div class="authors">
+    ${frontMatter.authors.map( author => `<div class="author">
+      ${author.personalURL ?
+    `<a class="name" href="${author.personalURL}">${author.name}</a>`
+    :
+    `<div class="name">${author.name}</div>`
+}
+      ${author.affiliationURL ?
+    `<a class="affiliation" href="${author.affiliationURL}">${author.affiliation}</a>`
+    :
+    `<div class="affiliation">${author.affiliation}</div>`
+}
+    </div>`).join('\n')}
+  </div>
+  <div class="date">
+    <div class="month">${frontMatter.publishedMonth}. ${frontMatter.publishedDay}</div>
+    <div class="year">${frontMatter.publishedYear}</div>
+  </div>
+  <a class="citation" href="#citation">
+    <div>Citation:</div>
+    <div>${frontMatter.concatenatedAuthors}, ${frontMatter.publishedYear}</div>
+  </a>
+  `;
+}
+
+class Byline extends T$6(HTMLElement) {
+
+  set frontMatter(frontMatter) {
+    const container = this.root.querySelector('.byline');
+    container.innerHTML = bylineTemplate(frontMatter);
+  }
+
+}
+
+var prism = createCommonjsModule(function (module) {
+/* **********************************************
+     Begin prism-core.js
+********************************************** */
+
+var _self = (typeof window !== 'undefined')
+	? window   // if in browser
+	: (
+		(typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope)
+		? self // if in worker
+		: {}   // if in node js
+	);
+
+/**
+ * Prism: Lightweight, robust, elegant syntax highlighting
+ * MIT license http://www.opensource.org/licenses/mit-license.php/
+ * @author Lea Verou http://lea.verou.me
+ */
+
+var Prism = (function(){
+
+// Private helper vars
+var lang = /\blang(?:uage)?-(\w+)\b/i;
+var uniqueId = 0;
+
+var _ = _self.Prism = {
+	util: {
+		encode: function (tokens) {
+			if (tokens instanceof Token) {
+				return new Token(tokens.type, _.util.encode(tokens.content), tokens.alias);
+			} else if (_.util.type(tokens) === 'Array') {
+				return tokens.map(_.util.encode);
+			} else {
+				return tokens.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\u00a0/g, ' ');
+			}
+		},
+
+		type: function (o) {
+			return Object.prototype.toString.call(o).match(/\[object (\w+)\]/)[1];
+		},
+
+		objId: function (obj) {
+			if (!obj['__id']) {
+				Object.defineProperty(obj, '__id', { value: ++uniqueId });
+			}
+			return obj['__id'];
+		},
+
+		// Deep clone a language definition (e.g. to extend it)
+		clone: function (o) {
+			var type = _.util.type(o);
+
+			switch (type) {
+				case 'Object':
+					var clone = {};
+
+					for (var key in o) {
+						if (o.hasOwnProperty(key)) {
+							clone[key] = _.util.clone(o[key]);
+						}
+					}
+
+					return clone;
+
+				case 'Array':
+					// Check for existence for IE8
+					return o.map && o.map(function(v) { return _.util.clone(v); });
+			}
+
+			return o;
+		}
+	},
+
+	languages: {
+		extend: function (id, redef) {
+			var lang = _.util.clone(_.languages[id]);
+
+			for (var key in redef) {
+				lang[key] = redef[key];
+			}
+
+			return lang;
+		},
+
+		/**
+		 * Insert a token before another token in a language literal
+		 * As this needs to recreate the object (we cannot actually insert before keys in object literals),
+		 * we cannot just provide an object, we need anobject and a key.
+		 * @param inside The key (or language id) of the parent
+		 * @param before The key to insert before. If not provided, the function appends instead.
+		 * @param insert Object with the key/value pairs to insert
+		 * @param root The object that contains `inside`. If equal to Prism.languages, it can be omitted.
+		 */
+		insertBefore: function (inside, before, insert, root) {
+			root = root || _.languages;
+			var grammar = root[inside];
+
+			if (arguments.length == 2) {
+				insert = arguments[1];
+
+				for (var newToken in insert) {
+					if (insert.hasOwnProperty(newToken)) {
+						grammar[newToken] = insert[newToken];
+					}
+				}
+
+				return grammar;
+			}
+
+			var ret = {};
+
+			for (var token in grammar) {
+
+				if (grammar.hasOwnProperty(token)) {
+
+					if (token == before) {
+
+						for (var newToken in insert) {
+
+							if (insert.hasOwnProperty(newToken)) {
+								ret[newToken] = insert[newToken];
+							}
+						}
+					}
+
+					ret[token] = grammar[token];
+				}
+			}
+
+			// Update references in other language definitions
+			_.languages.DFS(_.languages, function(key, value) {
+				if (value === root[inside] && key != inside) {
+					this[key] = ret;
+				}
+			});
+
+			return root[inside] = ret;
+		},
+
+		// Traverse a language definition with Depth First Search
+		DFS: function(o, callback, type, visited) {
+			visited = visited || {};
+			for (var i in o) {
+				if (o.hasOwnProperty(i)) {
+					callback.call(o, i, o[i], type || i);
+
+					if (_.util.type(o[i]) === 'Object' && !visited[_.util.objId(o[i])]) {
+						visited[_.util.objId(o[i])] = true;
+						_.languages.DFS(o[i], callback, null, visited);
+					}
+					else if (_.util.type(o[i]) === 'Array' && !visited[_.util.objId(o[i])]) {
+						visited[_.util.objId(o[i])] = true;
+						_.languages.DFS(o[i], callback, i, visited);
+					}
+				}
+			}
+		}
+	},
+	plugins: {},
+
+	highlightAll: function(async, callback) {
+		var env = {
+			callback: callback,
+			selector: 'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'
+		};
+
+		_.hooks.run("before-highlightall", env);
+
+		var elements = env.elements || document.querySelectorAll(env.selector);
+
+		for (var i=0, element; element = elements[i++];) {
+			_.highlightElement(element, async === true, env.callback);
+		}
+	},
+
+	highlightElement: function(element, async, callback) {
+		// Find language
+		var language, grammar, parent = element;
+
+		while (parent && !lang.test(parent.className)) {
+			parent = parent.parentNode;
+		}
+
+		if (parent) {
+			language = (parent.className.match(lang) || [,''])[1].toLowerCase();
+			grammar = _.languages[language];
+		}
+
+		// Set language on the element, if not present
+		element.className = element.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
+
+		// Set language on the parent, for styling
+		parent = element.parentNode;
+
+		if (/pre/i.test(parent.nodeName)) {
+			parent.className = parent.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
+		}
+
+		var code = element.textContent;
+
+		var env = {
+			element: element,
+			language: language,
+			grammar: grammar,
+			code: code
+		};
+
+		_.hooks.run('before-sanity-check', env);
+
+		if (!env.code || !env.grammar) {
+			if (env.code) {
+				env.element.textContent = env.code;
+			}
+			_.hooks.run('complete', env);
+			return;
+		}
+
+		_.hooks.run('before-highlight', env);
+
+		if (async && _self.Worker) {
+			var worker = new Worker(_.filename);
+
+			worker.onmessage = function(evt) {
+				env.highlightedCode = evt.data;
+
+				_.hooks.run('before-insert', env);
+
+				env.element.innerHTML = env.highlightedCode;
+
+				callback && callback.call(env.element);
+				_.hooks.run('after-highlight', env);
+				_.hooks.run('complete', env);
+			};
+
+			worker.postMessage(JSON.stringify({
+				language: env.language,
+				code: env.code,
+				immediateClose: true
+			}));
+		}
+		else {
+			env.highlightedCode = _.highlight(env.code, env.grammar, env.language);
+
+			_.hooks.run('before-insert', env);
+
+			env.element.innerHTML = env.highlightedCode;
+
+			callback && callback.call(element);
+
+			_.hooks.run('after-highlight', env);
+			_.hooks.run('complete', env);
+		}
+	},
+
+	highlight: function (text, grammar, language) {
+		var tokens = _.tokenize(text, grammar);
+		return Token.stringify(_.util.encode(tokens), language);
+	},
+
+	tokenize: function(text, grammar, language) {
+		var Token = _.Token;
+
+		var strarr = [text];
+
+		var rest = grammar.rest;
+
+		if (rest) {
+			for (var token in rest) {
+				grammar[token] = rest[token];
+			}
+
+			delete grammar.rest;
+		}
+
+		tokenloop: for (var token in grammar) {
+			if(!grammar.hasOwnProperty(token) || !grammar[token]) {
+				continue;
+			}
+
+			var patterns = grammar[token];
+			patterns = (_.util.type(patterns) === "Array") ? patterns : [patterns];
+
+			for (var j = 0; j < patterns.length; ++j) {
+				var pattern = patterns[j],
+					inside = pattern.inside,
+					lookbehind = !!pattern.lookbehind,
+					greedy = !!pattern.greedy,
+					lookbehindLength = 0,
+					alias = pattern.alias;
+
+				if (greedy && !pattern.pattern.global) {
+					// Without the global flag, lastIndex won't work
+					var flags = pattern.pattern.toString().match(/[imuy]*$/)[0];
+					pattern.pattern = RegExp(pattern.pattern.source, flags + "g");
+				}
+
+				pattern = pattern.pattern || pattern;
+
+				// Don’t cache length as it changes during the loop
+				for (var i=0, pos = 0; i<strarr.length; pos += strarr[i].length, ++i) {
+
+					var str = strarr[i];
+
+					if (strarr.length > text.length) {
+						// Something went terribly wrong, ABORT, ABORT!
+						break tokenloop;
+					}
+
+					if (str instanceof Token) {
+						continue;
+					}
+
+					pattern.lastIndex = 0;
+
+					var match = pattern.exec(str),
+					    delNum = 1;
+
+					// Greedy patterns can override/remove up to two previously matched tokens
+					if (!match && greedy && i != strarr.length - 1) {
+						pattern.lastIndex = pos;
+						match = pattern.exec(text);
+						if (!match) {
+							break;
+						}
+
+						var from = match.index + (lookbehind ? match[1].length : 0),
+						    to = match.index + match[0].length,
+						    k = i,
+						    p = pos;
+
+						for (var len = strarr.length; k < len && p < to; ++k) {
+							p += strarr[k].length;
+							// Move the index i to the element in strarr that is closest to from
+							if (from >= p) {
+								++i;
+								pos = p;
+							}
+						}
+
+						/*
+						 * If strarr[i] is a Token, then the match starts inside another Token, which is invalid
+						 * If strarr[k - 1] is greedy we are in conflict with another greedy pattern
+						 */
+						if (strarr[i] instanceof Token || strarr[k - 1].greedy) {
+							continue;
+						}
+
+						// Number of tokens to delete and replace with the new match
+						delNum = k - i;
+						str = text.slice(pos, p);
+						match.index -= pos;
+					}
+
+					if (!match) {
+						continue;
+					}
+
+					if(lookbehind) {
+						lookbehindLength = match[1].length;
+					}
+
+					var from = match.index + lookbehindLength,
+					    match = match[0].slice(lookbehindLength),
+					    to = from + match.length,
+					    before = str.slice(0, from),
+					    after = str.slice(to);
+
+					var args = [i, delNum];
+
+					if (before) {
+						args.push(before);
+					}
+
+					var wrapped = new Token(token, inside? _.tokenize(match, inside) : match, alias, match, greedy);
+
+					args.push(wrapped);
+
+					if (after) {
+						args.push(after);
+					}
+
+					Array.prototype.splice.apply(strarr, args);
+				}
+			}
+		}
+
+		return strarr;
+	},
+
+	hooks: {
+		all: {},
+
+		add: function (name, callback) {
+			var hooks = _.hooks.all;
+
+			hooks[name] = hooks[name] || [];
+
+			hooks[name].push(callback);
+		},
+
+		run: function (name, env) {
+			var callbacks = _.hooks.all[name];
+
+			if (!callbacks || !callbacks.length) {
+				return;
+			}
+
+			for (var i=0, callback; callback = callbacks[i++];) {
+				callback(env);
+			}
+		}
+	}
+};
+
+var Token = _.Token = function(type, content, alias, matchedStr, greedy) {
+	this.type = type;
+	this.content = content;
+	this.alias = alias;
+	// Copy of the full string this token was created from
+	this.length = (matchedStr || "").length|0;
+	this.greedy = !!greedy;
+};
+
+Token.stringify = function(o, language, parent) {
+	if (typeof o == 'string') {
+		return o;
+	}
+
+	if (_.util.type(o) === 'Array') {
+		return o.map(function(element) {
+			return Token.stringify(element, language, o);
+		}).join('');
+	}
+
+	var env = {
+		type: o.type,
+		content: Token.stringify(o.content, language, parent),
+		tag: 'span',
+		classes: ['token', o.type],
+		attributes: {},
+		language: language,
+		parent: parent
+	};
+
+	if (env.type == 'comment') {
+		env.attributes['spellcheck'] = 'true';
+	}
+
+	if (o.alias) {
+		var aliases = _.util.type(o.alias) === 'Array' ? o.alias : [o.alias];
+		Array.prototype.push.apply(env.classes, aliases);
+	}
+
+	_.hooks.run('wrap', env);
+
+	var attributes = Object.keys(env.attributes).map(function(name) {
+		return name + '="' + (env.attributes[name] || '').replace(/"/g, '&quot;') + '"';
+	}).join(' ');
+
+	return '<' + env.tag + ' class="' + env.classes.join(' ') + '"' + (attributes ? ' ' + attributes : '') + '>' + env.content + '</' + env.tag + '>';
+
+};
+
+if (!_self.document) {
+	if (!_self.addEventListener) {
+		// in Node.js
+		return _self.Prism;
+	}
+ 	// In worker
+	_self.addEventListener('message', function(evt) {
+		var message = JSON.parse(evt.data),
+		    lang = message.language,
+		    code = message.code,
+		    immediateClose = message.immediateClose;
+
+		_self.postMessage(_.highlight(code, _.languages[lang], lang));
+		if (immediateClose) {
+			_self.close();
+		}
+	}, false);
+
+	return _self.Prism;
+}
+
+//Get current script and highlight
+var script = document.currentScript || [].slice.call(document.getElementsByTagName("script")).pop();
+
+if (script) {
+	_.filename = script.src;
+
+	if (document.addEventListener && !script.hasAttribute('data-manual')) {
+		if(document.readyState !== "loading") {
+			if (window.requestAnimationFrame) {
+				window.requestAnimationFrame(_.highlightAll);
+			} else {
+				window.setTimeout(_.highlightAll, 16);
+			}
+		}
+		else {
+			document.addEventListener('DOMContentLoaded', _.highlightAll);
+		}
+	}
+}
+
+return _self.Prism;
+
+})();
+
+if ('object' !== 'undefined' && module.exports) {
+	module.exports = Prism;
+}
+
+// hack for components to work correctly in node.js
+if (typeof commonjsGlobal !== 'undefined') {
+	commonjsGlobal.Prism = Prism;
+}
+
+
+/* **********************************************
+     Begin prism-markup.js
+********************************************** */
+
+Prism.languages.markup = {
+	'comment': /<!--[\w\W]*?-->/,
+	'prolog': /<\?[\w\W]+?\?>/,
+	'doctype': /<!DOCTYPE[\w\W]+?>/i,
+	'cdata': /<!\[CDATA\[[\w\W]*?]]>/i,
+	'tag': {
+		pattern: /<\/?(?!\d)[^\s>\/=$<]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\\1|\\?(?!\1)[\w\W])*\1|[^\s'">=]+))?)*\s*\/?>/i,
+		inside: {
+			'tag': {
+				pattern: /^<\/?[^\s>\/]+/i,
+				inside: {
+					'punctuation': /^<\/?/,
+					'namespace': /^[^\s>\/:]+:/
+				}
+			},
+			'attr-value': {
+				pattern: /=(?:('|")[\w\W]*?(\1)|[^\s>]+)/i,
+				inside: {
+					'punctuation': /[=>"']/
+				}
+			},
+			'punctuation': /\/?>/,
+			'attr-name': {
+				pattern: /[^\s>\/]+/,
+				inside: {
+					'namespace': /^[^\s>\/:]+:/
+				}
+			}
+
+		}
+	},
+	'entity': /&#?[\da-z]{1,8};/i
+};
+
+// Plugin to make entity title show the real entity, idea by Roman Komarov
+Prism.hooks.add('wrap', function(env) {
+
+	if (env.type === 'entity') {
+		env.attributes['title'] = env.content.replace(/&amp;/, '&');
+	}
+});
+
+Prism.languages.xml = Prism.languages.markup;
+Prism.languages.html = Prism.languages.markup;
+Prism.languages.mathml = Prism.languages.markup;
+Prism.languages.svg = Prism.languages.markup;
+
+
+/* **********************************************
+     Begin prism-css.js
+********************************************** */
+
+Prism.languages.css = {
+	'comment': /\/\*[\w\W]*?\*\//,
+	'atrule': {
+		pattern: /@[\w-]+?.*?(;|(?=\s*\{))/i,
+		inside: {
+			'rule': /@[\w-]+/
+			// See rest below
+		}
+	},
+	'url': /url\((?:(["'])(\\(?:\r\n|[\w\W])|(?!\1)[^\\\r\n])*\1|.*?)\)/i,
+	'selector': /[^\{\}\s][^\{\};]*?(?=\s*\{)/,
+	'string': {
+		pattern: /("|')(\\(?:\r\n|[\w\W])|(?!\1)[^\\\r\n])*\1/,
+		greedy: true
+	},
+	'property': /(\b|\B)[\w-]+(?=\s*:)/i,
+	'important': /\B!important\b/i,
+	'function': /[-a-z0-9]+(?=\()/i,
+	'punctuation': /[(){};:]/
+};
+
+Prism.languages.css['atrule'].inside.rest = Prism.util.clone(Prism.languages.css);
+
+if (Prism.languages.markup) {
+	Prism.languages.insertBefore('markup', 'tag', {
+		'style': {
+			pattern: /(<style[\w\W]*?>)[\w\W]*?(?=<\/style>)/i,
+			lookbehind: true,
+			inside: Prism.languages.css,
+			alias: 'language-css'
+		}
+	});
+	
+	Prism.languages.insertBefore('inside', 'attr-value', {
+		'style-attr': {
+			pattern: /\s*style=("|').*?\1/i,
+			inside: {
+				'attr-name': {
+					pattern: /^\s*style/i,
+					inside: Prism.languages.markup.tag.inside
+				},
+				'punctuation': /^\s*=\s*['"]|['"]\s*$/,
+				'attr-value': {
+					pattern: /.+/i,
+					inside: Prism.languages.css
+				}
+			},
+			alias: 'language-css'
+		}
+	}, Prism.languages.markup.tag);
+}
+
+/* **********************************************
+     Begin prism-clike.js
+********************************************** */
+
+Prism.languages.clike = {
+	'comment': [
+		{
+			pattern: /(^|[^\\])\/\*[\w\W]*?\*\//,
+			lookbehind: true
+		},
+		{
+			pattern: /(^|[^\\:])\/\/.*/,
+			lookbehind: true
+		}
+	],
+	'string': {
+		pattern: /(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+		greedy: true
+	},
+	'class-name': {
+		pattern: /((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/i,
+		lookbehind: true,
+		inside: {
+			punctuation: /(\.|\\)/
+		}
+	},
+	'keyword': /\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,
+	'boolean': /\b(true|false)\b/,
+	'function': /[a-z0-9_]+(?=\()/i,
+	'number': /\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)\b/i,
+	'operator': /--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,
+	'punctuation': /[{}[\];(),.:]/
+};
+
+
+/* **********************************************
+     Begin prism-javascript.js
+********************************************** */
+
+Prism.languages.javascript = Prism.languages.extend('clike', {
+	'keyword': /\b(as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|var|void|while|with|yield)\b/,
+	'number': /\b-?(0x[\dA-Fa-f]+|0b[01]+|0o[0-7]+|\d*\.?\d+([Ee][+-]?\d+)?|NaN|Infinity)\b/,
+	// Allow for all non-ASCII characters (See http://stackoverflow.com/a/2008444)
+	'function': /[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*(?=\()/i,
+	'operator': /--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*\*?|\/|~|\^|%|\.{3}/
+});
+
+Prism.languages.insertBefore('javascript', 'keyword', {
+	'regex': {
+		pattern: /(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\\\r\n])+\/[gimyu]{0,5}(?=\s*($|[\r\n,.;})]))/,
+		lookbehind: true,
+		greedy: true
+	}
+});
+
+Prism.languages.insertBefore('javascript', 'string', {
+	'template-string': {
+		pattern: /`(?:\\\\|\\?[^\\])*?`/,
+		greedy: true,
+		inside: {
+			'interpolation': {
+				pattern: /\$\{[^}]+\}/,
+				inside: {
+					'interpolation-punctuation': {
+						pattern: /^\$\{|\}$/,
+						alias: 'punctuation'
+					},
+					rest: Prism.languages.javascript
+				}
+			},
+			'string': /[\s\S]+/
+		}
+	}
+});
+
+if (Prism.languages.markup) {
+	Prism.languages.insertBefore('markup', 'tag', {
+		'script': {
+			pattern: /(<script[\w\W]*?>)[\w\W]*?(?=<\/script>)/i,
+			lookbehind: true,
+			inside: Prism.languages.javascript,
+			alias: 'language-javascript'
+		}
+	});
+}
+
+Prism.languages.js = Prism.languages.javascript;
+
+/* **********************************************
+     Begin prism-file-highlight.js
+********************************************** */
+
+(function () {
+	if (typeof self === 'undefined' || !self.Prism || !self.document || !document.querySelector) {
+		return;
+	}
+
+	self.Prism.fileHighlight = function() {
+
+		var Extensions = {
+			'js': 'javascript',
+			'py': 'python',
+			'rb': 'ruby',
+			'ps1': 'powershell',
+			'psm1': 'powershell',
+			'sh': 'bash',
+			'bat': 'batch',
+			'h': 'c',
+			'tex': 'latex'
+		};
+
+		if(Array.prototype.forEach) { // Check to prevent error in IE8
+			Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+				var src = pre.getAttribute('data-src');
+
+				var language, parent = pre;
+				var lang = /\blang(?:uage)?-(?!\*)(\w+)\b/i;
+				while (parent && !lang.test(parent.className)) {
+					parent = parent.parentNode;
+				}
+
+				if (parent) {
+					language = (pre.className.match(lang) || [, ''])[1];
+				}
+
+				if (!language) {
+					var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+					language = Extensions[extension] || extension;
+				}
+
+				var code = document.createElement('code');
+				code.className = 'language-' + language;
+
+				pre.textContent = '';
+
+				code.textContent = 'Loading…';
+
+				pre.appendChild(code);
+
+				var xhr = new XMLHttpRequest();
+
+				xhr.open('GET', src, true);
+
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4) {
+
+						if (xhr.status < 400 && xhr.responseText) {
+							code.textContent = xhr.responseText;
+
+							Prism.highlightElement(code);
+						}
+						else if (xhr.status >= 400) {
+							code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+						}
+						else {
+							code.textContent = '✖ Error: File does not exist or is empty';
+						}
+					}
+				};
+
+				xhr.send(null);
+			});
+		}
+
+	};
+
+	document.addEventListener('DOMContentLoaded', self.Prism.fileHighlight);
+
+})();
+});
+
+Prism.languages.python= {
+	'triple-quoted-string': {
+		pattern: /"""[\s\S]+?"""|'''[\s\S]+?'''/,
+		alias: 'string'
+	},
+	'comment': {
+		pattern: /(^|[^\\])#.*/,
+		lookbehind: true
+	},
+	'string': {
+		pattern: /("|')(?:\\\\|\\?[^\\\r\n])*?\1/,
+		greedy: true
+	},
+	'function' : {
+		pattern: /((?:^|\s)def[ \t]+)[a-zA-Z_][a-zA-Z0-9_]*(?=\()/g,
+		lookbehind: true
+	},
+	'class-name': {
+		pattern: /(\bclass\s+)[a-z0-9_]+/i,
+		lookbehind: true
+	},
+	'keyword' : /\b(?:as|assert|async|await|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|pass|print|raise|return|try|while|with|yield)\b/,
+	'boolean' : /\b(?:True|False)\b/,
+	'number' : /\b-?(?:0[bo])?(?:(?:\d|0x[\da-f])[\da-f]*\.?\d*|\.\d+)(?:e[+-]?\d+)?j?\b/i,
+	'operator' : /[-+%=]=?|!=|\*\*?=?|\/\/?=?|<[<=>]?|>[=>]?|[&|^~]|\b(?:or|and|not)\b/,
+	'punctuation' : /[{}[\];(),.:]/
+};
+
+Prism.languages.clike = {
+	'comment': [
+		{
+			pattern: /(^|[^\\])\/\*[\w\W]*?\*\//,
+			lookbehind: true
+		},
+		{
+			pattern: /(^|[^\\:])\/\/.*/,
+			lookbehind: true
+		}
+	],
+	'string': {
+		pattern: /(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+		greedy: true
+	},
+	'class-name': {
+		pattern: /((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/i,
+		lookbehind: true,
+		inside: {
+			punctuation: /(\.|\\)/
+		}
+	},
+	'keyword': /\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,
+	'boolean': /\b(true|false)\b/,
+	'function': /[a-z0-9_]+(?=\()/i,
+	'number': /\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)\b/i,
+	'operator': /--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,
+	'punctuation': /[{}[\];(),.:]/
+};
+
+var css = "/**\n * prism.js default theme for JavaScript, CSS and HTML\n * Based on dabblet (http://dabblet.com)\n * @author Lea Verou\n */\n\ncode[class*=\"language-\"],\npre[class*=\"language-\"] {\n\tcolor: black;\n\tbackground: none;\n\ttext-shadow: 0 1px white;\n\tfont-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;\n\ttext-align: left;\n\twhite-space: pre;\n\tword-spacing: normal;\n\tword-break: normal;\n\tword-wrap: normal;\n\tline-height: 1.5;\n\n\t-moz-tab-size: 4;\n\t-o-tab-size: 4;\n\ttab-size: 4;\n\n\t-webkit-hyphens: none;\n\t-moz-hyphens: none;\n\t-ms-hyphens: none;\n\thyphens: none;\n}\n\npre[class*=\"language-\"]::-moz-selection, pre[class*=\"language-\"] ::-moz-selection,\ncode[class*=\"language-\"]::-moz-selection, code[class*=\"language-\"] ::-moz-selection {\n\ttext-shadow: none;\n\tbackground: #b3d4fc;\n}\n\npre[class*=\"language-\"]::selection, pre[class*=\"language-\"] ::selection,\ncode[class*=\"language-\"]::selection, code[class*=\"language-\"] ::selection {\n\ttext-shadow: none;\n\tbackground: #b3d4fc;\n}\n\n@media print {\n\tcode[class*=\"language-\"],\n\tpre[class*=\"language-\"] {\n\t\ttext-shadow: none;\n\t}\n}\n\n/* Code blocks */\npre[class*=\"language-\"] {\n\tpadding: 1em;\n\tmargin: .5em 0;\n\toverflow: auto;\n}\n\n:not(pre) > code[class*=\"language-\"],\npre[class*=\"language-\"] {\n\tbackground: #f5f2f0;\n}\n\n/* Inline code */\n:not(pre) > code[class*=\"language-\"] {\n\tpadding: .1em;\n\tborder-radius: .3em;\n\twhite-space: normal;\n}\n\n.token.comment,\n.token.prolog,\n.token.doctype,\n.token.cdata {\n\tcolor: slategray;\n}\n\n.token.punctuation {\n\tcolor: #999;\n}\n\n.namespace {\n\topacity: .7;\n}\n\n.token.property,\n.token.tag,\n.token.boolean,\n.token.number,\n.token.constant,\n.token.symbol,\n.token.deleted {\n\tcolor: #905;\n}\n\n.token.selector,\n.token.attr-name,\n.token.string,\n.token.char,\n.token.builtin,\n.token.inserted {\n\tcolor: #690;\n}\n\n.token.operator,\n.token.entity,\n.token.url,\n.language-css .token.string,\n.style .token.string {\n\tcolor: #a67f59;\n\tbackground: hsla(0, 0%, 100%, .5);\n}\n\n.token.atrule,\n.token.attr-value,\n.token.keyword {\n\tcolor: #07a;\n}\n\n.token.function {\n\tcolor: #DD4A68;\n}\n\n.token.regex,\n.token.important,\n.token.variable {\n\tcolor: #e90;\n}\n\n.token.important,\n.token.bold {\n\tfont-weight: bold;\n}\n.token.italic {\n\tfont-style: italic;\n}\n\n.token.entity {\n\tcursor: help;\n}\n";
+
+const Mutating = (superclass) => {
+  return class extends superclass {
+
+    constructor() {
+      super();
+
+      // set up mutation observer
+      const options = {childList: true, characterData: true, subtree: true};
+      const observer = new MutationObserver( () => {
+        observer.disconnect();
+        this.renderIfPossible();
+        observer.observe(this, options);
+      });
+
+      // ...and listen for changes
+      observer.observe(this, options);
+    }
+
+    connectedCallback() {
+      super.connectedCallback();
+
+      this.renderIfPossible();
+    }
+
+    // potential TODO: check if this is enough for all our usecases
+    // maybe provide a custom function to tell if we have enough information to render
+    renderIfPossible() {
+      if (this.textContent && this.root) {
+        this.renderContent();
+      }
+    }
+
+    renderContent() {
+      console.error(`Your class ${this.constructor.name} must provide a custom renderContent() method!` );
+    }
+
+  }; // end class
+}; // end mixin function
+
+const T$7 = Template('d-code', `
 <style>
 
 code {
@@ -321,12 +7185,55 @@ pre code {
   padding: 0 0 0 24px;
 }
 
-${"/**\n * prism.js default theme for JavaScript, CSS and HTML\n * Based on dabblet (http://dabblet.com)\n * @author Lea Verou\n */\n\ncode[class*=\"language-\"],\npre[class*=\"language-\"] {\n\tcolor: black;\n\tbackground: none;\n\ttext-shadow: 0 1px white;\n\tfont-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;\n\ttext-align: left;\n\twhite-space: pre;\n\tword-spacing: normal;\n\tword-break: normal;\n\tword-wrap: normal;\n\tline-height: 1.5;\n\n\t-moz-tab-size: 4;\n\t-o-tab-size: 4;\n\ttab-size: 4;\n\n\t-webkit-hyphens: none;\n\t-moz-hyphens: none;\n\t-ms-hyphens: none;\n\thyphens: none;\n}\n\npre[class*=\"language-\"]::-moz-selection, pre[class*=\"language-\"] ::-moz-selection,\ncode[class*=\"language-\"]::-moz-selection, code[class*=\"language-\"] ::-moz-selection {\n\ttext-shadow: none;\n\tbackground: #b3d4fc;\n}\n\npre[class*=\"language-\"]::selection, pre[class*=\"language-\"] ::selection,\ncode[class*=\"language-\"]::selection, code[class*=\"language-\"] ::selection {\n\ttext-shadow: none;\n\tbackground: #b3d4fc;\n}\n\n@media print {\n\tcode[class*=\"language-\"],\n\tpre[class*=\"language-\"] {\n\t\ttext-shadow: none;\n\t}\n}\n\n/* Code blocks */\npre[class*=\"language-\"] {\n\tpadding: 1em;\n\tmargin: .5em 0;\n\toverflow: auto;\n}\n\n:not(pre) > code[class*=\"language-\"],\npre[class*=\"language-\"] {\n\tbackground: #f5f2f0;\n}\n\n/* Inline code */\n:not(pre) > code[class*=\"language-\"] {\n\tpadding: .1em;\n\tborder-radius: .3em;\n\twhite-space: normal;\n}\n\n.token.comment,\n.token.prolog,\n.token.doctype,\n.token.cdata {\n\tcolor: slategray;\n}\n\n.token.punctuation {\n\tcolor: #999;\n}\n\n.namespace {\n\topacity: .7;\n}\n\n.token.property,\n.token.tag,\n.token.boolean,\n.token.number,\n.token.constant,\n.token.symbol,\n.token.deleted {\n\tcolor: #905;\n}\n\n.token.selector,\n.token.attr-name,\n.token.string,\n.token.char,\n.token.builtin,\n.token.inserted {\n\tcolor: #690;\n}\n\n.token.operator,\n.token.entity,\n.token.url,\n.language-css .token.string,\n.style .token.string {\n\tcolor: #a67f59;\n\tbackground: hsla(0, 0%, 100%, .5);\n}\n\n.token.atrule,\n.token.attr-value,\n.token.keyword {\n\tcolor: #07a;\n}\n\n.token.function {\n\tcolor: #DD4A68;\n}\n\n.token.regex,\n.token.important,\n.token.variable {\n\tcolor: #e90;\n}\n\n.token.important,\n.token.bold {\n\tfont-weight: bold;\n}\n.token.italic {\n\tfont-style: italic;\n}\n\n.token.entity {\n\tcursor: help;\n}\n"}
+${css}
 </style>
 
 <code id="code-container"></code>
 
-`);class Nn extends bn(Mn(HTMLElement)){renderContent(){if(this.languageName=this.getAttribute("language"),!this.languageName)return void console.warn(`You need to provide a language attribute to your <d-code> block to let us know how to highlight your code; e.g.:\n <d-code language="python">zeros = np.zeros(shape)</d-code>.`);const e=Cn.languages[this.languageName];if(void 0==e)return void console.warn(`Distill does not yet support highlighting your code block in "${this.languageName}".`);let t=this.textContent;const i=this.shadowRoot.querySelector("#code-container");if(this.hasAttribute("block")){t=t.replace(/\n/,"");const e=t.match(/\s*/);if(t=t.replace(new RegExp("\n"+e,"g"),"\n"),t=t.trim(),i.parentNode instanceof ShadowRoot){const e=document.createElement("pre");this.shadowRoot.removeChild(i),e.appendChild(i),this.shadowRoot.appendChild(e)}}i.className=`language-${this.languageName}`,i.innerHTML=Cn.highlight(t,e)}}const _n=s("d-footnote",`
+`);
+
+class Code extends Mutating(T$7(HTMLElement)) {
+
+  renderContent() {
+
+    // check if language can be highlighted
+    this.languageName = this.getAttribute('language');
+    if (!this.languageName) {
+      console.warn('You need to provide a language attribute to your <d-code> block to let us know how to highlight your code; e.g.:\n <d-code language="python">zeros = np.zeros(shape)</d-code>.');
+      return;
+    }
+    const language = prism.languages[this.languageName];
+    if (language == undefined) {
+      console.warn(`Distill does not yet support highlighting your code block in "${this.languageName}".`);
+      return;
+    }
+
+    let content = this.textContent;
+    const codeTag = this.shadowRoot.querySelector('#code-container');
+
+    if (this.hasAttribute('block')) {
+      // normalize the tab indents
+      content = content.replace(/\n/, '');
+      const tabs = content.match(/\s*/);
+      content = content.replace(new RegExp('\n' + tabs, 'g'), '\n');
+      content = content.trim();
+      // wrap code block in pre tag if needed
+      if (codeTag.parentNode instanceof ShadowRoot) {
+        const preTag = document.createElement('pre');
+        this.shadowRoot.removeChild(codeTag);
+        preTag.appendChild(codeTag);
+        this.shadowRoot.appendChild(preTag);
+      }
+
+    }
+
+    codeTag.className = `language-${this.languageName}`;
+    codeTag.innerHTML = prism.highlight(content, language);
+  }
+
+}
+
+const T$8 = Template('d-footnote', `
 <style>
 
 d-math[block] {
@@ -335,13 +7242,58 @@ d-math[block] {
 
 </style>
 
-<div style="display: none;" class="dt-hover-box">
-  <slot id='slot'></slot>
+<div id="hover-box" class="dt-hover-box">
+  <slot id="slot"></slot>
 </div>
 
 <sup><span id="fn-" data-hover-ref="" style="cursor:pointer"></span></sup>
 
-`);class qn extends _n(HTMLElement){constructor(){super();const e=new MutationObserver(this.notify);e.observe(this,{childList:!0,characterData:!0,subtree:!0})}notify(){const e={detail:this,bubbles:!0},t=new CustomEvent("onFootnoteChanged",e);document.dispatchEvent(t)}connectedCallback(){qn.currentFootnoteId+=1;const e=qn.currentFootnoteId.toString();this.root.host.id="d-footnote-"+e;const t=this.root.querySelector(".dt-hover-box");t.id="dt-fn-hover-box-"+e;const i=this.root.querySelector("#fn-");i.setAttribute("id","fn-"+e),i.setAttribute("data-hover-ref",t.id),i.textContent=e,mn.get_box(t).bind(i)}}qn.currentFootnoteId=0;const Rn=s("d-footnote-list",`
+`);
+
+class Footnote extends T$8(HTMLElement) {
+
+  constructor() {
+    super();
+
+    const options = {childList: true, characterData: true, subtree: true};
+    const observer = new MutationObserver(this.notify);
+    observer.observe(this, options);
+  }
+
+  notify() {
+    const options = { detail: this, bubbles: true };
+    const event = new CustomEvent('onFootnoteChanged', options);
+    document.dispatchEvent(event);
+  }
+
+  connectedCallback() {
+    // listen and notify about changes to slotted content
+    // const slot = this.shadowRoot.querySelector('#slot');
+    // slot.addEventListener('slotchange', this.notify);
+
+    // create numeric ID
+    Footnote.currentFootnoteId += 1;
+    const IdString = Footnote.currentFootnoteId.toString();
+    this.root.host.id = 'd-footnote-' + IdString;
+
+    // set up hidden hover box
+    const div = this.root.querySelector('.dt-hover-box');
+    div.id = 'dt-fn-hover-box-' + IdString;
+
+    // set up visible footnote marker
+    const span = this.root.querySelector('#fn-');
+    span.setAttribute('id', 'fn-' + IdString);
+    span.setAttribute('data-hover-ref', div.id);
+    span.textContent = IdString;
+
+    this.hoverbox = new HoverBox(div, span);
+  }
+
+}
+
+Footnote.currentFootnoteId = 0;
+
+const T$9 = Template('d-footnote-list', `
 <style>
 ol {
   padding: 0 0 0 18px;
@@ -371,73 +7323,9106 @@ a.footnote-backlink {
 
 <h3>Footnotes</h3>
 <ol></ol>
-`);class En extends Rn(HTMLElement){connectedCallback(){this.list=this.root.querySelector("ol"),this.root.host.style.display="none"}set footnotes(e){if(this.list.innerHTML="",e.length){this.root.host.style.display="initial";for(const t of e){const e=document.createElement("li");e.id=t.id+"-listing",e.innerHTML=t.innerHTML;const i=document.createElement("a");i.setAttribute("class","footnote-backlink"),i.textContent="[\u21A9]",i.href=`#${t.id}`,e.appendChild(i),this.list.appendChild(e)}}else this.shadowRoot.host.style.display="none"}renderFootnote(){}}var Ln={isNothing:xe,isObject:function(e){return"object"==typeof e&&null!==e},toArray:function(e){if(Array.isArray(e))return e;return xe(e)?[]:[e]},repeat:function(e,t){var i="",n;for(n=0;n<t;n+=1)i+=e;return i},isNegativeZero:function(e){return 0===e&&ri===1/e},extend:function(e,t){var i,n,a,s;if(t)for(s=Object.keys(t),i=0,n=s.length;i<n;i+=1)a=s[i],e[a]=t[a];return e}};ze.prototype=Object.create(Error.prototype),ze.prototype.constructor=ze,ze.prototype.toString=function(e){var t=this.name+": ";return t+=this.reason||"(unknown reason)",!e&&this.mark&&(t+=" "+this.mark.toString()),t};var Fn=ze,In=Ln;be.prototype.getSnippet=function(e,t){var i,n,a,s,r;if(!this.buffer)return null;for(e=e||4,t=t||75,i="",n=this.position;0<n&&-1==="\0\r\n\x85\u2028\u2029".indexOf(this.buffer.charAt(n-1));)if(n-=1,this.position-n>t/2-1){i=" ... ",n+=5;break}for(a="",s=this.position;s<this.buffer.length&&-1==="\0\r\n\x85\u2028\u2029".indexOf(this.buffer.charAt(s));)if(s+=1,s-this.position>t/2-1){a=" ... ",s-=5;break}return r=this.buffer.slice(n,s),In.repeat(" ",e)+i+r+a+"\n"+In.repeat(" ",e+this.position-n+i.length)+"^"},be.prototype.toString=function(e){var t="",i;return this.name&&(t+="in \""+this.name+"\" "),t+="at line "+(this.line+1)+", column "+(this.column+1),e||(i=this.getSnippet(),i&&(t+=":\n"+i)),t};var On=Fn,Dn=["kind","resolve","construct","instanceOf","predicate","represent","defaultStyle","styleAliases"],Xn=["scalar","sequence","mapping"],Kn=function(e,t){if(t=t||{},Object.keys(t).forEach(function(t){if(-1===Dn.indexOf(t))throw new On("Unknown option \""+t+"\" is met in definition of \""+e+"\" YAML type.")}),this.tag=e,this.kind=t.kind||null,this.resolve=t.resolve||function(){return!0},this.construct=t.construct||function(e){return e},this.instanceOf=t.instanceOf||null,this.predicate=t.predicate||null,this.represent=t.represent||null,this.defaultStyle=t.defaultStyle||null,this.styleAliases=ke(t.styleAliases||null),-1===Xn.indexOf(this.kind))throw new On("Unknown kind \""+this.kind+"\" is specified for \""+e+"\" YAML type.")},Un=Ln,Pn=Fn;Te.DEFAULT=null,Te.create=function(){var e,t;switch(arguments.length){case 1:e=Te.DEFAULT,t=arguments[0];break;case 2:e=arguments[0],t=arguments[1];break;default:throw new Pn("Wrong number of arguments for Schema.create function");}if(e=Un.toArray(e),t=Un.toArray(t),!e.every(function(e){return e instanceof Te}))throw new Pn("Specified list of super schemas (or a single Schema object) contains a non-Schema object.");if(!t.every(function(e){return e instanceof Kn}))throw new Pn("Specified list of YAML types (or a single Type object) contains a non-Type object.");return new Te({include:e,explicit:t})};var Bn=Te,jn=new Kn("tag:yaml.org,2002:str",{kind:"scalar",construct:function(e){return null===e?"":e}}),Hn=new Kn("tag:yaml.org,2002:seq",{kind:"sequence",construct:function(e){return null===e?[]:e}}),Yn=new Kn("tag:yaml.org,2002:map",{kind:"mapping",construct:function(e){return null===e?{}:e}}),Gn=new Bn({explicit:[jn,Hn,Yn]}),Wn=new Kn("tag:yaml.org,2002:null",{kind:"scalar",resolve:function(e){if(null===e)return!0;var t=e.length;return 1===t&&"~"===e||4===t&&("null"===e||"Null"===e||"NULL"===e)},construct:function(){return null},predicate:function(e){return null===e},represent:{canonical:function(){return"~"},lowercase:function(){return"null"},uppercase:function(){return"NULL"},camelcase:function(){return"Null"}},defaultStyle:"lowercase"}),Vn=new Kn("tag:yaml.org,2002:bool",{kind:"scalar",resolve:function(e){if(null===e)return!1;var t=e.length;return 4===t&&("true"===e||"True"===e||"TRUE"===e)||5===t&&("false"===e||"False"===e||"FALSE"===e)},construct:function(e){return"true"===e||"True"===e||"TRUE"===e},predicate:function(e){return"[object Boolean]"===Object.prototype.toString.call(e)},represent:{lowercase:function(e){return e?"true":"false"},uppercase:function(e){return e?"TRUE":"FALSE"},camelcase:function(e){return e?"True":"False"}},defaultStyle:"lowercase"}),$n=new Kn("tag:yaml.org,2002:int",{kind:"scalar",resolve:function(e){if(null===e)return!1;var t=e.length,i=0,n=!1,a;if(!t)return!1;if(a=e[i],("-"===a||"+"===a)&&(a=e[++i]),"0"===a){if(i+1===t)return!0;if(a=e[++i],"b"===a){for(i++;i<t;i++)if(a=e[i],"_"!==a){if("0"!==a&&"1"!==a)return!1;n=!0}return n&&"_"!=a}if("x"===a){for(i++;i<t;i++)if(a=e[i],"_"!==a){if(!Se(e.charCodeAt(i)))return!1;n=!0}return n&&"_"!=a}for(;i<t;i++)if(a=e[i],"_"!==a){if(!Ae(e.charCodeAt(i)))return!1;n=!0}return n&&"_"!=a}if("_"===a)return!1;for(;i<t;i++)if(a=e[i],"_"!==a){if(":"===a)break;if(!Ce(e.charCodeAt(i)))return!1;n=!0}return n&&"_"!==a&&(":"!==a||/^(:[0-5]?[0-9])+$/.test(e.slice(i)))},construct:function(e){var t=e,i=1,n=[],a,s;return-1!==t.indexOf("_")&&(t=t.replace(/_/g,"")),a=t[0],("-"===a||"+"===a)&&("-"===a&&(i=-1),t=t.slice(1),a=t[0]),"0"===t?0:"0"===a?"b"===t[1]?i*parseInt(t.slice(2),2):"x"===t[1]?i*parseInt(t,16):i*parseInt(t,8):-1===t.indexOf(":")?i*parseInt(t,10):(t.split(":").forEach(function(e){n.unshift(parseInt(e,10))}),t=0,s=1,n.forEach(function(e){t+=e*s,s*=60}),i*t)},predicate:function(e){return"[object Number]"===Object.prototype.toString.call(e)&&0==e%1&&!Ln.isNegativeZero(e)},represent:{binary:function(e){return"0b"+e.toString(2)},octal:function(e){return"0"+e.toString(8)},decimal:function(e){return e.toString(10)},hexadecimal:function(e){return"0x"+e.toString(16).toUpperCase()}},defaultStyle:"decimal",styleAliases:{binary:[2,"bin"],octal:[8,"oct"],decimal:[10,"dec"],hexadecimal:[16,"hex"]}}),Jn=Ln,Zn=/^(?:[-+]?(?:0|[1-9][0-9_]*)(?:\.[0-9_]*)?(?:[eE][-+]?[0-9]+)?|\.[0-9_]+(?:[eE][-+]?[0-9]+)?|[-+]?[0-9][0-9_]*(?::[0-5]?[0-9])+\.[0-9_]*|[-+]?\.(?:inf|Inf|INF)|\.(?:nan|NaN|NAN))$/,Qn=/^[-+]?[0-9]+e/,ea=new Kn("tag:yaml.org,2002:float",{kind:"scalar",resolve:function(e){return null!==e&&Zn.test(e)&&"_"!==e[e.length-1]},construct:function(e){var t,i,n,a;return(t=e.replace(/_/g,"").toLowerCase(),i="-"===t[0]?-1:1,a=[],0<="+-".indexOf(t[0])&&(t=t.slice(1)),".inf"===t)?1===i?si:ri:".nan"===t?NaN:0<=t.indexOf(":")?(t.split(":").forEach(function(e){a.unshift(parseFloat(e,10))}),t=0,n=1,a.forEach(function(e){t+=e*n,n*=60}),i*t):i*parseFloat(t,10)},predicate:function(e){return"[object Number]"===Object.prototype.toString.call(e)&&(0!=e%1||Jn.isNegativeZero(e))},represent:function(e,t){var i;if(isNaN(e))switch(t){case"lowercase":return".nan";case"uppercase":return".NAN";case"camelcase":return".NaN";}else if(si===e)switch(t){case"lowercase":return".inf";case"uppercase":return".INF";case"camelcase":return".Inf";}else if(ri===e)switch(t){case"lowercase":return"-.inf";case"uppercase":return"-.INF";case"camelcase":return"-.Inf";}else if(Jn.isNegativeZero(e))return"-0.0";return i=e.toString(10),Qn.test(i)?i.replace("e",".e"):i},defaultStyle:"lowercase"}),ta=new Bn({include:[Gn],implicit:[Wn,Vn,$n,ea]}),ia=new Bn({include:[ta]}),na=/^([0-9][0-9][0-9][0-9])-([0-9][0-9])-([0-9][0-9])$/,aa=/^([0-9][0-9][0-9][0-9])-([0-9][0-9]?)-([0-9][0-9]?)(?:[Tt]|[ \t]+)([0-9][0-9]?):([0-9][0-9]):([0-9][0-9])(?:\.([0-9]*))?(?:[ \t]*(Z|([-+])([0-9][0-9]?)(?::([0-9][0-9]))?))?$/,sa=new Kn("tag:yaml.org,2002:timestamp",{kind:"scalar",resolve:function(e){return null!==e&&(null!==na.exec(e)||null!==aa.exec(e))},construct:function(e){var t=0,i=null,n,a,s,r,o,l,d,p,u,c;if(n=na.exec(e),null===n&&(n=aa.exec(e)),null===n)throw new Error("Date resolve error");if(a=+n[1],s=+n[2]-1,r=+n[3],!n[4])return new Date(Date.UTC(a,s,r));if(o=+n[4],l=+n[5],d=+n[6],n[7]){for(t=n[7].slice(0,3);3>t.length;)t+="0";t=+t}return n[9]&&(p=+n[10],u=+(n[11]||0),i=6e4*(60*p+u),"-"===n[9]&&(i=-i)),c=new Date(Date.UTC(a,s,r,o,l,d,t)),i&&c.setTime(c.getTime()-i),c},instanceOf:Date,represent:function(e){return e.toISOString()}}),ra=new Kn("tag:yaml.org,2002:merge",{kind:"scalar",resolve:function(e){return"<<"===e||null===e}}),oa;try{oa=ge("buffer").Buffer}catch(e){}var la="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=\n\r",da=new Kn("tag:yaml.org,2002:binary",{kind:"scalar",resolve:function(e){if(null===e)return!1;var t=0,i=e.length,n,a;for(a=0;a<i;a++)if(n=la.indexOf(e.charAt(a)),!(64<n)){if(0>n)return!1;t+=6}return 0==t%8},construct:function(e){var t=e.replace(/[\r\n=]/g,""),i=t.length,n=0,a=[],s,r;for(s=0;s<i;s++)0==s%4&&s&&(a.push(255&n>>16),a.push(255&n>>8),a.push(255&n)),n=n<<6|la.indexOf(t.charAt(s));return r=6*(i%4),0===r?(a.push(255&n>>16),a.push(255&n>>8),a.push(255&n)):18===r?(a.push(255&n>>10),a.push(255&n>>2)):12===r&&a.push(255&n>>4),oa?oa.from?oa.from(a):new oa(a):a},predicate:function(e){return oa&&oa.isBuffer(e)},represent:function(e){var t="",i=0,n=e.length,a=la,s,r;for(s=0;s<n;s++)0==s%3&&s&&(t+=a[63&i>>18],t+=a[63&i>>12],t+=a[63&i>>6],t+=a[63&i]),i=(i<<8)+e[s];return r=n%3,0===r?(t+=a[63&i>>18],t+=a[63&i>>12],t+=a[63&i>>6],t+=a[63&i]):2===r?(t+=a[63&i>>10],t+=a[63&i>>4],t+=a[63&i<<2],t+=a[64]):1===r&&(t+=a[63&i>>2],t+=a[63&i<<4],t+=a[64],t+=a[64]),t}}),pa=Object.prototype.hasOwnProperty,ua=Object.prototype.toString,ca=new Kn("tag:yaml.org,2002:omap",{kind:"sequence",resolve:function(e){if(null===e)return!0;var t=[],i=e,n,a,s,r,o;for(n=0,a=i.length;n<a;n+=1){if(s=i[n],o=!1,"[object Object]"!==ua.call(s))return!1;for(r in s)if(pa.call(s,r))if(!o)o=!0;else return!1;if(!o)return!1;if(-1===t.indexOf(r))t.push(r);else return!1}return!0},construct:function(e){return null===e?[]:e}}),ma=Object.prototype.toString,ga=new Kn("tag:yaml.org,2002:pairs",{kind:"sequence",resolve:function(e){if(null===e)return!0;var t=e,i,n,a,s,r;for(r=Array(t.length),i=0,n=t.length;i<n;i+=1){if(a=t[i],"[object Object]"!==ma.call(a))return!1;if(s=Object.keys(a),1!==s.length)return!1;r[i]=[s[0],a[s[0]]]}return!0},construct:function(e){if(null===e)return[];var t=e,i,n,a,s,r;for(r=Array(t.length),i=0,n=t.length;i<n;i+=1)a=t[i],s=Object.keys(a),r[i]=[s[0],a[s[0]]];return r}}),ha=Object.prototype.hasOwnProperty,fa=new Kn("tag:yaml.org,2002:set",{kind:"mapping",resolve:function(e){if(null===e)return!0;var t=e,i;for(i in t)if(ha.call(t,i)&&null!==t[i])return!1;return!0},construct:function(e){return null===e?{}:e}}),ya=new Bn({include:[ia],implicit:[sa,ra],explicit:[da,ca,ga,fa]}),xa=new Kn("tag:yaml.org,2002:js/undefined",{kind:"scalar",resolve:function(){return!0},construct:function(){},predicate:function(e){return"undefined"==typeof e},represent:function(){return""}}),za=new Kn("tag:yaml.org,2002:js/regexp",{kind:"scalar",resolve:function(e){if(null===e)return!1;if(0===e.length)return!1;var t=e,i=/\/([gim]*)$/.exec(e),n="";if("/"===t[0]){if(i&&(n=i[1]),3<n.length)return!1;if("/"!==t[t.length-n.length-1])return!1}return!0},construct:function(e){var t=e,i=/\/([gim]*)$/.exec(e),n="";return"/"===t[0]&&(i&&(n=i[1]),t=t.slice(1,t.length-n.length-1)),new RegExp(t,n)},predicate:function(e){return"[object RegExp]"===Object.prototype.toString.call(e)},represent:function(e){var t="/"+e.source+"/";return e.global&&(t+="g"),e.multiline&&(t+="m"),e.ignoreCase&&(t+="i"),t}}),ba;try{ba=ge("esprima")}catch(e){"undefined"!=typeof window&&(ba=window.esprima)}for(var ka=new Kn("tag:yaml.org,2002:js/function",{kind:"scalar",resolve:Me,construct:Ne,predicate:qe,represent:_e}),va=Bn,wa=va.DEFAULT=new va({include:[ya],explicit:[xa,za,ka]}),Ta=Ln,Sa=Fn,Aa=be,Ca=ya,Ma=wa,Na=Object.prototype.hasOwnProperty,_a=1,qa=2,Ra=3,Ea=4,La=1,Fa=2,Ia=3,Oa=/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x84\x86-\x9F\uFFFE\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]/,Da=/[\x85\u2028\u2029]/,Xa=/[,\[\]\{\}]/,Ka=/^(?:!|!!|![a-z\-]+!)$/i,Ua=/^(?:!|[^,\[\]\{\}])(?:%[0-9a-f]{2}|[0-9a-z\-#;\/\?:@&=\+\$,_\.!~\*'\(\)\[\]])*$/i,Pa=Array(256),Ba=Array(256),ja=0;256>ja;ja++)Pa[ja]=Xe(ja)?1:0,Ba[ja]=Xe(ja);var i={YAML:function(e,t,i){var n,a,s;null!==e.version&&Be(e,"duplication of %YAML directive"),1!==i.length&&Be(e,"YAML directive accepts exactly one argument"),n=/^([0-9]+)\.([0-9]+)$/.exec(i[0]),null===n&&Be(e,"ill-formed argument of the YAML directive"),a=parseInt(n[1],10),s=parseInt(n[2],10),1!==a&&Be(e,"unacceptable YAML version of the document"),e.version=i[0],e.checkLineBreaks=2>s,1!==s&&2!==s&&je(e,"unsupported YAML version of the document")},TAG:function(e,t,i){var n,a;2!==i.length&&Be(e,"TAG directive accepts exactly two arguments"),n=i[0],a=i[1],Ka.test(n)||Be(e,"ill-formed tag handle (first argument) of the TAG directive"),Na.call(e.tagMap,n)&&Be(e,"there is a previously declared suffix for \""+n+"\" tag handle"),Ua.test(a)||Be(e,"ill-formed tag prefix (second argument) of the TAG directive"),e.tagMap[n]=a}},Ha=Ln,Ya=Fn,Ga=wa,Wa=Object.prototype.toString,Va=Object.prototype.hasOwnProperty,$a=9,Ja=10,Za=32,Qa=33,es=34,ts=35,is=37,ns=38,as=39,ss=42,rs=44,os=45,ls=58,ds=62,ps=63,us=64,cs=91,ms=93,gs=96,hs=123,fs=124,ys=125,xs={};xs[0]="\\0",xs[7]="\\a",xs[8]="\\b",xs[9]="\\t",xs[10]="\\n",xs[11]="\\v",xs[12]="\\f",xs[13]="\\r",xs[27]="\\e",xs[34]="\\\"",xs[92]="\\\\",xs[133]="\\N",xs[160]="\\_",xs[8232]="\\L",xs[8233]="\\P";var zs=["y","Y","yes","Yes","YES","on","On","ON","n","N","no","No","NO","off","Off","OFF"],bs=1,ks=2,vs=3,ws=4,Ts=5,Ss={loadAll:ut,load:ct,safeLoadAll:function(e,t,i){return"function"==typeof t?void ut(e,t,Ta.extend({schema:Ca},i)):ut(e,Ta.extend({schema:Ca},i))},safeLoad:function(e,t){return ct(e,Ta.extend({schema:Ca},t))}},As={dump:Dt,safeDump:function(e,t){return Dt(e,Ha.extend({schema:ya},t))}},Cs=Ss.load,Ms=Ss.loadAll,Ns=Ss.safeLoad,_s=Ss.safeLoadAll,qs=As.dump,Rs=As.safeDump,Es=Xt("scan"),Ls=Xt("parse"),Fs=Xt("compose"),Is=Xt("addConstructor"),Os={Type:Kn,Schema:Bn,FAILSAFE_SCHEMA:Gn,JSON_SCHEMA:ta,CORE_SCHEMA:ia,DEFAULT_SAFE_SCHEMA:ya,DEFAULT_FULL_SCHEMA:wa,load:Cs,loadAll:Ms,safeLoad:Ns,safeLoadAll:_s,dump:qs,safeDump:Rs,YAMLException:Fn,MINIMAL_SCHEMA:Gn,SAFE_SCHEMA:ya,DEFAULT_SCHEMA:wa,scan:Es,parse:Ls,compose:Fs,addConstructor:Is};class Ds extends HTMLElement{static get is(){return"d-front-matter"}constructor(){super();const e=new MutationObserver(()=>{const e=this.parse();this.notify(e)});e.observe(this,{childList:!0,characterData:!0,subtree:!0})}parse(){const e=this.querySelector("script");if(e){const t=e.textContent,i=Os.safeLoad(t);return i}return console.error("You added a frontmatter tag but did not provide a script tag with front matter data in it. Please take a look at our templates."),{}}notify(e){const t=new CustomEvent("onFrontMatterChanged",{detail:e,bubbles:!0});document.dispatchEvent(t)}}Kt.prototype.__proto__=Error.prototype;var Xs=Kt,Ks=function(e){e=e||{},this.displayMode=Ut(e.displayMode,!1),this.throwOnError=Ut(e.throwOnError,!0),this.errorColor=Ut(e.errorColor,"#cc0000"),this.macros=e.macros||{}},Us=/[\uAC00-\uD7AF]/,Ps=/[\u3040-\u309F]|[\u30A0-\u30FF]|[\u4E00-\u9FAF]|[\uAC00-\uD7AF]/,Bs={cjkRegex:Ps,hangulRegex:Us},js=Bs.cjkRegex,Hs=10,Ys={"AMS-Regular":{65:[0,0.68889,0,0],66:[0,0.68889,0,0],67:[0,0.68889,0,0],68:[0,0.68889,0,0],69:[0,0.68889,0,0],70:[0,0.68889,0,0],71:[0,0.68889,0,0],72:[0,0.68889,0,0],73:[0,0.68889,0,0],74:[0.16667,0.68889,0,0],75:[0,0.68889,0,0],76:[0,0.68889,0,0],77:[0,0.68889,0,0],78:[0,0.68889,0,0],79:[0.16667,0.68889,0,0],80:[0,0.68889,0,0],81:[0.16667,0.68889,0,0],82:[0,0.68889,0,0],83:[0,0.68889,0,0],84:[0,0.68889,0,0],85:[0,0.68889,0,0],86:[0,0.68889,0,0],87:[0,0.68889,0,0],88:[0,0.68889,0,0],89:[0,0.68889,0,0],90:[0,0.68889,0,0],107:[0,0.68889,0,0],165:[0,0.675,0.025,0],174:[0.15559,0.69224,0,0],240:[0,0.68889,0,0],295:[0,0.68889,0,0],710:[0,0.825,0,0],732:[0,0.9,0,0],770:[0,0.825,0,0],771:[0,0.9,0,0],989:[0.08167,0.58167,0,0],1008:[0,0.43056,0.04028,0],8245:[0,0.54986,0,0],8463:[0,0.68889,0,0],8487:[0,0.68889,0,0],8498:[0,0.68889,0,0],8502:[0,0.68889,0,0],8503:[0,0.68889,0,0],8504:[0,0.68889,0,0],8513:[0,0.68889,0,0],8592:[-0.03598,0.46402,0,0],8594:[-0.03598,0.46402,0,0],8602:[-0.13313,0.36687,0,0],8603:[-0.13313,0.36687,0,0],8606:[0.01354,0.52239,0,0],8608:[0.01354,0.52239,0,0],8610:[0.01354,0.52239,0,0],8611:[0.01354,0.52239,0,0],8619:[0,0.54986,0,0],8620:[0,0.54986,0,0],8621:[-0.13313,0.37788,0,0],8622:[-0.13313,0.36687,0,0],8624:[0,0.69224,0,0],8625:[0,0.69224,0,0],8630:[0,0.43056,0,0],8631:[0,0.43056,0,0],8634:[0.08198,0.58198,0,0],8635:[0.08198,0.58198,0,0],8638:[0.19444,0.69224,0,0],8639:[0.19444,0.69224,0,0],8642:[0.19444,0.69224,0,0],8643:[0.19444,0.69224,0,0],8644:[0.1808,0.675,0,0],8646:[0.1808,0.675,0,0],8647:[0.1808,0.675,0,0],8648:[0.19444,0.69224,0,0],8649:[0.1808,0.675,0,0],8650:[0.19444,0.69224,0,0],8651:[0.01354,0.52239,0,0],8652:[0.01354,0.52239,0,0],8653:[-0.13313,0.36687,0,0],8654:[-0.13313,0.36687,0,0],8655:[-0.13313,0.36687,0,0],8666:[0.13667,0.63667,0,0],8667:[0.13667,0.63667,0,0],8669:[-0.13313,0.37788,0,0],8672:[-0.064,0.437,0,0],8674:[-0.064,0.437,0,0],8705:[0,0.825,0,0],8708:[0,0.68889,0,0],8709:[0.08167,0.58167,0,0],8717:[0,0.43056,0,0],8722:[-0.03598,0.46402,0,0],8724:[0.08198,0.69224,0,0],8726:[0.08167,0.58167,0,0],8733:[0,0.69224,0,0],8736:[0,0.69224,0,0],8737:[0,0.69224,0,0],8738:[0.03517,0.52239,0,0],8739:[0.08167,0.58167,0,0],8740:[0.25142,0.74111,0,0],8741:[0.08167,0.58167,0,0],8742:[0.25142,0.74111,0,0],8756:[0,0.69224,0,0],8757:[0,0.69224,0,0],8764:[-0.13313,0.36687,0,0],8765:[-0.13313,0.37788,0,0],8769:[-0.13313,0.36687,0,0],8770:[-0.03625,0.46375,0,0],8774:[0.30274,0.79383,0,0],8776:[-0.01688,0.48312,0,0],8778:[0.08167,0.58167,0,0],8782:[0.06062,0.54986,0,0],8783:[0.06062,0.54986,0,0],8785:[0.08198,0.58198,0,0],8786:[0.08198,0.58198,0,0],8787:[0.08198,0.58198,0,0],8790:[0,0.69224,0,0],8791:[0.22958,0.72958,0,0],8796:[0.08198,0.91667,0,0],8806:[0.25583,0.75583,0,0],8807:[0.25583,0.75583,0,0],8808:[0.25142,0.75726,0,0],8809:[0.25142,0.75726,0,0],8812:[0.25583,0.75583,0,0],8814:[0.20576,0.70576,0,0],8815:[0.20576,0.70576,0,0],8816:[0.30274,0.79383,0,0],8817:[0.30274,0.79383,0,0],8818:[0.22958,0.72958,0,0],8819:[0.22958,0.72958,0,0],8822:[0.1808,0.675,0,0],8823:[0.1808,0.675,0,0],8828:[0.13667,0.63667,0,0],8829:[0.13667,0.63667,0,0],8830:[0.22958,0.72958,0,0],8831:[0.22958,0.72958,0,0],8832:[0.20576,0.70576,0,0],8833:[0.20576,0.70576,0,0],8840:[0.30274,0.79383,0,0],8841:[0.30274,0.79383,0,0],8842:[0.13597,0.63597,0,0],8843:[0.13597,0.63597,0,0],8847:[0.03517,0.54986,0,0],8848:[0.03517,0.54986,0,0],8858:[0.08198,0.58198,0,0],8859:[0.08198,0.58198,0,0],8861:[0.08198,0.58198,0,0],8862:[0,0.675,0,0],8863:[0,0.675,0,0],8864:[0,0.675,0,0],8865:[0,0.675,0,0],8872:[0,0.69224,0,0],8873:[0,0.69224,0,0],8874:[0,0.69224,0,0],8876:[0,0.68889,0,0],8877:[0,0.68889,0,0],8878:[0,0.68889,0,0],8879:[0,0.68889,0,0],8882:[0.03517,0.54986,0,0],8883:[0.03517,0.54986,0,0],8884:[0.13667,0.63667,0,0],8885:[0.13667,0.63667,0,0],8888:[0,0.54986,0,0],8890:[0.19444,0.43056,0,0],8891:[0.19444,0.69224,0,0],8892:[0.19444,0.69224,0,0],8901:[0,0.54986,0,0],8903:[0.08167,0.58167,0,0],8905:[0.08167,0.58167,0,0],8906:[0.08167,0.58167,0,0],8907:[0,0.69224,0,0],8908:[0,0.69224,0,0],8909:[-0.03598,0.46402,0,0],8910:[0,0.54986,0,0],8911:[0,0.54986,0,0],8912:[0.03517,0.54986,0,0],8913:[0.03517,0.54986,0,0],8914:[0,0.54986,0,0],8915:[0,0.54986,0,0],8916:[0,0.69224,0,0],8918:[0.0391,0.5391,0,0],8919:[0.0391,0.5391,0,0],8920:[0.03517,0.54986,0,0],8921:[0.03517,0.54986,0,0],8922:[0.38569,0.88569,0,0],8923:[0.38569,0.88569,0,0],8926:[0.13667,0.63667,0,0],8927:[0.13667,0.63667,0,0],8928:[0.30274,0.79383,0,0],8929:[0.30274,0.79383,0,0],8934:[0.23222,0.74111,0,0],8935:[0.23222,0.74111,0,0],8936:[0.23222,0.74111,0,0],8937:[0.23222,0.74111,0,0],8938:[0.20576,0.70576,0,0],8939:[0.20576,0.70576,0,0],8940:[0.30274,0.79383,0,0],8941:[0.30274,0.79383,0,0],8994:[0.19444,0.69224,0,0],8995:[0.19444,0.69224,0,0],9416:[0.15559,0.69224,0,0],9484:[0,0.69224,0,0],9488:[0,0.69224,0,0],9492:[0,0.37788,0,0],9496:[0,0.37788,0,0],9585:[0.19444,0.68889,0,0],9586:[0.19444,0.74111,0,0],9632:[0,0.675,0,0],9633:[0,0.675,0,0],9650:[0,0.54986,0,0],9651:[0,0.54986,0,0],9654:[0.03517,0.54986,0,0],9660:[0,0.54986,0,0],9661:[0,0.54986,0,0],9664:[0.03517,0.54986,0,0],9674:[0.11111,0.69224,0,0],9733:[0.19444,0.69224,0,0],10003:[0,0.69224,0,0],10016:[0,0.69224,0,0],10731:[0.11111,0.69224,0,0],10846:[0.19444,0.75583,0,0],10877:[0.13667,0.63667,0,0],10878:[0.13667,0.63667,0,0],10885:[0.25583,0.75583,0,0],10886:[0.25583,0.75583,0,0],10887:[0.13597,0.63597,0,0],10888:[0.13597,0.63597,0,0],10889:[0.26167,0.75726,0,0],10890:[0.26167,0.75726,0,0],10891:[0.48256,0.98256,0,0],10892:[0.48256,0.98256,0,0],10901:[0.13667,0.63667,0,0],10902:[0.13667,0.63667,0,0],10933:[0.25142,0.75726,0,0],10934:[0.25142,0.75726,0,0],10935:[0.26167,0.75726,0,0],10936:[0.26167,0.75726,0,0],10937:[0.26167,0.75726,0,0],10938:[0.26167,0.75726,0,0],10949:[0.25583,0.75583,0,0],10950:[0.25583,0.75583,0,0],10955:[0.28481,0.79383,0,0],10956:[0.28481,0.79383,0,0],57350:[0.08167,0.58167,0,0],57351:[0.08167,0.58167,0,0],57352:[0.08167,0.58167,0,0],57353:[0,0.43056,0.04028,0],57356:[0.25142,0.75726,0,0],57357:[0.25142,0.75726,0,0],57358:[0.41951,0.91951,0,0],57359:[0.30274,0.79383,0,0],57360:[0.30274,0.79383,0,0],57361:[0.41951,0.91951,0,0],57366:[0.25142,0.75726,0,0],57367:[0.25142,0.75726,0,0],57368:[0.25142,0.75726,0,0],57369:[0.25142,0.75726,0,0],57370:[0.13597,0.63597,0,0],57371:[0.13597,0.63597,0,0]},"Caligraphic-Regular":{48:[0,0.43056,0,0],49:[0,0.43056,0,0],50:[0,0.43056,0,0],51:[0.19444,0.43056,0,0],52:[0.19444,0.43056,0,0],53:[0.19444,0.43056,0,0],54:[0,0.64444,0,0],55:[0.19444,0.43056,0,0],56:[0,0.64444,0,0],57:[0.19444,0.43056,0,0],65:[0,0.68333,0,0.19445],66:[0,0.68333,0.03041,0.13889],67:[0,0.68333,0.05834,0.13889],68:[0,0.68333,0.02778,0.08334],69:[0,0.68333,0.08944,0.11111],70:[0,0.68333,0.09931,0.11111],71:[0.09722,0.68333,0.0593,0.11111],72:[0,0.68333,0.00965,0.11111],73:[0,0.68333,0.07382,0],74:[0.09722,0.68333,0.18472,0.16667],75:[0,0.68333,0.01445,0.05556],76:[0,0.68333,0,0.13889],77:[0,0.68333,0,0.13889],78:[0,0.68333,0.14736,0.08334],79:[0,0.68333,0.02778,0.11111],80:[0,0.68333,0.08222,0.08334],81:[0.09722,0.68333,0,0.11111],82:[0,0.68333,0,0.08334],83:[0,0.68333,0.075,0.13889],84:[0,0.68333,0.25417,0],85:[0,0.68333,0.09931,0.08334],86:[0,0.68333,0.08222,0],87:[0,0.68333,0.08222,0.08334],88:[0,0.68333,0.14643,0.13889],89:[0.09722,0.68333,0.08222,0.08334],90:[0,0.68333,0.07944,0.13889]},"Fraktur-Regular":{33:[0,0.69141,0,0],34:[0,0.69141,0,0],38:[0,0.69141,0,0],39:[0,0.69141,0,0],40:[0.24982,0.74947,0,0],41:[0.24982,0.74947,0,0],42:[0,0.62119,0,0],43:[0.08319,0.58283,0,0],44:[0,0.10803,0,0],45:[0.08319,0.58283,0,0],46:[0,0.10803,0,0],47:[0.24982,0.74947,0,0],48:[0,0.47534,0,0],49:[0,0.47534,0,0],50:[0,0.47534,0,0],51:[0.18906,0.47534,0,0],52:[0.18906,0.47534,0,0],53:[0.18906,0.47534,0,0],54:[0,0.69141,0,0],55:[0.18906,0.47534,0,0],56:[0,0.69141,0,0],57:[0.18906,0.47534,0,0],58:[0,0.47534,0,0],59:[0.12604,0.47534,0,0],61:[-0.13099,0.36866,0,0],63:[0,0.69141,0,0],65:[0,0.69141,0,0],66:[0,0.69141,0,0],67:[0,0.69141,0,0],68:[0,0.69141,0,0],69:[0,0.69141,0,0],70:[0.12604,0.69141,0,0],71:[0,0.69141,0,0],72:[0.06302,0.69141,0,0],73:[0,0.69141,0,0],74:[0.12604,0.69141,0,0],75:[0,0.69141,0,0],76:[0,0.69141,0,0],77:[0,0.69141,0,0],78:[0,0.69141,0,0],79:[0,0.69141,0,0],80:[0.18906,0.69141,0,0],81:[0.03781,0.69141,0,0],82:[0,0.69141,0,0],83:[0,0.69141,0,0],84:[0,0.69141,0,0],85:[0,0.69141,0,0],86:[0,0.69141,0,0],87:[0,0.69141,0,0],88:[0,0.69141,0,0],89:[0.18906,0.69141,0,0],90:[0.12604,0.69141,0,0],91:[0.24982,0.74947,0,0],93:[0.24982,0.74947,0,0],94:[0,0.69141,0,0],97:[0,0.47534,0,0],98:[0,0.69141,0,0],99:[0,0.47534,0,0],100:[0,0.62119,0,0],101:[0,0.47534,0,0],102:[0.18906,0.69141,0,0],103:[0.18906,0.47534,0,0],104:[0.18906,0.69141,0,0],105:[0,0.69141,0,0],106:[0,0.69141,0,0],107:[0,0.69141,0,0],108:[0,0.69141,0,0],109:[0,0.47534,0,0],110:[0,0.47534,0,0],111:[0,0.47534,0,0],112:[0.18906,0.52396,0,0],113:[0.18906,0.47534,0,0],114:[0,0.47534,0,0],115:[0,0.47534,0,0],116:[0,0.62119,0,0],117:[0,0.47534,0,0],118:[0,0.52396,0,0],119:[0,0.52396,0,0],120:[0.18906,0.47534,0,0],121:[0.18906,0.47534,0,0],122:[0.18906,0.47534,0,0],8216:[0,0.69141,0,0],8217:[0,0.69141,0,0],58112:[0,0.62119,0,0],58113:[0,0.62119,0,0],58114:[0.18906,0.69141,0,0],58115:[0.18906,0.69141,0,0],58116:[0.18906,0.47534,0,0],58117:[0,0.69141,0,0],58118:[0,0.62119,0,0],58119:[0,0.47534,0,0]},"Main-Bold":{33:[0,0.69444,0,0],34:[0,0.69444,0,0],35:[0.19444,0.69444,0,0],36:[0.05556,0.75,0,0],37:[0.05556,0.75,0,0],38:[0,0.69444,0,0],39:[0,0.69444,0,0],40:[0.25,0.75,0,0],41:[0.25,0.75,0,0],42:[0,0.75,0,0],43:[0.13333,0.63333,0,0],44:[0.19444,0.15556,0,0],45:[0,0.44444,0,0],46:[0,0.15556,0,0],47:[0.25,0.75,0,0],48:[0,0.64444,0,0],49:[0,0.64444,0,0],50:[0,0.64444,0,0],51:[0,0.64444,0,0],52:[0,0.64444,0,0],53:[0,0.64444,0,0],54:[0,0.64444,0,0],55:[0,0.64444,0,0],56:[0,0.64444,0,0],57:[0,0.64444,0,0],58:[0,0.44444,0,0],59:[0.19444,0.44444,0,0],60:[0.08556,0.58556,0,0],61:[-0.10889,0.39111,0,0],62:[0.08556,0.58556,0,0],63:[0,0.69444,0,0],64:[0,0.69444,0,0],65:[0,0.68611,0,0],66:[0,0.68611,0,0],67:[0,0.68611,0,0],68:[0,0.68611,0,0],69:[0,0.68611,0,0],70:[0,0.68611,0,0],71:[0,0.68611,0,0],72:[0,0.68611,0,0],73:[0,0.68611,0,0],74:[0,0.68611,0,0],75:[0,0.68611,0,0],76:[0,0.68611,0,0],77:[0,0.68611,0,0],78:[0,0.68611,0,0],79:[0,0.68611,0,0],80:[0,0.68611,0,0],81:[0.19444,0.68611,0,0],82:[0,0.68611,0,0],83:[0,0.68611,0,0],84:[0,0.68611,0,0],85:[0,0.68611,0,0],86:[0,0.68611,0.01597,0],87:[0,0.68611,0.01597,0],88:[0,0.68611,0,0],89:[0,0.68611,0.02875,0],90:[0,0.68611,0,0],91:[0.25,0.75,0,0],92:[0.25,0.75,0,0],93:[0.25,0.75,0,0],94:[0,0.69444,0,0],95:[0.31,0.13444,0.03194,0],96:[0,0.69444,0,0],97:[0,0.44444,0,0],98:[0,0.69444,0,0],99:[0,0.44444,0,0],100:[0,0.69444,0,0],101:[0,0.44444,0,0],102:[0,0.69444,0.10903,0],103:[0.19444,0.44444,0.01597,0],104:[0,0.69444,0,0],105:[0,0.69444,0,0],106:[0.19444,0.69444,0,0],107:[0,0.69444,0,0],108:[0,0.69444,0,0],109:[0,0.44444,0,0],110:[0,0.44444,0,0],111:[0,0.44444,0,0],112:[0.19444,0.44444,0,0],113:[0.19444,0.44444,0,0],114:[0,0.44444,0,0],115:[0,0.44444,0,0],116:[0,0.63492,0,0],117:[0,0.44444,0,0],118:[0,0.44444,0.01597,0],119:[0,0.44444,0.01597,0],120:[0,0.44444,0,0],121:[0.19444,0.44444,0.01597,0],122:[0,0.44444,0,0],123:[0.25,0.75,0,0],124:[0.25,0.75,0,0],125:[0.25,0.75,0,0],126:[0.35,0.34444,0,0],168:[0,0.69444,0,0],172:[0,0.44444,0,0],175:[0,0.59611,0,0],176:[0,0.69444,0,0],177:[0.13333,0.63333,0,0],180:[0,0.69444,0,0],215:[0.13333,0.63333,0,0],247:[0.13333,0.63333,0,0],305:[0,0.44444,0,0],567:[0.19444,0.44444,0,0],710:[0,0.69444,0,0],711:[0,0.63194,0,0],713:[0,0.59611,0,0],714:[0,0.69444,0,0],715:[0,0.69444,0,0],728:[0,0.69444,0,0],729:[0,0.69444,0,0],730:[0,0.69444,0,0],732:[0,0.69444,0,0],768:[0,0.69444,0,0],769:[0,0.69444,0,0],770:[0,0.69444,0,0],771:[0,0.69444,0,0],772:[0,0.59611,0,0],774:[0,0.69444,0,0],775:[0,0.69444,0,0],776:[0,0.69444,0,0],778:[0,0.69444,0,0],779:[0,0.69444,0,0],780:[0,0.63194,0,0],824:[0.19444,0.69444,0,0],915:[0,0.68611,0,0],916:[0,0.68611,0,0],920:[0,0.68611,0,0],923:[0,0.68611,0,0],926:[0,0.68611,0,0],928:[0,0.68611,0,0],931:[0,0.68611,0,0],933:[0,0.68611,0,0],934:[0,0.68611,0,0],936:[0,0.68611,0,0],937:[0,0.68611,0,0],8211:[0,0.44444,0.03194,0],8212:[0,0.44444,0.03194,0],8216:[0,0.69444,0,0],8217:[0,0.69444,0,0],8220:[0,0.69444,0,0],8221:[0,0.69444,0,0],8224:[0.19444,0.69444,0,0],8225:[0.19444,0.69444,0,0],8242:[0,0.55556,0,0],8407:[0,0.72444,0.15486,0],8463:[0,0.69444,0,0],8465:[0,0.69444,0,0],8467:[0,0.69444,0,0],8472:[0.19444,0.44444,0,0],8476:[0,0.69444,0,0],8501:[0,0.69444,0,0],8592:[-0.10889,0.39111,0,0],8593:[0.19444,0.69444,0,0],8594:[-0.10889,0.39111,0,0],8595:[0.19444,0.69444,0,0],8596:[-0.10889,0.39111,0,0],8597:[0.25,0.75,0,0],8598:[0.19444,0.69444,0,0],8599:[0.19444,0.69444,0,0],8600:[0.19444,0.69444,0,0],8601:[0.19444,0.69444,0,0],8636:[-0.10889,0.39111,0,0],8637:[-0.10889,0.39111,0,0],8640:[-0.10889,0.39111,0,0],8641:[-0.10889,0.39111,0,0],8656:[-0.10889,0.39111,0,0],8657:[0.19444,0.69444,0,0],8658:[-0.10889,0.39111,0,0],8659:[0.19444,0.69444,0,0],8660:[-0.10889,0.39111,0,0],8661:[0.25,0.75,0,0],8704:[0,0.69444,0,0],8706:[0,0.69444,0.06389,0],8707:[0,0.69444,0,0],8709:[0.05556,0.75,0,0],8711:[0,0.68611,0,0],8712:[0.08556,0.58556,0,0],8715:[0.08556,0.58556,0,0],8722:[0.13333,0.63333,0,0],8723:[0.13333,0.63333,0,0],8725:[0.25,0.75,0,0],8726:[0.25,0.75,0,0],8727:[-0.02778,0.47222,0,0],8728:[-0.02639,0.47361,0,0],8729:[-0.02639,0.47361,0,0],8730:[0.18,0.82,0,0],8733:[0,0.44444,0,0],8734:[0,0.44444,0,0],8736:[0,0.69224,0,0],8739:[0.25,0.75,0,0],8741:[0.25,0.75,0,0],8743:[0,0.55556,0,0],8744:[0,0.55556,0,0],8745:[0,0.55556,0,0],8746:[0,0.55556,0,0],8747:[0.19444,0.69444,0.12778,0],8764:[-0.10889,0.39111,0,0],8768:[0.19444,0.69444,0,0],8771:[0.00222,0.50222,0,0],8776:[0.02444,0.52444,0,0],8781:[0.00222,0.50222,0,0],8801:[0.00222,0.50222,0,0],8804:[0.19667,0.69667,0,0],8805:[0.19667,0.69667,0,0],8810:[0.08556,0.58556,0,0],8811:[0.08556,0.58556,0,0],8826:[0.08556,0.58556,0,0],8827:[0.08556,0.58556,0,0],8834:[0.08556,0.58556,0,0],8835:[0.08556,0.58556,0,0],8838:[0.19667,0.69667,0,0],8839:[0.19667,0.69667,0,0],8846:[0,0.55556,0,0],8849:[0.19667,0.69667,0,0],8850:[0.19667,0.69667,0,0],8851:[0,0.55556,0,0],8852:[0,0.55556,0,0],8853:[0.13333,0.63333,0,0],8854:[0.13333,0.63333,0,0],8855:[0.13333,0.63333,0,0],8856:[0.13333,0.63333,0,0],8857:[0.13333,0.63333,0,0],8866:[0,0.69444,0,0],8867:[0,0.69444,0,0],8868:[0,0.69444,0,0],8869:[0,0.69444,0,0],8900:[-0.02639,0.47361,0,0],8901:[-0.02639,0.47361,0,0],8902:[-0.02778,0.47222,0,0],8968:[0.25,0.75,0,0],8969:[0.25,0.75,0,0],8970:[0.25,0.75,0,0],8971:[0.25,0.75,0,0],8994:[-0.13889,0.36111,0,0],8995:[-0.13889,0.36111,0,0],9651:[0.19444,0.69444,0,0],9657:[-0.02778,0.47222,0,0],9661:[0.19444,0.69444,0,0],9667:[-0.02778,0.47222,0,0],9711:[0.19444,0.69444,0,0],9824:[0.12963,0.69444,0,0],9825:[0.12963,0.69444,0,0],9826:[0.12963,0.69444,0,0],9827:[0.12963,0.69444,0,0],9837:[0,0.75,0,0],9838:[0.19444,0.69444,0,0],9839:[0.19444,0.69444,0,0],10216:[0.25,0.75,0,0],10217:[0.25,0.75,0,0],10815:[0,0.68611,0,0],10927:[0.19667,0.69667,0,0],10928:[0.19667,0.69667,0,0]},"Main-Italic":{33:[0,0.69444,0.12417,0],34:[0,0.69444,0.06961,0],35:[0.19444,0.69444,0.06616,0],37:[0.05556,0.75,0.13639,0],38:[0,0.69444,0.09694,0],39:[0,0.69444,0.12417,0],40:[0.25,0.75,0.16194,0],41:[0.25,0.75,0.03694,0],42:[0,0.75,0.14917,0],43:[0.05667,0.56167,0.03694,0],44:[0.19444,0.10556,0,0],45:[0,0.43056,0.02826,0],46:[0,0.10556,0,0],47:[0.25,0.75,0.16194,0],48:[0,0.64444,0.13556,0],49:[0,0.64444,0.13556,0],50:[0,0.64444,0.13556,0],51:[0,0.64444,0.13556,0],52:[0.19444,0.64444,0.13556,0],53:[0,0.64444,0.13556,0],54:[0,0.64444,0.13556,0],55:[0.19444,0.64444,0.13556,0],56:[0,0.64444,0.13556,0],57:[0,0.64444,0.13556,0],58:[0,0.43056,0.0582,0],59:[0.19444,0.43056,0.0582,0],61:[-0.13313,0.36687,0.06616,0],63:[0,0.69444,0.1225,0],64:[0,0.69444,0.09597,0],65:[0,0.68333,0,0],66:[0,0.68333,0.10257,0],67:[0,0.68333,0.14528,0],68:[0,0.68333,0.09403,0],69:[0,0.68333,0.12028,0],70:[0,0.68333,0.13305,0],71:[0,0.68333,0.08722,0],72:[0,0.68333,0.16389,0],73:[0,0.68333,0.15806,0],74:[0,0.68333,0.14028,0],75:[0,0.68333,0.14528,0],76:[0,0.68333,0,0],77:[0,0.68333,0.16389,0],78:[0,0.68333,0.16389,0],79:[0,0.68333,0.09403,0],80:[0,0.68333,0.10257,0],81:[0.19444,0.68333,0.09403,0],82:[0,0.68333,0.03868,0],83:[0,0.68333,0.11972,0],84:[0,0.68333,0.13305,0],85:[0,0.68333,0.16389,0],86:[0,0.68333,0.18361,0],87:[0,0.68333,0.18361,0],88:[0,0.68333,0.15806,0],89:[0,0.68333,0.19383,0],90:[0,0.68333,0.14528,0],91:[0.25,0.75,0.1875,0],93:[0.25,0.75,0.10528,0],94:[0,0.69444,0.06646,0],95:[0.31,0.12056,0.09208,0],97:[0,0.43056,0.07671,0],98:[0,0.69444,0.06312,0],99:[0,0.43056,0.05653,0],100:[0,0.69444,0.10333,0],101:[0,0.43056,0.07514,0],102:[0.19444,0.69444,0.21194,0],103:[0.19444,0.43056,0.08847,0],104:[0,0.69444,0.07671,0],105:[0,0.65536,0.1019,0],106:[0.19444,0.65536,0.14467,0],107:[0,0.69444,0.10764,0],108:[0,0.69444,0.10333,0],109:[0,0.43056,0.07671,0],110:[0,0.43056,0.07671,0],111:[0,0.43056,0.06312,0],112:[0.19444,0.43056,0.06312,0],113:[0.19444,0.43056,0.08847,0],114:[0,0.43056,0.10764,0],115:[0,0.43056,0.08208,0],116:[0,0.61508,0.09486,0],117:[0,0.43056,0.07671,0],118:[0,0.43056,0.10764,0],119:[0,0.43056,0.10764,0],120:[0,0.43056,0.12042,0],121:[0.19444,0.43056,0.08847,0],122:[0,0.43056,0.12292,0],126:[0.35,0.31786,0.11585,0],163:[0,0.69444,0,0],305:[0,0.43056,0,0.02778],567:[0.19444,0.43056,0,0.08334],768:[0,0.69444,0,0],769:[0,0.69444,0.09694,0],770:[0,0.69444,0.06646,0],771:[0,0.66786,0.11585,0],772:[0,0.56167,0.10333,0],774:[0,0.69444,0.10806,0],775:[0,0.66786,0.11752,0],776:[0,0.66786,0.10474,0],778:[0,0.69444,0,0],779:[0,0.69444,0.1225,0],780:[0,0.62847,0.08295,0],915:[0,0.68333,0.13305,0],916:[0,0.68333,0,0],920:[0,0.68333,0.09403,0],923:[0,0.68333,0,0],926:[0,0.68333,0.15294,0],928:[0,0.68333,0.16389,0],931:[0,0.68333,0.12028,0],933:[0,0.68333,0.11111,0],934:[0,0.68333,0.05986,0],936:[0,0.68333,0.11111,0],937:[0,0.68333,0.10257,0],8211:[0,0.43056,0.09208,0],8212:[0,0.43056,0.09208,0],8216:[0,0.69444,0.12417,0],8217:[0,0.69444,0.12417,0],8220:[0,0.69444,0.1685,0],8221:[0,0.69444,0.06961,0],8463:[0,0.68889,0,0]},"Main-Regular":{32:[0,0,0,0],33:[0,0.69444,0,0],34:[0,0.69444,0,0],35:[0.19444,0.69444,0,0],36:[0.05556,0.75,0,0],37:[0.05556,0.75,0,0],38:[0,0.69444,0,0],39:[0,0.69444,0,0],40:[0.25,0.75,0,0],41:[0.25,0.75,0,0],42:[0,0.75,0,0],43:[0.08333,0.58333,0,0],44:[0.19444,0.10556,0,0],45:[0,0.43056,0,0],46:[0,0.10556,0,0],47:[0.25,0.75,0,0],48:[0,0.64444,0,0],49:[0,0.64444,0,0],50:[0,0.64444,0,0],51:[0,0.64444,0,0],52:[0,0.64444,0,0],53:[0,0.64444,0,0],54:[0,0.64444,0,0],55:[0,0.64444,0,0],56:[0,0.64444,0,0],57:[0,0.64444,0,0],58:[0,0.43056,0,0],59:[0.19444,0.43056,0,0],60:[0.0391,0.5391,0,0],61:[-0.13313,0.36687,0,0],62:[0.0391,0.5391,0,0],63:[0,0.69444,0,0],64:[0,0.69444,0,0],65:[0,0.68333,0,0],66:[0,0.68333,0,0],67:[0,0.68333,0,0],68:[0,0.68333,0,0],69:[0,0.68333,0,0],70:[0,0.68333,0,0],71:[0,0.68333,0,0],72:[0,0.68333,0,0],73:[0,0.68333,0,0],74:[0,0.68333,0,0],75:[0,0.68333,0,0],76:[0,0.68333,0,0],77:[0,0.68333,0,0],78:[0,0.68333,0,0],79:[0,0.68333,0,0],80:[0,0.68333,0,0],81:[0.19444,0.68333,0,0],82:[0,0.68333,0,0],83:[0,0.68333,0,0],84:[0,0.68333,0,0],85:[0,0.68333,0,0],86:[0,0.68333,0.01389,0],87:[0,0.68333,0.01389,0],88:[0,0.68333,0,0],89:[0,0.68333,0.025,0],90:[0,0.68333,0,0],91:[0.25,0.75,0,0],92:[0.25,0.75,0,0],93:[0.25,0.75,0,0],94:[0,0.69444,0,0],95:[0.31,0.12056,0.02778,0],96:[0,0.69444,0,0],97:[0,0.43056,0,0],98:[0,0.69444,0,0],99:[0,0.43056,0,0],100:[0,0.69444,0,0],101:[0,0.43056,0,0],102:[0,0.69444,0.07778,0],103:[0.19444,0.43056,0.01389,0],104:[0,0.69444,0,0],105:[0,0.66786,0,0],106:[0.19444,0.66786,0,0],107:[0,0.69444,0,0],108:[0,0.69444,0,0],109:[0,0.43056,0,0],110:[0,0.43056,0,0],111:[0,0.43056,0,0],112:[0.19444,0.43056,0,0],113:[0.19444,0.43056,0,0],114:[0,0.43056,0,0],115:[0,0.43056,0,0],116:[0,0.61508,0,0],117:[0,0.43056,0,0],118:[0,0.43056,0.01389,0],119:[0,0.43056,0.01389,0],120:[0,0.43056,0,0],121:[0.19444,0.43056,0.01389,0],122:[0,0.43056,0,0],123:[0.25,0.75,0,0],124:[0.25,0.75,0,0],125:[0.25,0.75,0,0],126:[0.35,0.31786,0,0],160:[0,0,0,0],168:[0,0.66786,0,0],172:[0,0.43056,0,0],175:[0,0.56778,0,0],176:[0,0.69444,0,0],177:[0.08333,0.58333,0,0],180:[0,0.69444,0,0],215:[0.08333,0.58333,0,0],247:[0.08333,0.58333,0,0],305:[0,0.43056,0,0],567:[0.19444,0.43056,0,0],710:[0,0.69444,0,0],711:[0,0.62847,0,0],713:[0,0.56778,0,0],714:[0,0.69444,0,0],715:[0,0.69444,0,0],728:[0,0.69444,0,0],729:[0,0.66786,0,0],730:[0,0.69444,0,0],732:[0,0.66786,0,0],768:[0,0.69444,0,0],769:[0,0.69444,0,0],770:[0,0.69444,0,0],771:[0,0.66786,0,0],772:[0,0.56778,0,0],774:[0,0.69444,0,0],775:[0,0.66786,0,0],776:[0,0.66786,0,0],778:[0,0.69444,0,0],779:[0,0.69444,0,0],780:[0,0.62847,0,0],824:[0.19444,0.69444,0,0],915:[0,0.68333,0,0],916:[0,0.68333,0,0],920:[0,0.68333,0,0],923:[0,0.68333,0,0],926:[0,0.68333,0,0],928:[0,0.68333,0,0],931:[0,0.68333,0,0],933:[0,0.68333,0,0],934:[0,0.68333,0,0],936:[0,0.68333,0,0],937:[0,0.68333,0,0],8211:[0,0.43056,0.02778,0],8212:[0,0.43056,0.02778,0],8216:[0,0.69444,0,0],8217:[0,0.69444,0,0],8220:[0,0.69444,0,0],8221:[0,0.69444,0,0],8224:[0.19444,0.69444,0,0],8225:[0.19444,0.69444,0,0],8230:[0,0.12,0,0],8242:[0,0.55556,0,0],8407:[0,0.71444,0.15382,0],8463:[0,0.68889,0,0],8465:[0,0.69444,0,0],8467:[0,0.69444,0,0.11111],8472:[0.19444,0.43056,0,0.11111],8476:[0,0.69444,0,0],8501:[0,0.69444,0,0],8592:[-0.13313,0.36687,0,0],8593:[0.19444,0.69444,0,0],8594:[-0.13313,0.36687,0,0],8595:[0.19444,0.69444,0,0],8596:[-0.13313,0.36687,0,0],8597:[0.25,0.75,0,0],8598:[0.19444,0.69444,0,0],8599:[0.19444,0.69444,0,0],8600:[0.19444,0.69444,0,0],8601:[0.19444,0.69444,0,0],8614:[0.011,0.511,0,0],8617:[0.011,0.511,0,0],8618:[0.011,0.511,0,0],8636:[-0.13313,0.36687,0,0],8637:[-0.13313,0.36687,0,0],8640:[-0.13313,0.36687,0,0],8641:[-0.13313,0.36687,0,0],8652:[0.011,0.671,0,0],8656:[-0.13313,0.36687,0,0],8657:[0.19444,0.69444,0,0],8658:[-0.13313,0.36687,0,0],8659:[0.19444,0.69444,0,0],8660:[-0.13313,0.36687,0,0],8661:[0.25,0.75,0,0],8704:[0,0.69444,0,0],8706:[0,0.69444,0.05556,0.08334],8707:[0,0.69444,0,0],8709:[0.05556,0.75,0,0],8711:[0,0.68333,0,0],8712:[0.0391,0.5391,0,0],8715:[0.0391,0.5391,0,0],8722:[0.08333,0.58333,0,0],8723:[0.08333,0.58333,0,0],8725:[0.25,0.75,0,0],8726:[0.25,0.75,0,0],8727:[-0.03472,0.46528,0,0],8728:[-0.05555,0.44445,0,0],8729:[-0.05555,0.44445,0,0],8730:[0.2,0.8,0,0],8733:[0,0.43056,0,0],8734:[0,0.43056,0,0],8736:[0,0.69224,0,0],8739:[0.25,0.75,0,0],8741:[0.25,0.75,0,0],8743:[0,0.55556,0,0],8744:[0,0.55556,0,0],8745:[0,0.55556,0,0],8746:[0,0.55556,0,0],8747:[0.19444,0.69444,0.11111,0],8764:[-0.13313,0.36687,0,0],8768:[0.19444,0.69444,0,0],8771:[-0.03625,0.46375,0,0],8773:[-0.022,0.589,0,0],8776:[-0.01688,0.48312,0,0],8781:[-0.03625,0.46375,0,0],8784:[-0.133,0.67,0,0],8800:[0.215,0.716,0,0],8801:[-0.03625,0.46375,0,0],8804:[0.13597,0.63597,0,0],8805:[0.13597,0.63597,0,0],8810:[0.0391,0.5391,0,0],8811:[0.0391,0.5391,0,0],8826:[0.0391,0.5391,0,0],8827:[0.0391,0.5391,0,0],8834:[0.0391,0.5391,0,0],8835:[0.0391,0.5391,0,0],8838:[0.13597,0.63597,0,0],8839:[0.13597,0.63597,0,0],8846:[0,0.55556,0,0],8849:[0.13597,0.63597,0,0],8850:[0.13597,0.63597,0,0],8851:[0,0.55556,0,0],8852:[0,0.55556,0,0],8853:[0.08333,0.58333,0,0],8854:[0.08333,0.58333,0,0],8855:[0.08333,0.58333,0,0],8856:[0.08333,0.58333,0,0],8857:[0.08333,0.58333,0,0],8866:[0,0.69444,0,0],8867:[0,0.69444,0,0],8868:[0,0.69444,0,0],8869:[0,0.69444,0,0],8872:[0.249,0.75,0,0],8900:[-0.05555,0.44445,0,0],8901:[-0.05555,0.44445,0,0],8902:[-0.03472,0.46528,0,0],8904:[0.005,0.505,0,0],8942:[0.03,0.9,0,0],8943:[-0.19,0.31,0,0],8945:[-0.1,0.82,0,0],8968:[0.25,0.75,0,0],8969:[0.25,0.75,0,0],8970:[0.25,0.75,0,0],8971:[0.25,0.75,0,0],8994:[-0.14236,0.35764,0,0],8995:[-0.14236,0.35764,0,0],9136:[0.244,0.744,0,0],9137:[0.244,0.744,0,0],9651:[0.19444,0.69444,0,0],9657:[-0.03472,0.46528,0,0],9661:[0.19444,0.69444,0,0],9667:[-0.03472,0.46528,0,0],9711:[0.19444,0.69444,0,0],9824:[0.12963,0.69444,0,0],9825:[0.12963,0.69444,0,0],9826:[0.12963,0.69444,0,0],9827:[0.12963,0.69444,0,0],9837:[0,0.75,0,0],9838:[0.19444,0.69444,0,0],9839:[0.19444,0.69444,0,0],10216:[0.25,0.75,0,0],10217:[0.25,0.75,0,0],10222:[0.244,0.744,0,0],10223:[0.244,0.744,0,0],10229:[0.011,0.511,0,0],10230:[0.011,0.511,0,0],10231:[0.011,0.511,0,0],10232:[0.024,0.525,0,0],10233:[0.024,0.525,0,0],10234:[0.024,0.525,0,0],10236:[0.011,0.511,0,0],10815:[0,0.68333,0,0],10927:[0.13597,0.63597,0,0],10928:[0.13597,0.63597,0,0]},"Math-BoldItalic":{47:[0.19444,0.69444,0,0],65:[0,0.68611,0,0],66:[0,0.68611,0.04835,0],67:[0,0.68611,0.06979,0],68:[0,0.68611,0.03194,0],69:[0,0.68611,0.05451,0],70:[0,0.68611,0.15972,0],71:[0,0.68611,0,0],72:[0,0.68611,0.08229,0],73:[0,0.68611,0.07778,0],74:[0,0.68611,0.10069,0],75:[0,0.68611,0.06979,0],76:[0,0.68611,0,0],77:[0,0.68611,0.11424,0],78:[0,0.68611,0.11424,0],79:[0,0.68611,0.03194,0],80:[0,0.68611,0.15972,0],81:[0.19444,0.68611,0,0],82:[0,0.68611,0.00421,0],83:[0,0.68611,0.05382,0],84:[0,0.68611,0.15972,0],85:[0,0.68611,0.11424,0],86:[0,0.68611,0.25555,0],87:[0,0.68611,0.15972,0],88:[0,0.68611,0.07778,0],89:[0,0.68611,0.25555,0],90:[0,0.68611,0.06979,0],97:[0,0.44444,0,0],98:[0,0.69444,0,0],99:[0,0.44444,0,0],100:[0,0.69444,0,0],101:[0,0.44444,0,0],102:[0.19444,0.69444,0.11042,0],103:[0.19444,0.44444,0.03704,0],104:[0,0.69444,0,0],105:[0,0.69326,0,0],106:[0.19444,0.69326,0.0622,0],107:[0,0.69444,0.01852,0],108:[0,0.69444,0.0088,0],109:[0,0.44444,0,0],110:[0,0.44444,0,0],111:[0,0.44444,0,0],112:[0.19444,0.44444,0,0],113:[0.19444,0.44444,0.03704,0],114:[0,0.44444,0.03194,0],115:[0,0.44444,0,0],116:[0,0.63492,0,0],117:[0,0.44444,0,0],118:[0,0.44444,0.03704,0],119:[0,0.44444,0.02778,0],120:[0,0.44444,0,0],121:[0.19444,0.44444,0.03704,0],122:[0,0.44444,0.04213,0],915:[0,0.68611,0.15972,0],916:[0,0.68611,0,0],920:[0,0.68611,0.03194,0],923:[0,0.68611,0,0],926:[0,0.68611,0.07458,0],928:[0,0.68611,0.08229,0],931:[0,0.68611,0.05451,0],933:[0,0.68611,0.15972,0],934:[0,0.68611,0,0],936:[0,0.68611,0.11653,0],937:[0,0.68611,0.04835,0],945:[0,0.44444,0,0],946:[0.19444,0.69444,0.03403,0],947:[0.19444,0.44444,0.06389,0],948:[0,0.69444,0.03819,0],949:[0,0.44444,0,0],950:[0.19444,0.69444,0.06215,0],951:[0.19444,0.44444,0.03704,0],952:[0,0.69444,0.03194,0],953:[0,0.44444,0,0],954:[0,0.44444,0,0],955:[0,0.69444,0,0],956:[0.19444,0.44444,0,0],957:[0,0.44444,0.06898,0],958:[0.19444,0.69444,0.03021,0],959:[0,0.44444,0,0],960:[0,0.44444,0.03704,0],961:[0.19444,0.44444,0,0],962:[0.09722,0.44444,0.07917,0],963:[0,0.44444,0.03704,0],964:[0,0.44444,0.13472,0],965:[0,0.44444,0.03704,0],966:[0.19444,0.44444,0,0],967:[0.19444,0.44444,0,0],968:[0.19444,0.69444,0.03704,0],969:[0,0.44444,0.03704,0],977:[0,0.69444,0,0],981:[0.19444,0.69444,0,0],982:[0,0.44444,0.03194,0],1009:[0.19444,0.44444,0,0],1013:[0,0.44444,0,0]},"Math-Italic":{47:[0.19444,0.69444,0,0],65:[0,0.68333,0,0.13889],66:[0,0.68333,0.05017,0.08334],67:[0,0.68333,0.07153,0.08334],68:[0,0.68333,0.02778,0.05556],69:[0,0.68333,0.05764,0.08334],70:[0,0.68333,0.13889,0.08334],71:[0,0.68333,0,0.08334],72:[0,0.68333,0.08125,0.05556],73:[0,0.68333,0.07847,0.11111],74:[0,0.68333,0.09618,0.16667],75:[0,0.68333,0.07153,0.05556],76:[0,0.68333,0,0.02778],77:[0,0.68333,0.10903,0.08334],78:[0,0.68333,0.10903,0.08334],79:[0,0.68333,0.02778,0.08334],80:[0,0.68333,0.13889,0.08334],81:[0.19444,0.68333,0,0.08334],82:[0,0.68333,0.00773,0.08334],83:[0,0.68333,0.05764,0.08334],84:[0,0.68333,0.13889,0.08334],85:[0,0.68333,0.10903,0.02778],86:[0,0.68333,0.22222,0],87:[0,0.68333,0.13889,0],88:[0,0.68333,0.07847,0.08334],89:[0,0.68333,0.22222,0],90:[0,0.68333,0.07153,0.08334],97:[0,0.43056,0,0],98:[0,0.69444,0,0],99:[0,0.43056,0,0.05556],100:[0,0.69444,0,0.16667],101:[0,0.43056,0,0.05556],102:[0.19444,0.69444,0.10764,0.16667],103:[0.19444,0.43056,0.03588,0.02778],104:[0,0.69444,0,0],105:[0,0.65952,0,0],106:[0.19444,0.65952,0.05724,0],107:[0,0.69444,0.03148,0],108:[0,0.69444,0.01968,0.08334],109:[0,0.43056,0,0],110:[0,0.43056,0,0],111:[0,0.43056,0,0.05556],112:[0.19444,0.43056,0,0.08334],113:[0.19444,0.43056,0.03588,0.08334],114:[0,0.43056,0.02778,0.05556],115:[0,0.43056,0,0.05556],116:[0,0.61508,0,0.08334],117:[0,0.43056,0,0.02778],118:[0,0.43056,0.03588,0.02778],119:[0,0.43056,0.02691,0.08334],120:[0,0.43056,0,0.02778],121:[0.19444,0.43056,0.03588,0.05556],122:[0,0.43056,0.04398,0.05556],915:[0,0.68333,0.13889,0.08334],916:[0,0.68333,0,0.16667],920:[0,0.68333,0.02778,0.08334],923:[0,0.68333,0,0.16667],926:[0,0.68333,0.07569,0.08334],928:[0,0.68333,0.08125,0.05556],931:[0,0.68333,0.05764,0.08334],933:[0,0.68333,0.13889,0.05556],934:[0,0.68333,0,0.08334],936:[0,0.68333,0.11,0.05556],937:[0,0.68333,0.05017,0.08334],945:[0,0.43056,0.0037,0.02778],946:[0.19444,0.69444,0.05278,0.08334],947:[0.19444,0.43056,0.05556,0],948:[0,0.69444,0.03785,0.05556],949:[0,0.43056,0,0.08334],950:[0.19444,0.69444,0.07378,0.08334],951:[0.19444,0.43056,0.03588,0.05556],952:[0,0.69444,0.02778,0.08334],953:[0,0.43056,0,0.05556],954:[0,0.43056,0,0],955:[0,0.69444,0,0],956:[0.19444,0.43056,0,0.02778],957:[0,0.43056,0.06366,0.02778],958:[0.19444,0.69444,0.04601,0.11111],959:[0,0.43056,0,0.05556],960:[0,0.43056,0.03588,0],961:[0.19444,0.43056,0,0.08334],962:[0.09722,0.43056,0.07986,0.08334],963:[0,0.43056,0.03588,0],964:[0,0.43056,0.1132,0.02778],965:[0,0.43056,0.03588,0.02778],966:[0.19444,0.43056,0,0.08334],967:[0.19444,0.43056,0,0.05556],968:[0.19444,0.69444,0.03588,0.11111],969:[0,0.43056,0.03588,0],977:[0,0.69444,0,0.08334],981:[0.19444,0.69444,0,0.08334],982:[0,0.43056,0.02778,0],1009:[0.19444,0.43056,0,0.08334],1013:[0,0.43056,0,0.05556]},"Math-Regular":{65:[0,0.68333,0,0.13889],66:[0,0.68333,0.05017,0.08334],67:[0,0.68333,0.07153,0.08334],68:[0,0.68333,0.02778,0.05556],69:[0,0.68333,0.05764,0.08334],70:[0,0.68333,0.13889,0.08334],71:[0,0.68333,0,0.08334],72:[0,0.68333,0.08125,0.05556],73:[0,0.68333,0.07847,0.11111],74:[0,0.68333,0.09618,0.16667],75:[0,0.68333,0.07153,0.05556],76:[0,0.68333,0,0.02778],77:[0,0.68333,0.10903,0.08334],78:[0,0.68333,0.10903,0.08334],79:[0,0.68333,0.02778,0.08334],80:[0,0.68333,0.13889,0.08334],81:[0.19444,0.68333,0,0.08334],82:[0,0.68333,0.00773,0.08334],83:[0,0.68333,0.05764,0.08334],84:[0,0.68333,0.13889,0.08334],85:[0,0.68333,0.10903,0.02778],86:[0,0.68333,0.22222,0],87:[0,0.68333,0.13889,0],88:[0,0.68333,0.07847,0.08334],89:[0,0.68333,0.22222,0],90:[0,0.68333,0.07153,0.08334],97:[0,0.43056,0,0],98:[0,0.69444,0,0],99:[0,0.43056,0,0.05556],100:[0,0.69444,0,0.16667],101:[0,0.43056,0,0.05556],102:[0.19444,0.69444,0.10764,0.16667],103:[0.19444,0.43056,0.03588,0.02778],104:[0,0.69444,0,0],105:[0,0.65952,0,0],106:[0.19444,0.65952,0.05724,0],107:[0,0.69444,0.03148,0],108:[0,0.69444,0.01968,0.08334],109:[0,0.43056,0,0],110:[0,0.43056,0,0],111:[0,0.43056,0,0.05556],112:[0.19444,0.43056,0,0.08334],113:[0.19444,0.43056,0.03588,0.08334],114:[0,0.43056,0.02778,0.05556],115:[0,0.43056,0,0.05556],116:[0,0.61508,0,0.08334],117:[0,0.43056,0,0.02778],118:[0,0.43056,0.03588,0.02778],119:[0,0.43056,0.02691,0.08334],120:[0,0.43056,0,0.02778],121:[0.19444,0.43056,0.03588,0.05556],122:[0,0.43056,0.04398,0.05556],915:[0,0.68333,0.13889,0.08334],916:[0,0.68333,0,0.16667],920:[0,0.68333,0.02778,0.08334],923:[0,0.68333,0,0.16667],926:[0,0.68333,0.07569,0.08334],928:[0,0.68333,0.08125,0.05556],931:[0,0.68333,0.05764,0.08334],933:[0,0.68333,0.13889,0.05556],934:[0,0.68333,0,0.08334],936:[0,0.68333,0.11,0.05556],937:[0,0.68333,0.05017,0.08334],945:[0,0.43056,0.0037,0.02778],946:[0.19444,0.69444,0.05278,0.08334],947:[0.19444,0.43056,0.05556,0],948:[0,0.69444,0.03785,0.05556],949:[0,0.43056,0,0.08334],950:[0.19444,0.69444,0.07378,0.08334],951:[0.19444,0.43056,0.03588,0.05556],952:[0,0.69444,0.02778,0.08334],953:[0,0.43056,0,0.05556],954:[0,0.43056,0,0],955:[0,0.69444,0,0],956:[0.19444,0.43056,0,0.02778],957:[0,0.43056,0.06366,0.02778],958:[0.19444,0.69444,0.04601,0.11111],959:[0,0.43056,0,0.05556],960:[0,0.43056,0.03588,0],961:[0.19444,0.43056,0,0.08334],962:[0.09722,0.43056,0.07986,0.08334],963:[0,0.43056,0.03588,0],964:[0,0.43056,0.1132,0.02778],965:[0,0.43056,0.03588,0.02778],966:[0.19444,0.43056,0,0.08334],967:[0.19444,0.43056,0,0.05556],968:[0.19444,0.69444,0.03588,0.11111],969:[0,0.43056,0.03588,0],977:[0,0.69444,0,0.08334],981:[0.19444,0.69444,0,0.08334],982:[0,0.43056,0.02778,0],1009:[0.19444,0.43056,0,0.08334],1013:[0,0.43056,0,0.05556]},"SansSerif-Regular":{33:[0,0.69444,0,0],34:[0,0.69444,0,0],35:[0.19444,0.69444,0,0],36:[0.05556,0.75,0,0],37:[0.05556,0.75,0,0],38:[0,0.69444,0,0],39:[0,0.69444,0,0],40:[0.25,0.75,0,0],41:[0.25,0.75,0,0],42:[0,0.75,0,0],43:[0.08333,0.58333,0,0],44:[0.125,0.08333,0,0],45:[0,0.44444,0,0],46:[0,0.08333,0,0],47:[0.25,0.75,0,0],48:[0,0.65556,0,0],49:[0,0.65556,0,0],50:[0,0.65556,0,0],51:[0,0.65556,0,0],52:[0,0.65556,0,0],53:[0,0.65556,0,0],54:[0,0.65556,0,0],55:[0,0.65556,0,0],56:[0,0.65556,0,0],57:[0,0.65556,0,0],58:[0,0.44444,0,0],59:[0.125,0.44444,0,0],61:[-0.13,0.37,0,0],63:[0,0.69444,0,0],64:[0,0.69444,0,0],65:[0,0.69444,0,0],66:[0,0.69444,0,0],67:[0,0.69444,0,0],68:[0,0.69444,0,0],69:[0,0.69444,0,0],70:[0,0.69444,0,0],71:[0,0.69444,0,0],72:[0,0.69444,0,0],73:[0,0.69444,0,0],74:[0,0.69444,0,0],75:[0,0.69444,0,0],76:[0,0.69444,0,0],77:[0,0.69444,0,0],78:[0,0.69444,0,0],79:[0,0.69444,0,0],80:[0,0.69444,0,0],81:[0.125,0.69444,0,0],82:[0,0.69444,0,0],83:[0,0.69444,0,0],84:[0,0.69444,0,0],85:[0,0.69444,0,0],86:[0,0.69444,0.01389,0],87:[0,0.69444,0.01389,0],88:[0,0.69444,0,0],89:[0,0.69444,0.025,0],90:[0,0.69444,0,0],91:[0.25,0.75,0,0],93:[0.25,0.75,0,0],94:[0,0.69444,0,0],95:[0.35,0.09444,0.02778,0],97:[0,0.44444,0,0],98:[0,0.69444,0,0],99:[0,0.44444,0,0],100:[0,0.69444,0,0],101:[0,0.44444,0,0],102:[0,0.69444,0.06944,0],103:[0.19444,0.44444,0.01389,0],104:[0,0.69444,0,0],105:[0,0.67937,0,0],106:[0.19444,0.67937,0,0],107:[0,0.69444,0,0],108:[0,0.69444,0,0],109:[0,0.44444,0,0],110:[0,0.44444,0,0],111:[0,0.44444,0,0],112:[0.19444,0.44444,0,0],113:[0.19444,0.44444,0,0],114:[0,0.44444,0.01389,0],115:[0,0.44444,0,0],116:[0,0.57143,0,0],117:[0,0.44444,0,0],118:[0,0.44444,0.01389,0],119:[0,0.44444,0.01389,0],120:[0,0.44444,0,0],121:[0.19444,0.44444,0.01389,0],122:[0,0.44444,0,0],126:[0.35,0.32659,0,0],305:[0,0.44444,0,0],567:[0.19444,0.44444,0,0],768:[0,0.69444,0,0],769:[0,0.69444,0,0],770:[0,0.69444,0,0],771:[0,0.67659,0,0],772:[0,0.60889,0,0],774:[0,0.69444,0,0],775:[0,0.67937,0,0],776:[0,0.67937,0,0],778:[0,0.69444,0,0],779:[0,0.69444,0,0],780:[0,0.63194,0,0],915:[0,0.69444,0,0],916:[0,0.69444,0,0],920:[0,0.69444,0,0],923:[0,0.69444,0,0],926:[0,0.69444,0,0],928:[0,0.69444,0,0],931:[0,0.69444,0,0],933:[0,0.69444,0,0],934:[0,0.69444,0,0],936:[0,0.69444,0,0],937:[0,0.69444,0,0],8211:[0,0.44444,0.02778,0],8212:[0,0.44444,0.02778,0],8216:[0,0.69444,0,0],8217:[0,0.69444,0,0],8220:[0,0.69444,0,0],8221:[0,0.69444,0,0]},"Script-Regular":{65:[0,0.7,0.22925,0],66:[0,0.7,0.04087,0],67:[0,0.7,0.1689,0],68:[0,0.7,0.09371,0],69:[0,0.7,0.18583,0],70:[0,0.7,0.13634,0],71:[0,0.7,0.17322,0],72:[0,0.7,0.29694,0],73:[0,0.7,0.19189,0],74:[0.27778,0.7,0.19189,0],75:[0,0.7,0.31259,0],76:[0,0.7,0.19189,0],77:[0,0.7,0.15981,0],78:[0,0.7,0.3525,0],79:[0,0.7,0.08078,0],80:[0,0.7,0.08078,0],81:[0,0.7,0.03305,0],82:[0,0.7,0.06259,0],83:[0,0.7,0.19189,0],84:[0,0.7,0.29087,0],85:[0,0.7,0.25815,0],86:[0,0.7,0.27523,0],87:[0,0.7,0.27523,0],88:[0,0.7,0.26006,0],89:[0,0.7,0.2939,0],90:[0,0.7,0.24037,0]},"Size1-Regular":{40:[0.35001,0.85,0,0],41:[0.35001,0.85,0,0],47:[0.35001,0.85,0,0],91:[0.35001,0.85,0,0],92:[0.35001,0.85,0,0],93:[0.35001,0.85,0,0],123:[0.35001,0.85,0,0],125:[0.35001,0.85,0,0],710:[0,0.72222,0,0],732:[0,0.72222,0,0],770:[0,0.72222,0,0],771:[0,0.72222,0,0],8214:[-0.00099,0.601,0,0],8593:[0.00001,0.6,0,0],8595:[0.00001,0.6,0,0],8657:[0.00001,0.6,0,0],8659:[0.00001,0.6,0,0],8719:[0.25001,0.75,0,0],8720:[0.25001,0.75,0,0],8721:[0.25001,0.75,0,0],8730:[0.35001,0.85,0,0],8739:[-0.00599,0.606,0,0],8741:[-0.00599,0.606,0,0],8747:[0.30612,0.805,0.19445,0],8748:[0.306,0.805,0.19445,0],8749:[0.306,0.805,0.19445,0],8750:[0.30612,0.805,0.19445,0],8896:[0.25001,0.75,0,0],8897:[0.25001,0.75,0,0],8898:[0.25001,0.75,0,0],8899:[0.25001,0.75,0,0],8968:[0.35001,0.85,0,0],8969:[0.35001,0.85,0,0],8970:[0.35001,0.85,0,0],8971:[0.35001,0.85,0,0],9168:[-0.00099,0.601,0,0],10216:[0.35001,0.85,0,0],10217:[0.35001,0.85,0,0],10752:[0.25001,0.75,0,0],10753:[0.25001,0.75,0,0],10754:[0.25001,0.75,0,0],10756:[0.25001,0.75,0,0],10758:[0.25001,0.75,0,0]},"Size2-Regular":{40:[0.65002,1.15,0,0],41:[0.65002,1.15,0,0],47:[0.65002,1.15,0,0],91:[0.65002,1.15,0,0],92:[0.65002,1.15,0,0],93:[0.65002,1.15,0,0],123:[0.65002,1.15,0,0],125:[0.65002,1.15,0,0],710:[0,0.75,0,0],732:[0,0.75,0,0],770:[0,0.75,0,0],771:[0,0.75,0,0],8719:[0.55001,1.05,0,0],8720:[0.55001,1.05,0,0],8721:[0.55001,1.05,0,0],8730:[0.65002,1.15,0,0],8747:[0.86225,1.36,0.44445,0],8748:[0.862,1.36,0.44445,0],8749:[0.862,1.36,0.44445,0],8750:[0.86225,1.36,0.44445,0],8896:[0.55001,1.05,0,0],8897:[0.55001,1.05,0,0],8898:[0.55001,1.05,0,0],8899:[0.55001,1.05,0,0],8968:[0.65002,1.15,0,0],8969:[0.65002,1.15,0,0],8970:[0.65002,1.15,0,0],8971:[0.65002,1.15,0,0],10216:[0.65002,1.15,0,0],10217:[0.65002,1.15,0,0],10752:[0.55001,1.05,0,0],10753:[0.55001,1.05,0,0],10754:[0.55001,1.05,0,0],10756:[0.55001,1.05,0,0],10758:[0.55001,1.05,0,0]},"Size3-Regular":{40:[0.95003,1.45,0,0],41:[0.95003,1.45,0,0],47:[0.95003,1.45,0,0],91:[0.95003,1.45,0,0],92:[0.95003,1.45,0,0],93:[0.95003,1.45,0,0],123:[0.95003,1.45,0,0],125:[0.95003,1.45,0,0],710:[0,0.75,0,0],732:[0,0.75,0,0],770:[0,0.75,0,0],771:[0,0.75,0,0],8730:[0.95003,1.45,0,0],8968:[0.95003,1.45,0,0],8969:[0.95003,1.45,0,0],8970:[0.95003,1.45,0,0],8971:[0.95003,1.45,0,0],10216:[0.95003,1.45,0,0],10217:[0.95003,1.45,0,0]},"Size4-Regular":{40:[1.25003,1.75,0,0],41:[1.25003,1.75,0,0],47:[1.25003,1.75,0,0],91:[1.25003,1.75,0,0],92:[1.25003,1.75,0,0],93:[1.25003,1.75,0,0],123:[1.25003,1.75,0,0],125:[1.25003,1.75,0,0],710:[0,0.825,0,0],732:[0,0.825,0,0],770:[0,0.825,0,0],771:[0,0.825,0,0],8730:[1.25003,1.75,0,0],8968:[1.25003,1.75,0,0],8969:[1.25003,1.75,0,0],8970:[1.25003,1.75,0,0],8971:[1.25003,1.75,0,0],9115:[0.64502,1.155,0,0],9116:[0.00001,0.6,0,0],9117:[0.64502,1.155,0,0],9118:[0.64502,1.155,0,0],9119:[0.00001,0.6,0,0],9120:[0.64502,1.155,0,0],9121:[0.64502,1.155,0,0],9122:[-0.00099,0.601,0,0],9123:[0.64502,1.155,0,0],9124:[0.64502,1.155,0,0],9125:[-0.00099,0.601,0,0],9126:[0.64502,1.155,0,0],9127:[0.00001,0.9,0,0],9128:[0.65002,1.15,0,0],9129:[0.90001,0,0,0],9130:[0,0.3,0,0],9131:[0.00001,0.9,0,0],9132:[0.65002,1.15,0,0],9133:[0.90001,0,0,0],9143:[0.88502,0.915,0,0],10216:[1.25003,1.75,0,0],10217:[1.25003,1.75,0,0],57344:[-0.00499,0.605,0,0],57345:[-0.00499,0.605,0,0],57680:[0,0.12,0,0],57681:[0,0.12,0,0],57682:[0,0.12,0,0],57683:[0,0.12,0,0]},"Typewriter-Regular":{33:[0,0.61111,0,0],34:[0,0.61111,0,0],35:[0,0.61111,0,0],36:[0.08333,0.69444,0,0],37:[0.08333,0.69444,0,0],38:[0,0.61111,0,0],39:[0,0.61111,0,0],40:[0.08333,0.69444,0,0],41:[0.08333,0.69444,0,0],42:[0,0.52083,0,0],43:[-0.08056,0.53055,0,0],44:[0.13889,0.125,0,0],45:[-0.08056,0.53055,0,0],46:[0,0.125,0,0],47:[0.08333,0.69444,0,0],48:[0,0.61111,0,0],49:[0,0.61111,0,0],50:[0,0.61111,0,0],51:[0,0.61111,0,0],52:[0,0.61111,0,0],53:[0,0.61111,0,0],54:[0,0.61111,0,0],55:[0,0.61111,0,0],56:[0,0.61111,0,0],57:[0,0.61111,0,0],58:[0,0.43056,0,0],59:[0.13889,0.43056,0,0],60:[-0.05556,0.55556,0,0],61:[-0.19549,0.41562,0,0],62:[-0.05556,0.55556,0,0],63:[0,0.61111,0,0],64:[0,0.61111,0,0],65:[0,0.61111,0,0],66:[0,0.61111,0,0],67:[0,0.61111,0,0],68:[0,0.61111,0,0],69:[0,0.61111,0,0],70:[0,0.61111,0,0],71:[0,0.61111,0,0],72:[0,0.61111,0,0],73:[0,0.61111,0,0],74:[0,0.61111,0,0],75:[0,0.61111,0,0],76:[0,0.61111,0,0],77:[0,0.61111,0,0],78:[0,0.61111,0,0],79:[0,0.61111,0,0],80:[0,0.61111,0,0],81:[0.13889,0.61111,0,0],82:[0,0.61111,0,0],83:[0,0.61111,0,0],84:[0,0.61111,0,0],85:[0,0.61111,0,0],86:[0,0.61111,0,0],87:[0,0.61111,0,0],88:[0,0.61111,0,0],89:[0,0.61111,0,0],90:[0,0.61111,0,0],91:[0.08333,0.69444,0,0],92:[0.08333,0.69444,0,0],93:[0.08333,0.69444,0,0],94:[0,0.61111,0,0],95:[0.09514,0,0,0],96:[0,0.61111,0,0],97:[0,0.43056,0,0],98:[0,0.61111,0,0],99:[0,0.43056,0,0],100:[0,0.61111,0,0],101:[0,0.43056,0,0],102:[0,0.61111,0,0],103:[0.22222,0.43056,0,0],104:[0,0.61111,0,0],105:[0,0.61111,0,0],106:[0.22222,0.61111,0,0],107:[0,0.61111,0,0],108:[0,0.61111,0,0],109:[0,0.43056,0,0],110:[0,0.43056,0,0],111:[0,0.43056,0,0],112:[0.22222,0.43056,0,0],113:[0.22222,0.43056,0,0],114:[0,0.43056,0,0],115:[0,0.43056,0,0],116:[0,0.55358,0,0],117:[0,0.43056,0,0],118:[0,0.43056,0,0],119:[0,0.43056,0,0],120:[0,0.43056,0,0],121:[0.22222,0.43056,0,0],122:[0,0.43056,0,0],123:[0.08333,0.69444,0,0],124:[0.08333,0.69444,0,0],125:[0.08333,0.69444,0,0],126:[0,0.61111,0,0],127:[0,0.61111,0,0],305:[0,0.43056,0,0],567:[0.22222,0.43056,0,0],768:[0,0.61111,0,0],769:[0,0.61111,0,0],770:[0,0.61111,0,0],771:[0,0.61111,0,0],772:[0,0.56555,0,0],774:[0,0.61111,0,0],776:[0,0.61111,0,0],778:[0,0.61111,0,0],780:[0,0.56597,0,0],915:[0,0.61111,0,0],916:[0,0.61111,0,0],920:[0,0.61111,0,0],923:[0,0.61111,0,0],926:[0,0.61111,0,0],928:[0,0.61111,0,0],931:[0,0.61111,0,0],933:[0,0.61111,0,0],934:[0,0.61111,0,0],936:[0,0.61111,0,0],937:[0,0.61111,0,0],2018:[0,0.61111,0,0],2019:[0,0.61111,0,0],8242:[0,0.61111,0,0]}},Gs={À:"A",Á:"A",Â:"A",Ã:"A",Ä:"A",Å:"A",Æ:"A",Ç:"C",È:"E",É:"E",Ê:"E",Ë:"E",Ì:"I",Í:"I",Î:"I",Ï:"I",Ð:"D",Ñ:"N",Ò:"O",Ó:"O",Ô:"O",Õ:"O",Ö:"O",Ø:"O",Ù:"U",Ú:"U",Û:"U",Ü:"U",Ý:"Y",Þ:"o",ß:"B",à:"a",á:"a",â:"a",ã:"a",ä:"a",å:"a",æ:"a",ç:"c",è:"e",é:"e",ê:"e",ë:"e",ì:"i",í:"i",î:"i",ï:"i",ð:"d",ñ:"n",ò:"o",ó:"o",ô:"o",õ:"o",ö:"o",ø:"o",ù:"u",ú:"u",û:"u",ü:"u",ý:"y",þ:"o",ÿ:"y",А:"A",Б:"B",В:"B",Г:"F",Д:"A",Е:"E",Ж:"K",З:"3",И:"N",Й:"N",К:"K",Л:"N",М:"M",Н:"H",О:"O",П:"N",Р:"P",С:"C",Т:"T",У:"y",Ф:"O",Х:"X",Ц:"U",Ч:"h",Ш:"W",Щ:"W",Ъ:"B",Ы:"X",Ь:"B",Э:"3",Ю:"X",Я:"R",а:"a",б:"b",в:"a",г:"r",д:"y",е:"e",ж:"m",з:"e",и:"n",й:"n",к:"n",л:"n",м:"m",н:"n",о:"o",п:"n",р:"p",с:"c",т:"o",у:"y",ф:"b",х:"x",ц:"n",ч:"n",ш:"w",щ:"w",ъ:"a",ы:"m",ь:"a",э:"e",ю:"m",я:"r"},Ws={metrics:{defaultRuleThickness:0.04,bigOpSpacing1:0.111,bigOpSpacing2:0.166,bigOpSpacing3:0.2,bigOpSpacing4:0.6,bigOpSpacing5:0.1,ptPerEm:Hs,doubleRuleSep:2/Hs},sigmas:{slant:[0.25,0.25,0.25],space:[0,0,0],stretch:[0,0,0],shrink:[0,0,0],xHeight:[0.431,0.431,0.431],quad:[1,1.171,1.472],extraSpace:[0,0,0],num1:[0.677,0.732,0.925],num2:[0.394,0.384,0.387],num3:[0.444,0.471,0.504],denom1:[0.686,0.752,1.025],denom2:[0.345,0.344,0.532],sup1:[0.413,0.503,0.504],sup2:[0.363,0.431,0.404],sup3:[0.289,0.286,0.294],sub1:[0.15,0.143,0.2],sub2:[0.247,0.286,0.4],supDrop:[0.386,0.353,0.494],subDrop:[0.05,0.071,0.1],delim1:[2.39,1.7,1.98],delim2:[1.01,1.157,1.42],axisHeight:[0.25,0.25,0.25]},getCharacterMetrics:function(e,t){var i=e.charCodeAt(0);e[0]in Gs?i=Gs[e[0]].charCodeAt(0):js.test(e[0])&&(i=77);var n=Ys[t][i];if(n)return{depth:n[0],height:n[1],italic:n[2],skew:n[3],width:n[4]}}},Vs=Ws.sigmas,$s=[{},{},{}],Js;for(var Zs in Vs)if(Vs.hasOwnProperty(Zs))for(Js=0;3>Js;Js++)$s[Js][Zs]=Vs[Zs][Js];for(Js=0;3>Js;Js++)$s[Js].emPerEx=Vs.xHeight[Js]/Vs.quad[Js];Pt.prototype.sup=function(){return or[lr[this.id]]},Pt.prototype.sub=function(){return or[dr[this.id]]},Pt.prototype.fracNum=function(){return or[pr[this.id]]},Pt.prototype.fracDen=function(){return or[ur[this.id]]},Pt.prototype.cramp=function(){return or[cr[this.id]]},Pt.prototype.cls=function(){return sr[this.size]+(this.cramped?" cramped":" uncramped")},Pt.prototype.reset=function(){return rr[this.size]},Pt.prototype.isTight=function(){return 2<=this.size};var Qs=0,D=1,er=2,tr=3,ir=4,S=5,nr=6,ar=7,sr=["displaystyle textstyle","textstyle","scriptstyle","scriptscriptstyle"],rr=["reset-textstyle","reset-textstyle","reset-scriptstyle","reset-scriptscriptstyle"],or=[new Pt(Qs,0,1,!1),new Pt(D,0,1,!0),new Pt(er,1,1,!1),new Pt(tr,1,1,!0),new Pt(ir,2,0.7,!1),new Pt(S,2,0.7,!0),new Pt(nr,3,0.5,!1),new Pt(ar,3,0.5,!0)],lr=[ir,S,ir,S,nr,ar,nr,ar],dr=[S,S,S,S,ar,ar,ar,ar],pr=[er,tr,ir,S,nr,ar,nr,ar],ur=[tr,tr,S,S,ar,ar,ar,ar],cr=[D,D,tr,tr,S,S,ar,ar],mr={DISPLAY:or[Qs],TEXT:or[er],SCRIPT:or[ir],SCRIPTSCRIPT:or[nr]},gr=Array.prototype.indexOf,hr=function(e,t){if(null==e)return-1;if(gr&&e.indexOf===gr)return e.indexOf(t);for(var n=0,i=e.length;n<i;n++)if(e[n]===t)return n;return-1},fr=/([A-Z])/g,yr={"&":"&amp;",">":"&gt;","<":"&lt;",'"':"&quot;","'":"&#x27;"},xr=/[&><"']/g,zr;if("undefined"!=typeof document){var br=document.createElement("span");zr="textContent"in br?function(e,t){e.textContent=t}:function(e,t){e.innerText=t}}var kr={contains:function(e,t){return-1!==hr(e,t)},deflt:function(e,t){return e===void 0?t:e},escape:function(e){return(""+e).replace(xr,Bt)},hyphenate:function(e){return e.replace(fr,"-$1").toLowerCase()},indexOf:hr,setTextContent:zr,clearNode:function(e){zr(e,"")}},vr=Bs,wr=kr,Tr=function(e){e=e.slice();for(var t=e.length-1;0<=t;t--)e[t]||e.splice(t,1);return e.join(" ")};jt.prototype.setAttribute=function(e,t){this.attributes[e]=t},jt.prototype.tryCombine=function(){return!1},jt.prototype.toNode=function(){var e=document.createElement("span");for(var t in e.className=Tr(this.classes),this.style)Object.prototype.hasOwnProperty.call(this.style,t)&&(e.style[t]=this.style[t]);for(var n in this.attributes)Object.prototype.hasOwnProperty.call(this.attributes,n)&&e.setAttribute(n,this.attributes[n]);for(var a=0;a<this.children.length;a++)e.appendChild(this.children[a].toNode());return e},jt.prototype.toMarkup=function(){var e="<span";this.classes.length&&(e+=" class=\"",e+=wr.escape(Tr(this.classes)),e+="\"");var t="";for(var n in this.style)this.style.hasOwnProperty(n)&&(t+=wr.hyphenate(n)+":"+this.style[n]+";");for(var a in t&&(e+=" style=\""+wr.escape(t)+"\""),this.attributes)Object.prototype.hasOwnProperty.call(this.attributes,a)&&(e+=" "+a+"=\"",e+=wr.escape(this.attributes[a]),e+="\"");e+=">";for(var s=0;s<this.children.length;s++)e+=this.children[s].toMarkup();return e+="</span>",e},Ht.prototype.toNode=function(){for(var e=document.createDocumentFragment(),t=0;t<this.children.length;t++)e.appendChild(this.children[t].toNode());return e},Ht.prototype.toMarkup=function(){for(var e="",t=0;t<this.children.length;t++)e+=this.children[t].toMarkup();return e};var Sr={î:"\u0131\u0302",ï:"\u0131\u0308",í:"\u0131\u0301",ì:"\u0131\u0300"};Yt.prototype.tryCombine=function(e){if(!e||!(e instanceof Yt)||0<this.italic||Tr(this.classes)!==Tr(e.classes)||this.skew!==e.skew||this.maxFontSize!==e.maxFontSize)return!1;for(var t in this.style)if(this.style.hasOwnProperty(t)&&this.style[t]!==e.style[t])return!1;for(t in e.style)if(e.style.hasOwnProperty(t)&&this.style[t]!==e.style[t])return!1;return this.value+=e.value,this.height=ni(this.height,e.height),this.depth=ni(this.depth,e.depth),this.italic=e.italic,!0},Yt.prototype.toNode=function(){var e=document.createTextNode(this.value),t=null;for(var i in 0<this.italic&&(t=document.createElement("span"),t.style.marginRight=this.italic+"em"),0<this.classes.length&&(t=t||document.createElement("span"),t.className=Tr(this.classes)),this.style)this.style.hasOwnProperty(i)&&(t=t||document.createElement("span"),t.style[i]=this.style[i]);return t?(t.appendChild(e),t):e},Yt.prototype.toMarkup=function(){var e=!1,t="<span";this.classes.length&&(e=!0,t+=" class=\"",t+=wr.escape(Tr(this.classes)),t+="\"");var i="";for(var n in 0<this.italic&&(i+="margin-right:"+this.italic+"em;"),this.style)this.style.hasOwnProperty(n)&&(i+=wr.hyphenate(n)+":"+this.style[n]+";");i&&(e=!0,t+=" style=\""+wr.escape(i)+"\"");var a=wr.escape(this.value);return e?(t+=">",t+=a,t+="</span>",t):a};var Ar={span:jt,documentFragment:Ht,symbolNode:Yt},Cr=he(function(e){function t(t,i,n,a,s){e.exports[t][s]={font:i,group:n,replace:a}}e.exports={math:{},text:{}};var n="math",a="text",s="main",r="ams",o="accent",l="bin",d="close",p="inner",u="mathord",c="op",m="open",g="punct",h="rel",f="spacing",y="textord";t(n,s,h,"\u2261","\\equiv"),t(n,s,h,"\u227A","\\prec"),t(n,s,h,"\u227B","\\succ"),t(n,s,h,"\u223C","\\sim"),t(n,s,h,"\u22A5","\\perp"),t(n,s,h,"\u2AAF","\\preceq"),t(n,s,h,"\u2AB0","\\succeq"),t(n,s,h,"\u2243","\\simeq"),t(n,s,h,"\u2223","\\mid"),t(n,s,h,"\u226A","\\ll"),t(n,s,h,"\u226B","\\gg"),t(n,s,h,"\u224D","\\asymp"),t(n,s,h,"\u2225","\\parallel"),t(n,s,h,"\u22C8","\\bowtie"),t(n,s,h,"\u2323","\\smile"),t(n,s,h,"\u2291","\\sqsubseteq"),t(n,s,h,"\u2292","\\sqsupseteq"),t(n,s,h,"\u2250","\\doteq"),t(n,s,h,"\u2322","\\frown"),t(n,s,h,"\u220B","\\ni"),t(n,s,h,"\u221D","\\propto"),t(n,s,h,"\u22A2","\\vdash"),t(n,s,h,"\u22A3","\\dashv"),t(n,s,h,"\u220B","\\owns"),t(n,s,g,".","\\ldotp"),t(n,s,g,"\u22C5","\\cdotp"),t(n,s,y,"#","\\#"),t(a,s,y,"#","\\#"),t(n,s,y,"&","\\&"),t(a,s,y,"&","\\&"),t(n,s,y,"\u2135","\\aleph"),t(n,s,y,"\u2200","\\forall"),t(n,s,y,"\u210F","\\hbar"),t(n,s,y,"\u2203","\\exists"),t(n,s,y,"\u2207","\\nabla"),t(n,s,y,"\u266D","\\flat"),t(n,s,y,"\u2113","\\ell"),t(n,s,y,"\u266E","\\natural"),t(n,s,y,"\u2663","\\clubsuit"),t(n,s,y,"\u2118","\\wp"),t(n,s,y,"\u266F","\\sharp"),t(n,s,y,"\u2662","\\diamondsuit"),t(n,s,y,"\u211C","\\Re"),t(n,s,y,"\u2661","\\heartsuit"),t(n,s,y,"\u2111","\\Im"),t(n,s,y,"\u2660","\\spadesuit"),t(n,s,y,"\u2020","\\dag"),t(n,s,y,"\u2021","\\ddag"),t(n,s,d,"\u23B1","\\rmoustache"),t(n,s,m,"\u23B0","\\lmoustache"),t(n,s,d,"\u27EF","\\rgroup"),t(n,s,m,"\u27EE","\\lgroup"),t(n,s,l,"\u2213","\\mp"),t(n,s,l,"\u2296","\\ominus"),t(n,s,l,"\u228E","\\uplus"),t(n,s,l,"\u2293","\\sqcap"),t(n,s,l,"\u2217","\\ast"),t(n,s,l,"\u2294","\\sqcup"),t(n,s,l,"\u25EF","\\bigcirc"),t(n,s,l,"\u2219","\\bullet"),t(n,s,l,"\u2021","\\ddagger"),t(n,s,l,"\u2240","\\wr"),t(n,s,l,"\u2A3F","\\amalg"),t(n,s,h,"\u27F5","\\longleftarrow"),t(n,s,h,"\u21D0","\\Leftarrow"),t(n,s,h,"\u27F8","\\Longleftarrow"),t(n,s,h,"\u27F6","\\longrightarrow"),t(n,s,h,"\u21D2","\\Rightarrow"),t(n,s,h,"\u27F9","\\Longrightarrow"),t(n,s,h,"\u2194","\\leftrightarrow"),t(n,s,h,"\u27F7","\\longleftrightarrow"),t(n,s,h,"\u21D4","\\Leftrightarrow"),t(n,s,h,"\u27FA","\\Longleftrightarrow"),t(n,s,h,"\u21A6","\\mapsto"),t(n,s,h,"\u27FC","\\longmapsto"),t(n,s,h,"\u2197","\\nearrow"),t(n,s,h,"\u21A9","\\hookleftarrow"),t(n,s,h,"\u21AA","\\hookrightarrow"),t(n,s,h,"\u2198","\\searrow"),t(n,s,h,"\u21BC","\\leftharpoonup"),t(n,s,h,"\u21C0","\\rightharpoonup"),t(n,s,h,"\u2199","\\swarrow"),t(n,s,h,"\u21BD","\\leftharpoondown"),t(n,s,h,"\u21C1","\\rightharpoondown"),t(n,s,h,"\u2196","\\nwarrow"),t(n,s,h,"\u21CC","\\rightleftharpoons"),t(n,r,h,"\u226E","\\nless"),t(n,r,h,"\uE010","\\nleqslant"),t(n,r,h,"\uE011","\\nleqq"),t(n,r,h,"\u2A87","\\lneq"),t(n,r,h,"\u2268","\\lneqq"),t(n,r,h,"\uE00C","\\lvertneqq"),t(n,r,h,"\u22E6","\\lnsim"),t(n,r,h,"\u2A89","\\lnapprox"),t(n,r,h,"\u2280","\\nprec"),t(n,r,h,"\u22E0","\\npreceq"),t(n,r,h,"\u22E8","\\precnsim"),t(n,r,h,"\u2AB9","\\precnapprox"),t(n,r,h,"\u2241","\\nsim"),t(n,r,h,"\uE006","\\nshortmid"),t(n,r,h,"\u2224","\\nmid"),t(n,r,h,"\u22AC","\\nvdash"),t(n,r,h,"\u22AD","\\nvDash"),t(n,r,h,"\u22EA","\\ntriangleleft"),t(n,r,h,"\u22EC","\\ntrianglelefteq"),t(n,r,h,"\u228A","\\subsetneq"),t(n,r,h,"\uE01A","\\varsubsetneq"),t(n,r,h,"\u2ACB","\\subsetneqq"),t(n,r,h,"\uE017","\\varsubsetneqq"),t(n,r,h,"\u226F","\\ngtr"),t(n,r,h,"\uE00F","\\ngeqslant"),t(n,r,h,"\uE00E","\\ngeqq"),t(n,r,h,"\u2A88","\\gneq"),t(n,r,h,"\u2269","\\gneqq"),t(n,r,h,"\uE00D","\\gvertneqq"),t(n,r,h,"\u22E7","\\gnsim"),t(n,r,h,"\u2A8A","\\gnapprox"),t(n,r,h,"\u2281","\\nsucc"),t(n,r,h,"\u22E1","\\nsucceq"),t(n,r,h,"\u22E9","\\succnsim"),t(n,r,h,"\u2ABA","\\succnapprox"),t(n,r,h,"\u2246","\\ncong"),t(n,r,h,"\uE007","\\nshortparallel"),t(n,r,h,"\u2226","\\nparallel"),t(n,r,h,"\u22AF","\\nVDash"),t(n,r,h,"\u22EB","\\ntriangleright"),t(n,r,h,"\u22ED","\\ntrianglerighteq"),t(n,r,h,"\uE018","\\nsupseteqq"),t(n,r,h,"\u228B","\\supsetneq"),t(n,r,h,"\uE01B","\\varsupsetneq"),t(n,r,h,"\u2ACC","\\supsetneqq"),t(n,r,h,"\uE019","\\varsupsetneqq"),t(n,r,h,"\u22AE","\\nVdash"),t(n,r,h,"\u2AB5","\\precneqq"),t(n,r,h,"\u2AB6","\\succneqq"),t(n,r,h,"\uE016","\\nsubseteqq"),t(n,r,l,"\u22B4","\\unlhd"),t(n,r,l,"\u22B5","\\unrhd"),t(n,r,h,"\u219A","\\nleftarrow"),t(n,r,h,"\u219B","\\nrightarrow"),t(n,r,h,"\u21CD","\\nLeftarrow"),t(n,r,h,"\u21CF","\\nRightarrow"),t(n,r,h,"\u21AE","\\nleftrightarrow"),t(n,r,h,"\u21CE","\\nLeftrightarrow"),t(n,r,h,"\u25B3","\\vartriangle"),t(n,r,y,"\u210F","\\hslash"),t(n,r,y,"\u25BD","\\triangledown"),t(n,r,y,"\u25CA","\\lozenge"),t(n,r,y,"\u24C8","\\circledS"),t(n,r,y,"\xAE","\\circledR"),t(n,r,y,"\u2221","\\measuredangle"),t(n,r,y,"\u2204","\\nexists"),t(n,r,y,"\u2127","\\mho"),t(n,r,y,"\u2132","\\Finv"),t(n,r,y,"\u2141","\\Game"),t(n,r,y,"k","\\Bbbk"),t(n,r,y,"\u2035","\\backprime"),t(n,r,y,"\u25B2","\\blacktriangle"),t(n,r,y,"\u25BC","\\blacktriangledown"),t(n,r,y,"\u25A0","\\blacksquare"),t(n,r,y,"\u29EB","\\blacklozenge"),t(n,r,y,"\u2605","\\bigstar"),t(n,r,y,"\u2222","\\sphericalangle"),t(n,r,y,"\u2201","\\complement"),t(n,r,y,"\xF0","\\eth"),t(n,r,y,"\u2571","\\diagup"),t(n,r,y,"\u2572","\\diagdown"),t(n,r,y,"\u25A1","\\square"),t(n,r,y,"\u25A1","\\Box"),t(n,r,y,"\u25CA","\\Diamond"),t(n,r,y,"\xA5","\\yen"),t(n,r,y,"\u2713","\\checkmark"),t(n,r,y,"\u2136","\\beth"),t(n,r,y,"\u2138","\\daleth"),t(n,r,y,"\u2137","\\gimel"),t(n,r,y,"\u03DD","\\digamma"),t(n,r,y,"\u03F0","\\varkappa"),t(n,r,m,"\u250C","\\ulcorner"),t(n,r,d,"\u2510","\\urcorner"),t(n,r,m,"\u2514","\\llcorner"),t(n,r,d,"\u2518","\\lrcorner"),t(n,r,h,"\u2266","\\leqq"),t(n,r,h,"\u2A7D","\\leqslant"),t(n,r,h,"\u2A95","\\eqslantless"),t(n,r,h,"\u2272","\\lesssim"),t(n,r,h,"\u2A85","\\lessapprox"),t(n,r,h,"\u224A","\\approxeq"),t(n,r,l,"\u22D6","\\lessdot"),t(n,r,h,"\u22D8","\\lll"),t(n,r,h,"\u2276","\\lessgtr"),t(n,r,h,"\u22DA","\\lesseqgtr"),t(n,r,h,"\u2A8B","\\lesseqqgtr"),t(n,r,h,"\u2251","\\doteqdot"),t(n,r,h,"\u2253","\\risingdotseq"),t(n,r,h,"\u2252","\\fallingdotseq"),t(n,r,h,"\u223D","\\backsim"),t(n,r,h,"\u22CD","\\backsimeq"),t(n,r,h,"\u2AC5","\\subseteqq"),t(n,r,h,"\u22D0","\\Subset"),t(n,r,h,"\u228F","\\sqsubset"),t(n,r,h,"\u227C","\\preccurlyeq"),t(n,r,h,"\u22DE","\\curlyeqprec"),t(n,r,h,"\u227E","\\precsim"),t(n,r,h,"\u2AB7","\\precapprox"),t(n,r,h,"\u22B2","\\vartriangleleft"),t(n,r,h,"\u22B4","\\trianglelefteq"),t(n,r,h,"\u22A8","\\vDash"),t(n,r,h,"\u22AA","\\Vvdash"),t(n,r,h,"\u2323","\\smallsmile"),t(n,r,h,"\u2322","\\smallfrown"),t(n,r,h,"\u224F","\\bumpeq"),t(n,r,h,"\u224E","\\Bumpeq"),t(n,r,h,"\u2267","\\geqq"),t(n,r,h,"\u2A7E","\\geqslant"),t(n,r,h,"\u2A96","\\eqslantgtr"),t(n,r,h,"\u2273","\\gtrsim"),t(n,r,h,"\u2A86","\\gtrapprox"),t(n,r,l,"\u22D7","\\gtrdot"),t(n,r,h,"\u22D9","\\ggg"),t(n,r,h,"\u2277","\\gtrless"),t(n,r,h,"\u22DB","\\gtreqless"),t(n,r,h,"\u2A8C","\\gtreqqless"),t(n,r,h,"\u2256","\\eqcirc"),t(n,r,h,"\u2257","\\circeq"),t(n,r,h,"\u225C","\\triangleq"),t(n,r,h,"\u223C","\\thicksim"),t(n,r,h,"\u2248","\\thickapprox"),t(n,r,h,"\u2AC6","\\supseteqq"),t(n,r,h,"\u22D1","\\Supset"),t(n,r,h,"\u2290","\\sqsupset"),t(n,r,h,"\u227D","\\succcurlyeq"),t(n,r,h,"\u22DF","\\curlyeqsucc"),t(n,r,h,"\u227F","\\succsim"),t(n,r,h,"\u2AB8","\\succapprox"),t(n,r,h,"\u22B3","\\vartriangleright"),t(n,r,h,"\u22B5","\\trianglerighteq"),t(n,r,h,"\u22A9","\\Vdash"),t(n,r,h,"\u2223","\\shortmid"),t(n,r,h,"\u2225","\\shortparallel"),t(n,r,h,"\u226C","\\between"),t(n,r,h,"\u22D4","\\pitchfork"),t(n,r,h,"\u221D","\\varpropto"),t(n,r,h,"\u25C0","\\blacktriangleleft"),t(n,r,h,"\u2234","\\therefore"),t(n,r,h,"\u220D","\\backepsilon"),t(n,r,h,"\u25B6","\\blacktriangleright"),t(n,r,h,"\u2235","\\because"),t(n,r,h,"\u22D8","\\llless"),t(n,r,h,"\u22D9","\\gggtr"),t(n,r,l,"\u22B2","\\lhd"),t(n,r,l,"\u22B3","\\rhd"),t(n,r,h,"\u2242","\\eqsim"),t(n,s,h,"\u22C8","\\Join"),t(n,r,h,"\u2251","\\Doteq"),t(n,r,l,"\u2214","\\dotplus"),t(n,r,l,"\u2216","\\smallsetminus"),t(n,r,l,"\u22D2","\\Cap"),t(n,r,l,"\u22D3","\\Cup"),t(n,r,l,"\u2A5E","\\doublebarwedge"),t(n,r,l,"\u229F","\\boxminus"),t(n,r,l,"\u229E","\\boxplus"),t(n,r,l,"\u22C7","\\divideontimes"),t(n,r,l,"\u22C9","\\ltimes"),t(n,r,l,"\u22CA","\\rtimes"),t(n,r,l,"\u22CB","\\leftthreetimes"),t(n,r,l,"\u22CC","\\rightthreetimes"),t(n,r,l,"\u22CF","\\curlywedge"),t(n,r,l,"\u22CE","\\curlyvee"),t(n,r,l,"\u229D","\\circleddash"),t(n,r,l,"\u229B","\\circledast"),t(n,r,l,"\u22C5","\\centerdot"),t(n,r,l,"\u22BA","\\intercal"),t(n,r,l,"\u22D2","\\doublecap"),t(n,r,l,"\u22D3","\\doublecup"),t(n,r,l,"\u22A0","\\boxtimes"),t(n,r,h,"\u21E2","\\dashrightarrow"),t(n,r,h,"\u21E0","\\dashleftarrow"),t(n,r,h,"\u21C7","\\leftleftarrows"),t(n,r,h,"\u21C6","\\leftrightarrows"),t(n,r,h,"\u21DA","\\Lleftarrow"),t(n,r,h,"\u219E","\\twoheadleftarrow"),t(n,r,h,"\u21A2","\\leftarrowtail"),t(n,r,h,"\u21AB","\\looparrowleft"),t(n,r,h,"\u21CB","\\leftrightharpoons"),t(n,r,h,"\u21B6","\\curvearrowleft"),t(n,r,h,"\u21BA","\\circlearrowleft"),t(n,r,h,"\u21B0","\\Lsh"),t(n,r,h,"\u21C8","\\upuparrows"),t(n,r,h,"\u21BF","\\upharpoonleft"),t(n,r,h,"\u21C3","\\downharpoonleft"),t(n,r,h,"\u22B8","\\multimap"),t(n,r,h,"\u21AD","\\leftrightsquigarrow"),t(n,r,h,"\u21C9","\\rightrightarrows"),t(n,r,h,"\u21C4","\\rightleftarrows"),t(n,r,h,"\u21A0","\\twoheadrightarrow"),t(n,r,h,"\u21A3","\\rightarrowtail"),t(n,r,h,"\u21AC","\\looparrowright"),t(n,r,h,"\u21B7","\\curvearrowright"),t(n,r,h,"\u21BB","\\circlearrowright"),t(n,r,h,"\u21B1","\\Rsh"),t(n,r,h,"\u21CA","\\downdownarrows"),t(n,r,h,"\u21BE","\\upharpoonright"),t(n,r,h,"\u21C2","\\downharpoonright"),t(n,r,h,"\u21DD","\\rightsquigarrow"),t(n,r,h,"\u21DD","\\leadsto"),t(n,r,h,"\u21DB","\\Rrightarrow"),t(n,r,h,"\u21BE","\\restriction"),t(n,s,y,"\u2018","`"),t(n,s,y,"$","\\$"),t(a,s,y,"$","\\$"),t(n,s,y,"%","\\%"),t(a,s,y,"%","\\%"),t(n,s,y,"_","\\_"),t(a,s,y,"_","\\_"),t(n,s,y,"\u2220","\\angle"),t(n,s,y,"\u221E","\\infty"),t(n,s,y,"\u2032","\\prime"),t(n,s,y,"\u25B3","\\triangle"),t(n,s,y,"\u0393","\\Gamma"),t(n,s,y,"\u0394","\\Delta"),t(n,s,y,"\u0398","\\Theta"),t(n,s,y,"\u039B","\\Lambda"),t(n,s,y,"\u039E","\\Xi"),t(n,s,y,"\u03A0","\\Pi"),t(n,s,y,"\u03A3","\\Sigma"),t(n,s,y,"\u03A5","\\Upsilon"),t(n,s,y,"\u03A6","\\Phi"),t(n,s,y,"\u03A8","\\Psi"),t(n,s,y,"\u03A9","\\Omega"),t(n,s,y,"\xAC","\\neg"),t(n,s,y,"\xAC","\\lnot"),t(n,s,y,"\u22A4","\\top"),t(n,s,y,"\u22A5","\\bot"),t(n,s,y,"\u2205","\\emptyset"),t(n,r,y,"\u2205","\\varnothing"),t(n,s,u,"\u03B1","\\alpha"),t(n,s,u,"\u03B2","\\beta"),t(n,s,u,"\u03B3","\\gamma"),t(n,s,u,"\u03B4","\\delta"),t(n,s,u,"\u03F5","\\epsilon"),t(n,s,u,"\u03B6","\\zeta"),t(n,s,u,"\u03B7","\\eta"),t(n,s,u,"\u03B8","\\theta"),t(n,s,u,"\u03B9","\\iota"),t(n,s,u,"\u03BA","\\kappa"),t(n,s,u,"\u03BB","\\lambda"),t(n,s,u,"\u03BC","\\mu"),t(n,s,u,"\u03BD","\\nu"),t(n,s,u,"\u03BE","\\xi"),t(n,s,u,"o","\\omicron"),t(n,s,u,"\u03C0","\\pi"),t(n,s,u,"\u03C1","\\rho"),t(n,s,u,"\u03C3","\\sigma"),t(n,s,u,"\u03C4","\\tau"),t(n,s,u,"\u03C5","\\upsilon"),t(n,s,u,"\u03D5","\\phi"),t(n,s,u,"\u03C7","\\chi"),t(n,s,u,"\u03C8","\\psi"),t(n,s,u,"\u03C9","\\omega"),t(n,s,u,"\u03B5","\\varepsilon"),t(n,s,u,"\u03D1","\\vartheta"),t(n,s,u,"\u03D6","\\varpi"),t(n,s,u,"\u03F1","\\varrho"),t(n,s,u,"\u03C2","\\varsigma"),t(n,s,u,"\u03C6","\\varphi"),t(n,s,l,"\u2217","*"),t(n,s,l,"+","+"),t(n,s,l,"\u2212","-"),t(n,s,l,"\u22C5","\\cdot"),t(n,s,l,"\u2218","\\circ"),t(n,s,l,"\xF7","\\div"),t(n,s,l,"\xB1","\\pm"),t(n,s,l,"\xD7","\\times"),t(n,s,l,"\u2229","\\cap"),t(n,s,l,"\u222A","\\cup"),t(n,s,l,"\u2216","\\setminus"),t(n,s,l,"\u2227","\\land"),t(n,s,l,"\u2228","\\lor"),t(n,s,l,"\u2227","\\wedge"),t(n,s,l,"\u2228","\\vee"),t(n,s,y,"\u221A","\\surd"),t(n,s,m,"(","("),t(n,s,m,"[","["),t(n,s,m,"\u27E8","\\langle"),t(n,s,m,"\u2223","\\lvert"),t(n,s,m,"\u2225","\\lVert"),t(n,s,d,")",")"),t(n,s,d,"]","]"),t(n,s,d,"?","?"),t(n,s,d,"!","!"),t(n,s,d,"\u27E9","\\rangle"),t(n,s,d,"\u2223","\\rvert"),t(n,s,d,"\u2225","\\rVert"),t(n,s,h,"=","="),t(n,s,h,"<","<"),t(n,s,h,">",">"),t(n,s,h,":",":"),t(n,s,h,"\u2248","\\approx"),t(n,s,h,"\u2245","\\cong"),t(n,s,h,"\u2265","\\ge"),t(n,s,h,"\u2265","\\geq"),t(n,s,h,"\u2190","\\gets"),t(n,s,h,">","\\gt"),t(n,s,h,"\u2208","\\in"),t(n,s,h,"\u2209","\\notin"),t(n,s,h,"\u2282","\\subset"),t(n,s,h,"\u2283","\\supset"),t(n,s,h,"\u2286","\\subseteq"),t(n,s,h,"\u2287","\\supseteq"),t(n,r,h,"\u2288","\\nsubseteq"),t(n,r,h,"\u2289","\\nsupseteq"),t(n,s,h,"\u22A8","\\models"),t(n,s,h,"\u2190","\\leftarrow"),t(n,s,h,"\u2264","\\le"),t(n,s,h,"\u2264","\\leq"),t(n,s,h,"<","\\lt"),t(n,s,h,"\u2260","\\ne"),t(n,s,h,"\u2260","\\neq"),t(n,s,h,"\u2192","\\rightarrow"),t(n,s,h,"\u2192","\\to"),t(n,r,h,"\u2271","\\ngeq"),t(n,r,h,"\u2270","\\nleq"),t(n,s,f,null,"\\!"),t(n,s,f,"\xA0","\\ "),t(n,s,f,"\xA0","~"),t(n,s,f,null,"\\,"),t(n,s,f,null,"\\:"),t(n,s,f,null,"\\;"),t(n,s,f,null,"\\enspace"),t(n,s,f,null,"\\qquad"),t(n,s,f,null,"\\quad"),t(n,s,f,"\xA0","\\space"),t(n,s,g,",",","),t(n,s,g,";",";"),t(n,s,g,":","\\colon"),t(n,r,l,"\u22BC","\\barwedge"),t(n,r,l,"\u22BB","\\veebar"),t(n,s,l,"\u2299","\\odot"),t(n,s,l,"\u2295","\\oplus"),t(n,s,l,"\u2297","\\otimes"),t(n,s,y,"\u2202","\\partial"),t(n,s,l,"\u2298","\\oslash"),t(n,r,l,"\u229A","\\circledcirc"),t(n,r,l,"\u22A1","\\boxdot"),t(n,s,l,"\u25B3","\\bigtriangleup"),t(n,s,l,"\u25BD","\\bigtriangledown"),t(n,s,l,"\u2020","\\dagger"),t(n,s,l,"\u22C4","\\diamond"),t(n,s,l,"\u22C6","\\star"),t(n,s,l,"\u25C3","\\triangleleft"),t(n,s,l,"\u25B9","\\triangleright"),t(n,s,m,"{","\\{"),t(a,s,y,"{","\\{"),t(n,s,d,"}","\\}"),t(a,s,y,"}","\\}"),t(n,s,m,"{","\\lbrace"),t(n,s,d,"}","\\rbrace"),t(n,s,m,"[","\\lbrack"),t(n,s,d,"]","\\rbrack"),t(n,s,m,"\u230A","\\lfloor"),t(n,s,d,"\u230B","\\rfloor"),t(n,s,m,"\u2308","\\lceil"),t(n,s,d,"\u2309","\\rceil"),t(n,s,y,"\\","\\backslash"),t(n,s,y,"\u2223","|"),t(n,s,y,"\u2223","\\vert"),t(n,s,y,"\u2225","\\|"),t(n,s,y,"\u2225","\\Vert"),t(n,s,h,"\u2191","\\uparrow"),t(n,s,h,"\u21D1","\\Uparrow"),t(n,s,h,"\u2193","\\downarrow"),t(n,s,h,"\u21D3","\\Downarrow"),t(n,s,h,"\u2195","\\updownarrow"),t(n,s,h,"\u21D5","\\Updownarrow"),t(n,n,c,"\u2210","\\coprod"),t(n,n,c,"\u22C1","\\bigvee"),t(n,n,c,"\u22C0","\\bigwedge"),t(n,n,c,"\u2A04","\\biguplus"),t(n,n,c,"\u22C2","\\bigcap"),t(n,n,c,"\u22C3","\\bigcup"),t(n,n,c,"\u222B","\\int"),t(n,n,c,"\u222B","\\intop"),t(n,n,c,"\u222C","\\iint"),t(n,n,c,"\u222D","\\iiint"),t(n,n,c,"\u220F","\\prod"),t(n,n,c,"\u2211","\\sum"),t(n,n,c,"\u2A02","\\bigotimes"),t(n,n,c,"\u2A01","\\bigoplus"),t(n,n,c,"\u2A00","\\bigodot"),t(n,n,c,"\u222E","\\oint"),t(n,n,c,"\u2A06","\\bigsqcup"),t(n,n,c,"\u222B","\\smallint"),t(a,s,p,"\u2026","\\textellipsis"),t(n,s,p,"\u2026","\\mathellipsis"),t(a,s,p,"\u2026","\\ldots"),t(n,s,p,"\u2026","\\ldots"),t(n,s,p,"\u22EF","\\cdots"),t(n,s,p,"\u22F1","\\ddots"),t(n,s,y,"\u22EE","\\vdots"),t(n,s,o,"\xB4","\\acute"),t(n,s,o,"`","\\grave"),t(n,s,o,"\xA8","\\ddot"),t(n,s,o,"~","\\tilde"),t(n,s,o,"\xAF","\\bar"),t(n,s,o,"\u02D8","\\breve"),t(n,s,o,"\u02C7","\\check"),t(n,s,o,"^","\\hat"),t(n,s,o,"\u20D7","\\vec"),t(n,s,o,"\u02D9","\\dot"),t(n,s,u,"\u0131","\\imath"),t(n,s,u,"\u0237","\\jmath"),t(a,s,y,"\u2013","--"),t(a,s,y,"\u2014","---"),t(a,s,y,"\u2018","`"),t(a,s,y,"\u2019","'"),t(a,s,y,"\u201C","``"),t(a,s,y,"\u201D","''"),t(n,s,y,"\xB0","\\degree"),t(a,s,y,"\xB0","\\degree"),t(n,s,u,"\xA3","\\pounds"),t(n,r,y,"\u2720","\\maltese"),t(a,r,y,"\u2720","\\maltese"),t(a,s,f,"\xA0","\\ "),t(a,s,f,"\xA0"," "),t(a,s,f,"\xA0","~");var x="0123456789/@.\"",z,i;for(z=0;z<x.length;z++)i=x.charAt(z),t(n,s,y,i,i);var b="0123456789!@*()-=+[]\";:?/.,";for(z=0;z<b.length;z++)i=b.charAt(z),t(a,s,y,i,i);var k="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";for(z=0;z<k.length;z++)i=k.charAt(z),t(n,s,u,i,i),t(a,s,y,i,i);for(z=192;214>=z;z++)i=ai(z),t(a,s,y,i,i);for(z=216;246>=z;z++)i=ai(z),t(a,s,y,i,i);for(z=248;255>=z;z++)i=ai(z),t(a,s,y,i,i);for(z=1040;1103>=z;z++)i=ai(z),t(a,s,y,i,i);t(a,s,y,"\u2013","\u2013"),t(a,s,y,"\u2014","\u2014"),t(a,s,y,"\u2018","\u2018"),t(a,s,y,"\u2019","\u2019"),t(a,s,y,"\u201C","\u201C"),t(a,s,y,"\u201D","\u201D")}),Mr=Ar,Nr=Ws,_r=Cr,qr=kr,Rr=["\\Gamma","\\Delta","\\Theta","\\Lambda","\\Xi","\\Pi","\\Sigma","\\Upsilon","\\Phi","\\Psi","\\Omega"],Er=["\u0131","\u0237","\xA3"],Lr=function(e,t,i,n,a){_r[i][e]&&_r[i][e].replace&&(e=_r[i][e].replace);var s=Nr.getCharacterMetrics(e,t),r;if(s){var o=s.italic;"text"===i&&(o=0),r=new Mr.symbolNode(e,s.height,s.depth,o,s.skew,a)}else"undefined"!=typeof console&&console.warn("No character metrics for '"+e+"' in style '"+t+"'"),r=new Mr.symbolNode(e,0,0,0,0,a);return n&&(n.style.isTight()&&r.classes.push("mtight"),n.getColor()&&(r.style.color=n.getColor())),r},Fr=function(e,t,i,n,a){if("mathord"===a)return Ir(e,t,i,n);if("textord"===a)return Lr(e,"Main-Regular",t,i,n.concat(["mathrm"]));throw new Error("unexpected type: "+a+" in mathDefault")},Ir=function(e,t,i,n){return /[0-9]/.test(e.charAt(0))||qr.contains(Er,e)||qr.contains(Rr,e)?Lr(e,"Main-Italic",t,i,n.concat(["mainit"])):Lr(e,"Math-Italic",t,i,n.concat(["mathit"]))},Or=function(e){var t=0,n=0,a=0;if(e.children)for(var s=0;s<e.children.length;s++)e.children[s].height>t&&(t=e.children[s].height),e.children[s].depth>n&&(n=e.children[s].depth),e.children[s].maxFontSize>a&&(a=e.children[s].maxFontSize);e.height=t,e.depth=n,e.maxFontSize=a},Dr=function(e,t,i){var n=new Mr.span(e,t,i);return Or(n),n},Xr=function(e,t){var i=Dr([],[new Mr.symbolNode("\u200B")]);i.style.fontSize=t/e.style.sizeMultiplier+"em";var n=Dr(["fontsize-ensurer","reset-"+e.size,"size5"],[i]);return n},Kr={mathbf:{variant:"bold",fontName:"Main-Bold"},mathrm:{variant:"normal",fontName:"Main-Regular"},textit:{variant:"italic",fontName:"Main-Italic"},mathbb:{variant:"double-struck",fontName:"AMS-Regular"},mathcal:{variant:"script",fontName:"Caligraphic-Regular"},mathfrak:{variant:"fraktur",fontName:"Fraktur-Regular"},mathscr:{variant:"script",fontName:"Script-Regular"},mathsf:{variant:"sans-serif",fontName:"SansSerif-Regular"},mathtt:{variant:"monospace",fontName:"Typewriter-Regular"}},Ur={fontMap:Kr,makeSymbol:Lr,mathsym:function(e,t,i,n){return"\\"===e||"main"===_r[t][e].font?Lr(e,"Main-Regular",t,i,n):Lr(e,"AMS-Regular",t,i,n.concat(["amsrm"]))},makeSpan:Dr,makeFragment:function(e){var t=new Mr.documentFragment(e);return Or(t),t},makeVList:function(e,t,n,a){var s,r,o;if("individualShift"===t){var i=e;for(e=[i[0]],s=-i[0].shift-i[0].elem.depth,r=s,o=1;o<i.length;o++){var l=-i[o].shift-r-i[o].elem.depth,d=l-(i[o-1].elem.height+i[o-1].elem.depth);r+=l,e.push({type:"kern",size:d}),e.push(i[o])}}else if("top"===t){var p=n;for(o=0;o<e.length;o++)p-="kern"===e[o].type?e[o].size:e[o].elem.height+e[o].elem.depth;s=p}else s="bottom"===t?-n:"shift"===t?-e[0].elem.depth-n:"firstBaseline"===t?-e[0].elem.depth:0;var u=0;for(o=0;o<e.length;o++)"elem"===e[o].type&&(u=ni(u,e[o].elem.maxFontSize));var c=Xr(a,u),m=[];for(r=s,o=0;o<e.length;o++)if("kern"===e[o].type)r+=e[o].size;else{var g=e[o].elem,h=-g.depth-r;r+=g.height+g.depth;var f=Dr([],[c,g]);f.height-=h,f.depth+=h,f.style.top=h+"em",m.push(f)}var y=Dr(["baseline-fix"],[c,new Mr.symbolNode("\u200B")]);m.push(y);var x=Dr(["vlist"],m);return x.height=ni(r,x.height),x.depth=ni(-s,x.depth),x},makeOrd:function(e,t,i){var n=e.mode,a=e.value;_r[n][a]&&_r[n][a].replace&&(a=_r[n][a].replace);var s=["mord"],r=t.font;if(r){if("mathit"===r||qr.contains(Er,a))return Ir(a,n,t,s);var o=Kr[r].fontName;return Nr.getCharacterMetrics(a,o)?Lr(a,o,n,t,s.concat([r])):Fr(a,n,t,s,i)}return Fr(a,n,t,s,i)},prependChildren:function(e,t){e.children=t.concat(e.children),Or(e)},sizingMultiplier:{size1:0.5,size2:0.7,size3:0.8,size4:0.9,size5:1,size6:1.2,size7:1.44,size8:1.73,size9:2.07,size10:2.49},spacingFunctions:{"\\qquad":{size:"2em",className:"qquad"},"\\quad":{size:"1em",className:"quad"},"\\enspace":{size:"0.5em",className:"enspace"},"\\;":{size:"0.277778em",className:"thickspace"},"\\:":{size:"0.22222em",className:"mediumspace"},"\\,":{size:"0.16667em",className:"thinspace"},"\\!":{size:"-0.16667em",className:"negativethinspace"}}},Pr=mr,Br=Ur,jr=Ws,Hr=Cr,Yr=kr,Gr=Br.makeSpan,Wr=function(e,t){return Hr.math[e]&&Hr.math[e].replace?jr.getCharacterMetrics(Hr.math[e].replace,t):jr.getCharacterMetrics(e,t)},Vr=function(e,t,i,n){return Br.makeSymbol(e,"Size"+t+"-Regular",i,n)},$r=function(e,t,i,n){n=n||[];var a=Gr(n.concat(["style-wrap",i.style.reset(),t.cls()]),[e],i),s=t.sizeMultiplier/i.style.sizeMultiplier;return a.height*=s,a.depth*=s,a.maxFontSize=t.sizeMultiplier,a},Jr=function(e,t,i,n,a,s){var r=Br.makeSymbol(e,"Main-Regular",a,n),o=$r(r,t,n,s);if(i){var l=(1-n.style.sizeMultiplier/t.sizeMultiplier)*n.style.metrics.axisHeight;o.style.top=l+"em",o.height-=l,o.depth+=l}return o},Zr=function(e,t,i,n,a,s){var r=Vr(e,t,a,n),o=$r(Gr(["delimsizing","size"+t],[r],n),Pr.TEXT,n,s);if(i){var l=(1-n.style.sizeMultiplier)*n.style.metrics.axisHeight;o.style.top=l+"em",o.height-=l,o.depth+=l}return o},Qr=function(e,t,i){var n;"Size1-Regular"===t?n="delim-size1":"Size4-Regular"===t&&(n="delim-size4");var a=Gr(["delimsizinginner",n],[Gr([],[Br.makeSymbol(e,t,i)])]);return{type:"elem",elem:a}},eo=function(e,t,n,a,s,r){var o,l,d,p;o=d=p=e,l=null;var u="Size1-Regular";"\\uparrow"===e?d=p="\u23D0":"\\Uparrow"===e?d=p="\u2016":"\\downarrow"===e?o=d="\u23D0":"\\Downarrow"===e?o=d="\u2016":"\\updownarrow"===e?(o="\\uparrow",d="\u23D0",p="\\downarrow"):"\\Updownarrow"===e?(o="\\Uparrow",d="\u2016",p="\\Downarrow"):"["===e||"\\lbrack"===e?(o="\u23A1",d="\u23A2",p="\u23A3",u="Size4-Regular"):"]"===e||"\\rbrack"===e?(o="\u23A4",d="\u23A5",p="\u23A6",u="Size4-Regular"):"\\lfloor"===e?(d=o="\u23A2",p="\u23A3",u="Size4-Regular"):"\\lceil"===e?(o="\u23A1",d=p="\u23A2",u="Size4-Regular"):"\\rfloor"===e?(d=o="\u23A5",p="\u23A6",u="Size4-Regular"):"\\rceil"===e?(o="\u23A4",d=p="\u23A5",u="Size4-Regular"):"("===e?(o="\u239B",d="\u239C",p="\u239D",u="Size4-Regular"):")"===e?(o="\u239E",d="\u239F",p="\u23A0",u="Size4-Regular"):"\\{"===e||"\\lbrace"===e?(o="\u23A7",l="\u23A8",p="\u23A9",d="\u23AA",u="Size4-Regular"):"\\}"===e||"\\rbrace"===e?(o="\u23AB",l="\u23AC",p="\u23AD",d="\u23AA",u="Size4-Regular"):"\\lgroup"===e?(o="\u23A7",p="\u23A9",d="\u23AA",u="Size4-Regular"):"\\rgroup"===e?(o="\u23AB",p="\u23AD",d="\u23AA",u="Size4-Regular"):"\\lmoustache"===e?(o="\u23A7",p="\u23AD",d="\u23AA",u="Size4-Regular"):"\\rmoustache"===e?(o="\u23AB",p="\u23A9",d="\u23AA",u="Size4-Regular"):"\\surd"===e&&(o="\uE001",p="\u23B7",d="\uE000",u="Size4-Regular");var c=Wr(o,u),m=c.height+c.depth,g=Wr(d,u),h=g.height+g.depth,f=Wr(p,u),y=f.height+f.depth,x=0,z=1;if(null!==l){var b=Wr(l,u);x=b.height+b.depth,z=2}var k=m+y+x,v=Math.ceil((t-k)/(z*h)),w=k+v*z*h,T=a.style.metrics.axisHeight;n&&(T*=a.style.sizeMultiplier);var S=w/2-T,A=[];A.push(Qr(p,u,s));var C;if(null===l)for(C=0;C<v;C++)A.push(Qr(d,u,s));else{for(C=0;C<v;C++)A.push(Qr(d,u,s));for(A.push(Qr(l,u,s)),C=0;C<v;C++)A.push(Qr(d,u,s))}A.push(Qr(o,u,s));var i=Br.makeVList(A,"bottom",S,a);return $r(Gr(["delimsizing","mult"],[i],a),Pr.TEXT,a,r)},to=["(",")","[","\\lbrack","]","\\rbrack","\\{","\\lbrace","\\}","\\rbrace","\\lfloor","\\rfloor","\\lceil","\\rceil","\\surd"],io=["\\uparrow","\\downarrow","\\updownarrow","\\Uparrow","\\Downarrow","\\Updownarrow","|","\\|","\\vert","\\Vert","\\lvert","\\rvert","\\lVert","\\rVert","\\lgroup","\\rgroup","\\lmoustache","\\rmoustache"],no=["<",">","\\langle","\\rangle","/","\\backslash","\\lt","\\gt"],ao=[0,1.2,1.8,2.4,3],so=[{type:"small",style:Pr.SCRIPTSCRIPT},{type:"small",style:Pr.SCRIPT},{type:"small",style:Pr.TEXT},{type:"large",size:1},{type:"large",size:2},{type:"large",size:3},{type:"large",size:4}],ro=[{type:"small",style:Pr.SCRIPTSCRIPT},{type:"small",style:Pr.SCRIPT},{type:"small",style:Pr.TEXT},{type:"stack"}],oo=[{type:"small",style:Pr.SCRIPTSCRIPT},{type:"small",style:Pr.SCRIPT},{type:"small",style:Pr.TEXT},{type:"large",size:1},{type:"large",size:2},{type:"large",size:3},{type:"large",size:4},{type:"stack"}],lo=function(e){if("small"===e.type)return"Main-Regular";return"large"===e.type?"Size"+e.size+"-Regular":"stack"===e.type?"Size4-Regular":void 0},po=function(e,t,n,a){for(var s=oi(2,3-a.style.size),r=s;r<n.length&&"stack"!==n[r].type;r++){var i=Wr(e,lo(n[r])),o=i.height+i.depth;if("small"===n[r].type&&(o*=n[r].style.sizeMultiplier),o>t)return n[r]}return n[n.length-1]},uo=function(e,t,i,n,a,s){"<"===e||"\\lt"===e?e="\\langle":(">"===e||"\\gt"===e)&&(e="\\rangle");var r=Yr.contains(no,e)?so:Yr.contains(to,e)?oo:ro;var o=po(e,t,r,n);if("small"===o.type)return Jr(e,o.style,i,n,a,s);return"large"===o.type?Zr(e,o.size,i,n,a,s):"stack"===o.type?eo(e,t,i,n,a,s):void 0},co=Xs,mo=mr,go=Ur,ho={sizedDelim:function(e,t,i,n,a){if("<"===e||"\\lt"===e?e="\\langle":(">"===e||"\\gt"===e)&&(e="\\rangle"),Yr.contains(to,e)||Yr.contains(no,e))return Zr(e,t,!1,i,n,a);if(Yr.contains(io,e))return eo(e,ao[t],!1,i,n,a);throw new Xs("Illegal delimiter: '"+e+"'")},customSizedDelim:uo,leftRightDelim:function(e,t,i,n,a,s){var r=n.style.metrics.axisHeight*n.style.sizeMultiplier,o=5/jr.metrics.ptPerEm,l=ni(t-r,i+r),d=ni(l/500*901,2*l-o);return uo(e,d,!0,n,a,s)}},fo=Ar,yo=Ws,xo=kr,zo=go.makeSpan,bo=function(e){return e instanceof fo.span&&"mspace"===e.classes[0]},ko=function(e){return e&&"mbin"===e.classes[0]},vo=function(e,t){return e?xo.contains(["mbin","mopen","mrel","mop","mpunct"],e.classes[0]):t},wo=function(e,t){return e?xo.contains(["mrel","mclose","mpunct"],e.classes[0]):t},To=function(e,t,n){for(var a=[],s=0;s<e.length;s++){var i=e[s],r=Ro(i,t);r instanceof fo.documentFragment?Array.prototype.push.apply(a,r.children):a.push(r)}var o=null;for(s=0;s<a.length;s++)bo(a[s])?(o=o||[],o.push(a[s]),a.splice(s,1),s--):o&&(a[s]instanceof fo.symbolNode&&(a[s]=zo([].concat(a[s].classes),[a[s]])),go.prependChildren(a[s],o),o=null);for(o&&Array.prototype.push.apply(a,o),s=0;s<a.length;s++)ko(a[s])&&(vo(a[s-1],n)||wo(a[s+1],n))&&(a[s].classes[0]="mord");return a},So=function(e){if(e instanceof fo.documentFragment){if(e.children.length)return So(e.children[e.children.length-1]);}else if(xo.contains(["mord","mop","mbin","mrel","mopen","mclose","mpunct","minner"],e.classes[0]))return e.classes[0];return null},Ao=function(e,t){return!!e&&("op"===e.type?e.value.limits&&(t.style.size===mo.DISPLAY.size||e.value.alwaysHandleSupSub):"accent"===e.type?Mo(e.value.base):null)},Co=function(e){return!!e&&("ordgroup"===e.type?1===e.value.length?Co(e.value[0]):e:"color"===e.type?1===e.value.value.length?Co(e.value.value[0]):e:"font"===e.type?Co(e.value.body):e)},Mo=function(e){var t=Co(e);return"mathord"===t.type||"textord"===t.type||"bin"===t.type||"rel"===t.type||"inner"===t.type||"open"===t.type||"close"===t.type||"punct"===t.type},No=function(e,t){return zo(t.concat(["sizing","reset-"+e.size,"size5",e.style.reset(),mo.TEXT.cls(),"nulldelimiter"]))},_o={};_o.mathord=function(e,t){return go.makeOrd(e,t,"mathord")},_o.textord=function(e,t){return go.makeOrd(e,t,"textord")},_o.bin=function(e,t){return go.mathsym(e.value,e.mode,t,["mbin"])},_o.rel=function(e,t){return go.mathsym(e.value,e.mode,t,["mrel"])},_o.open=function(e,t){return go.mathsym(e.value,e.mode,t,["mopen"])},_o.close=function(e,t){return go.mathsym(e.value,e.mode,t,["mclose"])},_o.inner=function(e,t){return go.mathsym(e.value,e.mode,t,["minner"])},_o.punct=function(e,t){return go.mathsym(e.value,e.mode,t,["mpunct"])},_o.ordgroup=function(e,t){return zo(["mord",t.style.cls()],To(e.value,t.reset(),!0),t)},_o.text=function(e,t){for(var n=t.withFont(e.value.style),a=To(e.value.body,n,!0),s=0;s<a.length-1;s++)a[s].tryCombine(a[s+1])&&(a.splice(s+1,1),s--);return zo(["mord","text",n.style.cls()],a,n)},_o.color=function(e,t){var i=To(e.value.value,t.withColor(e.value.color),!1);return new go.makeFragment(i)},_o.supsub=function(e,t){if(Ao(e.value.base,t))return _o[e.value.base.type](e,t);var i=Ro(e.value.base,t.reset()),n=t.style,a,s,r,o,l;e.value.sup&&(l=t.withStyle(n.sup()),r=Ro(e.value.sup,l),a=zo([n.reset(),n.sup().cls()],[r],l)),e.value.sub&&(l=t.withStyle(n.sub()),o=Ro(e.value.sub,l),s=zo([n.reset(),n.sub().cls()],[o],l));var d,p;Mo(e.value.base)?(d=0,p=0):(d=i.height-n.metrics.supDrop,p=i.depth+n.metrics.subDrop);var u=n===mo.DISPLAY?n.metrics.sup1:n.cramped?n.metrics.sup3:n.metrics.sup2;var c=mo.TEXT.sizeMultiplier*n.sizeMultiplier,m=0.5/yo.metrics.ptPerEm/c+"em",g;if(!e.value.sup)p=ni(p,n.metrics.sub1,o.height-0.8*n.metrics.xHeight),g=go.makeVList([{type:"elem",elem:s}],"shift",p,t),g.children[0].style.marginRight=m,i instanceof fo.symbolNode&&(g.children[0].style.marginLeft=-i.italic+"em");else if(!e.value.sub)d=ni(d,u,r.depth+0.25*n.metrics.xHeight),g=go.makeVList([{type:"elem",elem:a}],"shift",-d,t),g.children[0].style.marginRight=m;else{d=ni(d,u,r.depth+0.25*n.metrics.xHeight),p=ni(p,n.metrics.sub2);var h=yo.metrics.defaultRuleThickness;if(d-r.depth-(o.height-p)<4*h){p=4*h-(d-r.depth)+o.height;var f=0.8*n.metrics.xHeight-(d-r.depth);0<f&&(d+=f,p-=f)}g=go.makeVList([{type:"elem",elem:s,shift:p},{type:"elem",elem:a,shift:-d}],"individualShift",null,t),i instanceof fo.symbolNode&&(g.children[0].style.marginLeft=-i.italic+"em"),g.children[0].style.marginRight=m,g.children[1].style.marginRight=m}var y=So(i)||"mord";return zo([y],[i,zo(["msupsub"],[g])],t)},_o.genfrac=function(e,t){var i=t.style;"display"===e.value.size?i=mo.DISPLAY:"text"===e.value.size&&(i=mo.TEXT);var n=i.fracNum(),a=i.fracDen(),s;s=t.withStyle(n);var r=Ro(e.value.numer,s),o=zo([i.reset(),n.cls()],[r],s);s=t.withStyle(a);var l=Ro(e.value.denom,s),d=zo([i.reset(),a.cls()],[l],s),p;p=e.value.hasBarLine?yo.metrics.defaultRuleThickness/t.style.sizeMultiplier:0;var u,c,m;i.size===mo.DISPLAY.size?(u=i.metrics.num1,c=0<p?3*p:7*yo.metrics.defaultRuleThickness,m=i.metrics.denom1):(0<p?(u=i.metrics.num2,c=p):(u=i.metrics.num3,c=3*yo.metrics.defaultRuleThickness),m=i.metrics.denom2);var g;if(0===p){var h=u-r.depth-(l.height-m);h<c&&(u+=0.5*(c-h),m+=0.5*(c-h)),g=go.makeVList([{type:"elem",elem:d,shift:m},{type:"elem",elem:o,shift:-u}],"individualShift",null,t)}else{var f=i.metrics.axisHeight;u-r.depth-(f+0.5*p)<c&&(u+=c-(u-r.depth-(f+0.5*p))),f-0.5*p-(l.height-m)<c&&(m+=c-(f-0.5*p-(l.height-m)));var y=zo([t.style.reset(),mo.TEXT.cls(),"frac-line"]);y.height=p;var x=-(f-0.5*p);g=go.makeVList([{type:"elem",elem:d,shift:m},{type:"elem",elem:y,shift:x},{type:"elem",elem:o,shift:-u}],"individualShift",null,t)}g.height*=i.sizeMultiplier/t.style.sizeMultiplier,g.depth*=i.sizeMultiplier/t.style.sizeMultiplier;var z=i.size===mo.DISPLAY.size?i.metrics.delim1:i.metrics.delim2;var b,k;return b=null==e.value.leftDelim?No(t,["mopen"]):ho.customSizedDelim(e.value.leftDelim,z,!0,t.withStyle(i),e.mode,["mopen"]),k=null==e.value.rightDelim?No(t,["mclose"]):ho.customSizedDelim(e.value.rightDelim,z,!0,t.withStyle(i),e.mode,["mclose"]),zo(["mord",t.style.reset(),i.cls()],[b,zo(["mfrac"],[g]),k],t)};var qo=function(e,t){var i=e.number;return"ex"===e.unit?i*=t.metrics.emPerEx:"mu"===e.unit&&(i/=18),i};_o.array=function(e,t){var i=e.value.body.length,n=0,a=Array(i),s=t.style,o=1/yo.metrics.ptPerEm,l=5*o,d=xo.deflt(e.value.arraystretch,1),p=d*(12*o),u=0.3*p,m=0,g,r;for(g=0;g<e.value.body.length;++g){var c=e.value.body[g],h=0.7*p,f=u;n<c.length&&(n=c.length);var y=Array(c.length);for(r=0;r<c.length;++r){var x=Ro(c[r],t);f<x.depth&&(f=x.depth),h<x.height&&(h=x.height),y[r]=x}var z=0;e.value.rowGaps[g]&&(z=qo(e.value.rowGaps[g].value,s),0<z&&(z+=u,f<z&&(f=z),z=0)),y.height=h,y.depth=f,m+=h,y.pos=m,m+=f+z,a[g]=y}var b=m/2+s.metrics.axisHeight,k=e.value.cols||[],v=[],w,T;for(r=0,T=0;r<n||T<k.length;++r,++T){for(var S=k[T]||{},A=!0;"separator"===S.type;){if(A||(w=zo(["arraycolsep"],[]),w.style.width=yo.metrics.doubleRuleSep+"em",v.push(w)),"|"===S.separator){var C=zo(["vertical-separator"],[]);C.style.height=m+"em",C.style.verticalAlign=-(m-b)+"em",v.push(C)}else throw new co("Invalid separator type: "+S.separator);T++,S=k[T]||{},A=!1}if(!(r>=n)){var M;(0<r||e.value.hskipBeforeAndAfter)&&(M=xo.deflt(S.pregap,l),0!==M&&(w=zo(["arraycolsep"],[]),w.style.width=M+"em",v.push(w)));var N=[];for(g=0;g<i;++g){var _=a[g],q=_[r];if(q){var R=_.pos-b;q.depth=_.depth,q.height=_.height,N.push({type:"elem",elem:q,shift:R})}}N=go.makeVList(N,"individualShift",null,t),N=zo(["col-align-"+(S.align||"c")],[N]),v.push(N),(r<n-1||e.value.hskipBeforeAndAfter)&&(M=xo.deflt(S.postgap,l),0!==M&&(w=zo(["arraycolsep"],[]),w.style.width=M+"em",v.push(w)))}}return a=zo(["mtable"],v),zo(["mord"],[a],t)},_o.spacing=function(e,t){return"\\ "===e.value||"\\space"===e.value||" "===e.value||"~"===e.value?"text"===e.mode?go.makeOrd(e,t,"textord"):zo(["mspace"],[go.mathsym(e.value,e.mode,t)],t):zo(["mspace",go.spacingFunctions[e.value].className],[],t)},_o.llap=function(e,t){var i=zo(["inner"],[Ro(e.value.body,t.reset())]),n=zo(["fix"],[]);return zo(["mord","llap",t.style.cls()],[i,n],t)},_o.rlap=function(e,t){var i=zo(["inner"],[Ro(e.value.body,t.reset())]),n=zo(["fix"],[]);return zo(["mord","rlap",t.style.cls()],[i,n],t)},_o.op=function(e,t){var n=!1,a,s;"supsub"===e.type&&(a=e.value.sup,s=e.value.sub,e=e.value.base,n=!0);var r=t.style,o=!1;r.size===mo.DISPLAY.size&&e.value.symbol&&!xo.contains(["\\smallint"],e.value.body)&&(o=!0);var l=0,d=0,p;if(e.value.symbol){var u=o?"Size2-Regular":"Size1-Regular";p=go.makeSymbol(e.value.body,u,"math",t,["mop","op-symbol",o?"large-op":"small-op"]),l=(p.height-p.depth)/2-r.metrics.axisHeight*r.sizeMultiplier,d=p.italic}else if(e.value.value){var c=To(e.value.value,t,!0);p=zo(["mop"],c,t)}else{for(var m=[],g=1;g<e.value.body.length;g++)m.push(go.mathsym(e.value.body[g],e.mode));p=zo(["mop"],m,t)}if(n){p=zo([],[p]);var i,h,f,y,x;if(a){x=t.withStyle(r.sup());var z=Ro(a,x);i=zo([r.reset(),r.sup().cls()],[z],x),h=ni(yo.metrics.bigOpSpacing1,yo.metrics.bigOpSpacing3-z.depth)}if(s){x=t.withStyle(r.sub());var b=Ro(s,x);f=zo([r.reset(),r.sub().cls()],[b],x),y=ni(yo.metrics.bigOpSpacing2,yo.metrics.bigOpSpacing4-b.height)}var k,v,w;if(!a)v=p.height-l,k=go.makeVList([{type:"kern",size:yo.metrics.bigOpSpacing5},{type:"elem",elem:f},{type:"kern",size:y},{type:"elem",elem:p}],"top",v,t),k.children[0].style.marginLeft=-d+"em";else if(!s)w=p.depth+l,k=go.makeVList([{type:"elem",elem:p},{type:"kern",size:h},{type:"elem",elem:i},{type:"kern",size:yo.metrics.bigOpSpacing5}],"bottom",w,t),k.children[1].style.marginLeft=d+"em";else{if(!a&&!s)return p;w=yo.metrics.bigOpSpacing5+f.height+f.depth+y+p.depth+l,k=go.makeVList([{type:"kern",size:yo.metrics.bigOpSpacing5},{type:"elem",elem:f},{type:"kern",size:y},{type:"elem",elem:p},{type:"kern",size:h},{type:"elem",elem:i},{type:"kern",size:yo.metrics.bigOpSpacing5}],"bottom",w,t),k.children[0].style.marginLeft=-d+"em",k.children[2].style.marginLeft=d+"em"}return zo(["mop","op-limits"],[k],t)}return e.value.symbol&&(p.style.top=l+"em"),p},_o.mod=function(e,t){var i=[];if("bmod"===e.value.modType?(!t.style.isTight()&&i.push(zo(["mspace","negativemediumspace"],[],t)),i.push(zo(["mspace","thickspace"],[],t))):t.style.size===mo.DISPLAY.size?i.push(zo(["mspace","quad"],[],t)):"mod"===e.value.modType?i.push(zo(["mspace","twelvemuspace"],[],t)):i.push(zo(["mspace","eightmuspace"],[],t)),("pod"===e.value.modType||"pmod"===e.value.modType)&&i.push(go.mathsym("(",e.mode)),"pod"!==e.value.modType){var n=[go.mathsym("m",e.mode),go.mathsym("o",e.mode),go.mathsym("d",e.mode)];"bmod"===e.value.modType?(i.push(zo(["mbin"],n,t)),i.push(zo(["mspace","thickspace"],[],t)),!t.style.isTight()&&i.push(zo(["mspace","negativemediumspace"],[],t))):(Array.prototype.push.apply(i,n),i.push(zo(["mspace","sixmuspace"],[],t)))}return e.value.value&&Array.prototype.push.apply(i,To(e.value.value,t,!1)),("pod"===e.value.modType||"pmod"===e.value.modType)&&i.push(go.mathsym(")",e.mode)),go.makeFragment(i)},_o.katex=function(i,n){var s=zo(["k"],[go.mathsym("K",i.mode)],n),r=zo(["a"],[go.mathsym("A",i.mode)],n);r.height=0.75*(r.height+0.2),r.depth=0.75*(r.height-0.2);var a=zo(["t"],[go.mathsym("T",i.mode)],n),t=zo(["e"],[go.mathsym("E",i.mode)],n);t.height-=0.2155,t.depth+=0.2155;var e=zo(["x"],[go.mathsym("X",i.mode)],n);return zo(["mord","katex-logo"],[s,r,a,t,e],n)},_o.overline=function(e,t){var i=t.style,n=Ro(e.value.body,t.withStyle(i.cramp())),a=yo.metrics.defaultRuleThickness/i.sizeMultiplier,s=zo([i.reset(),mo.TEXT.cls(),"overline-line"]);s.height=a,s.maxFontSize=1;var r=go.makeVList([{type:"elem",elem:n},{type:"kern",size:3*a},{type:"elem",elem:s},{type:"kern",size:a}],"firstBaseline",null,t);return zo(["mord","overline"],[r],t)},_o.underline=function(e,t){var i=t.style,n=Ro(e.value.body,t),a=yo.metrics.defaultRuleThickness/i.sizeMultiplier,s=zo([i.reset(),mo.TEXT.cls(),"underline-line"]);s.height=a,s.maxFontSize=1;var r=go.makeVList([{type:"kern",size:a},{type:"elem",elem:s},{type:"kern",size:3*a},{type:"elem",elem:n}],"top",n.height,t);return zo(["mord","underline"],[r],t)},_o.sqrt=function(e,t){var i=t.style,n=Ro(e.value.body,t.withStyle(i.cramp())),a=yo.metrics.defaultRuleThickness/i.sizeMultiplier,s=zo([i.reset(),mo.TEXT.cls(),"sqrt-line"],[],t);s.height=a,s.maxFontSize=1;var r=a;i.id<mo.TEXT.id&&(r=i.metrics.xHeight);var o=a+r/4,l=(n.height+n.depth)*i.sizeMultiplier,d=l+o+a,p=zo(["sqrt-sign"],[ho.customSizedDelim("\\surd",d,!1,t,e.mode)],t),u=p.height+p.depth-a;u>n.height+n.depth+o&&(o=(o+u-n.height-n.depth)/2);var c=-(n.height+o+a)+p.height;p.style.top=c+"em",p.height-=c,p.depth+=c;var m;if(m=0===n.height&&0===n.depth?zo():go.makeVList([{type:"elem",elem:n},{type:"kern",size:o},{type:"elem",elem:s},{type:"kern",size:a}],"firstBaseline",null,t),!e.value.index)return zo(["mord","sqrt"],[p,m],t);var g=t.withStyle(mo.SCRIPTSCRIPT),h=Ro(e.value.index,g),f=zo([i.reset(),mo.SCRIPTSCRIPT.cls()],[h],g),y=ni(p.height,m.height),x=ni(p.depth,m.depth),z=go.makeVList([{type:"elem",elem:f}],"shift",-(0.6*(y-x)),t),b=zo(["root"],[z]);return zo(["mord","sqrt"],[b,p,m],t)},_o.sizing=function(e,t){var n=To(e.value.value,t.withSize(e.value.size),!1),a=t.style,s=go.sizingMultiplier[e.value.size];s*=a.sizeMultiplier;for(var r=0,i;r<n.length;r++)i=xo.indexOf(n[r].classes,"sizing"),0>i?(n[r].classes.push("sizing","reset-"+t.size,e.value.size,a.cls()),n[r].maxFontSize=s):n[r].classes[i+1]==="reset-"+e.value.size&&(n[r].classes[i+1]="reset-"+t.size);return go.makeFragment(n)},_o.styling=function(e,t){for(var n={display:mo.DISPLAY,text:mo.TEXT,script:mo.SCRIPT,scriptscript:mo.SCRIPTSCRIPT},a=n[e.value.style],s=t.withStyle(a),r=To(e.value.value,s,!1),o=0,i;o<r.length;o++)i=xo.indexOf(r[o].classes,a.reset()),0>i?r[o].classes.push(t.style.reset(),a.cls()):r[o].classes[i]=t.style.reset();return new go.makeFragment(r)},_o.font=function(e,t){var i=e.value.font;return Ro(e.value.body,t.withFont(i))},_o.delimsizing=function(e,t){var i=e.value.value;return"."===i?zo([e.value.mclass]):ho.sizedDelim(i,e.value.size,t,e.mode,[e.value.mclass])},_o.leftright=function(e,t){for(var n=To(e.value.body,t.reset(),!0),a=0,s=0,r=!1,o=0;o<n.length;o++)n[o].isMiddle?r=!0:(a=ni(n[o].height,a),s=ni(n[o].depth,s));var i=t.style;a*=i.sizeMultiplier,s*=i.sizeMultiplier;var l;if(l="."===e.value.left?No(t,["mopen"]):ho.leftRightDelim(e.value.left,a,s,t,e.mode,["mopen"]),n.unshift(l),r)for(o=1;o<n.length;o++)n[o].isMiddle&&(n[o]=ho.leftRightDelim(n[o].isMiddle.value,a,s,n[o].isMiddle.options,e.mode,[]));var d;return d="."===e.value.right?No(t,["mclose"]):ho.leftRightDelim(e.value.right,a,s,t,e.mode,["mclose"]),n.push(d),zo(["minner",i.cls()],n,t)},_o.middle=function(e,t){var i;return"."===e.value.value?i=No(t,[]):(i=ho.sizedDelim(e.value.value,1,t,e.mode,[]),i.isMiddle={value:e.value.value,options:t}),i},_o.rule=function(e,t){var i=zo(["mord","rule"],[],t),n=t.style,a=0;e.value.shift&&(a=qo(e.value.shift,n));var s=qo(e.value.width,n),r=qo(e.value.height,n);return a/=n.sizeMultiplier,s/=n.sizeMultiplier,r/=n.sizeMultiplier,i.style.borderRightWidth=s+"em",i.style.borderTopWidth=r+"em",i.style.bottom=a+"em",i.width=s,i.height=r+a,i.depth=-a,i},_o.kern=function(e,t){var i=zo(["mord","rule"],[],t),n=t.style,a=0;return e.value.dimension&&(a=qo(e.value.dimension,n)),a/=n.sizeMultiplier,i.style.marginLeft=a+"em",i},_o.accent=function(e,t){var i=e.value.base,n=t.style,a;if("supsub"===e.type){var s=e;e=s.value.base,i=e.value.base,s.value.base=i,a=Ro(s,t.reset())}var r=Ro(i,t.withStyle(n.cramp())),o;if(Mo(i)){var l=Co(i),d=Ro(l,t.withStyle(n.cramp()));o=d.skew}else o=0;var p=oi(r.height,n.metrics.xHeight),u=go.makeSymbol(e.value.accent,"Main-Regular","math",t);u.italic=0;var c="\\vec"===e.value.accent?"accent-vec":null,m=zo(["accent-body",c],[zo([],[u])]);m=go.makeVList([{type:"elem",elem:r},{type:"kern",size:-p},{type:"elem",elem:m}],"firstBaseline",null,t),m.children[1].style.marginLeft=2*o+"em";var g=zo(["mord","accent"],[m],t);return a?(a.children[0]=g,a.height=ni(g.height,a.height),a.classes[0]="mord",a):g},_o.phantom=function(e,t){var i=To(e.value.value,t.withPhantom(),!1);return new go.makeFragment(i)},_o.mclass=function(e,t){var i=To(e.value.value,t,!0);return zo([e.value.mclass],i,t)};var Ro=function(e,t){if(!e)return zo();if(_o[e.type]){var i=_o[e.type](e,t),n;return t.style!==t.parentStyle&&(n=t.style.sizeMultiplier/t.parentStyle.sizeMultiplier,i.height*=n,i.depth*=n),t.size!==t.parentSize&&(n=go.sizingMultiplier[t.size]/go.sizingMultiplier[t.parentSize],i.height*=n,i.depth*=n),i}throw new co("Got group of unknown type: '"+e.type+"'")},Eo=kr;Gt.prototype.setAttribute=function(e,t){this.attributes[e]=t},Gt.prototype.toNode=function(){var e=document.createElementNS("http://www.w3.org/1998/Math/MathML",this.type);for(var t in this.attributes)Object.prototype.hasOwnProperty.call(this.attributes,t)&&e.setAttribute(t,this.attributes[t]);for(var n=0;n<this.children.length;n++)e.appendChild(this.children[n].toNode());return e},Gt.prototype.toMarkup=function(){var e="<"+this.type;for(var t in this.attributes)Object.prototype.hasOwnProperty.call(this.attributes,t)&&(e+=" "+t+"=\"",e+=Eo.escape(this.attributes[t]),e+="\"");e+=">";for(var n=0;n<this.children.length;n++)e+=this.children[n].toMarkup();return e+="</"+this.type+">",e},Wt.prototype.toNode=function(){return document.createTextNode(this.text)},Wt.prototype.toMarkup=function(){return Eo.escape(this.text)};var Lo=Ur,Fo={MathNode:Gt,TextNode:Wt},Io=Cr,Oo=Lo.makeSpan,Do=Lo.fontMap,Xo=function(e,t){return Io[t][e]&&Io[t][e].replace&&(e=Io[t][e].replace),new Fo.TextNode(e)},Ko=function(e,t){var i=t.font;if(!i)return null;var n=e.mode;if("mathit"===i)return"italic";var a=e.value;if(kr.contains(["\\imath","\\jmath"],a))return null;Io[n][a]&&Io[n][a].replace&&(a=Io[n][a].replace);var s=Do[i].fontName;return Ws.getCharacterMetrics(a,s)?Do[t.font].variant:null},Uo={};Uo.mathord=function(e,t){var i=new Fo.MathNode("mi",[Xo(e.value,e.mode)]),n=Ko(e,t);return n&&i.setAttribute("mathvariant",n),i},Uo.textord=function(e,t){var i=Xo(e.value,e.mode),n=Ko(e,t)||"normal",a;return /[0-9]/.test(e.value)?(a=new Fo.MathNode("mn",[i]),t.font&&a.setAttribute("mathvariant",n)):(a=new Fo.MathNode("mi",[i]),a.setAttribute("mathvariant",n)),a},Uo.bin=function(e){var t=new Fo.MathNode("mo",[Xo(e.value,e.mode)]);return t},Uo.rel=function(e){var t=new Fo.MathNode("mo",[Xo(e.value,e.mode)]);return t},Uo.open=function(e){var t=new Fo.MathNode("mo",[Xo(e.value,e.mode)]);return t},Uo.close=function(e){var t=new Fo.MathNode("mo",[Xo(e.value,e.mode)]);return t},Uo.inner=function(e){var t=new Fo.MathNode("mo",[Xo(e.value,e.mode)]);return t},Uo.punct=function(e){var t=new Fo.MathNode("mo",[Xo(e.value,e.mode)]);return t.setAttribute("separator","true"),t},Uo.ordgroup=function(e,t){var i=Po(e.value,t),n=new Fo.MathNode("mrow",i);return n},Uo.text=function(e,t){var i=Po(e.value.body,t),n=new Fo.MathNode("mtext",i);return n},Uo.color=function(e,t){var i=Po(e.value.value,t),n=new Fo.MathNode("mstyle",i);return n.setAttribute("mathcolor",e.value.color),n},Uo.supsub=function(e,t){var i=[Bo(e.value.base,t)];e.value.sub&&i.push(Bo(e.value.sub,t)),e.value.sup&&i.push(Bo(e.value.sup,t));var n=e.value.sub?e.value.sup?"msubsup":"msub":"msup";var a=new Fo.MathNode(n,i);return a},Uo.genfrac=function(e,t){var i=new Fo.MathNode("mfrac",[Bo(e.value.numer,t),Bo(e.value.denom,t)]);if(e.value.hasBarLine||i.setAttribute("linethickness","0px"),null!=e.value.leftDelim||null!=e.value.rightDelim){var n=[];if(null!=e.value.leftDelim){var a=new Fo.MathNode("mo",[new Fo.TextNode(e.value.leftDelim)]);a.setAttribute("fence","true"),n.push(a)}if(n.push(i),null!=e.value.rightDelim){var s=new Fo.MathNode("mo",[new Fo.TextNode(e.value.rightDelim)]);s.setAttribute("fence","true"),n.push(s)}var r=new Fo.MathNode("mrow",n);return r}return i},Uo.array=function(e,t){return new Fo.MathNode("mtable",e.value.body.map(function(e){return new Fo.MathNode("mtr",e.map(function(e){return new Fo.MathNode("mtd",[Bo(e,t)])}))}))},Uo.sqrt=function(e,t){var i;return i=e.value.index?new Fo.MathNode("mroot",[Bo(e.value.body,t),Bo(e.value.index,t)]):new Fo.MathNode("msqrt",[Bo(e.value.body,t)]),i},Uo.leftright=function(e,t){var i=Po(e.value.body,t);if("."!==e.value.left){var n=new Fo.MathNode("mo",[Xo(e.value.left,e.mode)]);n.setAttribute("fence","true"),i.unshift(n)}if("."!==e.value.right){var a=new Fo.MathNode("mo",[Xo(e.value.right,e.mode)]);a.setAttribute("fence","true"),i.push(a)}var s=new Fo.MathNode("mrow",i);return s},Uo.middle=function(e){var t=new Fo.MathNode("mo",[Xo(e.value.middle,e.mode)]);return t.setAttribute("fence","true"),t},Uo.accent=function(e,t){var i=new Fo.MathNode("mo",[Xo(e.value.accent,e.mode)]),n=new Fo.MathNode("mover",[Bo(e.value.base,t),i]);return n.setAttribute("accent","true"),n},Uo.spacing=function(e){var t;return"\\ "===e.value||"\\space"===e.value||" "===e.value||"~"===e.value?t=new Fo.MathNode("mtext",[new Fo.TextNode("\xA0")]):(t=new Fo.MathNode("mspace"),t.setAttribute("width",Lo.spacingFunctions[e.value].size)),t},Uo.op=function(e,t){var i;return i=e.value.symbol?new Fo.MathNode("mo",[Xo(e.value.body,e.mode)]):e.value.value?new Fo.MathNode("mo",Po(e.value.value,t)):new Fo.MathNode("mi",[new Fo.TextNode(e.value.body.slice(1))]),i},Uo.mod=function(e,t){var i=[];if(("pod"===e.value.modType||"pmod"===e.value.modType)&&i.push(new Fo.MathNode("mo",[Xo("(",e.mode)])),"pod"!==e.value.modType&&i.push(new Fo.MathNode("mo",[Xo("mod",e.mode)])),e.value.value){var n=new Fo.MathNode("mspace");n.setAttribute("width","0.333333em"),i.push(n),i=i.concat(Po(e.value.value,t))}return("pod"===e.value.modType||"pmod"===e.value.modType)&&i.push(new Fo.MathNode("mo",[Xo(")",e.mode)])),new Fo.MathNode("mo",i)},Uo.katex=function(){var e=new Fo.MathNode("mtext",[new Fo.TextNode("KaTeX")]);return e},Uo.font=function(e,t){var i=e.value.font;return Bo(e.value.body,t.withFont(i))},Uo.delimsizing=function(e){var t=[];"."!==e.value.value&&t.push(Xo(e.value.value,e.mode));var i=new Fo.MathNode("mo",t);return"mopen"===e.value.mclass||"mclose"===e.value.mclass?i.setAttribute("fence","true"):i.setAttribute("fence","false"),i},Uo.styling=function(e,t){var i=Po(e.value.value,t),n=new Fo.MathNode("mstyle",i),a={display:["0","true"],text:["0","false"],script:["1","false"],scriptscript:["2","false"]}[e.value.style];return n.setAttribute("scriptlevel",a[0]),n.setAttribute("displaystyle",a[1]),n},Uo.sizing=function(e,t){var i=Po(e.value.value,t),n=new Fo.MathNode("mstyle",i);return n.setAttribute("mathsize",Lo.sizingMultiplier[e.value.size]+"em"),n},Uo.overline=function(e,t){var i=new Fo.MathNode("mo",[new Fo.TextNode("\u203E")]);i.setAttribute("stretchy","true");var n=new Fo.MathNode("mover",[Bo(e.value.body,t),i]);return n.setAttribute("accent","true"),n},Uo.underline=function(e,t){var i=new Fo.MathNode("mo",[new Fo.TextNode("\u203E")]);i.setAttribute("stretchy","true");var n=new Fo.MathNode("munder",[Bo(e.value.body,t),i]);return n.setAttribute("accentunder","true"),n},Uo.rule=function(){var e=new Fo.MathNode("mrow");return e},Uo.kern=function(){var e=new Fo.MathNode("mrow");return e},Uo.llap=function(e,t){var i=new Fo.MathNode("mpadded",[Bo(e.value.body,t)]);return i.setAttribute("lspace","-1width"),i.setAttribute("width","0px"),i},Uo.rlap=function(e,t){var i=new Fo.MathNode("mpadded",[Bo(e.value.body,t)]);return i.setAttribute("width","0px"),i},Uo.phantom=function(e,t){var i=Po(e.value.value,t);return new Fo.MathNode("mphantom",i)},Uo.mclass=function(e,t){var i=Po(e.value.value,t);return new Fo.MathNode("mstyle",i)};var Po=function(e,t){for(var n=[],a=0,i;a<e.length;a++)i=e[a],n.push(Bo(i,t));return n},Bo=function(e,t){if(!e)return new Fo.MathNode("mrow");if(Uo[e.type])return Uo[e.type](e,t);throw new Xs("Got group of unknown type: '"+e.type+"'")};Vt.prototype.extend=function(e){var t={style:this.style,size:this.size,color:this.color,parentStyle:this.style,parentSize:this.size,phantom:this.phantom,font:this.font};for(var i in e)e.hasOwnProperty(i)&&(t[i]=e[i]);return new Vt(t)},Vt.prototype.withStyle=function(e){return this.extend({style:e})},Vt.prototype.withSize=function(e){return this.extend({size:e})},Vt.prototype.withColor=function(e){return this.extend({color:e})},Vt.prototype.withPhantom=function(){return this.extend({phantom:!0})},Vt.prototype.withFont=function(e){return this.extend({font:e||this.font})},Vt.prototype.reset=function(){return this.extend({})};var jo={"katex-blue":"#6495ed","katex-orange":"#ffa500","katex-pink":"#ff00af","katex-red":"#df0030","katex-green":"#28ae7b","katex-gray":"gray","katex-purple":"#9d38bd","katex-blueA":"#ccfaff","katex-blueB":"#80f6ff","katex-blueC":"#63d9ea","katex-blueD":"#11accd","katex-blueE":"#0c7f99","katex-tealA":"#94fff5","katex-tealB":"#26edd5","katex-tealC":"#01d1c1","katex-tealD":"#01a995","katex-tealE":"#208170","katex-greenA":"#b6ffb0","katex-greenB":"#8af281","katex-greenC":"#74cf70","katex-greenD":"#1fab54","katex-greenE":"#0d923f","katex-goldA":"#ffd0a9","katex-goldB":"#ffbb71","katex-goldC":"#ff9c39","katex-goldD":"#e07d10","katex-goldE":"#a75a05","katex-redA":"#fca9a9","katex-redB":"#ff8482","katex-redC":"#f9685d","katex-redD":"#e84d39","katex-redE":"#bc2612","katex-maroonA":"#ffbde0","katex-maroonB":"#ff92c6","katex-maroonC":"#ed5fa6","katex-maroonD":"#ca337c","katex-maroonE":"#9e034e","katex-purpleA":"#ddd7ff","katex-purpleB":"#c6b9fc","katex-purpleC":"#aa87ff","katex-purpleD":"#7854ab","katex-purpleE":"#543b78","katex-mintA":"#f5f9e8","katex-mintB":"#edf2df","katex-mintC":"#e0e5cc","katex-grayA":"#f6f7f7","katex-grayB":"#f0f1f2","katex-grayC":"#e3e5e6","katex-grayD":"#d6d8da","katex-grayE":"#babec2","katex-grayF":"#888d93","katex-grayG":"#626569","katex-grayH":"#3b3e40","katex-grayI":"#21242c","katex-kaBlue":"#314453","katex-kaGreen":"#71B307"};Vt.prototype.getColor=function(){return this.phantom?"transparent":jo[this.color]||this.color};var Ho=function(e,t){e=JSON.parse(JSON.stringify(e));var i=To(e,t,!0),n=zo(["base",t.style.cls()],i,t),a=zo(["strut"]),s=zo(["strut","bottom"]);a.style.height=n.height+"em",s.style.height=n.height+n.depth+"em",s.style.verticalAlign=-n.depth+"em";var r=zo(["katex-html"],[a,s,n]);return r.setAttribute("aria-hidden","true"),r},Yo=function(e,t,i){var n=Po(e,i),a=new Fo.MathNode("mrow",n),s=new Fo.MathNode("annotation",[new Fo.TextNode(t)]);s.setAttribute("encoding","application/x-tex");var r=new Fo.MathNode("semantics",[a,s]),o=new Fo.MathNode("math",[r]);return Oo(["katex-mathml"],[o])},Go=mr,Wo=Ur.makeSpan,Vo={ParseNode:function(e,t,i,n,a){this.type=e,this.value=t,this.mode=i,n&&(!a||a.lexer===n.lexer)&&(this.lexer=n.lexer,this.start=n.start,this.end=(a||n).end)}},$o=he(function(e){function t(t,n,a){"string"==typeof t&&(t=[t]),"number"==typeof n&&(n={numArgs:n});for(var s={numArgs:n.numArgs,argTypes:n.argTypes,greediness:n.greediness===void 0?1:n.greediness,allowedInText:!!n.allowedInText,numOptionalArgs:n.numOptionalArgs||0,infix:!!n.infix,handler:a},r=0;r<t.length;++r)e.exports[t[r]]=s}var n=Xs,i=Vo.ParseNode,a=function(e){return"ordgroup"===e.type?e.value:[e]};t("\\sqrt",{numArgs:1,numOptionalArgs:1},function(e,t){var i=t[0],n=t[1];return{type:"sqrt",body:n,index:i}});var s={"\\text":void 0,"\\textrm":"mathrm","\\textsf":"mathsf","\\texttt":"mathtt","\\textnormal":"mathrm","\\textbf":"mathbf","\\textit":"textit"};t(["\\text","\\textrm","\\textsf","\\texttt","\\textnormal","\\textbf","\\textit"],{numArgs:1,argTypes:["text"],greediness:2,allowedInText:!0},function(e,t){var i=t[0];return{type:"text",body:a(i),style:s[e.funcName]}}),t("\\color",{numArgs:2,allowedInText:!0,greediness:3,argTypes:["color","original"]},function(e,t){var i=t[0],n=t[1];return{type:"color",color:i.value,value:a(n)}}),t("\\overline",{numArgs:1},function(e,t){var i=t[0];return{type:"overline",body:i}}),t("\\underline",{numArgs:1},function(e,t){var i=t[0];return{type:"underline",body:i}}),t("\\rule",{numArgs:2,numOptionalArgs:1,argTypes:["size","size","size"]},function(e,t){var i=t[0],n=t[1],a=t[2];return{type:"rule",shift:i&&i.value,width:n.value,height:a.value}}),t(["\\kern","\\mkern"],{numArgs:1,argTypes:["size"]},function(e,t){return{type:"kern",dimension:t[0].value}}),t("\\KaTeX",{numArgs:0},function(){return{type:"katex"}}),t("\\phantom",{numArgs:1},function(e,t){var i=t[0];return{type:"phantom",value:a(i)}}),t(["\\mathord","\\mathbin","\\mathrel","\\mathopen","\\mathclose","\\mathpunct","\\mathinner"],{numArgs:1},function(e,t){var i=t[0];return{type:"mclass",mclass:"m"+e.funcName.substr(5),value:a(i)}}),t("\\stackrel",{numArgs:2},function(e,t){var n=t[0],s=t[1],r=new i("op",{type:"op",limits:!0,alwaysHandleSupSub:!0,symbol:!1,value:a(s)},s.mode),o=new i("supsub",{base:r,sup:n,sub:null},n.mode);return{type:"mclass",mclass:"mrel",value:[o]}}),t("\\bmod",{numArgs:0},function(){return{type:"mod",modType:"bmod",value:null}}),t(["\\pod","\\pmod","\\mod"],{numArgs:1},function(e,t){var i=t[0];return{type:"mod",modType:e.funcName.substr(1),value:a(i)}});var r={"\\bigl":{mclass:"mopen",size:1},"\\Bigl":{mclass:"mopen",size:2},"\\biggl":{mclass:"mopen",size:3},"\\Biggl":{mclass:"mopen",size:4},"\\bigr":{mclass:"mclose",size:1},"\\Bigr":{mclass:"mclose",size:2},"\\biggr":{mclass:"mclose",size:3},"\\Biggr":{mclass:"mclose",size:4},"\\bigm":{mclass:"mrel",size:1},"\\Bigm":{mclass:"mrel",size:2},"\\biggm":{mclass:"mrel",size:3},"\\Biggm":{mclass:"mrel",size:4},"\\big":{mclass:"mord",size:1},"\\Big":{mclass:"mord",size:2},"\\bigg":{mclass:"mord",size:3},"\\Bigg":{mclass:"mord",size:4}},o=["(",")","[","\\lbrack","]","\\rbrack","\\{","\\lbrace","\\}","\\rbrace","\\lfloor","\\rfloor","\\lceil","\\rceil","<",">","\\langle","\\rangle","\\lt","\\gt","\\lvert","\\rvert","\\lVert","\\rVert","\\lgroup","\\rgroup","\\lmoustache","\\rmoustache","/","\\backslash","|","\\vert","\\|","\\Vert","\\uparrow","\\Uparrow","\\downarrow","\\Downarrow","\\updownarrow","\\Updownarrow","."],l={"\\Bbb":"\\mathbb","\\bold":"\\mathbf","\\frak":"\\mathfrak"};t(["\\blue","\\orange","\\pink","\\red","\\green","\\gray","\\purple","\\blueA","\\blueB","\\blueC","\\blueD","\\blueE","\\tealA","\\tealB","\\tealC","\\tealD","\\tealE","\\greenA","\\greenB","\\greenC","\\greenD","\\greenE","\\goldA","\\goldB","\\goldC","\\goldD","\\goldE","\\redA","\\redB","\\redC","\\redD","\\redE","\\maroonA","\\maroonB","\\maroonC","\\maroonD","\\maroonE","\\purpleA","\\purpleB","\\purpleC","\\purpleD","\\purpleE","\\mintA","\\mintB","\\mintC","\\grayA","\\grayB","\\grayC","\\grayD","\\grayE","\\grayF","\\grayG","\\grayH","\\grayI","\\kaBlue","\\kaGreen"],{numArgs:1,allowedInText:!0,greediness:3},function(e,t){var i=t[0];return{type:"color",color:"katex-"+e.funcName.slice(1),value:a(i)}}),t(["\\arcsin","\\arccos","\\arctan","\\arg","\\cos","\\cosh","\\cot","\\coth","\\csc","\\deg","\\dim","\\exp","\\hom","\\ker","\\lg","\\ln","\\log","\\sec","\\sin","\\sinh","\\tan","\\tanh"],{numArgs:0},function(e){return{type:"op",limits:!1,symbol:!1,body:e.funcName}}),t(["\\det","\\gcd","\\inf","\\lim","\\liminf","\\limsup","\\max","\\min","\\Pr","\\sup"],{numArgs:0},function(e){return{type:"op",limits:!0,symbol:!1,body:e.funcName}}),t(["\\int","\\iint","\\iiint","\\oint"],{numArgs:0},function(e){return{type:"op",limits:!1,symbol:!0,body:e.funcName}}),t(["\\coprod","\\bigvee","\\bigwedge","\\biguplus","\\bigcap","\\bigcup","\\intop","\\prod","\\sum","\\bigotimes","\\bigoplus","\\bigodot","\\bigsqcup","\\smallint"],{numArgs:0},function(e){return{type:"op",limits:!0,symbol:!0,body:e.funcName}}),t("\\mathop",{numArgs:1},function(e,t){var i=t[0];return{type:"op",limits:!1,symbol:!1,value:a(i)}}),t(["\\dfrac","\\frac","\\tfrac","\\dbinom","\\binom","\\tbinom","\\\\atopfrac"],{numArgs:2,greediness:2},function(e,t){var i=t[0],n=t[1],a=null,s=null,r="auto",o;switch(e.funcName){case"\\dfrac":case"\\frac":case"\\tfrac":o=!0;break;case"\\\\atopfrac":o=!1;break;case"\\dbinom":case"\\binom":case"\\tbinom":o=!1,a="(",s=")";break;default:throw new Error("Unrecognized genfrac command");}switch(e.funcName){case"\\dfrac":case"\\dbinom":r="display";break;case"\\tfrac":case"\\tbinom":r="text";}return{type:"genfrac",numer:i,denom:n,hasBarLine:o,leftDelim:a,rightDelim:s,size:r}}),t(["\\llap","\\rlap"],{numArgs:1,allowedInText:!0},function(e,t){var i=t[0];return{type:e.funcName.slice(1),body:i}});var d=function(e,t){if(kr.contains(o,e.value))return e;throw new n("Invalid delimiter: '"+e.value+"' after '"+t.funcName+"'",e)};t(["\\bigl","\\Bigl","\\biggl","\\Biggl","\\bigr","\\Bigr","\\biggr","\\Biggr","\\bigm","\\Bigm","\\biggm","\\Biggm","\\big","\\Big","\\bigg","\\Bigg"],{numArgs:1},function(e,t){var i=d(t[0],e);return{type:"delimsizing",size:r[e.funcName].size,mclass:r[e.funcName].mclass,value:i.value}}),t(["\\left","\\right"],{numArgs:1},function(e,t){var i=d(t[0],e);return{type:"leftright",value:i.value}}),t("\\middle",{numArgs:1},function(e,t){var i=d(t[0],e);if(!e.parser.leftrightDepth)throw new n("\\middle without preceding \\left",i);return{type:"middle",value:i.value}}),t(["\\tiny","\\scriptsize","\\footnotesize","\\small","\\normalsize","\\large","\\Large","\\LARGE","\\huge","\\Huge"],0,null),t(["\\displaystyle","\\textstyle","\\scriptstyle","\\scriptscriptstyle"],0,null),t(["\\mathrm","\\mathit","\\mathbf","\\mathbb","\\mathcal","\\mathfrak","\\mathscr","\\mathsf","\\mathtt","\\Bbb","\\bold","\\frak"],{numArgs:1,greediness:2},function(e,t){var i=t[0],n=e.funcName;return n in l&&(n=l[n]),{type:"font",font:n.slice(1),body:i}}),t(["\\acute","\\grave","\\ddot","\\tilde","\\bar","\\breve","\\check","\\hat","\\vec","\\dot"],{numArgs:1},function(e,t){var i=t[0];return{type:"accent",accent:e.funcName,base:i}}),t(["\\over","\\choose","\\atop"],{numArgs:0,infix:!0},function(e){var t;switch(e.funcName){case"\\over":t="\\frac";break;case"\\choose":t="\\binom";break;case"\\atop":t="\\\\atopfrac";break;default:throw new Error("Unrecognized infix genfrac command");}return{type:"infix",replaceWith:t,token:e.token}}),t(["\\\\","\\cr"],{numArgs:0,numOptionalArgs:1,argTypes:["size"]},function(e,t){var i=t[0];return{type:"cr",size:i}}),t(["\\begin","\\end"],{numArgs:1,argTypes:["text"]},function(e,t){var a=t[0];if("ordgroup"!==a.type)throw new n("Invalid environment name",a);for(var s="",r=0;r<a.value.length;++r)s+=a.value[r].value;return{type:"environment",name:s,nameGroup:a}})}),Jo=he(function(e){function t(e,t){for(var i=[],s=[i],r=[],o;;){o=e.parseExpression(!1,null),i.push(new a("ordgroup",o,e.mode));var l=e.nextToken.text;if("&"===l)e.consume();else if("\\end"===l)break;else if("\\\\"===l||"\\cr"===l){var d=e.parseFunction();r.push(d.value.size),i=[],s.push(i)}else throw new n("Expected & or \\\\ or \\end",e.nextToken)}return t.body=s,t.rowGaps=r,new a(t.type,t,e.mode)}function i(t,n,a){"string"==typeof t&&(t=[t]),"number"==typeof n&&(n={numArgs:n});for(var s={numArgs:n.numArgs||0,argTypes:n.argTypes,greediness:1,allowedInText:!!n.allowedInText,numOptionalArgs:n.numOptionalArgs||0,handler:a},r=0;r<t.length;++r)e.exports[t[r]]=s}var n=Xs,a=Vo.ParseNode;i("array",{numArgs:1},function(e,i){var a=i[0];a=a.value.map?a.value:[a];var s=a.map(function(e){var t=e.value;if(-1!=="lcr".indexOf(t))return{type:"align",align:t};if("|"===t)return{type:"separator",separator:"|"};throw new n("Unknown column alignment: "+e.value,e)}),r={type:"array",cols:s,hskipBeforeAndAfter:!0};return r=t(e.parser,r),r}),i(["matrix","pmatrix","bmatrix","Bmatrix","vmatrix","Vmatrix"],{},function(e){var i={matrix:null,pmatrix:["(",")"],bmatrix:["[","]"],Bmatrix:["\\{","\\}"],vmatrix:["|","|"],Vmatrix:["\\Vert","\\Vert"]}[e.envName],n={type:"array",hskipBeforeAndAfter:!1};return n=t(e.parser,n),i&&(n=new a("leftright",{body:[n],left:i[0],right:i[1]},e.mode)),n}),i("cases",{},function(e){var i={type:"array",arraystretch:1.2,cols:[{type:"align",align:"l",pregap:0,postgap:mr.TEXT.metrics.quad},{type:"align",align:"l",pregap:0,postgap:0}]};return i=t(e.parser,i),i=new a("leftright",{body:[i],left:"\\{",right:"."},e.mode),i}),i("aligned",{},function(e){var n={type:"array",cols:[]};n=t(e.parser,n);var s=new a("ordgroup",[],e.mode),r=0;n.value.body.forEach(function(e){var t;for(t=1;t<e.length;t+=2)e[t].value.unshift(s);r<e.length&&(r=e.length)});for(var o=0;o<r;++o){var i="r",l=0;1==o%2?i="l":0<o&&(l=2),n.value.cols[o]={type:"align",align:i,pregap:l,postgap:0}}return n})}),Zo=function(e,t,i){if(e.global||e.sticky)throw new Error("matchAt(...): Only non-global regexes are supported");var n=$t(e);n.lastIndex=i;var a=n.exec(t);return null==a[a.length-1]?(--a.length,a):null};Zt.prototype.range=function(e,t){return e.lexer===this.lexer?new Zt(t,this.start,e.end,this.lexer):new Zt(t)};var Qo=/([ \r\n	]+)|([!-\[\]-‧‪-퟿豈-￿]|[�-�][�-�]|\\(?:[a-zA-Z]+|[^�-�]))/;Jt.prototype.lex=function(){var e=this.input,t=this.pos;if(t===e.length)return new Zt("EOF",t,t,this);var i=Zo(Qo,e,t);if(null===i)throw new Xs("Unexpected character: '"+e[t]+"'",new Zt(e[t],t,t+1,this));var n=i[2]||" ",a=this.pos;this.pos+=i[0].length;var s=this.pos;return new Zt(n,a,s,this)};var el=Jt;Qt.prototype.nextToken=function(){for(;;){0===this.stack.length&&this.stack.push(this.lexer.lex());var e=this.stack.pop(),t=e.text;if(!("\\"===t.charAt(0)&&this.macros.hasOwnProperty(t)))return e;var i=this.macros[t];if("string"==typeof i){var n=new el(i);i=[];for(var a=n.lex();"EOF"!==a.text;)i.push(a),a=n.lex();i.reverse(),this.macros[t]=i}this.stack=this.stack.concat(i)}},Qt.prototype.get=function(e){this.discardedWhiteSpace=[];var t=this.nextToken();if(e)for(;" "===t.text;)this.discardedWhiteSpace.push(t),t=this.nextToken();return t},Qt.prototype.unget=function(e){for(this.stack.push(e);0!==this.discardedWhiteSpace.length;)this.stack.push(this.discardedWhiteSpace.pop())};var tl=$o,il=Jo,nl=Qt,al=Cr,sl=kr,rl=Bs.cjkRegex,ol=Xs,ll=Vo.ParseNode;ei.prototype.expect=function(e,t){if(this.nextToken.text!==e)throw new ol("Expected '"+e+"', got '"+this.nextToken.text+"'",this.nextToken);!1!==t&&this.consume()},ei.prototype.consume=function(){this.nextToken=this.gullet.get("math"===this.mode)},ei.prototype.switchMode=function(e){this.gullet.unget(this.nextToken),this.mode=e,this.consume()},ei.prototype.parse=function(){this.mode="math",this.consume();var e=this.parseInput();return e},ei.prototype.parseInput=function(){var e=this.parseExpression(!1);return this.expect("EOF",!1),e};var dl=["}","\\end","\\right","&","\\\\","\\cr"];ei.prototype.parseExpression=function(e,t){for(var i=[];;){var n=this.nextToken;if(-1!==dl.indexOf(n.text))break;if(t&&n.text===t)break;if(e&&tl[n.text]&&tl[n.text].infix)break;var a=this.parseAtom();if(!a){if(!this.settings.throwOnError&&"\\"===n.text[0]){var s=this.handleUnsupportedCmd();i.push(s);continue}break}i.push(a)}return this.handleInfixNodes(i)},ei.prototype.handleInfixNodes=function(e){for(var t=-1,n=0,i,a;n<e.length;n++)if(a=e[n],"infix"===a.type){if(-1!=t)throw new ol("only one infix operator per group",a.value.token);t=n,i=a.value.replaceWith}if(-1!==t){var s=e.slice(0,t),r=e.slice(t+1),o,l;o=1===s.length&&"ordgroup"===s[0].type?s[0]:new ll("ordgroup",s,this.mode),l=1===r.length&&"ordgroup"===r[0].type?r[0]:new ll("ordgroup",r,this.mode);var d=this.callFunction(i,[o,l],null);return[new ll(d.type,d,this.mode)]}return e};ei.prototype.handleSupSubscript=function(e){var t=this.nextToken,i=t.text;this.consume();var n=this.parseGroup();if(!n){if(!this.settings.throwOnError&&"\\"===this.nextToken.text[0])return this.handleUnsupportedCmd();throw new ol("Expected group after '"+i+"'",t)}else if(n.isFunction){var a=tl[n.result].greediness;if(a>1)return this.parseFunction(n);throw new ol("Got function '"+n.result+"' with no arguments as "+e,t)}else return n.result},ei.prototype.handleUnsupportedCmd=function(){for(var e=this.nextToken.text,t=[],n=0;n<e.length;n++)t.push(new ll("textord",e[n],"text"));var i=new ll("text",{body:t,type:"text"},this.mode),a=new ll("color",{color:this.settings.errorColor,value:[i],type:"color"},this.mode);return this.consume(),a},ei.prototype.parseAtom=function(){var e=this.parseImplicitGroup();if("text"===this.mode)return e;for(var t,i;;){var n=this.nextToken;if("\\limits"===n.text||"\\nolimits"===n.text){if(!e||"op"!==e.type)throw new ol("Limit controls must follow a math operator",n);else{var a="\\limits"===n.text;e.value.limits=a,e.value.alwaysHandleSupSub=!0}this.consume()}else if("^"===n.text){if(t)throw new ol("Double superscript",n);t=this.handleSupSubscript("superscript")}else if("_"===n.text){if(i)throw new ol("Double subscript",n);i=this.handleSupSubscript("subscript")}else if("'"===n.text){var s=new ll("textord","\\prime",this.mode),r=[s];for(this.consume();"'"===this.nextToken.text;)r.push(s),this.consume();t=new ll("ordgroup",r,this.mode)}else break}return t||i?new ll("supsub",{base:e,sup:t,sub:i},this.mode):e};var pl=["\\tiny","\\scriptsize","\\footnotesize","\\small","\\normalsize","\\large","\\Large","\\LARGE","\\huge","\\Huge"],ul=["\\displaystyle","\\textstyle","\\scriptstyle","\\scriptscriptstyle"];ei.prototype.parseImplicitGroup=function(){var e=this.parseSymbol();if(null==e)return this.parseFunction();var t=e.result,i;if("\\left"===t){var n=this.parseFunction(e);++this.leftrightDepth,i=this.parseExpression(!1),--this.leftrightDepth,this.expect("\\right",!1);var a=this.parseFunction();return new ll("leftright",{body:i,left:n.value.value,right:a.value.value},this.mode)}if("\\begin"===t){var s=this.parseFunction(e),r=s.value.name;if(!il.hasOwnProperty(r))throw new ol("No such environment: "+r,s.value.nameGroup);var o=il[r],l=this.parseArguments("\\begin{"+r+"}",o),d={mode:this.mode,envName:r,parser:this,positions:l.pop()},p=o.handler(d,l);this.expect("\\end",!1);var u=this.nextToken,c=this.parseFunction();if(c.value.name!==r)throw new ol("Mismatch: \\begin{"+r+"} matched by \\end{"+c.value.name+"}",u);return p.position=c.position,p}return sl.contains(pl,t)?(i=this.parseExpression(!1),new ll("sizing",{size:"size"+(sl.indexOf(pl,t)+1),value:i},this.mode)):sl.contains(ul,t)?(i=this.parseExpression(!0),new ll("styling",{style:t.slice(1,t.length-5),value:i},this.mode)):this.parseFunction(e)},ei.prototype.parseFunction=function(e){if(e||(e=this.parseGroup()),e){if(e.isFunction){var t=e.result,i=tl[t];if("text"===this.mode&&!i.allowedInText)throw new ol("Can't use function '"+t+"' in text mode",e.token);var n=this.parseArguments(t,i),a=e.token,s=this.callFunction(t,n,n.pop(),a);return new ll(s.type,s,this.mode)}return e.result}return null},ei.prototype.callFunction=function(e,t,i,n){var a={funcName:e,parser:this,positions:i,token:n};return tl[e].handler(a,t)},ei.prototype.parseArguments=function(e,t){var n=t.numArgs+t.numOptionalArgs;if(0===n)return[[this.pos]];for(var a=t.greediness,s=[this.pos],r=[],o=0;o<n;o++){var i=this.nextToken,l=t.argTypes&&t.argTypes[o],d;if(o<t.numOptionalArgs){if(d=l?this.parseGroupOfType(l,!0):this.parseGroup(!0),!d){r.push(null),s.push(this.pos);continue}}else if(d=l?this.parseGroupOfType(l):this.parseGroup(),!d)if(!this.settings.throwOnError&&"\\"===this.nextToken.text[0])d=new ti(this.handleUnsupportedCmd(this.nextToken.text),!1);else throw new ol("Expected group after '"+e+"'",i);var p;if(d.isFunction){var u=tl[d.result].greediness;if(u>a)p=this.parseFunction(d);else throw new ol("Got function '"+d.result+"' as argument to '"+e+"'",i)}else p=d.result;r.push(p),s.push(this.pos)}return r.push(s),r},ei.prototype.parseGroupOfType=function(e,t){var i=this.mode;if("original"===e&&(e=i),"color"===e)return this.parseColorGroup(t);if("size"===e)return this.parseSizeGroup(t);if(this.switchMode(e),"text"===e)for(;" "===this.nextToken.text;)this.consume();var n=this.parseGroup(t);return this.switchMode(i),n},ei.prototype.parseStringGroup=function(e,t){if(t&&"["!==this.nextToken.text)return null;var i=this.mode;this.mode="text",this.expect(t?"[":"{");for(var n="",a=this.nextToken,s=a;this.nextToken.text!==(t?"]":"}");){if("EOF"===this.nextToken.text)throw new ol("Unexpected end of input in "+e,a.range(this.nextToken,n));s=this.nextToken,n+=s.text,this.consume()}return this.mode=i,this.expect(t?"]":"}"),a.range(s,n)},ei.prototype.parseRegexGroup=function(e,t){var i=this.mode;this.mode="text";for(var n=this.nextToken,a=n,s="";"EOF"!==this.nextToken.text&&e.test(s+this.nextToken.text);)a=this.nextToken,s+=a.text,this.consume();if(""===s)throw new ol("Invalid "+t+": '"+n.text+"'",n);return this.mode=i,n.range(a,s)},ei.prototype.parseColorGroup=function(e){var t=this.parseStringGroup("color",e);if(!t)return null;var i=/^(#[a-z0-9]+|[a-z]+)$/i.exec(t.text);if(!i)throw new ol("Invalid color: '"+t.text+"'",t);return new ti(new ll("color",i[0],this.mode),!1)},ei.prototype.parseSizeGroup=function(e){var t;if(t=e||"{"===this.nextToken.text?this.parseStringGroup("size",e):this.parseRegexGroup(/^[-+]? *(?:$|\d+|\d+\.\d*|\.\d*) *[a-z]{0,2}$/,"size"),!t)return null;var i=/([-+]?) *(\d+(?:\.\d*)?|\.\d+) *([a-z]{2})/.exec(t.text);if(!i)throw new ol("Invalid size: '"+t.text+"'",t);var n={number:+(i[1]+i[2]),unit:i[3]};if("em"!==n.unit&&"ex"!==n.unit&&"mu"!==n.unit)throw new ol("Invalid unit: '"+n.unit+"'",t);return new ti(new ll("color",n,this.mode),!1)},ei.prototype.parseGroup=function(e){var t=this.nextToken;if(this.nextToken.text===(e?"[":"{")){this.consume();var i=this.parseExpression(!1,e?"]":null),n=this.nextToken;return this.expect(e?"]":"}"),"text"===this.mode&&this.formLigatures(i),new ti(new ll("ordgroup",i,this.mode,t,n),!1)}return e?null:this.parseSymbol()},ei.prototype.formLigatures=function(e){var t=e.length-1,n;for(n=0;n<t;++n){var i=e[n],a=i.value;"-"===a&&"-"===e[n+1].value&&(n+1<t&&"-"===e[n+2].value?(e.splice(n,3,new ll("textord","---","text",i,e[n+2])),t-=2):(e.splice(n,2,new ll("textord","--","text",i,e[n+1])),t-=1)),("'"===a||"`"===a)&&e[n+1].value===a&&(e.splice(n,2,new ll("textord",a+a,"text",i,e[n+1])),t-=1)}},ei.prototype.parseSymbol=function(){var e=this.nextToken;return tl[e.text]?(this.consume(),new ti(e.text,!0,e)):al[this.mode][e.text]?(this.consume(),new ti(new ll(al[this.mode][e.text].group,e.text,this.mode,e),!1,e)):"text"===this.mode&&rl.test(e.text)?(this.consume(),new ti(new ll("textord",e.text,this.mode,e),!1,e)):null},ei.prototype.ParseNode=ll;var cl=Xs,ml=Ks,gl=function(e,t,i){i=i||new Ks({});var n=Go.TEXT;i.displayMode&&(n=Go.DISPLAY);var a=new Vt({style:n,size:"size5"}),s=Yo(e,t,a),r=Ho(e,a),o=Wo(["katex"],[s,r]);return i.displayMode?Wo(["katex-display"],[o]):o},hl=function(e,t){if(!("string"==typeof e||e instanceof String))throw new TypeError("KaTeX can only parse string typed expression");var i=new ei(e,t);return i.parse()},fl=function(e,t,i){kr.clearNode(t);var n=new ml(i),a=hl(e,n),s=gl(a,e,n).toNode();t.appendChild(s)};"undefined"!=typeof document&&"CSS1Compat"!==document.compatMode&&("undefined"!=typeof console&&console.warn("Warning: KaTeX doesn't work in quirks mode. Make sure your website has a suitable doctype."),fl=function(){throw new cl("KaTeX doesn't work in quirks mode.")});var yl={render:fl,renderToString:function(e,t){var i=new ml(t),n=hl(e,i);return gl(n,e,i).toMarkup()},__parse:function(e,t){var i=new ml(t);return hl(e,i)},ParseError:cl};const xl=s("d-math",`
+`);
+
+class FootnoteList extends T$9(HTMLElement) {
+
+  connectedCallback() {
+    this.list = this.root.querySelector('ol');
+    // footnotes list is initially hidden
+    this.root.host.style.display = 'none';
+    // look through document and register existing footnotes
+    // Store.subscribeTo('footnotes', (footnote) => {
+    //   this.renderFootnote(footnote);
+    // });
+  }
+
+  // TODO: could optimize this to accept individual footnotes?
+  set footnotes(footnotes) {
+    this.list.innerHTML = '';
+    if (footnotes.length) {
+      // ensure footnote list is visible
+      this.root.host.style.display = 'initial';
+
+      for (const footnote of footnotes) {
+        // construct and append list item to show footnote
+        const listItem = document.createElement('li');
+        listItem.id = footnote.id + '-listing';
+        listItem.innerHTML = footnote.innerHTML;
+
+        const backlink = document.createElement('a');
+        backlink.setAttribute('class', 'footnote-backlink');
+        backlink.textContent = '[↩]';
+        backlink.href = '#' + footnote.id;
+
+        listItem.appendChild(backlink);
+        this.list.appendChild(listItem);
+      }
+    } else {
+      // ensure footnote list is invisible
+      this.shadowRoot.host.style.display = 'none';
+    }
+  }
+
+}
+
+/**
+ * This is the ParseError class, which is the main error thrown by KaTeX
+ * functions when something has gone wrong. This is used to distinguish internal
+ * errors from errors in the expression that the user provided.
+ *
+ * If possible, a caller should provide a Token or ParseNode with information
+ * about where in the source string the problem occurred.
+ *
+ * @param {string} message  The error message
+ * @param {(Token|ParseNode)=} token  An object providing position information
+ */
+function ParseError$1(message, token) {
+    var error = "KaTeX parse error: " + message;
+    var start;
+    var end;
+
+    if (token && token.lexer && token.start <= token.end) {
+        // If we have the input and a position, make the error a bit fancier
+
+        // Get the input
+        var input = token.lexer.input;
+
+        // Prepend some information
+        start = token.start;
+        end = token.end;
+        if (start === input.length) {
+            error += " at end of input: ";
+        } else {
+            error += " at position " + (start + 1) + ": ";
+        }
+
+        // Underline token in question using combining underscores
+        var underlined = input.slice(start, end).replace(/[^]/g, "$&\u0332");
+
+        // Extract some context from the input and add it to the error
+        var left;
+        if (start > 15) {
+            left = "…" + input.slice(start - 15, start);
+        } else {
+            left = input.slice(0, start);
+        }
+        var right;
+        if (end + 15 < input.length) {
+            right = input.slice(end, end + 15) + "…";
+        } else {
+            right = input.slice(end);
+        }
+        error += left + underlined + right;
+    }
+
+    // Some hackery to make ParseError a prototype of Error
+    // See http://stackoverflow.com/a/8460753
+    var self = new Error(error);
+    self.name = "ParseError";
+    self.__proto__ = ParseError$1.prototype;
+
+    self.position = start;
+    return self;
+}
+
+// More hackery
+ParseError$1.prototype.__proto__ = Error.prototype;
+
+var ParseError_1 = ParseError$1;
+
+/**
+ * This is a module for storing settings passed into KaTeX. It correctly handles
+ * default settings.
+ */
+
+/**
+ * Helper function for getting a default value if the value is undefined
+ */
+function get(option, defaultValue) {
+    return option === undefined ? defaultValue : option;
+}
+
+/**
+ * The main Settings object
+ *
+ * The current options stored are:
+ *  - displayMode: Whether the expression should be typeset by default in
+ *                 textstyle or displaystyle (default false)
+ */
+function Settings$1(options) {
+    // allow null options
+    options = options || {};
+    this.displayMode = get(options.displayMode, false);
+    this.throwOnError = get(options.throwOnError, true);
+    this.errorColor = get(options.errorColor, "#cc0000");
+    this.macros = options.macros || {};
+}
+
+var Settings_1 = Settings$1;
+
+var hangulRegex = /[\uAC00-\uD7AF]/;
+
+// This regex combines
+// - Hiragana: [\u3040-\u309F]
+// - Katakana: [\u30A0-\u30FF]
+// - CJK ideograms: [\u4E00-\u9FAF]
+// - Hangul syllables: [\uAC00-\uD7AF]
+// Notably missing are halfwidth Katakana and Romanji glyphs.
+var cjkRegex$1 =
+    /[\u3040-\u309F]|[\u30A0-\u30FF]|[\u4E00-\u9FAF]|[\uAC00-\uD7AF]/;
+
+var unicodeRegexes = {
+    cjkRegex: cjkRegex$1,
+    hangulRegex: hangulRegex
+};
+
+var fontMetricsData = {
+    "AMS-Regular": {
+        "65": [0, 0.68889, 0, 0],
+        "66": [0, 0.68889, 0, 0],
+        "67": [0, 0.68889, 0, 0],
+        "68": [0, 0.68889, 0, 0],
+        "69": [0, 0.68889, 0, 0],
+        "70": [0, 0.68889, 0, 0],
+        "71": [0, 0.68889, 0, 0],
+        "72": [0, 0.68889, 0, 0],
+        "73": [0, 0.68889, 0, 0],
+        "74": [0.16667, 0.68889, 0, 0],
+        "75": [0, 0.68889, 0, 0],
+        "76": [0, 0.68889, 0, 0],
+        "77": [0, 0.68889, 0, 0],
+        "78": [0, 0.68889, 0, 0],
+        "79": [0.16667, 0.68889, 0, 0],
+        "80": [0, 0.68889, 0, 0],
+        "81": [0.16667, 0.68889, 0, 0],
+        "82": [0, 0.68889, 0, 0],
+        "83": [0, 0.68889, 0, 0],
+        "84": [0, 0.68889, 0, 0],
+        "85": [0, 0.68889, 0, 0],
+        "86": [0, 0.68889, 0, 0],
+        "87": [0, 0.68889, 0, 0],
+        "88": [0, 0.68889, 0, 0],
+        "89": [0, 0.68889, 0, 0],
+        "90": [0, 0.68889, 0, 0],
+        "107": [0, 0.68889, 0, 0],
+        "165": [0, 0.675, 0.025, 0],
+        "174": [0.15559, 0.69224, 0, 0],
+        "240": [0, 0.68889, 0, 0],
+        "295": [0, 0.68889, 0, 0],
+        "710": [0, 0.825, 0, 0],
+        "732": [0, 0.9, 0, 0],
+        "770": [0, 0.825, 0, 0],
+        "771": [0, 0.9, 0, 0],
+        "989": [0.08167, 0.58167, 0, 0],
+        "1008": [0, 0.43056, 0.04028, 0],
+        "8245": [0, 0.54986, 0, 0],
+        "8463": [0, 0.68889, 0, 0],
+        "8487": [0, 0.68889, 0, 0],
+        "8498": [0, 0.68889, 0, 0],
+        "8502": [0, 0.68889, 0, 0],
+        "8503": [0, 0.68889, 0, 0],
+        "8504": [0, 0.68889, 0, 0],
+        "8513": [0, 0.68889, 0, 0],
+        "8592": [-0.03598, 0.46402, 0, 0],
+        "8594": [-0.03598, 0.46402, 0, 0],
+        "8602": [-0.13313, 0.36687, 0, 0],
+        "8603": [-0.13313, 0.36687, 0, 0],
+        "8606": [0.01354, 0.52239, 0, 0],
+        "8608": [0.01354, 0.52239, 0, 0],
+        "8610": [0.01354, 0.52239, 0, 0],
+        "8611": [0.01354, 0.52239, 0, 0],
+        "8619": [0, 0.54986, 0, 0],
+        "8620": [0, 0.54986, 0, 0],
+        "8621": [-0.13313, 0.37788, 0, 0],
+        "8622": [-0.13313, 0.36687, 0, 0],
+        "8624": [0, 0.69224, 0, 0],
+        "8625": [0, 0.69224, 0, 0],
+        "8630": [0, 0.43056, 0, 0],
+        "8631": [0, 0.43056, 0, 0],
+        "8634": [0.08198, 0.58198, 0, 0],
+        "8635": [0.08198, 0.58198, 0, 0],
+        "8638": [0.19444, 0.69224, 0, 0],
+        "8639": [0.19444, 0.69224, 0, 0],
+        "8642": [0.19444, 0.69224, 0, 0],
+        "8643": [0.19444, 0.69224, 0, 0],
+        "8644": [0.1808, 0.675, 0, 0],
+        "8646": [0.1808, 0.675, 0, 0],
+        "8647": [0.1808, 0.675, 0, 0],
+        "8648": [0.19444, 0.69224, 0, 0],
+        "8649": [0.1808, 0.675, 0, 0],
+        "8650": [0.19444, 0.69224, 0, 0],
+        "8651": [0.01354, 0.52239, 0, 0],
+        "8652": [0.01354, 0.52239, 0, 0],
+        "8653": [-0.13313, 0.36687, 0, 0],
+        "8654": [-0.13313, 0.36687, 0, 0],
+        "8655": [-0.13313, 0.36687, 0, 0],
+        "8666": [0.13667, 0.63667, 0, 0],
+        "8667": [0.13667, 0.63667, 0, 0],
+        "8669": [-0.13313, 0.37788, 0, 0],
+        "8672": [-0.064, 0.437, 0, 0],
+        "8674": [-0.064, 0.437, 0, 0],
+        "8705": [0, 0.825, 0, 0],
+        "8708": [0, 0.68889, 0, 0],
+        "8709": [0.08167, 0.58167, 0, 0],
+        "8717": [0, 0.43056, 0, 0],
+        "8722": [-0.03598, 0.46402, 0, 0],
+        "8724": [0.08198, 0.69224, 0, 0],
+        "8726": [0.08167, 0.58167, 0, 0],
+        "8733": [0, 0.69224, 0, 0],
+        "8736": [0, 0.69224, 0, 0],
+        "8737": [0, 0.69224, 0, 0],
+        "8738": [0.03517, 0.52239, 0, 0],
+        "8739": [0.08167, 0.58167, 0, 0],
+        "8740": [0.25142, 0.74111, 0, 0],
+        "8741": [0.08167, 0.58167, 0, 0],
+        "8742": [0.25142, 0.74111, 0, 0],
+        "8756": [0, 0.69224, 0, 0],
+        "8757": [0, 0.69224, 0, 0],
+        "8764": [-0.13313, 0.36687, 0, 0],
+        "8765": [-0.13313, 0.37788, 0, 0],
+        "8769": [-0.13313, 0.36687, 0, 0],
+        "8770": [-0.03625, 0.46375, 0, 0],
+        "8774": [0.30274, 0.79383, 0, 0],
+        "8776": [-0.01688, 0.48312, 0, 0],
+        "8778": [0.08167, 0.58167, 0, 0],
+        "8782": [0.06062, 0.54986, 0, 0],
+        "8783": [0.06062, 0.54986, 0, 0],
+        "8785": [0.08198, 0.58198, 0, 0],
+        "8786": [0.08198, 0.58198, 0, 0],
+        "8787": [0.08198, 0.58198, 0, 0],
+        "8790": [0, 0.69224, 0, 0],
+        "8791": [0.22958, 0.72958, 0, 0],
+        "8796": [0.08198, 0.91667, 0, 0],
+        "8806": [0.25583, 0.75583, 0, 0],
+        "8807": [0.25583, 0.75583, 0, 0],
+        "8808": [0.25142, 0.75726, 0, 0],
+        "8809": [0.25142, 0.75726, 0, 0],
+        "8812": [0.25583, 0.75583, 0, 0],
+        "8814": [0.20576, 0.70576, 0, 0],
+        "8815": [0.20576, 0.70576, 0, 0],
+        "8816": [0.30274, 0.79383, 0, 0],
+        "8817": [0.30274, 0.79383, 0, 0],
+        "8818": [0.22958, 0.72958, 0, 0],
+        "8819": [0.22958, 0.72958, 0, 0],
+        "8822": [0.1808, 0.675, 0, 0],
+        "8823": [0.1808, 0.675, 0, 0],
+        "8828": [0.13667, 0.63667, 0, 0],
+        "8829": [0.13667, 0.63667, 0, 0],
+        "8830": [0.22958, 0.72958, 0, 0],
+        "8831": [0.22958, 0.72958, 0, 0],
+        "8832": [0.20576, 0.70576, 0, 0],
+        "8833": [0.20576, 0.70576, 0, 0],
+        "8840": [0.30274, 0.79383, 0, 0],
+        "8841": [0.30274, 0.79383, 0, 0],
+        "8842": [0.13597, 0.63597, 0, 0],
+        "8843": [0.13597, 0.63597, 0, 0],
+        "8847": [0.03517, 0.54986, 0, 0],
+        "8848": [0.03517, 0.54986, 0, 0],
+        "8858": [0.08198, 0.58198, 0, 0],
+        "8859": [0.08198, 0.58198, 0, 0],
+        "8861": [0.08198, 0.58198, 0, 0],
+        "8862": [0, 0.675, 0, 0],
+        "8863": [0, 0.675, 0, 0],
+        "8864": [0, 0.675, 0, 0],
+        "8865": [0, 0.675, 0, 0],
+        "8872": [0, 0.69224, 0, 0],
+        "8873": [0, 0.69224, 0, 0],
+        "8874": [0, 0.69224, 0, 0],
+        "8876": [0, 0.68889, 0, 0],
+        "8877": [0, 0.68889, 0, 0],
+        "8878": [0, 0.68889, 0, 0],
+        "8879": [0, 0.68889, 0, 0],
+        "8882": [0.03517, 0.54986, 0, 0],
+        "8883": [0.03517, 0.54986, 0, 0],
+        "8884": [0.13667, 0.63667, 0, 0],
+        "8885": [0.13667, 0.63667, 0, 0],
+        "8888": [0, 0.54986, 0, 0],
+        "8890": [0.19444, 0.43056, 0, 0],
+        "8891": [0.19444, 0.69224, 0, 0],
+        "8892": [0.19444, 0.69224, 0, 0],
+        "8901": [0, 0.54986, 0, 0],
+        "8903": [0.08167, 0.58167, 0, 0],
+        "8905": [0.08167, 0.58167, 0, 0],
+        "8906": [0.08167, 0.58167, 0, 0],
+        "8907": [0, 0.69224, 0, 0],
+        "8908": [0, 0.69224, 0, 0],
+        "8909": [-0.03598, 0.46402, 0, 0],
+        "8910": [0, 0.54986, 0, 0],
+        "8911": [0, 0.54986, 0, 0],
+        "8912": [0.03517, 0.54986, 0, 0],
+        "8913": [0.03517, 0.54986, 0, 0],
+        "8914": [0, 0.54986, 0, 0],
+        "8915": [0, 0.54986, 0, 0],
+        "8916": [0, 0.69224, 0, 0],
+        "8918": [0.0391, 0.5391, 0, 0],
+        "8919": [0.0391, 0.5391, 0, 0],
+        "8920": [0.03517, 0.54986, 0, 0],
+        "8921": [0.03517, 0.54986, 0, 0],
+        "8922": [0.38569, 0.88569, 0, 0],
+        "8923": [0.38569, 0.88569, 0, 0],
+        "8926": [0.13667, 0.63667, 0, 0],
+        "8927": [0.13667, 0.63667, 0, 0],
+        "8928": [0.30274, 0.79383, 0, 0],
+        "8929": [0.30274, 0.79383, 0, 0],
+        "8934": [0.23222, 0.74111, 0, 0],
+        "8935": [0.23222, 0.74111, 0, 0],
+        "8936": [0.23222, 0.74111, 0, 0],
+        "8937": [0.23222, 0.74111, 0, 0],
+        "8938": [0.20576, 0.70576, 0, 0],
+        "8939": [0.20576, 0.70576, 0, 0],
+        "8940": [0.30274, 0.79383, 0, 0],
+        "8941": [0.30274, 0.79383, 0, 0],
+        "8994": [0.19444, 0.69224, 0, 0],
+        "8995": [0.19444, 0.69224, 0, 0],
+        "9416": [0.15559, 0.69224, 0, 0],
+        "9484": [0, 0.69224, 0, 0],
+        "9488": [0, 0.69224, 0, 0],
+        "9492": [0, 0.37788, 0, 0],
+        "9496": [0, 0.37788, 0, 0],
+        "9585": [0.19444, 0.68889, 0, 0],
+        "9586": [0.19444, 0.74111, 0, 0],
+        "9632": [0, 0.675, 0, 0],
+        "9633": [0, 0.675, 0, 0],
+        "9650": [0, 0.54986, 0, 0],
+        "9651": [0, 0.54986, 0, 0],
+        "9654": [0.03517, 0.54986, 0, 0],
+        "9660": [0, 0.54986, 0, 0],
+        "9661": [0, 0.54986, 0, 0],
+        "9664": [0.03517, 0.54986, 0, 0],
+        "9674": [0.11111, 0.69224, 0, 0],
+        "9733": [0.19444, 0.69224, 0, 0],
+        "10003": [0, 0.69224, 0, 0],
+        "10016": [0, 0.69224, 0, 0],
+        "10731": [0.11111, 0.69224, 0, 0],
+        "10846": [0.19444, 0.75583, 0, 0],
+        "10877": [0.13667, 0.63667, 0, 0],
+        "10878": [0.13667, 0.63667, 0, 0],
+        "10885": [0.25583, 0.75583, 0, 0],
+        "10886": [0.25583, 0.75583, 0, 0],
+        "10887": [0.13597, 0.63597, 0, 0],
+        "10888": [0.13597, 0.63597, 0, 0],
+        "10889": [0.26167, 0.75726, 0, 0],
+        "10890": [0.26167, 0.75726, 0, 0],
+        "10891": [0.48256, 0.98256, 0, 0],
+        "10892": [0.48256, 0.98256, 0, 0],
+        "10901": [0.13667, 0.63667, 0, 0],
+        "10902": [0.13667, 0.63667, 0, 0],
+        "10933": [0.25142, 0.75726, 0, 0],
+        "10934": [0.25142, 0.75726, 0, 0],
+        "10935": [0.26167, 0.75726, 0, 0],
+        "10936": [0.26167, 0.75726, 0, 0],
+        "10937": [0.26167, 0.75726, 0, 0],
+        "10938": [0.26167, 0.75726, 0, 0],
+        "10949": [0.25583, 0.75583, 0, 0],
+        "10950": [0.25583, 0.75583, 0, 0],
+        "10955": [0.28481, 0.79383, 0, 0],
+        "10956": [0.28481, 0.79383, 0, 0],
+        "57350": [0.08167, 0.58167, 0, 0],
+        "57351": [0.08167, 0.58167, 0, 0],
+        "57352": [0.08167, 0.58167, 0, 0],
+        "57353": [0, 0.43056, 0.04028, 0],
+        "57356": [0.25142, 0.75726, 0, 0],
+        "57357": [0.25142, 0.75726, 0, 0],
+        "57358": [0.41951, 0.91951, 0, 0],
+        "57359": [0.30274, 0.79383, 0, 0],
+        "57360": [0.30274, 0.79383, 0, 0],
+        "57361": [0.41951, 0.91951, 0, 0],
+        "57366": [0.25142, 0.75726, 0, 0],
+        "57367": [0.25142, 0.75726, 0, 0],
+        "57368": [0.25142, 0.75726, 0, 0],
+        "57369": [0.25142, 0.75726, 0, 0],
+        "57370": [0.13597, 0.63597, 0, 0],
+        "57371": [0.13597, 0.63597, 0, 0]
+    },
+    "Caligraphic-Regular": {
+        "48": [0, 0.43056, 0, 0],
+        "49": [0, 0.43056, 0, 0],
+        "50": [0, 0.43056, 0, 0],
+        "51": [0.19444, 0.43056, 0, 0],
+        "52": [0.19444, 0.43056, 0, 0],
+        "53": [0.19444, 0.43056, 0, 0],
+        "54": [0, 0.64444, 0, 0],
+        "55": [0.19444, 0.43056, 0, 0],
+        "56": [0, 0.64444, 0, 0],
+        "57": [0.19444, 0.43056, 0, 0],
+        "65": [0, 0.68333, 0, 0.19445],
+        "66": [0, 0.68333, 0.03041, 0.13889],
+        "67": [0, 0.68333, 0.05834, 0.13889],
+        "68": [0, 0.68333, 0.02778, 0.08334],
+        "69": [0, 0.68333, 0.08944, 0.11111],
+        "70": [0, 0.68333, 0.09931, 0.11111],
+        "71": [0.09722, 0.68333, 0.0593, 0.11111],
+        "72": [0, 0.68333, 0.00965, 0.11111],
+        "73": [0, 0.68333, 0.07382, 0],
+        "74": [0.09722, 0.68333, 0.18472, 0.16667],
+        "75": [0, 0.68333, 0.01445, 0.05556],
+        "76": [0, 0.68333, 0, 0.13889],
+        "77": [0, 0.68333, 0, 0.13889],
+        "78": [0, 0.68333, 0.14736, 0.08334],
+        "79": [0, 0.68333, 0.02778, 0.11111],
+        "80": [0, 0.68333, 0.08222, 0.08334],
+        "81": [0.09722, 0.68333, 0, 0.11111],
+        "82": [0, 0.68333, 0, 0.08334],
+        "83": [0, 0.68333, 0.075, 0.13889],
+        "84": [0, 0.68333, 0.25417, 0],
+        "85": [0, 0.68333, 0.09931, 0.08334],
+        "86": [0, 0.68333, 0.08222, 0],
+        "87": [0, 0.68333, 0.08222, 0.08334],
+        "88": [0, 0.68333, 0.14643, 0.13889],
+        "89": [0.09722, 0.68333, 0.08222, 0.08334],
+        "90": [0, 0.68333, 0.07944, 0.13889]
+    },
+    "Fraktur-Regular": {
+        "33": [0, 0.69141, 0, 0],
+        "34": [0, 0.69141, 0, 0],
+        "38": [0, 0.69141, 0, 0],
+        "39": [0, 0.69141, 0, 0],
+        "40": [0.24982, 0.74947, 0, 0],
+        "41": [0.24982, 0.74947, 0, 0],
+        "42": [0, 0.62119, 0, 0],
+        "43": [0.08319, 0.58283, 0, 0],
+        "44": [0, 0.10803, 0, 0],
+        "45": [0.08319, 0.58283, 0, 0],
+        "46": [0, 0.10803, 0, 0],
+        "47": [0.24982, 0.74947, 0, 0],
+        "48": [0, 0.47534, 0, 0],
+        "49": [0, 0.47534, 0, 0],
+        "50": [0, 0.47534, 0, 0],
+        "51": [0.18906, 0.47534, 0, 0],
+        "52": [0.18906, 0.47534, 0, 0],
+        "53": [0.18906, 0.47534, 0, 0],
+        "54": [0, 0.69141, 0, 0],
+        "55": [0.18906, 0.47534, 0, 0],
+        "56": [0, 0.69141, 0, 0],
+        "57": [0.18906, 0.47534, 0, 0],
+        "58": [0, 0.47534, 0, 0],
+        "59": [0.12604, 0.47534, 0, 0],
+        "61": [-0.13099, 0.36866, 0, 0],
+        "63": [0, 0.69141, 0, 0],
+        "65": [0, 0.69141, 0, 0],
+        "66": [0, 0.69141, 0, 0],
+        "67": [0, 0.69141, 0, 0],
+        "68": [0, 0.69141, 0, 0],
+        "69": [0, 0.69141, 0, 0],
+        "70": [0.12604, 0.69141, 0, 0],
+        "71": [0, 0.69141, 0, 0],
+        "72": [0.06302, 0.69141, 0, 0],
+        "73": [0, 0.69141, 0, 0],
+        "74": [0.12604, 0.69141, 0, 0],
+        "75": [0, 0.69141, 0, 0],
+        "76": [0, 0.69141, 0, 0],
+        "77": [0, 0.69141, 0, 0],
+        "78": [0, 0.69141, 0, 0],
+        "79": [0, 0.69141, 0, 0],
+        "80": [0.18906, 0.69141, 0, 0],
+        "81": [0.03781, 0.69141, 0, 0],
+        "82": [0, 0.69141, 0, 0],
+        "83": [0, 0.69141, 0, 0],
+        "84": [0, 0.69141, 0, 0],
+        "85": [0, 0.69141, 0, 0],
+        "86": [0, 0.69141, 0, 0],
+        "87": [0, 0.69141, 0, 0],
+        "88": [0, 0.69141, 0, 0],
+        "89": [0.18906, 0.69141, 0, 0],
+        "90": [0.12604, 0.69141, 0, 0],
+        "91": [0.24982, 0.74947, 0, 0],
+        "93": [0.24982, 0.74947, 0, 0],
+        "94": [0, 0.69141, 0, 0],
+        "97": [0, 0.47534, 0, 0],
+        "98": [0, 0.69141, 0, 0],
+        "99": [0, 0.47534, 0, 0],
+        "100": [0, 0.62119, 0, 0],
+        "101": [0, 0.47534, 0, 0],
+        "102": [0.18906, 0.69141, 0, 0],
+        "103": [0.18906, 0.47534, 0, 0],
+        "104": [0.18906, 0.69141, 0, 0],
+        "105": [0, 0.69141, 0, 0],
+        "106": [0, 0.69141, 0, 0],
+        "107": [0, 0.69141, 0, 0],
+        "108": [0, 0.69141, 0, 0],
+        "109": [0, 0.47534, 0, 0],
+        "110": [0, 0.47534, 0, 0],
+        "111": [0, 0.47534, 0, 0],
+        "112": [0.18906, 0.52396, 0, 0],
+        "113": [0.18906, 0.47534, 0, 0],
+        "114": [0, 0.47534, 0, 0],
+        "115": [0, 0.47534, 0, 0],
+        "116": [0, 0.62119, 0, 0],
+        "117": [0, 0.47534, 0, 0],
+        "118": [0, 0.52396, 0, 0],
+        "119": [0, 0.52396, 0, 0],
+        "120": [0.18906, 0.47534, 0, 0],
+        "121": [0.18906, 0.47534, 0, 0],
+        "122": [0.18906, 0.47534, 0, 0],
+        "8216": [0, 0.69141, 0, 0],
+        "8217": [0, 0.69141, 0, 0],
+        "58112": [0, 0.62119, 0, 0],
+        "58113": [0, 0.62119, 0, 0],
+        "58114": [0.18906, 0.69141, 0, 0],
+        "58115": [0.18906, 0.69141, 0, 0],
+        "58116": [0.18906, 0.47534, 0, 0],
+        "58117": [0, 0.69141, 0, 0],
+        "58118": [0, 0.62119, 0, 0],
+        "58119": [0, 0.47534, 0, 0]
+    },
+    "Main-Bold": {
+        "33": [0, 0.69444, 0, 0],
+        "34": [0, 0.69444, 0, 0],
+        "35": [0.19444, 0.69444, 0, 0],
+        "36": [0.05556, 0.75, 0, 0],
+        "37": [0.05556, 0.75, 0, 0],
+        "38": [0, 0.69444, 0, 0],
+        "39": [0, 0.69444, 0, 0],
+        "40": [0.25, 0.75, 0, 0],
+        "41": [0.25, 0.75, 0, 0],
+        "42": [0, 0.75, 0, 0],
+        "43": [0.13333, 0.63333, 0, 0],
+        "44": [0.19444, 0.15556, 0, 0],
+        "45": [0, 0.44444, 0, 0],
+        "46": [0, 0.15556, 0, 0],
+        "47": [0.25, 0.75, 0, 0],
+        "48": [0, 0.64444, 0, 0],
+        "49": [0, 0.64444, 0, 0],
+        "50": [0, 0.64444, 0, 0],
+        "51": [0, 0.64444, 0, 0],
+        "52": [0, 0.64444, 0, 0],
+        "53": [0, 0.64444, 0, 0],
+        "54": [0, 0.64444, 0, 0],
+        "55": [0, 0.64444, 0, 0],
+        "56": [0, 0.64444, 0, 0],
+        "57": [0, 0.64444, 0, 0],
+        "58": [0, 0.44444, 0, 0],
+        "59": [0.19444, 0.44444, 0, 0],
+        "60": [0.08556, 0.58556, 0, 0],
+        "61": [-0.10889, 0.39111, 0, 0],
+        "62": [0.08556, 0.58556, 0, 0],
+        "63": [0, 0.69444, 0, 0],
+        "64": [0, 0.69444, 0, 0],
+        "65": [0, 0.68611, 0, 0],
+        "66": [0, 0.68611, 0, 0],
+        "67": [0, 0.68611, 0, 0],
+        "68": [0, 0.68611, 0, 0],
+        "69": [0, 0.68611, 0, 0],
+        "70": [0, 0.68611, 0, 0],
+        "71": [0, 0.68611, 0, 0],
+        "72": [0, 0.68611, 0, 0],
+        "73": [0, 0.68611, 0, 0],
+        "74": [0, 0.68611, 0, 0],
+        "75": [0, 0.68611, 0, 0],
+        "76": [0, 0.68611, 0, 0],
+        "77": [0, 0.68611, 0, 0],
+        "78": [0, 0.68611, 0, 0],
+        "79": [0, 0.68611, 0, 0],
+        "80": [0, 0.68611, 0, 0],
+        "81": [0.19444, 0.68611, 0, 0],
+        "82": [0, 0.68611, 0, 0],
+        "83": [0, 0.68611, 0, 0],
+        "84": [0, 0.68611, 0, 0],
+        "85": [0, 0.68611, 0, 0],
+        "86": [0, 0.68611, 0.01597, 0],
+        "87": [0, 0.68611, 0.01597, 0],
+        "88": [0, 0.68611, 0, 0],
+        "89": [0, 0.68611, 0.02875, 0],
+        "90": [0, 0.68611, 0, 0],
+        "91": [0.25, 0.75, 0, 0],
+        "92": [0.25, 0.75, 0, 0],
+        "93": [0.25, 0.75, 0, 0],
+        "94": [0, 0.69444, 0, 0],
+        "95": [0.31, 0.13444, 0.03194, 0],
+        "96": [0, 0.69444, 0, 0],
+        "97": [0, 0.44444, 0, 0],
+        "98": [0, 0.69444, 0, 0],
+        "99": [0, 0.44444, 0, 0],
+        "100": [0, 0.69444, 0, 0],
+        "101": [0, 0.44444, 0, 0],
+        "102": [0, 0.69444, 0.10903, 0],
+        "103": [0.19444, 0.44444, 0.01597, 0],
+        "104": [0, 0.69444, 0, 0],
+        "105": [0, 0.69444, 0, 0],
+        "106": [0.19444, 0.69444, 0, 0],
+        "107": [0, 0.69444, 0, 0],
+        "108": [0, 0.69444, 0, 0],
+        "109": [0, 0.44444, 0, 0],
+        "110": [0, 0.44444, 0, 0],
+        "111": [0, 0.44444, 0, 0],
+        "112": [0.19444, 0.44444, 0, 0],
+        "113": [0.19444, 0.44444, 0, 0],
+        "114": [0, 0.44444, 0, 0],
+        "115": [0, 0.44444, 0, 0],
+        "116": [0, 0.63492, 0, 0],
+        "117": [0, 0.44444, 0, 0],
+        "118": [0, 0.44444, 0.01597, 0],
+        "119": [0, 0.44444, 0.01597, 0],
+        "120": [0, 0.44444, 0, 0],
+        "121": [0.19444, 0.44444, 0.01597, 0],
+        "122": [0, 0.44444, 0, 0],
+        "123": [0.25, 0.75, 0, 0],
+        "124": [0.25, 0.75, 0, 0],
+        "125": [0.25, 0.75, 0, 0],
+        "126": [0.35, 0.34444, 0, 0],
+        "168": [0, 0.69444, 0, 0],
+        "172": [0, 0.44444, 0, 0],
+        "175": [0, 0.59611, 0, 0],
+        "176": [0, 0.69444, 0, 0],
+        "177": [0.13333, 0.63333, 0, 0],
+        "180": [0, 0.69444, 0, 0],
+        "215": [0.13333, 0.63333, 0, 0],
+        "247": [0.13333, 0.63333, 0, 0],
+        "305": [0, 0.44444, 0, 0],
+        "567": [0.19444, 0.44444, 0, 0],
+        "710": [0, 0.69444, 0, 0],
+        "711": [0, 0.63194, 0, 0],
+        "713": [0, 0.59611, 0, 0],
+        "714": [0, 0.69444, 0, 0],
+        "715": [0, 0.69444, 0, 0],
+        "728": [0, 0.69444, 0, 0],
+        "729": [0, 0.69444, 0, 0],
+        "730": [0, 0.69444, 0, 0],
+        "732": [0, 0.69444, 0, 0],
+        "768": [0, 0.69444, 0, 0],
+        "769": [0, 0.69444, 0, 0],
+        "770": [0, 0.69444, 0, 0],
+        "771": [0, 0.69444, 0, 0],
+        "772": [0, 0.59611, 0, 0],
+        "774": [0, 0.69444, 0, 0],
+        "775": [0, 0.69444, 0, 0],
+        "776": [0, 0.69444, 0, 0],
+        "778": [0, 0.69444, 0, 0],
+        "779": [0, 0.69444, 0, 0],
+        "780": [0, 0.63194, 0, 0],
+        "824": [0.19444, 0.69444, 0, 0],
+        "915": [0, 0.68611, 0, 0],
+        "916": [0, 0.68611, 0, 0],
+        "920": [0, 0.68611, 0, 0],
+        "923": [0, 0.68611, 0, 0],
+        "926": [0, 0.68611, 0, 0],
+        "928": [0, 0.68611, 0, 0],
+        "931": [0, 0.68611, 0, 0],
+        "933": [0, 0.68611, 0, 0],
+        "934": [0, 0.68611, 0, 0],
+        "936": [0, 0.68611, 0, 0],
+        "937": [0, 0.68611, 0, 0],
+        "8211": [0, 0.44444, 0.03194, 0],
+        "8212": [0, 0.44444, 0.03194, 0],
+        "8216": [0, 0.69444, 0, 0],
+        "8217": [0, 0.69444, 0, 0],
+        "8220": [0, 0.69444, 0, 0],
+        "8221": [0, 0.69444, 0, 0],
+        "8224": [0.19444, 0.69444, 0, 0],
+        "8225": [0.19444, 0.69444, 0, 0],
+        "8242": [0, 0.55556, 0, 0],
+        "8407": [0, 0.72444, 0.15486, 0],
+        "8463": [0, 0.69444, 0, 0],
+        "8465": [0, 0.69444, 0, 0],
+        "8467": [0, 0.69444, 0, 0],
+        "8472": [0.19444, 0.44444, 0, 0],
+        "8476": [0, 0.69444, 0, 0],
+        "8501": [0, 0.69444, 0, 0],
+        "8592": [-0.10889, 0.39111, 0, 0],
+        "8593": [0.19444, 0.69444, 0, 0],
+        "8594": [-0.10889, 0.39111, 0, 0],
+        "8595": [0.19444, 0.69444, 0, 0],
+        "8596": [-0.10889, 0.39111, 0, 0],
+        "8597": [0.25, 0.75, 0, 0],
+        "8598": [0.19444, 0.69444, 0, 0],
+        "8599": [0.19444, 0.69444, 0, 0],
+        "8600": [0.19444, 0.69444, 0, 0],
+        "8601": [0.19444, 0.69444, 0, 0],
+        "8636": [-0.10889, 0.39111, 0, 0],
+        "8637": [-0.10889, 0.39111, 0, 0],
+        "8640": [-0.10889, 0.39111, 0, 0],
+        "8641": [-0.10889, 0.39111, 0, 0],
+        "8656": [-0.10889, 0.39111, 0, 0],
+        "8657": [0.19444, 0.69444, 0, 0],
+        "8658": [-0.10889, 0.39111, 0, 0],
+        "8659": [0.19444, 0.69444, 0, 0],
+        "8660": [-0.10889, 0.39111, 0, 0],
+        "8661": [0.25, 0.75, 0, 0],
+        "8704": [0, 0.69444, 0, 0],
+        "8706": [0, 0.69444, 0.06389, 0],
+        "8707": [0, 0.69444, 0, 0],
+        "8709": [0.05556, 0.75, 0, 0],
+        "8711": [0, 0.68611, 0, 0],
+        "8712": [0.08556, 0.58556, 0, 0],
+        "8715": [0.08556, 0.58556, 0, 0],
+        "8722": [0.13333, 0.63333, 0, 0],
+        "8723": [0.13333, 0.63333, 0, 0],
+        "8725": [0.25, 0.75, 0, 0],
+        "8726": [0.25, 0.75, 0, 0],
+        "8727": [-0.02778, 0.47222, 0, 0],
+        "8728": [-0.02639, 0.47361, 0, 0],
+        "8729": [-0.02639, 0.47361, 0, 0],
+        "8730": [0.18, 0.82, 0, 0],
+        "8733": [0, 0.44444, 0, 0],
+        "8734": [0, 0.44444, 0, 0],
+        "8736": [0, 0.69224, 0, 0],
+        "8739": [0.25, 0.75, 0, 0],
+        "8741": [0.25, 0.75, 0, 0],
+        "8743": [0, 0.55556, 0, 0],
+        "8744": [0, 0.55556, 0, 0],
+        "8745": [0, 0.55556, 0, 0],
+        "8746": [0, 0.55556, 0, 0],
+        "8747": [0.19444, 0.69444, 0.12778, 0],
+        "8764": [-0.10889, 0.39111, 0, 0],
+        "8768": [0.19444, 0.69444, 0, 0],
+        "8771": [0.00222, 0.50222, 0, 0],
+        "8776": [0.02444, 0.52444, 0, 0],
+        "8781": [0.00222, 0.50222, 0, 0],
+        "8801": [0.00222, 0.50222, 0, 0],
+        "8804": [0.19667, 0.69667, 0, 0],
+        "8805": [0.19667, 0.69667, 0, 0],
+        "8810": [0.08556, 0.58556, 0, 0],
+        "8811": [0.08556, 0.58556, 0, 0],
+        "8826": [0.08556, 0.58556, 0, 0],
+        "8827": [0.08556, 0.58556, 0, 0],
+        "8834": [0.08556, 0.58556, 0, 0],
+        "8835": [0.08556, 0.58556, 0, 0],
+        "8838": [0.19667, 0.69667, 0, 0],
+        "8839": [0.19667, 0.69667, 0, 0],
+        "8846": [0, 0.55556, 0, 0],
+        "8849": [0.19667, 0.69667, 0, 0],
+        "8850": [0.19667, 0.69667, 0, 0],
+        "8851": [0, 0.55556, 0, 0],
+        "8852": [0, 0.55556, 0, 0],
+        "8853": [0.13333, 0.63333, 0, 0],
+        "8854": [0.13333, 0.63333, 0, 0],
+        "8855": [0.13333, 0.63333, 0, 0],
+        "8856": [0.13333, 0.63333, 0, 0],
+        "8857": [0.13333, 0.63333, 0, 0],
+        "8866": [0, 0.69444, 0, 0],
+        "8867": [0, 0.69444, 0, 0],
+        "8868": [0, 0.69444, 0, 0],
+        "8869": [0, 0.69444, 0, 0],
+        "8900": [-0.02639, 0.47361, 0, 0],
+        "8901": [-0.02639, 0.47361, 0, 0],
+        "8902": [-0.02778, 0.47222, 0, 0],
+        "8968": [0.25, 0.75, 0, 0],
+        "8969": [0.25, 0.75, 0, 0],
+        "8970": [0.25, 0.75, 0, 0],
+        "8971": [0.25, 0.75, 0, 0],
+        "8994": [-0.13889, 0.36111, 0, 0],
+        "8995": [-0.13889, 0.36111, 0, 0],
+        "9651": [0.19444, 0.69444, 0, 0],
+        "9657": [-0.02778, 0.47222, 0, 0],
+        "9661": [0.19444, 0.69444, 0, 0],
+        "9667": [-0.02778, 0.47222, 0, 0],
+        "9711": [0.19444, 0.69444, 0, 0],
+        "9824": [0.12963, 0.69444, 0, 0],
+        "9825": [0.12963, 0.69444, 0, 0],
+        "9826": [0.12963, 0.69444, 0, 0],
+        "9827": [0.12963, 0.69444, 0, 0],
+        "9837": [0, 0.75, 0, 0],
+        "9838": [0.19444, 0.69444, 0, 0],
+        "9839": [0.19444, 0.69444, 0, 0],
+        "10216": [0.25, 0.75, 0, 0],
+        "10217": [0.25, 0.75, 0, 0],
+        "10815": [0, 0.68611, 0, 0],
+        "10927": [0.19667, 0.69667, 0, 0],
+        "10928": [0.19667, 0.69667, 0, 0]
+    },
+    "Main-Italic": {
+        "33": [0, 0.69444, 0.12417, 0],
+        "34": [0, 0.69444, 0.06961, 0],
+        "35": [0.19444, 0.69444, 0.06616, 0],
+        "37": [0.05556, 0.75, 0.13639, 0],
+        "38": [0, 0.69444, 0.09694, 0],
+        "39": [0, 0.69444, 0.12417, 0],
+        "40": [0.25, 0.75, 0.16194, 0],
+        "41": [0.25, 0.75, 0.03694, 0],
+        "42": [0, 0.75, 0.14917, 0],
+        "43": [0.05667, 0.56167, 0.03694, 0],
+        "44": [0.19444, 0.10556, 0, 0],
+        "45": [0, 0.43056, 0.02826, 0],
+        "46": [0, 0.10556, 0, 0],
+        "47": [0.25, 0.75, 0.16194, 0],
+        "48": [0, 0.64444, 0.13556, 0],
+        "49": [0, 0.64444, 0.13556, 0],
+        "50": [0, 0.64444, 0.13556, 0],
+        "51": [0, 0.64444, 0.13556, 0],
+        "52": [0.19444, 0.64444, 0.13556, 0],
+        "53": [0, 0.64444, 0.13556, 0],
+        "54": [0, 0.64444, 0.13556, 0],
+        "55": [0.19444, 0.64444, 0.13556, 0],
+        "56": [0, 0.64444, 0.13556, 0],
+        "57": [0, 0.64444, 0.13556, 0],
+        "58": [0, 0.43056, 0.0582, 0],
+        "59": [0.19444, 0.43056, 0.0582, 0],
+        "61": [-0.13313, 0.36687, 0.06616, 0],
+        "63": [0, 0.69444, 0.1225, 0],
+        "64": [0, 0.69444, 0.09597, 0],
+        "65": [0, 0.68333, 0, 0],
+        "66": [0, 0.68333, 0.10257, 0],
+        "67": [0, 0.68333, 0.14528, 0],
+        "68": [0, 0.68333, 0.09403, 0],
+        "69": [0, 0.68333, 0.12028, 0],
+        "70": [0, 0.68333, 0.13305, 0],
+        "71": [0, 0.68333, 0.08722, 0],
+        "72": [0, 0.68333, 0.16389, 0],
+        "73": [0, 0.68333, 0.15806, 0],
+        "74": [0, 0.68333, 0.14028, 0],
+        "75": [0, 0.68333, 0.14528, 0],
+        "76": [0, 0.68333, 0, 0],
+        "77": [0, 0.68333, 0.16389, 0],
+        "78": [0, 0.68333, 0.16389, 0],
+        "79": [0, 0.68333, 0.09403, 0],
+        "80": [0, 0.68333, 0.10257, 0],
+        "81": [0.19444, 0.68333, 0.09403, 0],
+        "82": [0, 0.68333, 0.03868, 0],
+        "83": [0, 0.68333, 0.11972, 0],
+        "84": [0, 0.68333, 0.13305, 0],
+        "85": [0, 0.68333, 0.16389, 0],
+        "86": [0, 0.68333, 0.18361, 0],
+        "87": [0, 0.68333, 0.18361, 0],
+        "88": [0, 0.68333, 0.15806, 0],
+        "89": [0, 0.68333, 0.19383, 0],
+        "90": [0, 0.68333, 0.14528, 0],
+        "91": [0.25, 0.75, 0.1875, 0],
+        "93": [0.25, 0.75, 0.10528, 0],
+        "94": [0, 0.69444, 0.06646, 0],
+        "95": [0.31, 0.12056, 0.09208, 0],
+        "97": [0, 0.43056, 0.07671, 0],
+        "98": [0, 0.69444, 0.06312, 0],
+        "99": [0, 0.43056, 0.05653, 0],
+        "100": [0, 0.69444, 0.10333, 0],
+        "101": [0, 0.43056, 0.07514, 0],
+        "102": [0.19444, 0.69444, 0.21194, 0],
+        "103": [0.19444, 0.43056, 0.08847, 0],
+        "104": [0, 0.69444, 0.07671, 0],
+        "105": [0, 0.65536, 0.1019, 0],
+        "106": [0.19444, 0.65536, 0.14467, 0],
+        "107": [0, 0.69444, 0.10764, 0],
+        "108": [0, 0.69444, 0.10333, 0],
+        "109": [0, 0.43056, 0.07671, 0],
+        "110": [0, 0.43056, 0.07671, 0],
+        "111": [0, 0.43056, 0.06312, 0],
+        "112": [0.19444, 0.43056, 0.06312, 0],
+        "113": [0.19444, 0.43056, 0.08847, 0],
+        "114": [0, 0.43056, 0.10764, 0],
+        "115": [0, 0.43056, 0.08208, 0],
+        "116": [0, 0.61508, 0.09486, 0],
+        "117": [0, 0.43056, 0.07671, 0],
+        "118": [0, 0.43056, 0.10764, 0],
+        "119": [0, 0.43056, 0.10764, 0],
+        "120": [0, 0.43056, 0.12042, 0],
+        "121": [0.19444, 0.43056, 0.08847, 0],
+        "122": [0, 0.43056, 0.12292, 0],
+        "126": [0.35, 0.31786, 0.11585, 0],
+        "163": [0, 0.69444, 0, 0],
+        "305": [0, 0.43056, 0, 0.02778],
+        "567": [0.19444, 0.43056, 0, 0.08334],
+        "768": [0, 0.69444, 0, 0],
+        "769": [0, 0.69444, 0.09694, 0],
+        "770": [0, 0.69444, 0.06646, 0],
+        "771": [0, 0.66786, 0.11585, 0],
+        "772": [0, 0.56167, 0.10333, 0],
+        "774": [0, 0.69444, 0.10806, 0],
+        "775": [0, 0.66786, 0.11752, 0],
+        "776": [0, 0.66786, 0.10474, 0],
+        "778": [0, 0.69444, 0, 0],
+        "779": [0, 0.69444, 0.1225, 0],
+        "780": [0, 0.62847, 0.08295, 0],
+        "915": [0, 0.68333, 0.13305, 0],
+        "916": [0, 0.68333, 0, 0],
+        "920": [0, 0.68333, 0.09403, 0],
+        "923": [0, 0.68333, 0, 0],
+        "926": [0, 0.68333, 0.15294, 0],
+        "928": [0, 0.68333, 0.16389, 0],
+        "931": [0, 0.68333, 0.12028, 0],
+        "933": [0, 0.68333, 0.11111, 0],
+        "934": [0, 0.68333, 0.05986, 0],
+        "936": [0, 0.68333, 0.11111, 0],
+        "937": [0, 0.68333, 0.10257, 0],
+        "8211": [0, 0.43056, 0.09208, 0],
+        "8212": [0, 0.43056, 0.09208, 0],
+        "8216": [0, 0.69444, 0.12417, 0],
+        "8217": [0, 0.69444, 0.12417, 0],
+        "8220": [0, 0.69444, 0.1685, 0],
+        "8221": [0, 0.69444, 0.06961, 0],
+        "8463": [0, 0.68889, 0, 0]
+    },
+    "Main-Regular": {
+        "32": [0, 0, 0, 0],
+        "33": [0, 0.69444, 0, 0],
+        "34": [0, 0.69444, 0, 0],
+        "35": [0.19444, 0.69444, 0, 0],
+        "36": [0.05556, 0.75, 0, 0],
+        "37": [0.05556, 0.75, 0, 0],
+        "38": [0, 0.69444, 0, 0],
+        "39": [0, 0.69444, 0, 0],
+        "40": [0.25, 0.75, 0, 0],
+        "41": [0.25, 0.75, 0, 0],
+        "42": [0, 0.75, 0, 0],
+        "43": [0.08333, 0.58333, 0, 0],
+        "44": [0.19444, 0.10556, 0, 0],
+        "45": [0, 0.43056, 0, 0],
+        "46": [0, 0.10556, 0, 0],
+        "47": [0.25, 0.75, 0, 0],
+        "48": [0, 0.64444, 0, 0],
+        "49": [0, 0.64444, 0, 0],
+        "50": [0, 0.64444, 0, 0],
+        "51": [0, 0.64444, 0, 0],
+        "52": [0, 0.64444, 0, 0],
+        "53": [0, 0.64444, 0, 0],
+        "54": [0, 0.64444, 0, 0],
+        "55": [0, 0.64444, 0, 0],
+        "56": [0, 0.64444, 0, 0],
+        "57": [0, 0.64444, 0, 0],
+        "58": [0, 0.43056, 0, 0],
+        "59": [0.19444, 0.43056, 0, 0],
+        "60": [0.0391, 0.5391, 0, 0],
+        "61": [-0.13313, 0.36687, 0, 0],
+        "62": [0.0391, 0.5391, 0, 0],
+        "63": [0, 0.69444, 0, 0],
+        "64": [0, 0.69444, 0, 0],
+        "65": [0, 0.68333, 0, 0],
+        "66": [0, 0.68333, 0, 0],
+        "67": [0, 0.68333, 0, 0],
+        "68": [0, 0.68333, 0, 0],
+        "69": [0, 0.68333, 0, 0],
+        "70": [0, 0.68333, 0, 0],
+        "71": [0, 0.68333, 0, 0],
+        "72": [0, 0.68333, 0, 0],
+        "73": [0, 0.68333, 0, 0],
+        "74": [0, 0.68333, 0, 0],
+        "75": [0, 0.68333, 0, 0],
+        "76": [0, 0.68333, 0, 0],
+        "77": [0, 0.68333, 0, 0],
+        "78": [0, 0.68333, 0, 0],
+        "79": [0, 0.68333, 0, 0],
+        "80": [0, 0.68333, 0, 0],
+        "81": [0.19444, 0.68333, 0, 0],
+        "82": [0, 0.68333, 0, 0],
+        "83": [0, 0.68333, 0, 0],
+        "84": [0, 0.68333, 0, 0],
+        "85": [0, 0.68333, 0, 0],
+        "86": [0, 0.68333, 0.01389, 0],
+        "87": [0, 0.68333, 0.01389, 0],
+        "88": [0, 0.68333, 0, 0],
+        "89": [0, 0.68333, 0.025, 0],
+        "90": [0, 0.68333, 0, 0],
+        "91": [0.25, 0.75, 0, 0],
+        "92": [0.25, 0.75, 0, 0],
+        "93": [0.25, 0.75, 0, 0],
+        "94": [0, 0.69444, 0, 0],
+        "95": [0.31, 0.12056, 0.02778, 0],
+        "96": [0, 0.69444, 0, 0],
+        "97": [0, 0.43056, 0, 0],
+        "98": [0, 0.69444, 0, 0],
+        "99": [0, 0.43056, 0, 0],
+        "100": [0, 0.69444, 0, 0],
+        "101": [0, 0.43056, 0, 0],
+        "102": [0, 0.69444, 0.07778, 0],
+        "103": [0.19444, 0.43056, 0.01389, 0],
+        "104": [0, 0.69444, 0, 0],
+        "105": [0, 0.66786, 0, 0],
+        "106": [0.19444, 0.66786, 0, 0],
+        "107": [0, 0.69444, 0, 0],
+        "108": [0, 0.69444, 0, 0],
+        "109": [0, 0.43056, 0, 0],
+        "110": [0, 0.43056, 0, 0],
+        "111": [0, 0.43056, 0, 0],
+        "112": [0.19444, 0.43056, 0, 0],
+        "113": [0.19444, 0.43056, 0, 0],
+        "114": [0, 0.43056, 0, 0],
+        "115": [0, 0.43056, 0, 0],
+        "116": [0, 0.61508, 0, 0],
+        "117": [0, 0.43056, 0, 0],
+        "118": [0, 0.43056, 0.01389, 0],
+        "119": [0, 0.43056, 0.01389, 0],
+        "120": [0, 0.43056, 0, 0],
+        "121": [0.19444, 0.43056, 0.01389, 0],
+        "122": [0, 0.43056, 0, 0],
+        "123": [0.25, 0.75, 0, 0],
+        "124": [0.25, 0.75, 0, 0],
+        "125": [0.25, 0.75, 0, 0],
+        "126": [0.35, 0.31786, 0, 0],
+        "160": [0, 0, 0, 0],
+        "168": [0, 0.66786, 0, 0],
+        "172": [0, 0.43056, 0, 0],
+        "175": [0, 0.56778, 0, 0],
+        "176": [0, 0.69444, 0, 0],
+        "177": [0.08333, 0.58333, 0, 0],
+        "180": [0, 0.69444, 0, 0],
+        "215": [0.08333, 0.58333, 0, 0],
+        "247": [0.08333, 0.58333, 0, 0],
+        "305": [0, 0.43056, 0, 0],
+        "567": [0.19444, 0.43056, 0, 0],
+        "710": [0, 0.69444, 0, 0],
+        "711": [0, 0.62847, 0, 0],
+        "713": [0, 0.56778, 0, 0],
+        "714": [0, 0.69444, 0, 0],
+        "715": [0, 0.69444, 0, 0],
+        "728": [0, 0.69444, 0, 0],
+        "729": [0, 0.66786, 0, 0],
+        "730": [0, 0.69444, 0, 0],
+        "732": [0, 0.66786, 0, 0],
+        "768": [0, 0.69444, 0, 0],
+        "769": [0, 0.69444, 0, 0],
+        "770": [0, 0.69444, 0, 0],
+        "771": [0, 0.66786, 0, 0],
+        "772": [0, 0.56778, 0, 0],
+        "774": [0, 0.69444, 0, 0],
+        "775": [0, 0.66786, 0, 0],
+        "776": [0, 0.66786, 0, 0],
+        "778": [0, 0.69444, 0, 0],
+        "779": [0, 0.69444, 0, 0],
+        "780": [0, 0.62847, 0, 0],
+        "824": [0.19444, 0.69444, 0, 0],
+        "915": [0, 0.68333, 0, 0],
+        "916": [0, 0.68333, 0, 0],
+        "920": [0, 0.68333, 0, 0],
+        "923": [0, 0.68333, 0, 0],
+        "926": [0, 0.68333, 0, 0],
+        "928": [0, 0.68333, 0, 0],
+        "931": [0, 0.68333, 0, 0],
+        "933": [0, 0.68333, 0, 0],
+        "934": [0, 0.68333, 0, 0],
+        "936": [0, 0.68333, 0, 0],
+        "937": [0, 0.68333, 0, 0],
+        "8211": [0, 0.43056, 0.02778, 0],
+        "8212": [0, 0.43056, 0.02778, 0],
+        "8216": [0, 0.69444, 0, 0],
+        "8217": [0, 0.69444, 0, 0],
+        "8220": [0, 0.69444, 0, 0],
+        "8221": [0, 0.69444, 0, 0],
+        "8224": [0.19444, 0.69444, 0, 0],
+        "8225": [0.19444, 0.69444, 0, 0],
+        "8230": [0, 0.12, 0, 0],
+        "8242": [0, 0.55556, 0, 0],
+        "8407": [0, 0.71444, 0.15382, 0],
+        "8463": [0, 0.68889, 0, 0],
+        "8465": [0, 0.69444, 0, 0],
+        "8467": [0, 0.69444, 0, 0.11111],
+        "8472": [0.19444, 0.43056, 0, 0.11111],
+        "8476": [0, 0.69444, 0, 0],
+        "8501": [0, 0.69444, 0, 0],
+        "8592": [-0.13313, 0.36687, 0, 0],
+        "8593": [0.19444, 0.69444, 0, 0],
+        "8594": [-0.13313, 0.36687, 0, 0],
+        "8595": [0.19444, 0.69444, 0, 0],
+        "8596": [-0.13313, 0.36687, 0, 0],
+        "8597": [0.25, 0.75, 0, 0],
+        "8598": [0.19444, 0.69444, 0, 0],
+        "8599": [0.19444, 0.69444, 0, 0],
+        "8600": [0.19444, 0.69444, 0, 0],
+        "8601": [0.19444, 0.69444, 0, 0],
+        "8614": [0.011, 0.511, 0, 0],
+        "8617": [0.011, 0.511, 0, 0],
+        "8618": [0.011, 0.511, 0, 0],
+        "8636": [-0.13313, 0.36687, 0, 0],
+        "8637": [-0.13313, 0.36687, 0, 0],
+        "8640": [-0.13313, 0.36687, 0, 0],
+        "8641": [-0.13313, 0.36687, 0, 0],
+        "8652": [0.011, 0.671, 0, 0],
+        "8656": [-0.13313, 0.36687, 0, 0],
+        "8657": [0.19444, 0.69444, 0, 0],
+        "8658": [-0.13313, 0.36687, 0, 0],
+        "8659": [0.19444, 0.69444, 0, 0],
+        "8660": [-0.13313, 0.36687, 0, 0],
+        "8661": [0.25, 0.75, 0, 0],
+        "8704": [0, 0.69444, 0, 0],
+        "8706": [0, 0.69444, 0.05556, 0.08334],
+        "8707": [0, 0.69444, 0, 0],
+        "8709": [0.05556, 0.75, 0, 0],
+        "8711": [0, 0.68333, 0, 0],
+        "8712": [0.0391, 0.5391, 0, 0],
+        "8715": [0.0391, 0.5391, 0, 0],
+        "8722": [0.08333, 0.58333, 0, 0],
+        "8723": [0.08333, 0.58333, 0, 0],
+        "8725": [0.25, 0.75, 0, 0],
+        "8726": [0.25, 0.75, 0, 0],
+        "8727": [-0.03472, 0.46528, 0, 0],
+        "8728": [-0.05555, 0.44445, 0, 0],
+        "8729": [-0.05555, 0.44445, 0, 0],
+        "8730": [0.2, 0.8, 0, 0],
+        "8733": [0, 0.43056, 0, 0],
+        "8734": [0, 0.43056, 0, 0],
+        "8736": [0, 0.69224, 0, 0],
+        "8739": [0.25, 0.75, 0, 0],
+        "8741": [0.25, 0.75, 0, 0],
+        "8743": [0, 0.55556, 0, 0],
+        "8744": [0, 0.55556, 0, 0],
+        "8745": [0, 0.55556, 0, 0],
+        "8746": [0, 0.55556, 0, 0],
+        "8747": [0.19444, 0.69444, 0.11111, 0],
+        "8764": [-0.13313, 0.36687, 0, 0],
+        "8768": [0.19444, 0.69444, 0, 0],
+        "8771": [-0.03625, 0.46375, 0, 0],
+        "8773": [-0.022, 0.589, 0, 0],
+        "8776": [-0.01688, 0.48312, 0, 0],
+        "8781": [-0.03625, 0.46375, 0, 0],
+        "8784": [-0.133, 0.67, 0, 0],
+        "8800": [0.215, 0.716, 0, 0],
+        "8801": [-0.03625, 0.46375, 0, 0],
+        "8804": [0.13597, 0.63597, 0, 0],
+        "8805": [0.13597, 0.63597, 0, 0],
+        "8810": [0.0391, 0.5391, 0, 0],
+        "8811": [0.0391, 0.5391, 0, 0],
+        "8826": [0.0391, 0.5391, 0, 0],
+        "8827": [0.0391, 0.5391, 0, 0],
+        "8834": [0.0391, 0.5391, 0, 0],
+        "8835": [0.0391, 0.5391, 0, 0],
+        "8838": [0.13597, 0.63597, 0, 0],
+        "8839": [0.13597, 0.63597, 0, 0],
+        "8846": [0, 0.55556, 0, 0],
+        "8849": [0.13597, 0.63597, 0, 0],
+        "8850": [0.13597, 0.63597, 0, 0],
+        "8851": [0, 0.55556, 0, 0],
+        "8852": [0, 0.55556, 0, 0],
+        "8853": [0.08333, 0.58333, 0, 0],
+        "8854": [0.08333, 0.58333, 0, 0],
+        "8855": [0.08333, 0.58333, 0, 0],
+        "8856": [0.08333, 0.58333, 0, 0],
+        "8857": [0.08333, 0.58333, 0, 0],
+        "8866": [0, 0.69444, 0, 0],
+        "8867": [0, 0.69444, 0, 0],
+        "8868": [0, 0.69444, 0, 0],
+        "8869": [0, 0.69444, 0, 0],
+        "8872": [0.249, 0.75, 0, 0],
+        "8900": [-0.05555, 0.44445, 0, 0],
+        "8901": [-0.05555, 0.44445, 0, 0],
+        "8902": [-0.03472, 0.46528, 0, 0],
+        "8904": [0.005, 0.505, 0, 0],
+        "8942": [0.03, 0.9, 0, 0],
+        "8943": [-0.19, 0.31, 0, 0],
+        "8945": [-0.1, 0.82, 0, 0],
+        "8968": [0.25, 0.75, 0, 0],
+        "8969": [0.25, 0.75, 0, 0],
+        "8970": [0.25, 0.75, 0, 0],
+        "8971": [0.25, 0.75, 0, 0],
+        "8994": [-0.14236, 0.35764, 0, 0],
+        "8995": [-0.14236, 0.35764, 0, 0],
+        "9136": [0.244, 0.744, 0, 0],
+        "9137": [0.244, 0.744, 0, 0],
+        "9651": [0.19444, 0.69444, 0, 0],
+        "9657": [-0.03472, 0.46528, 0, 0],
+        "9661": [0.19444, 0.69444, 0, 0],
+        "9667": [-0.03472, 0.46528, 0, 0],
+        "9711": [0.19444, 0.69444, 0, 0],
+        "9824": [0.12963, 0.69444, 0, 0],
+        "9825": [0.12963, 0.69444, 0, 0],
+        "9826": [0.12963, 0.69444, 0, 0],
+        "9827": [0.12963, 0.69444, 0, 0],
+        "9837": [0, 0.75, 0, 0],
+        "9838": [0.19444, 0.69444, 0, 0],
+        "9839": [0.19444, 0.69444, 0, 0],
+        "10216": [0.25, 0.75, 0, 0],
+        "10217": [0.25, 0.75, 0, 0],
+        "10222": [0.244, 0.744, 0, 0],
+        "10223": [0.244, 0.744, 0, 0],
+        "10229": [0.011, 0.511, 0, 0],
+        "10230": [0.011, 0.511, 0, 0],
+        "10231": [0.011, 0.511, 0, 0],
+        "10232": [0.024, 0.525, 0, 0],
+        "10233": [0.024, 0.525, 0, 0],
+        "10234": [0.024, 0.525, 0, 0],
+        "10236": [0.011, 0.511, 0, 0],
+        "10815": [0, 0.68333, 0, 0],
+        "10927": [0.13597, 0.63597, 0, 0],
+        "10928": [0.13597, 0.63597, 0, 0]
+    },
+    "Math-BoldItalic": {
+        "47": [0.19444, 0.69444, 0, 0],
+        "65": [0, 0.68611, 0, 0],
+        "66": [0, 0.68611, 0.04835, 0],
+        "67": [0, 0.68611, 0.06979, 0],
+        "68": [0, 0.68611, 0.03194, 0],
+        "69": [0, 0.68611, 0.05451, 0],
+        "70": [0, 0.68611, 0.15972, 0],
+        "71": [0, 0.68611, 0, 0],
+        "72": [0, 0.68611, 0.08229, 0],
+        "73": [0, 0.68611, 0.07778, 0],
+        "74": [0, 0.68611, 0.10069, 0],
+        "75": [0, 0.68611, 0.06979, 0],
+        "76": [0, 0.68611, 0, 0],
+        "77": [0, 0.68611, 0.11424, 0],
+        "78": [0, 0.68611, 0.11424, 0],
+        "79": [0, 0.68611, 0.03194, 0],
+        "80": [0, 0.68611, 0.15972, 0],
+        "81": [0.19444, 0.68611, 0, 0],
+        "82": [0, 0.68611, 0.00421, 0],
+        "83": [0, 0.68611, 0.05382, 0],
+        "84": [0, 0.68611, 0.15972, 0],
+        "85": [0, 0.68611, 0.11424, 0],
+        "86": [0, 0.68611, 0.25555, 0],
+        "87": [0, 0.68611, 0.15972, 0],
+        "88": [0, 0.68611, 0.07778, 0],
+        "89": [0, 0.68611, 0.25555, 0],
+        "90": [0, 0.68611, 0.06979, 0],
+        "97": [0, 0.44444, 0, 0],
+        "98": [0, 0.69444, 0, 0],
+        "99": [0, 0.44444, 0, 0],
+        "100": [0, 0.69444, 0, 0],
+        "101": [0, 0.44444, 0, 0],
+        "102": [0.19444, 0.69444, 0.11042, 0],
+        "103": [0.19444, 0.44444, 0.03704, 0],
+        "104": [0, 0.69444, 0, 0],
+        "105": [0, 0.69326, 0, 0],
+        "106": [0.19444, 0.69326, 0.0622, 0],
+        "107": [0, 0.69444, 0.01852, 0],
+        "108": [0, 0.69444, 0.0088, 0],
+        "109": [0, 0.44444, 0, 0],
+        "110": [0, 0.44444, 0, 0],
+        "111": [0, 0.44444, 0, 0],
+        "112": [0.19444, 0.44444, 0, 0],
+        "113": [0.19444, 0.44444, 0.03704, 0],
+        "114": [0, 0.44444, 0.03194, 0],
+        "115": [0, 0.44444, 0, 0],
+        "116": [0, 0.63492, 0, 0],
+        "117": [0, 0.44444, 0, 0],
+        "118": [0, 0.44444, 0.03704, 0],
+        "119": [0, 0.44444, 0.02778, 0],
+        "120": [0, 0.44444, 0, 0],
+        "121": [0.19444, 0.44444, 0.03704, 0],
+        "122": [0, 0.44444, 0.04213, 0],
+        "915": [0, 0.68611, 0.15972, 0],
+        "916": [0, 0.68611, 0, 0],
+        "920": [0, 0.68611, 0.03194, 0],
+        "923": [0, 0.68611, 0, 0],
+        "926": [0, 0.68611, 0.07458, 0],
+        "928": [0, 0.68611, 0.08229, 0],
+        "931": [0, 0.68611, 0.05451, 0],
+        "933": [0, 0.68611, 0.15972, 0],
+        "934": [0, 0.68611, 0, 0],
+        "936": [0, 0.68611, 0.11653, 0],
+        "937": [0, 0.68611, 0.04835, 0],
+        "945": [0, 0.44444, 0, 0],
+        "946": [0.19444, 0.69444, 0.03403, 0],
+        "947": [0.19444, 0.44444, 0.06389, 0],
+        "948": [0, 0.69444, 0.03819, 0],
+        "949": [0, 0.44444, 0, 0],
+        "950": [0.19444, 0.69444, 0.06215, 0],
+        "951": [0.19444, 0.44444, 0.03704, 0],
+        "952": [0, 0.69444, 0.03194, 0],
+        "953": [0, 0.44444, 0, 0],
+        "954": [0, 0.44444, 0, 0],
+        "955": [0, 0.69444, 0, 0],
+        "956": [0.19444, 0.44444, 0, 0],
+        "957": [0, 0.44444, 0.06898, 0],
+        "958": [0.19444, 0.69444, 0.03021, 0],
+        "959": [0, 0.44444, 0, 0],
+        "960": [0, 0.44444, 0.03704, 0],
+        "961": [0.19444, 0.44444, 0, 0],
+        "962": [0.09722, 0.44444, 0.07917, 0],
+        "963": [0, 0.44444, 0.03704, 0],
+        "964": [0, 0.44444, 0.13472, 0],
+        "965": [0, 0.44444, 0.03704, 0],
+        "966": [0.19444, 0.44444, 0, 0],
+        "967": [0.19444, 0.44444, 0, 0],
+        "968": [0.19444, 0.69444, 0.03704, 0],
+        "969": [0, 0.44444, 0.03704, 0],
+        "977": [0, 0.69444, 0, 0],
+        "981": [0.19444, 0.69444, 0, 0],
+        "982": [0, 0.44444, 0.03194, 0],
+        "1009": [0.19444, 0.44444, 0, 0],
+        "1013": [0, 0.44444, 0, 0]
+    },
+    "Math-Italic": {
+        "47": [0.19444, 0.69444, 0, 0],
+        "65": [0, 0.68333, 0, 0.13889],
+        "66": [0, 0.68333, 0.05017, 0.08334],
+        "67": [0, 0.68333, 0.07153, 0.08334],
+        "68": [0, 0.68333, 0.02778, 0.05556],
+        "69": [0, 0.68333, 0.05764, 0.08334],
+        "70": [0, 0.68333, 0.13889, 0.08334],
+        "71": [0, 0.68333, 0, 0.08334],
+        "72": [0, 0.68333, 0.08125, 0.05556],
+        "73": [0, 0.68333, 0.07847, 0.11111],
+        "74": [0, 0.68333, 0.09618, 0.16667],
+        "75": [0, 0.68333, 0.07153, 0.05556],
+        "76": [0, 0.68333, 0, 0.02778],
+        "77": [0, 0.68333, 0.10903, 0.08334],
+        "78": [0, 0.68333, 0.10903, 0.08334],
+        "79": [0, 0.68333, 0.02778, 0.08334],
+        "80": [0, 0.68333, 0.13889, 0.08334],
+        "81": [0.19444, 0.68333, 0, 0.08334],
+        "82": [0, 0.68333, 0.00773, 0.08334],
+        "83": [0, 0.68333, 0.05764, 0.08334],
+        "84": [0, 0.68333, 0.13889, 0.08334],
+        "85": [0, 0.68333, 0.10903, 0.02778],
+        "86": [0, 0.68333, 0.22222, 0],
+        "87": [0, 0.68333, 0.13889, 0],
+        "88": [0, 0.68333, 0.07847, 0.08334],
+        "89": [0, 0.68333, 0.22222, 0],
+        "90": [0, 0.68333, 0.07153, 0.08334],
+        "97": [0, 0.43056, 0, 0],
+        "98": [0, 0.69444, 0, 0],
+        "99": [0, 0.43056, 0, 0.05556],
+        "100": [0, 0.69444, 0, 0.16667],
+        "101": [0, 0.43056, 0, 0.05556],
+        "102": [0.19444, 0.69444, 0.10764, 0.16667],
+        "103": [0.19444, 0.43056, 0.03588, 0.02778],
+        "104": [0, 0.69444, 0, 0],
+        "105": [0, 0.65952, 0, 0],
+        "106": [0.19444, 0.65952, 0.05724, 0],
+        "107": [0, 0.69444, 0.03148, 0],
+        "108": [0, 0.69444, 0.01968, 0.08334],
+        "109": [0, 0.43056, 0, 0],
+        "110": [0, 0.43056, 0, 0],
+        "111": [0, 0.43056, 0, 0.05556],
+        "112": [0.19444, 0.43056, 0, 0.08334],
+        "113": [0.19444, 0.43056, 0.03588, 0.08334],
+        "114": [0, 0.43056, 0.02778, 0.05556],
+        "115": [0, 0.43056, 0, 0.05556],
+        "116": [0, 0.61508, 0, 0.08334],
+        "117": [0, 0.43056, 0, 0.02778],
+        "118": [0, 0.43056, 0.03588, 0.02778],
+        "119": [0, 0.43056, 0.02691, 0.08334],
+        "120": [0, 0.43056, 0, 0.02778],
+        "121": [0.19444, 0.43056, 0.03588, 0.05556],
+        "122": [0, 0.43056, 0.04398, 0.05556],
+        "915": [0, 0.68333, 0.13889, 0.08334],
+        "916": [0, 0.68333, 0, 0.16667],
+        "920": [0, 0.68333, 0.02778, 0.08334],
+        "923": [0, 0.68333, 0, 0.16667],
+        "926": [0, 0.68333, 0.07569, 0.08334],
+        "928": [0, 0.68333, 0.08125, 0.05556],
+        "931": [0, 0.68333, 0.05764, 0.08334],
+        "933": [0, 0.68333, 0.13889, 0.05556],
+        "934": [0, 0.68333, 0, 0.08334],
+        "936": [0, 0.68333, 0.11, 0.05556],
+        "937": [0, 0.68333, 0.05017, 0.08334],
+        "945": [0, 0.43056, 0.0037, 0.02778],
+        "946": [0.19444, 0.69444, 0.05278, 0.08334],
+        "947": [0.19444, 0.43056, 0.05556, 0],
+        "948": [0, 0.69444, 0.03785, 0.05556],
+        "949": [0, 0.43056, 0, 0.08334],
+        "950": [0.19444, 0.69444, 0.07378, 0.08334],
+        "951": [0.19444, 0.43056, 0.03588, 0.05556],
+        "952": [0, 0.69444, 0.02778, 0.08334],
+        "953": [0, 0.43056, 0, 0.05556],
+        "954": [0, 0.43056, 0, 0],
+        "955": [0, 0.69444, 0, 0],
+        "956": [0.19444, 0.43056, 0, 0.02778],
+        "957": [0, 0.43056, 0.06366, 0.02778],
+        "958": [0.19444, 0.69444, 0.04601, 0.11111],
+        "959": [0, 0.43056, 0, 0.05556],
+        "960": [0, 0.43056, 0.03588, 0],
+        "961": [0.19444, 0.43056, 0, 0.08334],
+        "962": [0.09722, 0.43056, 0.07986, 0.08334],
+        "963": [0, 0.43056, 0.03588, 0],
+        "964": [0, 0.43056, 0.1132, 0.02778],
+        "965": [0, 0.43056, 0.03588, 0.02778],
+        "966": [0.19444, 0.43056, 0, 0.08334],
+        "967": [0.19444, 0.43056, 0, 0.05556],
+        "968": [0.19444, 0.69444, 0.03588, 0.11111],
+        "969": [0, 0.43056, 0.03588, 0],
+        "977": [0, 0.69444, 0, 0.08334],
+        "981": [0.19444, 0.69444, 0, 0.08334],
+        "982": [0, 0.43056, 0.02778, 0],
+        "1009": [0.19444, 0.43056, 0, 0.08334],
+        "1013": [0, 0.43056, 0, 0.05556]
+    },
+    "Math-Regular": {
+        "65": [0, 0.68333, 0, 0.13889],
+        "66": [0, 0.68333, 0.05017, 0.08334],
+        "67": [0, 0.68333, 0.07153, 0.08334],
+        "68": [0, 0.68333, 0.02778, 0.05556],
+        "69": [0, 0.68333, 0.05764, 0.08334],
+        "70": [0, 0.68333, 0.13889, 0.08334],
+        "71": [0, 0.68333, 0, 0.08334],
+        "72": [0, 0.68333, 0.08125, 0.05556],
+        "73": [0, 0.68333, 0.07847, 0.11111],
+        "74": [0, 0.68333, 0.09618, 0.16667],
+        "75": [0, 0.68333, 0.07153, 0.05556],
+        "76": [0, 0.68333, 0, 0.02778],
+        "77": [0, 0.68333, 0.10903, 0.08334],
+        "78": [0, 0.68333, 0.10903, 0.08334],
+        "79": [0, 0.68333, 0.02778, 0.08334],
+        "80": [0, 0.68333, 0.13889, 0.08334],
+        "81": [0.19444, 0.68333, 0, 0.08334],
+        "82": [0, 0.68333, 0.00773, 0.08334],
+        "83": [0, 0.68333, 0.05764, 0.08334],
+        "84": [0, 0.68333, 0.13889, 0.08334],
+        "85": [0, 0.68333, 0.10903, 0.02778],
+        "86": [0, 0.68333, 0.22222, 0],
+        "87": [0, 0.68333, 0.13889, 0],
+        "88": [0, 0.68333, 0.07847, 0.08334],
+        "89": [0, 0.68333, 0.22222, 0],
+        "90": [0, 0.68333, 0.07153, 0.08334],
+        "97": [0, 0.43056, 0, 0],
+        "98": [0, 0.69444, 0, 0],
+        "99": [0, 0.43056, 0, 0.05556],
+        "100": [0, 0.69444, 0, 0.16667],
+        "101": [0, 0.43056, 0, 0.05556],
+        "102": [0.19444, 0.69444, 0.10764, 0.16667],
+        "103": [0.19444, 0.43056, 0.03588, 0.02778],
+        "104": [0, 0.69444, 0, 0],
+        "105": [0, 0.65952, 0, 0],
+        "106": [0.19444, 0.65952, 0.05724, 0],
+        "107": [0, 0.69444, 0.03148, 0],
+        "108": [0, 0.69444, 0.01968, 0.08334],
+        "109": [0, 0.43056, 0, 0],
+        "110": [0, 0.43056, 0, 0],
+        "111": [0, 0.43056, 0, 0.05556],
+        "112": [0.19444, 0.43056, 0, 0.08334],
+        "113": [0.19444, 0.43056, 0.03588, 0.08334],
+        "114": [0, 0.43056, 0.02778, 0.05556],
+        "115": [0, 0.43056, 0, 0.05556],
+        "116": [0, 0.61508, 0, 0.08334],
+        "117": [0, 0.43056, 0, 0.02778],
+        "118": [0, 0.43056, 0.03588, 0.02778],
+        "119": [0, 0.43056, 0.02691, 0.08334],
+        "120": [0, 0.43056, 0, 0.02778],
+        "121": [0.19444, 0.43056, 0.03588, 0.05556],
+        "122": [0, 0.43056, 0.04398, 0.05556],
+        "915": [0, 0.68333, 0.13889, 0.08334],
+        "916": [0, 0.68333, 0, 0.16667],
+        "920": [0, 0.68333, 0.02778, 0.08334],
+        "923": [0, 0.68333, 0, 0.16667],
+        "926": [0, 0.68333, 0.07569, 0.08334],
+        "928": [0, 0.68333, 0.08125, 0.05556],
+        "931": [0, 0.68333, 0.05764, 0.08334],
+        "933": [0, 0.68333, 0.13889, 0.05556],
+        "934": [0, 0.68333, 0, 0.08334],
+        "936": [0, 0.68333, 0.11, 0.05556],
+        "937": [0, 0.68333, 0.05017, 0.08334],
+        "945": [0, 0.43056, 0.0037, 0.02778],
+        "946": [0.19444, 0.69444, 0.05278, 0.08334],
+        "947": [0.19444, 0.43056, 0.05556, 0],
+        "948": [0, 0.69444, 0.03785, 0.05556],
+        "949": [0, 0.43056, 0, 0.08334],
+        "950": [0.19444, 0.69444, 0.07378, 0.08334],
+        "951": [0.19444, 0.43056, 0.03588, 0.05556],
+        "952": [0, 0.69444, 0.02778, 0.08334],
+        "953": [0, 0.43056, 0, 0.05556],
+        "954": [0, 0.43056, 0, 0],
+        "955": [0, 0.69444, 0, 0],
+        "956": [0.19444, 0.43056, 0, 0.02778],
+        "957": [0, 0.43056, 0.06366, 0.02778],
+        "958": [0.19444, 0.69444, 0.04601, 0.11111],
+        "959": [0, 0.43056, 0, 0.05556],
+        "960": [0, 0.43056, 0.03588, 0],
+        "961": [0.19444, 0.43056, 0, 0.08334],
+        "962": [0.09722, 0.43056, 0.07986, 0.08334],
+        "963": [0, 0.43056, 0.03588, 0],
+        "964": [0, 0.43056, 0.1132, 0.02778],
+        "965": [0, 0.43056, 0.03588, 0.02778],
+        "966": [0.19444, 0.43056, 0, 0.08334],
+        "967": [0.19444, 0.43056, 0, 0.05556],
+        "968": [0.19444, 0.69444, 0.03588, 0.11111],
+        "969": [0, 0.43056, 0.03588, 0],
+        "977": [0, 0.69444, 0, 0.08334],
+        "981": [0.19444, 0.69444, 0, 0.08334],
+        "982": [0, 0.43056, 0.02778, 0],
+        "1009": [0.19444, 0.43056, 0, 0.08334],
+        "1013": [0, 0.43056, 0, 0.05556]
+    },
+    "SansSerif-Regular": {
+        "33": [0, 0.69444, 0, 0],
+        "34": [0, 0.69444, 0, 0],
+        "35": [0.19444, 0.69444, 0, 0],
+        "36": [0.05556, 0.75, 0, 0],
+        "37": [0.05556, 0.75, 0, 0],
+        "38": [0, 0.69444, 0, 0],
+        "39": [0, 0.69444, 0, 0],
+        "40": [0.25, 0.75, 0, 0],
+        "41": [0.25, 0.75, 0, 0],
+        "42": [0, 0.75, 0, 0],
+        "43": [0.08333, 0.58333, 0, 0],
+        "44": [0.125, 0.08333, 0, 0],
+        "45": [0, 0.44444, 0, 0],
+        "46": [0, 0.08333, 0, 0],
+        "47": [0.25, 0.75, 0, 0],
+        "48": [0, 0.65556, 0, 0],
+        "49": [0, 0.65556, 0, 0],
+        "50": [0, 0.65556, 0, 0],
+        "51": [0, 0.65556, 0, 0],
+        "52": [0, 0.65556, 0, 0],
+        "53": [0, 0.65556, 0, 0],
+        "54": [0, 0.65556, 0, 0],
+        "55": [0, 0.65556, 0, 0],
+        "56": [0, 0.65556, 0, 0],
+        "57": [0, 0.65556, 0, 0],
+        "58": [0, 0.44444, 0, 0],
+        "59": [0.125, 0.44444, 0, 0],
+        "61": [-0.13, 0.37, 0, 0],
+        "63": [0, 0.69444, 0, 0],
+        "64": [0, 0.69444, 0, 0],
+        "65": [0, 0.69444, 0, 0],
+        "66": [0, 0.69444, 0, 0],
+        "67": [0, 0.69444, 0, 0],
+        "68": [0, 0.69444, 0, 0],
+        "69": [0, 0.69444, 0, 0],
+        "70": [0, 0.69444, 0, 0],
+        "71": [0, 0.69444, 0, 0],
+        "72": [0, 0.69444, 0, 0],
+        "73": [0, 0.69444, 0, 0],
+        "74": [0, 0.69444, 0, 0],
+        "75": [0, 0.69444, 0, 0],
+        "76": [0, 0.69444, 0, 0],
+        "77": [0, 0.69444, 0, 0],
+        "78": [0, 0.69444, 0, 0],
+        "79": [0, 0.69444, 0, 0],
+        "80": [0, 0.69444, 0, 0],
+        "81": [0.125, 0.69444, 0, 0],
+        "82": [0, 0.69444, 0, 0],
+        "83": [0, 0.69444, 0, 0],
+        "84": [0, 0.69444, 0, 0],
+        "85": [0, 0.69444, 0, 0],
+        "86": [0, 0.69444, 0.01389, 0],
+        "87": [0, 0.69444, 0.01389, 0],
+        "88": [0, 0.69444, 0, 0],
+        "89": [0, 0.69444, 0.025, 0],
+        "90": [0, 0.69444, 0, 0],
+        "91": [0.25, 0.75, 0, 0],
+        "93": [0.25, 0.75, 0, 0],
+        "94": [0, 0.69444, 0, 0],
+        "95": [0.35, 0.09444, 0.02778, 0],
+        "97": [0, 0.44444, 0, 0],
+        "98": [0, 0.69444, 0, 0],
+        "99": [0, 0.44444, 0, 0],
+        "100": [0, 0.69444, 0, 0],
+        "101": [0, 0.44444, 0, 0],
+        "102": [0, 0.69444, 0.06944, 0],
+        "103": [0.19444, 0.44444, 0.01389, 0],
+        "104": [0, 0.69444, 0, 0],
+        "105": [0, 0.67937, 0, 0],
+        "106": [0.19444, 0.67937, 0, 0],
+        "107": [0, 0.69444, 0, 0],
+        "108": [0, 0.69444, 0, 0],
+        "109": [0, 0.44444, 0, 0],
+        "110": [0, 0.44444, 0, 0],
+        "111": [0, 0.44444, 0, 0],
+        "112": [0.19444, 0.44444, 0, 0],
+        "113": [0.19444, 0.44444, 0, 0],
+        "114": [0, 0.44444, 0.01389, 0],
+        "115": [0, 0.44444, 0, 0],
+        "116": [0, 0.57143, 0, 0],
+        "117": [0, 0.44444, 0, 0],
+        "118": [0, 0.44444, 0.01389, 0],
+        "119": [0, 0.44444, 0.01389, 0],
+        "120": [0, 0.44444, 0, 0],
+        "121": [0.19444, 0.44444, 0.01389, 0],
+        "122": [0, 0.44444, 0, 0],
+        "126": [0.35, 0.32659, 0, 0],
+        "305": [0, 0.44444, 0, 0],
+        "567": [0.19444, 0.44444, 0, 0],
+        "768": [0, 0.69444, 0, 0],
+        "769": [0, 0.69444, 0, 0],
+        "770": [0, 0.69444, 0, 0],
+        "771": [0, 0.67659, 0, 0],
+        "772": [0, 0.60889, 0, 0],
+        "774": [0, 0.69444, 0, 0],
+        "775": [0, 0.67937, 0, 0],
+        "776": [0, 0.67937, 0, 0],
+        "778": [0, 0.69444, 0, 0],
+        "779": [0, 0.69444, 0, 0],
+        "780": [0, 0.63194, 0, 0],
+        "915": [0, 0.69444, 0, 0],
+        "916": [0, 0.69444, 0, 0],
+        "920": [0, 0.69444, 0, 0],
+        "923": [0, 0.69444, 0, 0],
+        "926": [0, 0.69444, 0, 0],
+        "928": [0, 0.69444, 0, 0],
+        "931": [0, 0.69444, 0, 0],
+        "933": [0, 0.69444, 0, 0],
+        "934": [0, 0.69444, 0, 0],
+        "936": [0, 0.69444, 0, 0],
+        "937": [0, 0.69444, 0, 0],
+        "8211": [0, 0.44444, 0.02778, 0],
+        "8212": [0, 0.44444, 0.02778, 0],
+        "8216": [0, 0.69444, 0, 0],
+        "8217": [0, 0.69444, 0, 0],
+        "8220": [0, 0.69444, 0, 0],
+        "8221": [0, 0.69444, 0, 0]
+    },
+    "Script-Regular": {
+        "65": [0, 0.7, 0.22925, 0],
+        "66": [0, 0.7, 0.04087, 0],
+        "67": [0, 0.7, 0.1689, 0],
+        "68": [0, 0.7, 0.09371, 0],
+        "69": [0, 0.7, 0.18583, 0],
+        "70": [0, 0.7, 0.13634, 0],
+        "71": [0, 0.7, 0.17322, 0],
+        "72": [0, 0.7, 0.29694, 0],
+        "73": [0, 0.7, 0.19189, 0],
+        "74": [0.27778, 0.7, 0.19189, 0],
+        "75": [0, 0.7, 0.31259, 0],
+        "76": [0, 0.7, 0.19189, 0],
+        "77": [0, 0.7, 0.15981, 0],
+        "78": [0, 0.7, 0.3525, 0],
+        "79": [0, 0.7, 0.08078, 0],
+        "80": [0, 0.7, 0.08078, 0],
+        "81": [0, 0.7, 0.03305, 0],
+        "82": [0, 0.7, 0.06259, 0],
+        "83": [0, 0.7, 0.19189, 0],
+        "84": [0, 0.7, 0.29087, 0],
+        "85": [0, 0.7, 0.25815, 0],
+        "86": [0, 0.7, 0.27523, 0],
+        "87": [0, 0.7, 0.27523, 0],
+        "88": [0, 0.7, 0.26006, 0],
+        "89": [0, 0.7, 0.2939, 0],
+        "90": [0, 0.7, 0.24037, 0]
+    },
+    "Size1-Regular": {
+        "40": [0.35001, 0.85, 0, 0],
+        "41": [0.35001, 0.85, 0, 0],
+        "47": [0.35001, 0.85, 0, 0],
+        "91": [0.35001, 0.85, 0, 0],
+        "92": [0.35001, 0.85, 0, 0],
+        "93": [0.35001, 0.85, 0, 0],
+        "123": [0.35001, 0.85, 0, 0],
+        "125": [0.35001, 0.85, 0, 0],
+        "710": [0, 0.72222, 0, 0],
+        "732": [0, 0.72222, 0, 0],
+        "770": [0, 0.72222, 0, 0],
+        "771": [0, 0.72222, 0, 0],
+        "8214": [-0.00099, 0.601, 0, 0],
+        "8593": [1e-05, 0.6, 0, 0],
+        "8595": [1e-05, 0.6, 0, 0],
+        "8657": [1e-05, 0.6, 0, 0],
+        "8659": [1e-05, 0.6, 0, 0],
+        "8719": [0.25001, 0.75, 0, 0],
+        "8720": [0.25001, 0.75, 0, 0],
+        "8721": [0.25001, 0.75, 0, 0],
+        "8730": [0.35001, 0.85, 0, 0],
+        "8739": [-0.00599, 0.606, 0, 0],
+        "8741": [-0.00599, 0.606, 0, 0],
+        "8747": [0.30612, 0.805, 0.19445, 0],
+        "8748": [0.306, 0.805, 0.19445, 0],
+        "8749": [0.306, 0.805, 0.19445, 0],
+        "8750": [0.30612, 0.805, 0.19445, 0],
+        "8896": [0.25001, 0.75, 0, 0],
+        "8897": [0.25001, 0.75, 0, 0],
+        "8898": [0.25001, 0.75, 0, 0],
+        "8899": [0.25001, 0.75, 0, 0],
+        "8968": [0.35001, 0.85, 0, 0],
+        "8969": [0.35001, 0.85, 0, 0],
+        "8970": [0.35001, 0.85, 0, 0],
+        "8971": [0.35001, 0.85, 0, 0],
+        "9168": [-0.00099, 0.601, 0, 0],
+        "10216": [0.35001, 0.85, 0, 0],
+        "10217": [0.35001, 0.85, 0, 0],
+        "10752": [0.25001, 0.75, 0, 0],
+        "10753": [0.25001, 0.75, 0, 0],
+        "10754": [0.25001, 0.75, 0, 0],
+        "10756": [0.25001, 0.75, 0, 0],
+        "10758": [0.25001, 0.75, 0, 0]
+    },
+    "Size2-Regular": {
+        "40": [0.65002, 1.15, 0, 0],
+        "41": [0.65002, 1.15, 0, 0],
+        "47": [0.65002, 1.15, 0, 0],
+        "91": [0.65002, 1.15, 0, 0],
+        "92": [0.65002, 1.15, 0, 0],
+        "93": [0.65002, 1.15, 0, 0],
+        "123": [0.65002, 1.15, 0, 0],
+        "125": [0.65002, 1.15, 0, 0],
+        "710": [0, 0.75, 0, 0],
+        "732": [0, 0.75, 0, 0],
+        "770": [0, 0.75, 0, 0],
+        "771": [0, 0.75, 0, 0],
+        "8719": [0.55001, 1.05, 0, 0],
+        "8720": [0.55001, 1.05, 0, 0],
+        "8721": [0.55001, 1.05, 0, 0],
+        "8730": [0.65002, 1.15, 0, 0],
+        "8747": [0.86225, 1.36, 0.44445, 0],
+        "8748": [0.862, 1.36, 0.44445, 0],
+        "8749": [0.862, 1.36, 0.44445, 0],
+        "8750": [0.86225, 1.36, 0.44445, 0],
+        "8896": [0.55001, 1.05, 0, 0],
+        "8897": [0.55001, 1.05, 0, 0],
+        "8898": [0.55001, 1.05, 0, 0],
+        "8899": [0.55001, 1.05, 0, 0],
+        "8968": [0.65002, 1.15, 0, 0],
+        "8969": [0.65002, 1.15, 0, 0],
+        "8970": [0.65002, 1.15, 0, 0],
+        "8971": [0.65002, 1.15, 0, 0],
+        "10216": [0.65002, 1.15, 0, 0],
+        "10217": [0.65002, 1.15, 0, 0],
+        "10752": [0.55001, 1.05, 0, 0],
+        "10753": [0.55001, 1.05, 0, 0],
+        "10754": [0.55001, 1.05, 0, 0],
+        "10756": [0.55001, 1.05, 0, 0],
+        "10758": [0.55001, 1.05, 0, 0]
+    },
+    "Size3-Regular": {
+        "40": [0.95003, 1.45, 0, 0],
+        "41": [0.95003, 1.45, 0, 0],
+        "47": [0.95003, 1.45, 0, 0],
+        "91": [0.95003, 1.45, 0, 0],
+        "92": [0.95003, 1.45, 0, 0],
+        "93": [0.95003, 1.45, 0, 0],
+        "123": [0.95003, 1.45, 0, 0],
+        "125": [0.95003, 1.45, 0, 0],
+        "710": [0, 0.75, 0, 0],
+        "732": [0, 0.75, 0, 0],
+        "770": [0, 0.75, 0, 0],
+        "771": [0, 0.75, 0, 0],
+        "8730": [0.95003, 1.45, 0, 0],
+        "8968": [0.95003, 1.45, 0, 0],
+        "8969": [0.95003, 1.45, 0, 0],
+        "8970": [0.95003, 1.45, 0, 0],
+        "8971": [0.95003, 1.45, 0, 0],
+        "10216": [0.95003, 1.45, 0, 0],
+        "10217": [0.95003, 1.45, 0, 0]
+    },
+    "Size4-Regular": {
+        "40": [1.25003, 1.75, 0, 0],
+        "41": [1.25003, 1.75, 0, 0],
+        "47": [1.25003, 1.75, 0, 0],
+        "91": [1.25003, 1.75, 0, 0],
+        "92": [1.25003, 1.75, 0, 0],
+        "93": [1.25003, 1.75, 0, 0],
+        "123": [1.25003, 1.75, 0, 0],
+        "125": [1.25003, 1.75, 0, 0],
+        "710": [0, 0.825, 0, 0],
+        "732": [0, 0.825, 0, 0],
+        "770": [0, 0.825, 0, 0],
+        "771": [0, 0.825, 0, 0],
+        "8730": [1.25003, 1.75, 0, 0],
+        "8968": [1.25003, 1.75, 0, 0],
+        "8969": [1.25003, 1.75, 0, 0],
+        "8970": [1.25003, 1.75, 0, 0],
+        "8971": [1.25003, 1.75, 0, 0],
+        "9115": [0.64502, 1.155, 0, 0],
+        "9116": [1e-05, 0.6, 0, 0],
+        "9117": [0.64502, 1.155, 0, 0],
+        "9118": [0.64502, 1.155, 0, 0],
+        "9119": [1e-05, 0.6, 0, 0],
+        "9120": [0.64502, 1.155, 0, 0],
+        "9121": [0.64502, 1.155, 0, 0],
+        "9122": [-0.00099, 0.601, 0, 0],
+        "9123": [0.64502, 1.155, 0, 0],
+        "9124": [0.64502, 1.155, 0, 0],
+        "9125": [-0.00099, 0.601, 0, 0],
+        "9126": [0.64502, 1.155, 0, 0],
+        "9127": [1e-05, 0.9, 0, 0],
+        "9128": [0.65002, 1.15, 0, 0],
+        "9129": [0.90001, 0, 0, 0],
+        "9130": [0, 0.3, 0, 0],
+        "9131": [1e-05, 0.9, 0, 0],
+        "9132": [0.65002, 1.15, 0, 0],
+        "9133": [0.90001, 0, 0, 0],
+        "9143": [0.88502, 0.915, 0, 0],
+        "10216": [1.25003, 1.75, 0, 0],
+        "10217": [1.25003, 1.75, 0, 0],
+        "57344": [-0.00499, 0.605, 0, 0],
+        "57345": [-0.00499, 0.605, 0, 0],
+        "57680": [0, 0.12, 0, 0],
+        "57681": [0, 0.12, 0, 0],
+        "57682": [0, 0.12, 0, 0],
+        "57683": [0, 0.12, 0, 0]
+    },
+    "Typewriter-Regular": {
+        "33": [0, 0.61111, 0, 0],
+        "34": [0, 0.61111, 0, 0],
+        "35": [0, 0.61111, 0, 0],
+        "36": [0.08333, 0.69444, 0, 0],
+        "37": [0.08333, 0.69444, 0, 0],
+        "38": [0, 0.61111, 0, 0],
+        "39": [0, 0.61111, 0, 0],
+        "40": [0.08333, 0.69444, 0, 0],
+        "41": [0.08333, 0.69444, 0, 0],
+        "42": [0, 0.52083, 0, 0],
+        "43": [-0.08056, 0.53055, 0, 0],
+        "44": [0.13889, 0.125, 0, 0],
+        "45": [-0.08056, 0.53055, 0, 0],
+        "46": [0, 0.125, 0, 0],
+        "47": [0.08333, 0.69444, 0, 0],
+        "48": [0, 0.61111, 0, 0],
+        "49": [0, 0.61111, 0, 0],
+        "50": [0, 0.61111, 0, 0],
+        "51": [0, 0.61111, 0, 0],
+        "52": [0, 0.61111, 0, 0],
+        "53": [0, 0.61111, 0, 0],
+        "54": [0, 0.61111, 0, 0],
+        "55": [0, 0.61111, 0, 0],
+        "56": [0, 0.61111, 0, 0],
+        "57": [0, 0.61111, 0, 0],
+        "58": [0, 0.43056, 0, 0],
+        "59": [0.13889, 0.43056, 0, 0],
+        "60": [-0.05556, 0.55556, 0, 0],
+        "61": [-0.19549, 0.41562, 0, 0],
+        "62": [-0.05556, 0.55556, 0, 0],
+        "63": [0, 0.61111, 0, 0],
+        "64": [0, 0.61111, 0, 0],
+        "65": [0, 0.61111, 0, 0],
+        "66": [0, 0.61111, 0, 0],
+        "67": [0, 0.61111, 0, 0],
+        "68": [0, 0.61111, 0, 0],
+        "69": [0, 0.61111, 0, 0],
+        "70": [0, 0.61111, 0, 0],
+        "71": [0, 0.61111, 0, 0],
+        "72": [0, 0.61111, 0, 0],
+        "73": [0, 0.61111, 0, 0],
+        "74": [0, 0.61111, 0, 0],
+        "75": [0, 0.61111, 0, 0],
+        "76": [0, 0.61111, 0, 0],
+        "77": [0, 0.61111, 0, 0],
+        "78": [0, 0.61111, 0, 0],
+        "79": [0, 0.61111, 0, 0],
+        "80": [0, 0.61111, 0, 0],
+        "81": [0.13889, 0.61111, 0, 0],
+        "82": [0, 0.61111, 0, 0],
+        "83": [0, 0.61111, 0, 0],
+        "84": [0, 0.61111, 0, 0],
+        "85": [0, 0.61111, 0, 0],
+        "86": [0, 0.61111, 0, 0],
+        "87": [0, 0.61111, 0, 0],
+        "88": [0, 0.61111, 0, 0],
+        "89": [0, 0.61111, 0, 0],
+        "90": [0, 0.61111, 0, 0],
+        "91": [0.08333, 0.69444, 0, 0],
+        "92": [0.08333, 0.69444, 0, 0],
+        "93": [0.08333, 0.69444, 0, 0],
+        "94": [0, 0.61111, 0, 0],
+        "95": [0.09514, 0, 0, 0],
+        "96": [0, 0.61111, 0, 0],
+        "97": [0, 0.43056, 0, 0],
+        "98": [0, 0.61111, 0, 0],
+        "99": [0, 0.43056, 0, 0],
+        "100": [0, 0.61111, 0, 0],
+        "101": [0, 0.43056, 0, 0],
+        "102": [0, 0.61111, 0, 0],
+        "103": [0.22222, 0.43056, 0, 0],
+        "104": [0, 0.61111, 0, 0],
+        "105": [0, 0.61111, 0, 0],
+        "106": [0.22222, 0.61111, 0, 0],
+        "107": [0, 0.61111, 0, 0],
+        "108": [0, 0.61111, 0, 0],
+        "109": [0, 0.43056, 0, 0],
+        "110": [0, 0.43056, 0, 0],
+        "111": [0, 0.43056, 0, 0],
+        "112": [0.22222, 0.43056, 0, 0],
+        "113": [0.22222, 0.43056, 0, 0],
+        "114": [0, 0.43056, 0, 0],
+        "115": [0, 0.43056, 0, 0],
+        "116": [0, 0.55358, 0, 0],
+        "117": [0, 0.43056, 0, 0],
+        "118": [0, 0.43056, 0, 0],
+        "119": [0, 0.43056, 0, 0],
+        "120": [0, 0.43056, 0, 0],
+        "121": [0.22222, 0.43056, 0, 0],
+        "122": [0, 0.43056, 0, 0],
+        "123": [0.08333, 0.69444, 0, 0],
+        "124": [0.08333, 0.69444, 0, 0],
+        "125": [0.08333, 0.69444, 0, 0],
+        "126": [0, 0.61111, 0, 0],
+        "127": [0, 0.61111, 0, 0],
+        "305": [0, 0.43056, 0, 0],
+        "567": [0.22222, 0.43056, 0, 0],
+        "768": [0, 0.61111, 0, 0],
+        "769": [0, 0.61111, 0, 0],
+        "770": [0, 0.61111, 0, 0],
+        "771": [0, 0.61111, 0, 0],
+        "772": [0, 0.56555, 0, 0],
+        "774": [0, 0.61111, 0, 0],
+        "776": [0, 0.61111, 0, 0],
+        "778": [0, 0.61111, 0, 0],
+        "780": [0, 0.56597, 0, 0],
+        "915": [0, 0.61111, 0, 0],
+        "916": [0, 0.61111, 0, 0],
+        "920": [0, 0.61111, 0, 0],
+        "923": [0, 0.61111, 0, 0],
+        "926": [0, 0.61111, 0, 0],
+        "928": [0, 0.61111, 0, 0],
+        "931": [0, 0.61111, 0, 0],
+        "933": [0, 0.61111, 0, 0],
+        "934": [0, 0.61111, 0, 0],
+        "936": [0, 0.61111, 0, 0],
+        "937": [0, 0.61111, 0, 0],
+        "2018": [0, 0.61111, 0, 0],
+        "2019": [0, 0.61111, 0, 0],
+        "8242": [0, 0.61111, 0, 0]
+    }
+};
+
+var cjkRegex = unicodeRegexes.cjkRegex;
+
+/**
+ * This file contains metrics regarding fonts and individual symbols. The sigma
+ * and xi variables, as well as the metricMap map contain data extracted from
+ * TeX, TeX font metrics, and the TTF files. These data are then exposed via the
+ * `metrics` variable and the getCharacterMetrics function.
+ */
+
+// In TeX, there are actually three sets of dimensions, one for each of
+// textstyle, scriptstyle, and scriptscriptstyle.  These are provided in the
+// the arrays below, in that order.
+//
+// The font metrics are stored in fonts cmsy10, cmsy7, and cmsy5 respsectively.
+// This was determined by running the folllowing script:
+//
+//     latex -interaction=nonstopmode \
+//     '\documentclass{article}\usepackage{amsmath}\begin{document}' \
+//     '$a$ \expandafter\show\the\textfont2' \
+//     '\expandafter\show\the\scriptfont2' \
+//     '\expandafter\show\the\scriptscriptfont2' \
+//     '\stop'
+//
+// The metrics themselves were retreived using the following commands:
+//
+//     tftopl cmsy10
+//     tftopl cmsy7
+//     tftopl cmsy5
+//
+// The output of each of these commands is quite lengthy.  The only part we
+// care about is the FONTDIMEN section. Each value is measured in EMs.
+var sigmas$1 = {
+    slant: [0.250, 0.250, 0.250],       // sigma1
+    space: [0.000, 0.000, 0.000],       // sigma2
+    stretch: [0.000, 0.000, 0.000],     // sigma3
+    shrink: [0.000, 0.000, 0.000],      // sigma4
+    xHeight: [0.431, 0.431, 0.431],     // sigma5
+    quad: [1.000, 1.171, 1.472],        // sigma6
+    extraSpace: [0.000, 0.000, 0.000],  // sigma7
+    num1: [0.677, 0.732, 0.925],        // sigma8
+    num2: [0.394, 0.384, 0.387],        // sigma9
+    num3: [0.444, 0.471, 0.504],        // sigma10
+    denom1: [0.686, 0.752, 1.025],      // sigma11
+    denom2: [0.345, 0.344, 0.532],      // sigma12
+    sup1: [0.413, 0.503, 0.504],        // sigma13
+    sup2: [0.363, 0.431, 0.404],        // sigma14
+    sup3: [0.289, 0.286, 0.294],        // sigma15
+    sub1: [0.150, 0.143, 0.200],        // sigma16
+    sub2: [0.247, 0.286, 0.400],        // sigma17
+    supDrop: [0.386, 0.353, 0.494],     // sigma18
+    subDrop: [0.050, 0.071, 0.100],     // sigma19
+    delim1: [2.390, 1.700, 1.980],      // sigma20
+    delim2: [1.010, 1.157, 1.420],      // sigma21
+    axisHeight: [0.250, 0.250, 0.250]  // sigma22
+};
+
+// These font metrics are extracted from TeX by using
+// \font\a=cmex10
+// \showthe\fontdimenX\a
+// where X is the corresponding variable number. These correspond to the font
+// parameters of the extension fonts (family 3). See the TeXbook, page 441.
+var xi8 = 0.04;
+var xi9 = 0.111;
+var xi10 = 0.166;
+var xi11 = 0.2;
+var xi12 = 0.6;
+var xi13 = 0.1;
+
+// This value determines how large a pt is, for metrics which are defined in
+// terms of pts.
+// This value is also used in katex.less; if you change it make sure the values
+// match.
+var ptPerEm = 10.0;
+
+// The space between adjacent `|` columns in an array definition. From
+// `\showthe\doublerulesep` in LaTeX.
+var doubleRuleSep = 2.0 / ptPerEm;
+
+/**
+ * This is just a mapping from common names to real metrics
+ */
+var metrics$1 = {
+    defaultRuleThickness: xi8,
+    bigOpSpacing1: xi9,
+    bigOpSpacing2: xi10,
+    bigOpSpacing3: xi11,
+    bigOpSpacing4: xi12,
+    bigOpSpacing5: xi13,
+    ptPerEm: ptPerEm,
+    doubleRuleSep: doubleRuleSep
+};
+
+// This map contains a mapping from font name and character code to character
+// metrics, including height, depth, italic correction, and skew (kern from the
+// character to the corresponding \skewchar)
+// This map is generated via `make metrics`. It should not be changed manually.
+var metricMap = fontMetricsData;
+
+// These are very rough approximations.  We default to Times New Roman which
+// should have Latin-1 and Cyrillic characters, but may not depending on the
+// operating system.  The metrics do not account for extra height from the
+// accents.  In the case of Cyrillic characters which have both ascenders and
+// descenders we prefer approximations with ascenders, primarily to prevent
+// the fraction bar or root line from intersecting the glyph.
+// TODO(kevinb) allow union of multiple glyph metrics for better accuracy.
+var extraCharacterMap = {
+    // Latin-1
+    'À': 'A',
+    'Á': 'A',
+    'Â': 'A',
+    'Ã': 'A',
+    'Ä': 'A',
+    'Å': 'A',
+    'Æ': 'A',
+    'Ç': 'C',
+    'È': 'E',
+    'É': 'E',
+    'Ê': 'E',
+    'Ë': 'E',
+    'Ì': 'I',
+    'Í': 'I',
+    'Î': 'I',
+    'Ï': 'I',
+    'Ð': 'D',
+    'Ñ': 'N',
+    'Ò': 'O',
+    'Ó': 'O',
+    'Ô': 'O',
+    'Õ': 'O',
+    'Ö': 'O',
+    'Ø': 'O',
+    'Ù': 'U',
+    'Ú': 'U',
+    'Û': 'U',
+    'Ü': 'U',
+    'Ý': 'Y',
+    'Þ': 'o',
+    'ß': 'B',
+    'à': 'a',
+    'á': 'a',
+    'â': 'a',
+    'ã': 'a',
+    'ä': 'a',
+    'å': 'a',
+    'æ': 'a',
+    'ç': 'c',
+    'è': 'e',
+    'é': 'e',
+    'ê': 'e',
+    'ë': 'e',
+    'ì': 'i',
+    'í': 'i',
+    'î': 'i',
+    'ï': 'i',
+    'ð': 'd',
+    'ñ': 'n',
+    'ò': 'o',
+    'ó': 'o',
+    'ô': 'o',
+    'õ': 'o',
+    'ö': 'o',
+    'ø': 'o',
+    'ù': 'u',
+    'ú': 'u',
+    'û': 'u',
+    'ü': 'u',
+    'ý': 'y',
+    'þ': 'o',
+    'ÿ': 'y',
+
+    // Cyrillic
+    'А': 'A',
+    'Б': 'B',
+    'В': 'B',
+    'Г': 'F',
+    'Д': 'A',
+    'Е': 'E',
+    'Ж': 'K',
+    'З': '3',
+    'И': 'N',
+    'Й': 'N',
+    'К': 'K',
+    'Л': 'N',
+    'М': 'M',
+    'Н': 'H',
+    'О': 'O',
+    'П': 'N',
+    'Р': 'P',
+    'С': 'C',
+    'Т': 'T',
+    'У': 'y',
+    'Ф': 'O',
+    'Х': 'X',
+    'Ц': 'U',
+    'Ч': 'h',
+    'Ш': 'W',
+    'Щ': 'W',
+    'Ъ': 'B',
+    'Ы': 'X',
+    'Ь': 'B',
+    'Э': '3',
+    'Ю': 'X',
+    'Я': 'R',
+    'а': 'a',
+    'б': 'b',
+    'в': 'a',
+    'г': 'r',
+    'д': 'y',
+    'е': 'e',
+    'ж': 'm',
+    'з': 'e',
+    'и': 'n',
+    'й': 'n',
+    'к': 'n',
+    'л': 'n',
+    'м': 'm',
+    'н': 'n',
+    'о': 'o',
+    'п': 'n',
+    'р': 'p',
+    'с': 'c',
+    'т': 'o',
+    'у': 'y',
+    'ф': 'b',
+    'х': 'x',
+    'ц': 'n',
+    'ч': 'n',
+    'ш': 'w',
+    'щ': 'w',
+    'ъ': 'a',
+    'ы': 'm',
+    'ь': 'a',
+    'э': 'e',
+    'ю': 'm',
+    'я': 'r'
+};
+
+/**
+ * This function is a convenience function for looking up information in the
+ * metricMap table. It takes a character as a string, and a style.
+ *
+ * Note: the `width` property may be undefined if fontMetricsData.js wasn't
+ * built using `Make extended_metrics`.
+ */
+var getCharacterMetrics = function(character, style) {
+    var ch = character.charCodeAt(0);
+    if (character[0] in extraCharacterMap) {
+        ch = extraCharacterMap[character[0]].charCodeAt(0);
+    } else if (cjkRegex.test(character[0])) {
+        ch = 'M'.charCodeAt(0);
+    }
+    var metrics = metricMap[style][ch];
+    if (metrics) {
+        return {
+            depth: metrics[0],
+            height: metrics[1],
+            italic: metrics[2],
+            skew: metrics[3],
+            width: metrics[4]
+        };
+    }
+};
+
+var fontMetrics$1 = {
+    metrics: metrics$1,
+    sigmas: sigmas$1,
+    getCharacterMetrics: getCharacterMetrics
+};
+
+var sigmas = fontMetrics$1.sigmas;
+
+var metrics = [{}, {}, {}];
+var i$1;
+for (var key in sigmas) {
+    if (sigmas.hasOwnProperty(key)) {
+        for (i$1 = 0; i$1 < 3; i$1++) {
+            metrics[i$1][key] = sigmas[key][i$1];
+        }
+    }
+}
+for (i$1 = 0; i$1 < 3; i$1++) {
+    metrics[i$1].emPerEx = sigmas.xHeight[i$1] / sigmas.quad[i$1];
+}
+
+/**
+ * The main style class. Contains a unique id for the style, a size (which is
+ * the same for cramped and uncramped version of a style), a cramped flag, and a
+ * size multiplier, which gives the size difference between a style and
+ * textstyle.
+ */
+function Style$2(id, size, multiplier, cramped) {
+    this.id = id;
+    this.size = size;
+    this.cramped = cramped;
+    this.sizeMultiplier = multiplier;
+    this.metrics = metrics[size > 0 ? size - 1 : 0];
+}
+
+/**
+ * Get the style of a superscript given a base in the current style.
+ */
+Style$2.prototype.sup = function() {
+    return styles[sup[this.id]];
+};
+
+/**
+ * Get the style of a subscript given a base in the current style.
+ */
+Style$2.prototype.sub = function() {
+    return styles[sub[this.id]];
+};
+
+/**
+ * Get the style of a fraction numerator given the fraction in the current
+ * style.
+ */
+Style$2.prototype.fracNum = function() {
+    return styles[fracNum[this.id]];
+};
+
+/**
+ * Get the style of a fraction denominator given the fraction in the current
+ * style.
+ */
+Style$2.prototype.fracDen = function() {
+    return styles[fracDen[this.id]];
+};
+
+/**
+ * Get the cramped version of a style (in particular, cramping a cramped style
+ * doesn't change the style).
+ */
+Style$2.prototype.cramp = function() {
+    return styles[cramp[this.id]];
+};
+
+/**
+ * HTML class name, like "displaystyle cramped"
+ */
+Style$2.prototype.cls = function() {
+    return sizeNames[this.size] + (this.cramped ? " cramped" : " uncramped");
+};
+
+/**
+ * HTML Reset class name, like "reset-textstyle"
+ */
+Style$2.prototype.reset = function() {
+    return resetNames[this.size];
+};
+
+/**
+ * Return if this style is tightly spaced (scriptstyle/scriptscriptstyle)
+ */
+Style$2.prototype.isTight = function() {
+    return this.size >= 2;
+};
+
+// IDs of the different styles
+var D = 0;
+var Dc = 1;
+var T$11 = 2;
+var Tc = 3;
+var S = 4;
+var Sc = 5;
+var SS = 6;
+var SSc = 7;
+
+// String names for the different sizes
+var sizeNames = [
+    "displaystyle textstyle",
+    "textstyle",
+    "scriptstyle",
+    "scriptscriptstyle"
+];
+
+// Reset names for the different sizes
+var resetNames = [
+    "reset-textstyle",
+    "reset-textstyle",
+    "reset-scriptstyle",
+    "reset-scriptscriptstyle"
+];
+
+// Instances of the different styles
+var styles = [
+    new Style$2(D, 0, 1.0, false),
+    new Style$2(Dc, 0, 1.0, true),
+    new Style$2(T$11, 1, 1.0, false),
+    new Style$2(Tc, 1, 1.0, true),
+    new Style$2(S, 2, 0.7, false),
+    new Style$2(Sc, 2, 0.7, true),
+    new Style$2(SS, 3, 0.5, false),
+    new Style$2(SSc, 3, 0.5, true)
+];
+
+// Lookup tables for switching from one style to another
+var sup = [S, Sc, S, Sc, SS, SSc, SS, SSc];
+var sub = [Sc, Sc, Sc, Sc, SSc, SSc, SSc, SSc];
+var fracNum = [T$11, Tc, S, Sc, SS, SSc, SS, SSc];
+var fracDen = [Tc, Tc, Sc, Sc, SSc, SSc, SSc, SSc];
+var cramp = [Dc, Dc, Tc, Tc, Sc, Sc, SSc, SSc];
+
+// We only export some of the styles. Also, we don't export the `Style` class so
+// no more styles can be generated.
+var Style_1 = {
+    DISPLAY: styles[D],
+    TEXT: styles[T$11],
+    SCRIPT: styles[S],
+    SCRIPTSCRIPT: styles[SS]
+};
+
+/**
+ * This file contains a list of utility functions which are useful in other
+ * files.
+ */
+
+/**
+ * Provide an `indexOf` function which works in IE8, but defers to native if
+ * possible.
+ */
+var nativeIndexOf = Array.prototype.indexOf;
+var indexOf = function(list, elem) {
+    if (list == null) {
+        return -1;
+    }
+    if (nativeIndexOf && list.indexOf === nativeIndexOf) {
+        return list.indexOf(elem);
+    }
+    var i = 0;
+    var l = list.length;
+    for (; i < l; i++) {
+        if (list[i] === elem) {
+            return i;
+        }
+    }
+    return -1;
+};
+
+/**
+ * Return whether an element is contained in a list
+ */
+var contains = function(list, elem) {
+    return indexOf(list, elem) !== -1;
+};
+
+/**
+ * Provide a default value if a setting is undefined
+ */
+var deflt = function(setting, defaultIfUndefined) {
+    return setting === undefined ? defaultIfUndefined : setting;
+};
+
+// hyphenate and escape adapted from Facebook's React under Apache 2 license
+
+var uppercase = /([A-Z])/g;
+var hyphenate = function(str) {
+    return str.replace(uppercase, "-$1").toLowerCase();
+};
+
+var ESCAPE_LOOKUP = {
+    "&": "&amp;",
+    ">": "&gt;",
+    "<": "&lt;",
+    "\"": "&quot;",
+    "'": "&#x27;"
+};
+
+var ESCAPE_REGEX = /[&><"']/g;
+
+function escaper(match) {
+    return ESCAPE_LOOKUP[match];
+}
+
+/**
+ * Escapes text to prevent scripting attacks.
+ *
+ * @param {*} text Text value to escape.
+ * @return {string} An escaped string.
+ */
+function escape(text) {
+    return ("" + text).replace(ESCAPE_REGEX, escaper);
+}
+
+/**
+ * A function to set the text content of a DOM element in all supported
+ * browsers. Note that we don't define this if there is no document.
+ */
+var setTextContent;
+if (typeof document !== "undefined") {
+    var testNode = document.createElement("span");
+    if ("textContent" in testNode) {
+        setTextContent = function(node, text) {
+            node.textContent = text;
+        };
+    } else {
+        setTextContent = function(node, text) {
+            node.innerText = text;
+        };
+    }
+}
+
+/**
+ * A function to clear a node.
+ */
+function clearNode(node) {
+    setTextContent(node, "");
+}
+
+var utils$4 = {
+    contains: contains,
+    deflt: deflt,
+    escape: escape,
+    hyphenate: hyphenate,
+    indexOf: indexOf,
+    setTextContent: setTextContent,
+    clearNode: clearNode
+};
+
+var unicodeRegexes$2 = unicodeRegexes;
+var utils$3 = utils$4;
+
+/**
+ * Create an HTML className based on a list of classes. In addition to joining
+ * with spaces, we also remove null or empty classes.
+ */
+var createClass = function(classes) {
+    classes = classes.slice();
+    for (var i = classes.length - 1; i >= 0; i--) {
+        if (!classes[i]) {
+            classes.splice(i, 1);
+        }
+    }
+
+    return classes.join(" ");
+};
+
+/**
+ * This node represents a span node, with a className, a list of children, and
+ * an inline style. It also contains information about its height, depth, and
+ * maxFontSize.
+ */
+function span(classes, children, options) {
+    this.classes = classes || [];
+    this.children = children || [];
+    this.height = 0;
+    this.depth = 0;
+    this.maxFontSize = 0;
+    this.style = {};
+    this.attributes = {};
+    if (options) {
+        if (options.style.isTight()) {
+            this.classes.push("mtight");
+        }
+        if (options.getColor()) {
+            this.style.color = options.getColor();
+        }
+    }
+}
+
+/**
+ * Sets an arbitrary attribute on the span. Warning: use this wisely. Not all
+ * browsers support attributes the same, and having too many custom attributes
+ * is probably bad.
+ */
+span.prototype.setAttribute = function(attribute, value) {
+    this.attributes[attribute] = value;
+};
+
+span.prototype.tryCombine = function(sibling) {
+    return false;
+};
+
+/**
+ * Convert the span into an HTML node
+ */
+span.prototype.toNode = function() {
+    var span = document.createElement("span");
+
+    // Apply the class
+    span.className = createClass(this.classes);
+
+    // Apply inline styles
+    for (var style in this.style) {
+        if (Object.prototype.hasOwnProperty.call(this.style, style)) {
+            span.style[style] = this.style[style];
+        }
+    }
+
+    // Apply attributes
+    for (var attr in this.attributes) {
+        if (Object.prototype.hasOwnProperty.call(this.attributes, attr)) {
+            span.setAttribute(attr, this.attributes[attr]);
+        }
+    }
+
+    // Append the children, also as HTML nodes
+    for (var i = 0; i < this.children.length; i++) {
+        span.appendChild(this.children[i].toNode());
+    }
+
+    return span;
+};
+
+/**
+ * Convert the span into an HTML markup string
+ */
+span.prototype.toMarkup = function() {
+    var markup = "<span";
+
+    // Add the class
+    if (this.classes.length) {
+        markup += " class=\"";
+        markup += utils$3.escape(createClass(this.classes));
+        markup += "\"";
+    }
+
+    var styles = "";
+
+    // Add the styles, after hyphenation
+    for (var style in this.style) {
+        if (this.style.hasOwnProperty(style)) {
+            styles += utils$3.hyphenate(style) + ":" + this.style[style] + ";";
+        }
+    }
+
+    if (styles) {
+        markup += " style=\"" + utils$3.escape(styles) + "\"";
+    }
+
+    // Add the attributes
+    for (var attr in this.attributes) {
+        if (Object.prototype.hasOwnProperty.call(this.attributes, attr)) {
+            markup += " " + attr + "=\"";
+            markup += utils$3.escape(this.attributes[attr]);
+            markup += "\"";
+        }
+    }
+
+    markup += ">";
+
+    // Add the markup of the children, also as markup
+    for (var i = 0; i < this.children.length; i++) {
+        markup += this.children[i].toMarkup();
+    }
+
+    markup += "</span>";
+
+    return markup;
+};
+
+/**
+ * This node represents a document fragment, which contains elements, but when
+ * placed into the DOM doesn't have any representation itself. Thus, it only
+ * contains children and doesn't have any HTML properties. It also keeps track
+ * of a height, depth, and maxFontSize.
+ */
+function documentFragment(children) {
+    this.children = children || [];
+    this.height = 0;
+    this.depth = 0;
+    this.maxFontSize = 0;
+}
+
+/**
+ * Convert the fragment into a node
+ */
+documentFragment.prototype.toNode = function() {
+    // Create a fragment
+    var frag = document.createDocumentFragment();
+
+    // Append the children
+    for (var i = 0; i < this.children.length; i++) {
+        frag.appendChild(this.children[i].toNode());
+    }
+
+    return frag;
+};
+
+/**
+ * Convert the fragment into HTML markup
+ */
+documentFragment.prototype.toMarkup = function() {
+    var markup = "";
+
+    // Simply concatenate the markup for the children together
+    for (var i = 0; i < this.children.length; i++) {
+        markup += this.children[i].toMarkup();
+    }
+
+    return markup;
+};
+
+var iCombinations = {
+    'î': '\u0131\u0302',
+    'ï': '\u0131\u0308',
+    'í': '\u0131\u0301',
+    // 'ī': '\u0131\u0304', // enable when we add Extended Latin
+    'ì': '\u0131\u0300'
+};
+
+/**
+ * A symbol node contains information about a single symbol. It either renders
+ * to a single text node, or a span with a single text node in it, depending on
+ * whether it has CSS classes, styles, or needs italic correction.
+ */
+function symbolNode(value, height, depth, italic, skew, classes, style) {
+    this.value = value || "";
+    this.height = height || 0;
+    this.depth = depth || 0;
+    this.italic = italic || 0;
+    this.skew = skew || 0;
+    this.classes = classes || [];
+    this.style = style || {};
+    this.maxFontSize = 0;
+
+    // Mark CJK characters with specific classes so that we can specify which
+    // fonts to use.  This allows us to render these characters with a serif
+    // font in situations where the browser would either default to a sans serif
+    // or render a placeholder character.
+    if (unicodeRegexes$2.cjkRegex.test(value)) {
+        // I couldn't find any fonts that contained Hangul as well as all of
+        // the other characters we wanted to test there for it gets its own
+        // CSS class.
+        if (unicodeRegexes$2.hangulRegex.test(value)) {
+            this.classes.push('hangul_fallback');
+        } else {
+            this.classes.push('cjk_fallback');
+        }
+    }
+
+    if (/[îïíì]/.test(this.value)) {    // add ī when we add Extended Latin
+        this.value = iCombinations[this.value];
+    }
+}
+
+symbolNode.prototype.tryCombine = function(sibling) {
+    if (!sibling
+        || !(sibling instanceof symbolNode)
+        || this.italic > 0
+        || createClass(this.classes) !== createClass(sibling.classes)
+        || this.skew !== sibling.skew
+        || this.maxFontSize !== sibling.maxFontSize) {
+        return false;
+    }
+    for (var style in this.style) {
+        if (this.style.hasOwnProperty(style)
+            && this.style[style] !== sibling.style[style]) {
+            return false;
+        }
+    }
+    for (style in sibling.style) {
+        if (sibling.style.hasOwnProperty(style)
+            && this.style[style] !== sibling.style[style]) {
+            return false;
+        }
+    }
+    this.value += sibling.value;
+    this.height = Math.max(this.height, sibling.height);
+    this.depth = Math.max(this.depth, sibling.depth);
+    this.italic = sibling.italic;
+    return true;
+};
+
+/**
+ * Creates a text node or span from a symbol node. Note that a span is only
+ * created if it is needed.
+ */
+symbolNode.prototype.toNode = function() {
+    var node = document.createTextNode(this.value);
+    var span = null;
+
+    if (this.italic > 0) {
+        span = document.createElement("span");
+        span.style.marginRight = this.italic + "em";
+    }
+
+    if (this.classes.length > 0) {
+        span = span || document.createElement("span");
+        span.className = createClass(this.classes);
+    }
+
+    for (var style in this.style) {
+        if (this.style.hasOwnProperty(style)) {
+            span = span || document.createElement("span");
+            span.style[style] = this.style[style];
+        }
+    }
+
+    if (span) {
+        span.appendChild(node);
+        return span;
+    } else {
+        return node;
+    }
+};
+
+/**
+ * Creates markup for a symbol node.
+ */
+symbolNode.prototype.toMarkup = function() {
+    // TODO(alpert): More duplication than I'd like from
+    // span.prototype.toMarkup and symbolNode.prototype.toNode...
+    var needsSpan = false;
+
+    var markup = "<span";
+
+    if (this.classes.length) {
+        needsSpan = true;
+        markup += " class=\"";
+        markup += utils$3.escape(createClass(this.classes));
+        markup += "\"";
+    }
+
+    var styles = "";
+
+    if (this.italic > 0) {
+        styles += "margin-right:" + this.italic + "em;";
+    }
+    for (var style in this.style) {
+        if (this.style.hasOwnProperty(style)) {
+            styles += utils$3.hyphenate(style) + ":" + this.style[style] + ";";
+        }
+    }
+
+    if (styles) {
+        needsSpan = true;
+        markup += " style=\"" + utils$3.escape(styles) + "\"";
+    }
+
+    var escaped = utils$3.escape(this.value);
+    if (needsSpan) {
+        markup += ">";
+        markup += escaped;
+        markup += "</span>";
+        return markup;
+    } else {
+        return escaped;
+    }
+};
+
+var domTree$2 = {
+    span: span,
+    documentFragment: documentFragment,
+    symbolNode: symbolNode
+};
+
+var symbols$1 = createCommonjsModule(function (module) {
+/**
+ * This file holds a list of all no-argument functions and single-character
+ * symbols (like 'a' or ';').
+ *
+ * For each of the symbols, there are three properties they can have:
+ * - font (required): the font to be used for this symbol. Either "main" (the
+     normal font), or "ams" (the ams fonts).
+ * - group (required): the ParseNode group type the symbol should have (i.e.
+     "textord", "mathord", etc).
+     See https://github.com/Khan/KaTeX/wiki/Examining-TeX#group-types
+ * - replace: the character that this symbol or function should be
+ *   replaced with (i.e. "\phi" has a replace value of "\u03d5", the phi
+ *   character in the main font).
+ *
+ * The outermost map in the table indicates what mode the symbols should be
+ * accepted in (e.g. "math" or "text").
+ */
+
+module.exports = {
+    math: {},
+    text: {}
+};
+
+function defineSymbol(mode, font, group, replace, name) {
+    module.exports[mode][name] = {
+        font: font,
+        group: group,
+        replace: replace
+    };
+}
+
+// Some abbreviations for commonly used strings.
+// This helps minify the code, and also spotting typos using jshint.
+
+// modes:
+var math = "math";
+var text = "text";
+
+// fonts:
+var main = "main";
+var ams = "ams";
+
+// groups:
+var accent = "accent";
+var bin = "bin";
+var close = "close";
+var inner = "inner";
+var mathord = "mathord";
+var op = "op";
+var open = "open";
+var punct = "punct";
+var rel = "rel";
+var spacing = "spacing";
+var textord = "textord";
+
+// Now comes the symbol table
+
+// Relation Symbols
+defineSymbol(math, main, rel, "\u2261", "\\equiv");
+defineSymbol(math, main, rel, "\u227a", "\\prec");
+defineSymbol(math, main, rel, "\u227b", "\\succ");
+defineSymbol(math, main, rel, "\u223c", "\\sim");
+defineSymbol(math, main, rel, "\u22a5", "\\perp");
+defineSymbol(math, main, rel, "\u2aaf", "\\preceq");
+defineSymbol(math, main, rel, "\u2ab0", "\\succeq");
+defineSymbol(math, main, rel, "\u2243", "\\simeq");
+defineSymbol(math, main, rel, "\u2223", "\\mid");
+defineSymbol(math, main, rel, "\u226a", "\\ll");
+defineSymbol(math, main, rel, "\u226b", "\\gg");
+defineSymbol(math, main, rel, "\u224d", "\\asymp");
+defineSymbol(math, main, rel, "\u2225", "\\parallel");
+defineSymbol(math, main, rel, "\u22c8", "\\bowtie");
+defineSymbol(math, main, rel, "\u2323", "\\smile");
+defineSymbol(math, main, rel, "\u2291", "\\sqsubseteq");
+defineSymbol(math, main, rel, "\u2292", "\\sqsupseteq");
+defineSymbol(math, main, rel, "\u2250", "\\doteq");
+defineSymbol(math, main, rel, "\u2322", "\\frown");
+defineSymbol(math, main, rel, "\u220b", "\\ni");
+defineSymbol(math, main, rel, "\u221d", "\\propto");
+defineSymbol(math, main, rel, "\u22a2", "\\vdash");
+defineSymbol(math, main, rel, "\u22a3", "\\dashv");
+defineSymbol(math, main, rel, "\u220b", "\\owns");
+
+// Punctuation
+defineSymbol(math, main, punct, "\u002e", "\\ldotp");
+defineSymbol(math, main, punct, "\u22c5", "\\cdotp");
+
+// Misc Symbols
+defineSymbol(math, main, textord, "\u0023", "\\#");
+defineSymbol(text, main, textord, "\u0023", "\\#");
+defineSymbol(math, main, textord, "\u0026", "\\&");
+defineSymbol(text, main, textord, "\u0026", "\\&");
+defineSymbol(math, main, textord, "\u2135", "\\aleph");
+defineSymbol(math, main, textord, "\u2200", "\\forall");
+defineSymbol(math, main, textord, "\u210f", "\\hbar");
+defineSymbol(math, main, textord, "\u2203", "\\exists");
+defineSymbol(math, main, textord, "\u2207", "\\nabla");
+defineSymbol(math, main, textord, "\u266d", "\\flat");
+defineSymbol(math, main, textord, "\u2113", "\\ell");
+defineSymbol(math, main, textord, "\u266e", "\\natural");
+defineSymbol(math, main, textord, "\u2663", "\\clubsuit");
+defineSymbol(math, main, textord, "\u2118", "\\wp");
+defineSymbol(math, main, textord, "\u266f", "\\sharp");
+defineSymbol(math, main, textord, "\u2662", "\\diamondsuit");
+defineSymbol(math, main, textord, "\u211c", "\\Re");
+defineSymbol(math, main, textord, "\u2661", "\\heartsuit");
+defineSymbol(math, main, textord, "\u2111", "\\Im");
+defineSymbol(math, main, textord, "\u2660", "\\spadesuit");
+
+// Math and Text
+defineSymbol(math, main, textord, "\u2020", "\\dag");
+defineSymbol(math, main, textord, "\u2021", "\\ddag");
+
+// Large Delimiters
+defineSymbol(math, main, close, "\u23b1", "\\rmoustache");
+defineSymbol(math, main, open, "\u23b0", "\\lmoustache");
+defineSymbol(math, main, close, "\u27ef", "\\rgroup");
+defineSymbol(math, main, open, "\u27ee", "\\lgroup");
+
+// Binary Operators
+defineSymbol(math, main, bin, "\u2213", "\\mp");
+defineSymbol(math, main, bin, "\u2296", "\\ominus");
+defineSymbol(math, main, bin, "\u228e", "\\uplus");
+defineSymbol(math, main, bin, "\u2293", "\\sqcap");
+defineSymbol(math, main, bin, "\u2217", "\\ast");
+defineSymbol(math, main, bin, "\u2294", "\\sqcup");
+defineSymbol(math, main, bin, "\u25ef", "\\bigcirc");
+defineSymbol(math, main, bin, "\u2219", "\\bullet");
+defineSymbol(math, main, bin, "\u2021", "\\ddagger");
+defineSymbol(math, main, bin, "\u2240", "\\wr");
+defineSymbol(math, main, bin, "\u2a3f", "\\amalg");
+
+// Arrow Symbols
+defineSymbol(math, main, rel, "\u27f5", "\\longleftarrow");
+defineSymbol(math, main, rel, "\u21d0", "\\Leftarrow");
+defineSymbol(math, main, rel, "\u27f8", "\\Longleftarrow");
+defineSymbol(math, main, rel, "\u27f6", "\\longrightarrow");
+defineSymbol(math, main, rel, "\u21d2", "\\Rightarrow");
+defineSymbol(math, main, rel, "\u27f9", "\\Longrightarrow");
+defineSymbol(math, main, rel, "\u2194", "\\leftrightarrow");
+defineSymbol(math, main, rel, "\u27f7", "\\longleftrightarrow");
+defineSymbol(math, main, rel, "\u21d4", "\\Leftrightarrow");
+defineSymbol(math, main, rel, "\u27fa", "\\Longleftrightarrow");
+defineSymbol(math, main, rel, "\u21a6", "\\mapsto");
+defineSymbol(math, main, rel, "\u27fc", "\\longmapsto");
+defineSymbol(math, main, rel, "\u2197", "\\nearrow");
+defineSymbol(math, main, rel, "\u21a9", "\\hookleftarrow");
+defineSymbol(math, main, rel, "\u21aa", "\\hookrightarrow");
+defineSymbol(math, main, rel, "\u2198", "\\searrow");
+defineSymbol(math, main, rel, "\u21bc", "\\leftharpoonup");
+defineSymbol(math, main, rel, "\u21c0", "\\rightharpoonup");
+defineSymbol(math, main, rel, "\u2199", "\\swarrow");
+defineSymbol(math, main, rel, "\u21bd", "\\leftharpoondown");
+defineSymbol(math, main, rel, "\u21c1", "\\rightharpoondown");
+defineSymbol(math, main, rel, "\u2196", "\\nwarrow");
+defineSymbol(math, main, rel, "\u21cc", "\\rightleftharpoons");
+
+// AMS Negated Binary Relations
+defineSymbol(math, ams, rel, "\u226e", "\\nless");
+defineSymbol(math, ams, rel, "\ue010", "\\nleqslant");
+defineSymbol(math, ams, rel, "\ue011", "\\nleqq");
+defineSymbol(math, ams, rel, "\u2a87", "\\lneq");
+defineSymbol(math, ams, rel, "\u2268", "\\lneqq");
+defineSymbol(math, ams, rel, "\ue00c", "\\lvertneqq");
+defineSymbol(math, ams, rel, "\u22e6", "\\lnsim");
+defineSymbol(math, ams, rel, "\u2a89", "\\lnapprox");
+defineSymbol(math, ams, rel, "\u2280", "\\nprec");
+defineSymbol(math, ams, rel, "\u22e0", "\\npreceq");
+defineSymbol(math, ams, rel, "\u22e8", "\\precnsim");
+defineSymbol(math, ams, rel, "\u2ab9", "\\precnapprox");
+defineSymbol(math, ams, rel, "\u2241", "\\nsim");
+defineSymbol(math, ams, rel, "\ue006", "\\nshortmid");
+defineSymbol(math, ams, rel, "\u2224", "\\nmid");
+defineSymbol(math, ams, rel, "\u22ac", "\\nvdash");
+defineSymbol(math, ams, rel, "\u22ad", "\\nvDash");
+defineSymbol(math, ams, rel, "\u22ea", "\\ntriangleleft");
+defineSymbol(math, ams, rel, "\u22ec", "\\ntrianglelefteq");
+defineSymbol(math, ams, rel, "\u228a", "\\subsetneq");
+defineSymbol(math, ams, rel, "\ue01a", "\\varsubsetneq");
+defineSymbol(math, ams, rel, "\u2acb", "\\subsetneqq");
+defineSymbol(math, ams, rel, "\ue017", "\\varsubsetneqq");
+defineSymbol(math, ams, rel, "\u226f", "\\ngtr");
+defineSymbol(math, ams, rel, "\ue00f", "\\ngeqslant");
+defineSymbol(math, ams, rel, "\ue00e", "\\ngeqq");
+defineSymbol(math, ams, rel, "\u2a88", "\\gneq");
+defineSymbol(math, ams, rel, "\u2269", "\\gneqq");
+defineSymbol(math, ams, rel, "\ue00d", "\\gvertneqq");
+defineSymbol(math, ams, rel, "\u22e7", "\\gnsim");
+defineSymbol(math, ams, rel, "\u2a8a", "\\gnapprox");
+defineSymbol(math, ams, rel, "\u2281", "\\nsucc");
+defineSymbol(math, ams, rel, "\u22e1", "\\nsucceq");
+defineSymbol(math, ams, rel, "\u22e9", "\\succnsim");
+defineSymbol(math, ams, rel, "\u2aba", "\\succnapprox");
+defineSymbol(math, ams, rel, "\u2246", "\\ncong");
+defineSymbol(math, ams, rel, "\ue007", "\\nshortparallel");
+defineSymbol(math, ams, rel, "\u2226", "\\nparallel");
+defineSymbol(math, ams, rel, "\u22af", "\\nVDash");
+defineSymbol(math, ams, rel, "\u22eb", "\\ntriangleright");
+defineSymbol(math, ams, rel, "\u22ed", "\\ntrianglerighteq");
+defineSymbol(math, ams, rel, "\ue018", "\\nsupseteqq");
+defineSymbol(math, ams, rel, "\u228b", "\\supsetneq");
+defineSymbol(math, ams, rel, "\ue01b", "\\varsupsetneq");
+defineSymbol(math, ams, rel, "\u2acc", "\\supsetneqq");
+defineSymbol(math, ams, rel, "\ue019", "\\varsupsetneqq");
+defineSymbol(math, ams, rel, "\u22ae", "\\nVdash");
+defineSymbol(math, ams, rel, "\u2ab5", "\\precneqq");
+defineSymbol(math, ams, rel, "\u2ab6", "\\succneqq");
+defineSymbol(math, ams, rel, "\ue016", "\\nsubseteqq");
+defineSymbol(math, ams, bin, "\u22b4", "\\unlhd");
+defineSymbol(math, ams, bin, "\u22b5", "\\unrhd");
+
+// AMS Negated Arrows
+defineSymbol(math, ams, rel, "\u219a", "\\nleftarrow");
+defineSymbol(math, ams, rel, "\u219b", "\\nrightarrow");
+defineSymbol(math, ams, rel, "\u21cd", "\\nLeftarrow");
+defineSymbol(math, ams, rel, "\u21cf", "\\nRightarrow");
+defineSymbol(math, ams, rel, "\u21ae", "\\nleftrightarrow");
+defineSymbol(math, ams, rel, "\u21ce", "\\nLeftrightarrow");
+
+// AMS Misc
+defineSymbol(math, ams, rel, "\u25b3", "\\vartriangle");
+defineSymbol(math, ams, textord, "\u210f", "\\hslash");
+defineSymbol(math, ams, textord, "\u25bd", "\\triangledown");
+defineSymbol(math, ams, textord, "\u25ca", "\\lozenge");
+defineSymbol(math, ams, textord, "\u24c8", "\\circledS");
+defineSymbol(math, ams, textord, "\u00ae", "\\circledR");
+defineSymbol(math, ams, textord, "\u2221", "\\measuredangle");
+defineSymbol(math, ams, textord, "\u2204", "\\nexists");
+defineSymbol(math, ams, textord, "\u2127", "\\mho");
+defineSymbol(math, ams, textord, "\u2132", "\\Finv");
+defineSymbol(math, ams, textord, "\u2141", "\\Game");
+defineSymbol(math, ams, textord, "\u006b", "\\Bbbk");
+defineSymbol(math, ams, textord, "\u2035", "\\backprime");
+defineSymbol(math, ams, textord, "\u25b2", "\\blacktriangle");
+defineSymbol(math, ams, textord, "\u25bc", "\\blacktriangledown");
+defineSymbol(math, ams, textord, "\u25a0", "\\blacksquare");
+defineSymbol(math, ams, textord, "\u29eb", "\\blacklozenge");
+defineSymbol(math, ams, textord, "\u2605", "\\bigstar");
+defineSymbol(math, ams, textord, "\u2222", "\\sphericalangle");
+defineSymbol(math, ams, textord, "\u2201", "\\complement");
+defineSymbol(math, ams, textord, "\u00f0", "\\eth");
+defineSymbol(math, ams, textord, "\u2571", "\\diagup");
+defineSymbol(math, ams, textord, "\u2572", "\\diagdown");
+defineSymbol(math, ams, textord, "\u25a1", "\\square");
+defineSymbol(math, ams, textord, "\u25a1", "\\Box");
+defineSymbol(math, ams, textord, "\u25ca", "\\Diamond");
+defineSymbol(math, ams, textord, "\u00a5", "\\yen");
+defineSymbol(math, ams, textord, "\u2713", "\\checkmark");
+
+// AMS Hebrew
+defineSymbol(math, ams, textord, "\u2136", "\\beth");
+defineSymbol(math, ams, textord, "\u2138", "\\daleth");
+defineSymbol(math, ams, textord, "\u2137", "\\gimel");
+
+// AMS Greek
+defineSymbol(math, ams, textord, "\u03dd", "\\digamma");
+defineSymbol(math, ams, textord, "\u03f0", "\\varkappa");
+
+// AMS Delimiters
+defineSymbol(math, ams, open, "\u250c", "\\ulcorner");
+defineSymbol(math, ams, close, "\u2510", "\\urcorner");
+defineSymbol(math, ams, open, "\u2514", "\\llcorner");
+defineSymbol(math, ams, close, "\u2518", "\\lrcorner");
+
+// AMS Binary Relations
+defineSymbol(math, ams, rel, "\u2266", "\\leqq");
+defineSymbol(math, ams, rel, "\u2a7d", "\\leqslant");
+defineSymbol(math, ams, rel, "\u2a95", "\\eqslantless");
+defineSymbol(math, ams, rel, "\u2272", "\\lesssim");
+defineSymbol(math, ams, rel, "\u2a85", "\\lessapprox");
+defineSymbol(math, ams, rel, "\u224a", "\\approxeq");
+defineSymbol(math, ams, bin, "\u22d6", "\\lessdot");
+defineSymbol(math, ams, rel, "\u22d8", "\\lll");
+defineSymbol(math, ams, rel, "\u2276", "\\lessgtr");
+defineSymbol(math, ams, rel, "\u22da", "\\lesseqgtr");
+defineSymbol(math, ams, rel, "\u2a8b", "\\lesseqqgtr");
+defineSymbol(math, ams, rel, "\u2251", "\\doteqdot");
+defineSymbol(math, ams, rel, "\u2253", "\\risingdotseq");
+defineSymbol(math, ams, rel, "\u2252", "\\fallingdotseq");
+defineSymbol(math, ams, rel, "\u223d", "\\backsim");
+defineSymbol(math, ams, rel, "\u22cd", "\\backsimeq");
+defineSymbol(math, ams, rel, "\u2ac5", "\\subseteqq");
+defineSymbol(math, ams, rel, "\u22d0", "\\Subset");
+defineSymbol(math, ams, rel, "\u228f", "\\sqsubset");
+defineSymbol(math, ams, rel, "\u227c", "\\preccurlyeq");
+defineSymbol(math, ams, rel, "\u22de", "\\curlyeqprec");
+defineSymbol(math, ams, rel, "\u227e", "\\precsim");
+defineSymbol(math, ams, rel, "\u2ab7", "\\precapprox");
+defineSymbol(math, ams, rel, "\u22b2", "\\vartriangleleft");
+defineSymbol(math, ams, rel, "\u22b4", "\\trianglelefteq");
+defineSymbol(math, ams, rel, "\u22a8", "\\vDash");
+defineSymbol(math, ams, rel, "\u22aa", "\\Vvdash");
+defineSymbol(math, ams, rel, "\u2323", "\\smallsmile");
+defineSymbol(math, ams, rel, "\u2322", "\\smallfrown");
+defineSymbol(math, ams, rel, "\u224f", "\\bumpeq");
+defineSymbol(math, ams, rel, "\u224e", "\\Bumpeq");
+defineSymbol(math, ams, rel, "\u2267", "\\geqq");
+defineSymbol(math, ams, rel, "\u2a7e", "\\geqslant");
+defineSymbol(math, ams, rel, "\u2a96", "\\eqslantgtr");
+defineSymbol(math, ams, rel, "\u2273", "\\gtrsim");
+defineSymbol(math, ams, rel, "\u2a86", "\\gtrapprox");
+defineSymbol(math, ams, bin, "\u22d7", "\\gtrdot");
+defineSymbol(math, ams, rel, "\u22d9", "\\ggg");
+defineSymbol(math, ams, rel, "\u2277", "\\gtrless");
+defineSymbol(math, ams, rel, "\u22db", "\\gtreqless");
+defineSymbol(math, ams, rel, "\u2a8c", "\\gtreqqless");
+defineSymbol(math, ams, rel, "\u2256", "\\eqcirc");
+defineSymbol(math, ams, rel, "\u2257", "\\circeq");
+defineSymbol(math, ams, rel, "\u225c", "\\triangleq");
+defineSymbol(math, ams, rel, "\u223c", "\\thicksim");
+defineSymbol(math, ams, rel, "\u2248", "\\thickapprox");
+defineSymbol(math, ams, rel, "\u2ac6", "\\supseteqq");
+defineSymbol(math, ams, rel, "\u22d1", "\\Supset");
+defineSymbol(math, ams, rel, "\u2290", "\\sqsupset");
+defineSymbol(math, ams, rel, "\u227d", "\\succcurlyeq");
+defineSymbol(math, ams, rel, "\u22df", "\\curlyeqsucc");
+defineSymbol(math, ams, rel, "\u227f", "\\succsim");
+defineSymbol(math, ams, rel, "\u2ab8", "\\succapprox");
+defineSymbol(math, ams, rel, "\u22b3", "\\vartriangleright");
+defineSymbol(math, ams, rel, "\u22b5", "\\trianglerighteq");
+defineSymbol(math, ams, rel, "\u22a9", "\\Vdash");
+defineSymbol(math, ams, rel, "\u2223", "\\shortmid");
+defineSymbol(math, ams, rel, "\u2225", "\\shortparallel");
+defineSymbol(math, ams, rel, "\u226c", "\\between");
+defineSymbol(math, ams, rel, "\u22d4", "\\pitchfork");
+defineSymbol(math, ams, rel, "\u221d", "\\varpropto");
+defineSymbol(math, ams, rel, "\u25c0", "\\blacktriangleleft");
+defineSymbol(math, ams, rel, "\u2234", "\\therefore");
+defineSymbol(math, ams, rel, "\u220d", "\\backepsilon");
+defineSymbol(math, ams, rel, "\u25b6", "\\blacktriangleright");
+defineSymbol(math, ams, rel, "\u2235", "\\because");
+defineSymbol(math, ams, rel, "\u22d8", "\\llless");
+defineSymbol(math, ams, rel, "\u22d9", "\\gggtr");
+defineSymbol(math, ams, bin, "\u22b2", "\\lhd");
+defineSymbol(math, ams, bin, "\u22b3", "\\rhd");
+defineSymbol(math, ams, rel, "\u2242", "\\eqsim");
+defineSymbol(math, main, rel, "\u22c8", "\\Join");
+defineSymbol(math, ams, rel, "\u2251", "\\Doteq");
+
+// AMS Binary Operators
+defineSymbol(math, ams, bin, "\u2214", "\\dotplus");
+defineSymbol(math, ams, bin, "\u2216", "\\smallsetminus");
+defineSymbol(math, ams, bin, "\u22d2", "\\Cap");
+defineSymbol(math, ams, bin, "\u22d3", "\\Cup");
+defineSymbol(math, ams, bin, "\u2a5e", "\\doublebarwedge");
+defineSymbol(math, ams, bin, "\u229f", "\\boxminus");
+defineSymbol(math, ams, bin, "\u229e", "\\boxplus");
+defineSymbol(math, ams, bin, "\u22c7", "\\divideontimes");
+defineSymbol(math, ams, bin, "\u22c9", "\\ltimes");
+defineSymbol(math, ams, bin, "\u22ca", "\\rtimes");
+defineSymbol(math, ams, bin, "\u22cb", "\\leftthreetimes");
+defineSymbol(math, ams, bin, "\u22cc", "\\rightthreetimes");
+defineSymbol(math, ams, bin, "\u22cf", "\\curlywedge");
+defineSymbol(math, ams, bin, "\u22ce", "\\curlyvee");
+defineSymbol(math, ams, bin, "\u229d", "\\circleddash");
+defineSymbol(math, ams, bin, "\u229b", "\\circledast");
+defineSymbol(math, ams, bin, "\u22c5", "\\centerdot");
+defineSymbol(math, ams, bin, "\u22ba", "\\intercal");
+defineSymbol(math, ams, bin, "\u22d2", "\\doublecap");
+defineSymbol(math, ams, bin, "\u22d3", "\\doublecup");
+defineSymbol(math, ams, bin, "\u22a0", "\\boxtimes");
+
+// AMS Arrows
+defineSymbol(math, ams, rel, "\u21e2", "\\dashrightarrow");
+defineSymbol(math, ams, rel, "\u21e0", "\\dashleftarrow");
+defineSymbol(math, ams, rel, "\u21c7", "\\leftleftarrows");
+defineSymbol(math, ams, rel, "\u21c6", "\\leftrightarrows");
+defineSymbol(math, ams, rel, "\u21da", "\\Lleftarrow");
+defineSymbol(math, ams, rel, "\u219e", "\\twoheadleftarrow");
+defineSymbol(math, ams, rel, "\u21a2", "\\leftarrowtail");
+defineSymbol(math, ams, rel, "\u21ab", "\\looparrowleft");
+defineSymbol(math, ams, rel, "\u21cb", "\\leftrightharpoons");
+defineSymbol(math, ams, rel, "\u21b6", "\\curvearrowleft");
+defineSymbol(math, ams, rel, "\u21ba", "\\circlearrowleft");
+defineSymbol(math, ams, rel, "\u21b0", "\\Lsh");
+defineSymbol(math, ams, rel, "\u21c8", "\\upuparrows");
+defineSymbol(math, ams, rel, "\u21bf", "\\upharpoonleft");
+defineSymbol(math, ams, rel, "\u21c3", "\\downharpoonleft");
+defineSymbol(math, ams, rel, "\u22b8", "\\multimap");
+defineSymbol(math, ams, rel, "\u21ad", "\\leftrightsquigarrow");
+defineSymbol(math, ams, rel, "\u21c9", "\\rightrightarrows");
+defineSymbol(math, ams, rel, "\u21c4", "\\rightleftarrows");
+defineSymbol(math, ams, rel, "\u21a0", "\\twoheadrightarrow");
+defineSymbol(math, ams, rel, "\u21a3", "\\rightarrowtail");
+defineSymbol(math, ams, rel, "\u21ac", "\\looparrowright");
+defineSymbol(math, ams, rel, "\u21b7", "\\curvearrowright");
+defineSymbol(math, ams, rel, "\u21bb", "\\circlearrowright");
+defineSymbol(math, ams, rel, "\u21b1", "\\Rsh");
+defineSymbol(math, ams, rel, "\u21ca", "\\downdownarrows");
+defineSymbol(math, ams, rel, "\u21be", "\\upharpoonright");
+defineSymbol(math, ams, rel, "\u21c2", "\\downharpoonright");
+defineSymbol(math, ams, rel, "\u21dd", "\\rightsquigarrow");
+defineSymbol(math, ams, rel, "\u21dd", "\\leadsto");
+defineSymbol(math, ams, rel, "\u21db", "\\Rrightarrow");
+defineSymbol(math, ams, rel, "\u21be", "\\restriction");
+
+defineSymbol(math, main, textord, "\u2018", "`");
+defineSymbol(math, main, textord, "$", "\\$");
+defineSymbol(text, main, textord, "$", "\\$");
+defineSymbol(math, main, textord, "%", "\\%");
+defineSymbol(text, main, textord, "%", "\\%");
+defineSymbol(math, main, textord, "_", "\\_");
+defineSymbol(text, main, textord, "_", "\\_");
+defineSymbol(math, main, textord, "\u2220", "\\angle");
+defineSymbol(math, main, textord, "\u221e", "\\infty");
+defineSymbol(math, main, textord, "\u2032", "\\prime");
+defineSymbol(math, main, textord, "\u25b3", "\\triangle");
+defineSymbol(math, main, textord, "\u0393", "\\Gamma");
+defineSymbol(math, main, textord, "\u0394", "\\Delta");
+defineSymbol(math, main, textord, "\u0398", "\\Theta");
+defineSymbol(math, main, textord, "\u039b", "\\Lambda");
+defineSymbol(math, main, textord, "\u039e", "\\Xi");
+defineSymbol(math, main, textord, "\u03a0", "\\Pi");
+defineSymbol(math, main, textord, "\u03a3", "\\Sigma");
+defineSymbol(math, main, textord, "\u03a5", "\\Upsilon");
+defineSymbol(math, main, textord, "\u03a6", "\\Phi");
+defineSymbol(math, main, textord, "\u03a8", "\\Psi");
+defineSymbol(math, main, textord, "\u03a9", "\\Omega");
+defineSymbol(math, main, textord, "\u00ac", "\\neg");
+defineSymbol(math, main, textord, "\u00ac", "\\lnot");
+defineSymbol(math, main, textord, "\u22a4", "\\top");
+defineSymbol(math, main, textord, "\u22a5", "\\bot");
+defineSymbol(math, main, textord, "\u2205", "\\emptyset");
+defineSymbol(math, ams, textord, "\u2205", "\\varnothing");
+defineSymbol(math, main, mathord, "\u03b1", "\\alpha");
+defineSymbol(math, main, mathord, "\u03b2", "\\beta");
+defineSymbol(math, main, mathord, "\u03b3", "\\gamma");
+defineSymbol(math, main, mathord, "\u03b4", "\\delta");
+defineSymbol(math, main, mathord, "\u03f5", "\\epsilon");
+defineSymbol(math, main, mathord, "\u03b6", "\\zeta");
+defineSymbol(math, main, mathord, "\u03b7", "\\eta");
+defineSymbol(math, main, mathord, "\u03b8", "\\theta");
+defineSymbol(math, main, mathord, "\u03b9", "\\iota");
+defineSymbol(math, main, mathord, "\u03ba", "\\kappa");
+defineSymbol(math, main, mathord, "\u03bb", "\\lambda");
+defineSymbol(math, main, mathord, "\u03bc", "\\mu");
+defineSymbol(math, main, mathord, "\u03bd", "\\nu");
+defineSymbol(math, main, mathord, "\u03be", "\\xi");
+defineSymbol(math, main, mathord, "o", "\\omicron");
+defineSymbol(math, main, mathord, "\u03c0", "\\pi");
+defineSymbol(math, main, mathord, "\u03c1", "\\rho");
+defineSymbol(math, main, mathord, "\u03c3", "\\sigma");
+defineSymbol(math, main, mathord, "\u03c4", "\\tau");
+defineSymbol(math, main, mathord, "\u03c5", "\\upsilon");
+defineSymbol(math, main, mathord, "\u03d5", "\\phi");
+defineSymbol(math, main, mathord, "\u03c7", "\\chi");
+defineSymbol(math, main, mathord, "\u03c8", "\\psi");
+defineSymbol(math, main, mathord, "\u03c9", "\\omega");
+defineSymbol(math, main, mathord, "\u03b5", "\\varepsilon");
+defineSymbol(math, main, mathord, "\u03d1", "\\vartheta");
+defineSymbol(math, main, mathord, "\u03d6", "\\varpi");
+defineSymbol(math, main, mathord, "\u03f1", "\\varrho");
+defineSymbol(math, main, mathord, "\u03c2", "\\varsigma");
+defineSymbol(math, main, mathord, "\u03c6", "\\varphi");
+defineSymbol(math, main, bin, "\u2217", "*");
+defineSymbol(math, main, bin, "+", "+");
+defineSymbol(math, main, bin, "\u2212", "-");
+defineSymbol(math, main, bin, "\u22c5", "\\cdot");
+defineSymbol(math, main, bin, "\u2218", "\\circ");
+defineSymbol(math, main, bin, "\u00f7", "\\div");
+defineSymbol(math, main, bin, "\u00b1", "\\pm");
+defineSymbol(math, main, bin, "\u00d7", "\\times");
+defineSymbol(math, main, bin, "\u2229", "\\cap");
+defineSymbol(math, main, bin, "\u222a", "\\cup");
+defineSymbol(math, main, bin, "\u2216", "\\setminus");
+defineSymbol(math, main, bin, "\u2227", "\\land");
+defineSymbol(math, main, bin, "\u2228", "\\lor");
+defineSymbol(math, main, bin, "\u2227", "\\wedge");
+defineSymbol(math, main, bin, "\u2228", "\\vee");
+defineSymbol(math, main, textord, "\u221a", "\\surd");
+defineSymbol(math, main, open, "(", "(");
+defineSymbol(math, main, open, "[", "[");
+defineSymbol(math, main, open, "\u27e8", "\\langle");
+defineSymbol(math, main, open, "\u2223", "\\lvert");
+defineSymbol(math, main, open, "\u2225", "\\lVert");
+defineSymbol(math, main, close, ")", ")");
+defineSymbol(math, main, close, "]", "]");
+defineSymbol(math, main, close, "?", "?");
+defineSymbol(math, main, close, "!", "!");
+defineSymbol(math, main, close, "\u27e9", "\\rangle");
+defineSymbol(math, main, close, "\u2223", "\\rvert");
+defineSymbol(math, main, close, "\u2225", "\\rVert");
+defineSymbol(math, main, rel, "=", "=");
+defineSymbol(math, main, rel, "<", "<");
+defineSymbol(math, main, rel, ">", ">");
+defineSymbol(math, main, rel, ":", ":");
+defineSymbol(math, main, rel, "\u2248", "\\approx");
+defineSymbol(math, main, rel, "\u2245", "\\cong");
+defineSymbol(math, main, rel, "\u2265", "\\ge");
+defineSymbol(math, main, rel, "\u2265", "\\geq");
+defineSymbol(math, main, rel, "\u2190", "\\gets");
+defineSymbol(math, main, rel, ">", "\\gt");
+defineSymbol(math, main, rel, "\u2208", "\\in");
+defineSymbol(math, main, rel, "\u2209", "\\notin");
+defineSymbol(math, main, rel, "\u2282", "\\subset");
+defineSymbol(math, main, rel, "\u2283", "\\supset");
+defineSymbol(math, main, rel, "\u2286", "\\subseteq");
+defineSymbol(math, main, rel, "\u2287", "\\supseteq");
+defineSymbol(math, ams, rel, "\u2288", "\\nsubseteq");
+defineSymbol(math, ams, rel, "\u2289", "\\nsupseteq");
+defineSymbol(math, main, rel, "\u22a8", "\\models");
+defineSymbol(math, main, rel, "\u2190", "\\leftarrow");
+defineSymbol(math, main, rel, "\u2264", "\\le");
+defineSymbol(math, main, rel, "\u2264", "\\leq");
+defineSymbol(math, main, rel, "<", "\\lt");
+defineSymbol(math, main, rel, "\u2260", "\\ne");
+defineSymbol(math, main, rel, "\u2260", "\\neq");
+defineSymbol(math, main, rel, "\u2192", "\\rightarrow");
+defineSymbol(math, main, rel, "\u2192", "\\to");
+defineSymbol(math, ams, rel, "\u2271", "\\ngeq");
+defineSymbol(math, ams, rel, "\u2270", "\\nleq");
+defineSymbol(math, main, spacing, null, "\\!");
+defineSymbol(math, main, spacing, "\u00a0", "\\ ");
+defineSymbol(math, main, spacing, "\u00a0", "~");
+defineSymbol(math, main, spacing, null, "\\,");
+defineSymbol(math, main, spacing, null, "\\:");
+defineSymbol(math, main, spacing, null, "\\;");
+defineSymbol(math, main, spacing, null, "\\enspace");
+defineSymbol(math, main, spacing, null, "\\qquad");
+defineSymbol(math, main, spacing, null, "\\quad");
+defineSymbol(math, main, spacing, "\u00a0", "\\space");
+defineSymbol(math, main, punct, ",", ",");
+defineSymbol(math, main, punct, ";", ";");
+defineSymbol(math, main, punct, ":", "\\colon");
+defineSymbol(math, ams, bin, "\u22bc", "\\barwedge");
+defineSymbol(math, ams, bin, "\u22bb", "\\veebar");
+defineSymbol(math, main, bin, "\u2299", "\\odot");
+defineSymbol(math, main, bin, "\u2295", "\\oplus");
+defineSymbol(math, main, bin, "\u2297", "\\otimes");
+defineSymbol(math, main, textord, "\u2202", "\\partial");
+defineSymbol(math, main, bin, "\u2298", "\\oslash");
+defineSymbol(math, ams, bin, "\u229a", "\\circledcirc");
+defineSymbol(math, ams, bin, "\u22a1", "\\boxdot");
+defineSymbol(math, main, bin, "\u25b3", "\\bigtriangleup");
+defineSymbol(math, main, bin, "\u25bd", "\\bigtriangledown");
+defineSymbol(math, main, bin, "\u2020", "\\dagger");
+defineSymbol(math, main, bin, "\u22c4", "\\diamond");
+defineSymbol(math, main, bin, "\u22c6", "\\star");
+defineSymbol(math, main, bin, "\u25c3", "\\triangleleft");
+defineSymbol(math, main, bin, "\u25b9", "\\triangleright");
+defineSymbol(math, main, open, "{", "\\{");
+defineSymbol(text, main, textord, "{", "\\{");
+defineSymbol(math, main, close, "}", "\\}");
+defineSymbol(text, main, textord, "}", "\\}");
+defineSymbol(math, main, open, "{", "\\lbrace");
+defineSymbol(math, main, close, "}", "\\rbrace");
+defineSymbol(math, main, open, "[", "\\lbrack");
+defineSymbol(math, main, close, "]", "\\rbrack");
+defineSymbol(math, main, open, "\u230a", "\\lfloor");
+defineSymbol(math, main, close, "\u230b", "\\rfloor");
+defineSymbol(math, main, open, "\u2308", "\\lceil");
+defineSymbol(math, main, close, "\u2309", "\\rceil");
+defineSymbol(math, main, textord, "\\", "\\backslash");
+defineSymbol(math, main, textord, "\u2223", "|");
+defineSymbol(math, main, textord, "\u2223", "\\vert");
+defineSymbol(math, main, textord, "\u2225", "\\|");
+defineSymbol(math, main, textord, "\u2225", "\\Vert");
+defineSymbol(math, main, rel, "\u2191", "\\uparrow");
+defineSymbol(math, main, rel, "\u21d1", "\\Uparrow");
+defineSymbol(math, main, rel, "\u2193", "\\downarrow");
+defineSymbol(math, main, rel, "\u21d3", "\\Downarrow");
+defineSymbol(math, main, rel, "\u2195", "\\updownarrow");
+defineSymbol(math, main, rel, "\u21d5", "\\Updownarrow");
+defineSymbol(math, math, op, "\u2210", "\\coprod");
+defineSymbol(math, math, op, "\u22c1", "\\bigvee");
+defineSymbol(math, math, op, "\u22c0", "\\bigwedge");
+defineSymbol(math, math, op, "\u2a04", "\\biguplus");
+defineSymbol(math, math, op, "\u22c2", "\\bigcap");
+defineSymbol(math, math, op, "\u22c3", "\\bigcup");
+defineSymbol(math, math, op, "\u222b", "\\int");
+defineSymbol(math, math, op, "\u222b", "\\intop");
+defineSymbol(math, math, op, "\u222c", "\\iint");
+defineSymbol(math, math, op, "\u222d", "\\iiint");
+defineSymbol(math, math, op, "\u220f", "\\prod");
+defineSymbol(math, math, op, "\u2211", "\\sum");
+defineSymbol(math, math, op, "\u2a02", "\\bigotimes");
+defineSymbol(math, math, op, "\u2a01", "\\bigoplus");
+defineSymbol(math, math, op, "\u2a00", "\\bigodot");
+defineSymbol(math, math, op, "\u222e", "\\oint");
+defineSymbol(math, math, op, "\u2a06", "\\bigsqcup");
+defineSymbol(math, math, op, "\u222b", "\\smallint");
+defineSymbol(text, main, inner, "\u2026", "\\textellipsis");
+defineSymbol(math, main, inner, "\u2026", "\\mathellipsis");
+defineSymbol(text, main, inner, "\u2026", "\\ldots");
+defineSymbol(math, main, inner, "\u2026", "\\ldots");
+defineSymbol(math, main, inner, "\u22ef", "\\cdots");
+defineSymbol(math, main, inner, "\u22f1", "\\ddots");
+defineSymbol(math, main, textord, "\u22ee", "\\vdots");
+defineSymbol(math, main, accent, "\u00b4", "\\acute");
+defineSymbol(math, main, accent, "\u0060", "\\grave");
+defineSymbol(math, main, accent, "\u00a8", "\\ddot");
+defineSymbol(math, main, accent, "\u007e", "\\tilde");
+defineSymbol(math, main, accent, "\u00af", "\\bar");
+defineSymbol(math, main, accent, "\u02d8", "\\breve");
+defineSymbol(math, main, accent, "\u02c7", "\\check");
+defineSymbol(math, main, accent, "\u005e", "\\hat");
+defineSymbol(math, main, accent, "\u20d7", "\\vec");
+defineSymbol(math, main, accent, "\u02d9", "\\dot");
+defineSymbol(math, main, mathord, "\u0131", "\\imath");
+defineSymbol(math, main, mathord, "\u0237", "\\jmath");
+
+defineSymbol(text, main, textord, "\u2013", "--");
+defineSymbol(text, main, textord, "\u2014", "---");
+defineSymbol(text, main, textord, "\u2018", "`");
+defineSymbol(text, main, textord, "\u2019", "'");
+defineSymbol(text, main, textord, "\u201c", "``");
+defineSymbol(text, main, textord, "\u201d", "''");
+defineSymbol(math, main, textord, "\u00b0", "\\degree");
+defineSymbol(text, main, textord, "\u00b0", "\\degree");
+defineSymbol(math, main, mathord, "\u00a3", "\\pounds");
+defineSymbol(math, ams, textord, "\u2720", "\\maltese");
+defineSymbol(text, ams, textord, "\u2720", "\\maltese");
+
+defineSymbol(text, main, spacing, "\u00a0", "\\ ");
+defineSymbol(text, main, spacing, "\u00a0", " ");
+defineSymbol(text, main, spacing, "\u00a0", "~");
+
+// There are lots of symbols which are the same, so we add them in afterwards.
+var i;
+var ch;
+
+// All of these are textords in math mode
+var mathTextSymbols = "0123456789/@.\"";
+for (i = 0; i < mathTextSymbols.length; i++) {
+    ch = mathTextSymbols.charAt(i);
+    defineSymbol(math, main, textord, ch, ch);
+}
+
+// All of these are textords in text mode
+var textSymbols = "0123456789!@*()-=+[]\";:?/.,";
+for (i = 0; i < textSymbols.length; i++) {
+    ch = textSymbols.charAt(i);
+    defineSymbol(text, main, textord, ch, ch);
+}
+
+// All of these are textords in text mode, and mathords in math mode
+var letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+for (i = 0; i < letters.length; i++) {
+    ch = letters.charAt(i);
+    defineSymbol(math, main, mathord, ch, ch);
+    defineSymbol(text, main, textord, ch, ch);
+}
+
+// Latin-1 letters
+for (i = 0x00C0; i <= 0x00D6; i++) {
+    ch = String.fromCharCode(i);
+    defineSymbol(text, main, textord, ch, ch);
+}
+
+for (i = 0x00D8; i <= 0x00F6; i++) {
+    ch = String.fromCharCode(i);
+    defineSymbol(text, main, textord, ch, ch);
+}
+
+for (i = 0x00F8; i <= 0x00FF; i++) {
+    ch = String.fromCharCode(i);
+    defineSymbol(text, main, textord, ch, ch);
+}
+
+// Cyrillic
+for (i = 0x0410; i <= 0x044F; i++) {
+    ch = String.fromCharCode(i);
+    defineSymbol(text, main, textord, ch, ch);
+}
+
+// Unicode versions of existing characters
+defineSymbol(text, main, textord, "\u2013", "–");
+defineSymbol(text, main, textord, "\u2014", "—");
+defineSymbol(text, main, textord, "\u2018", "‘");
+defineSymbol(text, main, textord, "\u2019", "’");
+defineSymbol(text, main, textord, "\u201c", "“");
+defineSymbol(text, main, textord, "\u201d", "”");
+});
+
+var domTree$1 = domTree$2;
+var fontMetrics$3 = fontMetrics$1;
+var symbols = symbols$1;
+var utils$2 = utils$4;
+
+var greekCapitals = [
+    "\\Gamma",
+    "\\Delta",
+    "\\Theta",
+    "\\Lambda",
+    "\\Xi",
+    "\\Pi",
+    "\\Sigma",
+    "\\Upsilon",
+    "\\Phi",
+    "\\Psi",
+    "\\Omega"
+];
+
+// The following have to be loaded from Main-Italic font, using class mainit
+var mainitLetters = [
+    "\u0131",   // dotless i, \imath
+    "\u0237",   // dotless j, \jmath
+    "\u00a3"   // \pounds
+];
+
+/**
+ * Makes a symbolNode after translation via the list of symbols in symbols.js.
+ * Correctly pulls out metrics for the character, and optionally takes a list of
+ * classes to be attached to the node.
+ *
+ * TODO: make argument order closer to makeSpan
+ * TODO: add a separate argument for math class (e.g. `mop`, `mbin`), which
+ * should if present come first in `classes`.
+ */
+var makeSymbol = function(value, fontFamily, mode, options, classes) {
+    // Replace the value with its replaced value from symbol.js
+    if (symbols[mode][value] && symbols[mode][value].replace) {
+        value = symbols[mode][value].replace;
+    }
+
+    var metrics = fontMetrics$3.getCharacterMetrics(value, fontFamily);
+
+    var symbolNode;
+    if (metrics) {
+        var italic = metrics.italic;
+        if (mode === "text") {
+            italic = 0;
+        }
+        symbolNode = new domTree$1.symbolNode(
+            value, metrics.height, metrics.depth, italic, metrics.skew,
+            classes);
+    } else {
+        // TODO(emily): Figure out a good way to only print this in development
+        typeof console !== "undefined" && console.warn(
+            "No character metrics for '" + value + "' in style '" +
+                fontFamily + "'");
+        symbolNode = new domTree$1.symbolNode(value, 0, 0, 0, 0, classes);
+    }
+
+    if (options) {
+        if (options.style.isTight()) {
+            symbolNode.classes.push("mtight");
+        }
+        if (options.getColor()) {
+            symbolNode.style.color = options.getColor();
+        }
+    }
+
+    return symbolNode;
+};
+
+/**
+ * Makes a symbol in Main-Regular or AMS-Regular.
+ * Used for rel, bin, open, close, inner, and punct.
+ */
+var mathsym = function(value, mode, options, classes) {
+    // Decide what font to render the symbol in by its entry in the symbols
+    // table.
+    // Have a special case for when the value = \ because the \ is used as a
+    // textord in unsupported command errors but cannot be parsed as a regular
+    // text ordinal and is therefore not present as a symbol in the symbols
+    // table for text
+    if (value === "\\" || symbols[mode][value].font === "main") {
+        return makeSymbol(value, "Main-Regular", mode, options, classes);
+    } else {
+        return makeSymbol(
+            value, "AMS-Regular", mode, options, classes.concat(["amsrm"]));
+    }
+};
+
+/**
+ * Makes a symbol in the default font for mathords and textords.
+ */
+var mathDefault = function(value, mode, options, classes, type) {
+    if (type === "mathord") {
+        return mathit(value, mode, options, classes);
+    } else if (type === "textord") {
+        return makeSymbol(
+            value, "Main-Regular", mode, options, classes.concat(["mathrm"]));
+    } else {
+        throw new Error("unexpected type: " + type + " in mathDefault");
+    }
+};
+
+/**
+ * Makes a symbol in the italic math font.
+ */
+var mathit = function(value, mode, options, classes) {
+    if (/[0-9]/.test(value.charAt(0)) ||
+            // glyphs for \imath and \jmath do not exist in Math-Italic so we
+            // need to use Main-Italic instead
+            utils$2.contains(mainitLetters, value) ||
+            utils$2.contains(greekCapitals, value)) {
+        return makeSymbol(
+            value, "Main-Italic", mode, options, classes.concat(["mainit"]));
+    } else {
+        return makeSymbol(
+            value, "Math-Italic", mode, options, classes.concat(["mathit"]));
+    }
+};
+
+/**
+ * Makes either a mathord or textord in the correct font and color.
+ */
+var makeOrd = function(group, options, type) {
+    var mode = group.mode;
+    var value = group.value;
+    if (symbols[mode][value] && symbols[mode][value].replace) {
+        value = symbols[mode][value].replace;
+    }
+
+    var classes = ["mord"];
+
+    var font = options.font;
+    if (font) {
+        if (font === "mathit" || utils$2.contains(mainitLetters, value)) {
+            return mathit(value, mode, options, classes);
+        } else {
+            var fontName = fontMap[font].fontName;
+            if (fontMetrics$3.getCharacterMetrics(value, fontName)) {
+                return makeSymbol(
+                    value, fontName, mode, options, classes.concat([font]));
+            } else {
+                return mathDefault(value, mode, options, classes, type);
+            }
+        }
+    } else {
+        return mathDefault(value, mode, options, classes, type);
+    }
+};
+
+/**
+ * Calculate the height, depth, and maxFontSize of an element based on its
+ * children.
+ */
+var sizeElementFromChildren = function(elem) {
+    var height = 0;
+    var depth = 0;
+    var maxFontSize = 0;
+
+    if (elem.children) {
+        for (var i = 0; i < elem.children.length; i++) {
+            if (elem.children[i].height > height) {
+                height = elem.children[i].height;
+            }
+            if (elem.children[i].depth > depth) {
+                depth = elem.children[i].depth;
+            }
+            if (elem.children[i].maxFontSize > maxFontSize) {
+                maxFontSize = elem.children[i].maxFontSize;
+            }
+        }
+    }
+
+    elem.height = height;
+    elem.depth = depth;
+    elem.maxFontSize = maxFontSize;
+};
+
+/**
+ * Makes a span with the given list of classes, list of children, and options.
+ *
+ * TODO: Ensure that `options` is always provided (currently some call sites
+ * don't pass it).
+ * TODO: add a separate argument for math class (e.g. `mop`, `mbin`), which
+ * should if present come first in `classes`.
+ */
+var makeSpan$2 = function(classes, children, options) {
+    var span = new domTree$1.span(classes, children, options);
+
+    sizeElementFromChildren(span);
+
+    return span;
+};
+
+/**
+ * Prepends the given children to the given span, updating height, depth, and
+ * maxFontSize.
+ */
+var prependChildren = function(span, children) {
+    span.children = children.concat(span.children);
+
+    sizeElementFromChildren(span);
+};
+
+/**
+ * Makes a document fragment with the given list of children.
+ */
+var makeFragment = function(children) {
+    var fragment = new domTree$1.documentFragment(children);
+
+    sizeElementFromChildren(fragment);
+
+    return fragment;
+};
+
+/**
+ * Makes an element placed in each of the vlist elements to ensure that each
+ * element has the same max font size. To do this, we create a zero-width space
+ * with the correct font size.
+ */
+var makeFontSizer = function(options, fontSize) {
+    var fontSizeInner = makeSpan$2([], [new domTree$1.symbolNode("\u200b")]);
+    fontSizeInner.style.fontSize =
+        (fontSize / options.style.sizeMultiplier) + "em";
+
+    var fontSizer = makeSpan$2(
+        ["fontsize-ensurer", "reset-" + options.size, "size5"],
+        [fontSizeInner]);
+
+    return fontSizer;
+};
+
+/**
+ * Makes a vertical list by stacking elements and kerns on top of each other.
+ * Allows for many different ways of specifying the positioning method.
+ *
+ * Arguments:
+ *  - children: A list of child or kern nodes to be stacked on top of each other
+ *              (i.e. the first element will be at the bottom, and the last at
+ *              the top). Element nodes are specified as
+ *                {type: "elem", elem: node}
+ *              while kern nodes are specified as
+ *                {type: "kern", size: size}
+ *  - positionType: The method by which the vlist should be positioned. Valid
+ *                  values are:
+ *                   - "individualShift": The children list only contains elem
+ *                                        nodes, and each node contains an extra
+ *                                        "shift" value of how much it should be
+ *                                        shifted (note that shifting is always
+ *                                        moving downwards). positionData is
+ *                                        ignored.
+ *                   - "top": The positionData specifies the topmost point of
+ *                            the vlist (note this is expected to be a height,
+ *                            so positive values move up)
+ *                   - "bottom": The positionData specifies the bottommost point
+ *                               of the vlist (note this is expected to be a
+ *                               depth, so positive values move down
+ *                   - "shift": The vlist will be positioned such that its
+ *                              baseline is positionData away from the baseline
+ *                              of the first child. Positive values move
+ *                              downwards.
+ *                   - "firstBaseline": The vlist will be positioned such that
+ *                                      its baseline is aligned with the
+ *                                      baseline of the first child.
+ *                                      positionData is ignored. (this is
+ *                                      equivalent to "shift" with
+ *                                      positionData=0)
+ *  - positionData: Data used in different ways depending on positionType
+ *  - options: An Options object
+ *
+ */
+var makeVList = function(children, positionType, positionData, options) {
+    var depth;
+    var currPos;
+    var i;
+    if (positionType === "individualShift") {
+        var oldChildren = children;
+        children = [oldChildren[0]];
+
+        // Add in kerns to the list of children to get each element to be
+        // shifted to the correct specified shift
+        depth = -oldChildren[0].shift - oldChildren[0].elem.depth;
+        currPos = depth;
+        for (i = 1; i < oldChildren.length; i++) {
+            var diff = -oldChildren[i].shift - currPos -
+                oldChildren[i].elem.depth;
+            var size = diff -
+                (oldChildren[i - 1].elem.height +
+                 oldChildren[i - 1].elem.depth);
+
+            currPos = currPos + diff;
+
+            children.push({type: "kern", size: size});
+            children.push(oldChildren[i]);
+        }
+    } else if (positionType === "top") {
+        // We always start at the bottom, so calculate the bottom by adding up
+        // all the sizes
+        var bottom = positionData;
+        for (i = 0; i < children.length; i++) {
+            if (children[i].type === "kern") {
+                bottom -= children[i].size;
+            } else {
+                bottom -= children[i].elem.height + children[i].elem.depth;
+            }
+        }
+        depth = bottom;
+    } else if (positionType === "bottom") {
+        depth = -positionData;
+    } else if (positionType === "shift") {
+        depth = -children[0].elem.depth - positionData;
+    } else if (positionType === "firstBaseline") {
+        depth = -children[0].elem.depth;
+    } else {
+        depth = 0;
+    }
+
+    // Make the fontSizer
+    var maxFontSize = 0;
+    for (i = 0; i < children.length; i++) {
+        if (children[i].type === "elem") {
+            maxFontSize = Math.max(maxFontSize, children[i].elem.maxFontSize);
+        }
+    }
+    var fontSizer = makeFontSizer(options, maxFontSize);
+
+    // Create a new list of actual children at the correct offsets
+    var realChildren = [];
+    currPos = depth;
+    for (i = 0; i < children.length; i++) {
+        if (children[i].type === "kern") {
+            currPos += children[i].size;
+        } else {
+            var child = children[i].elem;
+
+            var shift = -child.depth - currPos;
+            currPos += child.height + child.depth;
+
+            var childWrap = makeSpan$2([], [fontSizer, child]);
+            childWrap.height -= shift;
+            childWrap.depth += shift;
+            childWrap.style.top = shift + "em";
+
+            realChildren.push(childWrap);
+        }
+    }
+
+    // Add in an element at the end with no offset to fix the calculation of
+    // baselines in some browsers (namely IE, sometimes safari)
+    var baselineFix = makeSpan$2(
+        ["baseline-fix"], [fontSizer, new domTree$1.symbolNode("\u200b")]);
+    realChildren.push(baselineFix);
+
+    var vlist = makeSpan$2(["vlist"], realChildren);
+    // Fix the final height and depth, in case there were kerns at the ends
+    // since the makeSpan calculation won't take that in to account.
+    vlist.height = Math.max(currPos, vlist.height);
+    vlist.depth = Math.max(-depth, vlist.depth);
+    return vlist;
+};
+
+// A table of size -> font size for the different sizing functions
+var sizingMultiplier = {
+    size1: 0.5,
+    size2: 0.7,
+    size3: 0.8,
+    size4: 0.9,
+    size5: 1.0,
+    size6: 1.2,
+    size7: 1.44,
+    size8: 1.73,
+    size9: 2.07,
+    size10: 2.49
+};
+
+// A map of spacing functions to their attributes, like size and corresponding
+// CSS class
+var spacingFunctions = {
+    "\\qquad": {
+        size: "2em",
+        className: "qquad"
+    },
+    "\\quad": {
+        size: "1em",
+        className: "quad"
+    },
+    "\\enspace": {
+        size: "0.5em",
+        className: "enspace"
+    },
+    "\\;": {
+        size: "0.277778em",
+        className: "thickspace"
+    },
+    "\\:": {
+        size: "0.22222em",
+        className: "mediumspace"
+    },
+    "\\,": {
+        size: "0.16667em",
+        className: "thinspace"
+    },
+    "\\!": {
+        size: "-0.16667em",
+        className: "negativethinspace"
+    }
+};
+
+/**
+ * Maps TeX font commands to objects containing:
+ * - variant: string used for "mathvariant" attribute in buildMathML.js
+ * - fontName: the "style" parameter to fontMetrics.getCharacterMetrics
+ */
+// A map between tex font commands an MathML mathvariant attribute values
+var fontMap = {
+    // styles
+    "mathbf": {
+        variant: "bold",
+        fontName: "Main-Bold"
+    },
+    "mathrm": {
+        variant: "normal",
+        fontName: "Main-Regular"
+    },
+    "textit": {
+        variant: "italic",
+        fontName: "Main-Italic"
+    },
+
+    // "mathit" is missing because it requires the use of two fonts: Main-Italic
+    // and Math-Italic.  This is handled by a special case in makeOrd which ends
+    // up calling mathit.
+
+    // families
+    "mathbb": {
+        variant: "double-struck",
+        fontName: "AMS-Regular"
+    },
+    "mathcal": {
+        variant: "script",
+        fontName: "Caligraphic-Regular"
+    },
+    "mathfrak": {
+        variant: "fraktur",
+        fontName: "Fraktur-Regular"
+    },
+    "mathscr": {
+        variant: "script",
+        fontName: "Script-Regular"
+    },
+    "mathsf": {
+        variant: "sans-serif",
+        fontName: "SansSerif-Regular"
+    },
+    "mathtt": {
+        variant: "monospace",
+        fontName: "Typewriter-Regular"
+    }
+};
+
+var buildCommon$2 = {
+    fontMap: fontMap,
+    makeSymbol: makeSymbol,
+    mathsym: mathsym,
+    makeSpan: makeSpan$2,
+    makeFragment: makeFragment,
+    makeVList: makeVList,
+    makeOrd: makeOrd,
+    prependChildren: prependChildren,
+    sizingMultiplier: sizingMultiplier,
+    spacingFunctions: spacingFunctions
+};
+
+var ParseError$3 = ParseError_1;
+var Style$4 = Style_1;
+
+var buildCommon$4 = buildCommon$2;
+var fontMetrics$4 = fontMetrics$1;
+var symbols$3 = symbols$1;
+var utils$6 = utils$4;
+
+var makeSpan$3 = buildCommon$4.makeSpan;
+
+/**
+ * Get the metrics for a given symbol and font, after transformation (i.e.
+ * after following replacement from symbols.js)
+ */
+var getMetrics = function(symbol, font) {
+    if (symbols$3.math[symbol] && symbols$3.math[symbol].replace) {
+        return fontMetrics$4.getCharacterMetrics(
+            symbols$3.math[symbol].replace, font);
+    } else {
+        return fontMetrics$4.getCharacterMetrics(
+            symbol, font);
+    }
+};
+
+/**
+ * Builds a symbol in the given font size (note size is an integer)
+ */
+var mathrmSize = function(value, size, mode, options) {
+    return buildCommon$4.makeSymbol(value, "Size" + size + "-Regular",
+        mode, options);
+};
+
+/**
+ * Puts a delimiter span in a given style, and adds appropriate height, depth,
+ * and maxFontSizes.
+ */
+var styleWrap = function(delim, toStyle, options, classes) {
+    classes = classes || [];
+    var span = makeSpan$3(
+        classes.concat(["style-wrap", options.style.reset(), toStyle.cls()]),
+        [delim], options);
+
+    var multiplier = toStyle.sizeMultiplier / options.style.sizeMultiplier;
+
+    span.height *= multiplier;
+    span.depth *= multiplier;
+    span.maxFontSize = toStyle.sizeMultiplier;
+
+    return span;
+};
+
+/**
+ * Makes a small delimiter. This is a delimiter that comes in the Main-Regular
+ * font, but is restyled to either be in textstyle, scriptstyle, or
+ * scriptscriptstyle.
+ */
+var makeSmallDelim = function(delim, style, center, options, mode, classes) {
+    var text = buildCommon$4.makeSymbol(delim, "Main-Regular", mode, options);
+
+    var span = styleWrap(text, style, options, classes);
+
+    if (center) {
+        var shift =
+            (1 - options.style.sizeMultiplier / style.sizeMultiplier) *
+            options.style.metrics.axisHeight;
+
+        span.style.top = shift + "em";
+        span.height -= shift;
+        span.depth += shift;
+    }
+
+    return span;
+};
+
+/**
+ * Makes a large delimiter. This is a delimiter that comes in the Size1, Size2,
+ * Size3, or Size4 fonts. It is always rendered in textstyle.
+ */
+var makeLargeDelim = function(delim, size, center, options, mode, classes) {
+    var inner = mathrmSize(delim, size, mode, options);
+
+    var span = styleWrap(
+        makeSpan$3(["delimsizing", "size" + size], [inner], options),
+        Style$4.TEXT, options, classes);
+
+    if (center) {
+        var shift = (1 - options.style.sizeMultiplier) *
+            options.style.metrics.axisHeight;
+
+        span.style.top = shift + "em";
+        span.height -= shift;
+        span.depth += shift;
+    }
+
+    return span;
+};
+
+/**
+ * Make an inner span with the given offset and in the given font. This is used
+ * in `makeStackedDelim` to make the stacking pieces for the delimiter.
+ */
+var makeInner = function(symbol, font, mode) {
+    var sizeClass;
+    // Apply the correct CSS class to choose the right font.
+    if (font === "Size1-Regular") {
+        sizeClass = "delim-size1";
+    } else if (font === "Size4-Regular") {
+        sizeClass = "delim-size4";
+    }
+
+    var inner = makeSpan$3(
+        ["delimsizinginner", sizeClass],
+        [makeSpan$3([], [buildCommon$4.makeSymbol(symbol, font, mode)])]);
+
+    // Since this will be passed into `makeVList` in the end, wrap the element
+    // in the appropriate tag that VList uses.
+    return {type: "elem", elem: inner};
+};
+
+/**
+ * Make a stacked delimiter out of a given delimiter, with the total height at
+ * least `heightTotal`. This routine is mentioned on page 442 of the TeXbook.
+ */
+var makeStackedDelim = function(delim, heightTotal, center, options, mode,
+                                classes) {
+    // There are four parts, the top, an optional middle, a repeated part, and a
+    // bottom.
+    var top;
+    var middle;
+    var repeat;
+    var bottom;
+    top = repeat = bottom = delim;
+    middle = null;
+    // Also keep track of what font the delimiters are in
+    var font = "Size1-Regular";
+
+    // We set the parts and font based on the symbol. Note that we use
+    // '\u23d0' instead of '|' and '\u2016' instead of '\\|' for the
+    // repeats of the arrows
+    if (delim === "\\uparrow") {
+        repeat = bottom = "\u23d0";
+    } else if (delim === "\\Uparrow") {
+        repeat = bottom = "\u2016";
+    } else if (delim === "\\downarrow") {
+        top = repeat = "\u23d0";
+    } else if (delim === "\\Downarrow") {
+        top = repeat = "\u2016";
+    } else if (delim === "\\updownarrow") {
+        top = "\\uparrow";
+        repeat = "\u23d0";
+        bottom = "\\downarrow";
+    } else if (delim === "\\Updownarrow") {
+        top = "\\Uparrow";
+        repeat = "\u2016";
+        bottom = "\\Downarrow";
+    } else if (delim === "[" || delim === "\\lbrack") {
+        top = "\u23a1";
+        repeat = "\u23a2";
+        bottom = "\u23a3";
+        font = "Size4-Regular";
+    } else if (delim === "]" || delim === "\\rbrack") {
+        top = "\u23a4";
+        repeat = "\u23a5";
+        bottom = "\u23a6";
+        font = "Size4-Regular";
+    } else if (delim === "\\lfloor") {
+        repeat = top = "\u23a2";
+        bottom = "\u23a3";
+        font = "Size4-Regular";
+    } else if (delim === "\\lceil") {
+        top = "\u23a1";
+        repeat = bottom = "\u23a2";
+        font = "Size4-Regular";
+    } else if (delim === "\\rfloor") {
+        repeat = top = "\u23a5";
+        bottom = "\u23a6";
+        font = "Size4-Regular";
+    } else if (delim === "\\rceil") {
+        top = "\u23a4";
+        repeat = bottom = "\u23a5";
+        font = "Size4-Regular";
+    } else if (delim === "(") {
+        top = "\u239b";
+        repeat = "\u239c";
+        bottom = "\u239d";
+        font = "Size4-Regular";
+    } else if (delim === ")") {
+        top = "\u239e";
+        repeat = "\u239f";
+        bottom = "\u23a0";
+        font = "Size4-Regular";
+    } else if (delim === "\\{" || delim === "\\lbrace") {
+        top = "\u23a7";
+        middle = "\u23a8";
+        bottom = "\u23a9";
+        repeat = "\u23aa";
+        font = "Size4-Regular";
+    } else if (delim === "\\}" || delim === "\\rbrace") {
+        top = "\u23ab";
+        middle = "\u23ac";
+        bottom = "\u23ad";
+        repeat = "\u23aa";
+        font = "Size4-Regular";
+    } else if (delim === "\\lgroup") {
+        top = "\u23a7";
+        bottom = "\u23a9";
+        repeat = "\u23aa";
+        font = "Size4-Regular";
+    } else if (delim === "\\rgroup") {
+        top = "\u23ab";
+        bottom = "\u23ad";
+        repeat = "\u23aa";
+        font = "Size4-Regular";
+    } else if (delim === "\\lmoustache") {
+        top = "\u23a7";
+        bottom = "\u23ad";
+        repeat = "\u23aa";
+        font = "Size4-Regular";
+    } else if (delim === "\\rmoustache") {
+        top = "\u23ab";
+        bottom = "\u23a9";
+        repeat = "\u23aa";
+        font = "Size4-Regular";
+    } else if (delim === "\\surd") {
+        top = "\ue001";
+        bottom = "\u23b7";
+        repeat = "\ue000";
+        font = "Size4-Regular";
+    }
+
+    // Get the metrics of the four sections
+    var topMetrics = getMetrics(top, font);
+    var topHeightTotal = topMetrics.height + topMetrics.depth;
+    var repeatMetrics = getMetrics(repeat, font);
+    var repeatHeightTotal = repeatMetrics.height + repeatMetrics.depth;
+    var bottomMetrics = getMetrics(bottom, font);
+    var bottomHeightTotal = bottomMetrics.height + bottomMetrics.depth;
+    var middleHeightTotal = 0;
+    var middleFactor = 1;
+    if (middle !== null) {
+        var middleMetrics = getMetrics(middle, font);
+        middleHeightTotal = middleMetrics.height + middleMetrics.depth;
+        middleFactor = 2; // repeat symmetrically above and below middle
+    }
+
+    // Calcuate the minimal height that the delimiter can have.
+    // It is at least the size of the top, bottom, and optional middle combined.
+    var minHeight = topHeightTotal + bottomHeightTotal + middleHeightTotal;
+
+    // Compute the number of copies of the repeat symbol we will need
+    var repeatCount = Math.ceil(
+        (heightTotal - minHeight) / (middleFactor * repeatHeightTotal));
+
+    // Compute the total height of the delimiter including all the symbols
+    var realHeightTotal =
+        minHeight + repeatCount * middleFactor * repeatHeightTotal;
+
+    // The center of the delimiter is placed at the center of the axis. Note
+    // that in this context, "center" means that the delimiter should be
+    // centered around the axis in the current style, while normally it is
+    // centered around the axis in textstyle.
+    var axisHeight = options.style.metrics.axisHeight;
+    if (center) {
+        axisHeight *= options.style.sizeMultiplier;
+    }
+    // Calculate the depth
+    var depth = realHeightTotal / 2 - axisHeight;
+
+    // Now, we start building the pieces that will go into the vlist
+
+    // Keep a list of the inner pieces
+    var inners = [];
+
+    // Add the bottom symbol
+    inners.push(makeInner(bottom, font, mode));
+
+    var i;
+    if (middle === null) {
+        // Add that many symbols
+        for (i = 0; i < repeatCount; i++) {
+            inners.push(makeInner(repeat, font, mode));
+        }
+    } else {
+        // When there is a middle bit, we need the middle part and two repeated
+        // sections
+        for (i = 0; i < repeatCount; i++) {
+            inners.push(makeInner(repeat, font, mode));
+        }
+        inners.push(makeInner(middle, font, mode));
+        for (i = 0; i < repeatCount; i++) {
+            inners.push(makeInner(repeat, font, mode));
+        }
+    }
+
+    // Add the top symbol
+    inners.push(makeInner(top, font, mode));
+
+    // Finally, build the vlist
+    var inner = buildCommon$4.makeVList(inners, "bottom", depth, options);
+
+    return styleWrap(
+        makeSpan$3(["delimsizing", "mult"], [inner], options),
+        Style$4.TEXT, options, classes);
+};
+
+// There are three kinds of delimiters, delimiters that stack when they become
+// too large
+var stackLargeDelimiters = [
+    "(", ")", "[", "\\lbrack", "]", "\\rbrack",
+    "\\{", "\\lbrace", "\\}", "\\rbrace",
+    "\\lfloor", "\\rfloor", "\\lceil", "\\rceil",
+    "\\surd"
+];
+
+// delimiters that always stack
+var stackAlwaysDelimiters = [
+    "\\uparrow", "\\downarrow", "\\updownarrow",
+    "\\Uparrow", "\\Downarrow", "\\Updownarrow",
+    "|", "\\|", "\\vert", "\\Vert",
+    "\\lvert", "\\rvert", "\\lVert", "\\rVert",
+    "\\lgroup", "\\rgroup", "\\lmoustache", "\\rmoustache"
+];
+
+// and delimiters that never stack
+var stackNeverDelimiters = [
+    "<", ">", "\\langle", "\\rangle", "/", "\\backslash", "\\lt", "\\gt"
+];
+
+// Metrics of the different sizes. Found by looking at TeX's output of
+// $\bigl| // \Bigl| \biggl| \Biggl| \showlists$
+// Used to create stacked delimiters of appropriate sizes in makeSizedDelim.
+var sizeToMaxHeight = [0, 1.2, 1.8, 2.4, 3.0];
+
+/**
+ * Used to create a delimiter of a specific size, where `size` is 1, 2, 3, or 4.
+ */
+var makeSizedDelim = function(delim, size, options, mode, classes) {
+    // < and > turn into \langle and \rangle in delimiters
+    if (delim === "<" || delim === "\\lt") {
+        delim = "\\langle";
+    } else if (delim === ">" || delim === "\\gt") {
+        delim = "\\rangle";
+    }
+
+    // Sized delimiters are never centered.
+    if (utils$6.contains(stackLargeDelimiters, delim) ||
+        utils$6.contains(stackNeverDelimiters, delim)) {
+        return makeLargeDelim(delim, size, false, options, mode, classes);
+    } else if (utils$6.contains(stackAlwaysDelimiters, delim)) {
+        return makeStackedDelim(
+            delim, sizeToMaxHeight[size], false, options, mode, classes);
+    } else {
+        throw new ParseError$3("Illegal delimiter: '" + delim + "'");
+    }
+};
+
+/**
+ * There are three different sequences of delimiter sizes that the delimiters
+ * follow depending on the kind of delimiter. This is used when creating custom
+ * sized delimiters to decide whether to create a small, large, or stacked
+ * delimiter.
+ *
+ * In real TeX, these sequences aren't explicitly defined, but are instead
+ * defined inside the font metrics. Since there are only three sequences that
+ * are possible for the delimiters that TeX defines, it is easier to just encode
+ * them explicitly here.
+ */
+
+// Delimiters that never stack try small delimiters and large delimiters only
+var stackNeverDelimiterSequence = [
+    {type: "small", style: Style$4.SCRIPTSCRIPT},
+    {type: "small", style: Style$4.SCRIPT},
+    {type: "small", style: Style$4.TEXT},
+    {type: "large", size: 1},
+    {type: "large", size: 2},
+    {type: "large", size: 3},
+    {type: "large", size: 4}
+];
+
+// Delimiters that always stack try the small delimiters first, then stack
+var stackAlwaysDelimiterSequence = [
+    {type: "small", style: Style$4.SCRIPTSCRIPT},
+    {type: "small", style: Style$4.SCRIPT},
+    {type: "small", style: Style$4.TEXT},
+    {type: "stack"}
+];
+
+// Delimiters that stack when large try the small and then large delimiters, and
+// stack afterwards
+var stackLargeDelimiterSequence = [
+    {type: "small", style: Style$4.SCRIPTSCRIPT},
+    {type: "small", style: Style$4.SCRIPT},
+    {type: "small", style: Style$4.TEXT},
+    {type: "large", size: 1},
+    {type: "large", size: 2},
+    {type: "large", size: 3},
+    {type: "large", size: 4},
+    {type: "stack"}
+];
+
+/**
+ * Get the font used in a delimiter based on what kind of delimiter it is.
+ */
+var delimTypeToFont = function(type) {
+    if (type.type === "small") {
+        return "Main-Regular";
+    } else if (type.type === "large") {
+        return "Size" + type.size + "-Regular";
+    } else if (type.type === "stack") {
+        return "Size4-Regular";
+    }
+};
+
+/**
+ * Traverse a sequence of types of delimiters to decide what kind of delimiter
+ * should be used to create a delimiter of the given height+depth.
+ */
+var traverseSequence = function(delim, height, sequence, options) {
+    // Here, we choose the index we should start at in the sequences. In smaller
+    // sizes (which correspond to larger numbers in style.size) we start earlier
+    // in the sequence. Thus, scriptscript starts at index 3-3=0, script starts
+    // at index 3-2=1, text starts at 3-1=2, and display starts at min(2,3-0)=2
+    var start = Math.min(2, 3 - options.style.size);
+    for (var i = start; i < sequence.length; i++) {
+        if (sequence[i].type === "stack") {
+            // This is always the last delimiter, so we just break the loop now.
+            break;
+        }
+
+        var metrics = getMetrics(delim, delimTypeToFont(sequence[i]));
+        var heightDepth = metrics.height + metrics.depth;
+
+        // Small delimiters are scaled down versions of the same font, so we
+        // account for the style change size.
+
+        if (sequence[i].type === "small") {
+            heightDepth *= sequence[i].style.sizeMultiplier;
+        }
+
+        // Check if the delimiter at this size works for the given height.
+        if (heightDepth > height) {
+            return sequence[i];
+        }
+    }
+
+    // If we reached the end of the sequence, return the last sequence element.
+    return sequence[sequence.length - 1];
+};
+
+/**
+ * Make a delimiter of a given height+depth, with optional centering. Here, we
+ * traverse the sequences, and create a delimiter that the sequence tells us to.
+ */
+var makeCustomSizedDelim = function(delim, height, center, options, mode,
+                                    classes) {
+    if (delim === "<" || delim === "\\lt") {
+        delim = "\\langle";
+    } else if (delim === ">" || delim === "\\gt") {
+        delim = "\\rangle";
+    }
+
+    // Decide what sequence to use
+    var sequence;
+    if (utils$6.contains(stackNeverDelimiters, delim)) {
+        sequence = stackNeverDelimiterSequence;
+    } else if (utils$6.contains(stackLargeDelimiters, delim)) {
+        sequence = stackLargeDelimiterSequence;
+    } else {
+        sequence = stackAlwaysDelimiterSequence;
+    }
+
+    // Look through the sequence
+    var delimType = traverseSequence(delim, height, sequence, options);
+
+    // Depending on the sequence element we decided on, call the appropriate
+    // function.
+    if (delimType.type === "small") {
+        return makeSmallDelim(delim, delimType.style, center, options, mode,
+                              classes);
+    } else if (delimType.type === "large") {
+        return makeLargeDelim(delim, delimType.size, center, options, mode,
+                              classes);
+    } else if (delimType.type === "stack") {
+        return makeStackedDelim(delim, height, center, options, mode, classes);
+    }
+};
+
+/**
+ * Make a delimiter for use with `\left` and `\right`, given a height and depth
+ * of an expression that the delimiters surround.
+ */
+var makeLeftRightDelim = function(delim, height, depth, options, mode,
+                                  classes) {
+    // We always center \left/\right delimiters, so the axis is always shifted
+    var axisHeight =
+        options.style.metrics.axisHeight * options.style.sizeMultiplier;
+
+    // Taken from TeX source, tex.web, function make_left_right
+    var delimiterFactor = 901;
+    var delimiterExtend = 5.0 / fontMetrics$4.metrics.ptPerEm;
+
+    var maxDistFromAxis = Math.max(
+        height - axisHeight, depth + axisHeight);
+
+    var totalHeight = Math.max(
+        // In real TeX, calculations are done using integral values which are
+        // 65536 per pt, or 655360 per em. So, the division here truncates in
+        // TeX but doesn't here, producing different results. If we wanted to
+        // exactly match TeX's calculation, we could do
+        //   Math.floor(655360 * maxDistFromAxis / 500) *
+        //    delimiterFactor / 655360
+        // (To see the difference, compare
+        //    x^{x^{\left(\rule{0.1em}{0.68em}\right)}}
+        // in TeX and KaTeX)
+        maxDistFromAxis / 500 * delimiterFactor,
+        2 * maxDistFromAxis - delimiterExtend);
+
+    // Finally, we defer to `makeCustomSizedDelim` with our calculated total
+    // height
+    return makeCustomSizedDelim(delim, totalHeight, true, options, mode,
+                                classes);
+};
+
+var delimiter$1 = {
+    sizedDelim: makeSizedDelim,
+    customSizedDelim: makeCustomSizedDelim,
+    leftRightDelim: makeLeftRightDelim
+};
+
+var ParseError$2 = ParseError_1;
+var Style$1 = Style_1;
+
+var buildCommon$1 = buildCommon$2;
+var delimiter = delimiter$1;
+var domTree = domTree$2;
+var fontMetrics = fontMetrics$1;
+var utils$1 = utils$4;
+
+var makeSpan$1 = buildCommon$1.makeSpan;
+
+var isSpace = function(node) {
+    return node instanceof domTree.span && node.classes[0] === "mspace";
+};
+
+// Binary atoms (first class `mbin`) change into ordinary atoms (`mord`)
+// depending on their surroundings. See TeXbook pg. 442-446, Rules 5 and 6,
+// and the text before Rule 19.
+
+var isBin = function(node) {
+    return node && node.classes[0] === "mbin";
+};
+
+var isBinLeftCanceller = function(node, isRealGroup) {
+    // TODO: This code assumes that a node's math class is the first element
+    // of its `classes` array. A later cleanup should ensure this, for
+    // instance by changing the signature of `makeSpan`.
+    if (node) {
+        return utils$1.contains(["mbin", "mopen", "mrel", "mop", "mpunct"],
+                              node.classes[0]);
+    } else {
+        return isRealGroup;
+    }
+};
+
+var isBinRightCanceller = function(node, isRealGroup) {
+    if (node) {
+        return utils$1.contains(["mrel", "mclose", "mpunct"], node.classes[0]);
+    } else {
+        return isRealGroup;
+    }
+};
+
+/**
+ * Take a list of nodes, build them in order, and return a list of the built
+ * nodes. documentFragments are flattened into their contents, so the
+ * returned list contains no fragments. `isRealGroup` is true if `expression`
+ * is a real group (no atoms will be added on either side), as opposed to
+ * a partial group (e.g. one created by \color).
+ */
+var buildExpression = function(expression, options, isRealGroup) {
+    // Parse expressions into `groups`.
+    var groups = [];
+    for (var i = 0; i < expression.length; i++) {
+        var group = expression[i];
+        var output = buildGroup(group, options);
+        if (output instanceof domTree.documentFragment) {
+            Array.prototype.push.apply(groups, output.children);
+        } else {
+            groups.push(output);
+        }
+    }
+    // At this point `groups` consists entirely of `symbolNode`s and `span`s.
+
+    // Explicit spaces (e.g., \;, \,) should be ignored with respect to atom
+    // spacing (e.g., "add thick space between mord and mrel"). Since CSS
+    // adjacency rules implement atom spacing, spaces should be invisible to
+    // CSS. So we splice them out of `groups` and into the atoms themselves.
+    var spaces = null;
+    for (i = 0; i < groups.length; i++) {
+        if (isSpace(groups[i])) {
+            spaces = spaces || [];
+            spaces.push(groups[i]);
+            groups.splice(i, 1);
+            i--;
+        } else if (spaces) {
+            if (groups[i] instanceof domTree.symbolNode) {
+                groups[i] = makeSpan$1([].concat(groups[i].classes), [groups[i]]);
+            }
+            buildCommon$1.prependChildren(groups[i], spaces);
+            spaces = null;
+        }
+    }
+    if (spaces) {
+        Array.prototype.push.apply(groups, spaces);
+    }
+
+    // Binary operators change to ordinary symbols in some contexts.
+    for (i = 0; i < groups.length; i++) {
+        if (isBin(groups[i])
+            && (isBinLeftCanceller(groups[i - 1], isRealGroup)
+                || isBinRightCanceller(groups[i + 1], isRealGroup))) {
+            groups[i].classes[0] = "mord";
+        }
+    }
+
+    return groups;
+};
+
+// Return math atom class (mclass) of a domTree.
+var getTypeOfDomTree = function(node) {
+    if (node instanceof domTree.documentFragment) {
+        if (node.children.length) {
+            return getTypeOfDomTree(
+                node.children[node.children.length - 1]);
+        }
+    } else {
+        if (utils$1.contains(["mord", "mop", "mbin", "mrel", "mopen", "mclose",
+            "mpunct", "minner"], node.classes[0])) {
+            return node.classes[0];
+        }
+    }
+    return null;
+};
+
+/**
+ * Sometimes, groups perform special rules when they have superscripts or
+ * subscripts attached to them. This function lets the `supsub` group know that
+ * its inner element should handle the superscripts and subscripts instead of
+ * handling them itself.
+ */
+var shouldHandleSupSub = function(group, options) {
+    if (!group) {
+        return false;
+    } else if (group.type === "op") {
+        // Operators handle supsubs differently when they have limits
+        // (e.g. `\displaystyle\sum_2^3`)
+        return group.value.limits &&
+            (options.style.size === Style$1.DISPLAY.size ||
+            group.value.alwaysHandleSupSub);
+    } else if (group.type === "accent") {
+        return isCharacterBox(group.value.base);
+    } else {
+        return null;
+    }
+};
+
+/**
+ * Sometimes we want to pull out the innermost element of a group. In most
+ * cases, this will just be the group itself, but when ordgroups and colors have
+ * a single element, we want to pull that out.
+ */
+var getBaseElem = function(group) {
+    if (!group) {
+        return false;
+    } else if (group.type === "ordgroup") {
+        if (group.value.length === 1) {
+            return getBaseElem(group.value[0]);
+        } else {
+            return group;
+        }
+    } else if (group.type === "color") {
+        if (group.value.value.length === 1) {
+            return getBaseElem(group.value.value[0]);
+        } else {
+            return group;
+        }
+    } else if (group.type === "font") {
+        return getBaseElem(group.value.body);
+    } else {
+        return group;
+    }
+};
+
+/**
+ * TeXbook algorithms often reference "character boxes", which are simply groups
+ * with a single character in them. To decide if something is a character box,
+ * we find its innermost group, and see if it is a single character.
+ */
+var isCharacterBox = function(group) {
+    var baseElem = getBaseElem(group);
+
+    // These are all they types of groups which hold single characters
+    return baseElem.type === "mathord" ||
+        baseElem.type === "textord" ||
+        baseElem.type === "bin" ||
+        baseElem.type === "rel" ||
+        baseElem.type === "inner" ||
+        baseElem.type === "open" ||
+        baseElem.type === "close" ||
+        baseElem.type === "punct";
+};
+
+var makeNullDelimiter = function(options, classes) {
+    return makeSpan$1(classes.concat([
+        "sizing", "reset-" + options.size, "size5",
+        options.style.reset(), Style$1.TEXT.cls(),
+        "nulldelimiter"]));
+};
+
+/**
+ * This is a map of group types to the function used to handle that type.
+ * Simpler types come at the beginning, while complicated types come afterwards.
+ */
+var groupTypes = {};
+
+groupTypes.mathord = function(group, options) {
+    return buildCommon$1.makeOrd(group, options, "mathord");
+};
+
+groupTypes.textord = function(group, options) {
+    return buildCommon$1.makeOrd(group, options, "textord");
+};
+
+groupTypes.bin = function(group, options) {
+    return buildCommon$1.mathsym(
+        group.value, group.mode, options, ["mbin"]);
+};
+
+groupTypes.rel = function(group, options) {
+    return buildCommon$1.mathsym(
+        group.value, group.mode, options, ["mrel"]);
+};
+
+groupTypes.open = function(group, options) {
+    return buildCommon$1.mathsym(
+        group.value, group.mode, options, ["mopen"]);
+};
+
+groupTypes.close = function(group, options) {
+    return buildCommon$1.mathsym(
+        group.value, group.mode, options, ["mclose"]);
+};
+
+groupTypes.inner = function(group, options) {
+    return buildCommon$1.mathsym(
+        group.value, group.mode, options, ["minner"]);
+};
+
+groupTypes.punct = function(group, options) {
+    return buildCommon$1.mathsym(
+        group.value, group.mode, options, ["mpunct"]);
+};
+
+groupTypes.ordgroup = function(group, options) {
+    return makeSpan$1(
+        ["mord", options.style.cls()],
+        buildExpression(group.value, options.reset(), true),
+        options
+    );
+};
+
+groupTypes.text = function(group, options) {
+    var newOptions = options.withFont(group.value.style);
+    var inner = buildExpression(group.value.body, newOptions, true);
+    for (var i = 0; i < inner.length - 1; i++) {
+        if (inner[i].tryCombine(inner[i + 1])) {
+            inner.splice(i + 1, 1);
+            i--;
+        }
+    }
+    return makeSpan$1(["mord", "text", newOptions.style.cls()],
+        inner, newOptions);
+};
+
+groupTypes.color = function(group, options) {
+    var elements = buildExpression(
+        group.value.value,
+        options.withColor(group.value.color),
+        false
+    );
+
+    // \color isn't supposed to affect the type of the elements it contains.
+    // To accomplish this, we wrap the results in a fragment, so the inner
+    // elements will be able to directly interact with their neighbors. For
+    // example, `\color{red}{2 +} 3` has the same spacing as `2 + 3`
+    return new buildCommon$1.makeFragment(elements);
+};
+
+groupTypes.supsub = function(group, options) {
+    // Superscript and subscripts are handled in the TeXbook on page
+    // 445-446, rules 18(a-f).
+
+    // Here is where we defer to the inner group if it should handle
+    // superscripts and subscripts itself.
+    if (shouldHandleSupSub(group.value.base, options)) {
+        return groupTypes[group.value.base.type](group, options);
+    }
+
+    var base = buildGroup(group.value.base, options.reset());
+    var supmid;
+    var submid;
+    var sup;
+    var sub;
+
+    var style = options.style;
+    var newOptions;
+
+    if (group.value.sup) {
+        newOptions = options.withStyle(style.sup());
+        sup = buildGroup(group.value.sup, newOptions);
+        supmid = makeSpan$1([style.reset(), style.sup().cls()],
+            [sup], newOptions);
+    }
+
+    if (group.value.sub) {
+        newOptions = options.withStyle(style.sub());
+        sub = buildGroup(group.value.sub, newOptions);
+        submid = makeSpan$1([style.reset(), style.sub().cls()],
+            [sub], newOptions);
+    }
+
+    // Rule 18a
+    var supShift;
+    var subShift;
+    if (isCharacterBox(group.value.base)) {
+        supShift = 0;
+        subShift = 0;
+    } else {
+        supShift = base.height - style.metrics.supDrop;
+        subShift = base.depth + style.metrics.subDrop;
+    }
+
+    // Rule 18c
+    var minSupShift;
+    if (style === Style$1.DISPLAY) {
+        minSupShift = style.metrics.sup1;
+    } else if (style.cramped) {
+        minSupShift = style.metrics.sup3;
+    } else {
+        minSupShift = style.metrics.sup2;
+    }
+
+    // scriptspace is a font-size-independent size, so scale it
+    // appropriately
+    var multiplier = Style$1.TEXT.sizeMultiplier *
+            style.sizeMultiplier;
+    var scriptspace =
+        (0.5 / fontMetrics.metrics.ptPerEm) / multiplier + "em";
+
+    var supsub;
+    if (!group.value.sup) {
+        // Rule 18b
+        subShift = Math.max(
+            subShift, style.metrics.sub1,
+            sub.height - 0.8 * style.metrics.xHeight);
+
+        supsub = buildCommon$1.makeVList([
+            {type: "elem", elem: submid}
+        ], "shift", subShift, options);
+
+        supsub.children[0].style.marginRight = scriptspace;
+
+        // Subscripts shouldn't be shifted by the base's italic correction.
+        // Account for that by shifting the subscript back the appropriate
+        // amount. Note we only do this when the base is a single symbol.
+        if (base instanceof domTree.symbolNode) {
+            supsub.children[0].style.marginLeft = -base.italic + "em";
+        }
+    } else if (!group.value.sub) {
+        // Rule 18c, d
+        supShift = Math.max(supShift, minSupShift,
+            sup.depth + 0.25 * style.metrics.xHeight);
+
+        supsub = buildCommon$1.makeVList([
+            {type: "elem", elem: supmid}
+        ], "shift", -supShift, options);
+
+        supsub.children[0].style.marginRight = scriptspace;
+    } else {
+        supShift = Math.max(
+            supShift, minSupShift, sup.depth + 0.25 * style.metrics.xHeight);
+        subShift = Math.max(subShift, style.metrics.sub2);
+
+        var ruleWidth = fontMetrics.metrics.defaultRuleThickness;
+
+        // Rule 18e
+        if ((supShift - sup.depth) - (sub.height - subShift) <
+                4 * ruleWidth) {
+            subShift = 4 * ruleWidth - (supShift - sup.depth) + sub.height;
+            var psi = 0.8 * style.metrics.xHeight - (supShift - sup.depth);
+            if (psi > 0) {
+                supShift += psi;
+                subShift -= psi;
+            }
+        }
+
+        supsub = buildCommon$1.makeVList([
+            {type: "elem", elem: submid, shift: subShift},
+            {type: "elem", elem: supmid, shift: -supShift}
+        ], "individualShift", null, options);
+
+        // See comment above about subscripts not being shifted
+        if (base instanceof domTree.symbolNode) {
+            supsub.children[0].style.marginLeft = -base.italic + "em";
+        }
+
+        supsub.children[0].style.marginRight = scriptspace;
+        supsub.children[1].style.marginRight = scriptspace;
+    }
+
+    // We ensure to wrap the supsub vlist in a span.msupsub to reset text-align
+    var mclass = getTypeOfDomTree(base) || "mord";
+    return makeSpan$1([mclass],
+        [base, makeSpan$1(["msupsub"], [supsub])],
+        options);
+};
+
+groupTypes.genfrac = function(group, options) {
+    // Fractions are handled in the TeXbook on pages 444-445, rules 15(a-e).
+    // Figure out what style this fraction should be in based on the
+    // function used
+    var style = options.style;
+    if (group.value.size === "display") {
+        style = Style$1.DISPLAY;
+    } else if (group.value.size === "text") {
+        style = Style$1.TEXT;
+    }
+
+    var nstyle = style.fracNum();
+    var dstyle = style.fracDen();
+    var newOptions;
+
+    newOptions = options.withStyle(nstyle);
+    var numer = buildGroup(group.value.numer, newOptions);
+    var numerreset = makeSpan$1([style.reset(), nstyle.cls()],
+        [numer], newOptions);
+
+    newOptions = options.withStyle(dstyle);
+    var denom = buildGroup(group.value.denom, newOptions);
+    var denomreset = makeSpan$1([style.reset(), dstyle.cls()],
+        [denom], newOptions);
+
+    var ruleWidth;
+    if (group.value.hasBarLine) {
+        ruleWidth = fontMetrics.metrics.defaultRuleThickness /
+            options.style.sizeMultiplier;
+    } else {
+        ruleWidth = 0;
+    }
+
+    // Rule 15b
+    var numShift;
+    var clearance;
+    var denomShift;
+    if (style.size === Style$1.DISPLAY.size) {
+        numShift = style.metrics.num1;
+        if (ruleWidth > 0) {
+            clearance = 3 * ruleWidth;
+        } else {
+            clearance = 7 * fontMetrics.metrics.defaultRuleThickness;
+        }
+        denomShift = style.metrics.denom1;
+    } else {
+        if (ruleWidth > 0) {
+            numShift = style.metrics.num2;
+            clearance = ruleWidth;
+        } else {
+            numShift = style.metrics.num3;
+            clearance = 3 * fontMetrics.metrics.defaultRuleThickness;
+        }
+        denomShift = style.metrics.denom2;
+    }
+
+    var frac;
+    if (ruleWidth === 0) {
+        // Rule 15c
+        var candidateClearance =
+            (numShift - numer.depth) - (denom.height - denomShift);
+        if (candidateClearance < clearance) {
+            numShift += 0.5 * (clearance - candidateClearance);
+            denomShift += 0.5 * (clearance - candidateClearance);
+        }
+
+        frac = buildCommon$1.makeVList([
+            {type: "elem", elem: denomreset, shift: denomShift},
+            {type: "elem", elem: numerreset, shift: -numShift}
+        ], "individualShift", null, options);
+    } else {
+        // Rule 15d
+        var axisHeight = style.metrics.axisHeight;
+
+        if ((numShift - numer.depth) - (axisHeight + 0.5 * ruleWidth) <
+                clearance) {
+            numShift +=
+                clearance - ((numShift - numer.depth) -
+                             (axisHeight + 0.5 * ruleWidth));
+        }
+
+        if ((axisHeight - 0.5 * ruleWidth) - (denom.height - denomShift) <
+                clearance) {
+            denomShift +=
+                clearance - ((axisHeight - 0.5 * ruleWidth) -
+                             (denom.height - denomShift));
+        }
+
+        var mid = makeSpan$1(
+            [options.style.reset(), Style$1.TEXT.cls(), "frac-line"]);
+        // Manually set the height of the line because its height is
+        // created in CSS
+        mid.height = ruleWidth;
+
+        var midShift = -(axisHeight - 0.5 * ruleWidth);
+
+        frac = buildCommon$1.makeVList([
+            {type: "elem", elem: denomreset, shift: denomShift},
+            {type: "elem", elem: mid,        shift: midShift},
+            {type: "elem", elem: numerreset, shift: -numShift}
+        ], "individualShift", null, options);
+    }
+
+    // Since we manually change the style sometimes (with \dfrac or \tfrac),
+    // account for the possible size change here.
+    frac.height *= style.sizeMultiplier / options.style.sizeMultiplier;
+    frac.depth *= style.sizeMultiplier / options.style.sizeMultiplier;
+
+    // Rule 15e
+    var delimSize;
+    if (style.size === Style$1.DISPLAY.size) {
+        delimSize = style.metrics.delim1;
+    } else {
+        delimSize = style.metrics.delim2;
+    }
+
+    var leftDelim;
+    var rightDelim;
+    if (group.value.leftDelim == null) {
+        leftDelim = makeNullDelimiter(options, ["mopen"]);
+    } else {
+        leftDelim = delimiter.customSizedDelim(
+            group.value.leftDelim, delimSize, true,
+            options.withStyle(style), group.mode, ["mopen"]);
+    }
+    if (group.value.rightDelim == null) {
+        rightDelim = makeNullDelimiter(options, ["mclose"]);
+    } else {
+        rightDelim = delimiter.customSizedDelim(
+            group.value.rightDelim, delimSize, true,
+            options.withStyle(style), group.mode, ["mclose"]);
+    }
+
+    return makeSpan$1(
+        ["mord", options.style.reset(), style.cls()],
+        [leftDelim, makeSpan$1(["mfrac"], [frac]), rightDelim],
+        options);
+};
+
+var calculateSize = function(sizeValue, style) {
+    var x = sizeValue.number;
+    if (sizeValue.unit === "ex") {
+        x *= style.metrics.emPerEx;
+    } else if (sizeValue.unit === "mu") {
+        x /= 18;
+    }
+    return x;
+};
+
+groupTypes.array = function(group, options) {
+    var r;
+    var c;
+    var nr = group.value.body.length;
+    var nc = 0;
+    var body = new Array(nr);
+
+    var style = options.style;
+
+    // Horizontal spacing
+    var pt = 1 / fontMetrics.metrics.ptPerEm;
+    var arraycolsep = 5 * pt; // \arraycolsep in article.cls
+
+    // Vertical spacing
+    var baselineskip = 12 * pt; // see size10.clo
+    // Default \arraystretch from lttab.dtx
+    // TODO(gagern): may get redefined once we have user-defined macros
+    var arraystretch = utils$1.deflt(group.value.arraystretch, 1);
+    var arrayskip = arraystretch * baselineskip;
+    var arstrutHeight = 0.7 * arrayskip; // \strutbox in ltfsstrc.dtx and
+    var arstrutDepth = 0.3 * arrayskip;  // \@arstrutbox in lttab.dtx
+
+    var totalHeight = 0;
+    for (r = 0; r < group.value.body.length; ++r) {
+        var inrow = group.value.body[r];
+        var height = arstrutHeight; // \@array adds an \@arstrut
+        var depth = arstrutDepth;   // to each tow (via the template)
+
+        if (nc < inrow.length) {
+            nc = inrow.length;
+        }
+
+        var outrow = new Array(inrow.length);
+        for (c = 0; c < inrow.length; ++c) {
+            var elt = buildGroup(inrow[c], options);
+            if (depth < elt.depth) {
+                depth = elt.depth;
+            }
+            if (height < elt.height) {
+                height = elt.height;
+            }
+            outrow[c] = elt;
+        }
+
+        var gap = 0;
+        if (group.value.rowGaps[r]) {
+            gap = calculateSize(group.value.rowGaps[r].value, style);
+            if (gap > 0) { // \@argarraycr
+                gap += arstrutDepth;
+                if (depth < gap) {
+                    depth = gap; // \@xargarraycr
+                }
+                gap = 0;
+            }
+        }
+
+        outrow.height = height;
+        outrow.depth = depth;
+        totalHeight += height;
+        outrow.pos = totalHeight;
+        totalHeight += depth + gap; // \@yargarraycr
+        body[r] = outrow;
+    }
+
+    var offset = totalHeight / 2 + style.metrics.axisHeight;
+    var colDescriptions = group.value.cols || [];
+    var cols = [];
+    var colSep;
+    var colDescrNum;
+    for (c = 0, colDescrNum = 0;
+         // Continue while either there are more columns or more column
+         // descriptions, so trailing separators don't get lost.
+         c < nc || colDescrNum < colDescriptions.length;
+         ++c, ++colDescrNum) {
+
+        var colDescr = colDescriptions[colDescrNum] || {};
+
+        var firstSeparator = true;
+        while (colDescr.type === "separator") {
+            // If there is more than one separator in a row, add a space
+            // between them.
+            if (!firstSeparator) {
+                colSep = makeSpan$1(["arraycolsep"], []);
+                colSep.style.width =
+                    fontMetrics.metrics.doubleRuleSep + "em";
+                cols.push(colSep);
+            }
+
+            if (colDescr.separator === "|") {
+                var separator = makeSpan$1(
+                    ["vertical-separator"],
+                    []);
+                separator.style.height = totalHeight + "em";
+                separator.style.verticalAlign =
+                    -(totalHeight - offset) + "em";
+
+                cols.push(separator);
+            } else {
+                throw new ParseError$2(
+                    "Invalid separator type: " + colDescr.separator);
+            }
+
+            colDescrNum++;
+            colDescr = colDescriptions[colDescrNum] || {};
+            firstSeparator = false;
+        }
+
+        if (c >= nc) {
+            continue;
+        }
+
+        var sepwidth;
+        if (c > 0 || group.value.hskipBeforeAndAfter) {
+            sepwidth = utils$1.deflt(colDescr.pregap, arraycolsep);
+            if (sepwidth !== 0) {
+                colSep = makeSpan$1(["arraycolsep"], []);
+                colSep.style.width = sepwidth + "em";
+                cols.push(colSep);
+            }
+        }
+
+        var col = [];
+        for (r = 0; r < nr; ++r) {
+            var row = body[r];
+            var elem = row[c];
+            if (!elem) {
+                continue;
+            }
+            var shift = row.pos - offset;
+            elem.depth = row.depth;
+            elem.height = row.height;
+            col.push({type: "elem", elem: elem, shift: shift});
+        }
+
+        col = buildCommon$1.makeVList(col, "individualShift", null, options);
+        col = makeSpan$1(
+            ["col-align-" + (colDescr.align || "c")],
+            [col]);
+        cols.push(col);
+
+        if (c < nc - 1 || group.value.hskipBeforeAndAfter) {
+            sepwidth = utils$1.deflt(colDescr.postgap, arraycolsep);
+            if (sepwidth !== 0) {
+                colSep = makeSpan$1(["arraycolsep"], []);
+                colSep.style.width = sepwidth + "em";
+                cols.push(colSep);
+            }
+        }
+    }
+    body = makeSpan$1(["mtable"], cols);
+    return makeSpan$1(["mord"], [body], options);
+};
+
+groupTypes.spacing = function(group, options) {
+    if (group.value === "\\ " || group.value === "\\space" ||
+        group.value === " " || group.value === "~") {
+        // Spaces are generated by adding an actual space. Each of these
+        // things has an entry in the symbols table, so these will be turned
+        // into appropriate outputs.
+        if (group.mode === "text") {
+            return buildCommon$1.makeOrd(group, options, "textord");
+        } else {
+            return makeSpan$1(["mspace"],
+                [buildCommon$1.mathsym(group.value, group.mode, options)],
+                options);
+        }
+    } else {
+        // Other kinds of spaces are of arbitrary width. We use CSS to
+        // generate these.
+        return makeSpan$1(
+            ["mspace",
+                buildCommon$1.spacingFunctions[group.value].className],
+            [], options);
+    }
+};
+
+groupTypes.llap = function(group, options) {
+    var inner = makeSpan$1(
+        ["inner"], [buildGroup(group.value.body, options.reset())]);
+    var fix = makeSpan$1(["fix"], []);
+    return makeSpan$1(
+        ["mord", "llap", options.style.cls()], [inner, fix], options);
+};
+
+groupTypes.rlap = function(group, options) {
+    var inner = makeSpan$1(
+        ["inner"], [buildGroup(group.value.body, options.reset())]);
+    var fix = makeSpan$1(["fix"], []);
+    return makeSpan$1(
+        ["mord", "rlap", options.style.cls()], [inner, fix], options);
+};
+
+groupTypes.op = function(group, options) {
+    // Operators are handled in the TeXbook pg. 443-444, rule 13(a).
+    var supGroup;
+    var subGroup;
+    var hasLimits = false;
+    if (group.type === "supsub") {
+        // If we have limits, supsub will pass us its group to handle. Pull
+        // out the superscript and subscript and set the group to the op in
+        // its base.
+        supGroup = group.value.sup;
+        subGroup = group.value.sub;
+        group = group.value.base;
+        hasLimits = true;
+    }
+
+    var style = options.style;
+
+    // Most operators have a large successor symbol, but these don't.
+    var noSuccessor = [
+        "\\smallint"
+    ];
+
+    var large = false;
+    if (style.size === Style$1.DISPLAY.size &&
+        group.value.symbol &&
+        !utils$1.contains(noSuccessor, group.value.body)) {
+
+        // Most symbol operators get larger in displaystyle (rule 13)
+        large = true;
+    }
+
+    var base;
+    var baseShift = 0;
+    var slant = 0;
+    if (group.value.symbol) {
+        // If this is a symbol, create the symbol.
+        var fontName = large ? "Size2-Regular" : "Size1-Regular";
+        base = buildCommon$1.makeSymbol(
+            group.value.body, fontName, "math", options,
+            ["mop", "op-symbol", large ? "large-op" : "small-op"]);
+
+        // Shift the symbol so its center lies on the axis (rule 13). It
+        // appears that our fonts have the centers of the symbols already
+        // almost on the axis, so these numbers are very small. Note we
+        // don't actually apply this here, but instead it is used either in
+        // the vlist creation or separately when there are no limits.
+        baseShift = (base.height - base.depth) / 2 -
+            style.metrics.axisHeight * style.sizeMultiplier;
+
+        // The slant of the symbol is just its italic correction.
+        slant = base.italic;
+    } else if (group.value.value) {
+        // If this is a list, compose that list.
+        var inner = buildExpression(group.value.value, options, true);
+
+        base = makeSpan$1(["mop"], inner, options);
+    } else {
+        // Otherwise, this is a text operator. Build the text from the
+        // operator's name.
+        // TODO(emily): Add a space in the middle of some of these
+        // operators, like \limsup
+        var output = [];
+        for (var i = 1; i < group.value.body.length; i++) {
+            output.push(buildCommon$1.mathsym(group.value.body[i], group.mode));
+        }
+        base = makeSpan$1(["mop"], output, options);
+    }
+
+    if (hasLimits) {
+        // IE 8 clips \int if it is in a display: inline-block. We wrap it
+        // in a new span so it is an inline, and works.
+        base = makeSpan$1([], [base]);
+
+        var supmid;
+        var supKern;
+        var submid;
+        var subKern;
+        var newOptions;
+        // We manually have to handle the superscripts and subscripts. This,
+        // aside from the kern calculations, is copied from supsub.
+        if (supGroup) {
+            newOptions = options.withStyle(style.sup());
+            var sup = buildGroup(supGroup, newOptions);
+            supmid = makeSpan$1([style.reset(), style.sup().cls()],
+                [sup], newOptions);
+
+            supKern = Math.max(
+                fontMetrics.metrics.bigOpSpacing1,
+                fontMetrics.metrics.bigOpSpacing3 - sup.depth);
+        }
+
+        if (subGroup) {
+            newOptions = options.withStyle(style.sub());
+            var sub = buildGroup(subGroup, newOptions);
+            submid = makeSpan$1([style.reset(), style.sub().cls()],
+                [sub], newOptions);
+
+            subKern = Math.max(
+                fontMetrics.metrics.bigOpSpacing2,
+                fontMetrics.metrics.bigOpSpacing4 - sub.height);
+        }
+
+        // Build the final group as a vlist of the possible subscript, base,
+        // and possible superscript.
+        var finalGroup;
+        var top;
+        var bottom;
+        if (!supGroup) {
+            top = base.height - baseShift;
+
+            finalGroup = buildCommon$1.makeVList([
+                {type: "kern", size: fontMetrics.metrics.bigOpSpacing5},
+                {type: "elem", elem: submid},
+                {type: "kern", size: subKern},
+                {type: "elem", elem: base}
+            ], "top", top, options);
+
+            // Here, we shift the limits by the slant of the symbol. Note
+            // that we are supposed to shift the limits by 1/2 of the slant,
+            // but since we are centering the limits adding a full slant of
+            // margin will shift by 1/2 that.
+            finalGroup.children[0].style.marginLeft = -slant + "em";
+        } else if (!subGroup) {
+            bottom = base.depth + baseShift;
+
+            finalGroup = buildCommon$1.makeVList([
+                {type: "elem", elem: base},
+                {type: "kern", size: supKern},
+                {type: "elem", elem: supmid},
+                {type: "kern", size: fontMetrics.metrics.bigOpSpacing5}
+            ], "bottom", bottom, options);
+
+            // See comment above about slants
+            finalGroup.children[1].style.marginLeft = slant + "em";
+        } else if (!supGroup && !subGroup) {
+            // This case probably shouldn't occur (this would mean the
+            // supsub was sending us a group with no superscript or
+            // subscript) but be safe.
+            return base;
+        } else {
+            bottom = fontMetrics.metrics.bigOpSpacing5 +
+                submid.height + submid.depth +
+                subKern +
+                base.depth + baseShift;
+
+            finalGroup = buildCommon$1.makeVList([
+                {type: "kern", size: fontMetrics.metrics.bigOpSpacing5},
+                {type: "elem", elem: submid},
+                {type: "kern", size: subKern},
+                {type: "elem", elem: base},
+                {type: "kern", size: supKern},
+                {type: "elem", elem: supmid},
+                {type: "kern", size: fontMetrics.metrics.bigOpSpacing5}
+            ], "bottom", bottom, options);
+
+            // See comment above about slants
+            finalGroup.children[0].style.marginLeft = -slant + "em";
+            finalGroup.children[2].style.marginLeft = slant + "em";
+        }
+
+        return makeSpan$1(["mop", "op-limits"], [finalGroup], options);
+    } else {
+        if (group.value.symbol) {
+            base.style.top = baseShift + "em";
+        }
+
+        return base;
+    }
+};
+
+groupTypes.mod = function(group, options) {
+    var inner = [];
+
+    if (group.value.modType === "bmod") {
+        // “\nonscript\mskip-\medmuskip\mkern5mu”
+        if (!options.style.isTight()) {
+            inner.push(makeSpan$1(
+                ["mspace", "negativemediumspace"], [], options));
+        }
+        inner.push(makeSpan$1(["mspace", "thickspace"], [], options));
+    } else if (options.style.size === Style$1.DISPLAY.size) {
+        inner.push(makeSpan$1(["mspace", "quad"], [], options));
+    } else if (group.value.modType === "mod") {
+        inner.push(makeSpan$1(["mspace", "twelvemuspace"], [], options));
+    } else {
+        inner.push(makeSpan$1(["mspace", "eightmuspace"], [], options));
+    }
+
+    if (group.value.modType === "pod" || group.value.modType === "pmod") {
+        inner.push(buildCommon$1.mathsym("(", group.mode));
+    }
+
+    if (group.value.modType !== "pod") {
+        var modInner = [
+            buildCommon$1.mathsym("m", group.mode),
+            buildCommon$1.mathsym("o", group.mode),
+            buildCommon$1.mathsym("d", group.mode)];
+        if (group.value.modType === "bmod") {
+            inner.push(makeSpan$1(["mbin"], modInner, options));
+            // “\mkern5mu\nonscript\mskip-\medmuskip”
+            inner.push(makeSpan$1(["mspace", "thickspace"], [], options));
+            if (!options.style.isTight()) {
+                inner.push(makeSpan$1(
+                    ["mspace", "negativemediumspace"], [], options));
+            }
+        } else {
+            Array.prototype.push.apply(inner, modInner);
+            inner.push(makeSpan$1(["mspace", "sixmuspace"], [], options));
+        }
+    }
+
+    if (group.value.value) {
+        Array.prototype.push.apply(inner,
+            buildExpression(group.value.value, options, false));
+    }
+
+    if (group.value.modType === "pod" || group.value.modType === "pmod") {
+        inner.push(buildCommon$1.mathsym(")", group.mode));
+    }
+
+    return buildCommon$1.makeFragment(inner);
+};
+
+groupTypes.katex = function(group, options) {
+    // The KaTeX logo. The offsets for the K and a were chosen to look
+    // good, but the offsets for the T, E, and X were taken from the
+    // definition of \TeX in TeX (see TeXbook pg. 356)
+    var k = makeSpan$1(
+        ["k"], [buildCommon$1.mathsym("K", group.mode)], options);
+    var a = makeSpan$1(
+        ["a"], [buildCommon$1.mathsym("A", group.mode)], options);
+
+    a.height = (a.height + 0.2) * 0.75;
+    a.depth = (a.height - 0.2) * 0.75;
+
+    var t = makeSpan$1(
+        ["t"], [buildCommon$1.mathsym("T", group.mode)], options);
+    var e = makeSpan$1(
+        ["e"], [buildCommon$1.mathsym("E", group.mode)], options);
+
+    e.height = (e.height - 0.2155);
+    e.depth = (e.depth + 0.2155);
+
+    var x = makeSpan$1(
+        ["x"], [buildCommon$1.mathsym("X", group.mode)], options);
+
+    return makeSpan$1(
+        ["mord", "katex-logo"], [k, a, t, e, x], options);
+};
+
+groupTypes.overline = function(group, options) {
+    // Overlines are handled in the TeXbook pg 443, Rule 9.
+    var style = options.style;
+
+    // Build the inner group in the cramped style.
+    var innerGroup = buildGroup(group.value.body,
+            options.withStyle(style.cramp()));
+
+    var ruleWidth = fontMetrics.metrics.defaultRuleThickness /
+        style.sizeMultiplier;
+
+    // Create the line above the body
+    var line = makeSpan$1(
+        [style.reset(), Style$1.TEXT.cls(), "overline-line"]);
+    line.height = ruleWidth;
+    line.maxFontSize = 1.0;
+
+    // Generate the vlist, with the appropriate kerns
+    var vlist = buildCommon$1.makeVList([
+        {type: "elem", elem: innerGroup},
+        {type: "kern", size: 3 * ruleWidth},
+        {type: "elem", elem: line},
+        {type: "kern", size: ruleWidth}
+    ], "firstBaseline", null, options);
+
+    return makeSpan$1(["mord", "overline"], [vlist], options);
+};
+
+groupTypes.underline = function(group, options) {
+    // Underlines are handled in the TeXbook pg 443, Rule 10.
+    var style = options.style;
+
+    // Build the inner group.
+    var innerGroup = buildGroup(group.value.body, options);
+
+    var ruleWidth = fontMetrics.metrics.defaultRuleThickness /
+        style.sizeMultiplier;
+
+    // Create the line above the body
+    var line = makeSpan$1([style.reset(), Style$1.TEXT.cls(), "underline-line"]);
+    line.height = ruleWidth;
+    line.maxFontSize = 1.0;
+
+    // Generate the vlist, with the appropriate kerns
+    var vlist = buildCommon$1.makeVList([
+        {type: "kern", size: ruleWidth},
+        {type: "elem", elem: line},
+        {type: "kern", size: 3 * ruleWidth},
+        {type: "elem", elem: innerGroup}
+    ], "top", innerGroup.height, options);
+
+    return makeSpan$1(["mord", "underline"], [vlist], options);
+};
+
+groupTypes.sqrt = function(group, options) {
+    // Square roots are handled in the TeXbook pg. 443, Rule 11.
+    var style = options.style;
+
+    // First, we do the same steps as in overline to build the inner group
+    // and line
+    var inner = buildGroup(group.value.body, options.withStyle(style.cramp()));
+
+    var ruleWidth = fontMetrics.metrics.defaultRuleThickness /
+        style.sizeMultiplier;
+
+    var line = makeSpan$1(
+        [style.reset(), Style$1.TEXT.cls(), "sqrt-line"], [],
+        options);
+    line.height = ruleWidth;
+    line.maxFontSize = 1.0;
+
+    var phi = ruleWidth;
+    if (style.id < Style$1.TEXT.id) {
+        phi = style.metrics.xHeight;
+    }
+
+    // Calculate the clearance between the body and line
+    var lineClearance = ruleWidth + phi / 4;
+
+    var innerHeight = (inner.height + inner.depth) * style.sizeMultiplier;
+    var minDelimiterHeight = innerHeight + lineClearance + ruleWidth;
+
+    // Create a \surd delimiter of the required minimum size
+    var delim = makeSpan$1(["sqrt-sign"], [
+        delimiter.customSizedDelim("\\surd", minDelimiterHeight,
+                                   false, options, group.mode)],
+                         options);
+
+    var delimDepth = (delim.height + delim.depth) - ruleWidth;
+
+    // Adjust the clearance based on the delimiter size
+    if (delimDepth > inner.height + inner.depth + lineClearance) {
+        lineClearance =
+            (lineClearance + delimDepth - inner.height - inner.depth) / 2;
+    }
+
+    // Shift the delimiter so that its top lines up with the top of the line
+    var delimShift = -(inner.height + lineClearance + ruleWidth) + delim.height;
+    delim.style.top = delimShift + "em";
+    delim.height -= delimShift;
+    delim.depth += delimShift;
+
+    // We add a special case here, because even when `inner` is empty, we
+    // still get a line. So, we use a simple heuristic to decide if we
+    // should omit the body entirely. (note this doesn't work for something
+    // like `\sqrt{\rlap{x}}`, but if someone is doing that they deserve for
+    // it not to work.
+    var body;
+    if (inner.height === 0 && inner.depth === 0) {
+        body = makeSpan$1();
+    } else {
+        body = buildCommon$1.makeVList([
+            {type: "elem", elem: inner},
+            {type: "kern", size: lineClearance},
+            {type: "elem", elem: line},
+            {type: "kern", size: ruleWidth}
+        ], "firstBaseline", null, options);
+    }
+
+    if (!group.value.index) {
+        return makeSpan$1(["mord", "sqrt"], [delim, body], options);
+    } else {
+        // Handle the optional root index
+
+        // The index is always in scriptscript style
+        var newOptions = options.withStyle(Style$1.SCRIPTSCRIPT);
+        var root = buildGroup(group.value.index, newOptions);
+        var rootWrap = makeSpan$1(
+            [style.reset(), Style$1.SCRIPTSCRIPT.cls()],
+            [root],
+            newOptions);
+
+        // Figure out the height and depth of the inner part
+        var innerRootHeight = Math.max(delim.height, body.height);
+        var innerRootDepth = Math.max(delim.depth, body.depth);
+
+        // The amount the index is shifted by. This is taken from the TeX
+        // source, in the definition of `\r@@t`.
+        var toShift = 0.6 * (innerRootHeight - innerRootDepth);
+
+        // Build a VList with the superscript shifted up correctly
+        var rootVList = buildCommon$1.makeVList(
+            [{type: "elem", elem: rootWrap}],
+            "shift", -toShift, options);
+        // Add a class surrounding it so we can add on the appropriate
+        // kerning
+        var rootVListWrap = makeSpan$1(["root"], [rootVList]);
+
+        return makeSpan$1(["mord", "sqrt"],
+            [rootVListWrap, delim, body], options);
+    }
+};
+
+groupTypes.sizing = function(group, options) {
+    // Handle sizing operators like \Huge. Real TeX doesn't actually allow
+    // these functions inside of math expressions, so we do some special
+    // handling.
+    var inner = buildExpression(group.value.value,
+            options.withSize(group.value.size), false);
+
+    // Compute the correct maxFontSize.
+    var style = options.style;
+    var fontSize = buildCommon$1.sizingMultiplier[group.value.size];
+    fontSize = fontSize * style.sizeMultiplier;
+
+    // Add size-resetting classes to the inner list and set maxFontSize
+    // manually. Handle nested size changes.
+    for (var i = 0; i < inner.length; i++) {
+        var pos = utils$1.indexOf(inner[i].classes, "sizing");
+        if (pos < 0) {
+            inner[i].classes.push("sizing", "reset-" + options.size,
+                                  group.value.size, style.cls());
+            inner[i].maxFontSize = fontSize;
+        } else if (inner[i].classes[pos + 1] === "reset-" + group.value.size) {
+            // This is a nested size change: e.g., inner[i] is the "b" in
+            // `\Huge a \small b`. Override the old size (the `reset-` class)
+            // but not the new size.
+            inner[i].classes[pos + 1] = "reset-" + options.size;
+        }
+    }
+
+    return buildCommon$1.makeFragment(inner);
+};
+
+groupTypes.styling = function(group, options) {
+    // Style changes are handled in the TeXbook on pg. 442, Rule 3.
+
+    // Figure out what style we're changing to.
+    var styleMap = {
+        "display": Style$1.DISPLAY,
+        "text": Style$1.TEXT,
+        "script": Style$1.SCRIPT,
+        "scriptscript": Style$1.SCRIPTSCRIPT
+    };
+
+    var newStyle = styleMap[group.value.style];
+    var newOptions = options.withStyle(newStyle);
+
+    // Build the inner expression in the new style.
+    var inner = buildExpression(
+        group.value.value, newOptions, false);
+
+    // Add style-resetting classes to the inner list. Handle nested changes.
+    for (var i = 0; i < inner.length; i++) {
+        var pos = utils$1.indexOf(inner[i].classes, newStyle.reset());
+        if (pos < 0) {
+            inner[i].classes.push(options.style.reset(), newStyle.cls());
+        } else {
+            // This is a nested style change, as `\textstyle a\scriptstyle b`.
+            // Only override the old style (the reset class).
+            inner[i].classes[pos] = options.style.reset();
+        }
+    }
+
+    return new buildCommon$1.makeFragment(inner);
+};
+
+groupTypes.font = function(group, options) {
+    var font = group.value.font;
+    return buildGroup(group.value.body, options.withFont(font));
+};
+
+groupTypes.delimsizing = function(group, options) {
+    var delim = group.value.value;
+
+    if (delim === ".") {
+        // Empty delimiters still count as elements, even though they don't
+        // show anything.
+        return makeSpan$1([group.value.mclass]);
+    }
+
+    // Use delimiter.sizedDelim to generate the delimiter.
+    return delimiter.sizedDelim(
+            delim, group.value.size, options, group.mode,
+            [group.value.mclass]);
+};
+
+groupTypes.leftright = function(group, options) {
+    // Build the inner expression
+    var inner = buildExpression(group.value.body, options.reset(), true);
+
+    var innerHeight = 0;
+    var innerDepth = 0;
+    var hadMiddle = false;
+
+    // Calculate its height and depth
+    for (var i = 0; i < inner.length; i++) {
+        if (inner[i].isMiddle) {
+            hadMiddle = true;
+        } else {
+            innerHeight = Math.max(inner[i].height, innerHeight);
+            innerDepth = Math.max(inner[i].depth, innerDepth);
+        }
+    }
+
+    var style = options.style;
+
+    // The size of delimiters is the same, regardless of what style we are
+    // in. Thus, to correctly calculate the size of delimiter we need around
+    // a group, we scale down the inner size based on the size.
+    innerHeight *= style.sizeMultiplier;
+    innerDepth *= style.sizeMultiplier;
+
+    var leftDelim;
+    if (group.value.left === ".") {
+        // Empty delimiters in \left and \right make null delimiter spaces.
+        leftDelim = makeNullDelimiter(options, ["mopen"]);
+    } else {
+        // Otherwise, use leftRightDelim to generate the correct sized
+        // delimiter.
+        leftDelim = delimiter.leftRightDelim(
+            group.value.left, innerHeight, innerDepth, options,
+            group.mode, ["mopen"]);
+    }
+    // Add it to the beginning of the expression
+    inner.unshift(leftDelim);
+
+    // Handle middle delimiters
+    if (hadMiddle) {
+        for (i = 1; i < inner.length; i++) {
+            if (inner[i].isMiddle) {
+                // Apply the options that were active when \middle was called
+                inner[i] = delimiter.leftRightDelim(
+                    inner[i].isMiddle.value, innerHeight, innerDepth,
+                    inner[i].isMiddle.options, group.mode, []);
+            }
+        }
+    }
+
+    var rightDelim;
+    // Same for the right delimiter
+    if (group.value.right === ".") {
+        rightDelim = makeNullDelimiter(options, ["mclose"]);
+    } else {
+        rightDelim = delimiter.leftRightDelim(
+            group.value.right, innerHeight, innerDepth, options,
+            group.mode, ["mclose"]);
+    }
+    // Add it to the end of the expression.
+    inner.push(rightDelim);
+
+    return makeSpan$1(
+        ["minner", style.cls()], inner, options);
+};
+
+groupTypes.middle = function(group, options) {
+    var middleDelim;
+    if (group.value.value === ".") {
+        middleDelim = makeNullDelimiter(options, []);
+    } else {
+        middleDelim = delimiter.sizedDelim(
+            group.value.value, 1, options,
+            group.mode, []);
+        middleDelim.isMiddle = {value: group.value.value, options: options};
+    }
+    return middleDelim;
+};
+
+groupTypes.rule = function(group, options) {
+    // Make an empty span for the rule
+    var rule = makeSpan$1(["mord", "rule"], [], options);
+    var style = options.style;
+
+    // Calculate the shift, width, and height of the rule, and account for units
+    var shift = 0;
+    if (group.value.shift) {
+        shift = calculateSize(group.value.shift, style);
+    }
+
+    var width = calculateSize(group.value.width, style);
+    var height = calculateSize(group.value.height, style);
+
+    // The sizes of rules are absolute, so make it larger if we are in a
+    // smaller style.
+    shift /= style.sizeMultiplier;
+    width /= style.sizeMultiplier;
+    height /= style.sizeMultiplier;
+
+    // Style the rule to the right size
+    rule.style.borderRightWidth = width + "em";
+    rule.style.borderTopWidth = height + "em";
+    rule.style.bottom = shift + "em";
+
+    // Record the height and width
+    rule.width = width;
+    rule.height = height + shift;
+    rule.depth = -shift;
+
+    return rule;
+};
+
+groupTypes.kern = function(group, options) {
+    // Make an empty span for the rule
+    var rule = makeSpan$1(["mord", "rule"], [], options);
+    var style = options.style;
+
+    var dimension = 0;
+    if (group.value.dimension) {
+        dimension = calculateSize(group.value.dimension, style);
+    }
+
+    dimension /= style.sizeMultiplier;
+
+    rule.style.marginLeft = dimension + "em";
+
+    return rule;
+};
+
+groupTypes.accent = function(group, options) {
+    // Accents are handled in the TeXbook pg. 443, rule 12.
+    var base = group.value.base;
+    var style = options.style;
+
+    var supsubGroup;
+    if (group.type === "supsub") {
+        // If our base is a character box, and we have superscripts and
+        // subscripts, the supsub will defer to us. In particular, we want
+        // to attach the superscripts and subscripts to the inner body (so
+        // that the position of the superscripts and subscripts won't be
+        // affected by the height of the accent). We accomplish this by
+        // sticking the base of the accent into the base of the supsub, and
+        // rendering that, while keeping track of where the accent is.
+
+        // The supsub group is the group that was passed in
+        var supsub = group;
+        // The real accent group is the base of the supsub group
+        group = supsub.value.base;
+        // The character box is the base of the accent group
+        base = group.value.base;
+        // Stick the character box into the base of the supsub group
+        supsub.value.base = base;
+
+        // Rerender the supsub group with its new base, and store that
+        // result.
+        supsubGroup = buildGroup(
+            supsub, options.reset());
+    }
+
+    // Build the base group
+    var body = buildGroup(
+        base, options.withStyle(style.cramp()));
+
+    // Calculate the skew of the accent. This is based on the line "If the
+    // nucleus is not a single character, let s = 0; otherwise set s to the
+    // kern amount for the nucleus followed by the \skewchar of its font."
+    // Note that our skew metrics are just the kern between each character
+    // and the skewchar.
+    var skew;
+    if (isCharacterBox(base)) {
+        // If the base is a character box, then we want the skew of the
+        // innermost character. To do that, we find the innermost character:
+        var baseChar = getBaseElem(base);
+        // Then, we render its group to get the symbol inside it
+        var baseGroup = buildGroup(
+            baseChar, options.withStyle(style.cramp()));
+        // Finally, we pull the skew off of the symbol.
+        skew = baseGroup.skew;
+        // Note that we now throw away baseGroup, because the layers we
+        // removed with getBaseElem might contain things like \color which
+        // we can't get rid of.
+        // TODO(emily): Find a better way to get the skew
+    } else {
+        skew = 0;
+    }
+
+    // calculate the amount of space between the body and the accent
+    var clearance = Math.min(
+        body.height,
+        style.metrics.xHeight);
+
+    // Build the accent
+    var accent = buildCommon$1.makeSymbol(
+        group.value.accent, "Main-Regular", "math", options);
+    // Remove the italic correction of the accent, because it only serves to
+    // shift the accent over to a place we don't want.
+    accent.italic = 0;
+
+    // The \vec character that the fonts use is a combining character, and
+    // thus shows up much too far to the left. To account for this, we add a
+    // specific class which shifts the accent over to where we want it.
+    // TODO(emily): Fix this in a better way, like by changing the font
+    var vecClass = group.value.accent === "\\vec" ? "accent-vec" : null;
+
+    var accentBody = makeSpan$1(["accent-body", vecClass], [
+        makeSpan$1([], [accent])]);
+
+    accentBody = buildCommon$1.makeVList([
+        {type: "elem", elem: body},
+        {type: "kern", size: -clearance},
+        {type: "elem", elem: accentBody}
+    ], "firstBaseline", null, options);
+
+    // Shift the accent over by the skew. Note we shift by twice the skew
+    // because we are centering the accent, so by adding 2*skew to the left,
+    // we shift it to the right by 1*skew.
+    accentBody.children[1].style.marginLeft = 2 * skew + "em";
+
+    var accentWrap = makeSpan$1(["mord", "accent"], [accentBody], options);
+
+    if (supsubGroup) {
+        // Here, we replace the "base" child of the supsub with our newly
+        // generated accent.
+        supsubGroup.children[0] = accentWrap;
+
+        // Since we don't rerun the height calculation after replacing the
+        // accent, we manually recalculate height.
+        supsubGroup.height = Math.max(accentWrap.height, supsubGroup.height);
+
+        // Accents should always be ords, even when their innards are not.
+        supsubGroup.classes[0] = "mord";
+
+        return supsubGroup;
+    } else {
+        return accentWrap;
+    }
+};
+
+groupTypes.phantom = function(group, options) {
+    var elements = buildExpression(
+        group.value.value,
+        options.withPhantom(),
+        false
+    );
+
+    // \phantom isn't supposed to affect the elements it contains.
+    // See "color" for more details.
+    return new buildCommon$1.makeFragment(elements);
+};
+
+groupTypes.mclass = function(group, options) {
+    var elements = buildExpression(group.value.value, options, true);
+
+    return makeSpan$1([group.value.mclass], elements, options);
+};
+
+/**
+ * buildGroup is the function that takes a group and calls the correct groupType
+ * function for it. It also handles the interaction of size and style changes
+ * between parents and children.
+ */
+var buildGroup = function(group, options) {
+    if (!group) {
+        return makeSpan$1();
+    }
+
+    if (groupTypes[group.type]) {
+        // Call the groupTypes function
+        var groupNode = groupTypes[group.type](group, options);
+        var multiplier;
+
+        // If the style changed between the parent and the current group,
+        // account for the size difference
+        if (options.style !== options.parentStyle) {
+            multiplier = options.style.sizeMultiplier /
+                    options.parentStyle.sizeMultiplier;
+
+            groupNode.height *= multiplier;
+            groupNode.depth *= multiplier;
+        }
+
+        // If the size changed between the parent and the current group, account
+        // for that size difference.
+        if (options.size !== options.parentSize) {
+            multiplier = buildCommon$1.sizingMultiplier[options.size] /
+                    buildCommon$1.sizingMultiplier[options.parentSize];
+
+            groupNode.height *= multiplier;
+            groupNode.depth *= multiplier;
+        }
+
+        return groupNode;
+    } else {
+        throw new ParseError$2(
+            "Got group of unknown type: '" + group.type + "'");
+    }
+};
+
+/**
+ * Take an entire parse tree, and build it into an appropriate set of HTML
+ * nodes.
+ */
+var buildHTML$1 = function(tree, options) {
+    // buildExpression is destructive, so we need to make a clone
+    // of the incoming tree so that it isn't accidentally changed
+    tree = JSON.parse(JSON.stringify(tree));
+
+    // Build the expression contained in the tree
+    var expression = buildExpression(tree, options, true);
+    var body = makeSpan$1(["base", options.style.cls()], expression, options);
+
+    // Add struts, which ensure that the top of the HTML element falls at the
+    // height of the expression, and the bottom of the HTML element falls at the
+    // depth of the expression.
+    var topStrut = makeSpan$1(["strut"]);
+    var bottomStrut = makeSpan$1(["strut", "bottom"]);
+
+    topStrut.style.height = body.height + "em";
+    bottomStrut.style.height = (body.height + body.depth) + "em";
+    // We'd like to use `vertical-align: top` but in IE 9 this lowers the
+    // baseline of the box to the bottom of this strut (instead staying in the
+    // normal place) so we use an absolute value for vertical-align instead
+    bottomStrut.style.verticalAlign = -body.depth + "em";
+
+    // Wrap the struts and body together
+    var htmlNode = makeSpan$1(["katex-html"], [topStrut, bottomStrut, body]);
+
+    htmlNode.setAttribute("aria-hidden", "true");
+
+    return htmlNode;
+};
+
+var buildHTML_1 = buildHTML$1;
+
+var utils$8 = utils$4;
+
+/**
+ * This node represents a general purpose MathML node of any type. The
+ * constructor requires the type of node to create (for example, `"mo"` or
+ * `"mspace"`, corresponding to `<mo>` and `<mspace>` tags).
+ */
+function MathNode(type, children) {
+    this.type = type;
+    this.attributes = {};
+    this.children = children || [];
+}
+
+/**
+ * Sets an attribute on a MathML node. MathML depends on attributes to convey a
+ * semantic content, so this is used heavily.
+ */
+MathNode.prototype.setAttribute = function(name, value) {
+    this.attributes[name] = value;
+};
+
+/**
+ * Converts the math node into a MathML-namespaced DOM element.
+ */
+MathNode.prototype.toNode = function() {
+    var node = document.createElementNS(
+        "http://www.w3.org/1998/Math/MathML", this.type);
+
+    for (var attr in this.attributes) {
+        if (Object.prototype.hasOwnProperty.call(this.attributes, attr)) {
+            node.setAttribute(attr, this.attributes[attr]);
+        }
+    }
+
+    for (var i = 0; i < this.children.length; i++) {
+        node.appendChild(this.children[i].toNode());
+    }
+
+    return node;
+};
+
+/**
+ * Converts the math node into an HTML markup string.
+ */
+MathNode.prototype.toMarkup = function() {
+    var markup = "<" + this.type;
+
+    // Add the attributes
+    for (var attr in this.attributes) {
+        if (Object.prototype.hasOwnProperty.call(this.attributes, attr)) {
+            markup += " " + attr + "=\"";
+            markup += utils$8.escape(this.attributes[attr]);
+            markup += "\"";
+        }
+    }
+
+    markup += ">";
+
+    for (var i = 0; i < this.children.length; i++) {
+        markup += this.children[i].toMarkup();
+    }
+
+    markup += "</" + this.type + ">";
+
+    return markup;
+};
+
+/**
+ * This node represents a piece of text.
+ */
+function TextNode(text) {
+    this.text = text;
+}
+
+/**
+ * Converts the text node into a DOM text node.
+ */
+TextNode.prototype.toNode = function() {
+    return document.createTextNode(this.text);
+};
+
+/**
+ * Converts the text node into HTML markup (which is just the text itself).
+ */
+TextNode.prototype.toMarkup = function() {
+    return utils$8.escape(this.text);
+};
+
+var mathMLTree$1 = {
+    MathNode: MathNode,
+    TextNode: TextNode
+};
+
+var buildCommon$5 = buildCommon$2;
+var fontMetrics$5 = fontMetrics$1;
+var mathMLTree = mathMLTree$1;
+var ParseError$4 = ParseError_1;
+var symbols$4 = symbols$1;
+var utils$7 = utils$4;
+
+var makeSpan$4 = buildCommon$5.makeSpan;
+var fontMap$1 = buildCommon$5.fontMap;
+
+/**
+ * Takes a symbol and converts it into a MathML text node after performing
+ * optional replacement from symbols.js.
+ */
+var makeText = function(text, mode) {
+    if (symbols$4[mode][text] && symbols$4[mode][text].replace) {
+        text = symbols$4[mode][text].replace;
+    }
+
+    return new mathMLTree.TextNode(text);
+};
+
+/**
+ * Returns the math variant as a string or null if none is required.
+ */
+var getVariant = function(group, options) {
+    var font = options.font;
+    if (!font) {
+        return null;
+    }
+
+    var mode = group.mode;
+    if (font === "mathit") {
+        return "italic";
+    }
+
+    var value = group.value;
+    if (utils$7.contains(["\\imath", "\\jmath"], value)) {
+        return null;
+    }
+
+    if (symbols$4[mode][value] && symbols$4[mode][value].replace) {
+        value = symbols$4[mode][value].replace;
+    }
+
+    var fontName = fontMap$1[font].fontName;
+    if (fontMetrics$5.getCharacterMetrics(value, fontName)) {
+        return fontMap$1[options.font].variant;
+    }
+
+    return null;
+};
+
+/**
+ * Functions for handling the different types of groups found in the parse
+ * tree. Each function should take a parse group and return a MathML node.
+ */
+var groupTypes$1 = {};
+
+groupTypes$1.mathord = function(group, options) {
+    var node = new mathMLTree.MathNode(
+        "mi",
+        [makeText(group.value, group.mode)]);
+
+    var variant = getVariant(group, options);
+    if (variant) {
+        node.setAttribute("mathvariant", variant);
+    }
+    return node;
+};
+
+groupTypes$1.textord = function(group, options) {
+    var text = makeText(group.value, group.mode);
+
+    var variant = getVariant(group, options) || "normal";
+
+    var node;
+    if (/[0-9]/.test(group.value)) {
+        // TODO(kevinb) merge adjacent <mn> nodes
+        // do it as a post processing step
+        node = new mathMLTree.MathNode("mn", [text]);
+        if (options.font) {
+            node.setAttribute("mathvariant", variant);
+        }
+    } else {
+        node = new mathMLTree.MathNode("mi", [text]);
+        node.setAttribute("mathvariant", variant);
+    }
+
+    return node;
+};
+
+groupTypes$1.bin = function(group) {
+    var node = new mathMLTree.MathNode(
+        "mo", [makeText(group.value, group.mode)]);
+
+    return node;
+};
+
+groupTypes$1.rel = function(group) {
+    var node = new mathMLTree.MathNode(
+        "mo", [makeText(group.value, group.mode)]);
+
+    return node;
+};
+
+groupTypes$1.open = function(group) {
+    var node = new mathMLTree.MathNode(
+        "mo", [makeText(group.value, group.mode)]);
+
+    return node;
+};
+
+groupTypes$1.close = function(group) {
+    var node = new mathMLTree.MathNode(
+        "mo", [makeText(group.value, group.mode)]);
+
+    return node;
+};
+
+groupTypes$1.inner = function(group) {
+    var node = new mathMLTree.MathNode(
+        "mo", [makeText(group.value, group.mode)]);
+
+    return node;
+};
+
+groupTypes$1.punct = function(group) {
+    var node = new mathMLTree.MathNode(
+        "mo", [makeText(group.value, group.mode)]);
+
+    node.setAttribute("separator", "true");
+
+    return node;
+};
+
+groupTypes$1.ordgroup = function(group, options) {
+    var inner = buildExpression$1(group.value, options);
+
+    var node = new mathMLTree.MathNode("mrow", inner);
+
+    return node;
+};
+
+groupTypes$1.text = function(group, options) {
+    var inner = buildExpression$1(group.value.body, options);
+
+    var node = new mathMLTree.MathNode("mtext", inner);
+
+    return node;
+};
+
+groupTypes$1.color = function(group, options) {
+    var inner = buildExpression$1(group.value.value, options);
+
+    var node = new mathMLTree.MathNode("mstyle", inner);
+
+    node.setAttribute("mathcolor", group.value.color);
+
+    return node;
+};
+
+groupTypes$1.supsub = function(group, options) {
+    var children = [buildGroup$1(group.value.base, options)];
+
+    if (group.value.sub) {
+        children.push(buildGroup$1(group.value.sub, options));
+    }
+
+    if (group.value.sup) {
+        children.push(buildGroup$1(group.value.sup, options));
+    }
+
+    var nodeType;
+    if (!group.value.sub) {
+        nodeType = "msup";
+    } else if (!group.value.sup) {
+        nodeType = "msub";
+    } else {
+        nodeType = "msubsup";
+    }
+
+    var node = new mathMLTree.MathNode(nodeType, children);
+
+    return node;
+};
+
+groupTypes$1.genfrac = function(group, options) {
+    var node = new mathMLTree.MathNode(
+        "mfrac",
+        [buildGroup$1(group.value.numer, options),
+            buildGroup$1(group.value.denom, options)]);
+
+    if (!group.value.hasBarLine) {
+        node.setAttribute("linethickness", "0px");
+    }
+
+    if (group.value.leftDelim != null || group.value.rightDelim != null) {
+        var withDelims = [];
+
+        if (group.value.leftDelim != null) {
+            var leftOp = new mathMLTree.MathNode(
+                "mo", [new mathMLTree.TextNode(group.value.leftDelim)]);
+
+            leftOp.setAttribute("fence", "true");
+
+            withDelims.push(leftOp);
+        }
+
+        withDelims.push(node);
+
+        if (group.value.rightDelim != null) {
+            var rightOp = new mathMLTree.MathNode(
+                "mo", [new mathMLTree.TextNode(group.value.rightDelim)]);
+
+            rightOp.setAttribute("fence", "true");
+
+            withDelims.push(rightOp);
+        }
+
+        var outerNode = new mathMLTree.MathNode("mrow", withDelims);
+
+        return outerNode;
+    }
+
+    return node;
+};
+
+groupTypes$1.array = function(group, options) {
+    return new mathMLTree.MathNode(
+        "mtable", group.value.body.map(function(row) {
+            return new mathMLTree.MathNode(
+                "mtr", row.map(function(cell) {
+                    return new mathMLTree.MathNode(
+                        "mtd", [buildGroup$1(cell, options)]);
+                }));
+        }));
+};
+
+groupTypes$1.sqrt = function(group, options) {
+    var node;
+    if (group.value.index) {
+        node = new mathMLTree.MathNode(
+            "mroot", [
+                buildGroup$1(group.value.body, options),
+                buildGroup$1(group.value.index, options)
+            ]);
+    } else {
+        node = new mathMLTree.MathNode(
+            "msqrt", [buildGroup$1(group.value.body, options)]);
+    }
+
+    return node;
+};
+
+groupTypes$1.leftright = function(group, options) {
+    var inner = buildExpression$1(group.value.body, options);
+
+    if (group.value.left !== ".") {
+        var leftNode = new mathMLTree.MathNode(
+            "mo", [makeText(group.value.left, group.mode)]);
+
+        leftNode.setAttribute("fence", "true");
+
+        inner.unshift(leftNode);
+    }
+
+    if (group.value.right !== ".") {
+        var rightNode = new mathMLTree.MathNode(
+            "mo", [makeText(group.value.right, group.mode)]);
+
+        rightNode.setAttribute("fence", "true");
+
+        inner.push(rightNode);
+    }
+
+    var outerNode = new mathMLTree.MathNode("mrow", inner);
+
+    return outerNode;
+};
+
+groupTypes$1.middle = function(group, options) {
+    var middleNode = new mathMLTree.MathNode(
+        "mo", [makeText(group.value.middle, group.mode)]);
+    middleNode.setAttribute("fence", "true");
+    return middleNode;
+};
+
+groupTypes$1.accent = function(group, options) {
+    var accentNode = new mathMLTree.MathNode(
+        "mo", [makeText(group.value.accent, group.mode)]);
+
+    var node = new mathMLTree.MathNode(
+        "mover",
+        [buildGroup$1(group.value.base, options),
+            accentNode]);
+
+    node.setAttribute("accent", "true");
+
+    return node;
+};
+
+groupTypes$1.spacing = function(group) {
+    var node;
+
+    if (group.value === "\\ " || group.value === "\\space" ||
+        group.value === " " || group.value === "~") {
+        node = new mathMLTree.MathNode(
+            "mtext", [new mathMLTree.TextNode("\u00a0")]);
+    } else {
+        node = new mathMLTree.MathNode("mspace");
+
+        node.setAttribute(
+            "width", buildCommon$5.spacingFunctions[group.value].size);
+    }
+
+    return node;
+};
+
+groupTypes$1.op = function(group, options) {
+    var node;
+
+    // TODO(emily): handle big operators using the `largeop` attribute
+
+    if (group.value.symbol) {
+        // This is a symbol. Just add the symbol.
+        node = new mathMLTree.MathNode(
+            "mo", [makeText(group.value.body, group.mode)]);
+    } else if (group.value.value) {
+        // This is an operator with children. Add them.
+        node = new mathMLTree.MathNode(
+            "mo", buildExpression$1(group.value.value, options));
+    } else {
+        // This is a text operator. Add all of the characters from the
+        // operator's name.
+        // TODO(emily): Add a space in the middle of some of these
+        // operators, like \limsup.
+        node = new mathMLTree.MathNode(
+            "mi", [new mathMLTree.TextNode(group.value.body.slice(1))]);
+    }
+
+    return node;
+};
+
+groupTypes$1.mod = function(group, options) {
+    var inner = [];
+
+    if (group.value.modType === "pod" || group.value.modType === "pmod") {
+        inner.push(new mathMLTree.MathNode(
+            "mo", [makeText("(", group.mode)]));
+    }
+    if (group.value.modType !== "pod") {
+        inner.push(new mathMLTree.MathNode(
+            "mo", [makeText("mod", group.mode)]));
+    }
+    if (group.value.value) {
+        var space = new mathMLTree.MathNode("mspace");
+        space.setAttribute("width", "0.333333em");
+        inner.push(space);
+        inner = inner.concat(buildExpression$1(group.value.value, options));
+    }
+    if (group.value.modType === "pod" || group.value.modType === "pmod") {
+        inner.push(new mathMLTree.MathNode(
+            "mo", [makeText(")", group.mode)]));
+    }
+
+    return new mathMLTree.MathNode("mo", inner);
+};
+
+groupTypes$1.katex = function(group) {
+    var node = new mathMLTree.MathNode(
+        "mtext", [new mathMLTree.TextNode("KaTeX")]);
+
+    return node;
+};
+
+groupTypes$1.font = function(group, options) {
+    var font = group.value.font;
+    return buildGroup$1(group.value.body, options.withFont(font));
+};
+
+groupTypes$1.delimsizing = function(group) {
+    var children = [];
+
+    if (group.value.value !== ".") {
+        children.push(makeText(group.value.value, group.mode));
+    }
+
+    var node = new mathMLTree.MathNode("mo", children);
+
+    if (group.value.mclass === "mopen" ||
+        group.value.mclass === "mclose") {
+        // Only some of the delimsizing functions act as fences, and they
+        // return "mopen" or "mclose" mclass.
+        node.setAttribute("fence", "true");
+    } else {
+        // Explicitly disable fencing if it's not a fence, to override the
+        // defaults.
+        node.setAttribute("fence", "false");
+    }
+
+    return node;
+};
+
+groupTypes$1.styling = function(group, options) {
+    var inner = buildExpression$1(group.value.value, options);
+
+    var node = new mathMLTree.MathNode("mstyle", inner);
+
+    var styleAttributes = {
+        "display": ["0", "true"],
+        "text": ["0", "false"],
+        "script": ["1", "false"],
+        "scriptscript": ["2", "false"]
+    };
+
+    var attr = styleAttributes[group.value.style];
+
+    node.setAttribute("scriptlevel", attr[0]);
+    node.setAttribute("displaystyle", attr[1]);
+
+    return node;
+};
+
+groupTypes$1.sizing = function(group, options) {
+    var inner = buildExpression$1(group.value.value, options);
+
+    var node = new mathMLTree.MathNode("mstyle", inner);
+
+    // TODO(emily): This doesn't produce the correct size for nested size
+    // changes, because we don't keep state of what style we're currently
+    // in, so we can't reset the size to normal before changing it.  Now
+    // that we're passing an options parameter we should be able to fix
+    // this.
+    node.setAttribute(
+        "mathsize", buildCommon$5.sizingMultiplier[group.value.size] + "em");
+
+    return node;
+};
+
+groupTypes$1.overline = function(group, options) {
+    var operator = new mathMLTree.MathNode(
+        "mo", [new mathMLTree.TextNode("\u203e")]);
+    operator.setAttribute("stretchy", "true");
+
+    var node = new mathMLTree.MathNode(
+        "mover",
+        [buildGroup$1(group.value.body, options),
+            operator]);
+    node.setAttribute("accent", "true");
+
+    return node;
+};
+
+groupTypes$1.underline = function(group, options) {
+    var operator = new mathMLTree.MathNode(
+        "mo", [new mathMLTree.TextNode("\u203e")]);
+    operator.setAttribute("stretchy", "true");
+
+    var node = new mathMLTree.MathNode(
+        "munder",
+        [buildGroup$1(group.value.body, options),
+            operator]);
+    node.setAttribute("accentunder", "true");
+
+    return node;
+};
+
+groupTypes$1.rule = function(group) {
+    // TODO(emily): Figure out if there's an actual way to draw black boxes
+    // in MathML.
+    var node = new mathMLTree.MathNode("mrow");
+
+    return node;
+};
+
+groupTypes$1.kern = function(group) {
+    // TODO(kevin): Figure out if there's a way to add space in MathML
+    var node = new mathMLTree.MathNode("mrow");
+
+    return node;
+};
+
+groupTypes$1.llap = function(group, options) {
+    var node = new mathMLTree.MathNode(
+        "mpadded", [buildGroup$1(group.value.body, options)]);
+
+    node.setAttribute("lspace", "-1width");
+    node.setAttribute("width", "0px");
+
+    return node;
+};
+
+groupTypes$1.rlap = function(group, options) {
+    var node = new mathMLTree.MathNode(
+        "mpadded", [buildGroup$1(group.value.body, options)]);
+
+    node.setAttribute("width", "0px");
+
+    return node;
+};
+
+groupTypes$1.phantom = function(group, options) {
+    var inner = buildExpression$1(group.value.value, options);
+    return new mathMLTree.MathNode("mphantom", inner);
+};
+
+groupTypes$1.mclass = function(group, options) {
+    var inner = buildExpression$1(group.value.value, options);
+    return new mathMLTree.MathNode("mstyle", inner);
+};
+
+/**
+ * Takes a list of nodes, builds them, and returns a list of the generated
+ * MathML nodes. A little simpler than the HTML version because we don't do any
+ * previous-node handling.
+ */
+var buildExpression$1 = function(expression, options) {
+    var groups = [];
+    for (var i = 0; i < expression.length; i++) {
+        var group = expression[i];
+        groups.push(buildGroup$1(group, options));
+    }
+    return groups;
+};
+
+/**
+ * Takes a group from the parser and calls the appropriate groupTypes function
+ * on it to produce a MathML node.
+ */
+var buildGroup$1 = function(group, options) {
+    if (!group) {
+        return new mathMLTree.MathNode("mrow");
+    }
+
+    if (groupTypes$1[group.type]) {
+        // Call the groupTypes function
+        return groupTypes$1[group.type](group, options);
+    } else {
+        throw new ParseError$4(
+            "Got group of unknown type: '" + group.type + "'");
+    }
+};
+
+/**
+ * Takes a full parse tree and settings and builds a MathML representation of
+ * it. In particular, we put the elements from building the parse tree into a
+ * <semantics> tag so we can also include that TeX source as an annotation.
+ *
+ * Note that we actually return a domTree element with a `<math>` inside it so
+ * we can do appropriate styling.
+ */
+var buildMathML$1 = function(tree, texExpression, options) {
+    var expression = buildExpression$1(tree, options);
+
+    // Wrap up the expression in an mrow so it is presented in the semantics
+    // tag correctly.
+    var wrapper = new mathMLTree.MathNode("mrow", expression);
+
+    // Build a TeX annotation of the source
+    var annotation = new mathMLTree.MathNode(
+        "annotation", [new mathMLTree.TextNode(texExpression)]);
+
+    annotation.setAttribute("encoding", "application/x-tex");
+
+    var semantics = new mathMLTree.MathNode(
+        "semantics", [wrapper, annotation]);
+
+    var math = new mathMLTree.MathNode("math", [semantics]);
+
+    // You can't style <math> nodes, so we wrap the node in a span.
+    return makeSpan$4(["katex-mathml"], [math]);
+};
+
+var buildMathML_1 = buildMathML$1;
+
+/**
+ * This file contains information about the options that the Parser carries
+ * around with it while parsing. Data is held in an `Options` object, and when
+ * recursing, a new `Options` object can be created with the `.with*` and
+ * `.reset` functions.
+ */
+
+/**
+ * This is the main options class. It contains the style, size, color, and font
+ * of the current parse level. It also contains the style and size of the parent
+ * parse level, so size changes can be handled efficiently.
+ *
+ * Each of the `.with*` and `.reset` functions passes its current style and size
+ * as the parentStyle and parentSize of the new options class, so parent
+ * handling is taken care of automatically.
+ */
+function Options$1(data) {
+    this.style = data.style;
+    this.color = data.color;
+    this.size = data.size;
+    this.phantom = data.phantom;
+    this.font = data.font;
+
+    if (data.parentStyle === undefined) {
+        this.parentStyle = data.style;
+    } else {
+        this.parentStyle = data.parentStyle;
+    }
+
+    if (data.parentSize === undefined) {
+        this.parentSize = data.size;
+    } else {
+        this.parentSize = data.parentSize;
+    }
+}
+
+/**
+ * Returns a new options object with the same properties as "this".  Properties
+ * from "extension" will be copied to the new options object.
+ */
+Options$1.prototype.extend = function(extension) {
+    var data = {
+        style: this.style,
+        size: this.size,
+        color: this.color,
+        parentStyle: this.style,
+        parentSize: this.size,
+        phantom: this.phantom,
+        font: this.font
+    };
+
+    for (var key in extension) {
+        if (extension.hasOwnProperty(key)) {
+            data[key] = extension[key];
+        }
+    }
+
+    return new Options$1(data);
+};
+
+/**
+ * Create a new options object with the given style.
+ */
+Options$1.prototype.withStyle = function(style) {
+    return this.extend({
+        style: style
+    });
+};
+
+/**
+ * Create a new options object with the given size.
+ */
+Options$1.prototype.withSize = function(size) {
+    return this.extend({
+        size: size
+    });
+};
+
+/**
+ * Create a new options object with the given color.
+ */
+Options$1.prototype.withColor = function(color) {
+    return this.extend({
+        color: color
+    });
+};
+
+/**
+ * Create a new options object with "phantom" set to true.
+ */
+Options$1.prototype.withPhantom = function() {
+    return this.extend({
+        phantom: true
+    });
+};
+
+/**
+ * Create a new options objects with the give font.
+ */
+Options$1.prototype.withFont = function(font) {
+    return this.extend({
+        font: font || this.font
+    });
+};
+
+/**
+ * Create a new options object with the same style, size, and color. This is
+ * used so that parent style and size changes are handled correctly.
+ */
+Options$1.prototype.reset = function() {
+    return this.extend({});
+};
+
+/**
+ * A map of color names to CSS colors.
+ * TODO(emily): Remove this when we have real macros
+ */
+var colorMap = {
+    "katex-blue": "#6495ed",
+    "katex-orange": "#ffa500",
+    "katex-pink": "#ff00af",
+    "katex-red": "#df0030",
+    "katex-green": "#28ae7b",
+    "katex-gray": "gray",
+    "katex-purple": "#9d38bd",
+    "katex-blueA": "#ccfaff",
+    "katex-blueB": "#80f6ff",
+    "katex-blueC": "#63d9ea",
+    "katex-blueD": "#11accd",
+    "katex-blueE": "#0c7f99",
+    "katex-tealA": "#94fff5",
+    "katex-tealB": "#26edd5",
+    "katex-tealC": "#01d1c1",
+    "katex-tealD": "#01a995",
+    "katex-tealE": "#208170",
+    "katex-greenA": "#b6ffb0",
+    "katex-greenB": "#8af281",
+    "katex-greenC": "#74cf70",
+    "katex-greenD": "#1fab54",
+    "katex-greenE": "#0d923f",
+    "katex-goldA": "#ffd0a9",
+    "katex-goldB": "#ffbb71",
+    "katex-goldC": "#ff9c39",
+    "katex-goldD": "#e07d10",
+    "katex-goldE": "#a75a05",
+    "katex-redA": "#fca9a9",
+    "katex-redB": "#ff8482",
+    "katex-redC": "#f9685d",
+    "katex-redD": "#e84d39",
+    "katex-redE": "#bc2612",
+    "katex-maroonA": "#ffbde0",
+    "katex-maroonB": "#ff92c6",
+    "katex-maroonC": "#ed5fa6",
+    "katex-maroonD": "#ca337c",
+    "katex-maroonE": "#9e034e",
+    "katex-purpleA": "#ddd7ff",
+    "katex-purpleB": "#c6b9fc",
+    "katex-purpleC": "#aa87ff",
+    "katex-purpleD": "#7854ab",
+    "katex-purpleE": "#543b78",
+    "katex-mintA": "#f5f9e8",
+    "katex-mintB": "#edf2df",
+    "katex-mintC": "#e0e5cc",
+    "katex-grayA": "#f6f7f7",
+    "katex-grayB": "#f0f1f2",
+    "katex-grayC": "#e3e5e6",
+    "katex-grayD": "#d6d8da",
+    "katex-grayE": "#babec2",
+    "katex-grayF": "#888d93",
+    "katex-grayG": "#626569",
+    "katex-grayH": "#3b3e40",
+    "katex-grayI": "#21242c",
+    "katex-kaBlue": "#314453",
+    "katex-kaGreen": "#71B307"
+};
+
+/**
+ * Gets the CSS color of the current options object, accounting for the
+ * `colorMap`.
+ */
+Options$1.prototype.getColor = function() {
+    if (this.phantom) {
+        return "transparent";
+    } else {
+        return colorMap[this.color] || this.color;
+    }
+};
+
+var Options_1 = Options$1;
+
+var buildHTML = buildHTML_1;
+var buildMathML = buildMathML_1;
+var buildCommon = buildCommon$2;
+var Options = Options_1;
+var Settings$2 = Settings_1;
+var Style = Style_1;
+
+var makeSpan = buildCommon.makeSpan;
+
+var buildTree$1 = function(tree, expression, settings) {
+    settings = settings || new Settings$2({});
+
+    var startStyle = Style.TEXT;
+    if (settings.displayMode) {
+        startStyle = Style.DISPLAY;
+    }
+
+    // Setup the default options
+    var options = new Options({
+        style: startStyle,
+        size: "size5"
+    });
+
+    // `buildHTML` sometimes messes with the parse tree (like turning bins ->
+    // ords), so we build the MathML version first.
+    var mathMLNode = buildMathML(tree, expression, options);
+    var htmlNode = buildHTML(tree, options);
+
+    var katexNode = makeSpan(["katex"], [
+        mathMLNode, htmlNode
+    ]);
+
+    if (settings.displayMode) {
+        return makeSpan(["katex-display"], [katexNode]);
+    } else {
+        return katexNode;
+    }
+};
+
+var buildTree_1 = buildTree$1;
+
+/**
+ * The resulting parse tree nodes of the parse tree.
+ *
+ * It is possible to provide position information, so that a ParseNode can
+ * fulfil a role similar to a Token in error reporting.
+ * For details on the corresponding properties see Token constructor.
+ * Providing such information can lead to better error reporting.
+ *
+ * @param {string}  type       type of node, like e.g. "ordgroup"
+ * @param {?object} value      type-specific representation of the node
+ * @param {string}  mode       parse mode in action for this node,
+ *                             "math" or "text"
+ * @param {Token=} firstToken  first token of the input for this node,
+ *                             will omit position information if unset
+ * @param {Token=} lastToken   last token of the input for this node,
+ *                             will default to firstToken if unset
+ */
+function ParseNode$1(type, value, mode, firstToken, lastToken) {
+    this.type = type;
+    this.value = value;
+    this.mode = mode;
+    if (firstToken && (!lastToken || lastToken.lexer === firstToken.lexer)) {
+        this.lexer = firstToken.lexer;
+        this.start = firstToken.start;
+        this.end = (lastToken || firstToken).end;
+    }
+}
+
+var parseData$1 = {
+    ParseNode: ParseNode$1
+};
+
+var functions$1 = createCommonjsModule(function (module) {
+var utils = utils$4;
+var ParseError = ParseError_1;
+var parseData = parseData$1;
+var ParseNode = parseData.ParseNode;
+
+/* This file contains a list of functions that we parse, identified by
+ * the calls to defineFunction.
+ *
+ * The first argument to defineFunction is a single name or a list of names.
+ * All functions named in such a list will share a single implementation.
+ *
+ * Each declared function can have associated properties, which
+ * include the following:
+ *
+ *  - numArgs: The number of arguments the function takes.
+ *             If this is the only property, it can be passed as a number
+ *             instead of an element of a properties object.
+ *  - argTypes: (optional) An array corresponding to each argument of the
+ *              function, giving the type of argument that should be parsed. Its
+ *              length should be equal to `numArgs + numOptionalArgs`. Valid
+ *              types:
+ *               - "size": A size-like thing, such as "1em" or "5ex"
+ *               - "color": An html color, like "#abc" or "blue"
+ *               - "original": The same type as the environment that the
+ *                             function being parsed is in (e.g. used for the
+ *                             bodies of functions like \color where the first
+ *                             argument is special and the second argument is
+ *                             parsed normally)
+ *              Other possible types (probably shouldn't be used)
+ *               - "text": Text-like (e.g. \text)
+ *               - "math": Normal math
+ *              If undefined, this will be treated as an appropriate length
+ *              array of "original" strings
+ *  - greediness: (optional) The greediness of the function to use ungrouped
+ *                arguments.
+ *
+ *                E.g. if you have an expression
+ *                  \sqrt \frac 1 2
+ *                since \frac has greediness=2 vs \sqrt's greediness=1, \frac
+ *                will use the two arguments '1' and '2' as its two arguments,
+ *                then that whole function will be used as the argument to
+ *                \sqrt. On the other hand, the expressions
+ *                  \frac \frac 1 2 3
+ *                and
+ *                  \frac \sqrt 1 2
+ *                will fail because \frac and \frac have equal greediness
+ *                and \sqrt has a lower greediness than \frac respectively. To
+ *                make these parse, we would have to change them to:
+ *                  \frac {\frac 1 2} 3
+ *                and
+ *                  \frac {\sqrt 1} 2
+ *
+ *                The default value is `1`
+ *  - allowedInText: (optional) Whether or not the function is allowed inside
+ *                   text mode (default false)
+ *  - numOptionalArgs: (optional) The number of optional arguments the function
+ *                     should parse. If the optional arguments aren't found,
+ *                     `null` will be passed to the handler in their place.
+ *                     (default 0)
+ *  - infix: (optional) Must be true if the function is an infix operator.
+ *
+ * The last argument is that implementation, the handler for the function(s).
+ * It is called to handle these functions and their arguments.
+ * It receives two arguments:
+ *  - context contains information and references provided by the parser
+ *  - args is an array of arguments obtained from TeX input
+ * The context contains the following properties:
+ *  - funcName: the text (i.e. name) of the function, including \
+ *  - parser: the parser object
+ *  - lexer: the lexer object
+ *  - positions: the positions in the overall string of the function
+ *               and the arguments.
+ * The latter three should only be used to produce error messages.
+ *
+ * The function should return an object with the following keys:
+ *  - type: The type of element that this is. This is then used in
+ *          buildHTML/buildMathML to determine which function
+ *          should be called to build this node into a DOM node
+ * Any other data can be added to the object, which will be passed
+ * in to the function in buildHTML/buildMathML as `group.value`.
+ */
+
+function defineFunction(names, props, handler) {
+    if (typeof names === "string") {
+        names = [names];
+    }
+    if (typeof props === "number") {
+        props = { numArgs: props };
+    }
+    // Set default values of functions
+    var data = {
+        numArgs: props.numArgs,
+        argTypes: props.argTypes,
+        greediness: (props.greediness === undefined) ? 1 : props.greediness,
+        allowedInText: !!props.allowedInText,
+        numOptionalArgs: props.numOptionalArgs || 0,
+        infix: !!props.infix,
+        handler: handler
+    };
+    for (var i = 0; i < names.length; ++i) {
+        module.exports[names[i]] = data;
+    }
+}
+
+// Since the corresponding buildHTML/buildMathML function expects a
+// list of elements, we normalize for different kinds of arguments
+var ordargument = function(arg) {
+    if (arg.type === "ordgroup") {
+        return arg.value;
+    } else {
+        return [arg];
+    }
+};
+
+// A normal square root
+defineFunction("\\sqrt", {
+    numArgs: 1,
+    numOptionalArgs: 1
+}, function(context, args) {
+    var index = args[0];
+    var body = args[1];
+    return {
+        type: "sqrt",
+        body: body,
+        index: index
+    };
+});
+
+// Non-mathy text, possibly in a font
+var textFunctionStyles = {
+    "\\text": undefined, "\\textrm": "mathrm", "\\textsf": "mathsf",
+    "\\texttt": "mathtt", "\\textnormal": "mathrm", "\\textbf": "mathbf",
+    "\\textit": "textit"
+};
+
+defineFunction([
+    "\\text", "\\textrm", "\\textsf", "\\texttt", "\\textnormal",
+    "\\textbf", "\\textit"
+], {
+    numArgs: 1,
+    argTypes: ["text"],
+    greediness: 2,
+    allowedInText: true
+}, function(context, args) {
+    var body = args[0];
+    return {
+        type: "text",
+        body: ordargument(body),
+        style: textFunctionStyles[context.funcName]
+    };
+});
+
+// A two-argument custom color
+defineFunction("\\color", {
+    numArgs: 2,
+    allowedInText: true,
+    greediness: 3,
+    argTypes: ["color", "original"]
+}, function(context, args) {
+    var color = args[0];
+    var body = args[1];
+    return {
+        type: "color",
+        color: color.value,
+        value: ordargument(body)
+    };
+});
+
+// An overline
+defineFunction("\\overline", {
+    numArgs: 1
+}, function(context, args) {
+    var body = args[0];
+    return {
+        type: "overline",
+        body: body
+    };
+});
+
+// An underline
+defineFunction("\\underline", {
+    numArgs: 1
+}, function(context, args) {
+    var body = args[0];
+    return {
+        type: "underline",
+        body: body
+    };
+});
+
+// A box of the width and height
+defineFunction("\\rule", {
+    numArgs: 2,
+    numOptionalArgs: 1,
+    argTypes: ["size", "size", "size"]
+}, function(context, args) {
+    var shift = args[0];
+    var width = args[1];
+    var height = args[2];
+    return {
+        type: "rule",
+        shift: shift && shift.value,
+        width: width.value,
+        height: height.value
+    };
+});
+
+// TODO: In TeX, \mkern only accepts mu-units, and \kern does not accept
+// mu-units. In current KaTeX we relax this; both commands accept any unit.
+defineFunction(["\\kern", "\\mkern"], {
+    numArgs: 1,
+    argTypes: ["size"]
+}, function(context, args) {
+    return {
+        type: "kern",
+        dimension: args[0].value
+    };
+});
+
+// A KaTeX logo
+defineFunction("\\KaTeX", {
+    numArgs: 0
+}, function(context) {
+    return {
+        type: "katex"
+    };
+});
+
+defineFunction("\\phantom", {
+    numArgs: 1
+}, function(context, args) {
+    var body = args[0];
+    return {
+        type: "phantom",
+        value: ordargument(body)
+    };
+});
+
+// Math class commands except \mathop
+defineFunction([
+    "\\mathord", "\\mathbin", "\\mathrel", "\\mathopen",
+    "\\mathclose", "\\mathpunct", "\\mathinner"
+], {
+    numArgs: 1
+}, function(context, args) {
+    var body = args[0];
+    return {
+        type: "mclass",
+        mclass: "m" + context.funcName.substr(5),
+        value: ordargument(body)
+    };
+});
+
+// Build a relation by placing one symbol on top of another
+defineFunction("\\stackrel", {
+    numArgs: 2
+}, function(context, args) {
+    var top = args[0];
+    var bottom = args[1];
+
+    var bottomop = new ParseNode("op", {
+        type: "op",
+        limits: true,
+        alwaysHandleSupSub: true,
+        symbol: false,
+        value: ordargument(bottom)
+    }, bottom.mode);
+
+    var supsub = new ParseNode("supsub", {
+        base: bottomop,
+        sup: top,
+        sub: null
+    }, top.mode);
+
+    return {
+        type: "mclass",
+        mclass: "mrel",
+        value: [supsub]
+    };
+});
+
+// \mod-type functions
+defineFunction("\\bmod", {
+    numArgs: 0
+}, function(context, args) {
+    return {
+        type: "mod",
+        modType: "bmod",
+        value: null
+    };
+});
+
+defineFunction(["\\pod", "\\pmod", "\\mod"], {
+    numArgs: 1
+}, function(context, args) {
+    var body = args[0];
+    return {
+        type: "mod",
+        modType: context.funcName.substr(1),
+        value: ordargument(body)
+    };
+});
+
+// Extra data needed for the delimiter handler down below
+var delimiterSizes = {
+    "\\bigl" : {mclass: "mopen",    size: 1},
+    "\\Bigl" : {mclass: "mopen",    size: 2},
+    "\\biggl": {mclass: "mopen",    size: 3},
+    "\\Biggl": {mclass: "mopen",    size: 4},
+    "\\bigr" : {mclass: "mclose",   size: 1},
+    "\\Bigr" : {mclass: "mclose",   size: 2},
+    "\\biggr": {mclass: "mclose",   size: 3},
+    "\\Biggr": {mclass: "mclose",   size: 4},
+    "\\bigm" : {mclass: "mrel",     size: 1},
+    "\\Bigm" : {mclass: "mrel",     size: 2},
+    "\\biggm": {mclass: "mrel",     size: 3},
+    "\\Biggm": {mclass: "mrel",     size: 4},
+    "\\big"  : {mclass: "mord",     size: 1},
+    "\\Big"  : {mclass: "mord",     size: 2},
+    "\\bigg" : {mclass: "mord",     size: 3},
+    "\\Bigg" : {mclass: "mord",     size: 4}
+};
+
+var delimiters = [
+    "(", ")", "[", "\\lbrack", "]", "\\rbrack",
+    "\\{", "\\lbrace", "\\}", "\\rbrace",
+    "\\lfloor", "\\rfloor", "\\lceil", "\\rceil",
+    "<", ">", "\\langle", "\\rangle", "\\lt", "\\gt",
+    "\\lvert", "\\rvert", "\\lVert", "\\rVert",
+    "\\lgroup", "\\rgroup", "\\lmoustache", "\\rmoustache",
+    "/", "\\backslash",
+    "|", "\\vert", "\\|", "\\Vert",
+    "\\uparrow", "\\Uparrow",
+    "\\downarrow", "\\Downarrow",
+    "\\updownarrow", "\\Updownarrow",
+    "."
+];
+
+var fontAliases = {
+    "\\Bbb": "\\mathbb",
+    "\\bold": "\\mathbf",
+    "\\frak": "\\mathfrak"
+};
+
+// Single-argument color functions
+defineFunction([
+    "\\blue", "\\orange", "\\pink", "\\red",
+    "\\green", "\\gray", "\\purple",
+    "\\blueA", "\\blueB", "\\blueC", "\\blueD", "\\blueE",
+    "\\tealA", "\\tealB", "\\tealC", "\\tealD", "\\tealE",
+    "\\greenA", "\\greenB", "\\greenC", "\\greenD", "\\greenE",
+    "\\goldA", "\\goldB", "\\goldC", "\\goldD", "\\goldE",
+    "\\redA", "\\redB", "\\redC", "\\redD", "\\redE",
+    "\\maroonA", "\\maroonB", "\\maroonC", "\\maroonD", "\\maroonE",
+    "\\purpleA", "\\purpleB", "\\purpleC", "\\purpleD", "\\purpleE",
+    "\\mintA", "\\mintB", "\\mintC",
+    "\\grayA", "\\grayB", "\\grayC", "\\grayD", "\\grayE",
+    "\\grayF", "\\grayG", "\\grayH", "\\grayI",
+    "\\kaBlue", "\\kaGreen"
+], {
+    numArgs: 1,
+    allowedInText: true,
+    greediness: 3
+}, function(context, args) {
+    var body = args[0];
+    return {
+        type: "color",
+        color: "katex-" + context.funcName.slice(1),
+        value: ordargument(body)
+    };
+});
+
+// There are 2 flags for operators; whether they produce limits in
+// displaystyle, and whether they are symbols and should grow in
+// displaystyle. These four groups cover the four possible choices.
+
+// No limits, not symbols
+defineFunction([
+    "\\arcsin", "\\arccos", "\\arctan", "\\arg", "\\cos", "\\cosh",
+    "\\cot", "\\coth", "\\csc", "\\deg", "\\dim", "\\exp", "\\hom",
+    "\\ker", "\\lg", "\\ln", "\\log", "\\sec", "\\sin", "\\sinh",
+    "\\tan", "\\tanh"
+], {
+    numArgs: 0
+}, function(context) {
+    return {
+        type: "op",
+        limits: false,
+        symbol: false,
+        body: context.funcName
+    };
+});
+
+// Limits, not symbols
+defineFunction([
+    "\\det", "\\gcd", "\\inf", "\\lim", "\\liminf", "\\limsup", "\\max",
+    "\\min", "\\Pr", "\\sup"
+], {
+    numArgs: 0
+}, function(context) {
+    return {
+        type: "op",
+        limits: true,
+        symbol: false,
+        body: context.funcName
+    };
+});
+
+// No limits, symbols
+defineFunction([
+    "\\int", "\\iint", "\\iiint", "\\oint"
+], {
+    numArgs: 0
+}, function(context) {
+    return {
+        type: "op",
+        limits: false,
+        symbol: true,
+        body: context.funcName
+    };
+});
+
+// Limits, symbols
+defineFunction([
+    "\\coprod", "\\bigvee", "\\bigwedge", "\\biguplus", "\\bigcap",
+    "\\bigcup", "\\intop", "\\prod", "\\sum", "\\bigotimes",
+    "\\bigoplus", "\\bigodot", "\\bigsqcup", "\\smallint"
+], {
+    numArgs: 0
+}, function(context) {
+    return {
+        type: "op",
+        limits: true,
+        symbol: true,
+        body: context.funcName
+    };
+});
+
+// \mathop class command
+defineFunction("\\mathop", {
+    numArgs: 1
+}, function(context, args) {
+    var body = args[0];
+    return {
+        type: "op",
+        limits: false,
+        symbol: false,
+        value: ordargument(body)
+    };
+});
+
+// Fractions
+defineFunction([
+    "\\dfrac", "\\frac", "\\tfrac",
+    "\\dbinom", "\\binom", "\\tbinom",
+    "\\\\atopfrac" // can’t be entered directly
+], {
+    numArgs: 2,
+    greediness: 2
+}, function(context, args) {
+    var numer = args[0];
+    var denom = args[1];
+    var hasBarLine;
+    var leftDelim = null;
+    var rightDelim = null;
+    var size = "auto";
+
+    switch (context.funcName) {
+        case "\\dfrac":
+        case "\\frac":
+        case "\\tfrac":
+            hasBarLine = true;
+            break;
+        case "\\\\atopfrac":
+            hasBarLine = false;
+            break;
+        case "\\dbinom":
+        case "\\binom":
+        case "\\tbinom":
+            hasBarLine = false;
+            leftDelim = "(";
+            rightDelim = ")";
+            break;
+        default:
+            throw new Error("Unrecognized genfrac command");
+    }
+
+    switch (context.funcName) {
+        case "\\dfrac":
+        case "\\dbinom":
+            size = "display";
+            break;
+        case "\\tfrac":
+        case "\\tbinom":
+            size = "text";
+            break;
+    }
+
+    return {
+        type: "genfrac",
+        numer: numer,
+        denom: denom,
+        hasBarLine: hasBarLine,
+        leftDelim: leftDelim,
+        rightDelim: rightDelim,
+        size: size
+    };
+});
+
+// Left and right overlap functions
+defineFunction(["\\llap", "\\rlap"], {
+    numArgs: 1,
+    allowedInText: true
+}, function(context, args) {
+    var body = args[0];
+    return {
+        type: context.funcName.slice(1),
+        body: body
+    };
+});
+
+// Delimiter functions
+var checkDelimiter = function(delim, context) {
+    if (utils.contains(delimiters, delim.value)) {
+        return delim;
+    } else {
+        throw new ParseError(
+            "Invalid delimiter: '" + delim.value + "' after '" +
+            context.funcName + "'", delim);
+    }
+};
+
+defineFunction([
+    "\\bigl", "\\Bigl", "\\biggl", "\\Biggl",
+    "\\bigr", "\\Bigr", "\\biggr", "\\Biggr",
+    "\\bigm", "\\Bigm", "\\biggm", "\\Biggm",
+    "\\big",  "\\Big",  "\\bigg",  "\\Bigg"
+], {
+    numArgs: 1
+}, function(context, args) {
+    var delim = checkDelimiter(args[0], context);
+
+    return {
+        type: "delimsizing",
+        size: delimiterSizes[context.funcName].size,
+        mclass: delimiterSizes[context.funcName].mclass,
+        value: delim.value
+    };
+});
+
+defineFunction([
+    "\\left", "\\right"
+], {
+    numArgs: 1
+}, function(context, args) {
+    var delim = checkDelimiter(args[0], context);
+
+    // \left and \right are caught somewhere in Parser.js, which is
+    // why this data doesn't match what is in buildHTML.
+    return {
+        type: "leftright",
+        value: delim.value
+    };
+});
+
+defineFunction("\\middle", {
+    numArgs: 1
+}, function(context, args) {
+    var delim = checkDelimiter(args[0], context);
+    if (!context.parser.leftrightDepth) {
+        throw new ParseError("\\middle without preceding \\left", delim);
+    }
+
+    return {
+        type: "middle",
+        value: delim.value
+    };
+});
+
+// Sizing functions (handled in Parser.js explicitly, hence no handler)
+defineFunction([
+    "\\tiny", "\\scriptsize", "\\footnotesize", "\\small",
+    "\\normalsize", "\\large", "\\Large", "\\LARGE", "\\huge", "\\Huge"
+], 0, null);
+
+// Style changing functions (handled in Parser.js explicitly, hence no
+// handler)
+defineFunction([
+    "\\displaystyle", "\\textstyle", "\\scriptstyle",
+    "\\scriptscriptstyle"
+], 0, null);
+
+defineFunction([
+    // styles
+    "\\mathrm", "\\mathit", "\\mathbf",
+
+    // families
+    "\\mathbb", "\\mathcal", "\\mathfrak", "\\mathscr", "\\mathsf",
+    "\\mathtt",
+
+    // aliases
+    "\\Bbb", "\\bold", "\\frak"
+], {
+    numArgs: 1,
+    greediness: 2
+}, function(context, args) {
+    var body = args[0];
+    var func = context.funcName;
+    if (func in fontAliases) {
+        func = fontAliases[func];
+    }
+    return {
+        type: "font",
+        font: func.slice(1),
+        body: body
+    };
+});
+
+// Accents
+defineFunction([
+    "\\acute", "\\grave", "\\ddot", "\\tilde", "\\bar", "\\breve",
+    "\\check", "\\hat", "\\vec", "\\dot"
+    // We don't support expanding accents yet
+    // "\\widetilde", "\\widehat"
+], {
+    numArgs: 1
+}, function(context, args) {
+    var base = args[0];
+    return {
+        type: "accent",
+        accent: context.funcName,
+        base: base
+    };
+});
+
+// Infix generalized fractions
+defineFunction(["\\over", "\\choose", "\\atop"], {
+    numArgs: 0,
+    infix: true
+}, function(context) {
+    var replaceWith;
+    switch (context.funcName) {
+        case "\\over":
+            replaceWith = "\\frac";
+            break;
+        case "\\choose":
+            replaceWith = "\\binom";
+            break;
+        case "\\atop":
+            replaceWith = "\\\\atopfrac";
+            break;
+        default:
+            throw new Error("Unrecognized infix genfrac command");
+    }
+    return {
+        type: "infix",
+        replaceWith: replaceWith,
+        token: context.token
+    };
+});
+
+// Row breaks for aligned data
+defineFunction(["\\\\", "\\cr"], {
+    numArgs: 0,
+    numOptionalArgs: 1,
+    argTypes: ["size"]
+}, function(context, args) {
+    var size = args[0];
+    return {
+        type: "cr",
+        size: size
+    };
+});
+
+// Environment delimiters
+defineFunction(["\\begin", "\\end"], {
+    numArgs: 1,
+    argTypes: ["text"]
+}, function(context, args) {
+    var nameGroup = args[0];
+    if (nameGroup.type !== "ordgroup") {
+        throw new ParseError("Invalid environment name", nameGroup);
+    }
+    var name = "";
+    for (var i = 0; i < nameGroup.value.length; ++i) {
+        name += nameGroup.value[i].value;
+    }
+    return {
+        type: "environment",
+        name: name,
+        nameGroup: nameGroup
+    };
+});
+});
+
+var environments$1 = createCommonjsModule(function (module) {
+/* eslint no-constant-condition:0 */
+var parseData = parseData$1;
+var ParseError = ParseError_1;
+var Style = Style_1;
+
+var ParseNode = parseData.ParseNode;
+
+/**
+ * Parse the body of the environment, with rows delimited by \\ and
+ * columns delimited by &, and create a nested list in row-major order
+ * with one group per cell.
+ */
+function parseArray(parser, result) {
+    var row = [];
+    var body = [row];
+    var rowGaps = [];
+    while (true) {
+        var cell = parser.parseExpression(false, null);
+        row.push(new ParseNode("ordgroup", cell, parser.mode));
+        var next = parser.nextToken.text;
+        if (next === "&") {
+            parser.consume();
+        } else if (next === "\\end") {
+            break;
+        } else if (next === "\\\\" || next === "\\cr") {
+            var cr = parser.parseFunction();
+            rowGaps.push(cr.value.size);
+            row = [];
+            body.push(row);
+        } else {
+            throw new ParseError("Expected & or \\\\ or \\end",
+                                 parser.nextToken);
+        }
+    }
+    result.body = body;
+    result.rowGaps = rowGaps;
+    return new ParseNode(result.type, result, parser.mode);
+}
+
+/*
+ * An environment definition is very similar to a function definition:
+ * it is declared with a name or a list of names, a set of properties
+ * and a handler containing the actual implementation.
+ *
+ * The properties include:
+ *  - numArgs: The number of arguments after the \begin{name} function.
+ *  - argTypes: (optional) Just like for a function
+ *  - allowedInText: (optional) Whether or not the environment is allowed inside
+ *                   text mode (default false) (not enforced yet)
+ *  - numOptionalArgs: (optional) Just like for a function
+ * A bare number instead of that object indicates the numArgs value.
+ *
+ * The handler function will receive two arguments
+ *  - context: information and references provided by the parser
+ *  - args: an array of arguments passed to \begin{name}
+ * The context contains the following properties:
+ *  - envName: the name of the environment, one of the listed names.
+ *  - parser: the parser object
+ *  - lexer: the lexer object
+ *  - positions: the positions associated with these arguments from args.
+ * The handler must return a ParseResult.
+ */
+
+function defineEnvironment(names, props, handler) {
+    if (typeof names === "string") {
+        names = [names];
+    }
+    if (typeof props === "number") {
+        props = { numArgs: props };
+    }
+    // Set default values of environments
+    var data = {
+        numArgs: props.numArgs || 0,
+        argTypes: props.argTypes,
+        greediness: 1,
+        allowedInText: !!props.allowedInText,
+        numOptionalArgs: props.numOptionalArgs || 0,
+        handler: handler
+    };
+    for (var i = 0; i < names.length; ++i) {
+        module.exports[names[i]] = data;
+    }
+}
+
+// Arrays are part of LaTeX, defined in lttab.dtx so its documentation
+// is part of the source2e.pdf file of LaTeX2e source documentation.
+defineEnvironment("array", {
+    numArgs: 1
+}, function(context, args) {
+    var colalign = args[0];
+    colalign = colalign.value.map ? colalign.value : [colalign];
+    var cols = colalign.map(function(node) {
+        var ca = node.value;
+        if ("lcr".indexOf(ca) !== -1) {
+            return {
+                type: "align",
+                align: ca
+            };
+        } else if (ca === "|") {
+            return {
+                type: "separator",
+                separator: "|"
+            };
+        }
+        throw new ParseError(
+            "Unknown column alignment: " + node.value,
+            node);
+    });
+    var res = {
+        type: "array",
+        cols: cols,
+        hskipBeforeAndAfter: true // \@preamble in lttab.dtx
+    };
+    res = parseArray(context.parser, res);
+    return res;
+});
+
+// The matrix environments of amsmath builds on the array environment
+// of LaTeX, which is discussed above.
+defineEnvironment([
+    "matrix",
+    "pmatrix",
+    "bmatrix",
+    "Bmatrix",
+    "vmatrix",
+    "Vmatrix"
+], {
+}, function(context) {
+    var delimiters = {
+        "matrix": null,
+        "pmatrix": ["(", ")"],
+        "bmatrix": ["[", "]"],
+        "Bmatrix": ["\\{", "\\}"],
+        "vmatrix": ["|", "|"],
+        "Vmatrix": ["\\Vert", "\\Vert"]
+    }[context.envName];
+    var res = {
+        type: "array",
+        hskipBeforeAndAfter: false // \hskip -\arraycolsep in amsmath
+    };
+    res = parseArray(context.parser, res);
+    if (delimiters) {
+        res = new ParseNode("leftright", {
+            body: [res],
+            left: delimiters[0],
+            right: delimiters[1]
+        }, context.mode);
+    }
+    return res;
+});
+
+// A cases environment (in amsmath.sty) is almost equivalent to
+// \def\arraystretch{1.2}%
+// \left\{\begin{array}{@{}l@{\quad}l@{}} … \end{array}\right.
+defineEnvironment("cases", {
+}, function(context) {
+    var res = {
+        type: "array",
+        arraystretch: 1.2,
+        cols: [{
+            type: "align",
+            align: "l",
+            pregap: 0,
+            // TODO(kevinb) get the current style.
+            // For now we use the metrics for TEXT style which is what we were
+            // doing before.  Before attempting to get the current style we
+            // should look at TeX's behavior especially for \over and matrices.
+            postgap: Style.TEXT.metrics.quad
+        }, {
+            type: "align",
+            align: "l",
+            pregap: 0,
+            postgap: 0
+        }]
+    };
+    res = parseArray(context.parser, res);
+    res = new ParseNode("leftright", {
+        body: [res],
+        left: "\\{",
+        right: "."
+    }, context.mode);
+    return res;
+});
+
+// An aligned environment is like the align* environment
+// except it operates within math mode.
+// Note that we assume \nomallineskiplimit to be zero,
+// so that \strut@ is the same as \strut.
+defineEnvironment("aligned", {
+}, function(context) {
+    var res = {
+        type: "array",
+        cols: []
+    };
+    res = parseArray(context.parser, res);
+    var emptyGroup = new ParseNode("ordgroup", [], context.mode);
+    var numCols = 0;
+    res.value.body.forEach(function(row) {
+        var i;
+        for (i = 1; i < row.length; i += 2) {
+            row[i].value.unshift(emptyGroup);
+        }
+        if (numCols < row.length) {
+            numCols = row.length;
+        }
+    });
+    for (var i = 0; i < numCols; ++i) {
+        var align = "r";
+        var pregap = 0;
+        if (i % 2 === 1) {
+            align = "l";
+        } else if (i > 0) {
+            pregap = 2; // one \qquad between columns
+        }
+        res.value.cols[i] = {
+            type: "align",
+            align: align,
+            pregap: pregap,
+            postgap: 0
+        };
+    }
+    return res;
+});
+});
+
+/** @flow */
+
+function getRelocatable(re) {
+  // In the future, this could use a WeakMap instead of an expando.
+  if (!re.__matchAtRelocatable) {
+    // Disjunctions are the lowest-precedence operator, so we can make any
+    // pattern match the empty string by appending `|()` to it:
+    // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-patterns
+    var source = re.source + "|()";
+
+    // We always make the new regex global.
+    var flags = "g" + (re.ignoreCase ? "i" : "") + (re.multiline ? "m" : "") + (re.unicode ? "u" : "");
+
+    re.__matchAtRelocatable = new RegExp(source, flags);
+  }
+  return re.__matchAtRelocatable;
+}
+
+function matchAt$1(re, str, pos) {
+  if (re.global || re.sticky) {
+    throw new Error("matchAt(...): Only non-global regexes are supported");
+  }
+  var reloc = getRelocatable(re);
+  reloc.lastIndex = pos;
+  var match = reloc.exec(str);
+  // Last capturing group is our sentinel that indicates whether the regex
+  // matched at the given location.
+  if (match[match.length - 1] == null) {
+    // Original regex matched.
+    match.length = match.length - 1;
+    return match;
+  } else {
+    return null;
+  }
+}
+
+var matchAt_1 = matchAt$1;
+
+var matchAt = matchAt_1;
+
+var ParseError$6 = ParseError_1;
+
+// The main lexer class
+function Lexer$1(input) {
+    this.input = input;
+    this.pos = 0;
+}
+
+/**
+ * The resulting token returned from `lex`.
+ *
+ * It consists of the token text plus some position information.
+ * The position information is essentially a range in an input string,
+ * but instead of referencing the bare input string, we refer to the lexer.
+ * That way it is possible to attach extra metadata to the input string,
+ * like for example a file name or similar.
+ *
+ * The position information (all three parameters) is optional,
+ * so it is OK to construct synthetic tokens if appropriate.
+ * Not providing available position information may lead to
+ * degraded error reporting, though.
+ *
+ * @param {string}  text   the text of this token
+ * @param {number=} start  the start offset, zero-based inclusive
+ * @param {number=} end    the end offset, zero-based exclusive
+ * @param {Lexer=}  lexer  the lexer which in turn holds the input string
+ */
+function Token(text, start, end, lexer) {
+    this.text = text;
+    this.start = start;
+    this.end = end;
+    this.lexer = lexer;
+}
+
+/**
+ * Given a pair of tokens (this and endToken), compute a “Token” encompassing
+ * the whole input range enclosed by these two.
+ *
+ * @param {Token}  endToken  last token of the range, inclusive
+ * @param {string} text      the text of the newly constructed token
+ */
+Token.prototype.range = function(endToken, text) {
+    if (endToken.lexer !== this.lexer) {
+        return new Token(text); // sorry, no position information available
+    }
+    return new Token(text, this.start, endToken.end, this.lexer);
+};
+
+/* The following tokenRegex
+ * - matches typical whitespace (but not NBSP etc.) using its first group
+ * - does not match any control character \x00-\x1f except whitespace
+ * - does not match a bare backslash
+ * - matches any ASCII character except those just mentioned
+ * - does not match the BMP private use area \uE000-\uF8FF
+ * - does not match bare surrogate code units
+ * - matches any BMP character except for those just described
+ * - matches any valid Unicode surrogate pair
+ * - matches a backslash followed by one or more letters
+ * - matches a backslash followed by any BMP character, including newline
+ * Just because the Lexer matches something doesn't mean it's valid input:
+ * If there is no matching function or symbol definition, the Parser will
+ * still reject the input.
+ */
+var tokenRegex = new RegExp(
+    "([ \r\n\t]+)|" +                                 // whitespace
+    "([!-\\[\\]-\u2027\u202A-\uD7FF\uF900-\uFFFF]" +  // single codepoint
+    "|[\uD800-\uDBFF][\uDC00-\uDFFF]" +               // surrogate pair
+    "|\\\\(?:[a-zA-Z]+|[^\uD800-\uDFFF])" +           // function name
+    ")"
+);
+
+/**
+ * This function lexes a single token.
+ */
+Lexer$1.prototype.lex = function() {
+    var input = this.input;
+    var pos = this.pos;
+    if (pos === input.length) {
+        return new Token("EOF", pos, pos, this);
+    }
+    var match = matchAt(tokenRegex, input, pos);
+    if (match === null) {
+        throw new ParseError$6(
+            "Unexpected character: '" + input[pos] + "'",
+            new Token(input[pos], pos, pos + 1, this));
+    }
+    var text = match[2] || " ";
+    var start = this.pos;
+    this.pos += match[0].length;
+    var end = this.pos;
+    return new Token(text, start, end, this);
+};
+
+var Lexer_1 = Lexer$1;
+
+var Lexer = Lexer_1;
+
+function MacroExpander$1(input, macros) {
+    this.lexer = new Lexer(input);
+    this.macros = macros;
+    this.stack = []; // contains tokens in REVERSE order
+    this.discardedWhiteSpace = [];
+}
+
+/**
+ * Recursively expand first token, then return first non-expandable token.
+ */
+MacroExpander$1.prototype.nextToken = function() {
+    for (;;) {
+        if (this.stack.length === 0) {
+            this.stack.push(this.lexer.lex());
+        }
+        var topToken = this.stack.pop();
+        var name = topToken.text;
+        if (!(name.charAt(0) === "\\" && this.macros.hasOwnProperty(name))) {
+            return topToken;
+        }
+        var expansion = this.macros[name];
+        if (typeof expansion === "string") {
+            var bodyLexer = new Lexer(expansion);
+            expansion = [];
+            var tok = bodyLexer.lex();
+            while (tok.text !== "EOF") {
+                expansion.push(tok);
+                tok = bodyLexer.lex();
+            }
+            expansion.reverse(); // to fit in with stack using push and pop
+            this.macros[name] = expansion;
+        }
+        this.stack = this.stack.concat(expansion);
+    }
+};
+
+MacroExpander$1.prototype.get = function(ignoreSpace) {
+    this.discardedWhiteSpace = [];
+    var token = this.nextToken();
+    if (ignoreSpace) {
+        while (token.text === " ") {
+            this.discardedWhiteSpace.push(token);
+            token = this.nextToken();
+        }
+    }
+    return token;
+};
+
+/**
+ * Undo the effect of the preceding call to the get method.
+ * A call to this method MUST be immediately preceded and immediately followed
+ * by a call to get.  Only used during mode switching, i.e. after one token
+ * was got in the old mode but should get got again in a new mode
+ * with possibly different whitespace handling.
+ */
+MacroExpander$1.prototype.unget = function(token) {
+    this.stack.push(token);
+    while (this.discardedWhiteSpace.length !== 0) {
+        this.stack.push(this.discardedWhiteSpace.pop());
+    }
+};
+
+var MacroExpander_1 = MacroExpander$1;
+
+var functions = functions$1;
+var environments = environments$1;
+var MacroExpander = MacroExpander_1;
+var symbols$5 = symbols$1;
+var utils$9 = utils$4;
+var cjkRegex$2 = unicodeRegexes.cjkRegex;
+
+var parseData = parseData$1;
+var ParseError$5 = ParseError_1;
+
+/**
+ * This file contains the parser used to parse out a TeX expression from the
+ * input. Since TeX isn't context-free, standard parsers don't work particularly
+ * well.
+ *
+ * The strategy of this parser is as such:
+ *
+ * The main functions (the `.parse...` ones) take a position in the current
+ * parse string to parse tokens from. The lexer (found in Lexer.js, stored at
+ * this.lexer) also supports pulling out tokens at arbitrary places. When
+ * individual tokens are needed at a position, the lexer is called to pull out a
+ * token, which is then used.
+ *
+ * The parser has a property called "mode" indicating the mode that
+ * the parser is currently in. Currently it has to be one of "math" or
+ * "text", which denotes whether the current environment is a math-y
+ * one or a text-y one (e.g. inside \text). Currently, this serves to
+ * limit the functions which can be used in text mode.
+ *
+ * The main functions then return an object which contains the useful data that
+ * was parsed at its given point, and a new position at the end of the parsed
+ * data. The main functions can call each other and continue the parsing by
+ * using the returned position as a new starting point.
+ *
+ * There are also extra `.handle...` functions, which pull out some reused
+ * functionality into self-contained functions.
+ *
+ * The earlier functions return ParseNodes.
+ * The later functions (which are called deeper in the parse) sometimes return
+ * ParseFuncOrArgument, which contain a ParseNode as well as some data about
+ * whether the parsed object is a function which is missing some arguments, or a
+ * standalone object which can be used as an argument to another function.
+ */
+
+/**
+ * Main Parser class
+ */
+function Parser$1(input, settings) {
+    // Create a new macro expander (gullet) and (indirectly via that) also a
+    // new lexer (mouth) for this parser (stomach, in the language of TeX)
+    this.gullet = new MacroExpander(input, settings.macros);
+    // Store the settings for use in parsing
+    this.settings = settings;
+    // Count leftright depth (for \middle errors)
+    this.leftrightDepth = 0;
+}
+
+var ParseNode = parseData.ParseNode;
+
+/**
+ * An initial function (without its arguments), or an argument to a function.
+ * The `result` argument should be a ParseNode.
+ */
+function ParseFuncOrArgument(result, isFunction, token) {
+    this.result = result;
+    // Is this a function (i.e. is it something defined in functions.js)?
+    this.isFunction = isFunction;
+    this.token = token;
+}
+
+/**
+ * Checks a result to make sure it has the right type, and throws an
+ * appropriate error otherwise.
+ *
+ * @param {boolean=} consume whether to consume the expected token,
+ *                           defaults to true
+ */
+Parser$1.prototype.expect = function(text, consume) {
+    if (this.nextToken.text !== text) {
+        throw new ParseError$5(
+            "Expected '" + text + "', got '" + this.nextToken.text + "'",
+            this.nextToken
+        );
+    }
+    if (consume !== false) {
+        this.consume();
+    }
+};
+
+/**
+ * Considers the current look ahead token as consumed,
+ * and fetches the one after that as the new look ahead.
+ */
+Parser$1.prototype.consume = function() {
+    this.nextToken = this.gullet.get(this.mode === "math");
+};
+
+Parser$1.prototype.switchMode = function(newMode) {
+    this.gullet.unget(this.nextToken);
+    this.mode = newMode;
+    this.consume();
+};
+
+/**
+ * Main parsing function, which parses an entire input.
+ *
+ * @return {?Array.<ParseNode>}
+ */
+Parser$1.prototype.parse = function() {
+    // Try to parse the input
+    this.mode = "math";
+    this.consume();
+    var parse = this.parseInput();
+    return parse;
+};
+
+/**
+ * Parses an entire input tree.
+ */
+Parser$1.prototype.parseInput = function() {
+    // Parse an expression
+    var expression = this.parseExpression(false);
+    // If we succeeded, make sure there's an EOF at the end
+    this.expect("EOF", false);
+    return expression;
+};
+
+var endOfExpression = ["}", "\\end", "\\right", "&", "\\\\", "\\cr"];
+
+/**
+ * Parses an "expression", which is a list of atoms.
+ *
+ * @param {boolean} breakOnInfix  Should the parsing stop when we hit infix
+ *                  nodes? This happens when functions have higher precendence
+ *                  than infix nodes in implicit parses.
+ *
+ * @param {?string} breakOnTokenText  The text of the token that the expression
+ *                  should end with, or `null` if something else should end the
+ *                  expression.
+ *
+ * @return {ParseNode}
+ */
+Parser$1.prototype.parseExpression = function(breakOnInfix, breakOnTokenText) {
+    var body = [];
+    // Keep adding atoms to the body until we can't parse any more atoms (either
+    // we reached the end, a }, or a \right)
+    while (true) {
+        var lex = this.nextToken;
+        if (endOfExpression.indexOf(lex.text) !== -1) {
+            break;
+        }
+        if (breakOnTokenText && lex.text === breakOnTokenText) {
+            break;
+        }
+        if (breakOnInfix && functions[lex.text] && functions[lex.text].infix) {
+            break;
+        }
+        var atom = this.parseAtom();
+        if (!atom) {
+            if (!this.settings.throwOnError && lex.text[0] === "\\") {
+                var errorNode = this.handleUnsupportedCmd();
+                body.push(errorNode);
+                continue;
+            }
+
+            break;
+        }
+        body.push(atom);
+    }
+    return this.handleInfixNodes(body);
+};
+
+/**
+ * Rewrites infix operators such as \over with corresponding commands such
+ * as \frac.
+ *
+ * There can only be one infix operator per group.  If there's more than one
+ * then the expression is ambiguous.  This can be resolved by adding {}.
+ *
+ * @returns {Array}
+ */
+Parser$1.prototype.handleInfixNodes = function(body) {
+    var overIndex = -1;
+    var funcName;
+
+    for (var i = 0; i < body.length; i++) {
+        var node = body[i];
+        if (node.type === "infix") {
+            if (overIndex !== -1) {
+                throw new ParseError$5(
+                    "only one infix operator per group",
+                    node.value.token);
+            }
+            overIndex = i;
+            funcName = node.value.replaceWith;
+        }
+    }
+
+    if (overIndex !== -1) {
+        var numerNode;
+        var denomNode;
+
+        var numerBody = body.slice(0, overIndex);
+        var denomBody = body.slice(overIndex + 1);
+
+        if (numerBody.length === 1 && numerBody[0].type === "ordgroup") {
+            numerNode = numerBody[0];
+        } else {
+            numerNode = new ParseNode("ordgroup", numerBody, this.mode);
+        }
+
+        if (denomBody.length === 1 && denomBody[0].type === "ordgroup") {
+            denomNode = denomBody[0];
+        } else {
+            denomNode = new ParseNode("ordgroup", denomBody, this.mode);
+        }
+
+        var value = this.callFunction(
+            funcName, [numerNode, denomNode], null);
+        return [new ParseNode(value.type, value, this.mode)];
+    } else {
+        return body;
+    }
+};
+
+// The greediness of a superscript or subscript
+var SUPSUB_GREEDINESS = 1;
+
+/**
+ * Handle a subscript or superscript with nice errors.
+ */
+Parser$1.prototype.handleSupSubscript = function(name) {
+    var symbolToken = this.nextToken;
+    var symbol = symbolToken.text;
+    this.consume();
+    var group = this.parseGroup();
+
+    if (!group) {
+        if (!this.settings.throwOnError && this.nextToken.text[0] === "\\") {
+            return this.handleUnsupportedCmd();
+        } else {
+            throw new ParseError$5(
+                "Expected group after '" + symbol + "'",
+                symbolToken
+            );
+        }
+    } else if (group.isFunction) {
+        // ^ and _ have a greediness, so handle interactions with functions'
+        // greediness
+        var funcGreediness = functions[group.result].greediness;
+        if (funcGreediness > SUPSUB_GREEDINESS) {
+            return this.parseFunction(group);
+        } else {
+            throw new ParseError$5(
+                "Got function '" + group.result + "' with no arguments " +
+                    "as " + name, symbolToken);
+        }
+    } else {
+        return group.result;
+    }
+};
+
+/**
+ * Converts the textual input of an unsupported command into a text node
+ * contained within a color node whose color is determined by errorColor
+ */
+Parser$1.prototype.handleUnsupportedCmd = function() {
+    var text = this.nextToken.text;
+    var textordArray = [];
+
+    for (var i = 0; i < text.length; i++) {
+        textordArray.push(new ParseNode("textord", text[i], "text"));
+    }
+
+    var textNode = new ParseNode(
+        "text",
+        {
+            body: textordArray,
+            type: "text"
+        },
+        this.mode);
+
+    var colorNode = new ParseNode(
+        "color",
+        {
+            color: this.settings.errorColor,
+            value: [textNode],
+            type: "color"
+        },
+        this.mode);
+
+    this.consume();
+    return colorNode;
+};
+
+/**
+ * Parses a group with optional super/subscripts.
+ *
+ * @return {?ParseNode}
+ */
+Parser$1.prototype.parseAtom = function() {
+    // The body of an atom is an implicit group, so that things like
+    // \left(x\right)^2 work correctly.
+    var base = this.parseImplicitGroup();
+
+    // In text mode, we don't have superscripts or subscripts
+    if (this.mode === "text") {
+        return base;
+    }
+
+    // Note that base may be empty (i.e. null) at this point.
+
+    var superscript;
+    var subscript;
+    while (true) {
+        // Lex the first token
+        var lex = this.nextToken;
+
+        if (lex.text === "\\limits" || lex.text === "\\nolimits") {
+            // We got a limit control
+            if (!base || base.type !== "op") {
+                throw new ParseError$5(
+                    "Limit controls must follow a math operator",
+                    lex);
+            } else {
+                var limits = lex.text === "\\limits";
+                base.value.limits = limits;
+                base.value.alwaysHandleSupSub = true;
+            }
+            this.consume();
+        } else if (lex.text === "^") {
+            // We got a superscript start
+            if (superscript) {
+                throw new ParseError$5("Double superscript", lex);
+            }
+            superscript = this.handleSupSubscript("superscript");
+        } else if (lex.text === "_") {
+            // We got a subscript start
+            if (subscript) {
+                throw new ParseError$5("Double subscript", lex);
+            }
+            subscript = this.handleSupSubscript("subscript");
+        } else if (lex.text === "'") {
+            // We got a prime
+            var prime = new ParseNode("textord", "\\prime", this.mode);
+
+            // Many primes can be grouped together, so we handle this here
+            var primes = [prime];
+            this.consume();
+            // Keep lexing tokens until we get something that's not a prime
+            while (this.nextToken.text === "'") {
+                // For each one, add another prime to the list
+                primes.push(prime);
+                this.consume();
+            }
+            // Put them into an ordgroup as the superscript
+            superscript = new ParseNode("ordgroup", primes, this.mode);
+        } else {
+            // If it wasn't ^, _, or ', stop parsing super/subscripts
+            break;
+        }
+    }
+
+    if (superscript || subscript) {
+        // If we got either a superscript or subscript, create a supsub
+        return new ParseNode("supsub", {
+            base: base,
+            sup: superscript,
+            sub: subscript
+        }, this.mode);
+    } else {
+        // Otherwise return the original body
+        return base;
+    }
+};
+
+// A list of the size-changing functions, for use in parseImplicitGroup
+var sizeFuncs = [
+    "\\tiny", "\\scriptsize", "\\footnotesize", "\\small", "\\normalsize",
+    "\\large", "\\Large", "\\LARGE", "\\huge", "\\Huge"
+];
+
+// A list of the style-changing functions, for use in parseImplicitGroup
+var styleFuncs = [
+    "\\displaystyle", "\\textstyle", "\\scriptstyle", "\\scriptscriptstyle"
+];
+
+/**
+ * Parses an implicit group, which is a group that starts at the end of a
+ * specified, and ends right before a higher explicit group ends, or at EOL. It
+ * is used for functions that appear to affect the current style, like \Large or
+ * \textrm, where instead of keeping a style we just pretend that there is an
+ * implicit grouping after it until the end of the group. E.g.
+ *   small text {\Large large text} small text again
+ * It is also used for \left and \right to get the correct grouping.
+ *
+ * @return {?ParseNode}
+ */
+Parser$1.prototype.parseImplicitGroup = function() {
+    var start = this.parseSymbol();
+
+    if (start == null) {
+        // If we didn't get anything we handle, fall back to parseFunction
+        return this.parseFunction();
+    }
+
+    var func = start.result;
+    var body;
+
+    if (func === "\\left") {
+        // If we see a left:
+        // Parse the entire left function (including the delimiter)
+        var left = this.parseFunction(start);
+        // Parse out the implicit body
+        ++this.leftrightDepth;
+        body = this.parseExpression(false);
+        --this.leftrightDepth;
+        // Check the next token
+        this.expect("\\right", false);
+        var right = this.parseFunction();
+        return new ParseNode("leftright", {
+            body: body,
+            left: left.value.value,
+            right: right.value.value
+        }, this.mode);
+    } else if (func === "\\begin") {
+        // begin...end is similar to left...right
+        var begin = this.parseFunction(start);
+        var envName = begin.value.name;
+        if (!environments.hasOwnProperty(envName)) {
+            throw new ParseError$5(
+                "No such environment: " + envName, begin.value.nameGroup);
+        }
+        // Build the environment object. Arguments and other information will
+        // be made available to the begin and end methods using properties.
+        var env = environments[envName];
+        var args = this.parseArguments("\\begin{" + envName + "}", env);
+        var context = {
+            mode: this.mode,
+            envName: envName,
+            parser: this,
+            positions: args.pop()
+        };
+        var result = env.handler(context, args);
+        this.expect("\\end", false);
+        var endNameToken = this.nextToken;
+        var end = this.parseFunction();
+        if (end.value.name !== envName) {
+            throw new ParseError$5(
+                "Mismatch: \\begin{" + envName + "} matched " +
+                "by \\end{" + end.value.name + "}",
+                endNameToken);
+        }
+        result.position = end.position;
+        return result;
+    } else if (utils$9.contains(sizeFuncs, func)) {
+        // If we see a sizing function, parse out the implict body
+        body = this.parseExpression(false);
+        return new ParseNode("sizing", {
+            // Figure out what size to use based on the list of functions above
+            size: "size" + (utils$9.indexOf(sizeFuncs, func) + 1),
+            value: body
+        }, this.mode);
+    } else if (utils$9.contains(styleFuncs, func)) {
+        // If we see a styling function, parse out the implict body
+        body = this.parseExpression(true);
+        return new ParseNode("styling", {
+            // Figure out what style to use by pulling out the style from
+            // the function name
+            style: func.slice(1, func.length - 5),
+            value: body
+        }, this.mode);
+    } else {
+        // Defer to parseFunction if it's not a function we handle
+        return this.parseFunction(start);
+    }
+};
+
+/**
+ * Parses an entire function, including its base and all of its arguments.
+ * The base might either have been parsed already, in which case
+ * it is provided as an argument, or it's the next group in the input.
+ *
+ * @param {ParseFuncOrArgument=} baseGroup optional as described above
+ * @return {?ParseNode}
+ */
+Parser$1.prototype.parseFunction = function(baseGroup) {
+    if (!baseGroup) {
+        baseGroup = this.parseGroup();
+    }
+
+    if (baseGroup) {
+        if (baseGroup.isFunction) {
+            var func = baseGroup.result;
+            var funcData = functions[func];
+            if (this.mode === "text" && !funcData.allowedInText) {
+                throw new ParseError$5(
+                    "Can't use function '" + func + "' in text mode",
+                    baseGroup.token);
+            }
+
+            var args = this.parseArguments(func, funcData);
+            var token = baseGroup.token;
+            var result = this.callFunction(func, args, args.pop(), token);
+            return new ParseNode(result.type, result, this.mode);
+        } else {
+            return baseGroup.result;
+        }
+    } else {
+        return null;
+    }
+};
+
+/**
+ * Call a function handler with a suitable context and arguments.
+ */
+Parser$1.prototype.callFunction = function(name, args, positions, token) {
+    var context = {
+        funcName: name,
+        parser: this,
+        positions: positions,
+        token: token
+    };
+    return functions[name].handler(context, args);
+};
+
+/**
+ * Parses the arguments of a function or environment
+ *
+ * @param {string} func  "\name" or "\begin{name}"
+ * @param {{numArgs:number,numOptionalArgs:number|undefined}} funcData
+ * @return the array of arguments, with the list of positions as last element
+ */
+Parser$1.prototype.parseArguments = function(func, funcData) {
+    var totalArgs = funcData.numArgs + funcData.numOptionalArgs;
+    if (totalArgs === 0) {
+        return [[this.pos]];
+    }
+
+    var baseGreediness = funcData.greediness;
+    var positions = [this.pos];
+    var args = [];
+
+    for (var i = 0; i < totalArgs; i++) {
+        var nextToken = this.nextToken;
+        var argType = funcData.argTypes && funcData.argTypes[i];
+        var arg;
+        if (i < funcData.numOptionalArgs) {
+            if (argType) {
+                arg = this.parseGroupOfType(argType, true);
+            } else {
+                arg = this.parseGroup(true);
+            }
+            if (!arg) {
+                args.push(null);
+                positions.push(this.pos);
+                continue;
+            }
+        } else {
+            if (argType) {
+                arg = this.parseGroupOfType(argType);
+            } else {
+                arg = this.parseGroup();
+            }
+            if (!arg) {
+                if (!this.settings.throwOnError &&
+                    this.nextToken.text[0] === "\\") {
+                    arg = new ParseFuncOrArgument(
+                        this.handleUnsupportedCmd(this.nextToken.text),
+                        false);
+                } else {
+                    throw new ParseError$5(
+                        "Expected group after '" + func + "'", nextToken);
+                }
+            }
+        }
+        var argNode;
+        if (arg.isFunction) {
+            var argGreediness =
+                functions[arg.result].greediness;
+            if (argGreediness > baseGreediness) {
+                argNode = this.parseFunction(arg);
+            } else {
+                throw new ParseError$5(
+                    "Got function '" + arg.result + "' as " +
+                    "argument to '" + func + "'", nextToken);
+            }
+        } else {
+            argNode = arg.result;
+        }
+        args.push(argNode);
+        positions.push(this.pos);
+    }
+
+    args.push(positions);
+
+    return args;
+};
+
+
+/**
+ * Parses a group when the mode is changing.
+ *
+ * @return {?ParseFuncOrArgument}
+ */
+Parser$1.prototype.parseGroupOfType = function(innerMode, optional) {
+    var outerMode = this.mode;
+    // Handle `original` argTypes
+    if (innerMode === "original") {
+        innerMode = outerMode;
+    }
+
+    if (innerMode === "color") {
+        return this.parseColorGroup(optional);
+    }
+    if (innerMode === "size") {
+        return this.parseSizeGroup(optional);
+    }
+
+    this.switchMode(innerMode);
+    if (innerMode === "text") {
+        // text mode is special because it should ignore the whitespace before
+        // it
+        while (this.nextToken.text === " ") {
+            this.consume();
+        }
+    }
+    // By the time we get here, innerMode is one of "text" or "math".
+    // We switch the mode of the parser, recurse, then restore the old mode.
+    var res = this.parseGroup(optional);
+    this.switchMode(outerMode);
+    return res;
+};
+
+/**
+ * Parses a group, essentially returning the string formed by the
+ * brace-enclosed tokens plus some position information.
+ *
+ * @param {string} modeName  Used to describe the mode in error messages
+ * @param {boolean=} optional  Whether the group is optional or required
+ */
+Parser$1.prototype.parseStringGroup = function(modeName, optional) {
+    if (optional && this.nextToken.text !== "[") {
+        return null;
+    }
+    var outerMode = this.mode;
+    this.mode = "text";
+    this.expect(optional ? "[" : "{");
+    var str = "";
+    var firstToken = this.nextToken;
+    var lastToken = firstToken;
+    while (this.nextToken.text !== (optional ? "]" : "}")) {
+        if (this.nextToken.text === "EOF") {
+            throw new ParseError$5(
+                "Unexpected end of input in " + modeName,
+                firstToken.range(this.nextToken, str));
+        }
+        lastToken = this.nextToken;
+        str += lastToken.text;
+        this.consume();
+    }
+    this.mode = outerMode;
+    this.expect(optional ? "]" : "}");
+    return firstToken.range(lastToken, str);
+};
+
+/**
+ * Parses a regex-delimited group: the largest sequence of tokens
+ * whose concatenated strings match `regex`. Returns the string
+ * formed by the tokens plus some position information.
+ *
+ * @param {RegExp} regex
+ * @param {string} modeName  Used to describe the mode in error messages
+ */
+Parser$1.prototype.parseRegexGroup = function(regex, modeName) {
+    var outerMode = this.mode;
+    this.mode = "text";
+    var firstToken = this.nextToken;
+    var lastToken = firstToken;
+    var str = "";
+    while (this.nextToken.text !== "EOF"
+           && regex.test(str + this.nextToken.text)) {
+        lastToken = this.nextToken;
+        str += lastToken.text;
+        this.consume();
+    }
+    if (str === "") {
+        throw new ParseError$5(
+            "Invalid " + modeName + ": '" + firstToken.text + "'",
+            firstToken);
+    }
+    this.mode = outerMode;
+    return firstToken.range(lastToken, str);
+};
+
+/**
+ * Parses a color description.
+ */
+Parser$1.prototype.parseColorGroup = function(optional) {
+    var res = this.parseStringGroup("color", optional);
+    if (!res) {
+        return null;
+    }
+    var match = (/^(#[a-z0-9]+|[a-z]+)$/i).exec(res.text);
+    if (!match) {
+        throw new ParseError$5("Invalid color: '" + res.text + "'", res);
+    }
+    return new ParseFuncOrArgument(
+        new ParseNode("color", match[0], this.mode),
+        false);
+};
+
+/**
+ * Parses a size specification, consisting of magnitude and unit.
+ */
+Parser$1.prototype.parseSizeGroup = function(optional) {
+    var res;
+    if (!optional && this.nextToken.text !== "{") {
+        res = this.parseRegexGroup(
+            /^[-+]? *(?:$|\d+|\d+\.\d*|\.\d*) *[a-z]{0,2}$/, "size");
+    } else {
+        res = this.parseStringGroup("size", optional);
+    }
+    if (!res) {
+        return null;
+    }
+    var match = (/([-+]?) *(\d+(?:\.\d*)?|\.\d+) *([a-z]{2})/).exec(res.text);
+    if (!match) {
+        throw new ParseError$5("Invalid size: '" + res.text + "'", res);
+    }
+    var data = {
+        number: +(match[1] + match[2]), // sign + magnitude, cast to number
+        unit: match[3]
+    };
+    if (data.unit !== "em" && data.unit !== "ex" && data.unit !== "mu") {
+        throw new ParseError$5("Invalid unit: '" + data.unit + "'", res);
+    }
+    return new ParseFuncOrArgument(
+        new ParseNode("color", data, this.mode),
+        false);
+};
+
+/**
+ * If the argument is false or absent, this parses an ordinary group,
+ * which is either a single nucleus (like "x") or an expression
+ * in braces (like "{x+y}").
+ * If the argument is true, it parses either a bracket-delimited expression
+ * (like "[x+y]") or returns null to indicate the absence of a
+ * bracket-enclosed group.
+ *
+ * @param {boolean=} optional  Whether the group is optional or required
+ * @return {?ParseFuncOrArgument}
+ */
+Parser$1.prototype.parseGroup = function(optional) {
+    var firstToken = this.nextToken;
+    // Try to parse an open brace
+    if (this.nextToken.text === (optional ? "[" : "{")) {
+        // If we get a brace, parse an expression
+        this.consume();
+        var expression = this.parseExpression(false, optional ? "]" : null);
+        var lastToken = this.nextToken;
+        // Make sure we get a close brace
+        this.expect(optional ? "]" : "}");
+        if (this.mode === "text") {
+            this.formLigatures(expression);
+        }
+        return new ParseFuncOrArgument(
+            new ParseNode("ordgroup", expression, this.mode,
+                          firstToken, lastToken),
+            false);
+    } else {
+        // Otherwise, just return a nucleus, or nothing for an optional group
+        return optional ? null : this.parseSymbol();
+    }
+};
+
+/**
+ * Form ligature-like combinations of characters for text mode.
+ * This includes inputs like "--", "---", "``" and "''".
+ * The result will simply replace multiple textord nodes with a single
+ * character in each value by a single textord node having multiple
+ * characters in its value.  The representation is still ASCII source.
+ *
+ * @param {Array.<ParseNode>} group  the nodes of this group,
+ *                                   list will be moified in place
+ */
+Parser$1.prototype.formLigatures = function(group) {
+    var i;
+    var n = group.length - 1;
+    for (i = 0; i < n; ++i) {
+        var a = group[i];
+        var v = a.value;
+        if (v === "-" && group[i + 1].value === "-") {
+            if (i + 1 < n && group[i + 2].value === "-") {
+                group.splice(i, 3, new ParseNode(
+                    "textord", "---", "text", a, group[i + 2]));
+                n -= 2;
+            } else {
+                group.splice(i, 2, new ParseNode(
+                    "textord", "--", "text", a, group[i + 1]));
+                n -= 1;
+            }
+        }
+        if ((v === "'" || v === "`") && group[i + 1].value === v) {
+            group.splice(i, 2, new ParseNode(
+                "textord", v + v, "text", a, group[i + 1]));
+            n -= 1;
+        }
+    }
+};
+
+/**
+ * Parse a single symbol out of the string. Here, we handle both the functions
+ * we have defined, as well as the single character symbols
+ *
+ * @return {?ParseFuncOrArgument}
+ */
+Parser$1.prototype.parseSymbol = function() {
+    var nucleus = this.nextToken;
+
+    if (functions[nucleus.text]) {
+        this.consume();
+        // If there exists a function with this name, we return the function and
+        // say that it is a function.
+        return new ParseFuncOrArgument(
+            nucleus.text,
+            true, nucleus);
+    } else if (symbols$5[this.mode][nucleus.text]) {
+        this.consume();
+        // Otherwise if this is a no-argument function, find the type it
+        // corresponds to in the symbols map
+        return new ParseFuncOrArgument(
+            new ParseNode(symbols$5[this.mode][nucleus.text].group,
+                          nucleus.text, this.mode, nucleus),
+            false, nucleus);
+    } else if (this.mode === "text" && cjkRegex$2.test(nucleus.text)) {
+        this.consume();
+        return new ParseFuncOrArgument(
+            new ParseNode("textord", nucleus.text, this.mode, nucleus),
+            false, nucleus);
+    } else {
+        return null;
+    }
+};
+
+Parser$1.prototype.ParseNode = ParseNode;
+
+var Parser_1 = Parser$1;
+
+var Parser = Parser_1;
+
+/**
+ * Parses an expression using a Parser, then returns the parsed result.
+ */
+var parseTree$1 = function(toParse, settings) {
+    if (!(typeof toParse === 'string' || toParse instanceof String)) {
+        throw new TypeError('KaTeX can only parse string typed expression');
+    }
+    var parser = new Parser(toParse, settings);
+
+    return parser.parse();
+};
+
+var parseTree_1 = parseTree$1;
+
+var ParseError = ParseError_1;
+var Settings = Settings_1;
+
+var buildTree = buildTree_1;
+var parseTree = parseTree_1;
+var utils = utils$4;
+
+/**
+ * Parse and build an expression, and place that expression in the DOM node
+ * given.
+ */
+var render = function(expression, baseNode, options) {
+    utils.clearNode(baseNode);
+
+    var settings = new Settings(options);
+
+    var tree = parseTree(expression, settings);
+    var node = buildTree(tree, expression, settings).toNode();
+
+    baseNode.appendChild(node);
+};
+
+// KaTeX's styles don't work properly in quirks mode. Print out an error, and
+// disable rendering.
+if (typeof document !== "undefined") {
+    if (document.compatMode !== "CSS1Compat") {
+        typeof console !== "undefined" && console.warn(
+            "Warning: KaTeX doesn't work in quirks mode. Make sure your " +
+                "website has a suitable doctype.");
+
+        render = function() {
+            throw new ParseError("KaTeX doesn't work in quirks mode.");
+        };
+    }
+}
+
+/**
+ * Parse and build an expression, and return the markup for that.
+ */
+var renderToString = function(expression, options) {
+    var settings = new Settings(options);
+
+    var tree = parseTree(expression, settings);
+    return buildTree(tree, expression, settings).toMarkup();
+};
+
+/**
+ * Parse an expression and return the parse tree.
+ */
+var generateParseTree = function(expression, options) {
+    var settings = new Settings(options);
+    return parseTree(expression, settings);
+};
+
+var katex = {
+    render: render,
+    renderToString: renderToString,
+    /**
+     * NOTE: This method is not currently recommended for public use.
+     * The internal tree representation is unstable and is very likely
+     * to change. Use at your own risk.
+     */
+    __parse: generateParseTree,
+    ParseError: ParseError
+};
+
+const T$10 = Template('d-math', `
 <style>
 
 d-math[block] {
   display: block;
 }
 
-${di}
+${katexCSS}
 
 </style>
 
 <span id="katex-container"></span>
-`);class zl extends bn(xl(HTMLElement)){renderContent(){const e={displayMode:this.hasAttribute("block")},t=this.root.querySelector("#katex-container");yl.render(this.textContent,t,e)}}const bl=s("d-references",`
+`);
+
+class DMath extends Mutating(T$10(HTMLElement)) {
+
+  renderContent() {
+    const options = { displayMode: this.hasAttribute('block') };
+    const container = this.root.querySelector('#katex-container');
+    katex.render(this.textContent, container, options);
+  }
+
+}
+
+const T$12 = Template('d-references', `
 <style>
 d-references {
   display: block;
 }
 </style>
-`,!1);class kl extends bl(HTMLElement){connectedCallback(){super.connectedCallback()}}const vl=s("d-title",`
+`, false);
+
+class References extends T$12(HTMLElement) {
+
+}
+
+const T$13 = Template('d-title', `
 <style>
 
 :host {
   box-sizing: border-box;
   display: block;
   width: 100%;
-  margin-bottom: 100px;
+  margin-bottom: 64px;
 }
 
+
 ::slotted(h1) {
-  padding-top: 140px;
-  padding-bottom: 24px;
+  padding-top: 16px;
+  padding-bottom: 16px;
   margin: 0;
-  line-height: 1em;
-  font-size: 48px;
-  font-weight: 600;
+  line-height: 1.3;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+@media screen and (min-width: 768px), print {
+  ::slotted(h1) {
+    font-size: 42px;
+    padding-bottom: 32px;
+  }
+}
+@media(min-width: 1024px) {
+  ::slotted(h1) {
+    padding-top: 64px;
+    padding-bottom: 64px;
+    font-size: 48px;
+  }
+}
+@media(min-width: 1280px) {
+  ::slotted(h1) {
+    padding-top: 96px;
+    padding-bottom: 64px;
+    font-size: 56px;
+  }
 }
 
 d-byline {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-${e("::slotted(h1), ::slotted(h2)")}
+${body('::slotted(h1), ::slotted(h2)')}
 
 </style>
 
 <slot></slot>
-`);class wl extends vl(HTMLElement){}const Tl=s("d-toc",`
+`);
+
+class Title extends T$13(HTMLElement) {
+
+}
+
+const T$14 = Template('d-toc', `
 <style>
 d-toc {
   display: block;
 }
 </style>
-`,!1);class Sl extends Tl(HTMLElement){}const Al=s("distill-header",`
+`, false);
+
+class TOC extends T$14(HTMLElement) {
+
+}
+
+var logo = "<svg viewBox=\"-607 419 64 64\">\n  <path d=\"M-573.4,478.9c-8,0-14.6-6.4-14.6-14.5s14.6-25.9,14.6-40.8c0,14.9,14.6,32.8,14.6,40.8S-565.4,478.9-573.4,478.9z\"/>\n</svg>\n";
+
+const T$15 = Template('distill-header', `
 <style>
 :host {
   box-sizing: border-box;
   display: block;
-  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 60px;
-  background-color: hsl(200, 60%, 15%);
+  background-color: transparent;
   z-index: ${1e6};
   color: rgba(0, 0, 0, 0.8);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  /*border-bottom: 1px solid rgba(0, 0, 0, 0.08);*/
+  /*box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);*/
 }
 .content {
   height: 70px;
@@ -454,11 +16439,22 @@ a:hover {
   color: rgba(255, 255, 255, 1);
 }
 svg {
+  background-color: hsl(0, 0%, 15%);;
+  padding: 8px;
+  border-radius: 12px;
   width: 24px;
   position: relative;
-  top: 4px;
+  top: 16px;
+  left: 16px;
   margin-right: 2px;
 }
+@media(min-width: 768px) {
+  svg {
+    top: 40px;
+    left: 40px;
+  }
+}
+
 @media(min-width: 1080px) {
   :host {
     height: 70px;
@@ -472,8 +16468,8 @@ svg {
   }
 }
 svg path {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.8);
+  fill: white;
+  stroke: rgba(255, 255, 255, 1.0);
   stroke-width: 3px;
 }
 .logo {
@@ -489,20 +16485,38 @@ svg path {
   margin-left: 24px;
   text-transform: uppercase;
 }
+
+.name {
+  opacity: 0.0;
+  transition: opacity 0.5s
+}
+
+a:hover .name {
+  opacity: 1.0;
+}
 </style>
 
 <div class="content l-page">
   <a href="/" class="logo">
-    ${""}
-    Distill
+    ${logo}
   </a>
-  <div class="nav">
-    <a href="/faq">About</a>
-    <a href="https://github.com/distillpub">GitHub</a>
-    <!-- https://twitter.com/distillpub -->
-  </div>
+  <span class='name'>
+    Distill
+  </span>
 </div>
-`);class Cl extends Al(HTMLElement){static get is(){return"distill-header"}}const Ml=`
+`);
+
+// <div class="nav">
+//   <a href="/faq">About</a>
+//   <a href="https://github.com/distillpub">GitHub</a>
+//   <!-- https://twitter.com/distillpub -->
+// </div>
+
+class DistillHeader extends T$15(HTMLElement) {
+
+}
+
+const styles$1 = `
 <style>
   distill-appendix h3 {
     font-size: 15px;
@@ -531,7 +16545,111 @@ svg path {
     color: rgba(150, 150, 150, 1);
     overflow: hidden;
     margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
   }
 </style>
-`;class Nl extends HTMLElement{static get is(){return"distill-appendix"}set frontMatter(e){this.innerHTML=ii(e)}}const _l=[T,mi,hi,zn,Tn,An,hn,Nn,qn,En,Ds,zl,kl,wl,Sl],ql=[Cl,Nl];(function(){const e=_l.concat(ql);for(const t of e)customElements.define(t.is,t)})()})();
+`;
+
+function appendixTemplate(frontMatter) {
+  return `
+  ${styles$1}
+
+  <h3 id="updates-and-corrections">Updates and Corrections</h3>
+  <p><a href="">View all changes</a> to this article since it was first published. If you see mistakes or want to suggest changes, please <a href="${frontMatter.githubUrl + '/issues/new'}">create an issue on GitHub</a>. </p>
+
+  <h3 id="reuse">Reuse</h3>
+  <p>Diagrams and text are licensed under Creative Commons Attribution <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY 2.0</a> with the <a class="github" href="${frontMatter.githubUrl}">source available on GitHub</a>, unless noted otherwise. The figures that have been reused from other sources don’t fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>
+
+  <h3 id="citation">Citation</h3>
+  <p>For attribution in academic contexts, please cite this work as</p>
+  <pre class="citation short">${frontMatter.concatenatedAuthors}, "${frontMatter.title}", Distill, ${frontMatter.publishedYear}.</pre>
+  <p>BibTeX citation</p>
+  <pre class="citation long">${serializeFrontmatterToBibtex(frontMatter)}</pre>
+  `;
+}
+
+class DistillAppendix extends HTMLElement {
+
+  static get is() { return 'distill-appendix'; }
+
+  set frontMatter(frontMatter) {
+    this.innerHTML = appendixTemplate(frontMatter);
+  }
+
+}
+
+const T$16 = Template('distill-footer', `
+<style>
+
+:host {
+  display: block;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 300;
+  padding: 40px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: hsl(180, 5%, 15%); /*hsl(200, 60%, 15%);*/
+  text-align: left;
+}
+
+.logo svg {
+  width: 24px;
+  position: relative;
+  top: 4px;
+  margin-right: 2px;
+}
+
+.logo svg path {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.8);
+  stroke-width: 3px;
+}
+
+.logo {
+  font-size: 17px;
+  font-weight: 200;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  margin-right: 6px;
+}
+
+.container {
+  grid-column: margin-left / body;
+}
+</style>
+
+<div class='container'>
+<a href="/" class="logo">
+  ${logo}
+  Distill
+</a> is dedicated to clear explanations of machine learning
+</div>
+`);
+
+class DistillFooter extends T$16(HTMLElement) {
+
+}
+
+/* Static styles and other modules */
+const components = [
+  Abstract, Acknowledgements, Appendix, Article, Bibliography,
+  Byline, Cite, Code, Footnote, FootnoteList, FrontMatter$1, DMath,
+  References, Title, TOC,
+];
+
+/* Distill website specific components */
+const distillComponents = [
+  DistillHeader, DistillAppendix, DistillFooter,
+];
+
+function defineComponents() {
+  const allComponents = components.concat(distillComponents);
+  for (const component of allComponents) {
+    customElements.define(component.is, component);
+  }
+}
+
+defineComponents();
+
+})));
 //# sourceMappingURL=components.js.map

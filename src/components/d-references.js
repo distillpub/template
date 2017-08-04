@@ -10,8 +10,4 @@ d-references {
 
 export  class References extends T(HTMLElement) {
 
-  connectedCallback() {
-    super.connectedCallback();
-  }
-
 }

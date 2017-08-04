@@ -27,9 +27,10 @@ const components = [
 /* Distill website specific components */
 import { DistillHeader } from './distill-components/distill-header';
 import { DistillAppendix } from './distill-components/distill-appendix';
+import { DistillFooter } from './distill-components/distill-footer';
 
 const distillComponents = [
-  DistillHeader, DistillAppendix,
+  DistillHeader, DistillAppendix, DistillFooter,
 ];
 
 function defineComponents() {

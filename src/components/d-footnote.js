@@ -11,8 +11,8 @@ d-math[block] {
 
 </style>
 
-<div style="display: none;" class="dt-hover-box">
-  <slot id='slot'></slot>
+<div id="hover-box" class="dt-hover-box">
+  <slot id="slot"></slot>
 </div>
 
 <sup><span id="fn-" data-hover-ref="" style="cursor:pointer"></span></sup>
@@ -55,7 +55,7 @@ export class Footnote extends T(HTMLElement) {
     span.setAttribute('data-hover-ref', div.id);
     span.textContent = IdString;
 
-    HoverBox.get_box(div).bind(span);
+    this.hoverbox = new HoverBox(div, span);
   }
 
 }

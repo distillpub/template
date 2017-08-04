@@ -1,5 +1,6 @@
 import { FrontMatter } from './front-matter';
 import { collectCitations } from './components/d-cite';
+import { parseFrontmatter } from './components/d-front-matter';
 
 const frontMatter = new FrontMatter();
 
@@ -77,8 +78,9 @@ export const Controller = {
 
       // ensure we have citations
       if (frontMatter.citations.length === 0) {
-        // console.debug('onBibliographyChanged, but unresolved dependency ("citations"). Enqueing.');
-        Controller.waitingOn.citations.push(() => Controller.listeners.onBibliographyChanged(event));
+        Controller.waitingOn.citations.push( function() {
+          Controller.listeners.onBibliographyChanged({target: event.target, detail: event.detail});
+        });
         return;
       }
 
@@ -103,7 +105,9 @@ export const Controller = {
       frontMatter.mergeFromYMLFrontmatter(data);
 
       const appendix = document.querySelector('distill-appendix');
-      appendix.frontMatter = frontMatter;
+      if (appendix) {
+        appendix.frontMatter = frontMatter;
+      }
 
       const byline = document.querySelector('d-byline');
       byline.frontMatter = frontMatter;
@@ -113,7 +117,7 @@ export const Controller = {
       // console.debug('DOMContentLoaded.');
 
       const frontMatterTag = document.querySelector('d-front-matter');
-      const data = frontMatterTag.parse();
+      const data = parseFrontmatter(frontMatterTag);
       Controller.listeners.onFrontMatterChanged({detail: data});
 
       // console.debug('Resolving "citations" dependency due to initial DOM load.');

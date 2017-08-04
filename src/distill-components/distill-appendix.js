@@ -1,3 +1,5 @@
+import { serializeFrontmatterToBibtex } from '../helpers/bibtex';
+
 const styles = `
 <style>
   distill-appendix h3 {
@@ -27,6 +29,8 @@ const styles = `
     color: rgba(150, 150, 150, 1);
     overflow: hidden;
     margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
   }
 </style>
 `;
@@ -45,13 +49,7 @@ export function appendixTemplate(frontMatter) {
   <p>For attribution in academic contexts, please cite this work as</p>
   <pre class="citation short">${frontMatter.concatenatedAuthors}, "${frontMatter.title}", Distill, ${frontMatter.publishedYear}.</pre>
   <p>BibTeX citation</p>
-  <pre class="citation long">@article{${frontMatter.slug},
-  author = {${frontMatter.bibtexAuthors}},
-  title = {${frontMatter.title}},
-  journal = {Distill},
-  year = {${frontMatter.publishedYear}},
-  note = {${frontMatter.url}}
-  }</pre>
+  <pre class="citation long">${serializeFrontmatterToBibtex(frontMatter)}</pre>
   `;
 }
 

@@ -28,7 +28,7 @@ const T = Template('d-cite', `
   }
 </style>
 
-<div style="display: none;" id="hover-box" class="dt-hover-box">
+<div id="hover-box" class="dt-hover-box">
 </div>
 
 <span id="citation-" class="citation">
@@ -37,9 +37,9 @@ const T = Template('d-cite', `
 </span>
 `);
 
-export function collectCitations() {
+export function collectCitations(dom=document) {
   const citations = new Set();
-  const citeTags = document.querySelectorAll('d-cite');
+  const citeTags = dom.querySelectorAll('d-cite');
   for (const tag of citeTags) {
     const keys = tag.getAttribute('key').split(',');
     for (const key of keys) {
@@ -53,11 +53,11 @@ export class Cite extends T(HTMLElement) {
 
   /* Lifecycle */
 
-  constructor() {
-    super();
-    // Cite.currentId += 1;
-    // this.citeId = Cite.currentId;
-  }
+  // constructor() {
+  //   super();
+  //   // Cite.currentId += 1;
+  //   // this.citeId = Cite.currentId;
+  // }
 
   connectedCallback() {
     // this.notify();
@@ -67,7 +67,8 @@ export class Cite extends T(HTMLElement) {
     this.innerSpan = this.root.querySelector('.citation-number');
     // this.outerSpan.id = `citation-${this.citeId}`;
     // this.hoverDiv.id = `dt-cite-hover-box-${this.citeId}`;
-    HoverBox.get_box(this.hoverDiv).bind(this.outerSpan);
+    // console.log(this, this.hoverDiv, this.outerSpan, this.innerSpan);
+    this.hoverbox = new HoverBox(this.hoverDiv, this.outerSpan);
 
   }
 
