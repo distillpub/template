@@ -18,7 +18,7 @@ export class Article extends T(HTMLElement) {
       if (typeof callback === 'function') {
         document.addEventListener(functionName, callback);
       } else {
-        console.error('Controller listeners need to be functions!')
+        console.error('Controller listeners need to be functions!');
       }
     }
   }

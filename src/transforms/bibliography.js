@@ -1,4 +1,4 @@
-import bibtexParse from "bibtex-parse-js";
+import bibtexParse from 'bibtex-parse-js';
 
 export default function(dom, data) {
   let el = dom.querySelector('script[type="text/bibliography"]');
@@ -12,11 +12,11 @@ export default function(dom, data) {
       parsed.forEach(e => {
         for (var k in e.entryTags){
           var val = e.entryTags[k];
-          val = val.replace(/[\t\n ]+/g, " ");
-          val = val.replace(/{\\["^`\.'acu~Hvs]( )?([a-zA-Z])}/g,
-                            (full, x, char) => char);
+          val = val.replace(/[\t\n ]+/g, ' ');
+          val = val.replace(/{\\["^`.'acu~Hvs]( )?([a-zA-Z])}/g,
+            (full, x, char) => char);
           val = val.replace(/{\\([a-zA-Z])}/g,
-                            (full, char) => char);
+            (full, char) => char);
           e.entryTags[k] = val;
         }
         bibliography[e.citationKey] = e.entryTags;
@@ -25,16 +25,16 @@ export default function(dom, data) {
     }
 
 
-    var citeTags = [].slice.apply(dom.querySelectorAll("dt-cite"));
+    var citeTags = [].slice.apply(dom.querySelectorAll('dt-cite'));
     citeTags.forEach(el => {
-      let key = el.getAttribute("key");
+      let key = el.getAttribute('key');
       if (key) {
-        let citationKeys = key.split(",");
+        let citationKeys = key.split(',');
         citationKeys.forEach(key => {
           if (citations.indexOf(key) == -1){
             citations.push(key);
             if (!(key in bibliography)){
-              console.warn("No bibliography entry found for: " + key);
+              console.warn('No bibliography entry found for: ' + key);
             }
           }
         });

@@ -1,4 +1,4 @@
-import mustache from "mustache";
+import mustache from 'mustache';
 
 const html = `
 <style>
@@ -145,7 +145,7 @@ const template = `
     <div>{{concatenatedAuthors}}, {{publishedYear}}</div>
   </a>
 </div>
-`
+`;
 
 export default function(dom, data) {
   let el = dom.querySelector('dt-byline');

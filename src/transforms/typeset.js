@@ -6,7 +6,7 @@ export default function(dom, data) {
   );
   while (textNodes.nextNode()) {
     var n = textNodes.currentNode,
-        text = n.nodeValue;
+      text = n.nodeValue;
     if (text && acceptNode(n)) {
       text = quotes(text);
       text = punctuation(text);
@@ -17,19 +17,19 @@ export default function(dom, data) {
 
 function acceptNode(node) {
   var parent = node.parentElement;
-  var isMath = (parent && parent.getAttribute && parent.getAttribute("class")) ? parent.getAttribute("class").includes("katex") || parent.getAttribute("class").includes("MathJax") : false;
+  var isMath = (parent && parent.getAttribute && parent.getAttribute('class')) ? parent.getAttribute('class').includes('katex') || parent.getAttribute('class').includes('MathJax') : false;
   return parent &&
-         parent.nodeName !== "SCRIPT" &&
-         parent.nodeName !== "STYLE" &&
-         parent.nodeName !== "CODE" &&
-         parent.nodeName !== "PRE" &&
-         parent.nodeName !== "SPAN" &&
-         parent.nodeName !== "D-HEADER" &&
-         parent.nodeName !== "D-BYLINE" &&
-         parent.nodeName !== "D-MATH" &&
-         parent.nodeName !== "D-CODE" &&
-         parent.nodeName !== "D-BIBLIOGRAPHY" &&
-         parent.nodeName !== "D-FOOTER" &&
+         parent.nodeName !== 'SCRIPT' &&
+         parent.nodeName !== 'STYLE' &&
+         parent.nodeName !== 'CODE' &&
+         parent.nodeName !== 'PRE' &&
+         parent.nodeName !== 'SPAN' &&
+         parent.nodeName !== 'D-HEADER' &&
+         parent.nodeName !== 'D-BYLINE' &&
+         parent.nodeName !== 'D-MATH' &&
+         parent.nodeName !== 'D-CODE' &&
+         parent.nodeName !== 'D-BIBLIOGRAPHY' &&
+         parent.nodeName !== 'D-FOOTER' &&
          parent.nodeType !== 8 && //comment nodes
          !isMath;
 }
@@ -41,21 +41,21 @@ function acceptNode(node) {
  * @link https://github.com/davidmerfield/Typeset.js
  * @author David Merfield
  */
- // which has a CC0 license
- // http://creativecommons.org/publicdomain/zero/1.0/
+// which has a CC0 license
+// http://creativecommons.org/publicdomain/zero/1.0/
 
 
 function punctuation(text){
 
   // Dashes
   text = text.replace(/--/g, '\u2014');
-  text = text.replace(/ \u2014 /g,"\u2009\u2014\u2009"); //this has thin spaces
+  text = text.replace(/ \u2014 /g,'\u2009\u2014\u2009'); //this has thin spaces
 
   // Elipses
   text = text.replace(/\.\.\./g,'…');
 
   // Nbsp for punc with spaces
-  var NBSP = "\u00a0";
+  var NBSP = '\u00a0';
   var NBSP_PUNCTUATION_START = /([«¿¡]) /g;
   var NBSP_PUNCTUATION_END = / ([\!\?:;\.,‽»])/g;
 
@@ -91,8 +91,8 @@ function quotes(text) {
 
 function ligatures(text){
 
-    text = text.replace(/fi/g, 'ﬁ');
-    text = text.replace(/fl/g, 'ﬂ');
+  text = text.replace(/fi/g, 'ﬁ');
+  text = text.replace(/fl/g, 'ﬂ');
 
-    return text;
-};
+  return text;
+}

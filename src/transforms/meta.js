@@ -1,7 +1,7 @@
 import favicon from './distill-favicon.base64';
 
 export default function(dom, data) {
-  let head = dom.querySelector("head");
+  let head = dom.querySelector('head');
   let appendHead = html => appendHtml(head, html);
 
   function meta(name, content) {
@@ -24,7 +24,7 @@ export default function(dom, data) {
   `);
   data.authors.forEach((a) => {
     appendHtml(head, `
-      <meta property="article:author" content="${a.firstName} ${a.lastName}" />`)
+      <meta property="article:author" content="${a.firstName} ${a.lastName}" />`);
   });
 
   appendHead(`
@@ -54,37 +54,37 @@ export default function(dom, data) {
     appendHead(`
       <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->\n`);
 
-    meta("citation_title", data.title);
-    meta("citation_fulltext_html_url", data.url);
-    meta("citation_volume", data.volume);
-    meta("citation_issue", data.issue);
-    meta("citation_firstpage", data.doiSuffix? `e${data.doiSuffix}` : undefined);
-    meta("citation_doi", data.doi);
+    meta('citation_title', data.title);
+    meta('citation_fulltext_html_url', data.url);
+    meta('citation_volume', data.volume);
+    meta('citation_issue', data.issue);
+    meta('citation_firstpage', data.doiSuffix? `e${data.doiSuffix}` : undefined);
+    meta('citation_doi', data.doi);
 
     let journal = data.journal || {};
-    meta("citation_journal_title", journal.name);
-    meta("citation_journal_abbrev", journal.nameAbbrev);
-    meta("citation_issn", journal.issn);
-    meta("citation_publisher", journal.publisher);
+    meta('citation_journal_title', journal.name);
+    meta('citation_journal_abbrev', journal.nameAbbrev);
+    meta('citation_issn', journal.issn);
+    meta('citation_publisher', journal.publisher);
 
     if (data.publishedDate){
-      let zeroPad = (n) => { return n < 10 ? "0" + n : n; };
-      meta("citation_publication_date", `${data.publishedYear}/${data.publishedMonthPadded}/${data.publishedDayPadded}`);
+      let zeroPad = (n) => { return n < 10 ? '0' + n : n; };
+      meta('citation_publication_date', `${data.publishedYear}/${data.publishedMonthPadded}/${data.publishedDayPadded}`);
     }
 
     (data.authors || []).forEach((a) => {
-        meta("citation_author", `${a.lastName}, ${a.firstName}`);
-        meta("citation_author_institution", a.affiliation);
+      meta('citation_author', `${a.lastName}, ${a.firstName}`);
+      meta('citation_author_institution', a.affiliation);
     });
 
     if (data.citations) {
       data.citations.forEach(key => {
         let d = data.bibliography[key];
         if(!d) {
-          console.warn("No bibliography data fround for " + key)
+          console.warn('No bibliography data fround for ' + key);
         } else {
-          meta("citation_reference", citation_meta_content(data.bibliography[key]) )
-        };
+          meta('citation_reference', citation_meta_content(data.bibliography[key]) );
+        }
       });
     }
   }
@@ -96,17 +96,17 @@ function appendHtml(el, html) {
 
 function citation_meta_content(ref){
   var content = `citation_title=${ref.title};`;
-  ref.author.split(" and ").forEach(author => {
+  ref.author.split(' and ').forEach(author => {
     content += `citation_author=${author.trim()};`;
   });
-  if ("journal" in ref){
+  if ('journal' in ref){
     content += `citation_journal_title=${ref.journal};`;
   }
-  if ("volume" in ref) {
-      content += `citation_volume=${ref.volume};`;
+  if ('volume' in ref) {
+    content += `citation_volume=${ref.volume};`;
   }
-  if ("issue" in ref || "number" in ref){
-      content += `citation_number=${ref.issue || ref.number};`;
+  if ('issue' in ref || 'number' in ref){
+    content += `citation_number=${ref.issue || ref.number};`;
   }
   /*content += `citation_first_page=${};`;
   content += `citation_publication_date=${};`;*/

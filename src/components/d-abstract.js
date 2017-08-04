@@ -1,7 +1,7 @@
-import { Template } from "../mixins/template";
-import { body } from "../helpers/layout";
+import { Template } from '../mixins/template';
+import { body } from '../helpers/layout';
 
-const T = Template("d-abstract", `
+const T = Template('d-abstract', `
 <style>
   d-abstract {
     display: block;
@@ -9,7 +9,7 @@ const T = Template("d-abstract", `
     line-height: 1.7em;
     margin-bottom: 140px;
   }
-  ${body("d-abstract")}
+  ${body('d-abstract')}
 </style>
 `, false);
 

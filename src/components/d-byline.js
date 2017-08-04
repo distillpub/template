@@ -1,7 +1,7 @@
-import { Template } from "../mixins/template";
-import { page } from "../helpers/layout";
+import { Template } from '../mixins/template';
+import { page } from '../helpers/layout';
 
-const T = Template("d-byline", `
+const T = Template('d-byline', `
 <style>
   d-byline {
     box-sizing: border-box;
@@ -14,7 +14,7 @@ const T = Template("d-byline", `
     padding-top: 20px;
     padding-bottom: 20px;
   }
-  ${page(".byline")}
+  ${page('.byline')}
   d-article.centered {
     text-align: center;
   }
@@ -117,15 +117,15 @@ export function bylineTemplate(frontMatter) {
   <div class="authors">
     ${frontMatter.authors.map( author => `<div class="author">
       ${author.personalURL ?
-        `<a class="name" href="${author.personalURL}">${author.name}</a>`
-      :
-        `<div class="name">${author.name}</div>`
-      }
+    `<a class="name" href="${author.personalURL}">${author.name}</a>`
+    :
+    `<div class="name">${author.name}</div>`
+}
       ${author.affiliationURL ?
-        `<a class="affiliation" href="${author.affiliationURL}">${author.affiliation}</a>`
-      :
-        `<div class="affiliation">${author.affiliation}</div>`
-      }
+    `<a class="affiliation" href="${author.affiliationURL}">${author.affiliation}</a>`
+    :
+    `<div class="affiliation">${author.affiliation}</div>`
+}
     </div>`).join('\n')}
   </div>
   <div class="date">

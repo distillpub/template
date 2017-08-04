@@ -1,6 +1,6 @@
-import {Template} from "../mixins/template";
+import {Template} from '../mixins/template';
 
-const T = Template("d-toc", `
+const T = Template('d-toc', `
 <style>
 d-toc {
   display: block;

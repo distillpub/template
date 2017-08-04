@@ -1,7 +1,6 @@
-import { Template } from "../mixins/template";
-import { body } from "../helpers/layout";
+import { Template } from '../mixins/template';
 
-const T = Template("d-references", `
+const T = Template('d-references', `
 <style>
 d-references {
   display: block;

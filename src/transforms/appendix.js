@@ -58,14 +58,14 @@ const html = `
 `;
 
 export default function(dom, data) {
-  let el = dom.querySelector('dt-appendix')
+  let el = dom.querySelector('dt-appendix');
   if (el) {
     let oldHtml = el.innerHTML;
     el.innerHTML = html;
-    let div = el.querySelector("div.l-body")
+    let div = el.querySelector('div.l-body');
 
-    if (dom.querySelector("dt-fn")) {
-      div.innerHTML = `<h3>Footnotes</h3><dt-fn-list></dt-fn-list>` + div.innerHTML;
+    if (dom.querySelector('dt-fn')) {
+      div.innerHTML = '<h3>Footnotes</h3><dt-fn-list></dt-fn-list>' + div.innerHTML;
     }
 
     div.innerHTML = oldHtml + div.innerHTML;
@@ -73,17 +73,17 @@ export default function(dom, data) {
       div.innerHTML = `<h3>Updates</h3><p><a href="${data.githubCompareUpdatesUrl}">View all changes</a> to this article since it was first published.</p>` + div.innerHTML;
     }
 
-    el.querySelector("a.github").setAttribute("href", data.githubUrl);
-    el.querySelector("a.github-issue").setAttribute("href", data.githubUrl + "/issues/new");
-    el.querySelector(".citation.short").textContent = data.concatenatedAuthors + ", " + '"' + data.title + '", Distill, ' + data.publishedYear + ".";
-    var bibtex  = "@article{" + data.slug + ",\n";
-        bibtex += "  author = {" + data.bibtexAuthors + "},\n";
-        bibtex += "  title = {" + data.title + "},\n";
-        bibtex += "  journal = {Distill},\n";
-        bibtex += "  year = {" + data.publishedYear + "},\n";
-        bibtex += "  note = {" + data.url + "}\n";
-        bibtex += "}";
-    el.querySelector(".citation.long").textContent = bibtex;
+    el.querySelector('a.github').setAttribute('href', data.githubUrl);
+    el.querySelector('a.github-issue').setAttribute('href', data.githubUrl + '/issues/new');
+    el.querySelector('.citation.short').textContent = data.concatenatedAuthors + ', ' + '"' + data.title + '", Distill, ' + data.publishedYear + '.';
+    var bibtex  = '@article{' + data.slug + ',\n';
+    bibtex += '  author = {' + data.bibtexAuthors + '},\n';
+    bibtex += '  title = {' + data.title + '},\n';
+    bibtex += '  journal = {Distill},\n';
+    bibtex += '  year = {' + data.publishedYear + '},\n';
+    bibtex += '  note = {' + data.url + '}\n';
+    bibtex += '}';
+    el.querySelector('.citation.long').textContent = bibtex;
   }
 
 }

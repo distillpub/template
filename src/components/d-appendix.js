@@ -1,7 +1,7 @@
-import { Template } from "../mixins/template";
-import { page } from "../helpers/layout";
+import { Template } from '../mixins/template';
+import { page } from '../helpers/layout';
 
-const T = Template("d-appendix", `
+const T = Template('d-appendix', `
 <style>
 
 :host {
@@ -16,7 +16,7 @@ const T = Template("d-appendix", `
   padding-bottom: 48px;
 }
 
-${page(".l-body")}
+${page('.l-body')}
 
 </style>
 

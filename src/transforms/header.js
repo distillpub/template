@@ -1,4 +1,4 @@
-import logo from "./distill-logo.svg";
+import logo from './distill-logo.svg';
 
 const html = `
 <style>
@@ -77,16 +77,16 @@ dt-header .nav a {
     <!-- https://twitter.com/distillpub -->
   </div>
 </div>
-`
+`;
 
 export default function(dom, data) {
-  let el = dom.querySelector("dt-header");
+  let el = dom.querySelector('dt-header');
   if(el) {
     el.innerHTML = html;
   } else {
-    let header = dom.createElement("dt-header");
+    let header = dom.createElement('dt-header');
     header.innerHTML = html;
-    let b = dom.querySelector("body");
+    let b = dom.querySelector('body');
     b.insertBefore(header, b.firstChild);
   }
 }

@@ -1,4 +1,4 @@
-import { Template } from "../mixins/template";
+import { Template } from '../mixins/template';
 
 const T = Template('d-acknowledgements', `
 <style>

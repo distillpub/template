@@ -11,6 +11,7 @@
     "rules": {
         "no-unused-vars": ["warn", { "vars": "all", "args": "after-used" }],
         "no-console": ["off", { "allow": ["warn", "error"] } ],
+        "no-empty": ["error", { "allowEmptyCatch": true }],
         "indent": [ "warn", 2 ],
         "linebreak-style": [ "error", "unix" ],
         "quotes": [ "warn", "single" ],

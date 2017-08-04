@@ -13,11 +13,11 @@ const html = `
 `;
 
 export default function(dom, data) {
-  let banner = dom.createElement("dt-banner");
+  let banner = dom.createElement('dt-banner');
   banner.innerHTML = html;
-  let b = dom.querySelector("body");
+  let b = dom.querySelector('body');
   b.insertBefore(banner, b.firstChild);
-  banner.addEventListener("click", function() {
-    banner.style.display = "none";
+  banner.addEventListener('click', function() {
+    banner.style.display = 'none';
   });
 }

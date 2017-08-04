@@ -1,8 +1,6 @@
-import { Template } from "../mixins/template";
-import { Mutating } from "../mixins/mutating";
-import { collectCitations } from './d-cite'
-import bibtexParse from "bibtex-parse-js";
-import { bibliography_cite } from "../helpers/citation";
+import { Template } from '../mixins/template';
+import bibtexParse from 'bibtex-parse-js';
+import { bibliography_cite } from '../helpers/citation';
 
 const T = Template('d-bibliography', `
 <style>
@@ -43,11 +41,11 @@ export function parseBibtex(bibtex) {
     // normalize tags; note entryTags is an object, not Map
     for (const tag in entry.entryTags) {
       let value = entry.entryTags[tag];
-      value = value.replace(/[\t\n ]+/g, " ");
-      value = value.replace(/{\\["^`\.'acu~Hvs]( )?([a-zA-Z])}/g,
-                        (full, x, char) => char);
+      value = value.replace(/[\t\n ]+/g, ' ');
+      value = value.replace(/{\\["^`.'acu~Hvs]( )?([a-zA-Z])}/g,
+        (full, x, char) => char);
       value = value.replace(/{\\([a-zA-Z])}/g,
-                        (full, char) => char);
+        (full, char) => char);
       entry.entryTags[tag] = value;
     }
     entry.entryTags.type = entry.entryType;
@@ -60,11 +58,11 @@ export function parseBibtex(bibtex) {
 export class Bibliography extends T(HTMLElement) {
 
   constructor() {
-    super()
+    super();
 
     // set up mutation observer
-    const options = {childList: true, subtree: true};
-    const observer = new MutationObserver( (mutations) => {
+    const options = {childList: true, characterData: true, subtree: true};
+    const observer = new MutationObserver( () => {
       observer.disconnect();
       this.parseIfPossible();
       observer.observe(this, options);
@@ -82,27 +80,10 @@ export class Bibliography extends T(HTMLElement) {
         this.notify(bibliography);
       }
     }
-  };
+  }
 
   connectedCallback() {
     this.list = this.root.querySelector('ol');
-    // bibliography is initially hidden
-    this.root.host.style.display = 'none';
-    // this.parseIfPossible();
-    // Store.subscribeTo('citations', (citations) => {
-    //   // ensure citations list is visible
-    //   this.root.host.style.display = 'initial';
-    //   this.list.innerHTML = '';
-    //   for (const key of citations) {
-    //     const bibliography = Store.get('bibliography');
-    //     const entry = bibliography.get(key);
-    //     // construct and append list item to show citation
-    //     const listItem = document.createElement('li');
-    //     listItem.id = key;
-    //     listItem.innerHTML = bibliography_cite(entry);
-    //     this.list.appendChild(listItem);
-    //   }
-    // });
   }
 
   notify(bibliography) {
@@ -112,15 +93,20 @@ export class Bibliography extends T(HTMLElement) {
   }
 
   set entries(newEntries) {
-    this.root.host.style.display = 'initial';
-    this.list.innerHTML = '';
+    if (newEntries.size) {
+      this.root.host.style.display = 'initial';
+      this.list.innerHTML = '';
 
-    for (const [key, entry] of newEntries) {
-      const listItem = document.createElement('li');
-      listItem.id = key;
-      listItem.innerHTML = bibliography_cite(entry);
-      this.list.appendChild(listItem);
+      for (const [key, entry] of newEntries) {
+        const listItem = document.createElement('li');
+        listItem.id = key;
+        listItem.innerHTML = bibliography_cite(entry);
+        this.list.appendChild(listItem);
+      }
+    } else {
+      this.root.host.style.display = 'none';
     }
+
   }
 
   renderContent() {

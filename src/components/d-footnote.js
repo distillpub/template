@@ -1,8 +1,8 @@
-import { Template } from "../mixins/template.js";
-import { HoverBox } from "../helpers/hover-box";
+import { Template } from '../mixins/template.js';
+import { HoverBox } from '../helpers/hover-box';
 // import { Store } from './store';
 
-const T = Template("d-footnote", `
+const T = Template('d-footnote', `
 <style>
 
 d-math[block] {

@@ -5,7 +5,7 @@ import code from './styles-code.css';
 import print from './styles-print.css';
 
 export default function(dom) {
-  let s = dom.createElement("style");
+  let s = dom.createElement('style');
   s.textContent = base + layout + article + code + print;
-  dom.querySelector("head").appendChild(s);
+  dom.querySelector('head').appendChild(s);
 }

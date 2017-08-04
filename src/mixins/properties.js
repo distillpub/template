@@ -1,5 +1,5 @@
 export function propName(attr) {
-  return attr.replace(/(\-[a-z])/g, (s) => s.toUpperCase().replace('-', ''));
+  return attr.replace(/(-[a-z])/g, (s) => s.toUpperCase().replace('-', ''));
 }
 
 export function attrName(prop) {
@@ -8,19 +8,18 @@ export function attrName(prop) {
 
 export function deserializeAttribute(value, type) {
   switch (type) {
-    case String:
-      break;
-    case Array:
-    case Object:
-      try {
-        value = JSON.parse(value);
-      } catch (e) {
-      }
-      break;
-    case Boolean:
-      value = value != 'false' && value != '0' && value;
-      break;
-    default:
+  case String:
+    break;
+  case Array:
+  case Object:
+    try {
+      value = JSON.parse(value);
+    } catch (e) {}
+    break;
+  case Boolean:
+    value = value != 'false' && value != '0' && value;
+    break;
+  default:
   }
   return value;
 }
@@ -53,7 +52,7 @@ export const Properties = (properties) => {
           this.propertiesChangedCallback(this);
         });
       }
-    }
+    };
     keys.forEach(function(k) {
       const secret = `_${k}`;
       const callback = `${k}Changed`;

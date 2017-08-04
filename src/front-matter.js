@@ -1,8 +1,8 @@
-import {timeFormat} from "d3-time-format";
+import {timeFormat} from 'd3-time-format';
 
-const zeroPad = n => n < 10 ? "0" + n : n;
-const RFC = timeFormat("%a, %d %b %Y %H:%M:%S %Z");
-const months = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+const zeroPad = n => n < 10 ? '0' + n : n;
+const RFC = timeFormat('%a, %d %b %Y %H:%M:%S %Z');
+const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
 class Author {
 
@@ -15,21 +15,21 @@ class Author {
 
   // "Chris"
   get firstName() {
-    const names = this.name.split(" ");
-    return names.slice(0, names.length - 1).join(" ");
+    const names = this.name.split(' ');
+    return names.slice(0, names.length - 1).join(' ');
   }
 
   // "Olah"
   get lastName() {
-    const names = this.name.split(" ");
+    const names = this.name.split(' ');
     return names[names.length -1];
   }
 }
 
 export class FrontMatter {
   constructor() {
-    this.title = ""; // "Attention and Augmented Recurrent Neural Networks"
-    this.description = ""; // "A visual overview of neural attention..."
+    this.title = ''; // "Attention and Augmented Recurrent Neural Networks"
+    this.description = ''; // "A visual overview of neural attention..."
     this.authors = []; // Array of Author(s)
 
     this.bibliography = new Map();
@@ -111,7 +111,7 @@ export class FrontMatter {
       }
       author.affiliation = Object.keys(affiliationEntry)[0];
       if (typeof affiliationEntry === 'object') {
-        author.affiliationURL = affiliationEntry[author.affiliation]
+        author.affiliationURL = affiliationEntry[author.affiliation];
       }
       return author;
     });
@@ -127,9 +127,9 @@ export class FrontMatter {
   }
   get url() {
     if (this._url) {
-      return this._url
+      return this._url;
     } else if (this.distillPath && this.journal.url) {
-      return this.journal.url + "/" + this.distillPath;
+      return this.journal.url + '/' + this.distillPath;
     } else if (this.journal.url) {
       return this.journal.url;
     }
@@ -137,7 +137,7 @@ export class FrontMatter {
 
   // 'https://github.com/distillpub/post--augmented-rnns',
   get githubUrl() {
-    return "https://github.com/" + this.githubPath;
+    return 'https://github.com/' + this.githubPath;
   }
 
   // TODO resolve differences in naming of URL/Url/url.
@@ -146,7 +146,7 @@ export class FrontMatter {
     this._previewURL = value;
   }
   get previewURL() {
-    return this._previewURL ? this._previewURL : this.url + "/thumbnail.jpg";
+    return this._previewURL ? this._previewURL : this.url + '/thumbnail.jpg';
   }
 
   // 'Thu, 08 Sep 2016 00:00:00 -0700',
@@ -184,16 +184,12 @@ export class FrontMatter {
     return zeroPad(this.publishedDate.getDate());
   }
 
-  // 'Tue, 21 Mar 2017 00:13:16 -0700',
-  get updatedDateRFC() {
-  }
-
   // 'Olah & Carter',
   get concatenatedAuthors() {
     if (this.authors.length > 2) {
-      return this.authors[0].lastName + ", et al.";
+      return this.authors[0].lastName + ', et al.';
     } else if (this.authors.length === 2) {
-      return this.authors[0].lastName + " & " + this.authors[1].lastName;
+      return this.authors[0].lastName + ' & ' + this.authors[1].lastName;
     } else if (this.authors.length === 1) {
       return this.authors[0].lastName;
     }
@@ -202,8 +198,8 @@ export class FrontMatter {
   // 'Olah, Chris and Carter, Shan',
   get bibtexAuthors() {
     return this.authors.map(author => {
-      return author.lastName + ", " + author.firstName
-    }).join(" and ");
+      return author.lastName + ', ' + author.firstName;
+    }).join(' and ');
   }
 
   // 'olah2016attention'

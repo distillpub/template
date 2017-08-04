@@ -29,7 +29,7 @@ const styles = `
     margin-top: -12px;
   }
 </style>
-`
+`;
 
 export function appendixTemplate(frontMatter) {
   return `
@@ -57,7 +57,7 @@ export function appendixTemplate(frontMatter) {
 
 export class DistillAppendix extends HTMLElement {
 
-  static get is() { return "distill-appendix"; }
+  static get is() { return 'distill-appendix'; }
 
   set frontMatter(frontMatter) {
     this.innerHTML = appendixTemplate(frontMatter);

@@ -1,4 +1,3 @@
-
 export const Mutating = (superclass) => {
   return class extends superclass {
 
@@ -7,7 +6,7 @@ export const Mutating = (superclass) => {
 
       // set up mutation observer
       const options = {childList: true, characterData: true, subtree: true};
-      const observer = new MutationObserver( (mutations) => {
+      const observer = new MutationObserver( () => {
         observer.disconnect();
         this.renderIfPossible();
         observer.observe(this, options);
@@ -29,11 +28,11 @@ export const Mutating = (superclass) => {
       if (this.textContent && this.root) {
         this.renderContent();
       }
-    };
+    }
 
     renderContent() {
       console.error(`Your class ${this.constructor.name} must provide a custom renderContent() method!` );
     }
 
-  } // end class
+  }; // end class
 }; // end mixin function

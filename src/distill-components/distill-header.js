@@ -1,9 +1,9 @@
-import {Template} from "../mixins/template";
+import {Template} from '../mixins/template';
 
 // import logo from "./distill-logo.svg";
-var logo = "";
+var logo = '';
 
-const T = Template("distill-header", `
+const T = Template('distill-header', `
 <style>
 :host {
   box-sizing: border-box;
@@ -86,6 +86,6 @@ svg path {
 
 export class DistillHeader extends T(HTMLElement) {
   static get is() {
-    return "distill-header";
+    return 'distill-header';
   }
 }

@@ -1,12 +1,12 @@
-import Prism from "prismjs";
-import "prismjs/components/prism-python";
-import "prismjs/components/prism-clike";
-import css from "prismjs/themes/prism.css";
+import Prism from 'prismjs';
+import 'prismjs/components/prism-python';
+import 'prismjs/components/prism-clike';
+import css from 'prismjs/themes/prism.css';
 
-import { Template } from "../mixins/template.js"
-import { Mutating } from "../mixins/mutating.js"
+import { Template } from '../mixins/template.js';
+import { Mutating } from '../mixins/mutating.js';
 
-const T = Template("d-code", `
+const T = Template('d-code', `
 <style>
 
 code {
@@ -39,7 +39,7 @@ export class Code extends Mutating(T(HTMLElement)) {
     // check if language can be highlighted
     this.languageName = this.getAttribute('language');
     if (!this.languageName) {
-      console.warn(`You need to provide a language attribute to your <d-code> block to let us know how to highlight your code; e.g.:\n <d-code language="python">zeros = np.zeros(shape)</d-code>.`);
+      console.warn('You need to provide a language attribute to your <d-code> block to let us know how to highlight your code; e.g.:\n <d-code language="python">zeros = np.zeros(shape)</d-code>.');
       return;
     }
     const language = Prism.languages[this.languageName];
@@ -49,18 +49,18 @@ export class Code extends Mutating(T(HTMLElement)) {
     }
 
     let content = this.textContent;
-    const codeTag = this.shadowRoot.querySelector("#code-container");
+    const codeTag = this.shadowRoot.querySelector('#code-container');
 
-    if (this.hasAttribute("block")) {
+    if (this.hasAttribute('block')) {
       // normalize the tab indents
-      content = content.replace(/\n/, "");
+      content = content.replace(/\n/, '');
       const tabs = content.match(/\s*/);
-      content = content.replace(new RegExp("\n" + tabs, "g"), "\n");
+      content = content.replace(new RegExp('\n' + tabs, 'g'), '\n');
       content = content.trim();
       // wrap code block in pre tag if needed
       if (codeTag.parentNode instanceof ShadowRoot) {
-        const preTag = document.createElement("pre");
-        this.shadowRoot.removeChild(codeTag)
+        const preTag = document.createElement('pre');
+        this.shadowRoot.removeChild(codeTag);
         preTag.appendChild(codeTag);
         this.shadowRoot.appendChild(preTag);
       }

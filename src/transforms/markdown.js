@@ -10,9 +10,9 @@ export default function(dom, data) {
   markdownElements.forEach(el => {
     let content = el.innerHTML;
     // Set default indents
-    content = content.replace(/\n/, "");
+    content = content.replace(/\n/, '');
     let tabs = content.match(/\s*/);
-    content = content.replace(new RegExp("\n" + tabs, "g"), "\n");
+    content = content.replace(new RegExp('\n' + tabs, 'g'), '\n');
     content = content.trim();
 
     el.innerHTML = marked(content);

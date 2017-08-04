@@ -1,6 +1,6 @@
-import { Template } from "../mixins/template";
-import { hover_cite } from "../helpers/citation";
-import { HoverBox } from "../helpers/hover-box";
+import { Template } from '../mixins/template';
+import { hover_cite } from '../helpers/citation';
+import { HoverBox } from '../helpers/hover-box';
 
 const T = Template('d-cite', `
 <style>
@@ -54,7 +54,7 @@ export class Cite extends T(HTMLElement) {
   /* Lifecycle */
 
   constructor() {
-    super()
+    super();
     // Cite.currentId += 1;
     // this.citeId = Cite.currentId;
   }
@@ -116,7 +116,7 @@ export class Cite extends T(HTMLElement) {
     const numberStrings = numbers.map( index => {
       return index == -1 ? '?' : index + 1 + '';
     });
-    const textContent = "[" + numberStrings.join(", ") + "]";
+    const textContent = '[' + numberStrings.join(', ') + ']';
     const innerSpan = this.root.querySelector('.citation-number');
     innerSpan.textContent = textContent;
   }

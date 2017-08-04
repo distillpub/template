@@ -1,3 +1,5 @@
+/*global ShadyCSS*/
+
 export const Template = (name, templateString, useShadow = true) => {
 
   const template = document.createElement('template');
@@ -48,6 +50,6 @@ export const Template = (name, templateString, useShadow = true) => {
       $$(query) {
         return this.root.querySelectorAll(query);
       }
-    }
-  }
+    };
+  };
 };

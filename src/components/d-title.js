@@ -1,7 +1,7 @@
-import { Template } from "../mixins/template";
-import { page } from "../helpers/layout";
+import { Template } from '../mixins/template';
+import { page } from '../helpers/layout';
 
-const T = Template("d-title", `
+const T = Template('d-title', `
 <style>
 
 :host {
@@ -24,7 +24,7 @@ d-byline {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-${page("::slotted(h1), ::slotted(h2)")}
+${page('::slotted(h1), ::slotted(h2)')}
 
 </style>
 
