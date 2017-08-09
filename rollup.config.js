@@ -35,8 +35,8 @@ const defaultConfig = {
 Object.assign(componentsConfig, defaultConfig);
 componentsConfig.plugins.push(copy({
   './node_modules/katex/dist/fonts': 'dist/fonts',
-  './node_modules/webcomponents.js/webcomponents-lite.js': 'dist/webcomponents-lite.js',
-  './node_modules/webcomponents.js/webcomponents-lite.js.map': 'dist/webcomponents-lite.js.map',
+  './node_modules/@webcomponents/webcomponentsjs/webcomponents-lite.js': 'dist/webcomponents-lite.js',
+  './node_modules/@webcomponents/webcomponentsjs/webcomponents-lite.js.map': 'dist/webcomponents-lite.js.map',
 }));
 Object.assign(transformsConfig, defaultConfig);
 
