@@ -13,6 +13,8 @@ const T = Template('d-article', `
 //   }
 // }
 
+const isOnlyWhitespace = /^\s*$/;
+
 export class Article extends T(HTMLElement) {
 
   constructor() {
@@ -21,8 +23,20 @@ export class Article extends T(HTMLElement) {
     new MutationObserver( (mutations) => {
       for (const mutation of mutations) {
         for (const addedNode of mutation.addedNodes) {
-          if (addedNode.nodeName === 'HR') {
+          switch (addedNode.nodeName) {
+          case 'HR':
             console.warn('Use of <hr> tags in distill articles is discouraged!');
+            break;
+          case '#text': { // usually text nodes are only linebreaks.
+            const text = addedNode.nodeValue;
+            if (!isOnlyWhitespace.test(text)) {
+              console.warn('Use of unwrapped text in distill articles is discouraged as it breaks layout! Please wrap any text in a <span> or <p> tag. We found the following text: ' + text);
+              const wrapper = document.createElement('span');
+              wrapper.innerHTML = addedNode.nodeValue;
+              addedNode.parentNode.insertBefore(wrapper, addedNode);
+              addedNode.parentNode.removeChild(addedNode);
+            }
+          } break;
           }
         }
       }
