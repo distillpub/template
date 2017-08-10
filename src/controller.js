@@ -17,14 +17,14 @@ export const Controller = {
       const [citeTag, keys] = event.detail;
 
       // ensure we have citations
-      if (frontMatter.citations.length === 0) {
+      if (!frontMatter.citationsCollected) {
         // console.debug('onCiteKeyCreated, but unresolved dependency ("citations"). Enqueing.');
         Controller.waitingOn.citations.push(() => Controller.listeners.onCiteKeyCreated(event));
         return;
       }
 
       // ensure we have a loaded bibliography
-      if (frontMatter.bibliography.size === 0) {
+      if (!frontMatter.bibliographyParsed) {
         // console.debug('onCiteKeyCreated, but unresolved dependency ("bibliography"). Enqueing.');
         Controller.waitingOn.bibliography.push(() => Controller.listeners.onCiteKeyCreated(event));
         return;
@@ -37,11 +37,12 @@ export const Controller = {
     },
 
     onCiteKeyChanged(event) {
-      const [citeTag, keys] = event.detail;
+      // const [citeTag, keys] = event.detail;
 
       // update citations
       frontMatter.citations = collectCitations();
-      for (const waitingCallback of Controller.waitingOn.citations) {
+      frontMatter.citationsCollected = true;
+      for (const waitingCallback of Controller.waitingOn.citations.slice()) {
         waitingCallback();
       }
 
@@ -61,10 +62,10 @@ export const Controller = {
         citeTag.entries = entries;
       }
 
-      const numbers = keys.map( key => frontMatter.citations.indexOf(key) );
-      citeTag.numbers = numbers;
-      const entries = keys.map( key => frontMatter.bibliography.get(key) );
-      citeTag.entries = entries;
+    },
+
+    onCiteKeyRemoved(event) {
+      Controller.listeners.onCiteKeyChanged(event);
     },
 
     onBibliographyChanged(event) {
@@ -72,12 +73,13 @@ export const Controller = {
       const bibliography = event.detail;
 
       frontMatter.bibliography = bibliography;
-      for (const waitingCallback of Controller.waitingOn.bibliography) {
+      frontMatter.bibliographyParsed = true;
+      for (const waitingCallback of Controller.waitingOn.bibliography.slice()) {
         waitingCallback();
       }
 
       // ensure we have citations
-      if (frontMatter.citations.length === 0) {
+      if (!frontMatter.citationsCollected) {
         Controller.waitingOn.citations.push( function() {
           Controller.listeners.onBibliographyChanged({target: event.target, detail: event.detail});
         });
@@ -87,6 +89,7 @@ export const Controller = {
       const entries = new Map(frontMatter.citations.map( citationKey => {
         return [citationKey, frontMatter.bibliography.get(citationKey)];
       }));
+
       bibliographyTag.entries = entries;
     },
 
@@ -122,7 +125,8 @@ export const Controller = {
 
       // console.debug('Resolving "citations" dependency due to initial DOM load.');
       frontMatter.citations = collectCitations();
-      for (const waitingCallback of Controller.waitingOn.citations) {
+      frontMatter.citationsCollected = true;
+      for (const waitingCallback of Controller.waitingOn.citations.slice()) {
         waitingCallback();
       }
 

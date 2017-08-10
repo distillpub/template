@@ -33,6 +33,7 @@ export class FrontMatter {
     this.authors = []; // Array of Author(s)
 
     this.bibliography = new Map();
+    this.bibliographyParsed = false;
     //  {
     //    "gregor2015draw": {
     //      "title": "DRAW: A recurrent neural network for image generation",
@@ -47,7 +48,7 @@ export class FrontMatter {
     // Citation keys should be listed in the order that they are appear in the document.
     // Each key refers to a key in the bibliography dictionary.
     this.citations = []; // [ "gregor2015draw", "mercier2011humans" ]
-
+    this.citationsCollected = false;
 
     //
     // Assigned from posts.csv

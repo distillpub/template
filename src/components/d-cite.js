@@ -72,6 +72,12 @@ export class Cite extends T(HTMLElement) {
 
   }
 
+  disconnectedCallback() {
+    const options = { detail: [this, this.keys], bubbles: true };
+    const event = new CustomEvent('onCiteKeyRemoved', options);
+    document.dispatchEvent(event);
+  }
+
   /* Observed Attributes */
 
   // renderCitationNumbers(citations) {
