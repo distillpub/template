@@ -43,10 +43,10 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
+    "@webcomponents/webcomponentsjs": "^1.0.7",
     "assert": "^1.4.1",
     "d3-time-format": "^2.0.3",
     "jsdom-wc": "^11.0.0-alpha-1",
-    "katex": "^0.7.1",
-    "webcomponents.js": "webcomponents/webcomponentsjs"
+    "katex": "^0.7.1"
   }
 }

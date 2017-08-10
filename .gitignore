@@ -37,5 +37,4 @@ jspm_packages
 
 # Copied fonts
 examples/fonts
-dist/examples/fonts
-dist/fonts
+dist
