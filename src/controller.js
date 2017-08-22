@@ -113,7 +113,9 @@ export const Controller = {
       }
 
       const byline = document.querySelector('d-byline');
-      byline.frontMatter = frontMatter;
+      if (byline) {
+        byline.frontMatter = frontMatter;
+      }
     },
 
     DOMContentLoaded() {
