@@ -17,11 +17,12 @@ import { DMath }            from './components/d-math';
 import { References }       from './components/d-references';
 import { Title }            from './components/d-title';
 import { TOC }              from './components/d-toc';
+import { Figure }           from './components/d-figure';
 
 const components = [
   Abstract, Acknowledgements, Appendix, Article, Bibliography,
   Byline, Cite, Code, Footnote, FootnoteList, FrontMatter, DMath,
-  References, Title, TOC,
+  References, Title, TOC, Figure,
 ];
 
 /* Distill website specific components */

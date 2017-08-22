@@ -67,6 +67,30 @@
           print(a, end=' ')
           a, b = b, a+b
   </d-code>
+  <d-figure id="last-figure"></d-figure>
+  <script>
+    const figure = document.querySelector("d-figure#last-figure");
+    figure.addEventListener("init", function() {
+      const initTag = document.createElement("span");
+      initTag.textContent = "initialized!"
+      figure.appendChild(initTag);
+    });
+    figure.addEventListener("almostonscreen", function() {
+      const initTag = figure.querySelector("span");
+      initTag.textContent = "almostonscreen"
+      console.log('almostonscreen')
+    });
+    figure.addEventListener("onscreen", function() {
+      const initTag = figure.querySelector("span");
+      initTag.textContent = "onscreen"
+      console.log('onscreen')
+    });
+    figure.addEventListener("offscreen", function() {
+      const initTag = figure.querySelector("span");
+      initTag.textContent = "offscreen!"
+      console.log('offscreen')
+    });
+  </script>
   <p>That's it for the example article!</p>
   <aside>Some text.</aside>
 </d-article>
