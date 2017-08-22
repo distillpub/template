@@ -1,17 +1,38 @@
 const webcomponentPath = '../dist/webcomponents-lite.js';
+const intersectionObserverPath = '../dist/intersection-observer.js';
 
 const template = `
-  if ('registerElement' in document &&
-      'import' in document.createElement('link') &&
-      'content' in document.createElement('template')) {
-    // Platform supports webcomponents natively! :-)
-  } else {
-    // Platform does not support webcomponents--loading polyfills synchronously.
-    const scriptTag = document.createElement('script');
-    scriptTag.src = '${webcomponentPath}';
-    scriptTag.async = false;
-    document.currentScript.parentNode.insertBefore(scriptTag, document.currentScript.nextSibling);
-  }
+if ('IntersectionObserver' in window &&
+  'IntersectionObserverEntry' in window &&
+  'intersectionRatio' in IntersectionObserverEntry.prototype) {
+    // Platform supports IntersectionObserver natively! :-)
+    if (!('isIntersecting' in IntersectionObserverEntry.prototype)) {
+      Object.defineProperty(IntersectionObserverEntry.prototype,
+        'isIntersecting', {
+        get: function () {
+          return this.intersectionRatio > 0;
+        }
+      });
+    }
+} else {
+  // Platform does not support webcomponents--loading polyfills synchronously.
+  const scriptTag = document.createElement('script');
+  scriptTag.src = '${intersectionObserverPath}';
+  scriptTag.async = false;
+  document.currentScript.parentNode.insertBefore(scriptTag, document.currentScript.nextSibling);
+}
+
+if ('registerElement' in document &&
+    'import' in document.createElement('link') &&
+    'content' in document.createElement('template')) {
+  // Platform supports webcomponents natively! :-)
+} else {
+  // Platform does not support webcomponents--loading polyfills synchronously.
+  const scriptTag = document.createElement('script');
+  scriptTag.src = '${webcomponentPath}';
+  scriptTag.async = false;
+  document.currentScript.parentNode.insertBefore(scriptTag, document.currentScript.nextSibling);
+}
 `;
 
 export default function render(dom) {

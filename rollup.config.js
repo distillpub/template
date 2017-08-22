@@ -37,6 +37,7 @@ componentsConfig.plugins.push(copy({
   './node_modules/katex/dist/fonts': 'dist/fonts',
   './node_modules/@webcomponents/webcomponentsjs/webcomponents-lite.js': 'dist/webcomponents-lite.js',
   './node_modules/@webcomponents/webcomponentsjs/webcomponents-lite.js.map': 'dist/webcomponents-lite.js.map',
+  './node_modules/intersection-observer/intersection-observer.js': 'dist/intersection-observer.js',
 }));
 Object.assign(transformsConfig, defaultConfig);
 

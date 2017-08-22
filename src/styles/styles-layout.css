@@ -52,7 +52,8 @@ d-article > * {
   grid-column: margin-left / body;
 }
 
-.l-page {
+.l-page,
+d-figure {
   grid-column: margin-left / page;
 }
 
