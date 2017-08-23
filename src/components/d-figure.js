@@ -99,7 +99,7 @@ export class Figure extends HTMLElement {
 
   ready() {
     this._ready = true;
-    this.marginObserver.unobserve(this);
+    Figure.marginObserver.unobserve(this);
     const event = new CustomEvent('ready');
     this.dispatchEvent(event);
   }
