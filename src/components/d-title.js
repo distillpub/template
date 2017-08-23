@@ -21,6 +21,10 @@ const T = Template('d-title', `
   font-weight: 700;
 }
 
+::slotted(h2) {
+  border-bottom: none !important;
+}
+
 @media screen and (min-width: 768px), print {
   ::slotted(h1) {
     font-size: 42px;

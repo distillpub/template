@@ -112,6 +112,7 @@ const T = Template('d-byline', `
 
     .byline {
       display: flex;
+      min-height: 40px;
     }
   }
 </style>
