@@ -13,7 +13,7 @@ export default {
     {
       format: 'umd',
       moduleName: 'dl',
-      dest: `dist/template.js`,
+      dest: `dist/template.v1.js`,
     }
   ],
   plugins: [
