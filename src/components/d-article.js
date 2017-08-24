@@ -25,7 +25,7 @@ export class Article extends T(HTMLElement) {
         for (const addedNode of mutation.addedNodes) {
           switch (addedNode.nodeName) {
           case 'HR':
-            console.warn('Use of <hr> tags in distill articles is discouraged!');
+            console.warn('Use of <hr> tags in distill articles is discouraged as they interfere with layout! To separate sections, please just use h2 or h3 tags.');
             break;
           case '#text': { // usually text nodes are only linebreaks.
             const text = addedNode.nodeValue;

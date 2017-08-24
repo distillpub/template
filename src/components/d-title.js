@@ -1,5 +1,5 @@
 import { Template } from '../mixins/template';
-import { body } from '../helpers/layout';
+import { page } from '../helpers/layout';
 
 const T = Template('d-title', `
 <style>
@@ -34,14 +34,14 @@ const T = Template('d-title', `
 @media(min-width: 1024px) {
   ::slotted(h1) {
     padding-top: 64px;
-    padding-bottom: 64px;
+    padding-bottom: 32px;
     font-size: 48px;
   }
 }
 @media(min-width: 1280px) {
   ::slotted(h1) {
     padding-top: 96px;
-    padding-bottom: 64px;
+    padding-bottom: 32px;
     font-size: 56px;
   }
 }
@@ -50,7 +50,7 @@ d-byline {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-${body('::slotted(h1), ::slotted(h2)')}
+${page('::slotted(h1), ::slotted(h2)')}
 
 </style>
 
