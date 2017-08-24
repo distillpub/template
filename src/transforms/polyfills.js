@@ -1,5 +1,5 @@
-const webcomponentPath = '../dist/webcomponents-lite.js';
-const intersectionObserverPath = '../dist/intersection-observer.js';
+const webcomponentPath = 'https://distill.pub/third-party/polyfills/webcomponents-lite.js';
+const intersectionObserverPath = 'https://distill.pub/third-party/polyfills/intersection-observer.js';
 
 const template = `
 if ('IntersectionObserver' in window &&

@@ -1,6 +1,5 @@
 /* Static styles and other modules */
 import './styles/styles';
-// import katex from 'katex';
 
 /* Components */
 import { Abstract }         from './components/d-abstract';
@@ -43,5 +42,3 @@ function defineComponents() {
 }
 
 defineComponents();
-
-window.DMath = DMath;
