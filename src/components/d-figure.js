@@ -87,12 +87,14 @@ export class Figure extends HTMLElement {
   addEventListener(eventName, callback) {
     super.addEventListener(eventName, callback);
     // if we had already dispatched something while presumingly no one was listening, we do so again
-    if (this._ready && eventName === 'ready') {
-      this.ready();
-    }
-    if (this._onscreen && eventName === 'onscreen') {
-      this.onscreen();
-    }
+    setTimeout(() => {
+      if (this._ready && eventName === 'ready') {
+        this.ready();
+      }
+      if (this._onscreen && eventName === 'onscreen') {
+        this.onscreen();
+      }
+    }, 1);
   }
 
   // Custom Events
