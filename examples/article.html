@@ -2,8 +2,7 @@
 
 <head>
   <meta charset="utf8">
-
-  <script src="../dist/components.js"></script>
+  <script src="../dist/template.v2.js"></script>
 
   <d-front-matter>
     <script type="text/yml">
@@ -37,6 +36,15 @@
   <d-math block>
       c = \pm \sqrt{ \sum_{i=0}^{n}{a^{222} + b^2}}
   </d-math>
+  <p>
+    Math can also be quite involved:
+    <d-math block>
+      f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
+    </d-math>
+    <d-math block>
+      \frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}} {1+\frac{e^{-8\pi}} {1+\cdots} } } }
+    </d-math>
+  </p>
   <p>We can<d-cite key="mercier2011humans"></d-cite> also cite <d-cite key="gregor2015draw,mercier2011humans"></d-cite> external publications. <d-cite key="dong2014image,dumoulin2016guide,mordvintsev2015inceptionism"></d-cite></p>
   <p>We should also be testing footnotes<d-footnote>This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote.</d-footnote>. There are multiple footnotes, and they appear in the appendix<d-footnote>Given I have coded them right. Also, here's math in a footnote: <d-math>c = \sum_0^i{x}</d-math>. Also, a citation. Box-ception<d-cite key='gregor2015draw'></d-cite>!</d-footnote> as well.</p>
   <table>
@@ -70,15 +78,13 @@
   <d-figure id="last-figure"></d-figure>
   <script>
     const figure = document.querySelector("d-figure#last-figure");
-    figure.addEventListener("init", function() {
-      const initTag = document.createElement("span");
-      initTag.textContent = "initialized!"
-      figure.appendChild(initTag);
-    });
-    figure.addEventListener("almostonscreen", function() {
+    const initTag = document.createElement("span");
+    initTag.textContent = "initialized!"
+    figure.appendChild(initTag);
+    figure.addEventListener("ready", function() {
       const initTag = figure.querySelector("span");
-      initTag.textContent = "almostonscreen"
-      console.log('almostonscreen')
+      initTag.textContent = "ready"
+      console.log('ready')
     });
     figure.addEventListener("onscreen", function() {
       const initTag = figure.querySelector("span");
