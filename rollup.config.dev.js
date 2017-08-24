@@ -9,7 +9,7 @@ const componentsConfig = {
 
 const transformsConfig = {
   entry: 'src/transforms.js',
-  targets: [{format: 'umd', moduleName: 'dl', dest: 'dist/transforms.js'}],
+  targets: [{format: 'umd', moduleName: 'dl', dest: 'dist/transforms.v2.js'}],
 };
 
 const defaultConfig = {
