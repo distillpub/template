@@ -36,22 +36,6 @@ d-article h2 {
     font-size: 32px;
   }
 }
-d-article h1 + h2 {
-  font-weight: 300;
-  font-size: 20px;
-  line-height: 1.4em;
-  margin-top: 8px;
-  font-style: normal;
-}
-@media(min-width: 1080px) {
-  .centered h1 + h2 {
-    text-align: center;
-  }
-  d-article h1 + h2 {
-    margin-top: 12px;
-    font-size: 32px;
-  }
-}
 
 /* H3 */
 
@@ -85,7 +69,7 @@ d-article a {
 d-article p,
 d-article ul,
 d-article ol {
-  margin-bottom: 24px;
+  margin-bottom: 18px;
 }
 d-article p b,
 d-article ul b,
