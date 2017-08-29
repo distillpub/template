@@ -53,14 +53,17 @@ const T = Template('d-byline', `
   }
   .byline {
     line-height: 1.8em;
+    border-top: solid 1px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    padding-top: 20px;
   }
-  .byline::after {
+  /*.byline::after {
     content: "";
     display: block;
     border-bottom: solid 1px #999;
     width: 40px;
     margin-top: 60px;
-  }
+  }*/
 
   @media screen and (min-width: 768px), print {
     d-byline {
