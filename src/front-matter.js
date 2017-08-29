@@ -1,25 +1,34 @@
-import {timeFormat} from 'd3-time-format';
-
-const zeroPad = n => n < 10 ? '0' + n : n;
-const RFC = timeFormat('%a, %d %b %Y %H:%M:%S %Z');
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+const zeroPad = n => n < 10 ? '0' + n : n;
+
+const RFC = function(date) {
+  const day = days[date.getDay()].substring(0, 3);
+  const paddedDate = zeroPad(date.getDate());
+  const month = months[date.getMonth()].substring(0,3);
+  const year = date.getFullYear().toString();
+  const hours = date.getUTCHours().toString();
+  const minutes = date.getUTCMinutes().toString();
+  const seconds = date.getUTCSeconds().toString();
+  return `${day}, ${paddedDate} ${month} ${year} ${hours}:${minutes}:${seconds} Z`;
+};
 
 class Author {
 
   constructor(name='', personalURL='', affiliation='', affiliationURL='') {
-    this.name = name; // "Chris Olah"
-    this.personalURL = personalURL; // "https://colah.github.io"
-    this.affiliation = affiliation; // "Google Brain"
-    this.affiliationURL = affiliationURL; // "https://g.co/brain"
+    this.name = name; // 'Chris Olah'
+    this.personalURL = personalURL; // 'https://colah.github.io'
+    this.affiliation = affiliation; // 'Google Brain'
+    this.affiliationURL = affiliationURL; // 'https://g.co/brain'
   }
 
-  // "Chris"
+  // 'Chris'
   get firstName() {
     const names = this.name.split(' ');
     return names.slice(0, names.length - 1).join(' ');
   }
 
-  // "Olah"
+  // 'Olah'
   get lastName() {
     const names = this.name.split(' ');
     return names[names.length -1];
@@ -28,26 +37,26 @@ class Author {
 
 export class FrontMatter {
   constructor() {
-    this.title = ''; // "Attention and Augmented Recurrent Neural Networks"
-    this.description = ''; // "A visual overview of neural attention..."
+    this.title = ''; // 'Attention and Augmented Recurrent Neural Networks'
+    this.description = ''; // 'A visual overview of neural attention...'
     this.authors = []; // Array of Author(s)
 
     this.bibliography = new Map();
     this.bibliographyParsed = false;
     //  {
-    //    "gregor2015draw": {
-    //      "title": "DRAW: A recurrent neural network for image generation",
-    //      "author": "Gregor, Karol and Danihelka, Ivo and Graves, Alex and Rezende, Danilo Jimenez and Wierstra, Daan",
-    //      "journal": "arXiv preprint arXiv:1502.04623",
-    //      "year": "2015",
-    //      "url": "https://arxiv.org/pdf/1502.04623.pdf",
-    //      "type": "article"
+    //    'gregor2015draw': {
+    //      'title': 'DRAW: A recurrent neural network for image generation',
+    //      'author': 'Gregor, Karol and Danihelka, Ivo and Graves, Alex and Rezende, Danilo Jimenez and Wierstra, Daan',
+    //      'journal': 'arXiv preprint arXiv:1502.04623',
+    //      'year': '2015',
+    //      'url': 'https://arxiv.org/pdf/1502.04623.pdf',
+    //      'type': 'article'
     //    },
     //  }
 
     // Citation keys should be listed in the order that they are appear in the document.
     // Each key refers to a key in the bibliography dictionary.
-    this.citations = []; // [ "gregor2015draw", "mercier2011humans" ]
+    this.citations = []; // [ 'gregor2015draw', 'mercier2011humans' ]
     this.citationsCollected = false;
 
     //
@@ -65,16 +74,16 @@ export class FrontMatter {
     //
     this.journal = {};
     //  journal: {
-    //    "title": "Distill",
-    //    "full_title": "Distill",
-    //    "abbrev_title": "Distill",
-    //    "url": "http://distill.pub",
-    //    "doi": "10.23915/distill",
-    //    "publisherName": "Distill Working Group",
-    //    "publisherEmail": "admin@distill.pub",
-    //    "issn": "2476-0757",
-    //    "editors": [...],
-    //    "committee": [...]
+    //    'title': 'Distill',
+    //    'full_title': 'Distill',
+    //    'abbrev_title': 'Distill',
+    //    'url': 'http://distill.pub',
+    //    'doi': '10.23915/distill',
+    //    'publisherName': 'Distill Working Group',
+    //    'publisherEmail': 'admin@distill.pub',
+    //    'issn': '2476-0757',
+    //    'editors': [...],
+    //    'committee': [...]
     //  }
     //  volume: 1,
     //  issue: 9,

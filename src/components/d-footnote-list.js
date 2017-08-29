@@ -2,6 +2,10 @@ import { Template } from '../mixins/template';
 
 const T = Template('d-footnote-list', `
 <style>
+:host {
+  contain: content;
+}
+
 ol {
   padding: 0 0 0 18px;
 }

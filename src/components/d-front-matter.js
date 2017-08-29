@@ -19,10 +19,10 @@ export class FrontMatter extends HTMLElement {
   constructor() {
     super();
 
-    const options = {childList: true};
+    const options = {childList: true, characterData: true, subtree: true};
     const observer = new MutationObserver( (entries) => {
       for (const entry of entries) {
-        if (entry.target.nodeName === 'SCRIPT') {
+        if (entry.target.nodeName === 'SCRIPT' || entry.type === 'characterData') {
           const data = parseFrontmatter(this);
           this.notify(data);
         }

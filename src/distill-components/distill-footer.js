@@ -12,6 +12,8 @@ const T = Template('distill-footer', `
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   background-color: hsl(180, 5%, 15%); /*hsl(200, 60%, 15%);*/
   text-align: left;
+
+  contain: content;
 }
 
 .logo svg {

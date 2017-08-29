@@ -183,3 +183,9 @@ d-include {
   width: auto;
   display: block;
 }
+
+d-figure {
+  contain: content;
+  overflow: hidden;
+  height: 300px;
+}

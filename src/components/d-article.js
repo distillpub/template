@@ -2,7 +2,11 @@ import { Template } from '../mixins/template';
 import { Controller } from '../controller';
 
 const T = Template('d-article', `
-<style></style>
+<style>
+d-article {
+  contain: content;
+}
+</style>
 `, false);
 
 // export function addInferableTags(dom, frontMatter) {

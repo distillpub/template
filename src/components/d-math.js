@@ -8,6 +8,10 @@ const katexCSSTag = '<link rel="stylesheet" href="https://distill.pub/third-part
 const T = Template('d-math', `
 <style>
 
+:host {
+  contain: content;
+}
+
 d-math[block] {
   display: block;
 }

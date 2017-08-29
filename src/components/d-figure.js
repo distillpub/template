@@ -17,8 +17,39 @@ export class Figure extends HTMLElement {
 
   static get is() { return 'd-figure'; }
 
+  static get readyQueue() {
+    if (!Figure._readyQueue) {
+      Figure._readyQueue = [];
+    }
+    return Figure._readyQueue;
+  }
+
+  static addToReadyQueue(figure) {
+    if (Figure.readyQueue.indexOf(figure) === -1) {
+      Figure.readyQueue.push(figure);
+      Figure.runReadyQueue();
+    }
+  }
+
+  static runReadyQueue() {
+    // console.log("Checking to run readyQueue, length: " + Figure.readyQueue.length + ", scrolling: " + Figure.isScrolling);
+    if (Figure.isScrolling) return;
+
+    // console.log("Running ready Queue");
+    const figure = Figure.readyQueue
+      .sort((a,b) => a._seenOnScreen - b._seenOnScreen )
+      .filter((figure) => !figure._ready)
+      .pop();
+    if (figure) {
+      figure.ready();
+      requestAnimationFrame(Figure.runReadyQueue);
+    }
+
+  }
+
   constructor() {
     super();
+    // debugger
     this._ready = false;
     this._onscreen = false;
     this._offscreen = true;
@@ -54,7 +85,7 @@ export class Figure extends HTMLElement {
     for (const entry of entries) {
       const figure = entry.target;
       if (entry.isIntersecting && !figure._ready) {
-        figure.ready();
+        Figure.addToReadyQueue(figure);
       }
     }
   }
@@ -74,7 +105,8 @@ export class Figure extends HTMLElement {
     for (const entry of entries) {
       const figure = entry.target;
       if (entry.isIntersecting) {
-        if (!figure._ready) { figure.ready(); }
+        figure._seenOnScreen = new Date();
+        // if (!figure._ready) { figure.ready(); }
         if (figure._offscreen) { figure.onscreen(); }
       } else {
         if (figure._onscreen) { figure.offscreen(); }
@@ -87,19 +119,22 @@ export class Figure extends HTMLElement {
   addEventListener(eventName, callback) {
     super.addEventListener(eventName, callback);
     // if we had already dispatched something while presumingly no one was listening, we do so again
-    setTimeout(() => {
-      if (this._ready && eventName === 'ready') {
-        this.ready();
+    // debugger
+    if (eventName === 'ready') {
+      if (Figure.readyQueue.indexOf(this) !== -1) {
+        this._ready = false;
+        Figure.runReadyQueue();
       }
-      if (this._onscreen && eventName === 'onscreen') {
-        this.onscreen();
-      }
-    }, 1);
+    }
+    if (eventName === 'onscreen') {
+      this.onscreen();
+    }
   }
 
   // Custom Events
 
   ready() {
+    // debugger
     this._ready = true;
     Figure.marginObserver.unobserve(this);
     const event = new CustomEvent('ready');
@@ -119,5 +154,22 @@ export class Figure extends HTMLElement {
     const event = new CustomEvent('offscreen');
     this.dispatchEvent(event);
   }
+
+}
+
+if (typeof window !== 'undefined') {
+
+  Figure.isScrolling = false;
+  let timeout;
+  const resetTimer = () => {
+    Figure.isScrolling = true;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      Figure.isScrolling = false;
+      console.log('Stopped Scrolling')
+      Figure.runReadyQueue();
+    }, 500);
+  };
+  window.addEventListener('scroll', resetTimer, true);
 
 }

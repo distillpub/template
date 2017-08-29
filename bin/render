@@ -4,7 +4,7 @@ const fs = require('fs');
 const jsdom = require('jsdom').jsdom;
 const serialize = require('jsdom').serializeDocument;
 const program = require('commander');
-const transforms = require('../dist/transforms.js');
+const transforms = require('../dist/transforms.v2.js');
 
 program
   .version('0.0.1')
@@ -12,7 +12,7 @@ program
   .parse(process.argv);
 
 const htmlString = fs.readFileSync(program.input, 'utf8');
-const data = {};
+const data = new transforms.FrontMatter;
 const dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false, runScripts: 'dangerously'}});
 transforms.render(dom, data);
 transforms.distillify(dom, data);

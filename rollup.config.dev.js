@@ -1,19 +1,20 @@
 import resolve  from 'rollup-plugin-node-resolve';
 import string   from 'rollup-plugin-string';
 import commonjs from 'rollup-plugin-commonjs';
+import buble    from 'rollup-plugin-buble';
 
 const componentsConfig = {
-  entry: 'src/components.js',
-  targets: [{format: 'umd', moduleName: 'dl', dest: 'dist/template.v2.js'}],
+  input: 'src/components.js',
+  output: [{format: 'umd', name: 'dl', file: 'dist/template.v2.js'}],
 };
 
 const transformsConfig = {
-  entry: 'src/transforms.js',
-  targets: [{format: 'umd', moduleName: 'dl', dest: 'dist/transforms.v2.js'}],
+  input: 'src/transforms.js',
+  output: [{format: 'umd', name: 'dl', file: 'dist/transforms.v2.js'}],
 };
 
 const defaultConfig = {
-  sourceMap: true,
+  sourcemap: true,
   plugins: [
     resolve({
       jsnext: true,
@@ -28,6 +29,12 @@ const defaultConfig = {
 
 Object.assign(componentsConfig, defaultConfig);
 Object.assign(transformsConfig, defaultConfig);
+
+// transpile transforms so the node render script works…
+transformsConfig.plugins.push(
+  buble({
+    target: { 'node': 6 }
+  }));
 
 export default [
   componentsConfig,

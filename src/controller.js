@@ -108,12 +108,12 @@ export const Controller = {
       frontMatter.mergeFromYMLFrontmatter(data);
 
       const appendix = document.querySelector('distill-appendix');
-      if (appendix) {
+      if (appendix && !appendix.getAttribute('prerendered')) {
         appendix.frontMatter = frontMatter;
       }
 
       const byline = document.querySelector('d-byline');
-      if (byline) {
+      if (byline && !byline.getAttribute('prerendered')) {
         byline.frontMatter = frontMatter;
       }
     },
