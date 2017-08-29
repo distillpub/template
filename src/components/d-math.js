@@ -9,10 +9,11 @@ const T = Template('d-math', `
 <style>
 
 :host {
+  display: inline-block;
   contain: content;
 }
 
-d-math[block] {
+:host([block]) {
   display: block;
 }
 
