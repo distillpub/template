@@ -2,17 +2,22 @@ export const style = `
 d-byline {
   font-size: 13px;
   line-height: 20px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   color: rgba(0, 0, 0, 0.6);
-  padding-top: 20px;
   padding-bottom: 20px;
   contain: content;
-  min-height: 42px;
 }
 
-d-byline .byline-container {
+d-byline .byline {
   grid-column: margin-left / page;
+  line-height: 1.8em;
+}
+
+d-byline .byline::after {
+  content: "";
+  display: block;
+  border-bottom: solid 1px #999;
+  width: 40px;
+  margin-top: 60px;
 }
 
 d-byline a,
@@ -29,100 +34,50 @@ d-article d-byline a:hover {
 
 d-byline .authors {
   text-align: left;
-  contain: content;
 }
 
-.author .name {
+d-byline .author {
+  margin-right: 12px;
+}
+
+d-byline .author .name {
   font-weight: 600;
   display: inline;
   text-transform: uppercase;
-  contain: content;
+  margin-right: 10px;
 }
 
-.author .affiliation {
+d-byline .author .affiliation {
   display: inline;
 }
 
 d-byline .date {
-  display: block;
+  display: inline;
   text-align: left;
-  margin-top: 8px;
+  margin-right: 12px;
 }
 
-.date .year, .date .month {
+d-byline .date .year,
+d-byline .date .month {
   display: inline;
 }
 
 d-byline .citation {
-  display: block;
+  display: inline;
   text-align: left;
 }
 
-.citation div {
+d-byline .citation div {
   display: inline;
 }
 
-@media screen and (min-width: 768px), print {
 
-  a:hover {
-    color: rgba(0, 0, 0, 0.9);
-  }
-
-  d-byline .authors {
-    display: inline-block;
-  }
-
-  .author {
-    display: inline-block;
-    margin-right: 12px;
-    /*padding-left: 20px;*/
-    /*border-left: 1px solid #ddd;*/
-  }
-
-  .affiliation {
-    display: block;
-  }
-
-  .author:last-child {
-    margin-right: 0;
-  }
-
-  .author .name {
-    display: block;
-  }
-
-  d-byline .date {
-
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
-    padding-left: 15px;
-    margin-left: 15px;
-    margin-top: 0;
-    display: inline-block;
-  }
-  .date .year, .date .month {
-    display: block;
-  }
-
-  d-byline .citation {
-    align-self: flex-end;
-    border-left: 1px solid rgba(0, 0, 0, 0.15);
-    padding-left: 15px;
-    margin-left: 15px;
-    display: inline-block;
-  }
-  .citation div {
-    display: block;
-  }
-
-  .byline-container {
-    display: flex;
-  }
-}`;
+`;
 
 
 export function bylineTemplate(frontMatter) {
   return `
-<div class='byline-container'>
+<div class='byline'>
   <div class="authors">
     ${frontMatter.authors.map( author => `<div class="author">
       ${author.personalURL ?
@@ -142,7 +97,6 @@ export function bylineTemplate(frontMatter) {
     <div class="year">${frontMatter.publishedYear}</div>
   </div>
   <a class="citation" href="#citation">
-    <div>Citation:</div>
     <div>${frontMatter.concatenatedAuthors}, ${frontMatter.publishedYear}</div>
   </a>
 </div>
