@@ -8,10 +8,7 @@ const T = Template('d-byline', `
     font-size: 13px;
     line-height: 20px;
     display: block;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     color: rgba(0, 0, 0, 0.6);
-    padding-top: 20px;
     padding-bottom: 20px;
   }
   ${page('.byline')}
@@ -54,65 +51,47 @@ const T = Template('d-byline', `
   .citation div {
     display: inline;
   }
+  .byline {
+    line-height: 1.8em;
+  }
+  .byline::after {
+    content: "";
+    display: block;
+    border-bottom: solid 1px #999;
+    width: 40px;
+    margin-top: 60px;
+  }
 
   @media screen and (min-width: 768px), print {
     d-byline {
       border-bottom: none;
     }
-
     a:hover {
       color: rgba(0, 0, 0, 0.9);
     }
-
     .authors {
-      display: inline-block;
     }
-
     .author {
-      display: inline-block;
       margin-right: 12px;
-      /*padding-left: 20px;*/
-      /*border-left: 1px solid #ddd;*/
     }
-
     .affiliation {
-      display: block;
+      display: inline;
     }
-
     .author:last-child {
       margin-right: 0;
     }
-
     .name {
-      display: block;
+      margin-right: 10px;
     }
-
     .date {
-
-      border-left: 1px solid rgba(0, 0, 0, 0.1);
-      padding-left: 15px;
-      margin-left: 15px;
+      display: none;
       margin-top: 0;
-      display: inline-block;
     }
     .year, .month {
-      display: block;
     }
-
     .citation {
-      align-self: flex-end;
-      border-left: 1px solid rgba(0, 0, 0, 0.15);
-      padding-left: 15px;
-      margin-left: 15px;
-      display: inline-block;
     }
     .citation div {
-      display: block;
-    }
-
-    .byline {
-      display: flex;
-      min-height: 40px;
     }
   }
 </style>
@@ -142,7 +121,6 @@ export function bylineTemplate(frontMatter) {
     <div class="year">${frontMatter.publishedYear}</div>
   </div>
   <a class="citation" href="#citation">
-    <div>Citation:</div>
     <div>${frontMatter.concatenatedAuthors}, ${frontMatter.publishedYear}</div>
   </a>
   `;

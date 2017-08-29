@@ -8,13 +8,11 @@ const T = Template('d-title', `
   box-sizing: border-box;
   display: block;
   width: 100%;
-  margin-bottom: 64px;
+  margin-bottom: 36px;
 }
-
-
 ::slotted(h1) {
   padding-top: 16px;
-  padding-bottom: 16px;
+  padding-bottom: 12px;
   margin: 0;
   line-height: 1.15;
   font-size: 32px;
@@ -23,11 +21,13 @@ const T = Template('d-title', `
 
 ::slotted(h2) {
   border-bottom: none !important;
-  font-size: 22px !important;
+  font-size: 26px !important;
   font-weight: 300 !important;
   padding-top: 0 !important;
+  padding-bottom: 0 !important;
   line-height: 1.5em !important;
   margin-top: 0 !important;
+  margin-bottom: 24px !important;
 }
 
 @media screen and (min-width: 768px), print {
@@ -38,7 +38,7 @@ const T = Template('d-title', `
 @media(min-width: 1024px) {
   ::slotted(h1) {
     padding-top: 64px;
-    font-size: 48px;
+    font-size: 42px;
   }
 }
 @media(min-width: 1280px) {
