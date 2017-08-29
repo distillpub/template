@@ -69,12 +69,8 @@ d-article a {
 d-article p,
 d-article ul,
 d-article ol {
-  margin-bottom: 18px;
-}
-d-article p b,
-d-article ul b,
-d-article ol b {
-  -webkit-font-smoothing: antialiased;
+  margin-top: 0;
+  margin-bottom: 36px;
 }
 d-article a {
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);

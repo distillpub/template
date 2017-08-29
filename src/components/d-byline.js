@@ -1,15 +1,13 @@
 export const style = `
 d-byline {
-  font-size: 13px;
-  line-height: 20px;
-  color: rgba(0, 0, 0, 0.6);
-  padding-bottom: 20px;
   contain: content;
 }
 
 d-byline .byline {
   grid-column: margin-left / page;
+  font-size: 13px;
   line-height: 1.8em;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 d-byline .byline::after {
@@ -17,7 +15,8 @@ d-byline .byline::after {
   display: block;
   border-bottom: solid 1px #999;
   width: 40px;
-  margin-top: 60px;
+  margin-top: 48px;
+  margin-bottom: 48px;
 }
 
 d-byline a,

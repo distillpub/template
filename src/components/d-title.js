@@ -8,12 +8,12 @@ const T = Template('d-title', `
   box-sizing: border-box;
   display: block;
   width: 100%;
-  margin-bottom: 36px;
 }
 ::slotted(h1) {
   padding-top: 16px;
   padding-bottom: 0;
-  margin: 0;
+  margin-top: 0;
+  margin-bottom: 12px;
   line-height: 1.15;
   font-size: 32px;
   font-weight: 700;
@@ -26,8 +26,8 @@ const T = Template('d-title', `
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   line-height: 1.5em !important;
-  margin-top: 12px !important;
-  margin-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 18px !important;
 }
 
 @media screen and (min-width: 768px), print {
