@@ -51,8 +51,6 @@ d-byline {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-${page('::slotted(h1), ::slotted(h2)')}
-
 </style>
 
 <slot></slot>

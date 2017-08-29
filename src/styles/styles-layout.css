@@ -53,7 +53,8 @@ d-article > * {
 }
 
 .l-page,
-d-figure {
+d-figure,
+d-title > * {
   grid-column: margin-left / page;
 }
 
