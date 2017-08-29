@@ -36,6 +36,7 @@ export class DMath extends Mutating(T(HTMLElement)) {
   }
 
   connectedCallback() {
+    super.connectedCallback();
     if (!DMath.katexAdded) {
       // script tag has to be created to work properly
       const scriptTag = document.createElement('script');
