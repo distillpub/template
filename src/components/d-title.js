@@ -8,7 +8,7 @@ const T = Template('d-title', `
   box-sizing: border-box;
   display: block;
   width: 100%;
-  margin-bottom: 64px;
+  contain: content;
 }
 
 
@@ -23,6 +23,7 @@ const T = Template('d-title', `
 
 ::slotted(h2) {
   border-bottom: none !important;
+
 }
 
 @media screen and (min-width: 768px), print {
@@ -33,14 +34,13 @@ const T = Template('d-title', `
 }
 @media(min-width: 1024px) {
   ::slotted(h1) {
-    padding-top: 64px;
+    padding-top: 0px;
     padding-bottom: 32px;
     font-size: 48px;
   }
 }
 @media(min-width: 1280px) {
   ::slotted(h1) {
-    padding-top: 96px;
     padding-bottom: 32px;
     font-size: 56px;
   }

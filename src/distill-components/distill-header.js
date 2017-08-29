@@ -16,6 +16,7 @@ const T = Template('distill-header', `
   color: rgba(0, 0, 0, 0.8);
   /*border-bottom: 1px solid rgba(0, 0, 0, 0.08);*/
   /*box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);*/
+  contain: content;
 }
 .content {
   height: 70px;
@@ -42,6 +43,9 @@ svg {
   margin-right: 2px;
 }
 @media(min-width: 768px) {
+  :host {
+    height: 120px;
+  }
   svg {
     top: 40px;
     left: 40px;
@@ -50,7 +54,7 @@ svg {
 
 @media(min-width: 1080px) {
   :host {
-    height: 70px;
+    height: 120px;
   }
   a {
     height: 70px;

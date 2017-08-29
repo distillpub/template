@@ -2,6 +2,9 @@ import { serializeFrontmatterToBibtex } from '../helpers/bibtex';
 
 const styles = `
 <style>
+  distill-appendix {
+    contain: content;
+  }
   distill-appendix h3 {
     font-size: 15px;
     font-weight: 500;

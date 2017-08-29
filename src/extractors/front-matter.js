@@ -7,5 +7,5 @@ export default function(dom, data) {
     return;
   }
   const extractedData = parseFrontmatter(frontMatterTag);
-  Object.assign(data, extractedData);
+  data.mergeFromYMLFrontmatter(extractedData);
 }

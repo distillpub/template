@@ -1,5 +1,7 @@
 /* eslint-env node, mocha */
 
+import { FrontMatter } from './front-matter';
+
 /* Extractors */
 import ExtractFrontmatter from './extractors/front-matter';
 import ExtractBibliography from './extractors/bibliography';
@@ -13,13 +15,16 @@ const extractors = [
 
 /* Transforms */
 import HTML from './transforms/html';
+import Byline from './transforms/byline';
 import Polyfills from './transforms/polyfills';
 import Meta from './transforms/meta';
-import Typeset from './transforms/typeset';
+import { makeStyleTag } from './styles/styles';
+import TOC from './transforms/toc';
+// import Typeset from './transforms/typeset';
 // import Bibliography from './transforms/bibliography';
 
 const transforms = [
-  HTML, Polyfills, Meta, Typeset//, Bibliography
+  HTML, makeStyleTag, TOC, Byline, Polyfills, Meta//, Typeset//, Bibliography
 ];
 
 /* Distill Transforms */
@@ -51,3 +56,5 @@ export function distillify(dom, data) {
     transform(dom, data);
   }
 }
+
+export { FrontMatter };

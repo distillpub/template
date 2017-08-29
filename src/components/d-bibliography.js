@@ -4,6 +4,9 @@ import { bibliography_cite } from '../helpers/citation';
 
 export const templateString = `
 <style>
+  :host {
+    contain: content;
+  }
   .references {
     font-size: 12px;
     line-height: 20px;

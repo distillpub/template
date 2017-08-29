@@ -14,9 +14,10 @@ const T = Template('d-appendix', `
   margin-bottom: 0;
   border-top: 1px solid rgba(0,0,0,0.1);
   color: rgba(0,0,0,0.5);
-  background: hsl(180, 5%, 98%);
   padding-top: 36px;
   padding-bottom: 48px;
+
+  contain: content;
 }
 
 ${body('.content')}

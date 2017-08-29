@@ -1,5 +1,6 @@
 /* Static styles and other modules */
-import './styles/styles';
+import { makeStyleTag } from './styles/styles';
+makeStyleTag(document);
 
 /* Components */
 import { Abstract }         from './components/d-abstract';
