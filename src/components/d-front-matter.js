@@ -1,15 +1,19 @@
-import ymlParse from 'js-yaml';
+// import ymlParse from 'js-yaml';
 
 export function parseFrontmatter(element) {
   const scriptTag = element.querySelector('script');
   if (scriptTag) {
-    const yml = scriptTag.textContent;
-    const data = ymlParse.safeLoad(yml);
-    return data;
+    const type = scriptTag.getAttribute('type');
+    if (type.split('/')[1] == 'json') {
+      const content = scriptTag.textContent;
+      return JSON.parse(content);
+    } else {
+      console.error('Distill only supoprts JSON frontmatter tags anymore; no more YAML.');
+    }
   } else {
     console.error('You added a frontmatter tag but did not provide a script tag with front matter data in it. Please take a look at our templates.');
-    return {};
   }
+  return {};
 }
 
 export class FrontMatter extends HTMLElement {

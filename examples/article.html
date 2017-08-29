@@ -2,20 +2,29 @@
 
 <head>
   <meta charset="utf8">
-  <script src="../dist/template.v2.js"></script>
 
   <d-front-matter>
-    <script type="text/yml">
-      title: Demo Title Attention and Augmented Recurrent Neural Networks
-      published: Jan 10, 2017
-      authors:
-      - Chris Olah: http://shancarter.com
-      - Shan Carter: http://shancarter.com
-      affiliations:
-      - Google Brain
-      - Google Brain: http://g.co/brain
-    </script>
+    <script id='distill-front-matter' type="text/json">{
+      "title": "Demo Title Attention and Augmented Recurrent Neural Networks",
+      "published": "Jan 10, 2017",
+      "authors": [
+        {
+          "author":"Chris Olah",
+          "authorURL":"https://colah.github.io/",
+          "affiliation":"Google Brain",
+          "affiliationURL":"https://g.co/brain"
+        },
+          {
+          "author":"Shan Carter",
+          "authorURL":"https://shancarter.com/",
+          "affiliation":"Google Brain",
+          "affiliationURL":"https://g.co/brain"
+        }
+      ]
+    }</script>
   </d-front-matter>
+
+  <script src="../dist/template.v2.js"></script>
 </head>
 
 <body>
