@@ -19,15 +19,14 @@ const T = Template('d-math', `
 
 #katex-container .katex-display {
   text-align: left;
-  border-left: 2px solid rgba(0, 0, 0, .1);
-  padding: 8px 0 8px 36px;
+  padding: 8px 0 8px 0;
   margin: 20px 0;
-  color: rgba(0, 0, 0, 0.7);
-  -webkit-font-smoothing: antialiased;
 }
 
 #katex-container .katex {
-  font-size: 1.2em;
+  -webkit-font-smoothing: antialiased;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 1.18em;
 }
 
 </style>
