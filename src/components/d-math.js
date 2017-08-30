@@ -20,18 +20,6 @@ const T = Template('d-math', `
   display: block;
 }
 
-#katex-container .katex-display {
-  text-align: left;
-  padding: 8px 0 8px 0;
-  margin: 20px 0;
-}
-
-#katex-container .katex {
-  -webkit-font-smoothing: antialiased;
-  color: rgba(0, 0, 0, 0.8);
-  font-size: 1.18em;
-}
-
 </style>
 
 ${katexCSSTag}

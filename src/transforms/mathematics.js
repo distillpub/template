@@ -6,6 +6,7 @@ export default function(dom, data) {
   const article = dom.querySelector('d-article');
 
   if (data.katex && data.katex.delimiters) {
+    global.document = dom;
     renderMathInElement(article, data.katex);
   }
 

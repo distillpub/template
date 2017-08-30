@@ -25,4 +25,4 @@ JSDOM.fromFile(program.input, options).then(dom => {
 
   const transformedHtml = dom.serialize();
   process.stdout.write(transformedHtml);
-});
+}).catch(console.error);
