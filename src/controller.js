@@ -1,4 +1,5 @@
 import { FrontMatter } from './front-matter';
+import { DMath } from './components/d-math';
 import { collectCitations } from './components/d-cite';
 import { parseFrontmatter } from './components/d-front-matter';
 
@@ -115,6 +116,10 @@ export const Controller = {
       const byline = document.querySelector('d-byline');
       if (byline && !byline.getAttribute('prerendered')) {
         byline.frontMatter = frontMatter;
+      }
+
+      if (data.katex) {
+        DMath.katexOptions = data.katex;
       }
     },
 

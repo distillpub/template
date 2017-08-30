@@ -96,6 +96,8 @@ export class FrontMatter {
     //  issue: 9,
     this.publishedDate = new Date();
 
+    this.katex = {};
+
     //
     // Assigned from publishing process
     //
@@ -121,6 +123,7 @@ export class FrontMatter {
     this.publishedDate = new Date(data.published);
     this.description = data.description;
     this.authors = data.authors.map( (authorObject) => new Author(authorObject));
+    this.katex = data.katex;
   }
 
   //
