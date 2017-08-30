@@ -25,7 +25,7 @@ const T = Template('d-title', `
   font-weight: 300 !important;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
-  line-height: 1.5em !important;
+  line-height: 1.6em !important;
   margin-top: 0 !important;
   margin-bottom: 18px !important;
 }

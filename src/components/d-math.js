@@ -17,6 +17,19 @@ const T = Template('d-math', `
   display: block;
 }
 
+#katex-container .katex-display {
+  text-align: left;
+  border-left: 2px solid #ddd;
+  padding: 8px 0 8px 36px;
+  margin: 20px 0;
+  color: rgba(0, 0, 0, 0.7);
+  -webkit-font-smoothing: antialiased;
+}
+
+#katex-container .katex {
+  font-size: 1.2em;
+}
+
 </style>
 
 ${katexCSSTag}
