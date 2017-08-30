@@ -9,14 +9,20 @@ d-byline .byline {
   line-height: 1.8em;
   color: rgba(0, 0, 0, 0.6);
 }
-
+d-byline .byline::before {
+  content: "";
+  display: block;
+  border-bottom: solid 1px #999;
+  width: 36px;
+  margin-bottom: 36px;
+}
 d-byline .byline::after {
   content: "";
   display: block;
   border-bottom: solid 1px #999;
-  width: 40px;
-  margin-top: 48px;
-  margin-bottom: 48px;
+  width: 36px;
+  margin-top: 36px;
+  margin-bottom: 36px;
 }
 
 d-byline a,

@@ -13,7 +13,7 @@ const T = Template('d-title', `
   padding-top: 16px;
   padding-bottom: 0;
   margin-top: 0;
-  margin-bottom: 12px;
+  margin-bottom: 18px;
   line-height: 1.15;
   font-size: 32px;
   font-weight: 700;
@@ -26,8 +26,9 @@ const T = Template('d-title', `
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   line-height: 1.6em !important;
-  margin-top: 0 !important;
-  margin-bottom: 18px !important;
+  margin-top: -2px !important;
+  margin-bottom: 36px !important;
+  border: none !important;
 }
 
 @media screen and (min-width: 768px), print {
@@ -45,10 +46,6 @@ const T = Template('d-title', `
   ::slotted(h1) {
     padding-top: 96px;
   }
-}
-
-d-byline {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 </style>

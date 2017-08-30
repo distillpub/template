@@ -19,8 +19,9 @@ const T = Template('d-math', `
 
 #katex-container .katex-display {
   text-align: left;
-  padding: 8px 0 8px 0;
-  margin: 20px 0;
+  padding: 8px 0 8px 40px;
+  margin: 20px 0 ;
+  /*border-left: solid 1px rgba(0, 0, 0, 0.1);*/
 }
 
 #katex-container .katex {
