@@ -20,9 +20,8 @@ code {
 
 pre code {
   display: block;
-  background: white;
-  border-left: 3px solid rgba(0, 0, 0, 0.05);
-  padding: 0 0 0 24px;
+  border-left: 2px solid rgba(0, 0, 0, .1);
+  padding: 0 0 0 36px;
 }
 
 ${css}
