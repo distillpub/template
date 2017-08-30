@@ -14,7 +14,6 @@ export default function(dom, data) {
 
   const prerenderedBibliography = dom.createElement('d-bibliography-prerendered');
 
-
   const template = dom.createElement('template');
   template.innerHTML = templateString;
   const clone = dom.importNode(template.content, true);

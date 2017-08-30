@@ -17,14 +17,15 @@ const extractors = [
 import HTML from './transforms/html';
 import Byline from './transforms/byline';
 import Polyfills from './transforms/polyfills';
+import Mathematics from './transforms/mathematics';
 import Meta from './transforms/meta';
 import { makeStyleTag } from './styles/styles';
 import TOC from './transforms/toc';
-// import Typeset from './transforms/typeset';
+import Typeset from './transforms/typeset';
 // import Bibliography from './transforms/bibliography';
 
 const transforms = [
-  HTML, makeStyleTag, TOC, Byline, Polyfills, Meta//, Typeset//, Bibliography
+  HTML, makeStyleTag, TOC, Byline, Polyfills, Mathematics, Meta, Typeset//, Bibliography
 ];
 
 /* Distill Transforms */
@@ -41,18 +42,21 @@ const distillTransforms = [
 export function render(dom, data) {
   // first, we collect static data from the dom
   for (const extract of extractors) {
+    // console.warn('Running extractor: ', extract);
     extract(dom, data);
   }
   // secondly we use it to transform parts of the dom
   for (const transform of transforms) {
+    // console.warn('Running transform: ', transform);
     transform(dom, data);
   }
   // the function calling us can now use the transformed dom and filled data object
 }
 
 export function distillify(dom, data) {
-  // thirdly, we optionally use these additional transforms when publishing on the Distill website
+  // thirdly, we can use these additional transforms when publishing on the Distill website
   for (const transform of distillTransforms) {
+    // console.warn('Running distillify: ', transform);
     transform(dom, data);
   }
 }
