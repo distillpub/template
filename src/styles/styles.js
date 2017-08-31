@@ -3,8 +3,9 @@ import layout from './styles-layout.css';
 import article from './styles-article.css';
 import print from './styles-print.css';
 import { style as byline } from '../components/d-byline.js';
+import { style as math } from '../components/d-math.js';
 
-export const styles = base + layout + byline + article + print;
+export const styles = base + layout + byline + math + article + print;
 
 export function makeStyleTag(dom) {
 

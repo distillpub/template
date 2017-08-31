@@ -8,7 +8,24 @@ import { renderMathInElement } from '../helpers/katex-auto-render';
 export const katexJSURL = 'https://distill.pub/third-party/katex/katex.min.js';
 export const katexCSSTag = '<link rel="stylesheet" href="https://distill.pub/third-party/katex/katex.min.css" crossorigin="anonymous">';
 
+export const style = `
+.katex-display {
+  text-align: left;
+  padding: 8px 0 8px 0;
+  margin: 20px 0 20px 24px;
+}
+
+.katex {
+  -webkit-font-smoothing: antialiased;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 1.18em;
+}
+`;
+
 const T = Template('d-math', `
+
+${katexCSSTag}
+
 <style>
 
 :host {
@@ -20,9 +37,9 @@ const T = Template('d-math', `
   display: block;
 }
 
-</style>
+${style}
 
-${katexCSSTag}
+</style>
 
 <span id="katex-container"></span>
 `);
