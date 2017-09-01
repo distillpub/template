@@ -1,0 +1,11 @@
+d-article .katex-display {
+  text-align: left;
+  padding: 8px 0 8px 0;
+  margin: 20px 0 20px 24px;
+}
+
+d-article .katex {
+  -webkit-font-smoothing: antialiased;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 1.18em;
+}

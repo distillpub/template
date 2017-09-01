@@ -4,10 +4,8 @@ import { body } from '../helpers/layout';
 const T = Template('d-appendix', `
 <style>
 
-:host {
-  box-sizing: border-box;
-  display: block;
-  width: 100%;
+d-appendix {
+  contain: content;
 
   font-size: 13px;
   line-height: 1.7em;
@@ -16,18 +14,28 @@ const T = Template('d-appendix', `
   color: rgba(0,0,0,0.5);
   padding-top: 36px;
   padding-bottom: 48px;
-
-  contain: content;
 }
 
-${body('.content')}
+d-appendix h3 {
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 20px;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.65);
+  line-height: 1em;
+}
+
+d-appendix a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+d-appendix > * {
+  grid-column: margin-left / body;
+}
 
 </style>
 
-<div class='content'>
-<slot></slot>
-</div>
-`, true);
+`, false);
 
 export class Appendix extends T(HTMLElement) {
 

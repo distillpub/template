@@ -2,8 +2,8 @@ import base from './styles-base.css';
 import layout from './styles-layout.css';
 import article from './styles-article.css';
 import print from './styles-print.css';
-import { style as byline } from '../components/d-byline.js';
-import { style as math } from '../components/d-math.js';
+import { style as byline } from '../components/d-byline';
+import math from './d-math.css';
 
 export const styles = base + layout + byline + math + article + print;
 

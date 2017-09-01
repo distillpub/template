@@ -20,7 +20,12 @@
           "affiliation":"Google Brain",
           "affiliationURL":"https://g.co/brain"
         }
-      ]
+      ],
+      "katex": {
+        "delimiters": [
+          {"left": "$$", "right": "$$", "display": false}
+        ]
+      }
     }</script>
   </d-front-matter>
 
@@ -29,10 +34,8 @@
 
 <body>
 <d-article>
-  <d-title>
-    <h1>How to Use t-SNE Effectively</h1>
-    <h2>Although extremely useful for visualizing high-dimensional data, t-SNE plots can sometimes be mysterious or misleading.</h2>
-  </d-title>
+  <h1>How to Use t-SNE Effectively</h1>
+  <h2>Although extremely useful for visualizing high-dimensional data, t-SNE plots can sometimes be mysterious or misleading.</h2>
   <d-byline></d-byline>
   <!-- <d-abstract>
     <p>This is the first paragraph of the article. Test a long&thinsp;&mdash;&thinsp;dash -- here it is.</p>
@@ -41,7 +44,7 @@
   <p>Before diving in: if you haven’t encountered t-SNE before, here’s what you need to know about the math behind it. The goal is to take a set of points in a high-dimensional space and find a faithful representation of those points in a lower-dimensional space, typically the 2D plane. The algorithm is non-linear and adapts to the underlying data, performing different transformations on different regions. Those differences can be a major source of confusion.
   <p>This is the first paragraph of the article. Test a long&thinsp;&mdash;&thinsp;dash -- here it is.</p>
   <p>Test for owner's possessive. Test for "quoting a passage." And another sentence. Or two. Some flopping fins; for diving.</p>
-  <p>Here's a test of an inline equation <d-math>c = a^2 + b^2</d-math>. And then there's a block equation:</p>
+  <p>Here's a test of an inline equation <d-math>c = a^2 + b^2</d-math>. Also with configurable katex standards just using inline '$' signs: $$x^2$$ And then there's a block equation:</p>
   <d-math block>
       c = \pm \sqrt{ \sum_{i=0}^{n}{a^{222} + b^2}}
   </d-math>
@@ -107,15 +110,17 @@
   </script>
   <p>That's it for the example article!</p>
   <aside>Some text.</aside>
+
 </d-article>
 
 <d-appendix>
-  <d-acknowledgements>
+
+  <div id='contributions'>
     <h3>Contributions</h3>
     <p>Some text describing who did what.</p>
     <h3>Reviewers</h3>
     <p>Some text with links describing who reviewed the article.</p>
-  </d-acknowledgements>
+  </div>
 
   <d-footnote-list></d-footnote-list>
 
@@ -224,5 +229,7 @@
     </script></d-bibliography>
 
   <distill-appendix> </distill-appendix>
+
 </d-appendix>
+
 </body>

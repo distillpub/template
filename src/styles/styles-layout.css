@@ -1,8 +1,7 @@
 @supports not (display: grid) {
   d-article,
-  d-title,
-  d-byline,
   d-appendix,
+  d-byline,
   distill-footer {
     display: block;
     padding: 8px;
@@ -10,9 +9,8 @@
 }
 
 d-article,
-d-title,
-d-byline,
 d-appendix,
+d-byline,
 distill-footer {
   display: grid;
   justify-items: stretch;
@@ -22,9 +20,8 @@ distill-footer {
 @media(min-width: 768px) {
 
   d-article,
-  d-title,
-  d-byline,
   d-appendix,
+  d-byline,
   distill-footer {
     grid-template-columns: [start] 32px [margin-left-outset] 32px [margin-left] 3fr [body] 32px [body-outset] 1fr [page] 32px [page-outset] 32px [end];
   }
@@ -32,16 +29,15 @@ distill-footer {
 
 @media(min-width: 1024px) {
   d-article,
-  d-title,
-  d-byline,
   d-appendix,
+  d-byline,
   distill-footer {
     grid-template-columns: [start] 1fr [margin-left-outset] 32px [margin-left] 672px [body] 32px [body-outset] 224px [page] 32px [page-outset] 1fr [end];
   }
 }
 
+d-article,
 d-appendix,
-d-article > d-title,
 d-article > d-byline,
 d-article > distill-footer {
   grid-column: start / end;
@@ -53,8 +49,7 @@ d-article > * {
 }
 
 .l-page,
-d-figure,
-d-title > * {
+d-figure {
   grid-column: margin-left / page;
 }
 

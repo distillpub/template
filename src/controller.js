@@ -121,6 +121,10 @@ export const Controller = {
       if (data.katex) {
         DMath.katexOptions = data.katex;
       }
+
+      if (data.title) {
+
+      }
     },
 
     DOMContentLoaded() {

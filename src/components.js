@@ -4,7 +4,6 @@ makeStyleTag(document);
 
 /* Components */
 import { Abstract }         from './components/d-abstract';
-import { Acknowledgements } from './components/d-acknowledgements';
 import { Appendix }         from './components/d-appendix';
 import { Article }          from './components/d-article';
 import { Bibliography }     from './components/d-bibliography';
@@ -16,14 +15,13 @@ import { FootnoteList }     from './components/d-footnote-list';
 import { FrontMatter }      from './components/d-front-matter';
 import { DMath }            from './components/d-math';
 import { References }       from './components/d-references';
-import { Title }            from './components/d-title';
 import { TOC }              from './components/d-toc';
 import { Figure }           from './components/d-figure';
 
 const components = [
-  Abstract, Acknowledgements, Appendix, Article, Bibliography,
+  Abstract, Appendix, Article, Bibliography,
   Byline, Cite, Code, Footnote, FootnoteList, FrontMatter, DMath,
-  References, Title, TOC, Figure,
+  References, TOC, Figure,
 ];
 
 /* Distill website specific components */

@@ -2,30 +2,16 @@
 import { Mutating } from '../mixins/mutating.js';
 import { Template } from '../mixins/template.js';
 
+import style from '../styles/d-math.css';
+
 // attaches renderMathInElement to window
 import { renderMathInElement } from '../helpers/katex-auto-render';
 
 export const katexJSURL = 'https://distill.pub/third-party/katex/katex.min.js';
 export const katexCSSTag = '<link rel="stylesheet" href="https://distill.pub/third-party/katex/katex.min.css" crossorigin="anonymous">';
 
-export const style = `
-.katex-display {
-  text-align: left;
-  padding: 8px 0 8px 0;
-  margin: 20px 0 20px 24px;
-}
-
-.katex {
-  -webkit-font-smoothing: antialiased;
-  color: rgba(0, 0, 0, 0.8);
-  font-size: 1.18em;
-}
-`;
-
 const T = Template('d-math', `
-
 ${katexCSSTag}
-
 <style>
 
 :host {
@@ -38,12 +24,9 @@ ${katexCSSTag}
 }
 
 ${style}
-
 </style>
-
-<span id="katex-container"></span>
+<span id='katex-container'></span>
 `);
-
 
 // DMath, not Math, because that would conflict with the JS built-in
 export class DMath extends Mutating(T(HTMLElement)) {
@@ -57,7 +40,9 @@ export class DMath extends Mutating(T(HTMLElement)) {
 
   static get katexOptions() {
     if (!DMath._katexOptions) {
-      DMath._katexOptions = {};
+      DMath._katexOptions = {
+        delimiters: [ { 'left':'$', 'right':'$', 'display':true } ]
+      };
     }
     return DMath._katexOptions;
   }
@@ -111,4 +96,5 @@ export class DMath extends Mutating(T(HTMLElement)) {
 }
 
 DMath.katexAdded = false;
+DMath.inlineMathRendered = false;
 window.DMath = DMath; // TODO: check if this can be removed, or if we should expose a distill global
