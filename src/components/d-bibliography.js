@@ -36,13 +36,11 @@ export const templateString = `
 <h3>References</h3>
 <ol class='references' id='references-list' ></ol>
 `;
-const T = Template('d-bibliography', templateString);
 
 export function parseBibliography(element) {
   if (element.firstElementChild && element.firstElementChild.tagName === 'SCRIPT') {
     const bibtex = element.firstElementChild.textContent;
-    const bibliography = parseBibtex(bibtex);
-    return bibliography;
+    return parseBibtex(bibtex);
   }
 }
 
@@ -63,6 +61,7 @@ export function renderBibliography(element, entries) {
   }
 }
 
+const T = Template('d-bibliography', templateString);
 export class Bibliography extends T(HTMLElement) {
 
   constructor() {
@@ -81,13 +80,20 @@ export class Bibliography extends T(HTMLElement) {
   }
 
   parseIfPossible() {
-    if (this.firstElementChild && this.firstElementChild.tagName === 'SCRIPT') {
-      const newBibtex = this.firstElementChild.textContent;
+    const scriptTag = this.querySelector('script');
+    if (!scriptTag) return;
+    if (scriptTag.type == 'text/bibtex') {
+      const newBibtex = scriptTag.textContent;
       if (this.bibtex !== newBibtex) {
         this.bibtex = newBibtex;
         const bibliography = parseBibtex(this.bibtex);
         this.notify(bibliography);
       }
+    } else if (scriptTag.type == 'text/json') {
+      const bibliography = new Map(JSON.parse(scriptTag.textContent));
+      this.notify(bibliography);
+    } else {
+      console.warn('Unsupported bibliography script tag type: ' + scriptTag.type);
     }
   }
 
@@ -100,5 +106,26 @@ export class Bibliography extends T(HTMLElement) {
   set entries(newEntries) {
     renderBibliography(this.root, newEntries);
   }
+
+  /* observe 'src' attribute */
+
+  static get observedAttributes() {
+    return ['src'];
+  }
+
+  receivedBibtex(event) {
+    const bibliography = parseBibtex(event.target.response);
+    this.notify(bibliography);
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    var oReq = new XMLHttpRequest();
+    oReq.onload = (e) => this.receivedBibtex(e);
+    oReq.onerror = () => console.warn(`Could not load Bibtex! (tried ${newValue})`);
+    oReq.responseType = 'text';
+    oReq.open('GET', newValue, true);
+    oReq.send();
+  }
+
 
 }

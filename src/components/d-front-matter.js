@@ -1,5 +1,3 @@
-// import ymlParse from 'js-yaml';
-
 export function parseFrontmatter(element) {
   const scriptTag = element.querySelector('script');
   if (scriptTag) {

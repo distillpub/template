@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const path = require('path');
 const program = require('commander');
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
@@ -20,6 +21,8 @@ JSDOM.fromFile(program.input, options).then(dom => {
   const document = window.document;
 
   const data = new transforms.FrontMatter;
+  data.inputHTMLPath = program.input; // may be needed to resolve relative links!
+  data.inputDirectory = path.dirname(program.input);
   transforms.render(document, data);
   transforms.distillify(document, data);
 
