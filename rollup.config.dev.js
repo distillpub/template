@@ -5,12 +5,13 @@ import buble    from 'rollup-plugin-buble';
 
 const componentsConfig = {
   input: 'src/components.js',
-  output: [{format: 'umd', name: 'dl', file: 'dist/template.v2.js'}],
+  output: [{ format: 'umd', name: 'dl', file: 'dist/template.v2.js' }],
 };
 
 const transformsConfig = {
   input: 'src/transforms.js',
-  output: [{format: 'umd', name: 'dl', file: 'dist/transforms.v2.js'}],
+  output: [{ format: 'umd', name: 'dl', file: 'dist/transforms.v2.js', globals: {fs: 'fs'} }],
+  external: ['fs']
 };
 
 const defaultConfig = {
