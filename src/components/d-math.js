@@ -61,6 +61,8 @@ export class DMath extends Mutating(T(HTMLElement)) {
   }
 
   static addKatex() {
+    // css tag can use this convenience function
+    document.head.insertAdjacentHTML('beforeend', katexCSSTag);
     // script tag has to be created to work properly
     const scriptTag = document.createElement('script');
     scriptTag.src = katexJSURL;
@@ -68,8 +70,6 @@ export class DMath extends Mutating(T(HTMLElement)) {
     scriptTag.onload = DMath.katexLoadedCallback;
     scriptTag.crossorigin = 'anonymous';
     document.head.appendChild(scriptTag);
-    // css tag can use this convenience function
-    document.head.insertAdjacentHTML('beforeend', katexCSSTag);
 
     DMath.katexAdded = true;
   }

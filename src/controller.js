@@ -2,6 +2,7 @@ import { FrontMatter } from './front-matter';
 import { DMath } from './components/d-math';
 import { collectCitations } from './components/d-cite';
 import { parseFrontmatter } from './components/d-front-matter';
+import optionalComponents from './transforms/optional-components';
 
 const frontMatter = new FrontMatter();
 
@@ -48,11 +49,11 @@ export const Controller = {
       }
 
       // update bibliography
-      const bibliographyTag = document.querySelector('d-bibliography');
+      const citationListTag = document.querySelector('d-citation-list');
       const bibliographyEntries = new Map(frontMatter.citations.map( citationKey => {
         return [citationKey, frontMatter.bibliography.get(citationKey)];
       }));
-      bibliographyTag.entries = bibliographyEntries;
+      citationListTag.citations = bibliographyEntries;
 
       const citeTags = document.querySelectorAll('d-cite');
       for (const citeTag of citeTags) {
@@ -70,7 +71,7 @@ export const Controller = {
     },
 
     onBibliographyChanged(event) {
-      const bibliographyTag = event.target;
+      const citationListTag = document.querySelector('d-citation-list');
       const bibliography = event.detail;
 
       frontMatter.bibliography = bibliography;
@@ -91,7 +92,7 @@ export const Controller = {
         return [citationKey, frontMatter.bibliography.get(citationKey)];
       }));
 
-      bibliographyTag.entries = entries;
+      citationListTag.citations = entries;
     },
 
     onFootnoteChanged() {
@@ -108,23 +109,25 @@ export const Controller = {
       const data = event.detail;
       frontMatter.mergeFromYMLFrontmatter(data);
 
-      const appendix = document.querySelector('distill-appendix');
-      if (appendix && !appendix.getAttribute('prerendered')) {
-        appendix.frontMatter = frontMatter;
+      const prerendered = document.body.hasAttribute('distill-prerendered');
+      if (!prerendered) {
+        optionalComponents(document, frontMatter);
+
+        const appendix = document.querySelector('distill-appendix');
+        if (appendix) {
+          appendix.frontMatter = frontMatter;
+        }
+
+        const byline = document.querySelector('d-byline');
+        if (byline) {
+          byline.frontMatter = frontMatter;
+        }
+
+        if (data.katex) {
+          DMath.katexOptions = data.katex;
+        }
       }
 
-      const byline = document.querySelector('d-byline');
-      if (byline && !byline.getAttribute('prerendered')) {
-        byline.frontMatter = frontMatter;
-      }
-
-      if (data.katex) {
-        DMath.katexOptions = data.katex;
-      }
-
-      if (data.title) {
-
-      }
     },
 
     DOMContentLoaded() {

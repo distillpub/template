@@ -30,7 +30,7 @@ d-appendix a {
 }
 
 d-appendix > * {
-  grid-column: margin-left / body;
+  grid-column: left / text;
 }
 
 </style>

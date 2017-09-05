@@ -4,7 +4,7 @@ d-byline {
 }
 
 d-byline .byline {
-  grid-column: margin-left / page;
+  grid-column: left / page;
   font-size: 13px;
   line-height: 1.8em;
   color: rgba(0, 0, 0, 0.6);

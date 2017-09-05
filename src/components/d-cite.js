@@ -1,5 +1,5 @@
 import { Template } from '../mixins/template';
-import { hover_cite } from '../helpers/citation';
+import { hover_cite, bibliography_cite } from '../helpers/citation';
 import { HoverBox } from '../helpers/hover-box';
 
 const T = Template('d-cite', `
@@ -69,7 +69,6 @@ export class Cite extends T(HTMLElement) {
     // this.hoverDiv.id = `dt-cite-hover-box-${this.citeId}`;
     // console.log(this, this.hoverDiv, this.outerSpan, this.innerSpan);
     this.hoverbox = new HoverBox(this.hoverDiv, this.outerSpan);
-
   }
 
   disconnectedCallback() {

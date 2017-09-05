@@ -1,41 +1,4 @@
-import { Template } from '../mixins/template';
 import { parseBibtex } from '../helpers/bibtex';
-import { bibliography_cite } from '../helpers/citation';
-
-export const templateString = `
-<style>
-  :host {
-    contain: content;
-  }
-  .references {
-    font-size: 12px;
-    line-height: 20px;
-  }
-  .title {
-    font-weight: 600;
-  }
-  ol {
-    padding: 0 0 0 18px;
-  }
-  li {
-    margin-bottom: 12px;
-  }
-  h3 {
-    font-size: 15px;
-    font-weight: 500;
-    margin-top: 20px;
-    margin-bottom: 0;
-    color: rgba(0,0,0,0.65);
-    line-height: 1em;
-  }
-  a {
-    color: rgba(0, 0, 0, 0.6);
-  }
-</style>
-
-<h3>References</h3>
-<ol class='references' id='references-list' ></ol>
-`;
 
 export function parseBibliography(element) {
   if (element.firstElementChild && element.firstElementChild.tagName === 'SCRIPT') {
@@ -44,38 +7,22 @@ export function parseBibliography(element) {
   }
 }
 
-export function renderBibliography(element, entries) {
-  if (entries.size) {
-    element.host.style.display = 'initial';
-    let list = element.querySelector('#references-list');
-    list.innerHTML = '';
+export class Bibliography extends HTMLElement {
 
-    for (const [key, entry] of entries) {
-      const listItem = document.createElement('li');
-      listItem.id = key;
-      listItem.innerHTML = bibliography_cite(entry);
-      list.appendChild(listItem);
-    }
-  } else {
-    element.host.style.display = 'none';
-  }
-}
-
-const T = Template('d-bibliography', templateString);
-export class Bibliography extends T(HTMLElement) {
+  static get is() { return 'd-bibliography'; }
 
   constructor() {
     super();
 
     // set up mutation observer
     const options = {childList: true, characterData: true, subtree: true};
-    const observer = new MutationObserver( () => {
-      observer.disconnect();
-      this.parseIfPossible();
-      observer.observe(this, options);
+    const observer = new MutationObserver( (entries) => {
+      for (const entry of entries) {
+        if (entry.target.nodeName === 'SCRIPT' || entry.type === 'characterData') {
+          this.parseIfPossible();
+        }
+      }
     });
-    this.parseIfPossible();
-    // ...and listen for changes
     observer.observe(this, options);
   }
 
@@ -101,10 +48,6 @@ export class Bibliography extends T(HTMLElement) {
     const options = { detail: bibliography, bubbles: true };
     const event = new CustomEvent('onBibliographyChanged', options);
     this.dispatchEvent(event);
-  }
-
-  set entries(newEntries) {
-    renderBibliography(this.root, newEntries);
   }
 
   /* observe 'src' attribute */

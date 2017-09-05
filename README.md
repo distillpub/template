@@ -26,3 +26,14 @@ Run `yarn test`. That's it.
   /* width: 80px; */
   /* font-size: 20px; */
   /* font-weight: 200; */
+
+
+auto-added elements:
+ title in front, no h1 -> add it
+ no title in front, h1 -> read and put into frontMatter
+ footnote -> footnote list
+ break up bib
+ if citation, no bib-list -> add citation-list
+ if authors, no byline -> add byline
+ no appendix -> add appendix
+ 

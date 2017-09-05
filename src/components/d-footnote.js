@@ -1,6 +1,5 @@
 import { Template } from '../mixins/template.js';
 import { HoverBox } from '../helpers/hover-box';
-// import { Store } from './store';
 
 const T = Template('d-footnote', `
 <style>
@@ -9,13 +8,28 @@ d-math[block] {
   display: block;
 }
 
+sup {
+  line-height: 1em;
+  font-size: 0.75em;
+  position: relative;
+  top: 0;
+  vertical-align: baseline;
+  position: relative;
+  top: -6px;
+}
+
+span {
+  color: hsla(206, 90%, 20%, 0.7);
+  cursor: default;
+}
+
 </style>
 
 <div id="hover-box" class="dt-hover-box">
   <slot id="slot"></slot>
 </div>
 
-<sup><span id="fn-" data-hover-ref="" style="cursor:pointer"></span></sup>
+<sup><span id="fn-" data-hover-ref=""></span></sup>
 
 `);
 

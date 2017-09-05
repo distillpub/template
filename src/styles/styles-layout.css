@@ -14,25 +14,25 @@ d-byline,
 distill-footer {
   display: grid;
   justify-items: stretch;
-  grid-template-columns: [start] 8px [margin-left-outset] 8px [margin-left] 1fr [body] 0px [page] 8px [body-outset] 0px [page-outset] 8px [end];
+  grid-template-columns: [start] 8px [left-outset] 8px [left] 1fr [text] 0px [page] 8px [text-outset] 0px [page-outset] 8px [end];
 }
-
+/*
 @media(min-width: 768px) {
 
   d-article,
   d-appendix,
   d-byline,
   distill-footer {
-    grid-template-columns: [start] 32px [margin-left-outset] 32px [margin-left] 3fr [body] 32px [body-outset] 1fr [page] 32px [page-outset] 32px [end];
+    grid-template-columns: [start] 32px [left-outset] 32px [left] 3fr [text] 32px [text-outset] 1fr [page] 32px [page-outset] 32px [end];
   }
-}
+}*/
 
-@media(min-width: 1024px) {
+@media(min-width: 768px) {
   d-article,
   d-appendix,
   d-byline,
   distill-footer {
-    grid-template-columns: [start] 1fr [margin-left-outset] 32px [margin-left] 672px [body] 32px [body-outset] 224px [page] 32px [page-outset] 1fr [end];
+    grid-template-columns: [start] 1fr [left-outset] 32px [left] 672px [text] 32px [text-outset] 224px [page] 32px [page-outset] 1fr [end];
   }
 }
 
@@ -45,20 +45,20 @@ d-article > distill-footer {
 
 .l-body,
 d-article > * {
-  grid-column: margin-left / body;
+  grid-column: left / text;
 }
 
 .l-page,
 d-figure {
-  grid-column: margin-left / page;
+  grid-column: left / page;
 }
 
 .l-body-outset {
-  grid-column: margin-left-outset / body-outset;
+  grid-column: left-outset / text-outset;
 }
 
 .l-page-outset {
-  grid-column: margin-left-outset / page-outset;
+  grid-column: left-outset / page-outset;
 }
 
 .l-screen {
@@ -75,16 +75,23 @@ d-figure {
 /* Aside */
 
 aside {
-  grid-column: margin-left / body;
+  grid-column: left / text;
 }
 
 @media(min-width: 768px) {
   aside {
-    grid-column: body-outset / page;
+    grid-column: text-outset / page;
     font-size: 14px;
     line-height: 1.3;
   }
+
+  .side {
+    margin-left: 24px;
+    float: right;
+    width: 50%;
+  }
 }
+
 
 /* Rows and Columns */
 

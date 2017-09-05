@@ -17,6 +17,7 @@ const extractors = [
 import HTML from './transforms/html';
 import Byline from './transforms/byline';
 import Polyfills from './transforms/polyfills';
+import OptionalComponents from './transforms/optional-components';
 import Mathematics from './transforms/mathematics';
 import Meta from './transforms/meta';
 import { makeStyleTag } from './styles/styles';
@@ -25,7 +26,8 @@ import Typeset from './transforms/typeset';
 import Bibliography from './transforms/bibliography';
 
 const transforms = [
-  HTML, makeStyleTag, TOC, Byline, Polyfills, Mathematics, Meta, Typeset, Bibliography
+  HTML, makeStyleTag, Polyfills, OptionalComponents, TOC, Byline, Mathematics,
+  Meta, Typeset, Bibliography,
 ];
 
 /* Distill Transforms */
@@ -51,6 +53,7 @@ export function render(dom, data) {
     // console.warn('Running transform: ', transform);
     transform(dom, data);
   }
+  dom.body.setAttribute('distill-prerendered', '');
   // the function calling us can now use the transformed dom and filled data object
 }
 

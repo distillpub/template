@@ -38,3 +38,4 @@ jspm_packages
 # Copied fonts
 examples/fonts
 dist
+article-rendered.html

@@ -1,4 +1,4 @@
-import { renderBibliography, templateString } from '../components/d-bibliography';
+// import { renderBibliography, templateString } from '../components/d-bibliography';
 import { parseBibtex } from '../helpers/bibtex';
 import fs from 'fs';
 

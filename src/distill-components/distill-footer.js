@@ -38,7 +38,7 @@ const T = Template('distill-footer', `
 }
 
 .container {
-  grid-column: margin-left / body;
+  grid-column: left / text;
 }
 </style>
 

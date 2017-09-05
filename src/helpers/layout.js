@@ -13,14 +13,14 @@
 
 export function body(selector) {
   return `${selector} {
-      grid-column: margin-left / body;
+      grid-column: left / text;
     }
   `;
 }
 
 export function page(selector) {
   return `${selector} {
-      grid-column: margin-left / page;
+      grid-column: left / page;
     }
   `;
 }
