@@ -10,6 +10,13 @@
 export default function(dom, data) {
   const article = dom.querySelector('d-article');
 
+  let interstitial = dom.querySelector('d-interstitial');
+  if (!interstitial && data.password) {
+    interstitial = dom.createElement('d-interstitial');
+    interstitial.password = data.password;
+    dom.body.insertBefore(interstitial, article);
+  }
+
   let h1 = dom.querySelector('h1');
   if (h1) {
     if (!data.title) {
