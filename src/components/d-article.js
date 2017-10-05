@@ -55,8 +55,8 @@ d-article .marker:hover span {
 }
 
 d-article h2 {
-  grid-column-end: span 5;
-  font-weight: 600;
+  grid-column-end: span 10;
+  font-weight: 700;
   font-size: 24px;
   line-height: 1.25em;
 }
@@ -99,8 +99,10 @@ d-article a {
 d-article p,
 d-article ul,
 d-article ol {
+  font-family: "Merriweather", georgia, serif;
+  font-weight: 300;
   margin-top: 0;
-  margin-bottom: 36px;
+  margin-bottom: 1.7em;
 }
 
 d-article a {

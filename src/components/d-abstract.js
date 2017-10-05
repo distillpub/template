@@ -5,17 +5,18 @@ const T = Template('d-abstract', `
 <style>
   :host {
     display: block;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     line-height: 1.8em;
     margin-bottom: 1.5em;
     color: rgba(0, 0, 0, 0.8);
-    font-weight: 400;
+    font-weight: 300;
+    font-family: "Merriweather", georgia, serif;
   }
 
   ::slotted(p) {
     margin-top: 0;
     margin-bottom: 0;
-    grid-column: text-start / page-end;
+    grid-column: text-start / span 9;
   }
   ${body('d-abstract')}
 </style>

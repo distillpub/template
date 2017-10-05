@@ -1,5 +1,5 @@
 @supports not (display: grid) {
-  d-headline,
+  d-title,
   d-abstract,
   d-article,
   d-appendix,
@@ -11,7 +11,7 @@
   }
 }
 
-d-headline,
+d-title,
 d-abstract,
 d-article,
 d-appendix,
@@ -32,7 +32,7 @@ distill-footer {
   }
 }*/
 /* @media(min-width: 768px) {
-  d-headline,
+  d-title,
   d-abstract,
   d-article,
   d-appendix,
@@ -45,7 +45,7 @@ distill-footer {
 } */
 
 @media(min-width: 1060px) {
-  d-headline,
+  d-title,
   d-abstract,
   d-article,
   d-appendix,
@@ -83,7 +83,7 @@ d-article > *  {
 }
 
 .l-page,
-d-headline > *,
+d-title > *,
 d-figure {
   grid-column: page;
 } */

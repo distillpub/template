@@ -20,6 +20,12 @@ d-byline h3 {
   text-transform: uppercase;
 }
 
+d-byline p {
+  font-family: "Merriweather", georgia, serif;
+  font-weight: 300;
+  margin: 0;
+}
+
 d-byline a,
 d-article d-byline a {
   color: rgba(0, 0, 0, 0.8);
@@ -32,7 +38,7 @@ d-article d-byline a:hover {
   border-bottom: none;
 }
 
-d-byline .authors {
+d-byline .authors p {
   font-weight: 600;
 }
 d-byline .affiliations {
@@ -47,36 +53,32 @@ export function bylineTemplate(frontMatter) {
     <div class="authors">
       <h3>Authors</h3>
       ${frontMatter.authors.map(author => `
-        <div>
+        <p>
           ${author.personalURL
             ? `<a class="name" href="${author.personalURL}">${author.name}</a>`
             : `<div class="name">${author.name}</div>`
           }
-        </div>
+        </pdiv>
       `).join("")}
     </div>
     <div class="affiliations">
       <h3>Affiliations</h3>
       ${frontMatter.authors.map(author => `
-        <div>
+        <p>
           ${author.affiliationURL
             ? `<a class="affiliation" href="${author.affiliationURL}">${author.affiliation}</a>`
             : `<div class="affiliation">${author.affiliation}</div>`
           }
-        </div>
+        </p>
       `).join("")}
     </div>
     <div>
       <h3>Published</h3>
-      <div>${frontMatter.publishedMonth}. ${frontMatter.publishedDay} ${frontMatter.publishedYear}</div>
-    </div>
-    <div>
-      <h3>Cite as</h3>
-      <div>${frontMatter.concatenatedAuthors}, ${frontMatter.publishedYear}</div>
+      <p>${frontMatter.publishedMonth}. ${frontMatter.publishedDay} ${frontMatter.publishedYear}</p>
     </div>
     <div>
       <h3>DOI</h3>
-      <div>${frontMatter.doi}</div>
+      <p>${frontMatter.doi}</p>
     </div>
   </div>
 `;

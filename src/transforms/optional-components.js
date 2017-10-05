@@ -18,7 +18,7 @@ export default function(dom, data) {
   //   }
   // } else {
     if (data.title) {
-      let headline = dom.createElement('d-headline');
+      let headline = dom.createElement('d-title');
       let h1 = dom.createElement('h1');
       headline.appendChild(h1);
       h1.textContent = data.title;
