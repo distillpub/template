@@ -1,28 +1,22 @@
 export const style = `
 d-byline {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   contain: content;
+  font-size: 13px;
+  line-height: 2em;
+  padding: 1.5em 0;
 }
 
 d-byline .byline {
-  grid-column: left / page;
-  font-size: 13px;
-  line-height: 1.8em;
-  color: rgba(0, 0, 0, 0.6);
+  grid-template-columns: repeat(5, 1fr);
+  grid-column: text-start / page-end;
 }
-d-byline .byline::before {
-  content: "";
-  display: block;
-  border-bottom: solid 1px #999;
-  width: 36px;
-  margin-bottom: 36px;
-}
-d-byline .byline::after {
-  content: "";
-  display: block;
-  border-bottom: solid 1px #999;
-  width: 36px;
-  margin-top: 36px;
-  margin-bottom: 36px;
+
+d-byline h3 {
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 14px;
+  margin: 0;
 }
 
 d-byline a,
@@ -37,72 +31,78 @@ d-article d-byline a:hover {
   border-bottom: none;
 }
 
+d-byline table tbody td {
+  margin: 0!important;
+  padding: 0!important;
+}
+
+d-byline table tr {
+}
+
+d-byline table td:last-child {
+}
+
+d-byline table tr:first-child {
+  border-top: none;
+}
+
+
+/*Authors*/
+
 d-byline .authors {
-  text-align: left;
-}
-
-d-byline .author {
-  margin-right: 12px;
-}
-
-d-byline .author .name {
   font-weight: 600;
-  display: inline;
-  text-transform: uppercase;
-  margin-right: 10px;
 }
 
-d-byline .author .affiliation {
-  display: inline;
+d-byline td:first-child {
 }
 
-d-byline .date {
-  display: inline;
-  text-align: left;
-  margin-right: 12px;
+d-byline .colophon,
+d-byline .colophon a {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.5);
 }
 
-d-byline .date .year,
-d-byline .date .month {
-  display: inline;
-}
-
-d-byline .citation {
-  display: inline;
-  text-align: left;
-}
-
-d-byline .citation div {
-  display: inline;
-}
 `;
 
 
 export function bylineTemplate(frontMatter) {
   return `
-<div class='byline'>
-  <div class="authors">
-    ${frontMatter.authors.map( author => `<div class="author">
-      ${author.personalURL ?
-    `<a class="name" href="${author.personalURL}">${author.name}</a>`
-    :
-    `<div class="name">${author.name}</div>`
-}
-      ${author.affiliationURL ?
-    `<a class="affiliation" href="${author.affiliationURL}">${author.affiliation}</a>`
-    :
-    `<div class="affiliation">${author.affiliation}</div>`
-}
-    </div>`).join('\n')}
+  <div class="byline grid">
+    <div class="authors">
+      <h3>Authors</h3>
+      ${frontMatter.authors.map(author => `
+        <div>
+          ${author.personalURL
+            ? `<a class="name" href="${author.personalURL}">${author.name}</a>`
+            : `<div class="name">${author.name}</div>`
+          }
+        </div>
+      `).join("")}
+    </div>
+    <div class="affiliations">
+      <h3>Affiliations</h3>
+      ${frontMatter.authors.map(author => `
+        <div>
+          ${author.affiliationURL
+            ? `<a class="affiliation" href="${author.affiliationURL}">${author.affiliation}</a>`
+            : `<div class="affiliation">${author.affiliation}</div>`
+          }
+        </div>
+      `).join("")}
+    </div>
+    <div>
+      <h3>Published</h3>
+      <div>${frontMatter.publishedMonth}. ${frontMatter.publishedDay} ${frontMatter.publishedYear}</div>
+    </div>
+    <div>
+      <h3>Cite as</h3>
+      <div>${frontMatter.concatenatedAuthors}, ${frontMatter.publishedYear}</div>
+    </div>
+    <div>
+      <h3>DOI</h3>
+      <div>${frontMatter.doi}</div>
+    </div>
   </div>
-  <div class="date">
-    <div class="month">${frontMatter.publishedMonth}. ${frontMatter.publishedDay}</div>
-    <div class="year">${frontMatter.publishedYear}</div>
-  </div>
-  <a class="citation" href="#citation">
-    <div>${frontMatter.concatenatedAuthors}, ${frontMatter.publishedYear}</div>
-  </a>
-</div>
 `;
 }
 

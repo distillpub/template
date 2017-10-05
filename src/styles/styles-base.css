@@ -44,3 +44,10 @@ pre {
   overflow: auto;
   max-width: 100%;
 }
+
+.kicker,
+.marker {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.5);
+}

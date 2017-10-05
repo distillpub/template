@@ -5,10 +5,15 @@ const T = Template('d-abstract', `
 <style>
   :host {
     display: block;
-    font-size: 23px;
+    font-size: 28px;
     line-height: 1.7em;
-    margin-top: 64px;
-    margin-bottom: 64px;
+    margin-bottom: 1.5em;
+  }
+
+  ::slotted(p) {
+    margin-top: 0;
+    margin-bottom: 0;
+    grid-column: text-start / page-end;
   }
   ${body('d-abstract')}
 </style>

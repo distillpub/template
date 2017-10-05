@@ -6,6 +6,10 @@ const T = Template('d-footnote-list', `
   contain: content;
 }
 
+* {
+  grid-column: text;
+}
+
 ol {
   padding: 0 0 0 18px;
 }

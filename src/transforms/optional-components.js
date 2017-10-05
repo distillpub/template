@@ -9,34 +9,38 @@
 
 export default function(dom, data) {
   const article = dom.querySelector('d-article');
+  const abstract = dom.querySelector('d-abstract');
 
-  let h1 = dom.querySelector('h1');
-  if (h1) {
-    if (!data.title) {
-      data.title = h1.textContent;
-    }
-  } else {
+  // let h1 = dom.querySelector('h1');
+  // if (h1) {
+  //   if (!data.title) {
+  //     data.title = h1.textContent;
+  //   }
+  // } else {
     if (data.title) {
-      h1 = dom.createElement('h1');
+      let headline = dom.createElement('d-headline');
+      let h1 = dom.createElement('h1');
+      headline.appendChild(h1);
       h1.textContent = data.title;
-      article.insertBefore(h1, article.firstChild);
+      abstract.parentNode.insertBefore(headline, abstract);
     }
-    if (data.description) {
-      const h2 = dom.createElement('h2');
-      h2.textContent = data.description;
-      article.insertBefore(h2, h1.nextSibling);
-    }
-  }
+    // if (data.description) {
+    //   const h2 = dom.createElement('h2');
+    //   h2.textContent = data.description;
+    //   article.insertBefore(h2, h1.nextSibling);
+    // }
+  // }
 
   let byline = dom.querySelector('d-byline');
   if (!byline && data.authors) {
     byline = dom.createElement('d-byline');
-    const skipTags = ['H1', 'H2', 'FIGURE'];
-    let candidate = h1;
-    while (skipTags.indexOf(candidate.tagName) !== -1) {
-      candidate = candidate.nextSibling;
-    }
-    article.insertBefore(byline, candidate);
+    article.parentNode.insertBefore(byline, article);
+    // const skipTags = ['H1', 'FIGURE', 'D-ABSTRACT'];
+    // let candidate = h1;
+    // while (skipTags.indexOf(candidate.tagName) !== -1) {
+    //   candidate = candidate.nextSibling;
+    // }
+    // article.insertBefore(byline, candidate);
   }
 
   let appendix = dom.querySelector('d-appendix');

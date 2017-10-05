@@ -14,6 +14,7 @@ import { Code }             from './components/d-code';
 import { Footnote }         from './components/d-footnote';
 import { FootnoteList }     from './components/d-footnote-list';
 import { FrontMatter }      from './components/d-front-matter';
+import { Headline }         from './components/d-headline';
 import { DMath }            from './components/d-math';
 import { References }       from './components/d-references';
 import { TOC }              from './components/d-toc';
@@ -21,7 +22,7 @@ import { Figure }           from './components/d-figure';
 
 const components = [
   Abstract, Appendix, Article, Bibliography, Byline, Cite, CitationList, Code,
-  Footnote, FootnoteList, FrontMatter, DMath, References, TOC, Figure,
+  Footnote, FootnoteList, FrontMatter, Headline, DMath, References, TOC, Figure,
 ];
 
 /* Distill website specific components */

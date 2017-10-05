@@ -6,7 +6,6 @@ const T = Template('d-appendix', `
 
 d-appendix {
   contain: content;
-
   font-size: 13px;
   line-height: 1.7em;
   margin-bottom: 0;
@@ -17,6 +16,7 @@ d-appendix {
 }
 
 d-appendix h3 {
+  grid-column: page-start / text-start;
   font-size: 15px;
   font-weight: 500;
   margin-top: 20px;
@@ -30,7 +30,7 @@ d-appendix a {
 }
 
 d-appendix > * {
-  grid-column: left / text;
+  grid-column: text;
 }
 
 </style>
