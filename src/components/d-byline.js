@@ -2,9 +2,9 @@ export const style = `
 d-byline {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   contain: content;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 2em;
-  padding: 1.5em 0;
+  padding: 3em 0;
 }
 
 d-byline .byline {
