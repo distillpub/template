@@ -23,8 +23,8 @@ const T = Template('d-headline', `
   }
   ::slotted(h1) {
     grid-column: text-start / page-end;
-    font-size: 48px;
-    font-weight: 700;
+    font-size: 44px;
+    font-weight: 600;
     line-height: 1.3em;
     margin: 0 0 10px;
   }

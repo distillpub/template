@@ -5,9 +5,11 @@ const T = Template('d-abstract', `
 <style>
   :host {
     display: block;
-    font-size: 26px;
-    line-height: 1.7em;
+    font-size: 1.3rem;
+    line-height: 1.8em;
     margin-bottom: 1.5em;
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: 400;
   }
 
   ::slotted(p) {

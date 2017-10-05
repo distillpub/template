@@ -2,9 +2,9 @@ export const style = `
 d-byline {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   contain: content;
-  font-size: 14px;
-  line-height: 2em;
-  padding: 3em 0;
+  font-size: 0.7rem;
+  line-height: 1.5rem;
+  padding: 1.5rem 0;
 }
 
 d-byline .byline {
@@ -13,10 +13,11 @@ d-byline .byline {
 }
 
 d-byline h3 {
-  font-weight: 300;
-  color: rgba(0, 0, 0, 0.7);
-  font-size: 14px;
+  font-size: 0.55rem;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.5);
   margin: 0;
+  text-transform: uppercase;
 }
 
 d-byline a,
@@ -31,35 +32,10 @@ d-article d-byline a:hover {
   border-bottom: none;
 }
 
-d-byline table tbody td {
-  margin: 0!important;
-  padding: 0!important;
-}
-
-d-byline table tr {
-}
-
-d-byline table td:last-child {
-}
-
-d-byline table tr:first-child {
-  border-top: none;
-}
-
-
-/*Authors*/
-
 d-byline .authors {
   font-weight: 600;
 }
-
-d-byline td:first-child {
-}
-
-d-byline .colophon,
-d-byline .colophon a {
-  font-size: 12px;
-  color: rgba(0, 0, 0, 0.5);
+d-byline .affiliations {
 }
 
 `;

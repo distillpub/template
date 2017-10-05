@@ -4,9 +4,10 @@ import { Controller } from '../controller';
 export const style =`
 d-article {
   contain: content;
-  line-height: 1.7em;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
-  padding-top: 1.5em;
+  padding-top: 1.5rem;
+  line-height: 1.7rem;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 d-article > * {
@@ -21,12 +22,8 @@ d-article > * {
 
 @media(min-width: 1024px) {
   d-article {
-    font-size: 19px;
+    font-size: 0.9rem;
   }
-}
-
-d-article p {
-
 }
 
 
