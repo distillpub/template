@@ -50,7 +50,7 @@ distill-footer {
   }
 }
 
-@media(min-width: 1200px) {
+@media(min-width: 1280px) {
   d-title,
   d-abstract,
   d-article,

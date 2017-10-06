@@ -5,8 +5,7 @@ export const style =`
 d-article {
   contain: content;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
-  padding-top: 1.5rem;
-  line-height: 1.7rem;
+  padding-top: 2rem;
   color: rgba(0, 0, 0, 0.8);
 }
 
@@ -23,6 +22,7 @@ d-article > * {
 @media(min-width: 1024px) {
   d-article {
     font-size: 0.9rem;
+    line-height: 1.9em;
   }
 }
 
@@ -35,8 +35,6 @@ d-article .marker {
   border: none;
   counter-reset: section;
   grid-column: kicker;
-  align-items: center;
-  display: flex;
   line-height: 1.7em;
 }
 
@@ -45,8 +43,10 @@ d-article .marker:hover {
 }
 
 d-article .marker span {
-  padding: 0 3px;
+  padding: 0 3px 4px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  position: relative;
+  top: 4px;
 }
 
 d-article .marker:hover span {
@@ -59,6 +59,7 @@ d-article h2 {
   font-weight: 700;
   font-size: 24px;
   line-height: 1.25em;
+  margin: 0 0 1rem 0;
 }
 
 @media(min-width: 1024px) {

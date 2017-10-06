@@ -9,7 +9,7 @@ const T = Template('d-title', `
   }
   ::slotted(h1) {
     grid-column: text-start / page-end;
-    font-size: 40px;
+    font-size: 46px;
     font-weight: 700;
     line-height: 1.3em;
     margin: 0 0 10px;

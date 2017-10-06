@@ -5,7 +5,7 @@ const T = Template('d-abstract', `
 <style>
   :host {
     display: block;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     line-height: 1.8em;
     padding-bottom: 1.5em;
     color: rgba(0, 0, 0, 0.8);

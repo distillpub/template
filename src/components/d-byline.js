@@ -3,7 +3,7 @@ d-byline {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   contain: content;
   font-size: 0.7rem;
-  line-height: 1.5rem;
+  line-height: 2em;
   padding: 1.5rem 0;
 }
 
