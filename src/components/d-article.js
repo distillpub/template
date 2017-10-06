@@ -55,7 +55,7 @@ d-article .marker:hover span {
 }
 
 d-article h2 {
-  grid-column-end: span 10;
+  grid-column-end: page-end;
   font-weight: 700;
   font-size: 24px;
   line-height: 1.25em;

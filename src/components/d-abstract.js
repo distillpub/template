@@ -7,7 +7,7 @@ const T = Template('d-abstract', `
     display: block;
     font-size: 1.2rem;
     line-height: 1.8em;
-    margin-bottom: 1.5em;
+    padding-bottom: 1.5em;
     color: rgba(0, 0, 0, 0.8);
     font-weight: 300;
     font-family: "Merriweather", georgia, serif;
@@ -16,7 +16,7 @@ const T = Template('d-abstract', `
   ::slotted(p) {
     margin-top: 0;
     margin-bottom: 0;
-    grid-column: text-start / span 9;
+    grid-column: text-start / middle-end;
   }
   ${body('d-abstract')}
 </style>

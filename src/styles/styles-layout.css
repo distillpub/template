@@ -20,18 +20,11 @@ d-footnote-list,
 distill-footer {
   display: grid;
   justify-items: stretch;
+  grid-template-columns: [screen-start] 0.5fr [page-start kicker-start text-start gutter-start middle-start] 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr [text-end page-end gutter-end kicker-end middle-end] 0.5fr [screen-end];
+  grid-column-gap: 30px;
 }
-/*
-@media(min-width: 768px) {
 
-  d-article,
-  d-appendix,
-  d-byline,
-  distill-footer {
-    grid-template-columns: [start] 32px [left-outset] 32px [left] 3fr [text] 32px [text-outset] 1fr [page] 32px [page-outset] 32px [end];
-  }
-}*/
-/* @media(min-width: 768px) {
+@media(min-width: 768px) {
   d-title,
   d-abstract,
   d-article,
@@ -39,12 +32,12 @@ distill-footer {
   d-byline,
   d-footnote-list,
   distill-footer {
-    grid-template-columns:  [screen-start] 0 [page-start] 1fr [text-start] 1fr 1fr 1fr 1fr [text-end] 1fr [page-end] 0 [screen-end];
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start middle-start text-start] 45px 45px 45px 45px 45px 45px 45px 45px [ kicker-end text-end gutter-start] 45px [middle-end] 45px [page-end gutter-end] 1fr [screen-end];
     grid-column-gap: 30px;
   }
-} */
+}
 
-@media(min-width: 1060px) {
+@media(min-width: 1000px) {
   d-title,
   d-abstract,
   d-article,
@@ -52,8 +45,20 @@ distill-footer {
   d-byline,
   d-footnote-list,
   distill-footer {
-    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 50px 50px [text-start kicker-end] 50px 50px 50px 50px 50px 50px 50px 50px [text-end gutter-start] 50px 50px [page-end gutter-end] 1fr [screen-end];
-    /* grid-template-columns:  [screen-start] 1fr [page-start] 130px [text-start] 130px 130px 130px 130px [text-end] 130px [page-end] 1fr [screen-end]; */
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 50px [middle-start] 50px [text-start kicker-end] 50px 50px 50px 50px 50px 50px 50px 50px [text-end gutter-start] 50px [middle-end] 50px [page-end gutter-end] 1fr [screen-end];
+    grid-column-gap: 30px;
+  }
+}
+
+@media(min-width: 1200px) {
+  d-title,
+  d-abstract,
+  d-article,
+  d-appendix,
+  d-byline,
+  d-footnote-list,
+  distill-footer {
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
     grid-column-gap: 30px;
   }
 }

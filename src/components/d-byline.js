@@ -8,8 +8,8 @@ d-byline {
 }
 
 d-byline .byline {
-  grid-template-columns: repeat(5, 1fr);
-  grid-column: text-start / page-end;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column: text;
 }
 
 d-byline h3 {
