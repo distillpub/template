@@ -21,8 +21,8 @@ d-article > * {
 
 @media(min-width: 1024px) {
   d-article {
-    font-size: 0.9rem;
-    line-height: 1.9em;
+    font-size: 1rem;
+    line-height: 1.7em;
   }
 }
 
@@ -100,10 +100,10 @@ d-article a {
 d-article p,
 d-article ul,
 d-article ol {
-  font-family: "Merriweather", georgia, serif;
-  font-weight: 300;
+  font-family: georgia, serif;
   margin-top: 0;
   margin-bottom: 1.7em;
+  -webkit-font-smoothing: antialiased;
 }
 
 d-article a {

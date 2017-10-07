@@ -3,19 +3,19 @@ import { Template } from '../mixins/template';
 const T = Template('d-title', `
 <style>
   :host {
-    padding-top: 64px;
+    padding-top: 2rem;
     contain: content;
     display: block;
   }
   ::slotted(h1) {
-    grid-column: text-start / page-end;
-    font-size: 46px;
+    grid-column: text-start / span 5;
+    font-size: 48px;
     font-weight: 700;
-    line-height: 1.3em;
-    margin: 0 0 10px;
+    line-height: 1em;
+    margin: 0 0 0.5rem;
   }
   .status {
-    margin-top: 15px;
+    margin-top: 8px;
     font-size: 12px;
     color: #009688;
     opacity: 0.8;
@@ -24,11 +24,9 @@ const T = Template('d-title', `
   .status span {
     line-height: 1;
     display: inline-block;
-    padding: 7px 7px;
-    border: 1px solid #80cbc4;
-    border-bottom: 1px solid #80cbc4;
-    border-radius: 5px;
-    font-size: 9px;
+    padding: 7px 0;
+    border-top: 1px solid #80cbc4;
+    font-size: 10px;
     text-transform: uppercase;
   }
 </style>

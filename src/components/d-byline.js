@@ -3,7 +3,7 @@ d-byline {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   contain: content;
   font-size: 0.7rem;
-  line-height: 2em;
+  line-height: 1.8em;
   padding: 1.5rem 0;
 }
 
@@ -21,8 +21,6 @@ d-byline h3 {
 }
 
 d-byline p {
-  font-family: "Merriweather", georgia, serif;
-  font-weight: 300;
   margin: 0;
 }
 

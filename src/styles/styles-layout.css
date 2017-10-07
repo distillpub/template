@@ -1,4 +1,5 @@
 @supports not (display: grid) {
+  distill-header,
   d-title,
   d-abstract,
   d-article,
@@ -11,6 +12,7 @@
   }
 }
 
+distill-header,
 d-title,
 d-abstract,
 d-article,
@@ -25,6 +27,7 @@ distill-footer {
 }
 
 @media(min-width: 768px) {
+  distill-header,
   d-title,
   d-abstract,
   d-article,
@@ -38,6 +41,7 @@ distill-footer {
 }
 
 @media(min-width: 1000px) {
+  distill-header,
   d-title,
   d-abstract,
   d-article,
@@ -51,6 +55,7 @@ distill-footer {
 }
 
 @media(min-width: 1280px) {
+  distill-header,
   d-title,
   d-abstract,
   d-article,

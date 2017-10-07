@@ -10,66 +10,53 @@ const T = Template('distill-header', `
   top: 0;
   left: 0;
   width: 100%;
-  height: 60px;
-  background-color: transparent;
   z-index: ${1e6};
   color: rgba(0, 0, 0, 0.8);
-  /*border-bottom: 1px solid rgba(0, 0, 0, 0.08);*/
-  /*box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);*/
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   contain: content;
 }
-.content {
-  height: 70px;
-}
-a {
-  font-size: 16px;
-  height: 60px;
-  line-height: 60px;
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.8);
-  padding: 22px 0;
-}
-a:hover {
-  color: rgba(255, 255, 255, 1);
-}
-svg {
-  background-color: hsl(0, 0%, 15%);;
-  padding: 8px;
-  border-radius: 12px;
-  width: 24px;
-  position: relative;
-  top: 16px;
-  left: 16px;
-  margin-right: 2px;
-}
-@media(min-width: 768px) {
-  :host {
-    height: 120px;
-  }
-  svg {
-    top: 40px;
-    left: 40px;
-  }
+
+.content > * {
+  line-height: 30px;
+  font-size: 14px;
+  padding: 3px 7px;
+  margin: 8px 0;
 }
 
-@media(min-width: 1080px) {
-  :host {
-    height: 120px;
-  }
-  a {
-    height: 70px;
-    line-height: 70px;
-    padding: 28px 0;
-  }
-  .logo {
-  }
+.name {
+  grid-column-end: span 8;
+  font-weight: 500;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+a {
+  font-size: 13px;
+  text-decoration: none;
+  color: black;
+}
+svg {
+  display: none;
+  background-color: hsl(0, 0%, 15%);
+  padding: 8px;
+  border-radius: 6px;
+  width: 24px;
+  position: relative;
+  margin-right: 2px;
 }
 svg path {
   fill: white;
   stroke: rgba(255, 255, 255, 1.0);
   stroke-width: 3px;
 }
+.content {
+  grid-column: page;
+  grid-template-columns: repeat(12, 1fr);
+  display: grid;
+  grid-column-gap: 40px;
+}
 .logo {
+  display: none;
   font-size: 17px;
   font-weight: 200;
 }
@@ -82,29 +69,23 @@ svg path {
   margin-left: 24px;
   text-transform: uppercase;
 }
-
-.name {
-  opacity: 0.0;
-  transition: opacity 0.5s
-}
-
-a:hover .name {
-  opacity: 1.0;
-}
 </style>
 
-<div class="content l-page">
+<div class="content grid">
   <a href="/" class="logo">
     ${logo}
   </a>
-  <span class='name'>
+  <div class='name'>
     Distill
-  </span>
+  </div>
+  <a href="/faq">Latest</a>
+  <a href="/faq">About</a>
+  <a href="/faq">Prize</a>
+  <a href="/faq">Submit</a>
 </div>
 `);
 
 // <div class="nav">
-//   <a href="/faq">About</a>
 //   <a href="https://github.com/distillpub">GitHub</a>
 //   <!-- https://twitter.com/distillpub -->
 // </div>

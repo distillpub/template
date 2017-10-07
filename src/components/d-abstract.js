@@ -5,12 +5,12 @@ const T = Template('d-abstract', `
 <style>
   :host {
     display: block;
-    font-size: 1.15rem;
-    line-height: 1.8em;
+    font-size: 1.25rem;
+    line-height: 1.6em;
     padding-bottom: 1.5em;
-    color: rgba(0, 0, 0, 0.8);
-    font-weight: 300;
-    font-family: "Merriweather", georgia, serif;
+    color: rgba(0, 0, 0, 0.7);
+    font-family: georgia, serif;
+    -webkit-font-smoothing: antialiased;
   }
 
   ::slotted(p) {
