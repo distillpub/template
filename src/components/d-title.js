@@ -3,7 +3,7 @@ import { Template } from '../mixins/template';
 const T = Template('d-title', `
 <style>
   :host {
-    padding-top: 2rem;
+    padding-top: 1.5rem;
     contain: content;
     display: block;
   }
@@ -15,7 +15,7 @@ const T = Template('d-title', `
     margin: 0 0 0.5rem;
   }
   .status {
-    margin-top: 8px;
+    margin-top: 0px;
     font-size: 12px;
     color: #009688;
     opacity: 0.8;
@@ -24,14 +24,14 @@ const T = Template('d-title', `
   .status span {
     line-height: 1;
     display: inline-block;
-    padding: 7px 0;
-    border-top: 1px solid #80cbc4;
-    font-size: 10px;
-    text-transform: uppercase;
+    padding: 6px 0;
+    border-bottom: 1px solid #80cbc4;
+    font-size: 12px;
+    font-weight: 300;
   }
 </style>
 
-<div class="status"><span>Peer Reviewed</span></div>
+<div class="status"><span>✓ Peer Reviewed</span></div>
 <slot></slot>
 `);
 
