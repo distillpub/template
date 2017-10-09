@@ -17,7 +17,7 @@
     "test": "mocha",
     "lint": "eslint",
     "build": "rollup -c rollup.config.js",
-    "prepublishOnly": "npm run build"
+    "prepare": "npm run build"
   },
   "repository": {
     "url": "git+https://github.com/distillpub/distill-template.git",
