@@ -27,13 +27,15 @@ const T = Template('distill-header', `
   grid-column-end: span 8;
   font-weight: 500;
   border-radius: 3px;
-  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: -0.05em;
 }
 
-a {
-  font-size: 13px;
+.content a {
+  font-size: 12px;
   text-decoration: none;
   color: black;
+  text-transform: uppercase;
 }
 svg {
   display: none;
@@ -60,15 +62,7 @@ svg path {
   font-size: 17px;
   font-weight: 200;
 }
-.nav {
-  float: right;
-  font-weight: 300;
-}
-.nav a {
-  font-size: 12px;
-  margin-left: 24px;
-  text-transform: uppercase;
-}
+
 </style>
 
 <div class="content grid">
