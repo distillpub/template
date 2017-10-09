@@ -6,11 +6,6 @@
   "bin": {
     "distill-render": "./bin/render.js"
   },
-  "files": [
-    "dist",
-    "bin",
-    "examples"
-  ],
   "author": "Shan Carter",
   "homepage": "https://github.com/distillpub/distill-template#readme",
   "bugs": {
