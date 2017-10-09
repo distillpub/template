@@ -1,8 +1,11 @@
 {
   "name": "distill-template",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Template for creating Distill articles.",
-  "main": "dist/template.js",
+  "main": "dist/template.v2.js",
+  "bin": {
+    "distill-render": "./bin/render.js"
+  },
   "author": "Shan Carter",
   "homepage": "https://github.com/distillpub/distill-template#readme",
   "bugs": {
@@ -13,7 +16,8 @@
     "serve": "python3 -m http.server --bind 127.0.0.1 8888",
     "test": "mocha",
     "lint": "eslint",
-    "build": "rollup -c rollup.config.js"
+    "build": "rollup -c rollup.config.js",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "url": "git+https://github.com/distillpub/distill-template.git",
@@ -35,6 +39,7 @@
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-commonjs": "^7.0.0",
     "rollup-plugin-copy": "^0.2.3",
+    "rollup-plugin-grapher": "^0.2.0",
     "rollup-plugin-gzip": "^1.2.0",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-serve": "^0.1.0",

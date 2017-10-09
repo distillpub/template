@@ -6,7 +6,7 @@ export function parseFrontmatter(element) {
       const content = scriptTag.textContent;
       return JSON.parse(content);
     } else {
-      console.error('Distill only supoprts JSON frontmatter tags anymore; no more YAML.');
+      console.error('Distill only supports JSON frontmatter tags anymore; no more YAML.');
     }
   } else {
     console.error('You added a frontmatter tag but did not provide a script tag with front matter data in it. Please take a look at our templates.');
