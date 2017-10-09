@@ -109,6 +109,11 @@ export const Controller = {
       const data = event.detail;
       frontMatter.mergeFromYMLFrontmatter(data);
 
+      const interstitial = document.querySelector('d-interstitial');
+      if (interstitial) {
+        interstitial.password = frontMatter.password;
+      }
+
       const prerendered = document.body.hasAttribute('distill-prerendered');
       if (!prerendered) {
         optionalComponents(document, frontMatter);

@@ -124,6 +124,7 @@ export class FrontMatter {
     this.description = data.description;
     this.authors = data.authors.map( (authorObject) => new Author(authorObject));
     this.katex = data.katex;
+    this.password = data.password;
   }
 
   //

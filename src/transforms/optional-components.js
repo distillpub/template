@@ -11,24 +11,31 @@ export default function(dom, data) {
   const article = dom.querySelector('d-article');
   const abstract = dom.querySelector('d-abstract');
 
+  let interstitial = dom.querySelector('d-interstitial');
+  if (!interstitial && data.password) {
+    interstitial = dom.createElement('d-interstitial');
+    interstitial.password = data.password;
+    dom.body.insertBefore(interstitial, article);
+  }
+
   // let h1 = dom.querySelector('h1');
   // if (h1) {
   //   if (!data.title) {
   //     data.title = h1.textContent;
   //   }
   // } else {
-    if (data.title) {
-      let headline = dom.createElement('d-title');
-      let h1 = dom.createElement('h1');
-      headline.appendChild(h1);
-      h1.textContent = data.title;
-      abstract.parentNode.insertBefore(headline, abstract);
-    }
-    // if (data.description) {
-    //   const h2 = dom.createElement('h2');
-    //   h2.textContent = data.description;
-    //   article.insertBefore(h2, h1.nextSibling);
-    // }
+  if (data.title) {
+    let headline = dom.createElement('d-title');
+    let h1 = dom.createElement('h1');
+    headline.appendChild(h1);
+    h1.textContent = data.title;
+    abstract.parentNode.insertBefore(headline, abstract);
+  }
+  // if (data.description) {
+  //   const h2 = dom.createElement('h2');
+  //   h2.textContent = data.description;
+  //   article.insertBefore(h2, h1.nextSibling);
+  // }
   // }
 
   let byline = dom.querySelector('d-byline');
