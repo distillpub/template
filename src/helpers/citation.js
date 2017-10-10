@@ -1,3 +1,15 @@
+export function collect_citations(dom=document) {
+  const citations = new Set();
+  const citeTags = dom.querySelectorAll('d-cite');
+  for (const tag of citeTags) {
+    const keys = tag.getAttribute('key').split(',');
+    for (const key of keys) {
+      citations.add(key);
+    }
+  }
+  return [...citations];
+}
+
 export function inline_cite_short(keys){
   function cite_string(key){
     if (key in data.bibliography){

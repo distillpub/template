@@ -3,6 +3,9 @@ import string   from 'rollup-plugin-string';
 import commonjs from 'rollup-plugin-commonjs';
 import buble    from 'rollup-plugin-buble';
 
+// uncomment to show dependencies [1/2]
+// import rollupGrapher from 'rollup-plugin-grapher'
+
 const componentsConfig = {
   input: 'src/components.js',
   output: [{ format: 'umd', name: 'dl', file: 'dist/template.v2.js' }],
@@ -25,6 +28,7 @@ const defaultConfig = {
       include: ['**/*.txt', '**/*.svg', '**/*.html', '**/*.css', '**/*.base64']
     }),
     commonjs(),
+
   ]
 };
 
@@ -35,7 +39,16 @@ Object.assign(transformsConfig, defaultConfig);
 transformsConfig.plugins.push(
   buble({
     target: { 'node': 6 }
-  }));
+  })
+);
+
+// uncomment to show dependencies [2/2]
+// transformsConfig.plugins.push(
+//   rollupGrapher({
+//     dest: '/dev/null',
+//     verbose: true
+//   })
+// );
 
 export default [
   componentsConfig,

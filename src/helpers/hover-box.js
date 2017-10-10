@@ -1,8 +1,9 @@
-function make_hover_css(pos) {
+function make_hover_css(target_node, pos) {
   const pretty = window.innerWidth > 600;
   const padding = pretty? 18 : 12;
   const outer_padding = pretty ? 18 : 0;
-  const bbox = document.querySelector('body').getBoundingClientRect();
+  // const bbox = document.querySelector('body').getBoundingClientRect();
+  const bbox = target_node.offsetParent.getBoundingClientRect();
   let left = pos[0] - bbox.left, top = pos[1] - bbox.top;
   let width = Math.min(window.innerWidth-2*outer_padding, 648);
   left = Math.min(left, window.innerWidth-width-outer_padding);
@@ -77,8 +78,8 @@ export class HoverBox {
 
   show(position) {
     this.visible = true;
-    const css = make_hover_css(position);
-    this.div.setAttribute('style', css );
+    // const css = make_hover_css(this.triggerElement, position);
+    this.div.setAttribute('style', 'display: block;' );
   }
 
   showAtNode(node) {
@@ -88,7 +89,7 @@ export class HoverBox {
 
   hide() {
     this.visible = false;
-    this.div.setAttribute('style', 'display:none');
+    this.div.setAttribute('style', 'display: none;');
     this.stopTimeout();
   }
 

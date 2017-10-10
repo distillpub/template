@@ -39,3 +39,6 @@ jspm_packages
 examples/fonts
 dist
 article-rendered.html
+
+# dependency graph
+rollup-grapher.html

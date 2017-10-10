@@ -1,5 +1,5 @@
-import { collectCitations } from '../components/d-cite';
+import { collect_citations } from '../helpers/citation.js';
 
 export default function(dom, data) {
-  data.citations = collectCitations(dom);
+  data.citations = collect_citations(dom);
 }

@@ -1,6 +1,6 @@
 import { FrontMatter } from './front-matter';
 import { DMath } from './components/d-math';
-import { collectCitations } from './components/d-cite';
+import { collect_citations } from './helpers/citation.js';
 import { parseFrontmatter } from './components/d-front-matter';
 import optionalComponents from './transforms/optional-components';
 
@@ -42,7 +42,7 @@ export const Controller = {
       // const [citeTag, keys] = event.detail;
 
       // update citations
-      frontMatter.citations = collectCitations();
+      frontMatter.citations = collect_citations();
       frontMatter.citationsCollected = true;
       for (const waitingCallback of Controller.waitingOn.citations.slice()) {
         waitingCallback();
@@ -109,6 +109,11 @@ export const Controller = {
       const data = event.detail;
       frontMatter.mergeFromYMLFrontmatter(data);
 
+      const interstitial = document.querySelector('d-interstitial');
+      if (interstitial) {
+        interstitial.password = frontMatter.password;
+      }
+
       const prerendered = document.body.hasAttribute('distill-prerendered');
       if (!prerendered) {
         optionalComponents(document, frontMatter);
@@ -138,7 +143,7 @@ export const Controller = {
       Controller.listeners.onFrontMatterChanged({detail: data});
 
       // console.debug('Resolving "citations" dependency due to initial DOM load.');
-      frontMatter.citations = collectCitations();
+      frontMatter.citations = collect_citations();
       frontMatter.citationsCollected = true;
       for (const waitingCallback of Controller.waitingOn.citations.slice()) {
         waitingCallback();
