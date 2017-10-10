@@ -26,11 +26,9 @@
   "devDependencies": {
     "bibtex-parse-js": "^0.0.23",
     "chai": "^3.5.0",
-    "commander": "^2.9.0",
     "eslint": "^4.3.0",
     "eslint-config-google": "^0.9.1",
     "js-yaml": "^3.7.0",
-    "jsdom": "^11.2.0",
     "marked": "^0.3.6",
     "mocha": "^3.2.0",
     "prismjs": "^1.6.0",
@@ -53,6 +51,8 @@
     "assert": "^1.4.1",
     "d3-time-format": "^2.0.3",
     "intersection-observer": "^0.4.0",
+    "commander": "^2.9.0",
+    "jsdom": "^11.2.0",
     "jsdom-wc": "^11.0.0-alpha-1",
     "katex": "^0.7.1"
   }
