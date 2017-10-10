@@ -9,13 +9,13 @@
 
 export default function(dom, data) {
   const article = dom.querySelector('d-article');
-  const abstract = dom.querySelector('d-abstract');
+  // const abstract = dom.querySelector('d-abstract');
 
   let interstitial = dom.querySelector('d-interstitial');
   if (!interstitial && data.password) {
     interstitial = dom.createElement('d-interstitial');
     interstitial.password = data.password;
-    dom.body.insertBefore(interstitial, article);
+    dom.body.insertBefore(interstitial, dom.body.firstChild);
   }
 
   // let h1 = dom.querySelector('h1');
@@ -24,13 +24,13 @@ export default function(dom, data) {
   //     data.title = h1.textContent;
   //   }
   // } else {
-  if (data.title) {
-    let headline = dom.createElement('d-title');
-    let h1 = dom.createElement('h1');
-    headline.appendChild(h1);
-    h1.textContent = data.title;
-    abstract.parentNode.insertBefore(headline, abstract);
-  }
+  // if (data.title) {
+  //   let headline = dom.createElement('d-title');
+  //   let h1 = dom.createElement('h1');
+  //   headline.appendChild(h1);
+  //   h1.textContent = data.title;
+  //   abstract.parentNode.insertBefore(headline, abstract);
+  // }
   // if (data.description) {
   //   const h2 = dom.createElement('h2');
   //   h2.textContent = data.description;
