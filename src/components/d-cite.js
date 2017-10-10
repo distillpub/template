@@ -61,18 +61,6 @@ figcaption .citation-number {
 </span>
 `);
 
-export function collectCitations(dom=document) {
-  const citations = new Set();
-  const citeTags = dom.querySelectorAll('d-cite');
-  for (const tag of citeTags) {
-    const keys = tag.getAttribute('key').split(',');
-    for (const key of keys) {
-      citations.add(key);
-    }
-  }
-  return [...citations];
-}
-
 export class Cite extends T(HTMLElement) {
 
   /* Lifecycle */
