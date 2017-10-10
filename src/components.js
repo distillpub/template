@@ -20,9 +20,12 @@ import { References }       from './components/d-references';
 import { TOC }              from './components/d-toc';
 import { Figure }           from './components/d-figure';
 
+import { Slider }           from './ui/d-slider';
+
 const components = [
   Abstract, Appendix, Article, Bibliography, Byline, Cite, CitationList, Code,
   Footnote, FootnoteList, FrontMatter, Title, DMath, References, TOC, Figure,
+  Slider
 ];
 
 /* Distill website specific components */
