@@ -4,31 +4,55 @@ import { HoverBox } from '../helpers/hover-box';
 
 const T = Template('d-cite', `
 <style>
-  .citation {
-    color: hsla(206, 90%, 20%, 0.7);
-  }
-  .citation-number {
-    cursor: default;
-    white-space: nowrap;
-    font-family: -apple-system, BlinkMacSystemFont, "Roboto", Helvetica, sans-serif;
-    font-size: 75%;
-    color: hsla(206, 90%, 20%, 0.7);
-    display: inline-block;
-    line-height: 1.1em;
-    text-align: center;
-    position: relative;
-    top: -2px;
-    margin: 0 2px;
-  }
-  figcaption .citation-number {
-    font-size: 11px;
-    font-weight: normal;
-    top: -2px;
-    line-height: 1em;
-  }
+
+.citation {
+  color: hsla(206, 90%, 20%, 0.7);
+}
+
+.citation-number {
+  cursor: default;
+  white-space: nowrap;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", Helvetica, sans-serif;
+  font-size: 75%;
+  color: hsla(206, 90%, 20%, 0.7);
+  display: inline-block;
+  line-height: 1.1em;
+  text-align: center;
+  position: relative;
+  top: -2px;
+  margin: 0 2px;
+}
+
+figcaption .citation-number {
+  font-size: 11px;
+  font-weight: normal;
+  top: -2px;
+  line-height: 1em;
+}
+
+.container {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  z-index: 10000;
+}
+
+.dt-hover-box {
+  margin: 0 auto;
+  width: 400px;
+  max-width: 700px;
+  background-color: #FFF;
+  opacity: 0.95;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  padding: 8px 16px;
+  border-radius: 3px;
+  box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);
+}
+
 </style>
 
-<div id="hover-box" class="dt-hover-box">
+<div class="container">
+  <div id="hover-box" class="dt-hover-box"></div>
 </div>
 
 <span id="citation-" class="citation">

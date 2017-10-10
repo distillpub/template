@@ -24,11 +24,6 @@ const T = Template('d-interstitial', `
 
 }
 
-.overlay.transparent {
-  background: hsla(0, 0%, 100%, 0.7);
-  transition: background 1s;
-}
-
 .container {
   position: relative;
   left: 25%;
@@ -93,20 +88,13 @@ export class Interstitial extends T(HTMLElement) {
   connectedCallback() {
     const passwordInput = this.root.querySelector('#interstitial-password-input');
     passwordInput.oninput = (event) => this.passwordChanged(event);
-    setTimeout(() => {
-      this.article = document.querySelector('d-article');
-      this.article.style = 'filter: blur(15px)';
-      const overlay = this.root.querySelector('.overlay');
-      overlay.classList.add('transparent');
-    }, 500);
   }
 
   passwordChanged(event) {
     const entered = event.target.value;
     if (entered === this.password) {
       console.log('Correct password entered.');
-      event.target.classList.add('right');
-      this.article.style = '';
+      event.target.classList.add('correct');
       this.parentElement.removeChild(this);
     }
   }

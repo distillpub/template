@@ -31,7 +31,7 @@ const T = Template('d-title', `
   }
 </style>
 
-<div class="status"><span>✓ Peer Reviewed</span></div>
+<!-- <div class="status"><span>✓ Peer Reviewed</span></div> -->
 <slot></slot>
 `);
 

@@ -8,14 +8,16 @@ d-math[block] {
   display: block;
 }
 
+:host {
+  position: relative;
+}
+
 sup {
   line-height: 1em;
   font-size: 0.75em;
   position: relative;
-  top: 0;
+  top: -.5em;
   vertical-align: baseline;
-  position: relative;
-  top: -6px;
 }
 
 span {
@@ -23,13 +25,36 @@ span {
   cursor: default;
 }
 
+.container {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  z-index: 10000;
+}
+
+.dt-hover-box {
+  margin: 0 auto;
+  width: 400px;
+  max-width: 700px;
+  background-color: #FFF;
+  opacity: 0.95;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  padding: 8px 16px;
+  border-radius: 3px;
+  box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);
+}
+
 </style>
 
-<div id="hover-box" class="dt-hover-box">
-  <slot id="slot"></slot>
+<div class="container">
+  <div id="hover-box" class="dt-hover-box">
+    <slot></slot>
+  </div>
 </div>
 
-<sup><span id="fn-" data-hover-ref=""></span></sup>
+<sup>
+  <span id="fn-" data-hover-ref=""></span>
+</sup>
 
 `);
 

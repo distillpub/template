@@ -96,7 +96,7 @@ d-article a {
 d-article p,
 d-article ul,
 d-article ol {
-  font-family: georgia, serif;
+  /*font-family: georgia, serif;*/
   margin-top: 0;
   margin-bottom: 1.7em;
   -webkit-font-smoothing: antialiased;
@@ -133,6 +133,8 @@ d-article pre {
 }
 
 d-article hr {
+  grid-column: screen;
+  width: 100%;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   margin-top: 60px;
@@ -144,54 +146,10 @@ d-article section {
   margin-bottom: 60px;
 }
 
-/* Figure */
-
-d-article figure {
-  position: relative;
-  margin-bottom: 36px;
-}
-
-d-article figure img {
-  width: 100%;
-}
-
-d-article figure svg text,
-d-article figure svg tspan {
-}
-
-d-article figure figcaption {
-  color: rgba(0, 0, 0, 0.6);
-  font-size: 12px;
-  line-height: 1.5em;
-}
-
-@media(min-width: 1024px) {
-  d-article figure figcaption {
-    font-size: 13px;
-  }
-}
-
-d-article figure.external img {
-  background: white;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
-  padding: 18px;
-  box-sizing: border-box;
-}
-
-d-article figure figcaption a {
-  color: rgba(0, 0, 0, 0.6);
-}
-
 d-article span.equation-mimic {
   font-family: georgia;
   font-size: 115%;
   font-style: italic;
-}
-
-d-article figure figcaption b {
-  font-weight: 600;
-  color: rgba(0, 0, 0, 1.0);
 }
 
 d-article > d-code,
