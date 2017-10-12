@@ -17,6 +17,7 @@ const T = Template('d-slider', `
   .background {
     padding-top: 6px;
     color: white;
+    position: relative;
   }
 
   .track {
@@ -68,7 +69,7 @@ const T = Template('d-slider', `
     transition-timing-function: ease;
   }
 
-  :host(:focus) .knob-highlight {
+  .focus .knob-highlight {
     transform: scale(2);
   }
 
@@ -131,18 +132,20 @@ export class Slider extends T(HTMLElement) {
     if (!this.hasAttribute("tabindex")) {
       this.setAttribute("tabindex", 0);
     }
+    this.mouseEvent = false;
     this.knob = this.root.querySelector(".knob-container");
     this.background = this.root.querySelector(".background");
     this.trackFill = this.root.querySelector(".track-fill");
     this.track = this.root.querySelector(".track");
     this.min = this.hasAttribute("min") ? this.getAttribute("min") : 0;
-    this.max = this.hasAttribute("max") ? this.getAttribute("max") : 1;
+    this.max = this.hasAttribute("max") ? this.getAttribute("max") : 100;
     this.value = this.hasAttribute("value") ? this.getAttribute("value") : 0;
-    this.step = this.hasAttribute("step") ? this.getAttribute("step") : 0.1;
+    this.step = this.hasAttribute("step") ? this.getAttribute("step") : 1;
     this.scale = scaleLinear().domain([this.min, this.max]).range([0, 1]).clamp(true);
     this.drag = drag()
       .container(this.track)
       .on("start", () => {
+        this.mouseEvent = true;
         this.background.classList.add("mousedown");
         this.dragUpdate();
       })
@@ -150,10 +153,19 @@ export class Slider extends T(HTMLElement) {
         this.dragUpdate();
       })
       .on("end", () => {
+        this.mouseEvent = false;
         this.background.classList.remove("mousedown");
       });
     this.drag(select(this.background));
     this.renderTicks(5);
+    this.addEventListener("focusin", (e) => {
+      if(!this.mouseEvent) {
+        this.background.classList.add("focus");
+      }
+    });
+    this.addEventListener("focusout", (e) => {
+      this.background.classList.remove("focus");
+    });
     this.addEventListener("keydown", (e) => {
       console.log("keydown", e);
       let stopPropagation = false;
@@ -189,6 +201,7 @@ export class Slider extends T(HTMLElement) {
           break;
       }
       if (stopPropagation) {
+        this.background.classList.add("focus");
         e.preventDefault();
         e.stopPropagation();
       }
