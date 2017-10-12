@@ -1,5 +1,6 @@
 import { Template } from '../mixins/template';
 import { scaleLinear } from 'd3-scale';
+import { range } from 'd3-array';
 import { drag } from 'd3-drag';
 import { select } from 'd3-selection';
 import  {event as currentEvent } from 'd3-selection';
@@ -8,6 +9,7 @@ const T = Template('d-slider', `
 <style>
   :host {
     position: relative;
+    display: block;
   }
 
   :host(:focus) {
@@ -15,7 +17,7 @@ const T = Template('d-slider', `
   }
 
   .background {
-    padding-top: 6px;
+    padding: 9px 0;
     color: white;
     position: relative;
   }
@@ -29,15 +31,15 @@ const T = Template('d-slider', `
 
   .track-fill {
     position: absolute;
-    top: 6px;
+    top: 9px;
     height: 3px;
-    border-radius: 2px;
+    border-radius: 4px;
     background-color: hsl(24, 100%, 50%);
   }
 
   .knob-container {
     position: absolute;
-    top: 7px;
+    top: 10px;
   }
 
   .knob {
@@ -74,9 +76,11 @@ const T = Template('d-slider', `
   }
 
   .ticks {
-    position: relative;
-    margin-top: 4px;
+    position: absolute;
+    top: 16px;
     height: 4px;
+    width: 100%;
+    z-index: -1;
   }
 
   .ticks .tick {
@@ -98,21 +102,7 @@ const T = Template('d-slider', `
   </div>
 `);
 
-// Events
-// change, only on commit
-// input, onslide
-
-// Properties
-// min
-// max
-// step [float | "any"]
-//
-
 // ARIA
-// The element serving as the focusable slider control has role slider.
-// The slider element has the aria-valuenow property set to a decimal value representing the current value of the slider.
-// The slider element has the aria-valuemin property set to a decimal value representing the minimum allowed value of the slider.
-// The slider element has the aria-valuemax property set to a decimal value representing the maximum al
 // If the slider has a visible label, it is referenced by aria-labelledby on the slider element. Otherwise, the slider element has a label provided by aria-label.
 // If the slider is vertically oriented, it has aria-orientation set to vertical. The default value of aria-orientation for a slider is horizontal.
 
@@ -128,25 +118,39 @@ const keyCodes = {
 };
 
 export class Slider extends T(HTMLElement) {
+
+
   connectedCallback() {
-    if (!this.hasAttribute("tabindex")) {
-      this.setAttribute("tabindex", 0);
-    }
+    this.setAttribute("role", "slider");
+    // Makes the element tab-able.
+    if (!this.hasAttribute("tabindex")) { this.setAttribute("tabindex", 0); }
+
+    // Keeps track of keyboard vs. mouse interactions for focus rings
     this.mouseEvent = false;
+
+    // Handles to shadow DOM elements
     this.knob = this.root.querySelector(".knob-container");
     this.background = this.root.querySelector(".background");
     this.trackFill = this.root.querySelector(".track-fill");
     this.track = this.root.querySelector(".track");
-    this.min = this.hasAttribute("min") ? this.getAttribute("min") : 0;
-    this.max = this.hasAttribute("max") ? this.getAttribute("max") : 100;
-    this.value = this.hasAttribute("value") ? this.getAttribute("value") : 0;
-    this.step = this.hasAttribute("step") ? this.getAttribute("step") : 1;
+
+    // Default values for attributes
+    this.min = this.min ? this.min : 0;
+    this.max = this.max ? this.max : 100;
     this.scale = scaleLinear().domain([this.min, this.max]).range([0, 1]).clamp(true);
+
+    this.step = this.step ? this.step : 1;
+    this.update(this.value ? this.value : 0);
+
+    this.ticks = this.ticks ? this.ticks : false;
+    this.renderTicks();
+
     this.drag = drag()
       .container(this.track)
       .on("start", () => {
         this.mouseEvent = true;
         this.background.classList.add("mousedown");
+        this.changeValue = this.value;
         this.dragUpdate();
       })
       .on("drag", () => {
@@ -155,9 +159,12 @@ export class Slider extends T(HTMLElement) {
       .on("end", () => {
         this.mouseEvent = false;
         this.background.classList.remove("mousedown");
+        this.dragUpdate();
+        if (this.changeValue !== this.value) this.dispatchChange();
+        this.changeValue = this.value;
       });
     this.drag(select(this.background));
-    this.renderTicks(5);
+
     this.addEventListener("focusin", (e) => {
       if(!this.mouseEvent) {
         this.background.classList.add("focus");
@@ -166,52 +173,86 @@ export class Slider extends T(HTMLElement) {
     this.addEventListener("focusout", (e) => {
       this.background.classList.remove("focus");
     });
-    this.addEventListener("keydown", (e) => {
-      console.log("keydown", e);
-      let stopPropagation = false;
-      switch (event.keyCode) {
-        case keyCodes.left:
-        case keyCodes.down:
-          this.update(this.value - this.step)
-          stopPropagation = true;
-          break;
-        case keyCodes.right:
-        case keyCodes.up:
-          this.update(this.value + this.step)
-          stopPropagation = true;
-          break;
-        case keyCodes.pageUp:
-          this.update(this.value + this.step * 10)
-          stopPropagation = true;
-          break;
-
-        case keyCodes.pageDown:
-          this.update(this.value + this.step * 10)
-          stopPropagation = true;
-          break;
-        case keyCodes.home:
-          this.update(this.min);
-          stopPropagation = true;
-          break;
-        case keyCodes.end:
-          this.update(this.max);
-          stopPropagation = true;
-          break;
-        default:
-          break;
-      }
-      if (stopPropagation) {
-        this.background.classList.add("focus");
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    });
+    this.addEventListener("keydown", this.onKeyDown);
     this.addEventListener("focus", () => {
       console.log("focus");
     });
     this.addEventListener("blur", () => {
       console.log("blur");
-    })
+    });
+
+  }
+
+  static get observedAttributes() {return ["min", "max", "value", "step", "ticks"]; }
+
+  attributeChangedCallback(attr, oldValue, newValue) {
+    if (attr == "min") {
+      this.min = +newValue;
+      this.setAttribute("aria-valuemin", this.min);
+    }
+    if (attr == "max") {
+      this.max = +newValue;
+      this.setAttribute("aria-valuemax", this.max);
+    }
+    if (attr == "value") this.value = +newValue;
+    if (attr == "step") {
+      if (newValue > 0) {
+        this.step = +newValue;
+      }
+    }
+    if (attr == "ticks") {
+      this.ticks = (newValue === "" ? true : newValue);
+    }
+  }
+
+  onKeyDown(e) {
+    this.changeValue = this.value;
+    let stopPropagation = false;
+    switch (event.keyCode) {
+      case keyCodes.left:
+      case keyCodes.down:
+        this.update(this.value - this.step)
+        stopPropagation = true;
+        break;
+      case keyCodes.right:
+      case keyCodes.up:
+        this.update(this.value + this.step)
+        stopPropagation = true;
+        break;
+      case keyCodes.pageUp:
+        this.update(this.value + this.step * 10)
+        stopPropagation = true;
+        break;
+
+      case keyCodes.pageDown:
+        this.update(this.value + this.step * 10)
+        stopPropagation = true;
+        break;
+      case keyCodes.home:
+        this.update(this.min);
+        stopPropagation = true;
+        break;
+      case keyCodes.end:
+        this.update(this.max);
+        stopPropagation = true;
+        break;
+      default:
+        break;
+    }
+    if (stopPropagation) {
+      this.background.classList.add("focus");
+      e.preventDefault();
+      e.stopPropagation();
+      if (this.changeValue !== this.value) this.dispatchChange();
+    }
+  }
+
+  validateValueRange(min, max, value) {
+    return Math.max(Math.min(max, value), min)
+  }
+
+  quantizeValue(value, step) {
+    return Math.round(value / step) * step;
   }
 
   dragUpdate() {
@@ -225,37 +266,47 @@ export class Slider extends T(HTMLElement) {
   update(value) {
     let v = value;
     if (this.step !== "any") {
-      v = Math.round(value / this.step) * this.step;
+      v = this.quantizeValue(value, this.step);
     }
-    v = Math.max(Math.min(this.max, v), this.min);
-    this.knob.style.left = this.scale(v) * 100 + "%";
-    this.trackFill.style.width = this.scale(v) * 100 + "%";
+    v = this.validateValueRange(this.min, this.max, v);
     if (this.value !== v) {
+      this.knob.style.left = this.scale(v) * 100 + "%";
+      this.trackFill.style.width = this.scale(v) * 100 + "%";
       this.value = v;
+      this.setAttribute("aria-valuenow", this.value);
       this.dispatchInput();
-      // TODO change should only update on commit.
-      this.dispatchChange();
     }
   }
 
+  // Dispatches only on a committed change (basically only on mouseup).
   dispatchChange() {
     const e = new Event("change");
     this.dispatchEvent(e, {});
   }
 
+  // Dispatches on each value change.
   dispatchInput() {
     const e = new Event("input");
     this.dispatchEvent(e, {});
   }
 
-  renderTicks(numTicks) {
+  renderTicks() {
     const ticksContainer = this.root.querySelector(".ticks");
-    const tickData = this.scale.ticks(numTicks);
-    tickData.forEach(d => {
-      const tick = document.createElement("div");
-      tick.classList.add("tick");
-      tick.style.left = this.scale(d) * 100 + "%";
-      ticksContainer.appendChild(tick)
-    });
+    if (this.ticks !== false) {
+      let tickData = [];
+      if (this.step === "any") {
+        tickData = this.scale.ticks();
+      } else {
+        tickData = range(this.min, this.max + 1e-6, this.step);
+      }
+      tickData.forEach(d => {
+        const tick = document.createElement("div");
+        tick.classList.add("tick");
+        tick.style.left = this.scale(d) * 100 + "%";
+        ticksContainer.appendChild(tick)
+      });
+    } else {
+      ticksContainer.style.display = "none";
+    }
   }
 }
