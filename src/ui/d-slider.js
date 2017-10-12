@@ -221,8 +221,12 @@ export class Slider extends T(HTMLElement) {
     v = Math.max(Math.min(this.max, v), this.min);
     this.knob.style.left = this.scale(v) * 100 + "%";
     this.trackFill.style.width = this.scale(v) * 100 + "%";
-    this.value = v;
-    this.dispatchInput();
+    if (this.value !== v) {
+      this.value = v;
+      this.dispatchInput();
+      // TODO change should only update on commit.
+      this.dispatchChange();
+    }
   }
 
   dispatchChange() {
@@ -232,7 +236,7 @@ export class Slider extends T(HTMLElement) {
 
   dispatchInput() {
     const e = new Event("input");
-    this.dispatchEvent(e);
+    this.dispatchEvent(e, {});
   }
 
   renderTicks(numTicks) {
