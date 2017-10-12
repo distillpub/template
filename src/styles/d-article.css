@@ -95,11 +95,21 @@ d-article a {
 
 d-article p,
 d-article ul,
-d-article ol {
-  /*font-family: georgia, serif;*/
+d-article ol,
+d-article blockquote {
+  font-family: georgia, serif;
   margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
   margin-bottom: 1.7em;
   -webkit-font-smoothing: antialiased;
+}
+
+d-article blockquote {
+  border-left: 2px solid rgba(0, 0, 0, 0.2);
+  padding-left: 2em;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 d-article a {
