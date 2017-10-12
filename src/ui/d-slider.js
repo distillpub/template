@@ -1,5 +1,6 @@
 import { Template } from '../mixins/template';
 import { scaleLinear } from 'd3-scale';
+import { range } from 'd3-array';
 import { drag } from 'd3-drag';
 import { select } from 'd3-selection';
 import  {event as currentEvent } from 'd3-selection';
@@ -8,6 +9,7 @@ const T = Template('d-slider', `
 <style>
   :host {
     position: relative;
+    display: block;
   }
 
   :host(:focus) {
@@ -157,7 +159,7 @@ export class Slider extends T(HTMLElement) {
         this.background.classList.remove("mousedown");
       });
     this.drag(select(this.background));
-    this.renderTicks(5);
+    this.renderTicks();
     this.addEventListener("focusin", (e) => {
       if(!this.mouseEvent) {
         this.background.classList.add("focus");
@@ -247,9 +249,14 @@ export class Slider extends T(HTMLElement) {
     this.dispatchEvent(e, {});
   }
 
-  renderTicks(numTicks) {
+  renderTicks() {
     const ticksContainer = this.root.querySelector(".ticks");
-    const tickData = this.scale.ticks(numTicks);
+    let tickData = [];
+    if (this.step === "any") {
+      tickData = this.scale.ticks();
+    } else {
+      tickData = range(this.min, this.max + 1e-6, this.step);
+    }
     tickData.forEach(d => {
       const tick = document.createElement("div");
       tick.classList.add("tick");

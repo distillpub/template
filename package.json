@@ -49,12 +49,13 @@
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^1.0.7",
     "assert": "^1.4.1",
+    "commander": "^2.9.0",
+    "d3-array": "^1.2.1",
     "d3-drag": "^1.2.1",
     "d3-scale": "^1.0.6",
     "d3-selection": "^1.1.0",
     "d3-time-format": "^2.0.3",
     "intersection-observer": "^0.4.0",
-    "commander": "^2.9.0",
     "jsdom": "^11.2.0",
     "jsdom-wc": "^11.0.0-alpha-1",
     "katex": "^0.7.1"
