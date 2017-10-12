@@ -7,15 +7,13 @@ const T = Template('d-abstract', `
     display: block;
     font-size: 1.25rem;
     line-height: 1.6em;
-    padding-bottom: 1.5em;
     color: rgba(0, 0, 0, 0.7);
-    font-family: georgia, serif;
     -webkit-font-smoothing: antialiased;
   }
 
   ::slotted(p) {
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: 1em;
     grid-column: text-start / middle-end;
   }
   ${body('d-abstract')}
