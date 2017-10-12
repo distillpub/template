@@ -43,6 +43,8 @@
 <d-abstract>
   <figure style="grid-column: page; margin: 1rem 0;"><img src="momentum.png" style="width:100%; border: 1px solid rgba(0, 0, 0, 0.2);"/></figure>
   <d-slider style="grid-column: page;"></d-slider>
+  <d-slider style="width: 100px;"></d-slider>
+  <input type="range" />
   <script>
     document.querySelector("d-slider").addEventListener("input", e => { console.log("input", e.target.value); });
     document.querySelector("d-slider").addEventListener("change", e => { console.log("change", e.target.value); });
