@@ -21,10 +21,12 @@ import { TOC }          from './components/d-toc';
 import { Figure }       from './components/d-figure';
 import { Interstitial } from './components/d-interstitial';
 
+import { Slider }           from './ui/d-slider';
+
 const components = [
   Abstract, Appendix, Article, Bibliography, Byline, Cite, CitationList, Code,
   Footnote, FootnoteList, FrontMatter, Title, DMath, References, TOC, Figure,
-  Interstitial,
+  Slider, Interstitial
 ];
 
 /* Distill website specific components */
