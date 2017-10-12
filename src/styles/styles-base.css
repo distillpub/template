@@ -69,14 +69,14 @@ figure svg text,
 figure svg tspan {
 }
 
-figure figcaption {
+figcaption {
   color: rgba(0, 0, 0, 0.6);
   font-size: 12px;
   line-height: 1.5em;
 }
 
 @media(min-width: 1024px) {
-  figure figcaption {
+figcaption {
     font-size: 13px;
   }
 }
@@ -89,11 +89,11 @@ figure.external img {
   box-sizing: border-box;
 }
 
-figure figcaption a {
+figcaption a {
   color: rgba(0, 0, 0, 0.6);
 }
 
-figure figcaption b {
+figcaption b {
   font-weight: 600;
   color: rgba(0, 0, 0, 1.0);
 }

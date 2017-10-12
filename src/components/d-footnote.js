@@ -48,7 +48,7 @@ span {
 
 <div class="container">
   <div id="hover-box" class="dt-hover-box">
-    <slot></slot>
+    <slot id="slot"></slot>
   </div>
 </div>
 
@@ -77,6 +77,7 @@ export class Footnote extends T(HTMLElement) {
   connectedCallback() {
     // listen and notify about changes to slotted content
     // const slot = this.shadowRoot.querySelector('#slot');
+    // console.warn(slot.textContent);
     // slot.addEventListener('slotchange', this.notify);
 
     // create numeric ID

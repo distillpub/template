@@ -4,44 +4,31 @@ import { bibliography_cite } from '../helpers/citation';
 const T = Template('d-citation-list', `
 <style>
 
-:host {
+d-citation-list {
   contain: content;
+  overflow: hidden;
 }
-.references {
+
+d-citation-list .references {
+  grid-column: text;
   font-size: 12px;
   line-height: 20px;
 }
-.title {
+
+d-citation-list .references .title {
   font-weight: 600;
-}
-ol {
-  padding: 0 0 0 18px;
-}
-li {
-  margin-bottom: 12px;
-}
-h3 {
-  font-size: 15px;
-  font-weight: 500;
-  margin-top: 20px;
-  margin-bottom: 0;
-  color: rgba(0,0,0,0.65);
-  line-height: 1em;
-}
-a {
-  color: rgba(0, 0, 0, 0.6);
 }
 
 </style>
 
 <h3>References</h3>
-<ol class='references' id='references-list' ></ol>
-`);
+<ol class='references' id='references-list'></ol>
+`, false);
 
 export function renderCitationList(element, entries) {
   if (entries.size > 0) {
-    element.host.style.display = 'initial';
-    const list = element.querySelector('#references-list');
+    element.style.display = '';
+    const list = document.getElementById('references-list');
     list.innerHTML = '';
 
     for (const [key, entry] of entries) {
@@ -51,14 +38,16 @@ export function renderCitationList(element, entries) {
       list.appendChild(listItem);
     }
   } else {
-    element.host.style.display = 'none';
+    element.style.display = 'none';
   }
 }
 
 export class CitationList extends T(HTMLElement) {
 
   connectedCallback() {
-    this.root.host.style.display = 'none';
+    super.connectedCallback();
+
+    this.root.style.display = 'none';
   }
 
   set citations(citations) {

@@ -1,39 +1,48 @@
 @supports not (display: grid) {
+  .base-grid,
   distill-header,
   d-title,
   d-abstract,
   d-article,
   d-appendix,
+  distill-appendix,
   d-byline,
   d-footnote-list,
+  d-citation-list,
   distill-footer {
     display: block;
     padding: 8px;
   }
 }
 
+.base-grid,
 distill-header,
 d-title,
 d-abstract,
 d-article,
 d-appendix,
+distill-appendix,
 d-byline,
 d-footnote-list,
+d-citation-list,
 distill-footer {
   display: grid;
   justify-items: stretch;
-  grid-template-columns: [screen-start] 0.5fr [page-start kicker-start text-start gutter-start middle-start] 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr [text-end page-end gutter-end kicker-end middle-end] 0.5fr [screen-end];
+  grid-template-columns: [screen-start] 8px [page-start kicker-start text-start gutter-start middle-start] 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr [text-end page-end gutter-end kicker-end middle-end] 8px [screen-end];
   grid-column-gap: 30px;
 }
 
 @media(min-width: 768px) {
+  .base-grid,
   distill-header,
   d-title,
   d-abstract,
   d-article,
   d-appendix,
+  distill-appendix,
   d-byline,
   d-footnote-list,
+  d-citation-list,
   distill-footer {
     grid-template-columns: [screen-start] 1fr [page-start kicker-start middle-start text-start] 45px 45px 45px 45px 45px 45px 45px 45px [ kicker-end text-end gutter-start] 45px [middle-end] 45px [page-end gutter-end] 1fr [screen-end];
     grid-column-gap: 30px;
@@ -41,13 +50,16 @@ distill-footer {
 }
 
 @media(min-width: 1000px) {
+  .base-grid,
   distill-header,
   d-title,
   d-abstract,
   d-article,
   d-appendix,
+  distill-appendix,
   d-byline,
   d-footnote-list,
+  d-citation-list,
   distill-footer {
     grid-template-columns: [screen-start] 1fr [page-start kicker-start] 50px [middle-start] 50px [text-start kicker-end] 50px 50px 50px 50px 50px 50px 50px 50px [text-end gutter-start] 50px [middle-end] 50px [page-end gutter-end] 1fr [screen-end];
     grid-column-gap: 30px;
@@ -55,13 +67,16 @@ distill-footer {
 }
 
 @media(min-width: 1280px) {
+  .base-grid,
   distill-header,
   d-title,
   d-abstract,
   d-article,
   d-appendix,
+  distill-appendix,
   d-byline,
   d-footnote-list,
+  d-citation-list,
   distill-footer {
     grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
     grid-column-gap: 30px;
@@ -74,18 +89,9 @@ distill-footer {
   grid-column-gap: 30px;
 }
 
-.col-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 30px;
+.base-grid {
+  grid-column: screen;
 }
-
-.col-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 30px;
-}
-
 
 /* .l-body,
 d-article > *  {
@@ -99,19 +105,19 @@ d-figure {
 } */
 
 .l-body-outset {
-  grid-column: left-outset / right-outset;
+  grid-column: middle;
 }
 
 .l-page-outset {
-  grid-column: left-outset / right-outset;
+  grid-column: page;
 }
 
 .l-screen {
-  grid-column: start / end;
+  grid-column: screen;
 }
 
 .l-screen-inset {
-  grid-column: start / end;
+  grid-column: screen;
   padding-left: 16px;
   padding-left: 16px;
 }

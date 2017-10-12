@@ -4,22 +4,9 @@ const styles = `
 <style>
   distill-appendix {
     contain: content;
+    overflow: hidden;
   }
-  distill-appendix h3 {
-    font-size: 15px;
-    font-weight: 500;
-    margin-top: 20px;
-    margin-bottom: 0;
-    color: rgba(0,0,0,0.65);
-    line-height: 1em;
-  }
-  distill-appendix a {
-    color: rgba(0, 0, 0, 0.6);
-  }
-  distill-appendix ol,
-  distill-appendix ul {
-    padding-left: 24px;
-  }
+
   distill-appendix .citation {
     font-size: 11px;
     line-height: 15px;
@@ -35,6 +22,10 @@ const styles = `
     white-space: pre-wrap;
     word-wrap: break-word;
   }
+
+  distill-appendix > * {
+    grid-column: text;
+  }
 </style>
 `;
 
@@ -46,7 +37,7 @@ export function appendixTemplate(frontMatter) {
   <p><a href="">View all changes</a> to this article since it was first published. If you see mistakes or want to suggest changes, please <a href="${frontMatter.githubUrl + '/issues/new'}">create an issue on GitHub</a>. </p>
 
   <h3 id="reuse">Reuse</h3>
-  <p>Diagrams and text are licensed under Creative Commons Attribution <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY 2.0</a> with the <a class="github" href="${frontMatter.githubUrl}">source available on GitHub</a>, unless noted otherwise. The figures that have been reused from other sources don’t fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>
+  <p>Diagrams and text are licensed under Creative Commons Attribution <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> with the <a class="github" href="${frontMatter.githubUrl}">source available on GitHub</a>, unless noted otherwise. The figures that have been reused from other sources don’t fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>
 
   <h3 id="citation">Citation</h3>
   <p>For attribution in academic contexts, please cite this work as</p>

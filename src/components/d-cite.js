@@ -5,6 +5,10 @@ import { HoverBox } from '../helpers/hover-box';
 const T = Template('d-cite', `
 <style>
 
+:host {
+  display: inline-block;
+}
+
 .citation {
   color: hsla(206, 90%, 20%, 0.7);
 }
@@ -55,10 +59,7 @@ figcaption .citation-number {
   <div id="hover-box" class="dt-hover-box"></div>
 </div>
 
-<span id="citation-" class="citation">
-  <slot></slot>
-  <span class="citation-number"></span>
-</span>
+<span id="citation-" class="citation"><slot></slot><span class="citation-number"></span></span>
 `);
 
 export class Cite extends T(HTMLElement) {

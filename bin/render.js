@@ -15,8 +15,6 @@ program
   .option('-o, --output-path <path>', 'path to write rendered HTML file to.')
   .parse(process.argv);
 
-console.warn(program);
-
 const virtualConsole = new jsdom.VirtualConsole();
 // omitJSDOMErrors as JSDOM routinely can't parse modern CSS
 virtualConsole.sendTo(console, { omitJSDOMErrors: true });

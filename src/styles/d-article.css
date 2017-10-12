@@ -175,7 +175,6 @@ d-include {
 d-figure {
   contain: content;
   overflow: hidden;
-  height: 300px;
 }
 
 /* KaTeX */
