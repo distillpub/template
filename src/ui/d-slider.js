@@ -127,8 +127,6 @@ const keyCodes = {
 };
 
 export class Slider extends T(HTMLElement) {
-  createdCallback() {
-  }
   connectedCallback() {
     if (!this.hasAttribute("tabindex")) {
       this.setAttribute("tabindex", 0);
@@ -137,10 +135,10 @@ export class Slider extends T(HTMLElement) {
     this.background = this.root.querySelector(".background");
     this.trackFill = this.root.querySelector(".track-fill");
     this.track = this.root.querySelector(".track");
-    this.min = 0;
-    this.max = 1;
-    this.value = 0;
-    this.step = 0.1;
+    this.min = this.hasAttribute("min") ? this.getAttribute("min") : 0;
+    this.max = this.hasAttribute("max") ? this.getAttribute("max") : 1;
+    this.value = this.hasAttribute("value") ? this.getAttribute("value") : 0;
+    this.step = this.hasAttribute("step") ? this.getAttribute("step") : 0.1;
     this.scale = scaleLinear().domain([this.min, this.max]).range([0, 1]).clamp(true);
     this.drag = drag()
       .container(this.track)
@@ -213,9 +211,7 @@ export class Slider extends T(HTMLElement) {
 
   update(value) {
     let v = value;
-    if (this.step === "any") {
-      // TODO
-    } else {
+    if (this.step !== "any") {
       v = Math.round(value / this.step) * this.step;
     }
     v = Math.max(Math.min(this.max, v), this.min);
