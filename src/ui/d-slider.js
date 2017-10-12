@@ -14,10 +14,6 @@ const T = Template('d-slider', `
     outline: none;
   }
 
-  :host(:focus) .knob {
-    background: magenta;
-  }
-
   .background {
     padding-top: 6px;
     color: white;
@@ -51,6 +47,29 @@ const T = Template('d-slider', `
     height: 13px;
     background-color: hsl(24, 100%, 50%);
     border-radius: 50%;
+    transition-property: transform;
+    transition-duration: 0.18s;
+    transition-timing-function: ease;
+  }
+  .mousedown .knob {
+    transform: scale(1.5);
+  }
+
+  .knob-highlight {
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    width: 13px;
+    height: 13px;
+    background-color: hsla(0, 0%, 0%, 0.1);
+    border-radius: 50%;
+    transition-property: transform;
+    transition-duration: 0.18s;
+    transition-timing-function: ease;
+  }
+
+  :host(:focus) .knob-highlight {
+    transform: scale(2);
   }
 
   .ticks {
@@ -71,6 +90,7 @@ const T = Template('d-slider', `
     <div class="track"></div>
     <div class="track-fill"></div>
     <div class="knob-container">
+      <div class="knob-highlight"></div>
       <div class="knob"></div>
     </div>
     <div class="ticks"></div>
@@ -116,20 +136,24 @@ export class Slider extends T(HTMLElement) {
     this.knob = this.root.querySelector(".knob-container");
     this.background = this.root.querySelector(".background");
     this.trackFill = this.root.querySelector(".track-fill");
+    this.track = this.root.querySelector(".track");
     this.min = 0;
     this.max = 1;
     this.value = 0;
     this.step = 0.1;
     this.scale = scaleLinear().domain([this.min, this.max]).range([0, 1]).clamp(true);
     this.drag = drag()
-    .container(this.root.querySelector(".track"))
-    .on("start drag", () => {
-      const bbox = this.background.getBoundingClientRect();
-      const left = bbox.left;
-      const x = event.x - left;
-      const width = bbox.width;
-      this.update(this.scale.invert(x / width));
-    });
+      .container(this.track)
+      .on("start", () => {
+        this.background.classList.add("mousedown");
+        this.dragUpdate();
+      })
+      .on("drag", () => {
+        this.dragUpdate();
+      })
+      .on("end", () => {
+        this.background.classList.remove("mousedown");
+      });
     this.drag(select(this.background));
     this.renderTicks(5);
     this.addEventListener("keydown", (e) => {
@@ -166,12 +190,10 @@ export class Slider extends T(HTMLElement) {
         default:
           break;
       }
-
       if (stopPropagation) {
         e.preventDefault();
         e.stopPropagation();
       }
-
     });
     this.addEventListener("focus", () => {
       console.log("focus");
@@ -181,11 +203,25 @@ export class Slider extends T(HTMLElement) {
     })
   }
 
+  dragUpdate() {
+    const bbox = this.background.getBoundingClientRect();
+    const left = bbox.left;
+    const x = event.x - left;
+    const width = bbox.width;
+    this.update(this.scale.invert(x / width));
+  }
+
   update(value) {
-    console.log(value)
-    this.knob.style.left = this.scale(value) * 100 + "%";
-    this.trackFill.style.width = this.scale(value) * 100 + "%";
-    this.value = value;
+    let v = value;
+    if (this.step === "any") {
+      // TODO
+    } else {
+      v = Math.round(value / this.step) * this.step;
+    }
+    v = Math.max(Math.min(this.max, v), this.min);
+    this.knob.style.left = this.scale(v) * 100 + "%";
+    this.trackFill.style.width = this.scale(v) * 100 + "%";
+    this.value = v;
     this.dispatchInput();
   }
 
