@@ -17,7 +17,7 @@ const T = Template('d-slider', `
   }
 
   .background {
-    padding-top: 6px;
+    padding: 9px 0;
     color: white;
     position: relative;
   }
@@ -31,15 +31,15 @@ const T = Template('d-slider', `
 
   .track-fill {
     position: absolute;
-    top: 6px;
+    top: 9px;
     height: 3px;
-    border-radius: 2px;
+    border-radius: 4px;
     background-color: hsl(24, 100%, 50%);
   }
 
   .knob-container {
     position: absolute;
-    top: 7px;
+    top: 10px;
   }
 
   .knob {
@@ -76,9 +76,10 @@ const T = Template('d-slider', `
   }
 
   .ticks {
-    position: relative;
-    margin-top: 4px;
+    position: absolute;
+    top: 16px;
     height: 4px;
+    width: 100%;
     z-index: -1;
   }
 
