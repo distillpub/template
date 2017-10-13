@@ -127,18 +127,17 @@ d-figure {
 
 d-article aside {
   grid-column: gutter;
+  font-size: 12px;
+  line-height: 1.6em;
+  color: rgba(0, 0, 0, 0.6)
 }
 
 @media(min-width: 768px) {
   aside {
-    grid-column: right-outset / right-page;
-    font-size: 14px;
-    line-height: 1.3;
+    grid-column: gutter;
   }
 
   .side {
-    margin-left: 24px;
-    float: right;
-    width: 50%;
+    grid-column: gutter;
   }
 }
