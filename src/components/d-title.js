@@ -2,11 +2,13 @@ import { Template } from '../mixins/template';
 
 const T = Template('d-title', `
 <style>
+
   :host {
     padding-top: 1rem;
     contain: content;
     display: block;
   }
+
   ::slotted(h1) {
     grid-column: text;
     font-size: 50px;
@@ -14,6 +16,13 @@ const T = Template('d-title', `
     line-height: 1.05em;
     margin: 0 0 0.5rem;
   }
+
+  ::slotted(p) {
+    font-weight: 300;
+    font-size: 1.5rem;
+    line-height: 1.2em;
+  }
+
   .status {
     margin-top: 0px;
     font-size: 12px;

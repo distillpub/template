@@ -116,7 +116,7 @@ function doi_string(ent, new_line){
 
 export function bibliography_cite(ent, fancy){
   if (ent){
-    var cite =  '<b>' + ent.title + '</b> ';
+    var cite =  '<span class="title">' + ent.title + '</span> ';
     cite += link_string(ent) + '<br>';
     cite += author_string(ent, '${L}, ${I}', ', ', ' and ');
     if (ent.year || ent.date){
