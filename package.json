@@ -29,8 +29,10 @@
     "eslint": "^4.3.0",
     "eslint-config-google": "^0.9.1",
     "js-yaml": "^3.7.0",
+    "jsdom": "11.3.0",
+    "jsdom-global": "3.0.2",
     "marked": "^0.3.6",
-    "mocha": "^3.2.0",
+    "mocha": "^3.5.3",
     "prismjs": "^1.6.0",
     "rollup": "latest",
     "rollup-plugin-babili": "^3.1.0",
@@ -44,6 +46,7 @@
     "rollup-plugin-string": "^2.0.2",
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-watch": "^2.5.0",
+    "should": "^13.1.2",
     "webpack": "^2.2.1"
   },
   "dependencies": {
@@ -56,7 +59,6 @@
     "d3-selection": "^1.1.0",
     "d3-time-format": "^2.0.3",
     "intersection-observer": "^0.4.0",
-    "jsdom": "^11.2.0",
     "jsdom-wc": "^11.0.0-alpha-1",
     "katex": "^0.7.1"
   }
