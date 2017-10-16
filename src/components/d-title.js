@@ -21,6 +21,7 @@ const T = Template('d-title', `
     font-weight: 300;
     font-size: 1.5rem;
     line-height: 1.2em;
+    grid-column: text;
   }
 
   .status {

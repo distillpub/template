@@ -118,6 +118,19 @@ d-figure {
   grid-column: page;
 } */
 
+.l-gutter {
+  grid-column: gutter;
+}
+
+.l-text,
+.l-body {
+  grid-column: text;
+}
+
+.l-page {
+  grid-column: page;
+}
+
 .l-body-outset {
   grid-column: middle;
 }
