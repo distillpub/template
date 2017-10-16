@@ -65,4 +65,27 @@ export function distillify(dom, data) {
   }
 }
 
+export function usesTemplateV2(dom) {
+  const tags = dom.querySelectorAll('script');
+  let usesV2 = undefined;
+  for (const tag of tags) {
+    const src = tag.src;
+    if (src.includes('distill.pub')) {
+      if (src.includes('template.v1.js')) {
+        usesV2 = false;
+      } else if (src.includes('template.v2.js')) {
+        usesV2 = true;
+      } else {
+        throw new Error('Uses distill template, but unknown version?!');
+      }
+    }
+  }
+
+  if (usesV2 === undefined) {
+    throw new Error('Does not seem to use Distill template at all.');
+  } else {
+    return usesV2;
+  }
+}
+
 export { FrontMatter };
