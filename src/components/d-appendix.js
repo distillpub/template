@@ -6,7 +6,7 @@ const T = Template('d-appendix', `
 
 d-appendix {
   contain: content;
-  font-size: 13px;
+  font-size: 0.8em;
   line-height: 1.7em;
   margin-bottom: 0;
   border-top: 1px solid rgba(0,0,0,0.1);
@@ -19,14 +19,16 @@ d-appendix h3 {
   grid-column: page-start / text-start;
   font-size: 15px;
   font-weight: 500;
-  margin-top: 15px;
+  margin-top: 1em;
   margin-bottom: 0;
   color: rgba(0,0,0,0.65);
-  line-height: 1em;
+}
+
+d-appendix h3 + * {
+  margin-top: 1em;
 }
 
 d-appendix ol {
-  margin-top: 15px;
   padding: 0 0 0 30px;
   margin-left: -30px;
 }

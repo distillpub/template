@@ -11,12 +11,10 @@ d-citation-list {
 
 d-citation-list .references {
   grid-column: text;
-  font-size: 12px;
-  line-height: 20px;
 }
 
 d-citation-list .references .title {
-  font-weight: 600;
+  font-weight: 500;
 }
 
 </style>
