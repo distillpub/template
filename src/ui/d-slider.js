@@ -9,7 +9,7 @@ const T = Template('d-slider', `
 <style>
   :host {
     position: relative;
-    display: block;
+    display: inline-block;
   }
 
   :host(:focus) {
