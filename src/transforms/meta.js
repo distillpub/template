@@ -1,12 +1,13 @@
 import favicon from '../assets/distill-favicon.base64';
+import escape from 'escape-html';
 
 export default function(dom, data) {
   let head = dom.querySelector('head');
   let appendHead = html => appendHtml(head, html);
 
-  function meta(name, content) {
-    if (content)
-      appendHead(`    <meta name="${name}" content="${content}" >\n`);
+  function meta(name, content, force) {
+    if (content || force)
+      appendHead(`    <meta name="${name}" content="${escape(content)}" >\n`);
   }
 
   appendHead(`
@@ -20,7 +21,8 @@ export default function(dom, data) {
   appendHead(`
     <!--  https://schema.org/Article -->
     <meta property="article:published" itemprop="datePublished" content="${data.publishedYear}-${data.publishedMonthPadded}-${data.publishedDayPadded}" />
-    <meta property="article:modified" itemprop="dateModified" content="${data.updatedDate}" />
+    <meta property="article:created"   itemprop="dateCreated"   content="${data.publishedDate}" />
+    <meta property="article:modified"  itemprop="dateModified"  content="${data.updatedDate}" />
   `);
 
   (data.authors || []).forEach((a) => {
@@ -34,7 +36,7 @@ export default function(dom, data) {
     <meta property="og:title" content="${data.title}"/>
     <meta property="og:description" content="${data.description}">
     <meta property="og:url" content="${data.url}"/>
-    <meta property="og:image" content="${data.url}/thumbnail.jpg"/>
+    <meta property="og:image" content="${data.previewURL}"/>
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Distill" />
   `);
@@ -45,7 +47,7 @@ export default function(dom, data) {
     <meta name="twitter:title" content="${data.title}">
     <meta name="twitter:description" content="${data.description}">
     <meta name="twitter:url" content="${data.url}">
-    <meta name="twitter:image" content="${data.url}/thumbnail.jpg">
+    <meta name="twitter:image" content="${data.previewURL}">
     <meta name="twitter:image:width" content="560">
     <meta name="twitter:image:height" content="295">
   `);
@@ -63,12 +65,14 @@ export default function(dom, data) {
     meta('citation_doi', data.doi);
 
     let journal = data.journal || {};
-    meta('citation_journal_title', journal.name);
-    meta('citation_journal_abbrev', journal.nameAbbrev);
+    meta('citation_journal_title', journal.full_title || journal.title);
+    meta('citation_journal_abbrev', journal.abbrev_title);
     meta('citation_issn', journal.issn);
     meta('citation_publisher', journal.publisher);
+    meta('citation_fulltext_world_readable', '', true);
 
     if (data.publishedDate){
+      meta('citation_online_date', `${data.publishedYear}/${data.publishedMonthPadded}/${data.publishedDayPadded}`);
       meta('citation_publication_date', `${data.publishedYear}/${data.publishedMonthPadded}/${data.publishedDayPadded}`);
     }
 
@@ -99,10 +103,33 @@ function appendHtml(el, html) {
 }
 
 function citation_meta_content(ref){
+  // Special test for arxiv
   var content = `citation_title=${ref.title};`;
-  ref.author.split(' and ').forEach(author => {
-    content += `citation_author=${author.trim()};`;
+
+  ref.author.split(' and ').forEach(name => {
+    name = name.trim();
+    let last, firsts;
+    if (name.indexOf(',') != -1){
+      last = name.split(',')[0].trim();
+      firsts = name.split(',')[1].trim();
+    } else {
+      last = name.split(' ').slice(-1)[0].trim();
+      firsts = name.split(' ').slice(0,-1).join(' ');
+    }
+    content += `citation_author=${firsts} ${last};`;
   });
+
+  if ('year' in ref) {
+    content += `citation_publication_date=${ref.year};`;
+  }
+
+  let arxiv_id_search = /https?:\/\/arxiv\.org\/pdf\/([0-9]*\.[0-9]*)\.pdf/.exec(ref.url);
+  arxiv_id_search = arxiv_id_search || /https?:\/\/arxiv\.org\/abs\/([0-9]*\.[0-9]*)/.exec(ref.url);
+  arxiv_id_search = arxiv_id_search || /arXiv preprint arXiv:([0-9]*\.[0-9]*)/.exec(ref.journal);
+  if (arxiv_id_search && arxiv_id_search[1]){
+    content += `citation_arxiv_id=${arxiv_id_search[1]};`;
+    return content; // arXiv is not considered a journal, so we don't need journal/volume/issue
+  }
   if ('journal' in ref){
     content += `citation_journal_title=${ref.journal};`;
   }
@@ -112,7 +139,5 @@ function citation_meta_content(ref){
   if ('issue' in ref || 'number' in ref){
     content += `citation_number=${ref.issue || ref.number};`;
   }
-  /*content += `citation_first_page=${};`;
-  content += `citation_publication_date=${};`;*/
   return content;
 }

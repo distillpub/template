@@ -161,6 +161,41 @@ describe('Distill V2 (transforms)', function() {
         expect(metaTags).to.not.be.empty;
       });
 
+      it('given an arxiv article, it should add a special Google scholar arxiv citation', function() {
+        const dom = new JSDOM('', options);
+        const data = {
+          doiSuffix: 'test-doi-suffix',
+          citations: ['dumoulin2016guide'],
+          bibliography: new Map([[
+            'dumoulin2016guide', {
+              title: 'A guide to convolution arithmetic for deep learning',
+              author: 'Dumoulin, Vincent and Visin, Francesco',
+              journal: 'arXiv preprint arXiv:1603.07285',
+              year: '2016',
+              url: 'https://arxiv.org/pdf/1603.07285.pdf'
+            }
+          ]])
+        };
+
+        const meta = distill.testing.transforms.get('Meta');
+        expect(meta).to.be.a('function');
+        meta(dom.window.document, data);
+
+        const metaTags = [].slice.call(dom.window.document.querySelectorAll('meta[name="citation_reference"]'));
+        expect(metaTags).to.not.be.empty;
+
+        const metaTag = metaTags[0];
+        expect(metaTag).to.have.property('content');
+
+        const content = metaTag.content;
+        expect(content).to.include('citation_title');
+        expect(content).to.include('citation_author');
+        expect(content.match(/citation_author=/g).length).to.equal(2);
+        expect(content).to.include('citation_publication_date');
+        expect(content).to.include('citation_arxiv_id');
+        expect(content).to.not.include('journal');
+      });
+
       it('given only a DOM, it should add Google scholar references information', function() {
         const dom = new JSDOM(`
           <d-cite key="mercier2011humans">sth</d-cite>

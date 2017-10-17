@@ -13,7 +13,7 @@ export function parseBibtex(bibtex) {
   for (const entry of parsedEntries) {
     // normalize tags; note entryTags is an object, not Map
     for (const [key, value] of Object.entries(entry.entryTags)) {
-      entry.entryTags[key] = normalizeTag(value);
+      entry.entryTags[key.toLowerCase()] = normalizeTag(value);
     }
     entry.entryTags.type = entry.entryType;
     // add to bibliography

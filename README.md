@@ -1,39 +1,25 @@
-# Distill Templates
+# Distill Template [![Build Status](https://travis-ci.org/distillpub/template.svg?branch=master)](https://travis-ci.org/distillpub/template)
+
+This is the repository for the distill web framework. If you're interesting in just using the framework to write an article for the [Distill journal](http://distill.pub), visit http://distill.pub/guide/. 
+
+The general process for using this framework is to hotlink the compiled code in your dev environment. 
+
+```html
+<script src="https://distill.pub/template.v2.js"></script>
+```
+
+You can also install it as a local dependency through npm or with [yarn](https://yarnpkg.com).
+
+```
+npm install --D distill-template
+```
+
+If you're interested in submitting pull requests or developing on the framework itself, read on.
 
 ## Development
 
-Run `yarn start` to start a watching build rollup server.
+Run `npm run start` to start a watching build rollup server. To view the sample pages in the repo, you can run `npm run serve` as a separate process which starts a static server. `npm run build` will run a one-time build.
 
 ## Testing
 
-Run `yarn test`. That's it.
-
-
-## TODO:
-
--[ ] auto detection/adding behavior
-  * title
-  * appendix
-  * footnote list ?
--[x] should work without distill-appendix
--[x] YML author without ":" should work?
--[ ] throw warning on <hr>
--[ ] h numbering:
-  h2: position relative
-  a: position: absolute;
-  right: calc(100% + 16px);
-  /* text-align: right; */
-  /* width: 80px; */
-  /* font-size: 20px; */
-  /* font-weight: 200; */
-
-
-auto-added elements:
- title in front, no h1 -> add it
- no title in front, h1 -> read and put into frontMatter
- footnote -> footnote list
- break up bib
- if citation, no bib-list -> add citation-list
- if authors, no byline -> add byline
- no appendix -> add appendix
- 
+Run `npm test`. That's it.

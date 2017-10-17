@@ -95,6 +95,7 @@ export function usesTemplateV2(dom) {
     return usesV2;
   }
 }
+
 export { FrontMatter }; // TODO: removable?
 
 export const testing = {

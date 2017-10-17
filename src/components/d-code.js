@@ -1,6 +1,13 @@
 import Prism from 'prismjs';
 import 'prismjs/components/prism-python';
 import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-python';
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-lua';
+import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-go';
+import 'prismjs/components/prism-markdown';
+import 'prismjs/components/prism-julia';
 import css from 'prismjs/themes/prism.css';
 
 import { Template } from '../mixins/template.js';
@@ -43,7 +50,7 @@ export class Code extends Mutating(T(HTMLElement)) {
     }
     const language = Prism.languages[this.languageName];
     if (language == undefined) {
-      console.warn(`Distill does not yet support highlighting your code block in "${this.languageName}".`);
+      console.warn(`Distill does not yet support highlighting your code block in "${this.languageName}'.`);
       return;
     }
 

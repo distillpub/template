@@ -27,11 +27,15 @@ export function bylineTemplate(frontMatter) {
     </div>
     <div>
       <h3>Published</h3>
-      <p>${frontMatter.publishedMonth}. ${frontMatter.publishedDay} ${frontMatter.publishedYear}</p>
+      ${frontMatter.published ? `
+        <p>${frontMatter.publishedMonth}. ${frontMatter.publishedDay} ${frontMatter.publishedYear}</p> ` : `
+        <p><em>Not yet published</em></p>`}
     </div>
     <div>
       <h3>DOI</h3>
-      <p>${frontMatter.doi}</p>
+      ${frontMatter.doi ? `
+        <p>${frontMatter.doi}</p>` : `
+        <p><em>No DOI yet</em></p>`}
     </div>
   </div>
 `;
