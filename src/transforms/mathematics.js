@@ -5,6 +5,11 @@ export default function(dom, data) {
   let needsCSS = false;
   const article = dom.querySelector('d-article');
 
+  if (!article) {
+    console.warn("No d-article tag found!");
+    return;
+  }
+
   if (data.katex && data.katex.delimiters) {
     global.document = dom;
     renderMathInElement(article, data.katex);

@@ -9,7 +9,11 @@
 
 export default function(dom, data) {
   const article = dom.querySelector('d-article');
-  // const abstract = dom.querySelector('d-abstract');
+
+  if (!article) {
+    console.warn('No d-article tag found!');
+    return;
+  }
 
   let interstitial = dom.querySelector('d-interstitial');
   if (!interstitial && data.password) {

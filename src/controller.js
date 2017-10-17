@@ -1,4 +1,4 @@
-import { FrontMatter } from './front-matter';
+import { FrontMatter, mergeFromYMLFrontmatter } from './front-matter';
 import { DMath } from './components/d-math';
 import { collect_citations } from './helpers/citation.js';
 import { parseFrontmatter } from './components/d-front-matter';
@@ -107,7 +107,7 @@ export const Controller = {
 
     onFrontMatterChanged(event) {
       const data = event.detail;
-      frontMatter.mergeFromYMLFrontmatter(data);
+      mergeFromYMLFrontmatter(frontMatter, data);
 
       const interstitial = document.querySelector('d-interstitial');
       if (interstitial) {

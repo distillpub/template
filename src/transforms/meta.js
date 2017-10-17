@@ -22,7 +22,8 @@ export default function(dom, data) {
     <meta property="article:published" itemprop="datePublished" content="${data.publishedYear}-${data.publishedMonthPadded}-${data.publishedDayPadded}" />
     <meta property="article:modified" itemprop="dateModified" content="${data.updatedDate}" />
   `);
-  data.authors.forEach((a) => {
+
+  (data.authors || []).forEach((a) => {
     appendHtml(head, `
       <meta property="article:author" content="${a.firstName} ${a.lastName}" />`);
   });
@@ -58,7 +59,7 @@ export default function(dom, data) {
     meta('citation_fulltext_html_url', data.url);
     meta('citation_volume', data.volume);
     meta('citation_issue', data.issue);
-    meta('citation_firstpage', data.doiSuffix? `e${data.doiSuffix}` : undefined);
+    meta('citation_firstpage', data.doiSuffix ? `e${data.doiSuffix}` : undefined);
     meta('citation_doi', data.doi);
 
     let journal = data.journal || {};
@@ -75,17 +76,21 @@ export default function(dom, data) {
       meta('citation_author', `${a.lastName}, ${a.firstName}`);
       meta('citation_author_institution', a.affiliation);
     });
+  } else {
+    console.warn('No DOI suffix in data; not adding citation meta tags!');
+  }
 
-    if (data.citations) {
-      data.citations.forEach(key => {
-        let d = data.bibliography[key];
-        if(!d) {
-          console.warn('No bibliography data fround for ' + key);
-        } else {
-          meta('citation_reference', citation_meta_content(data.bibliography[key]) );
-        }
-      });
-    }
+  if (data.citations) {
+    data.citations.forEach(key => {
+      if (data.bibliography && data.bibliography.has(key)) {
+        const entry = data.bibliography.get(key);
+        meta('citation_reference', citation_meta_content(entry) );
+      } else {
+        console.warn('No bibliography data found for ' + key);
+      }
+    });
+  } else {
+    console.warn('No citations found; not adding any references meta tags!');
   }
 }
 

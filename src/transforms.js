@@ -7,11 +7,11 @@ import ExtractFrontmatter from './extractors/front-matter';
 import ExtractBibliography from './extractors/bibliography';
 import ExtractCitations from './extractors/citations';
 
-const extractors = [
-  ExtractFrontmatter,
-  ExtractBibliography,
-  ExtractCitations,
-];
+const extractors = new Map([
+  ['ExtractFrontmatter', ExtractFrontmatter],
+  ['ExtractBibliography', ExtractBibliography],
+  ['ExtractCitations', ExtractCitations],
+]);
 
 /* Transforms */
 import HTML from './transforms/html';
@@ -25,43 +25,53 @@ import TOC from './transforms/toc';
 import Typeset from './transforms/typeset';
 import Bibliography from './transforms/bibliography';
 
-const transforms = [
-  HTML, makeStyleTag, Polyfills, OptionalComponents, TOC, Byline, Mathematics,
-  Meta, Typeset, Bibliography,
-];
+const transforms = new Map([
+  ['HTML', HTML],
+  ['makeStyleTag', makeStyleTag],
+  ['Polyfills', Polyfills],
+  ['OptionalComponents', OptionalComponents],
+  ['TOC', TOC],
+  ['Byline', Byline],
+  ['Mathematics', Mathematics],
+  ['Meta', Meta],
+  ['Typeset', Typeset],
+  ['Bibliography', Bibliography],
+]);
 
 /* Distill Transforms */
 import DistillHeader from './distill-transforms/distill-header';
 import DistillAppendix from './distill-transforms/distill-appendix';
 import DistillFooter from './distill-transforms/distill-footer';
 
-const distillTransforms = [
-  DistillHeader, DistillAppendix, DistillFooter,
-];
+const distillTransforms = new Map([
+  ['DistillHeader', DistillHeader],
+  ['DistillAppendix', DistillAppendix],
+  ['DistillFooter', DistillFooter],
+]);
 
 /* Exported functions */
 
-export function render(dom, data) {
+export function render(dom, data, verbose=true) {
   // first, we collect static data from the dom
-  for (const extract of extractors) {
-    console.warn('Running extractor...');
-    extract(dom, data);
+  for (const [name, extract] of extractors.entries()) {
+    if (verbose) console.warn('Running extractor: ' + name);
+    extract(dom, data, verbose);
   }
   // secondly we use it to transform parts of the dom
-  for (const transform of transforms) {
-    console.warn('Running transform...');
+  for (const [name, transform] of transforms.entries()) {
+    if (verbose) console.warn('Running transform: ' + name);
     // console.warn('Running transform: ', transform);
-    transform(dom, data);
+    transform(dom, data, verbose);
   }
   dom.body.setAttribute('distill-prerendered', '');
   // the function calling us can now use the transformed dom and filled data object
 }
 
-export function distillify(dom, data) {
+export function distillify(dom, data, verbose=true) {
   // thirdly, we can use these additional transforms when publishing on the Distill website
-  for (const transform of distillTransforms) {
-    // console.warn('Running distillify: ', transform);
-    transform(dom, data);
+  for (const [name, transform] of distillTransforms.entries()) {
+    if (verbose) console.warn('Running distillify: ', name);
+    transform(dom, data, verbose);
   }
 }
 
@@ -70,14 +80,12 @@ export function usesTemplateV2(dom) {
   let usesV2 = undefined;
   for (const tag of tags) {
     const src = tag.src;
-    if (src.includes('distill.pub')) {
-      if (src.includes('template.v1.js')) {
-        usesV2 = false;
-      } else if (src.includes('template.v2.js')) {
-        usesV2 = true;
-      } else {
-        throw new Error('Uses distill template, but unknown version?!');
-      }
+    if (src.includes('template.v1.js')) {
+      usesV2 = false;
+    } else if (src.includes('template.v2.js')) {
+      usesV2 = true;
+    } else if (src.includes('template.')) {
+      throw new Error('Uses distill template, but unknown version?!');
     }
   }
 
@@ -87,5 +95,10 @@ export function usesTemplateV2(dom) {
     return usesV2;
   }
 }
+export { FrontMatter }; // TODO: removable?
 
-export { FrontMatter };
+export const testing = {
+  extractors: extractors,
+  transforms: transforms,
+  distillTransforms: distillTransforms
+};

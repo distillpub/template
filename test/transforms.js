@@ -1,15 +1,23 @@
-/* global it, should, describe, before, beforeEach, after, afterEach */
+/* global it, describe, before, beforeEach, after, afterEach */
 
-const jsdom = require("jsdom");
+const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 
 const expect = require('chai').expect;
 const distill = require('../dist/transforms.v2.js');
 
+// omitJSDOMErrors as JSDOM routinely can't parse modern CSS
+const virtualConsole = new jsdom.VirtualConsole();
+virtualConsole.sendTo(console, { omitJSDOMErrors: true });
+const options = { runScripts: 'outside-only', QuerySelector: true, virtualConsole: virtualConsole };
+
 describe('Distill V2 (transforms)', function() {
 
-  it('should export usesTemplateV2()', function() {
+  it('should export its expected interface', function() {
+    expect(distill.testing).to.be.an('object');
     expect(distill.usesTemplateV2).to.be.a('function');
+    expect(distill.render).to.be.a('function');
+    expect(distill.distillify).to.be.a('function');
   });
 
   describe('#usesTemplateV2()', function() {
@@ -24,8 +32,13 @@ describe('Distill V2 (transforms)', function() {
       expect(distill.usesTemplateV2(frag)).to.be.true;
     });
 
+    it('should detect local scripts as well', function() {
+      const frag = JSDOM.fragment('<script src="/template.v2.js"></script>');
+      expect(distill.usesTemplateV2(frag)).to.be.true;
+    });
+
     it('should error on unknown distill script', function() {
-      const frag = JSDOM.fragment('<script src="https://distill.pub/unknown.v2.js"></script>');
+      const frag = JSDOM.fragment('<script src="https://distill.pub/template.v42.js"></script>');
       expect(()=> distill.usesTemplateV2(frag)).to.throw('unknown');
     });
 
@@ -36,18 +49,146 @@ describe('Distill V2 (transforms)', function() {
 
   });
 
-
-  it('should export render()', function() {
-    expect(distill.render).to.be.a('function');
-  });
-
   describe('#render()', function() {
 
-    it('should extract metadata');
-    it('should run transforms');
+    describe('should extract metadata', function() {
 
-  });
+      it('should extract citations', function() {
+        const dom = new JSDOM('<d-cite key="test-citation-key">sth</d-cite>', options);
+        const data = {};
+        const extractCitations = distill.testing.extractors.get('ExtractCitations');
+        expect(extractCitations).to.be.a('function');
+        extractCitations(dom.window.document, data);
+        expect(data).to.have.property('citations');
+        const citations = data.citations;
+        expect(citations).to.be.an.instanceof(Array);
+        expect(citations).to.have.lengthOf(1);
+        const citation = citations[0];
+        expect(citation).to.equal('test-citation-key');
+      });
 
+      it('should extract bibliography', function() {
+        const dom = new JSDOM(`
+          <d-cite key="mercier2011humans">sth</d-cite>
+          <d-bibliography>
+            <script type="text/bibtex">
+            @article{mercier2011humans,
+            title={Why do humans reason? Arguments for an argumentative theory},
+            author={Mercier, Hugo and Sperber, Dan},
+            journal={Behavioral and brain sciences},
+            volume={34},
+            number={02},
+            pages={57--74},
+            year={2011},
+            publisher={Cambridge Univ Press},
+            doi={10.1017/S0140525X10000968}
+            }
+            </script>
+          </d-bibliography>
+          `, options);
+        const data = {};
+        const extractBibliography = distill.testing.extractors.get('ExtractBibliography');
+        extractBibliography(dom.window.document, data);
+        expect(data.bibliography).to.be.an.instanceof(Map);
+        const entry = data.bibliography.get('mercier2011humans');
+        expect(entry).to.be.an('object');
+        expect(entry).to.have.property('year', '2011');
+      });
+
+      it('should extract front-matter');
+
+    }); // metadata
+
+    describe('should transform the DOM', function() {
+
+      it('should add Google scholar citation information', function() {
+        const dom = new JSDOM('', options);
+        const data = {
+          authors: [
+            {firstName: 'Frank', lastName: 'Underwood', affiliation: 'Google Brain', affiliationURL: 'https://g.co/brain'},
+            {firstName: 'Shan', lastName: 'Carter', affiliation: 'Google Brain', affiliationURL: 'https://g.co/brain'},
+          ],
+          doiSuffix: 'test-doi-suffix'
+        };
+        const firstAuthorName = data.authors[0].firstName + ' ' + data.authors[0].lastName;
+        const GSfirstAuthorName = data.authors[0].lastName + ', ' + data.authors[0].firstName;
+
+        const meta = distill.testing.transforms.get('Meta');
+        expect(meta).to.be.a('function');
+
+        meta(dom.window.document, data);
+        const metaTags = dom.window.document.querySelectorAll('meta');
+        expect(metaTags).to.not.be.empty;
+
+        // Google Scholar
+        const GSAuthorTags = Array.prototype.filter.call(metaTags, (tag) => {
+          return tag.name === 'citation_author';
+        });
+        expect(GSAuthorTags).to.have.lengthOf(2);
+        const GSFirstAuthorTag = GSAuthorTags[0];
+
+        expect(GSFirstAuthorTag.content).to.equal(GSfirstAuthorName);
+
+        // Schema.org Author tags
+        const SOAuthorTags = Array.prototype.filter.call(metaTags, (tag) => {
+          return tag.getAttribute('property') === 'article:author';
+        });
+        expect(SOAuthorTags).to.have.lengthOf(2);
+        const SOFirstAuthorTag = SOAuthorTags[0];
+        expect(SOFirstAuthorTag.content).to.equal(firstAuthorName);
+
+      });
+
+      it('given already correct data, it should add Google scholar references information', function() {
+        const dom = new JSDOM('', options);
+        const data = {
+          doiSuffix: 'test-doi-suffix',
+          citations: ['test-citation-key'],
+          bibliography: new Map([[
+            'test-citation-key', {
+              title: 'Why do humans reason? Arguments for an argumentative theory',
+              author: 'Mercier, Hugo and Sperber, Dan',
+              journal: 'Behavioral and brain sciences',
+              volume: 34,
+              number: 2
+            }
+          ]])
+        };
+        const meta = distill.testing.transforms.get('Meta');
+        expect(meta).to.be.a('function');
+        meta(dom.window.document, data);
+        const metaTags = [].slice.call(dom.window.document.querySelectorAll('meta[name="citation_reference"]'));
+        expect(metaTags).to.not.be.empty;
+      });
+
+      it('given only a DOM, it should add Google scholar references information', function() {
+        const dom = new JSDOM(`
+          <d-cite key="mercier2011humans">sth</d-cite>
+          <d-bibliography>
+            <script type="text/bibtex">
+            @article{mercier2011humans,
+            title={Why do humans reason? Arguments for an argumentative theory},
+            author={Mercier, Hugo and Sperber, Dan},
+            journal={Behavioral and brain sciences},
+            volume={34},
+            number={02},
+            pages={57--74},
+            year={2011},
+            publisher={Cambridge Univ Press},
+            doi={10.1017/S0140525X10000968}
+            }
+            </script>
+          </d-bibliography>
+          `, options);
+        const data = {};
+        distill.render(dom.window.document, data, false);
+        const metaTags = [].slice.call(dom.window.document.querySelectorAll('meta[name="citation_reference"]'));
+        expect(metaTags).to.not.be.empty;
+      });
+
+    });
+
+  }); // render
 
   it('should export #distillify()', function() {
     expect(distill.distillify).to.be.a('function');
@@ -61,4 +202,4 @@ describe('Distill V2 (transforms)', function() {
 
   });
 
-}); // describe 'Render'
+}); // describe 'Transform'

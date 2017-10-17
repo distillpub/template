@@ -42,6 +42,15 @@ class Author {
   }
 }
 
+export function mergeFromYMLFrontmatter(target, source) {
+  target.title = source.title;
+  target.publishedDate = new Date(source.published);
+  target.description = source.description;
+  target.authors = source.authors.map( (authorObject) => new Author(authorObject));
+  target.katex = source.katex;
+  target.password = source.password;
+}
+
 export class FrontMatter {
   constructor() {
     this.title = ''; // 'Attention and Augmented Recurrent Neural Networks'
@@ -117,15 +126,6 @@ export class FrontMatter {
   // affiliations:
   // - Google Brain:
   // - Google Brain: http://g.co/brain
-
-  mergeFromYMLFrontmatter(data) {
-    this.title = data.title;
-    this.publishedDate = new Date(data.published);
-    this.description = data.description;
-    this.authors = data.authors.map( (authorObject) => new Author(authorObject));
-    this.katex = data.katex;
-    this.password = data.password;
-  }
 
   //
   // Computed Properties

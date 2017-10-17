@@ -1,4 +1,5 @@
 import { parseFrontmatter } from '../components/d-front-matter';
+import { mergeFromYMLFrontmatter } from '../front-matter.js';
 
 export default function(dom, data) {
   const frontMatterTag = dom.querySelector('d-front-matter');
@@ -7,5 +8,5 @@ export default function(dom, data) {
     return;
   }
   const extractedData = parseFrontmatter(frontMatterTag);
-  data.mergeFromYMLFrontmatter(extractedData);
+  mergeFromYMLFrontmatter(data, extractedData);
 }
