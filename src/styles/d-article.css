@@ -51,16 +51,17 @@ d-article .marker:hover span {
 }
 
 d-article h2 {
-  grid-column-end: page-end;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 24px;
   line-height: 1.25em;
-  margin: 0 0 1rem 0;
+  margin: 2rem 0 1.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 1rem;
 }
 
 @media(min-width: 1024px) {
   d-article h2 {
-    font-size: 24px;
+    font-size: 36px;
   }
 }
 
