@@ -27,7 +27,7 @@ export function bylineTemplate(frontMatter) {
     </div>
     <div>
       <h3>Published</h3>
-      ${frontMatter.published ? `
+      ${frontMatter.publishedDate ? `
         <p>${frontMatter.publishedMonth}. ${frontMatter.publishedDay} ${frontMatter.publishedYear}</p> ` : `
         <p><em>Not yet published</em></p>`}
     </div>

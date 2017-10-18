@@ -6,9 +6,9 @@ const T = Template('distill-footer', `
 
 :host {
   display: block;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.5);
   font-weight: 300;
-  padding: 40px 0;
+  padding: 60px 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   background-color: hsl(180, 5%, 15%); /*hsl(200, 60%, 15%);*/
   text-align: left;

@@ -145,7 +145,7 @@ d-article hr {
   grid-column: screen;
   width: 100%;
   border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   margin-top: 60px;
   margin-bottom: 60px;
 }

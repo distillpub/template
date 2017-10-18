@@ -196,7 +196,7 @@ describe('Distill V2 (transforms)', function() {
         expect(content).to.not.include('journal');
       });
 
-      it('given only a DOM, it should add Google scholar references information', function() {
+      it('given only a DOM (and publish data), it should add Google scholar references information', function() {
         const dom = new JSDOM(`
           <d-cite key="mercier2011humans">sth</d-cite>
           <d-bibliography>
@@ -215,7 +215,7 @@ describe('Distill V2 (transforms)', function() {
             </script>
           </d-bibliography>
           `, options);
-        const data = {};
+        const data = { publishedDate: new Date(), updatedDate: new Date() };
         distill.render(dom.window.document, data, false);
         const metaTags = [].slice.call(dom.window.document.querySelectorAll('meta[name="citation_reference"]'));
         expect(metaTags).to.not.be.empty;

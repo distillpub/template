@@ -13,6 +13,23 @@ const RFC = function(date) {
   return `${day}, ${paddedDate} ${month} ${year} ${hours}:${minutes}:${seconds} Z`;
 };
 
+const objectFromMap = function(map) {
+  const object = Array.from(map).reduce((object, [key, value]) => (
+    Object.assign(object, { [key]: value }) // Be careful! Maps can have non-String keys; object literals can't.
+  ), {});
+  return object;
+};
+
+const mapFromObject = function(object) {
+  const map = new Map();
+  for (var property in object) {
+    if (object.hasOwnProperty(property)) {
+      map.set(property, object[property]);
+    }
+  }
+  return map;
+};
+
 class Author {
 
   // constructor(name='', personalURL='', affiliation='', affiliationURL='') {
@@ -44,7 +61,20 @@ class Author {
 
 export function mergeFromYMLFrontmatter(target, source) {
   target.title = source.title;
-  target.publishedDate = new Date(source.published);
+  if (source.published) {
+    if (source.published instanceof Date) {
+      target.publishedDate = source.published;
+    } else if (source.published.constructor === String) {
+      target.publishedDate = new Date(source.published);
+    }
+  }
+  if (source.publishedDate) {
+    if (source.publishedDate instanceof Date) {
+      target.publishedDate = source.publishedDate;
+    } else if (source.publishedDate.constructor === String) {
+      target.publishedDate = new Date(source.publishedDate);
+    }
+  }
   target.description = source.description;
   target.authors = source.authors.map( (authorObject) => new Author(authorObject));
   target.katex = source.katex;
@@ -103,7 +133,6 @@ export class FrontMatter {
     //  }
     //  volume: 1,
     //  issue: 9,
-    this.publishedDate = new Date();
 
     this.katex = {};
 
@@ -228,6 +257,44 @@ export class FrontMatter {
       const entry = this.bibliography.get(citationKey);
       return [citationKey, entry];
     }));
+  }
+
+  set bibliography(bibliography) {
+    if (bibliography instanceof Map) {
+      this._bibliography = bibliography;
+    } else if (typeof bibliography === 'object') {
+      this._bibliography = mapFromObject(bibliography);
+    }
+  }
+
+  get bibliography() {
+    return this._bibliography;
+  }
+
+  static fromObject(source) {
+    const frontMatter = new FrontMatter();
+    Object.assign(frontMatter, source);
+    return frontMatter;
+  }
+
+  assignToObject(target) {
+    Object.assign(target, this);
+    target.bibliography = objectFromMap(this.bibliographyEntries);
+    target.url = this.url;
+    target.githubUrl = this.githubUrl;
+    target.previewURL = this.previewURL;
+    target.volume = this.volume;
+    target.issue = this.issue;
+    target.publishedDateRFC = this.publishedDateRFC;
+    target.publishedYear = this.publishedYear;
+    target.publishedMonth = this.publishedMonth;
+    target.publishedDay = this.publishedDay;
+    target.publishedMonthPadded = this.publishedMonthPadded;
+    target.publishedDayPadded = this.publishedDayPadded;
+    target.updatedDateRFC = this.updatedDateRFC;
+    target.concatenatedAuthors = this.concatenatedAuthors;
+    target.bibtexAuthors = this.bibtexAuthors;
+    target.slug = this.slug;
   }
 
 }
