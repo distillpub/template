@@ -3,20 +3,16 @@ import style from '../styles/d-byline.css';
 export function bylineTemplate(frontMatter) {
   return `
   <div class="byline grid">
-    <div class="authors">
+    <div class="authors-affiliations grid">
       <h3>Authors</h3>
+      <h3>Affiliations</h3>
       ${frontMatter.authors.map(author => `
         <p>
           ${author.personalURL
             ? `<a class="name" href="${author.personalURL}">${author.name}</a>`
             : `<div class="name">${author.name}</div>`
           }
-        </pdiv>
-      `).join("")}
-    </div>
-    <div class="affiliations">
-      <h3>Affiliations</h3>
-      ${frontMatter.authors.map(author => `
+        </p>
         <p>
           ${author.affiliationURL
             ? `<a class="affiliation" href="${author.affiliationURL}">${author.affiliation}</a>`

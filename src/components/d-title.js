@@ -4,17 +4,17 @@ const T = Template('d-title', `
 <style>
 
   :host {
-    padding-top: 1rem;
+    padding: 4rem 0 1.5rem;
     contain: content;
     display: block;
   }
 
   ::slotted(h1) {
     grid-column: text;
-    font-size: 50px;
-    font-weight: 700;
+    font-size: 60px;
+    font-weight: 600;
     line-height: 1.05em;
-    margin: 0 0 0.5rem;
+    margin: 0 0 1rem;
   }
 
   ::slotted(p) {
