@@ -8,12 +8,17 @@ d-byline {
 }
 
 d-byline .byline {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 2fr 1fr 1fr;
   grid-column: text;
 }
 
+d-byline .authors-affiliations {
+  grid-template-columns: 1fr 1fr;
+
+}
+
 d-byline h3 {
-  font-size: 0.55rem;
+  font-size: 0.6rem;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.5);
   margin: 0;
