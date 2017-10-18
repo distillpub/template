@@ -121,6 +121,7 @@ export class Slider extends T(HTMLElement) {
 
 
   connectedCallback() {
+    this.connected = true;
     this.setAttribute("role", "slider");
     // Makes the element tab-able.
     if (!this.hasAttribute("tabindex")) { this.setAttribute("tabindex", 0); }
@@ -194,7 +195,11 @@ export class Slider extends T(HTMLElement) {
       this.max = +newValue;
       this.setAttribute("aria-valuemax", this.max);
     }
-    if (attr == "value") this.value = +newValue;
+    if (attr == "value") {
+      console.log("value update")
+      this.update(+newValue);
+
+    }
     if (attr == "step") {
       if (newValue > 0) {
         this.step = +newValue;
@@ -270,8 +275,10 @@ export class Slider extends T(HTMLElement) {
     }
     v = this.validateValueRange(this.min, this.max, v);
     if (this.value !== v) {
-      this.knob.style.left = this.scale(v) * 100 + "%";
-      this.trackFill.style.width = this.scale(v) * 100 + "%";
+      if (this.connected) {
+        this.knob.style.left = this.scale(v) * 100 + "%";
+        this.trackFill.style.width = this.scale(v) * 100 + "%";
+      }
       this.value = v;
       this.setAttribute("aria-valuenow", this.value);
       this.dispatchInput();
