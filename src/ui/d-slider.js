@@ -140,6 +140,7 @@ export class Slider extends T(HTMLElement) {
     this.max = this.max ? this.max : 100;
     this.scale = scaleLinear().domain([this.min, this.max]).range([0, 1]).clamp(true);
 
+    this.origin = this.origin !== undefined ? this.origin : this.min;
     this.step = this.step ? this.step : 1;
     this.update(this.value ? this.value : 0);
 
@@ -175,16 +176,10 @@ export class Slider extends T(HTMLElement) {
       this.background.classList.remove("focus");
     });
     this.addEventListener("keydown", this.onKeyDown);
-    this.addEventListener("focus", () => {
-      console.log("focus");
-    });
-    this.addEventListener("blur", () => {
-      console.log("blur");
-    });
 
   }
 
-  static get observedAttributes() {return ["min", "max", "value", "step", "ticks"]; }
+  static get observedAttributes() {return ["min", "max", "value", "step", "ticks", "origin", "tickValues", "tickLabels"]; }
 
   attributeChangedCallback(attr, oldValue, newValue) {
     if (attr == "min") {
@@ -196,9 +191,11 @@ export class Slider extends T(HTMLElement) {
       this.setAttribute("aria-valuemax", this.max);
     }
     if (attr == "value") {
-      console.log("value update")
       this.update(+newValue);
-
+    }
+    if (attr == "origin") {
+      this.origin = +newValue;
+      this.update(this.value);
     }
     if (attr == "step") {
       if (newValue > 0) {
@@ -274,11 +271,12 @@ export class Slider extends T(HTMLElement) {
       v = this.quantizeValue(value, this.step);
     }
     v = this.validateValueRange(this.min, this.max, v);
+    if (this.connected) {
+      this.knob.style.left = this.scale(v) * 100 + "%";
+      this.trackFill.style.width = this.scale(this.min + Math.abs(v - this.origin)) * 100 + "%";
+      this.trackFill.style.left = this.scale(Math.min(v, this.origin)) * 100 + "%";
+    }
     if (this.value !== v) {
-      if (this.connected) {
-        this.knob.style.left = this.scale(v) * 100 + "%";
-        this.trackFill.style.width = this.scale(v) * 100 + "%";
-      }
       this.value = v;
       this.setAttribute("aria-valuenow", this.value);
       this.dispatchInput();
@@ -301,7 +299,9 @@ export class Slider extends T(HTMLElement) {
     const ticksContainer = this.root.querySelector(".ticks");
     if (this.ticks !== false) {
       let tickData = [];
-      if (this.step === "any") {
+      if (this.ticks > 0) {
+        tickData = this.scale.ticks(this.ticks);
+      } else if (this.step === "any") {
         tickData = this.scale.ticks();
       } else {
         tickData = range(this.min, this.max + 1e-6, this.step);
