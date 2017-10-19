@@ -52,7 +52,12 @@ const distillTransforms = new Map([
 /* Exported functions */
 
 export function render(dom, data, verbose=true) {
-  const frontMatter = FrontMatter.fromObject(data);
+  let frontMatter;
+  if (data instanceof FrontMatter) {
+    frontMatter = data;
+  } else {
+    frontMatter = FrontMatter.fromObject(data);
+  }
   // first, we collect static data from the dom
   for (const [name, extract] of extractors.entries()) {
     if (verbose) console.warn('Running extractor: ' + name);
@@ -66,7 +71,11 @@ export function render(dom, data, verbose=true) {
   }
   dom.body.setAttribute('distill-prerendered', '');
   // the function calling us can now use the transformed dom and filled data object
-  frontMatter.assignToObject(data);
+  if (data instanceof FrontMatter) {
+    // frontMatter will already have needed properties
+  } else {
+    frontMatter.assignToObject(data);
+  }
 }
 
 export function distillify(dom, data, verbose=true) {

@@ -4,80 +4,81 @@ import logo from '../assets/distill-logo.svg';
 
 const T = Template('distill-header', `
 <style>
-:host {
-  box-sizing: border-box;
-  display: block;
-  top: 0;
-  left: 0;
+distill-header {
+  position: relative;
+  height: 60px;
+  background-color: hsl(200, 60%, 15%);
   width: 100%;
-  z-index: ${1e6};
+  box-sizing: border-box;
+  z-index: 2;
   color: rgba(0, 0, 0, 0.8);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  contain: content;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
 }
-
-.content > * {
-  line-height: 30px;
-  font-size: 14px;
-  padding: 3px 7px;
-  margin: 8px 0;
+distill-header .content {
+  height: 70px;
+  grid-column: page;
 }
-
-.name {
-  grid-column-end: span 8;
-  font-weight: 500;
-  border-radius: 3px;
-  font-size: 18px;
-  letter-spacing: -0.05em;
-}
-
-.content a {
-  font-size: 12px;
+distill-header a {
+  font-size: 16px;
+  height: 60px;
+  line-height: 60px;
   text-decoration: none;
-  color: black;
-  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 22px 0;
 }
-svg {
-  display: none;
-  background-color: hsl(0, 0%, 15%);
-  padding: 8px;
-  border-radius: 6px;
+distill-header a:hover {
+  color: rgba(255, 255, 255, 1);
+}
+distill-header svg {
   width: 24px;
   position: relative;
+  top: 4px;
   margin-right: 2px;
 }
-svg path {
-  fill: white;
-  stroke: rgba(255, 255, 255, 1.0);
+@media(min-width: 1080px) {
+  distill-header {
+    height: 70px;
+  }
+  distill-header a {
+    height: 70px;
+    line-height: 70px;
+    padding: 28px 0;
+  }
+  distill-header .logo {
+  }
+}
+distill-header svg path {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.8);
   stroke-width: 3px;
 }
-.content {
-  grid-column: page;
-  grid-template-columns: repeat(12, 1fr);
-  display: grid;
-  grid-column-gap: 40px;
-}
-.logo {
-  display: none;
+distill-header .logo {
   font-size: 17px;
   font-weight: 200;
 }
-
+distill-header .nav {
+  float: right;
+  font-weight: 300;
+}
+distill-header .nav a {
+  font-size: 12px;
+  margin-left: 24px;
+  text-transform: uppercase;
+}
 </style>
-
-<div class="content grid">
+<div class="content">
   <a href="/" class="logo">
     ${logo}
-  </a>
-  <div class='name'>
     Distill
+  </a>
+  <div class="nav">
+    <a href="/about/">About</a>
+    <a href="/prize/">Prize</a>
+    <a href="/journal/">Submit</a>
   </div>
-  <a href="/faq">Latest</a>
-  <a href="/faq">About</a>
-  <a href="/faq">Prize</a>
-  <a href="/faq">Submit</a>
 </div>
-`);
+`, false);
 
 // <div class="nav">
 //   <a href="https://github.com/distillpub">GitHub</a>

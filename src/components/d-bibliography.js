@@ -1,9 +1,16 @@
 import { parseBibtex } from '../helpers/bibtex';
 
 export function parseBibliography(element) {
-  if (element.firstElementChild && element.firstElementChild.tagName === 'SCRIPT') {
-    const bibtex = element.firstElementChild.textContent;
-    return parseBibtex(bibtex);
+  const scriptTag = element.firstElementChild;
+  if (scriptTag && scriptTag.tagName === 'SCRIPT') {
+    if (scriptTag.type == 'text/bibtex') {
+      const bibtex = element.firstElementChild.textContent;
+      return parseBibtex(bibtex);
+    } else if (scriptTag.type == 'text/json') {
+      return new Map(JSON.parse(scriptTag.textContent));
+    } else {
+      console.warn('Unsupported bibliography script tag type: ' + scriptTag.type);
+    }
   }
 }
 

@@ -143,7 +143,7 @@ export class FrontMatter {
     //  githubCompareUpdatesUrl: 'https://github.com/distillpub/post--augmented-rnns/compare/1596e094d8943d2dc0ea445d92071129c6419c59...3bd9209e0c24d020f87cf6152dcecc6017cbc193',
     //  updatedDate: 2017-03-21T07:13:16.000Z,
     //  doi: '10.23915/distill.00001',
-
+    this.publishedDate = undefined;
   }
 
   // Example:
@@ -176,7 +176,11 @@ export class FrontMatter {
 
   // 'https://github.com/distillpub/post--augmented-rnns',
   get githubUrl() {
-    return 'https://github.com/' + this.githubPath;
+    if (this.githubPath) {
+      return 'https://github.com/' + this.githubPath;
+    } else {
+      return undefined;
+    }
   }
 
   // TODO resolve differences in naming of URL/Url/url.

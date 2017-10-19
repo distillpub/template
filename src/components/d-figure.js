@@ -166,7 +166,6 @@ if (typeof window !== 'undefined') {
     clearTimeout(timeout);
     timeout = setTimeout(() => {
       Figure.isScrolling = false;
-      console.log('Stopped Scrolling')
       Figure.runReadyQueue();
     }, 500);
   };

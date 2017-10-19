@@ -1,3 +1,10 @@
+/* Flag that we're being loaded */
+if (window.distillLoaded) {
+  throw new Error('Distill Template is getting loaded more than once, aborting!');
+} else {
+  window.distillLoaded = true;
+}
+
 /* Static styles and other modules */
 import { makeStyleTag } from './styles/styles';
 makeStyleTag(document);
@@ -20,8 +27,7 @@ import { References }   from './components/d-references';
 import { TOC }          from './components/d-toc';
 import { Figure }       from './components/d-figure';
 import { Interstitial } from './components/d-interstitial';
-
-import { Slider }           from './ui/d-slider';
+import { Slider }       from './ui/d-slider';
 
 const components = [
   Abstract, Appendix, Article, Bibliography, Byline, Cite, CitationList, Code,

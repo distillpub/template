@@ -9,17 +9,21 @@
 
 export default function(dom, data) {
   const article = dom.querySelector('d-article');
-
   if (!article) {
-    console.warn('No d-article tag found!');
+    console.warn('No d-article tag found; skipping adding optional components!');
     return;
   }
 
+  const hasPassword = typeof data.password !== 'undefined';
   let interstitial = dom.querySelector('d-interstitial');
-  if (!interstitial && data.password) {
-    interstitial = dom.createElement('d-interstitial');
-    interstitial.password = data.password;
-    dom.body.insertBefore(interstitial, dom.body.firstChild);
+  if (hasPassword && !interstitial) {
+    const inBrowser = typeof window !== 'undefined';
+    const onLocalhost = inBrowser && window.location.hostname.includes('localhost');
+    if (!inBrowser || !onLocalhost) {
+      interstitial = dom.createElement('d-interstitial');
+      interstitial.password = data.password;
+      dom.body.insertBefore(interstitial, dom.body.firstChild);
+    }
   }
 
   // let h1 = dom.querySelector('h1');
