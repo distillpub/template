@@ -33,15 +33,19 @@ export class DMath extends Mutating(T(HTMLElement)) {
 
   static set katexOptions(options) {
     DMath._katexOptions = options;
-    if (DMath.katexOptions.delimiters && !DMath.katexAdded) {
-      DMath.addKatex();
+    if (DMath.katexOptions.delimiters) {
+      if (!DMath.katexAdded) {
+        DMath.addKatex();
+      } else {
+        DMath.katexLoadedCallback();
+      }
     }
   }
 
   static get katexOptions() {
     if (!DMath._katexOptions) {
       DMath._katexOptions = {
-        delimiters: [ { 'left':'$', 'right':'$', 'display':true } ]
+        delimiters: [ { 'left':'$$', 'right':'$$', 'display': false } ]
       };
     }
     return DMath._katexOptions;

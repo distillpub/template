@@ -8,10 +8,11 @@ d-appendix {
   contain: content;
   font-size: 0.8em;
   line-height: 1.7em;
+  margin-top: 60px;
   margin-bottom: 0;
-  border-top: 1px solid rgba(0,0,0,0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   color: rgba(0,0,0,0.5);
-  padding-top: 36px;
+  padding-top: 60px;
   padding-bottom: 48px;
 }
 
@@ -29,8 +30,14 @@ d-appendix h3 + * {
 }
 
 d-appendix ol {
-  padding: 0 0 0 30px;
-  margin-left: -30px;
+  padding: 0 0 0 15px;
+}
+
+@media (min-width: 768px) {
+  d-appendix ol {
+    padding: 0 0 0 30px;
+    margin-left: -30px;
+  }
 }
 
 d-appendix li {

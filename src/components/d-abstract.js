@@ -4,7 +4,6 @@ import { body } from '../helpers/layout';
 const T = Template('d-abstract', `
 <style>
   :host {
-    display: block;
     font-size: 1.25rem;
     line-height: 1.6em;
     color: rgba(0, 0, 0, 0.7);

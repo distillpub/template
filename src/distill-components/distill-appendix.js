@@ -30,21 +30,39 @@ const styles = `
 `;
 
 export function appendixTemplate(frontMatter) {
-  return `
-  ${styles}
+  let html = styles;
 
-  <h3 id="updates-and-corrections">Updates and Corrections</h3>
-  <p><a href="">View all changes</a> to this article since it was first published. If you see mistakes or want to suggest changes, please <a href="${frontMatter.githubUrl + '/issues/new'}">create an issue on GitHub</a>. </p>
+  if (typeof frontMatter.githubUrl !== 'undefined') {
+    html += `
+    <h3 id="updates-and-corrections">Updates and Corrections</h3>
+    <p>`;
+    if (frontMatter.githubCompareUpdatesUrl) {
+      html += `<a href="${frontMatter.githubCompareUpdatesUrl}">View all changes</a> to this article since it was first published.`;
+    }
+    html += `
+    If you see mistakes or want to suggest changes, please <a href="${frontMatter.githubUrl + '/issues/new'}">create an issue on GitHub</a>. </p>
+    `;
+  }
 
-  <h3 id="reuse">Reuse</h3>
-  <p>Diagrams and text are licensed under Creative Commons Attribution <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> with the <a class="github" href="${frontMatter.githubUrl}">source available on GitHub</a>, unless noted otherwise. The figures that have been reused from other sources don’t fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>
+  const journal = frontMatter.journal;
+  if (typeof journal !== 'undefined' && journal.title === 'Distill') {
+    html += `
+    <h3 id="reuse">Reuse</h3>
+    <p>Diagrams and text are licensed under Creative Commons Attribution <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> with the <a class="github" href="${frontMatter.githubUrl}">source available on GitHub</a>, unless noted otherwise. The figures that have been reused from other sources don’t fall under this license and can be recognized by a note in their caption: “Figure from …”.</p>
+    `;
+  }
 
-  <h3 id="citation">Citation</h3>
-  <p>For attribution in academic contexts, please cite this work as</p>
-  <pre class="citation short">${frontMatter.concatenatedAuthors}, "${frontMatter.title}", Distill, ${frontMatter.publishedYear}.</pre>
-  <p>BibTeX citation</p>
-  <pre class="citation long">${serializeFrontmatterToBibtex(frontMatter)}</pre>
-  `;
+  if (typeof frontMatter.publishedDate !== 'undefined') {
+    html += `
+    <h3 id="citation">Citation</h3>
+    <p>For attribution in academic contexts, please cite this work as</p>
+    <pre class="citation short">${frontMatter.concatenatedAuthors}, "${frontMatter.title}", Distill, ${frontMatter.publishedYear}.</pre>
+    <p>BibTeX citation</p>
+    <pre class="citation long">${serializeFrontmatterToBibtex(frontMatter)}</pre>
+    `;
+  }
+
+  return html;
 }
 
 export class DistillAppendix extends HTMLElement {

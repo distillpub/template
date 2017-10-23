@@ -52,6 +52,17 @@ p {
   margin-bottom: 1em;
 }
 
+sup, sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+  line-height: 1em;
+}
+
+sub {
+  top: 0.4em;
+}
+
 .kicker,
 .marker {
   font-size: 15px;
@@ -72,7 +83,12 @@ p {
 
 figure {
   position: relative;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5em;
+  margin-top: 2.5em;
+}
+
+figcaption+figure {
+
 }
 
 figure img {

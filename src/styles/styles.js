@@ -17,7 +17,8 @@ export function makeStyleTag(dom) {
     styleTag.type = 'text/css';
     const cssTextTag = dom.createTextNode(styles);
     styleTag.appendChild(cssTextTag);
-    dom.head.insertBefore(styleTag, dom.head.firstChild);
+    const firstScriptTag = dom.head.querySelector('script');
+    dom.head.insertBefore(styleTag, firstScriptTag);
   }
 
 }

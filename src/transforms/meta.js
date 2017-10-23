@@ -14,16 +14,28 @@ export default function(dom, data) {
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <link rel="icon" type="image/png" href="data:image/png;base64,${favicon}">
     <link href="/rss.xml" rel="alternate" type="application/rss+xml" title="Articles from Distill">
-    <link rel="canonical" href="${data.url}">
-    <title>${data.title}</title>
   `);
 
-  appendHead(`
+  if (data.url) {
+    appendHead(`
+    <link rel="canonical" href="${data.url}">
+    `);
+  }
+
+  if (data.title) {
+    appendHead(`
+    <title>${data.title}</title>
+    `);
+  }
+
+  if (data.publishedDate){
+    appendHead(`
     <!--  https://schema.org/Article -->
     <meta property="article:published" itemprop="datePublished" content="${data.publishedYear}-${data.publishedMonthPadded}-${data.publishedDayPadded}" />
     <meta property="article:created"   itemprop="dateCreated"   content="${data.publishedDate}" />
     <meta property="article:modified"  itemprop="dateModified"  content="${data.updatedDate}" />
-  `);
+    `);
+  }
 
   (data.authors || []).forEach((a) => {
     appendHtml(head, `

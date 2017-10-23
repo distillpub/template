@@ -26,14 +26,18 @@ const T = Template('d-interstitial', `
 
 .container {
   position: relative;
-  left: 25%;
-  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 420px;
+  padding: 2em;
 }
 
 h1 {
   text-decoration: underline;
   text-decoration-color: hsl(0,100%,40%);
+  -webkit-text-decoration-color: hsl(0,100%,40%);
   margin-bottom: 1em;
+  line-height: 1.5em;
 }
 
 input[type="password"] {
@@ -71,12 +75,31 @@ p small {
   color: #888;
 }
 
+.logo {
+  position: relative;
+  font-size: 1.5em;
+  margin-bottom: 3em;
+}
+
+.logo svg {
+  width: 36px;
+  position: relative;
+  top: 6px;
+  margin-right: 2px;
+}
+
+.logo svg path {
+  fill: none;
+  stroke: black;
+  stroke-width: 2px;
+}
+
 </style>
 
 <div class="overlay">
   <div class="container">
     <h1>This article is in review.</h1>
-    <p>Do not share this URL, or the contents of this article. Thank you!</p>
+    <p>Do not share this URL or the contents of this article. Thank you!</p>
     <input id="interstitial-password-input" type="password" name="password" autofocus/>
     <p><small>Enter the password we shared with you as part of the review process to view the article.</small></p>
   </div>
@@ -88,14 +111,23 @@ export class Interstitial extends T(HTMLElement) {
   connectedCallback() {
     const passwordInput = this.root.querySelector('#interstitial-password-input');
     passwordInput.oninput = (event) => this.passwordChanged(event);
+    if (typeof(Storage) !== 'undefined') {
+      if (localStorage.getItem('distill-interstitial-password-correct') === 'true') {
+        console.log('Loaded that correct password was entered before; skipping interstitial.');
+        this.parentElement.removeChild(this);
+      }
+    }
   }
 
   passwordChanged(event) {
     const entered = event.target.value;
     if (entered === this.password) {
       console.log('Correct password entered.');
-      event.target.classList.add('correct');
       this.parentElement.removeChild(this);
+      if (typeof(Storage) !== 'undefined') {
+        console.log('Saved that correct password was entered.');
+        localStorage.setItem('distill-interstitial-password-correct', 'true');
+      }
     }
   }
 

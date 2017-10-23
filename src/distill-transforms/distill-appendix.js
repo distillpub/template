@@ -1,4 +1,6 @@
-export default function(dom) {
+import { appendixTemplate } from '../distill-components/distill-appendix';
+
+export default function(dom, data) {
 
   const appendixTag = dom.querySelector('d-appendix');
   if (!appendixTag) {
@@ -9,6 +11,7 @@ export default function(dom) {
   if (!distillAppendixTag) {
     const distillAppendix = dom.createElement('distill-appendix');
     appendixTag.appendChild(distillAppendix);
+    distillAppendix.innerHTML = appendixTemplate(data);
   }
 
 }

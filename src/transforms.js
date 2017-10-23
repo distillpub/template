@@ -16,26 +16,26 @@ const extractors = new Map([
 /* Transforms */
 import HTML from './transforms/html';
 import Byline from './transforms/byline';
-import Polyfills from './transforms/polyfills';
 import OptionalComponents from './transforms/optional-components';
 import Mathematics from './transforms/mathematics';
 import Meta from './transforms/meta';
 import { makeStyleTag } from './styles/styles';
 import TOC from './transforms/toc';
 import Typeset from './transforms/typeset';
-import Bibliography from './transforms/bibliography';
+import Polyfills from './transforms/polyfills';
+import CitationList from './transforms/citation-list';
 
 const transforms = new Map([
   ['HTML', HTML],
   ['makeStyleTag', makeStyleTag],
-  ['Polyfills', Polyfills],
   ['OptionalComponents', OptionalComponents],
   ['TOC', TOC],
   ['Byline', Byline],
   ['Mathematics', Mathematics],
   ['Meta', Meta],
   ['Typeset', Typeset],
-  ['Bibliography', Bibliography],
+  ['Polyfills', Polyfills],
+  ['CitationList', CitationList],
 ]);
 
 /* Distill Transforms */
@@ -52,19 +52,30 @@ const distillTransforms = new Map([
 /* Exported functions */
 
 export function render(dom, data, verbose=true) {
+  let frontMatter;
+  if (data instanceof FrontMatter) {
+    frontMatter = data;
+  } else {
+    frontMatter = FrontMatter.fromObject(data);
+  }
   // first, we collect static data from the dom
   for (const [name, extract] of extractors.entries()) {
     if (verbose) console.warn('Running extractor: ' + name);
-    extract(dom, data, verbose);
+    extract(dom, frontMatter, verbose);
   }
   // secondly we use it to transform parts of the dom
   for (const [name, transform] of transforms.entries()) {
     if (verbose) console.warn('Running transform: ' + name);
     // console.warn('Running transform: ', transform);
-    transform(dom, data, verbose);
+    transform(dom, frontMatter, verbose);
   }
   dom.body.setAttribute('distill-prerendered', '');
   // the function calling us can now use the transformed dom and filled data object
+  if (data instanceof FrontMatter) {
+    // frontMatter will already have needed properties
+  } else {
+    frontMatter.assignToObject(data);
+  }
 }
 
 export function distillify(dom, data, verbose=true) {

@@ -14,9 +14,6 @@ export class Article extends HTMLElement {
       for (const mutation of mutations) {
         for (const addedNode of mutation.addedNodes) {
           switch (addedNode.nodeName) {
-          // case 'HR':
-          //   console.warn('Use of <hr> tags in distill articles is discouraged as they interfere with layout! To separate sections, please just use h2 or h3 tags.');
-          //   break;
           case '#text': { // usually text nodes are only linebreaks.
             const text = addedNode.nodeValue;
             if (!isOnlyWhitespace.test(text)) {
@@ -34,6 +31,12 @@ export class Article extends HTMLElement {
   }
 
   connectedCallback() {
+    document.onreadystatechange = function () {
+      console.log("onreadystatechange:");
+      console.log(document.readyState);
+    };
+    console.info('Article tag connected, we can now listen to controller events.');
+    console.info('Runlevel 3->4.');
     for (const [functionName, callback] of Object.entries(Controller.listeners)) {
       if (typeof callback === 'function') {
         document.addEventListener(functionName, callback);

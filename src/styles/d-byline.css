@@ -41,9 +41,10 @@ d-article d-byline a:hover {
   border-bottom: none;
 }
 
-d-byline .authors p {
-  font-weight: 600;
+d-byline p.author {
+  font-weight: 500;
 }
+
 d-byline .affiliations {
 
 }

@@ -42,5 +42,6 @@ export default function render(dom) {
   polyfillScriptTag.id = 'polyfills';
 
   // insert at appropriate position--before any other script tag
-  dom.head.insertBefore(polyfillScriptTag, dom.head.firstChild);
+  const firstScriptTag = dom.head.querySelector('script');
+  dom.head.insertBefore(polyfillScriptTag, firstScriptTag);
 }

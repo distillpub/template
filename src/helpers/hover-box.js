@@ -41,7 +41,7 @@ export class HoverBox {
       this.stopTimeout();
     });
     this.div.addEventListener('mouseout', () => {
-      this.extendTimeout(250);
+      this.extendTimeout(500);
     });
     // Don't trigger body touchstart event when touching within box
     this.div.addEventListener('touchstart', (event) => {
@@ -62,7 +62,7 @@ export class HoverBox {
     });
 
     node.addEventListener('mouseout', () => {
-      this.extendTimeout(250);
+      this.extendTimeout(500);
     });
 
     node.addEventListener('touchstart', (event) => {

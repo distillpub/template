@@ -71,6 +71,7 @@ export const Controller = {
     },
 
     onBibliographyChanged(event) {
+      console.info('BibliographyChanged');
       const citationListTag = document.querySelector('d-citation-list');
       const bibliography = event.detail;
 
@@ -136,7 +137,12 @@ export const Controller = {
     },
 
     DOMContentLoaded() {
-      // console.debug('DOMContentLoaded.');
+      if (Controller.loaded || ['interactive', 'complete'].indexOf(document.readyState) === -1) {
+        return;
+      } else {
+        Controller.loaded = true;
+        console.log('Controller running DOMContentLoaded')
+      }
 
       const frontMatterTag = document.querySelector('d-front-matter');
       const data = parseFrontmatter(frontMatterTag);
@@ -147,6 +153,12 @@ export const Controller = {
       frontMatter.citationsCollected = true;
       for (const waitingCallback of Controller.waitingOn.citations.slice()) {
         waitingCallback();
+      }
+
+      if (frontMatter.bibliographyParsed) {
+        for (const waitingCallback of Controller.waitingOn.bibliography.slice()) {
+          waitingCallback();
+        }
       }
 
       const footnotesList = document.querySelector('d-footnote-list');
