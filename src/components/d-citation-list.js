@@ -1,9 +1,6 @@
-import { Template } from '../mixins/template';
 import { bibliography_cite } from '../helpers/citation';
 
-const T = Template('d-citation-list', `
-<style>
-
+const styles = `
 d-citation-list {
   contain: content;
   overflow: hidden;
@@ -16,21 +13,32 @@ d-citation-list .references {
 d-citation-list .references .title {
   font-weight: 500;
 }
+`;
 
-</style>
-
-<h3>References</h3>
-<ol class='references' id='references-list'></ol>
-`, false);
-
-export function renderCitationList(element, entries) {
+export function renderCitationList(element, entries, dom=document) {
   if (entries.size > 0) {
     element.style.display = '';
-    const list = document.getElementById('references-list');
-    list.innerHTML = '';
+    let list = element.querySelector('.references');
+    if (list) {
+      list.innerHTML = '';
+    } else {
+      const stylesTag = dom.createElement('style');
+      stylesTag.innerHTML = styles;
+      element.appendChild(stylesTag);
+
+      const heading = dom.createElement('h3');
+      heading.id = 'references';
+      heading.textContent = 'References';
+      element.appendChild(heading);
+
+      list = dom.createElement('ol');
+      list.id = 'references-list';
+      list.className = 'references';
+      element.appendChild(list);
+    }
 
     for (const [key, entry] of entries) {
-      const listItem = document.createElement('li');
+      const listItem = dom.createElement('li');
       listItem.id = key;
       listItem.innerHTML = bibliography_cite(entry);
       list.appendChild(listItem);
@@ -40,16 +48,16 @@ export function renderCitationList(element, entries) {
   }
 }
 
-export class CitationList extends T(HTMLElement) {
+export class CitationList extends HTMLElement {
+
+  static get is() { return 'd-citation-list'; }
 
   connectedCallback() {
-    super.connectedCallback();
-
-    this.root.style.display = 'none';
+    this.style.display = 'none';
   }
 
   set citations(citations) {
-    renderCitationList(this.root, citations);
+    renderCitationList(this, citations);
   }
 
 }

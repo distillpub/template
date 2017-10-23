@@ -11,6 +11,8 @@ export function parseBibliography(element) {
     } else {
       console.warn('Unsupported bibliography script tag type: ' + scriptTag.type);
     }
+  } else {
+    console.warn('Bibliography did not have any script tag.');
   }
 }
 

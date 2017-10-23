@@ -35,7 +35,12 @@ export function appendixTemplate(frontMatter) {
   if (typeof frontMatter.githubUrl !== 'undefined') {
     html += `
     <h3 id="updates-and-corrections">Updates and Corrections</h3>
-    <p><a href="">View all changes</a> to this article since it was first published. If you see mistakes or want to suggest changes, please <a href="${frontMatter.githubUrl + '/issues/new'}">create an issue on GitHub</a>. </p>
+    <p>`;
+    if (frontMatter.githubCompareUpdatesUrl) {
+      html += `<a href="${frontMatter.githubCompareUpdatesUrl}">View all changes</a> to this article since it was first published.`;
+    }
+    html += `
+    If you see mistakes or want to suggest changes, please <a href="${frontMatter.githubUrl + '/issues/new'}">create an issue on GitHub</a>. </p>
     `;
   }
 

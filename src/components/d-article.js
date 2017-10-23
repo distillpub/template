@@ -31,6 +31,12 @@ export class Article extends HTMLElement {
   }
 
   connectedCallback() {
+    document.onreadystatechange = function () {
+      console.log("onreadystatechange:");
+      console.log(document.readyState);
+    };
+    console.info('Article tag connected, we can now listen to controller events.');
+    console.info('Runlevel 3->4.');
     for (const [functionName, callback] of Object.entries(Controller.listeners)) {
       if (typeof callback === 'function') {
         document.addEventListener(functionName, callback);

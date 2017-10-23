@@ -10,6 +10,7 @@ const T = Template('d-cite', `
 }
 
 .citation {
+  display: inline-block;
   color: hsla(206, 90%, 20%, 0.7);
 }
 
@@ -39,6 +40,7 @@ figcaption .citation-number {
   width: 100%;
   left: 0;
   z-index: 10000;
+  margin-top: 2em;
 }
 
 .dt-hover-box {
@@ -59,7 +61,7 @@ figcaption .citation-number {
   <div id="hover-box" class="dt-hover-box"></div>
 </div>
 
-<span id="citation-" class="citation"><slot></slot><span class="citation-number"></span></span>
+<div id="citation-" class="citation"><slot></slot><span class="citation-number"></span></div>
 `);
 
 export class Cite extends T(HTMLElement) {

@@ -33,8 +33,7 @@ export class Figure extends HTMLElement {
 
   static runReadyQueue() {
     // console.log("Checking to run readyQueue, length: " + Figure.readyQueue.length + ", scrolling: " + Figure.isScrolling);
-    if (Figure.isScrolling) return;
-
+    // if (Figure.isScrolling) return;
     // console.log("Running ready Queue");
     const figure = Figure.readyQueue
       .sort((a,b) => a._seenOnScreen - b._seenOnScreen )
@@ -56,6 +55,7 @@ export class Figure extends HTMLElement {
   }
 
   connectedCallback() {
+    this.loadsWhileScrolling = this.hasAttribute('loadsWhileScrolling');
     Figure.marginObserver.observe(this);
     Figure.directObserver.observe(this);
   }
@@ -71,12 +71,15 @@ export class Figure extends HTMLElement {
 
   static get marginObserver() {
     if (!Figure._marginObserver) {
+      // if (!('IntersectionObserver' in window)) {
+      //   throw new Error('no interscetionobbserver!');
+      // }
       const viewportHeight = window.innerHeight;
       const margin = Math.floor(2 * viewportHeight);
-      Figure._marginObserver = new IntersectionObserver(
-        Figure.didObserveMarginIntersection, {
-          rootMargin: margin + 'px 0px ' + margin + 'px 0px', threshold: 0.01,
-        });
+      const options = {rootMargin: margin + 'px 0px ' + margin + 'px 0px', threshold: 0.01};
+      const callback = Figure.didObserveMarginIntersection;
+      const observer = new IntersectionObserver(callback, options);
+      Figure._marginObserver = observer;
     }
     return Figure._marginObserver;
   }

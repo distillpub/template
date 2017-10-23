@@ -5,7 +5,6 @@ const T = Template('distill-footer', `
 <style>
 
 :host {
-  display: block;
   color: rgba(255, 255, 255, 0.5);
   font-weight: 300;
   padding: 60px 0;

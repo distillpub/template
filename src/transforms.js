@@ -16,26 +16,26 @@ const extractors = new Map([
 /* Transforms */
 import HTML from './transforms/html';
 import Byline from './transforms/byline';
-import Polyfills from './transforms/polyfills';
 import OptionalComponents from './transforms/optional-components';
 import Mathematics from './transforms/mathematics';
 import Meta from './transforms/meta';
 import { makeStyleTag } from './styles/styles';
 import TOC from './transforms/toc';
 import Typeset from './transforms/typeset';
-import Bibliography from './transforms/bibliography';
+import Polyfills from './transforms/polyfills';
+import CitationList from './transforms/citation-list';
 
 const transforms = new Map([
   ['HTML', HTML],
   ['makeStyleTag', makeStyleTag],
-  ['Polyfills', Polyfills],
   ['OptionalComponents', OptionalComponents],
   ['TOC', TOC],
   ['Byline', Byline],
   ['Mathematics', Mathematics],
   ['Meta', Meta],
   ['Typeset', Typeset],
-  ['Bibliography', Bibliography],
+  ['Polyfills', Polyfills],
+  ['CitationList', CitationList],
 ]);
 
 /* Distill Transforms */

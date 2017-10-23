@@ -30,8 +30,14 @@ d-appendix h3 + * {
 }
 
 d-appendix ol {
-  padding: 0 0 0 30px;
-  margin-left: -30px;
+  padding: 0 0 0 15px;
+}
+
+@media (min-width: 768px) {
+  d-appendix ol {
+    padding: 0 0 0 30px;
+    margin-left: -30px;
+  }
 }
 
 d-appendix li {
