@@ -156,6 +156,7 @@ export class Slider extends T(HTMLElement) {
         this.dragUpdate();
       })
       .on("drag", () => {
+        console.log(event)
         this.dragUpdate();
       })
       .on("end", () => {
@@ -259,8 +260,9 @@ export class Slider extends T(HTMLElement) {
 
   dragUpdate() {
     const bbox = this.background.getBoundingClientRect();
+    console.log(event, bbox, bbox.left)
     const left = bbox.left;
-    const x = event.x - left;
+    const x = event.pageX - left;
     const width = bbox.width;
     this.update(this.scale.invert(x / width));
   }
