@@ -22,13 +22,13 @@ export function bylineTemplate(frontMatter) {
     <div>
       <h3>Published</h3>
       ${frontMatter.publishedDate ? `
-        <p>${frontMatter.publishedMonth}. ${frontMatter.publishedDay} ${frontMatter.publishedYear}</p> ` : `
+        <p>${frontMatter.publishedMonth} ${frontMatter.publishedDay}, ${frontMatter.publishedYear}</p> ` : `
         <p><em>Not published yet.</em></p>`}
     </div>
     <div>
       <h3>DOI</h3>
       ${frontMatter.doi ? `
-        <p>${frontMatter.doi}</p>` : `
+        <p><a href="https://doi.org/${frontMatter.doi}">${frontMatter.doi}</a></p>` : `
         <p><em>No DOI yet.</em></p>`}
     </div>
   </div>

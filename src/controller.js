@@ -73,6 +73,7 @@ export const Controller = {
     onBibliographyChanged(event) {
       console.info('BibliographyChanged');
       const citationListTag = document.querySelector('d-citation-list');
+
       const bibliography = event.detail;
 
       frontMatter.bibliography = bibliography;
@@ -89,11 +90,15 @@ export const Controller = {
         return;
       }
 
-      const entries = new Map(frontMatter.citations.map( citationKey => {
-        return [citationKey, frontMatter.bibliography.get(citationKey)];
-      }));
 
-      citationListTag.citations = entries;
+      if (citationListTag.hasAttribute('distill-prerendered')) {
+        console.info('Citation list was prerendered; not updating it.');
+      } else {
+        const entries = new Map(frontMatter.citations.map( citationKey => {
+          return [citationKey, frontMatter.bibliography.get(citationKey)];
+        }));
+        citationListTag.citations = entries;
+      }
     },
 
     onFootnoteChanged() {

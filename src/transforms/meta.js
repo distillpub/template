@@ -1,3 +1,5 @@
+// TODO: rewrite as template to make order dependencies easier
+
 import favicon from '../assets/distill-favicon.base64';
 import escape from 'escape-html';
 
@@ -16,37 +18,39 @@ export default function(dom, data) {
     <link href="/rss.xml" rel="alternate" type="application/rss+xml" title="Articles from Distill">
   `);
 
+  if (data.title) {
+    appendHead(`
+    <title>${escape(data.title)}</title>
+    `);
+  }
+
   if (data.url) {
     appendHead(`
     <link rel="canonical" href="${data.url}">
     `);
   }
 
-  if (data.title) {
-    appendHead(`
-    <title>${data.title}</title>
-    `);
-  }
 
   if (data.publishedDate){
     appendHead(`
     <!--  https://schema.org/Article -->
-    <meta property="article:published" itemprop="datePublished" content="${data.publishedYear}-${data.publishedMonthPadded}-${data.publishedDayPadded}" />
-    <meta property="article:created"   itemprop="dateCreated"   content="${data.publishedDate}" />
-    <meta property="article:modified"  itemprop="dateModified"  content="${data.updatedDate}" />
+    <meta property="description"       itemprop="description"   content="${escape(data.description)}" />
+    <meta property="article:published" itemprop="datePublished" content="${data.publishedISODateOnly}" />
+    <meta property="article:created"   itemprop="dateCreated"   content="${data.publishedISODateOnly}" />
+    <meta property="article:modified"  itemprop="dateModified"  content="${data.updatedDate.toISOString()}" />
     `);
   }
 
   (data.authors || []).forEach((a) => {
     appendHtml(head, `
-      <meta property="article:author" content="${a.firstName} ${a.lastName}" />`);
+    <meta property="article:author" content="${escape(a.firstName)} ${escape(a.lastName)}" />`);
   });
 
   appendHead(`
     <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
     <meta property="og:type" content="article"/>
-    <meta property="og:title" content="${data.title}"/>
-    <meta property="og:description" content="${data.description}">
+    <meta property="og:title" content="${escape(data.title)}"/>
+    <meta property="og:description" content="${escape(data.description)}">
     <meta property="og:url" content="${data.url}"/>
     <meta property="og:image" content="${data.previewURL}"/>
     <meta property="og:locale" content="en_US" />
@@ -56,8 +60,8 @@ export default function(dom, data) {
   appendHead(`
     <!--  https://dev.twitter.com/cards/types/summary -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="${data.title}">
-    <meta name="twitter:description" content="${data.description}">
+    <meta name="twitter:title" content="${escape(data.title)}">
+    <meta name="twitter:description" content="${escape(data.description)}">
     <meta name="twitter:url" content="${data.url}">
     <meta name="twitter:image" content="${data.previewURL}">
     <meta name="twitter:image:width" content="560">
@@ -143,13 +147,13 @@ function citation_meta_content(ref){
     return content; // arXiv is not considered a journal, so we don't need journal/volume/issue
   }
   if ('journal' in ref){
-    content += `citation_journal_title=${ref.journal};`;
+    content += `citation_journal_title=${escape(ref.journal)};`;
   }
   if ('volume' in ref) {
-    content += `citation_volume=${ref.volume};`;
+    content += `citation_volume=${escape(ref.volume)};`;
   }
   if ('issue' in ref || 'number' in ref){
-    content += `citation_number=${ref.issue || ref.number};`;
+    content += `citation_number=${escape(ref.issue || ref.number)};`;
   }
   return content;
 }

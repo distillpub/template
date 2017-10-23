@@ -53,7 +53,9 @@ export class CitationList extends HTMLElement {
   static get is() { return 'd-citation-list'; }
 
   connectedCallback() {
-    this.style.display = 'none';
+    if (!this.hasAttribute('distill-prerendered')) {
+      this.style.display = 'none';
+    }
   }
 
   set citations(citations) {

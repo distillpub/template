@@ -1,5 +1,5 @@
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+const months = ['Jan.', 'Feb.', 'March', 'April', 'May', 'June', 'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'];
 const zeroPad = n => n < 10 ? '0' + n : n;
 
 const RFC = function(date) {
@@ -83,7 +83,7 @@ export function mergeFromYMLFrontmatter(target, source) {
 
 export class FrontMatter {
   constructor() {
-    this.title = ''; // 'Attention and Augmented Recurrent Neural Networks'
+    this.title = 'unnamed article'; // 'Attention and Augmented Recurrent Neural Networks'
     this.description = ''; // 'A visual overview of neural attention...'
     this.authors = []; // Array of Author(s)
 
@@ -225,6 +225,22 @@ export class FrontMatter {
   // '08',
   get publishedDayPadded() {
     return zeroPad(this.publishedDate.getDate());
+  }
+
+  get publishedISODateOnly() {
+    return this.publishedDate.toISOString().split('T')[0];
+  }
+
+  get volume() {
+    const volume = this.publishedYear - 2015;
+    if (volume < 1) {
+      throw new Error('Invalid publish date detected during computing volume');
+    }
+    return volume;
+  }
+
+  get issue() {
+    return this.publishedDate.getMonth() + 1;
   }
 
   // 'Olah & Carter',

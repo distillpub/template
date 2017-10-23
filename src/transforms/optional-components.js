@@ -8,54 +8,48 @@
 // if authors, no byline -> add byline
 
 export default function(dom, data) {
-  const article = dom.querySelector('d-article');
+  const body = dom.body;
+  const article = body.querySelector('d-article');
+
+  // If we don't have an article tag, something weird is going on—giving up.
   if (!article) {
     console.warn('No d-article tag found; skipping adding optional components!');
     return;
   }
 
+  let byline = dom.querySelector('d-byline');
+  if (!byline) {
+    if (data.authors) {
+      byline = dom.createElement('d-byline');
+      body.insertBefore(byline, article);
+    } else {
+      console.warn('No authors found in front matter; please add them before submission!');
+    }
+  }
+
+  let title = dom.querySelector('d-title');
+  if (!title) {
+    let title = dom.createElement('d-title');
+    body.insertBefore(title, byline);
+  }
+
+  let h1 = title.querySelector('h1');
+  if (!h1) {
+    h1 = dom.createElement('h1');
+    h1.textContent = data.title;
+    title.insertBefore(h1, title.firstChild);
+  }
+
   const hasPassword = typeof data.password !== 'undefined';
-  let interstitial = dom.querySelector('d-interstitial');
+  let interstitial = body.querySelector('d-interstitial');
   if (hasPassword && !interstitial) {
     const inBrowser = typeof window !== 'undefined';
     const onLocalhost = inBrowser && window.location.hostname.includes('localhost');
     if (!inBrowser || !onLocalhost) {
       interstitial = dom.createElement('d-interstitial');
       interstitial.password = data.password;
-      dom.body.insertBefore(interstitial, dom.body.firstChild);
+      body.insertBefore(interstitial, body.firstChild);
     }
-  }
-
-  // let h1 = dom.querySelector('h1');
-  // if (h1) {
-  //   if (!data.title) {
-  //     data.title = h1.textContent;
-  //   }
-  // } else {
-  // if (data.title) {
-  //   let headline = dom.createElement('d-title');
-  //   let h1 = dom.createElement('h1');
-  //   headline.appendChild(h1);
-  //   h1.textContent = data.title;
-  //   abstract.parentNode.insertBefore(headline, abstract);
-  // }
-  // if (data.description) {
-  //   const h2 = dom.createElement('h2');
-  //   h2.textContent = data.description;
-  //   article.insertBefore(h2, h1.nextSibling);
-  // }
-  // }
-
-  let byline = dom.querySelector('d-byline');
-  if (!byline && data.authors) {
-    byline = dom.createElement('d-byline');
-    article.parentNode.insertBefore(byline, article);
-    // const skipTags = ['H1', 'FIGURE', 'D-ABSTRACT'];
-    // let candidate = h1;
-    // while (skipTags.indexOf(candidate.tagName) !== -1) {
-    //   candidate = candidate.nextSibling;
-    // }
-    // article.insertBefore(byline, candidate);
   }
 
   let appendix = dom.querySelector('d-appendix');

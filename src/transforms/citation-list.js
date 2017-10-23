@@ -7,5 +7,6 @@ export default function(dom, data) {
       return [citationKey, data.bibliography.get(citationKey)];
     }));
     renderCitationList(citationListTag, entries, dom);
+    citationListTag.setAttribute('distill-prerendered', 'true');
   }
 }

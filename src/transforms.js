@@ -24,6 +24,7 @@ import TOC from './transforms/toc';
 import Typeset from './transforms/typeset';
 import Polyfills from './transforms/polyfills';
 import CitationList from './transforms/citation-list';
+import Reorder from './transforms/reorder';
 
 const transforms = new Map([
   ['HTML', HTML],
@@ -36,6 +37,7 @@ const transforms = new Map([
   ['Typeset', Typeset],
   ['Polyfills', Polyfills],
   ['CitationList', CitationList],
+  ['Reorder', Reorder] // keep last
 ]);
 
 /* Distill Transforms */
