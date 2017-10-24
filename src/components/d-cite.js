@@ -36,7 +36,7 @@ figcaption .citation-number {
 }
 
 .container {
-  position: fixed;
+  position: absolute;
   width: 100%;
   left: 0;
   z-index: 10000;

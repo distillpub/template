@@ -1,25 +1,25 @@
-function make_hover_css(target_node, pos) {
-  const pretty = window.innerWidth > 600;
-  const padding = pretty? 18 : 12;
-  const outer_padding = pretty ? 18 : 0;
-  // const bbox = document.querySelector('body').getBoundingClientRect();
-  const bbox = target_node.offsetParent.getBoundingClientRect();
-  let left = pos[0] - bbox.left, top = pos[1] - bbox.top;
-  let width = Math.min(window.innerWidth-2*outer_padding, 648);
-  left = Math.min(left, window.innerWidth-width-outer_padding);
-  width = width - 2 * padding;
-  return (`position: absolute;
-     background-color: #FFF;
-     opacity: 0.95;
-     max-width: ${width}px;
-     top: ${top}px;
-     left: ${left}px;
-     border: 1px solid rgba(0, 0, 0, 0.25);
-     padding: ${padding}px;
-     border-radius: ${pretty? 3 : 0}px;
-     box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);
-     z-index: ${1e6};`);
-}
+// function make_hover_css(target_node, pos) {
+//   const pretty = window.innerWidth > 600;
+//   const padding = pretty? 18 : 12;
+//   const outer_padding = pretty ? 18 : 0;
+//   // const bbox = document.querySelector('body').getBoundingClientRect();
+//   const bbox = target_node.offsetParent.getBoundingClientRect();
+//   let left = pos[0] - bbox.left, top = pos[1] - bbox.top;
+//   let width = Math.min(window.innerWidth-2*outer_padding, 648);
+//   left = Math.min(left, window.innerWidth-width-outer_padding);
+//   width = width - 2 * padding;
+//   return (`position: absolute;
+//      background-color: #FFF;
+//      opacity: 0.95;
+//      max-width: ${width}px;
+//      top: ${top}px;
+//      left: ${left}px;
+//      border: 1px solid rgba(0, 0, 0, 0.25);
+//      padding: ${padding}px;
+//      border-radius: ${pretty? 3 : 0}px;
+//      box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);
+//      z-index: ${1e6};`);
+// }
 
 export class HoverBox {
 
