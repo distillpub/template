@@ -1,6 +1,5 @@
 import { Template } from '../mixins/template';
 import { hover_cite, bibliography_cite } from '../helpers/citation';
-import { HoverBox } from '../helpers/hover-box';
 
 const T = Template('d-cite', `
 <style>
@@ -35,31 +34,13 @@ figcaption .citation-number {
   line-height: 1em;
 }
 
-.container {
-  position: fixed;
-  width: 100%;
-  left: 0;
-  z-index: 10000;
-  margin-top: 2em;
-}
-
-.dt-hover-box {
-  margin: 0 auto;
-  width: 400px;
-  max-width: 700px;
-  background-color: #FFF;
-  opacity: 0.95;
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  padding: 8px 16px;
-  border-radius: 3px;
-  box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);
+d-hover-box {
+  margin-top: 1.9em;
 }
 
 </style>
 
-<div class="container">
-  <div id="hover-box" class="dt-hover-box"></div>
-</div>
+<d-hover-box id="hover-box"></d-hover-box>
 
 <div id="citation-" class="citation"><slot></slot><span class="citation-number"></span></div>
 `);
@@ -75,15 +56,12 @@ export class Cite extends T(HTMLElement) {
   // }
 
   connectedCallback() {
-    // this.notify();
-
-    this.hoverDiv = this.root.querySelector('.dt-hover-box');
     this.outerSpan = this.root.querySelector('#citation-');
     this.innerSpan = this.root.querySelector('.citation-number');
-    // this.outerSpan.id = `citation-${this.citeId}`;
-    // this.hoverDiv.id = `dt-cite-hover-box-${this.citeId}`;
-    // console.log(this, this.hoverDiv, this.outerSpan, this.innerSpan);
-    this.hoverbox = new HoverBox(this.hoverDiv, this.outerSpan);
+    this.hoverBox = this.root.querySelector('d-hover-box');
+    window.customElements.whenDefined('d-hover-box').then(() => {
+      this.hoverBox.listen(this);
+    });
   }
 
   disconnectedCallback() {

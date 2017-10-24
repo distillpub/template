@@ -3,6 +3,7 @@ d-article {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding-top: 2rem;
   color: rgba(0, 0, 0, 0.8);
+  overflow: hidden;
 }
 
 d-article > * {
@@ -17,7 +18,7 @@ d-article > * {
 
 @media(min-width: 1024px) {
   d-article {
-    font-size: 1rem;
+    font-size: 1.06rem;
     line-height: 1.7em;
   }
 }
@@ -102,7 +103,6 @@ d-article blockquote {
   margin-bottom: 1em;
   margin-left: 0;
   margin-right: 0;
-  -webkit-font-smoothing: antialiased;
 }
 
 d-article blockquote {
@@ -132,9 +132,13 @@ d-article ol {
 }
 
 d-article li {
-  margin-bottom: 24px;
+  margin-bottom: 1em;
   margin-left: 0;
   padding-left: 0;
+}
+
+d-article li:last-child {
+  margin-bottom: 0;
 }
 
 d-article pre {
@@ -165,11 +169,14 @@ d-article span.equation-mimic {
 d-article > d-code,
 d-article section > d-code  {
   display: block;
+  overflow-x: scroll;
+
 }
 
 d-article > d-math[block],
 d-article section > d-math[block]  {
   display: block;
+  overflow-x: scroll;
 }
 
 d-article .citation {
