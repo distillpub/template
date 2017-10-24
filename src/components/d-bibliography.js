@@ -35,6 +35,12 @@ export class Bibliography extends HTMLElement {
     observer.observe(this, options);
   }
 
+  connectedCallback() {
+    requestAnimationFrame(() => {
+      this.parseIfPossible();
+    });
+  }
+
   parseIfPossible() {
     const scriptTag = this.querySelector('script');
     if (!scriptTag) return;

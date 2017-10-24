@@ -90,14 +90,14 @@ const T = Template('d-slider', `
 
 </style>
 
-  <div class="background">
-    <div class="track"></div>
-    <div class="track-fill"></div>
-    <div class="knob-container">
-      <div class="knob-highlight"></div>
-      <div class="knob"></div>
+  <div class='background'>
+    <div class='track'></div>
+    <div class='track-fill'></div>
+    <div class='knob-container'>
+      <div class='knob-highlight'></div>
+      <div class='knob'></div>
     </div>
-    <div class="ticks"></div>
+    <div class='ticks'></div>
   </div>
 `);
 
@@ -121,18 +121,18 @@ export class Slider extends T(HTMLElement) {
 
   connectedCallback() {
     this.connected = true;
-    this.setAttribute("role", "slider");
+    this.setAttribute('role', 'slider');
     // Makes the element tab-able.
-    if (!this.hasAttribute("tabindex")) { this.setAttribute("tabindex", 0); }
+    if (!this.hasAttribute('tabindex')) { this.setAttribute('tabindex', 0); }
 
     // Keeps track of keyboard vs. mouse interactions for focus rings
     this.mouseEvent = false;
 
     // Handles to shadow DOM elements
-    this.knob = this.root.querySelector(".knob-container");
-    this.background = this.root.querySelector(".background");
-    this.trackFill = this.root.querySelector(".track-fill");
-    this.track = this.root.querySelector(".track");
+    this.knob = this.root.querySelector('.knob-container');
+    this.background = this.root.querySelector('.background');
+    this.trackFill = this.root.querySelector('.track-fill');
+    this.track = this.root.querySelector('.track');
 
     // Default values for attributes
     this.min = this.min ? this.min : 0;
@@ -148,108 +148,108 @@ export class Slider extends T(HTMLElement) {
 
     this.drag = drag()
       .container(this.background)
-      .on("start", () => {
+      .on('start', () => {
         this.mouseEvent = true;
-        this.background.classList.add("mousedown");
+        this.background.classList.add('mousedown');
         this.changeValue = this.value;
         this.dragUpdate();
       })
-      .on("drag", () => {
+      .on('drag', () => {
         this.dragUpdate();
       })
-      .on("end", () => {
+      .on('end', () => {
         this.mouseEvent = false;
-        this.background.classList.remove("mousedown");
+        this.background.classList.remove('mousedown');
         this.dragUpdate();
         if (this.changeValue !== this.value) this.dispatchChange();
         this.changeValue = this.value;
       });
     this.drag(select(this.background));
 
-    this.addEventListener("focusin", (e) => {
+    this.addEventListener('focusin', () => {
       if(!this.mouseEvent) {
-        this.background.classList.add("focus");
+        this.background.classList.add('focus');
       }
     });
-    this.addEventListener("focusout", (e) => {
-      this.background.classList.remove("focus");
+    this.addEventListener('focusout', () => {
+      this.background.classList.remove('focus');
     });
-    this.addEventListener("keydown", this.onKeyDown);
+    this.addEventListener('keydown', this.onKeyDown);
 
   }
 
-  static get observedAttributes() {return ["min", "max", "value", "step", "ticks", "origin", "tickValues", "tickLabels"]; }
+  static get observedAttributes() {return ['min', 'max', 'value', 'step', 'ticks', 'origin', 'tickValues', 'tickLabels']; }
 
   attributeChangedCallback(attr, oldValue, newValue) {
-    if (attr == "min") {
+    if (attr == 'min') {
       this.min = +newValue;
-      this.setAttribute("aria-valuemin", this.min);
+      this.setAttribute('aria-valuemin', this.min);
     }
-    if (attr == "max") {
+    if (attr == 'max') {
       this.max = +newValue;
-      this.setAttribute("aria-valuemax", this.max);
+      this.setAttribute('aria-valuemax', this.max);
     }
-    if (attr == "value") {
+    if (attr == 'value') {
       this.update(+newValue);
     }
-    if (attr == "origin") {
+    if (attr == 'origin') {
       this.origin = +newValue;
       this.update(this.value);
     }
-    if (attr == "step") {
+    if (attr == 'step') {
       if (newValue > 0) {
         this.step = +newValue;
       }
     }
-    if (attr == "ticks") {
-      this.ticks = (newValue === "" ? true : newValue);
+    if (attr == 'ticks') {
+      this.ticks = (newValue === '' ? true : newValue);
     }
   }
 
-  onKeyDown(e) {
+  onKeyDown(event) {
     this.changeValue = this.value;
     let stopPropagation = false;
     switch (event.keyCode) {
-      case keyCodes.left:
-      case keyCodes.down:
-        this.update(this.value - this.step)
-        stopPropagation = true;
-        break;
-      case keyCodes.right:
-      case keyCodes.up:
-        this.update(this.value + this.step)
-        stopPropagation = true;
-        break;
-      case keyCodes.pageUp:
-        this.update(this.value + this.step * 10)
-        stopPropagation = true;
-        break;
+    case keyCodes.left:
+    case keyCodes.down:
+      this.update(this.value - this.step);
+      stopPropagation = true;
+      break;
+    case keyCodes.right:
+    case keyCodes.up:
+      this.update(this.value + this.step);
+      stopPropagation = true;
+      break;
+    case keyCodes.pageUp:
+      this.update(this.value + this.step * 10);
+      stopPropagation = true;
+      break;
 
-      case keyCodes.pageDown:
-        this.update(this.value + this.step * 10)
-        stopPropagation = true;
-        break;
-      case keyCodes.home:
-        this.update(this.min);
-        stopPropagation = true;
-        break;
-      case keyCodes.end:
-        this.update(this.max);
-        stopPropagation = true;
-        break;
-      default:
-        break;
+    case keyCodes.pageDown:
+      this.update(this.value + this.step * 10);
+      stopPropagation = true;
+      break;
+    case keyCodes.home:
+      this.update(this.min);
+      stopPropagation = true;
+      break;
+    case keyCodes.end:
+      this.update(this.max);
+      stopPropagation = true;
+      break;
+    default:
+      break;
     }
     if (stopPropagation) {
-      this.background.classList.add("focus");
-      e.preventDefault();
-      e.stopPropagation();
+      this.background.classList.add('focus');
+      event.preventDefault();
+      event.stopPropagation();
       if (this.changeValue !== this.value) this.dispatchChange();
     }
   }
 
   validateValueRange(min, max, value) {
-    return Math.max(Math.min(max, value), min)
+    return Math.max(Math.min(max, value), min);
   }
 
   quantizeValue(value, step) {
@@ -265,53 +265,53 @@ export class Slider extends T(HTMLElement) {
 
   update(value) {
     let v = value;
-    if (this.step !== "any") {
+    if (this.step !== 'any') {
       v = this.quantizeValue(value, this.step);
     }
     v = this.validateValueRange(this.min, this.max, v);
     if (this.connected) {
-      this.knob.style.left = this.scale(v) * 100 + "%";
-      this.trackFill.style.width = this.scale(this.min + Math.abs(v - this.origin)) * 100 + "%";
-      this.trackFill.style.left = this.scale(Math.min(v, this.origin)) * 100 + "%";
+      this.knob.style.left = this.scale(v) * 100 + '%';
+      this.trackFill.style.width = this.scale(this.min + Math.abs(v - this.origin)) * 100 + '%';
+      this.trackFill.style.left = this.scale(Math.min(v, this.origin)) * 100 + '%';
     }
     if (this.value !== v) {
       this.value = v;
-      this.setAttribute("aria-valuenow", this.value);
+      this.setAttribute('aria-valuenow', this.value);
       this.dispatchInput();
     }
   }
 
   // Dispatches only on a committed change (basically only on mouseup).
   dispatchChange() {
-    const e = new Event("change");
+    const e = new Event('change');
     this.dispatchEvent(e, {});
   }
 
   // Dispatches on each value change.
   dispatchInput() {
-    const e = new Event("input");
+    const e = new Event('input');
     this.dispatchEvent(e, {});
   }
 
   renderTicks() {
-    const ticksContainer = this.root.querySelector(".ticks");
+    const ticksContainer = this.root.querySelector('.ticks');
     if (this.ticks !== false) {
       let tickData = [];
       if (this.ticks > 0) {
         tickData = this.scale.ticks(this.ticks);
-      } else if (this.step === "any") {
+      } else if (this.step === 'any') {
         tickData = this.scale.ticks();
       } else {
         tickData = range(this.min, this.max + 1e-6, this.step);
       }
       tickData.forEach(d => {
-        const tick = document.createElement("div");
-        tick.classList.add("tick");
-        tick.style.left = this.scale(d) * 100 + "%";
-        ticksContainer.appendChild(tick)
+        const tick = document.createElement('div');
+        tick.classList.add('tick');
+        tick.style.left = this.scale(d) * 100 + '%';
+        ticksContainer.appendChild(tick);
       });
     } else {
-      ticksContainer.style.display = "none";
+      ticksContainer.style.display = 'none';
     }
   }
 }

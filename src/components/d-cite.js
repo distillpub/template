@@ -49,12 +49,6 @@ export class Cite extends T(HTMLElement) {
 
   /* Lifecycle */
 
-  // constructor() {
-  //   super();
-  //   // Cite.currentId += 1;
-  //   // this.citeId = Cite.currentId;
-  // }
-
   connectedCallback() {
     this.outerSpan = this.root.querySelector('#citation-');
     this.innerSpan = this.root.querySelector('.citation-number');
@@ -105,11 +99,15 @@ export class Cite extends T(HTMLElement) {
       return index == -1 ? '?' : index + 1 + '';
     });
     const textContent = '[' + numberStrings.join(', ') + ']';
-    this.innerSpan.textContent = textContent;
+    if (this.innerSpan) {
+      this.innerSpan.textContent = textContent;
+    }
   }
 
   set entries(entries) {
-    this.hoverBox.innerHTML = entries.map(hover_cite).join('<br><br>');
+    if (this.hoverBox) {
+      this.hoverBox.innerHTML = entries.map(hover_cite).join('<br><br>');
+    }
   }
 
 }

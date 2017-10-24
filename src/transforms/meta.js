@@ -37,6 +37,11 @@ export default function(dom, data) {
     <meta property="description"       itemprop="description"   content="${escape(data.description)}" />
     <meta property="article:published" itemprop="datePublished" content="${data.publishedISODateOnly}" />
     <meta property="article:created"   itemprop="dateCreated"   content="${data.publishedISODateOnly}" />
+    `);
+  }
+
+  if (data.updatedDate) {
+    appendHead(`
     <meta property="article:modified"  itemprop="dateModified"  content="${data.updatedDate.toISOString()}" />
     `);
   }

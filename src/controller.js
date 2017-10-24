@@ -38,7 +38,7 @@ export const Controller = {
       citeTag.entries = entries;
     },
 
-    onCiteKeyChanged(event) {
+    onCiteKeyChanged() {
       // const [citeTag, keys] = event.detail;
 
       // update citations
@@ -145,7 +145,7 @@ export const Controller = {
         return;
       } else {
         Controller.loaded = true;
-        console.log('Controller running DOMContentLoaded')
+        console.log('Controller running DOMContentLoaded');
       }
 
       const frontMatterTag = document.querySelector('d-front-matter');
