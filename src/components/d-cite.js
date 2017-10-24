@@ -64,24 +64,13 @@ export class Cite extends T(HTMLElement) {
     });
   }
 
-  disconnectedCallback() {
-    const options = { detail: [this, this.keys], bubbles: true };
-    const event = new CustomEvent('onCiteKeyRemoved', options);
-    document.dispatchEvent(event);
-  }
-
-  /* Observed Attributes */
-
-  // renderCitationNumbers(citations) {
-  //   const numbers = this._keys.map( (key) => {
-  //     const index = citations.indexOf(key);
-  //     return index == -1 ? '?' : index + 1 + '';
-  //   });
-  //   const text = "[" + numbers.join(", ") + "]";
-  //   this.innerSpan.textContent = text;
+  //TODO This causes an infinite loop on firefox with polyfills.
+  // This is only needed for interactive editing so no priority.
+  // disconnectedCallback() {
+    // const options = { detail: [this, this.keys], bubbles: true };
+    // const event = new CustomEvent('onCiteKeyRemoved', options);
+    // document.dispatchEvent(event);
   // }
-
-
 
   /* observe 'key' attribute */
 
@@ -116,40 +105,11 @@ export class Cite extends T(HTMLElement) {
       return index == -1 ? '?' : index + 1 + '';
     });
     const textContent = '[' + numberStrings.join(', ') + ']';
-    const innerSpan = this.root.querySelector('.citation-number');
-    innerSpan.textContent = textContent;
+    this.innerSpan.textContent = textContent;
   }
 
   set entries(entries) {
-    const div = this.root.querySelector('#hover-box');
-    div.innerHTML = entries.map(hover_cite).join('<br><br>');
+    this.hoverBox.innerHTML = entries.map(hover_cite).join('<br><br>');
   }
-
-  // renderContent() {
-  //   const bibliography = document.querySelector('d-bibliography');
-  //   if (bibliography && bibliography.finishedLoading) {
-  //     customElements.whenDefined('d-bibliography').then( () => {
-  //       const keys = this.key.split(",");
-  //
-  //       // set up hidden hover box
-  //       const div = this.root.querySelector('.dt-hover-box');
-  //       div.innerHTML = keys.map( (key) => {
-  //         return bibliography.getEntry(key);
-  //       }).map(hover_cite).join('<br><br>');
-  //       div.id ='dt-cite-hover-box-' + this.citeId;
-  //
-  //       // set up visible citation marker
-  //       const outerSpan = this.root.querySelector('#citation-');
-  //       outerSpan.id = `citation-${this.citeId}`;
-  //       // outerSpan.setAttribute('data-hover', dataHoverString); // directly tell HoverBox instead?
-  //       const innerSpan = this.root.querySelector('.citation-number');
-  //       innerSpan.textContent = inline_cite_short(keys, bibliography);
-  //
-  //       HoverBox.get_box(div).bind(outerSpan);
-  //     });
-  //   } else {
-  //     console.error(`You used a d-cite tag (${key}) without including a d-bibliography tag in your article. We can't lookup your citation this way.`)
-  //   }
-  // }
 
 }

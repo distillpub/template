@@ -71,7 +71,6 @@ export const Controller = {
     },
 
     onBibliographyChanged(event) {
-      console.info('BibliographyChanged');
       const citationListTag = document.querySelector('d-citation-list');
 
       const bibliography = event.detail;
