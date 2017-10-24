@@ -12,7 +12,7 @@ const T = Template('d-title', `
   ::slotted(h1) {
     grid-column: text;
     font-size: 60px;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.05em;
     margin: 0 0 1rem;
   }
