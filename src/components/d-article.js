@@ -1,6 +1,5 @@
 import { Template } from '../mixins/template';
 import { Controller } from '../controller';
-import style from '../styles/d-article.css';
 
 const isOnlyWhitespace = /^\s*$/;
 

@@ -7,14 +7,28 @@ d-byline {
   min-height: 1.8em;
 }
 
+
 d-byline .byline {
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-column: text;
 }
 
-d-byline .authors-affiliations {
-  grid-template-columns: 1fr 1fr;
+@media(min-width: 768px) {
+  d-byline .byline {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
 
+d-byline .authors-affiliations {
+  grid-column-end: span 2;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 1em;
+}
+
+@media(min-width: 768px) {
+  d-byline .authors-affiliations {
+    margin-bottom: 0;
+  }
 }
 
 d-byline h3 {
