@@ -50,7 +50,11 @@ window.addEventListener('WebComponentsReady', function() {
 export default function render(dom) {
   // pull out template script tag
   const templateTag = dom.querySelector('script[src*="template.v2.js"]');
-  templateTag.parentNode.removeChild(templateTag);
+  if (templateTag) {
+    templateTag.parentNode.removeChild(templateTag);
+  } else {
+    console.info('FYI: Did not find template tag when trying to remove it. You may not have added it. Be aware that our polyfills will add it.')
+  }
 
   // add loader
   const loaderTag = dom.createElement('script');
