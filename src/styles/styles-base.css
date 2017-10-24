@@ -10,7 +10,9 @@ html {
 }
 
 @media(min-width: 768px) {
-  font-size: 16px;
+  html {
+    font-size: 16px;
+  }
 }
 
 body {

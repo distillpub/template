@@ -1,5 +1,4 @@
 import { Template } from '../mixins/template.js';
-import { HoverBox } from '../helpers/hover-box';
 
 const T = Template('d-footnote', `
 <style>
@@ -9,7 +8,6 @@ d-math[block] {
 }
 
 :host {
-  position: relative;
 }
 
 sup {
@@ -34,23 +32,22 @@ span {
 
 .dt-hover-box {
   margin: 0 auto;
-  width: 400px;
-  max-width: 700px;
+  width: 704px;
+  max-width: 100vw;
   background-color: #FFF;
   opacity: 0.95;
   border: 1px solid rgba(0, 0, 0, 0.25);
   padding: 8px 16px;
   border-radius: 3px;
   box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
 }
 
 </style>
 
-<div class="container">
-  <div id="hover-box" class="dt-hover-box">
-    <slot id="slot"></slot>
-  </div>
-</div>
+<d-hover-box>
+  <slot id="slot"></slot>
+</d-hover-box>
 
 <sup>
   <span id="fn-" data-hover-ref=""></span>
@@ -79,23 +76,24 @@ export class Footnote extends T(HTMLElement) {
     // const slot = this.shadowRoot.querySelector('#slot');
     // console.warn(slot.textContent);
     // slot.addEventListener('slotchange', this.notify);
-
+    this.hoverBox = this.root.querySelector('d-hover-box');
+    window.customElements.whenDefined('d-hover-box').then(() => {
+      this.hoverBox.listen(this);
+    });
     // create numeric ID
     Footnote.currentFootnoteId += 1;
     const IdString = Footnote.currentFootnoteId.toString();
     this.root.host.id = 'd-footnote-' + IdString;
 
     // set up hidden hover box
-    const div = this.root.querySelector('.dt-hover-box');
-    div.id = 'dt-fn-hover-box-' + IdString;
+    const id = 'dt-fn-hover-box-' + IdString;
+    this.hoverBox.id = id
 
     // set up visible footnote marker
     const span = this.root.querySelector('#fn-');
     span.setAttribute('id', 'fn-' + IdString);
-    span.setAttribute('data-hover-ref', div.id);
+    span.setAttribute('data-hover-ref', id);
     span.textContent = IdString;
-
-    this.hoverbox = new HoverBox(div, span);
   }
 
 }

@@ -16,6 +16,7 @@ import { Code }            from './components/d-code';
 import { Footnote }        from './components/d-footnote';
 import { FootnoteList }    from './components/d-footnote-list';
 import { FrontMatter }     from './components/d-front-matter';
+import { HoverBox }        from './components/d-hover-box';
 import { Title }           from './components/d-title';
 import { DMath }           from './components/d-math';
 import { References }      from './components/d-references';
@@ -53,7 +54,7 @@ const distillMain = function() {
   /* Article will register controller which takes control from there */
   const components = [
     Abstract, Appendix, Article, Bibliography, Byline, Cite, CitationList, Code,
-    Footnote, FootnoteList, FrontMatter, Title, DMath, References, TOC, Figure,
+    Footnote, FootnoteList, FrontMatter, HoverBox, Title, DMath, References, TOC, Figure,
     Slider, Interstitial
   ];
 
