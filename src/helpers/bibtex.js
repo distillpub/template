@@ -28,6 +28,7 @@ export function serializeFrontmatterToBibtex(frontMatter) {
   title = {${frontMatter.title}},
   journal = {${frontMatter.journal.title}},
   year = {${frontMatter.publishedYear}},
-  note = {${frontMatter.url}}
+  note = {${frontMatter.url}},
+  doi = {${frontMatter.doi}}
 }`;
 }

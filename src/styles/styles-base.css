@@ -105,14 +105,16 @@ figure svg text,
 figure svg tspan {
 }
 
-figcaption {
+figcaption,
+.figcaption {
   color: rgba(0, 0, 0, 0.6);
   font-size: 12px;
   line-height: 1.5em;
 }
 
 @media(min-width: 1024px) {
-figcaption {
+figcaption,
+.figcaption {
     font-size: 13px;
   }
 }
