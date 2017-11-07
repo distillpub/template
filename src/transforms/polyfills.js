@@ -42,7 +42,7 @@ const addBackIn = `
 window.addEventListener('WebComponentsReady', function() {
   console.warn('WebComponentsReady');
   const loaderTag = document.createElement('script');
-  loaderTag.src = '/template.v2.js';
+  loaderTag.src = 'https://distill.pub/template.v2.js';
   document.head.insertBefore(loaderTag, document.head.firstChild);
 });
 `;
