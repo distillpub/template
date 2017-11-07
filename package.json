@@ -34,7 +34,7 @@
     "marked": "^0.3.6",
     "mocha": "^3.5.3",
     "prismjs": "^1.6.0",
-    "rollup": "latest",
+    "rollup": "^0.50.0",
     "rollup-plugin-babili": "^3.1.0",
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-commonjs": "^7.0.0",
@@ -61,6 +61,6 @@
     "escape-html": "^1.0.3",
     "intersection-observer": "^0.4.0",
     "jsdom-wc": "^11.0.0-alpha-1",
-    "katex": "^0.7.1"
+    "katex": "^0.8.3"
   }
 }
