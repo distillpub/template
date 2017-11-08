@@ -50,8 +50,20 @@ const distillMain = function() {
   console.info('Runlevel 1->2.');
   window.distillRunlevel += 1;
 
-  /* 3. Register components */
-  /* Article will register controller which takes control from there */
+  /* 3. Register Controller listener functions */
+  /* Needs to happen before components to their connected callbacks have a controller to talk to. */
+  for (const [functionName, callback] of Object.entries(Controller.listeners)) {
+    if (typeof callback === 'function') {
+      document.addEventListener(functionName, callback);
+    } else {
+      console.error('Runlevel 2: Controller listeners need to be functions!');
+    }
+  }
+  console.info('Runlevel 2: We can now listen to controller events.');
+  console.info('Runlevel 2->3.');
+  window.distillRunlevel += 1;
+
+  /* 4. Register components */
   const components = [
     Abstract, Appendix, Article, Bibliography, Byline, Cite, CitationList, Code,
     Footnote, FootnoteList, FrontMatter, HoverBox, Title, DMath, References, TOC, Figure,
@@ -71,21 +83,10 @@ const distillMain = function() {
     customElements.define(component.is, component);
   }
 
-  console.info('Runlevel 2: Distill Template finished registering custom elements.');
-  console.info('Runlevel 2->3.');
-  window.distillRunlevel += 1;
-
-  /* 4. Register Controller listener functions */
-  for (const [functionName, callback] of Object.entries(Controller.listeners)) {
-    if (typeof callback === 'function') {
-      document.addEventListener(functionName, callback);
-    } else {
-      console.error('Runlevel 3: Controller listeners need to be functions!');
-    }
-  }
-  console.info('Runlevel 3: We can now listen to controller events.');
+  console.info('Runlevel 3: Distill Template finished registering custom elements.');
   console.info('Runlevel 3->4.');
   window.distillRunlevel += 1;
+
   // If template was added after DOMContentLoaded we may have missed that event.
   // Controller will check for that case, so trigger the event explicitly:
   Controller.listeners.DOMContentLoaded();
