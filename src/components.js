@@ -86,6 +86,9 @@ const distillMain = function() {
   console.info('Runlevel 3: We can now listen to controller events.');
   console.info('Runlevel 3->4.');
   window.distillRunlevel += 1;
+  // If template was added after DOMContentLoaded we may have missed that event.
+  // Controller will check for that case, so trigger the event explicitly:
+  Controller.listeners.DOMContentLoaded();
 
   console.info('Runlevel 4: Distill Template initialisation complete.');
 };

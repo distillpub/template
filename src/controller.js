@@ -145,7 +145,11 @@ export const Controller = {
     },
 
     DOMContentLoaded() {
-      if (Controller.loaded || !domContentLoaded()) {
+      if (Controller.loaded) {
+        console.warn('Controller received DOMContentLoaded but was already loaded!');
+        return;
+      } else if (!domContentLoaded()) {
+        console.warn('Controller received DOMContentLoaded before appropriate document.readyState!');
         return;
       } else {
         Controller.loaded = true;
