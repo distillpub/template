@@ -52,7 +52,7 @@ export class HoverBox extends T(HTMLElement) {
   }
 
   listen(element) {
-    console.log(element)
+    // console.log(element)
     this.bindDivEvents(this);
     this.bindTriggerEvents(element);
     // this.style.display = "block";

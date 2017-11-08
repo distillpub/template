@@ -6,6 +6,10 @@ import optionalComponents from './transforms/optional-components';
 
 const frontMatter = new FrontMatter();
 
+function domContentLoaded() {
+  return ['interactive', 'complete'].indexOf(document.readyState) !== -1;
+}
+
 export const Controller = {
 
   frontMatter: frontMatter,
@@ -120,7 +124,7 @@ export const Controller = {
       }
 
       const prerendered = document.body.hasAttribute('distill-prerendered');
-      if (!prerendered) {
+      if (!prerendered && domContentLoaded()) {
         optionalComponents(document, frontMatter);
 
         const appendix = document.querySelector('distill-appendix');
@@ -141,18 +145,18 @@ export const Controller = {
     },
 
     DOMContentLoaded() {
-      if (Controller.loaded || ['interactive', 'complete'].indexOf(document.readyState) === -1) {
+      if (Controller.loaded || !domContentLoaded()) {
         return;
       } else {
         Controller.loaded = true;
-        console.log('Controller running DOMContentLoaded');
+        console.log('Runlevel 4: Controller running DOMContentLoaded');
       }
 
       const frontMatterTag = document.querySelector('d-front-matter');
       const data = parseFrontmatter(frontMatterTag);
       Controller.listeners.onFrontMatterChanged({detail: data});
 
-      // console.debug('Resolving "citations" dependency due to initial DOM load.');
+      // Resolving "citations" dependency due to initial DOM load
       frontMatter.citations = collect_citations();
       frontMatter.citationsCollected = true;
       for (const waitingCallback of Controller.waitingOn.citations.slice()) {

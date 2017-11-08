@@ -1,5 +1,5 @@
 // import { Template } from '../mixins/template';
-import { Controller } from '../controller';
+// import { Controller } from '../controller';
 
 const isOnlyWhitespace = /^\s*$/;
 
@@ -27,22 +27,6 @@ export class Article extends HTMLElement {
         }
       }
     }).observe(this, {childList: true});
-  }
-
-  connectedCallback() {
-    document.onreadystatechange = function () {
-      console.log('onreadystatechange:');
-      console.log(document.readyState);
-    };
-    console.info('Article tag connected, we can now listen to controller events.');
-    console.info('Runlevel 3->4.');
-    for (const [functionName, callback] of Object.entries(Controller.listeners)) {
-      if (typeof callback === 'function') {
-        document.addEventListener(functionName, callback);
-      } else {
-        console.error('Controller listeners need to be functions!');
-      }
-    }
   }
 
 }

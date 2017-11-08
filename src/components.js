@@ -2,7 +2,7 @@ import { Controller } from './controller';
 
 /* Transforms */
 import { makeStyleTag }    from './styles/styles';
-import { Polyfills, polyfills }       from './helpers/polyfills';
+import { Polyfills }       from './helpers/polyfills';
 
 /* Components */
 import { Abstract }        from './components/d-abstract';
@@ -48,7 +48,7 @@ const distillMain = function() {
   makeStyleTag(document);
   console.info('Runlevel 1: Static Distill styles have been added.');
   console.info('Runlevel 1->2.');
-  window.distillRunlevel = 2;
+  window.distillRunlevel += 1;
 
   /* 3. Register components */
   /* Article will register controller which takes control from there */
@@ -73,10 +73,21 @@ const distillMain = function() {
 
   console.info('Runlevel 2: Distill Template finished registering custom elements.');
   console.info('Runlevel 2->3.');
-  window.distillRunlevel = 3;
-  console.info('Distill Template initialisation complete.');
-  Controller.listeners.DOMContentLoaded();
+  window.distillRunlevel += 1;
 
+  /* 4. Register Controller listener functions */
+  for (const [functionName, callback] of Object.entries(Controller.listeners)) {
+    if (typeof callback === 'function') {
+      document.addEventListener(functionName, callback);
+    } else {
+      console.error('Runlevel 3: Controller listeners need to be functions!');
+    }
+  }
+  console.info('Runlevel 3: We can now listen to controller events.');
+  console.info('Runlevel 3->4.');
+  window.distillRunlevel += 1;
+
+  console.info('Runlevel 4: Distill Template initialisation complete.');
 };
 
 window.distillRunlevel = 0;
@@ -84,7 +95,7 @@ window.distillRunlevel = 0;
 if (Polyfills.browserSupportsAllFeatures()) {
   console.info('Runlevel 0: No need for polyfills.');
   console.info('Runlevel 0->1.');
-  window.distillRunlevel = 1;
+  window.distillRunlevel += 1;
   distillMain();
 } else {
   console.info('Runlevel 0: Distill Template is loading polyfills.');
