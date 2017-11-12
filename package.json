@@ -7,7 +7,9 @@
     "serve": "python3 -m http.server",
     "start": "rollup -c -w",
     "build": "rollup -c",
-    "test": "mocha"
+    "test": "mocha",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "author": "Shan Carter",
   "repository": {
@@ -28,7 +30,7 @@
     "jsdom": "^9.10.0",
     "katex": "^0.7.1",
     "marked": "^0.3.6",
-    "mocha": "^3.2.0",
+    "mocha": "^4.0.0",
     "mustache": "^2.3.0",
     "prismjs": "^1.6.0",
     "rollup": "^0.36.4",
@@ -36,6 +38,8 @@
     "rollup-plugin-commonjs": "^7.0.0",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-string": "^2.0.2",
-    "rollup-watch": "^2.5.0"
-  }
+    "rollup-watch": "^2.5.0",
+    "snyk": "^1.49.2"
+  },
+  "snyk": true
 }
