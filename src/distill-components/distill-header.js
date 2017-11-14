@@ -72,18 +72,14 @@ distill-header .nav a {
     ${logo}
     Distill
   </a>
-  <div class="nav">
+  <nav class="nav">
     <a href="/about/">About</a>
     <a href="/prize/">Prize</a>
     <a href="/journal/">Submit</a>
-  </div>
+  </nav>
 </div>
 `, false);
 
-// <div class="nav">
-//   <a href="https://github.com/distillpub">GitHub</a>
-//   <!-- https://twitter.com/distillpub -->
-// </div>
 
 export class DistillHeader extends T(HTMLElement) {
 

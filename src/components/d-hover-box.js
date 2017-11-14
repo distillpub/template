@@ -20,6 +20,8 @@ const T = Template('d-hover-box', `
 
 .panel {
   position: absolute;
+  font-size: 1rem;
+  line-height: 1.5em;
   top: 0;
   left: 0;
   width: 100%;
@@ -27,10 +29,8 @@ const T = Template('d-hover-box', `
   background-color: rgb(250, 250, 250);
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  padding: 10px;
   box-sizing: border-box;
 }
-
 
 </style>
 

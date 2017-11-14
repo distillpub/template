@@ -12,7 +12,7 @@
     "url": "https://github.com/distillpub/distill-template/issues"
   },
   "scripts": {
-    "start": "rollup -c rollup.config.dev.js -w",
+    "dev": "rollup -c rollup.config.dev.js -w",
     "serve": "python3 -m http.server --bind 127.0.0.1 8888",
     "test": "mocha",
     "lint": "eslint",

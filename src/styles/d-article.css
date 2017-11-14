@@ -1,9 +1,9 @@
 d-article {
-  contain: content;
+  contain: layout style;
+  overflow-x: hidden; // allow overflow y for e.g. hover boxes
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding-top: 2rem;
   color: rgba(0, 0, 0, 0.8);
-  overflow: hidden;
 }
 
 d-article > * {
@@ -169,14 +169,29 @@ d-article span.equation-mimic {
 d-article > d-code,
 d-article section > d-code  {
   display: block;
-  overflow-x: scroll;
-
 }
 
 d-article > d-math[block],
 d-article section > d-math[block]  {
   display: block;
-  overflow-x: scroll;
+}
+
+@media (max-width: 768px) {
+  d-article > d-code,
+  d-article section > d-code,
+  d-article > d-math[block],
+  d-article section > d-math[block] {
+      overflow-x: scroll;
+      -ms-overflow-style: none;  // IE 10+
+      overflow: -moz-scrollbars-none;  // Firefox
+  }
+
+  d-article > d-code::-webkit-scrollbar,
+  d-article section > d-code::-webkit-scrollbar,
+  d-article > d-math[block]::-webkit-scrollbar,
+  d-article section > d-math[block]::-webkit-scrollbar {
+    display: none;  // Safari and Chrome
+  }
 }
 
 d-article .citation {
@@ -190,8 +205,7 @@ d-include {
 }
 
 d-figure {
-  contain: content;
-  overflow: hidden;
+  contain: layout style;
 }
 
 /* KaTeX */
