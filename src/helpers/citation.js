@@ -146,7 +146,7 @@ export function bibliography_cite(ent, fancy){
 export function hover_cite(ent){
   if (ent){
     var cite = '';
-    cite += '<b>' + ent.title + '</b>';
+    cite += '<strong>' + ent.title + '</strong>';
     cite += link_string(ent);
     cite += '<br>';
 

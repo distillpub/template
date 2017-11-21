@@ -2,8 +2,7 @@ import { bibliography_cite } from '../helpers/citation';
 
 const styles = `
 d-citation-list {
-  contain: content;
-  overflow: hidden;
+  contain: layout style;
 }
 
 d-citation-list .references {

@@ -20,7 +20,7 @@ export function renderTOC(element, headings) {
   <style>
 
   d-toc {
-    contain: content;
+    contain: layout style;
     display: block;
   }
 

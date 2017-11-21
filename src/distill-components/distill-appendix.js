@@ -3,8 +3,7 @@ import { serializeFrontmatterToBibtex } from '../helpers/bibtex';
 const styles = `
 <style>
   distill-appendix {
-    contain: content;
-    overflow: hidden;
+    contain: layout style;
   }
 
   distill-appendix .citation {

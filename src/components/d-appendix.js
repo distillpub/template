@@ -1,11 +1,10 @@
 import { Template } from '../mixins/template';
-import { body } from '../helpers/layout';
 
 const T = Template('d-appendix', `
 <style>
 
 d-appendix {
-  contain: content;
+  contain: layout style;
   font-size: 0.8em;
   line-height: 1.7em;
   margin-top: 60px;

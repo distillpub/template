@@ -4,8 +4,7 @@ const T = Template('d-footnote-list', `
 <style>
 
 d-footnote-list {
-  contain: content;
-  overflow: hidden;
+  contain: layout style;
 }
 
 d-footnote-list > * {

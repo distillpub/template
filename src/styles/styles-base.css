@@ -131,7 +131,8 @@ figcaption a {
   color: rgba(0, 0, 0, 0.6);
 }
 
-figcaption b {
+figcaption b,
+figcaption strong, {
   font-weight: 600;
   color: rgba(0, 0, 0, 1.0);
 }
