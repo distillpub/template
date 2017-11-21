@@ -181,6 +181,7 @@ export class Slider extends T(HTMLElement) {
   static get observedAttributes() {return ['min', 'max', 'value', 'step', 'ticks', 'origin', 'tickValues', 'tickLabels']; }
 
   attributeChangedCallback(attr, oldValue, newValue) {
+    if (isNaN(newValue) || newValue === undefined || newValue === null) return;
     if (attr == 'min') {
       this.min = +newValue;
       this.setAttribute('aria-valuemin', this.min);
@@ -194,7 +195,7 @@ export class Slider extends T(HTMLElement) {
     }
     if (attr == 'origin') {
       this.origin = +newValue;
-      this.update(this.value);
+      // this.update(this.value);
     }
     if (attr == 'step') {
       if (newValue > 0) {
