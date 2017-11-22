@@ -90,7 +90,7 @@ sub {
 figure {
   position: relative;
   margin-bottom: 2.5em;
-  margin-top: 2.5em;
+  margin-top: 1.5em;
 }
 
 figcaption+figure {
