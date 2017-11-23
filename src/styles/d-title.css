@@ -15,12 +15,12 @@ d-title h1 {
   font-size: 40px;
   font-weight: 700;
   line-height: 1.05em;
-  margin: 0 0 1rem;
+  margin: 0 0 0.5rem;
 }
 
 @media(min-width: 768px) {
   d-title h1 {
-    font-size: 60px;
+    font-size: 50px;
   }
 }
 
