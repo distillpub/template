@@ -27,14 +27,8 @@ d-title h1 {
 d-title p {
   font-weight: 300;
   font-size: 1.2rem;
-  line-height: 1.7em;
+  line-height: 1.55em;
   grid-column: text;
-}
-
-@media(min-width: 768px) {
-  d-title p {
-    font-size: 1.5rem;
-  }
 }
 
 d-title .status {
