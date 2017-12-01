@@ -95,6 +95,7 @@ export default function(dom, data) {
   }
 
   function author_string(ent, template, sep, finalSep){
+    if (ent.author == null) { return ''; }
     var names = ent.author.split(' and ');
     let name_strings = names.map(name => {
       name = name.trim();
