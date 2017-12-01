@@ -114,13 +114,22 @@ function doi_string(ent, new_line){
   }
 }
 
+function title_string(ent) {
+  return '<span class="title">' + ent.title + '</span> ';
+}
+
 export function bibliography_cite(ent, fancy){
   if (ent){
-    var cite =  '<span class="title">' + ent.title + '</span> ';
+    var cite = title_string(ent);
     cite += link_string(ent) + '<br>';
-    cite += author_string(ent, '${L}, ${I}', ', ', ' and ');
-    if (ent.year || ent.date){
-      cite += ', ' + (ent.year || ent.date) + '. ';
+    if (ent.author) {
+      cite += author_string(ent, '${L}, ${I}', ', ', ' and ');
+      if (ent.year || ent.date) {
+        cite += ', ';
+      }
+    }
+    if (ent.year || ent.date) {
+      cite += (ent.year || ent.date) + '. ';
     } else {
       cite += '. ';
     }
