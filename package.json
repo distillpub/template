@@ -1,6 +1,6 @@
 {
   "name": "distill-template",
-  "version": "2.2.17",
+  "version": "2.2.18",
   "description": "Template for creating Distill articles.",
   "main": "dist/template.v2.js",
   "bin": {
