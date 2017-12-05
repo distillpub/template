@@ -124,26 +124,28 @@ function appendHtml(el, html) {
 }
 
 function citation_meta_content(ref){
-  // Special test for arxiv
   var content = `citation_title=${ref.title};`;
 
-  ref.author.split(' and ').forEach(name => {
-    name = name.trim();
-    let last, firsts;
-    if (name.indexOf(',') != -1){
-      last = name.split(',')[0].trim();
-      firsts = name.split(',')[1].trim();
-    } else {
-      last = name.split(' ').slice(-1)[0].trim();
-      firsts = name.split(' ').slice(0,-1).join(' ');
-    }
-    content += `citation_author=${firsts} ${last};`;
-  });
+  if (ref.author && ref.author !== '') {
+    ref.author.split(' and ').forEach(name => {
+      name = name.trim();
+      let last, firsts;
+      if (name.indexOf(',') != -1){
+        last = name.split(',')[0].trim();
+        firsts = name.split(',')[1].trim();
+      } else {
+        last = name.split(' ').slice(-1)[0].trim();
+        firsts = name.split(' ').slice(0,-1).join(' ');
+      }
+      content += `citation_author=${firsts} ${last};`;
+    });
+  }
 
   if ('year' in ref) {
     content += `citation_publication_date=${ref.year};`;
   }
 
+  // Special test for arxiv
   let arxiv_id_search = /https?:\/\/arxiv\.org\/pdf\/([0-9]*\.[0-9]*)\.pdf/.exec(ref.url);
   arxiv_id_search = arxiv_id_search || /https?:\/\/arxiv\.org\/abs\/([0-9]*\.[0-9]*)/.exec(ref.url);
   arxiv_id_search = arxiv_id_search || /arXiv preprint arXiv:([0-9]*\.[0-9]*)/.exec(ref.journal);
