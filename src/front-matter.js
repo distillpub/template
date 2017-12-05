@@ -73,6 +73,8 @@ export function mergeFromYMLFrontmatter(target, source) {
       target.publishedDate = source.publishedDate;
     } else if (source.publishedDate.constructor === String) {
       target.publishedDate = new Date(source.publishedDate);
+    } else {
+      console.error('Don\'t know what to do with published date: ' + source.publishedDate);
     }
   }
   target.description = source.description;
@@ -303,15 +305,19 @@ export class FrontMatter {
     target.url = this.url;
     target.githubUrl = this.githubUrl;
     target.previewURL = this.previewURL;
-    target.volume = this.volume;
-    target.issue = this.issue;
-    target.publishedDateRFC = this.publishedDateRFC;
-    target.publishedYear = this.publishedYear;
-    target.publishedMonth = this.publishedMonth;
-    target.publishedDay = this.publishedDay;
-    target.publishedMonthPadded = this.publishedMonthPadded;
-    target.publishedDayPadded = this.publishedDayPadded;
-    target.updatedDateRFC = this.updatedDateRFC;
+    if (this.publishedDate) {
+      target.volume = this.volume;
+      target.issue = this.issue;
+      target.publishedDateRFC = this.publishedDateRFC;
+      target.publishedYear = this.publishedYear;
+      target.publishedMonth = this.publishedMonth;
+      target.publishedDay = this.publishedDay;
+      target.publishedMonthPadded = this.publishedMonthPadded;
+      target.publishedDayPadded = this.publishedDayPadded;
+    }
+    if (this.updatedDate) {
+      target.updatedDateRFC = this.updatedDateRFC;
+    }
     target.concatenatedAuthors = this.concatenatedAuthors;
     target.bibtexAuthors = this.bibtexAuthors;
     target.slug = this.slug;
