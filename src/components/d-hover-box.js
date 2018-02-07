@@ -30,6 +30,7 @@ const T = Template('d-hover-box', `
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   box-sizing: border-box;
+  padding: 10px;
 }
 
 </style>
