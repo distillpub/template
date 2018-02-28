@@ -79,7 +79,7 @@ distill-footer {
   }
 }
 
-@media(min-width: 1280px) {
+@media(min-width: 1180px) {
   .base-grid,
   distill-header,
   d-title,
