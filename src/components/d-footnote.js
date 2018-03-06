@@ -30,23 +30,16 @@ span {
   z-index: 10000;
 }
 
-.dt-hover-box {
-  margin: 0 auto;
-  width: 704px;
-  max-width: 100vw;
-  background-color: #FFF;
-  opacity: 0.95;
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  padding: 8px 16px;
-  border-radius: 3px;
-  box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.2);
-  box-sizing: border-box;
+.footnote-container {
+  padding: 10px;
 }
 
 </style>
 
 <d-hover-box>
-  <slot id="slot"></slot>
+  <div class="footnote-container">
+    <slot id="slot"></slot>
+  </div>
 </d-hover-box>
 
 <sup>
