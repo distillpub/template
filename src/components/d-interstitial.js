@@ -3,6 +3,7 @@ import { Template } from '../mixins/template';
 // This overlay is not secure.
 // It is only meant as a social deterrent.
 
+const productionHostname = 'distill.pub';
 const T = Template('d-interstitial', `
 <style>
 
@@ -109,13 +110,11 @@ p small {
 export class Interstitial extends T(HTMLElement) {
 
   connectedCallback() {
-    const passwordInput = this.root.querySelector('#interstitial-password-input');
-    passwordInput.oninput = (event) => this.passwordChanged(event);
-    if (typeof(Storage) !== 'undefined') {
-      if (localStorage.getItem('distill-interstitial-password-correct') === 'true') {
-        console.log('Loaded that correct password was entered before; skipping interstitial.');
-        this.parentElement.removeChild(this);
-      }
+    if (this.shouldRemoveSelf()) {
+      this.parentElement.removeChild(this);
+    } else {
+      const passwordInput = this.root.querySelector('#interstitial-password-input');
+      passwordInput.oninput = (event) => this.passwordChanged(event);
     }
   }
 
@@ -126,9 +125,32 @@ export class Interstitial extends T(HTMLElement) {
       this.parentElement.removeChild(this);
       if (typeof(Storage) !== 'undefined') {
         console.log('Saved that correct password was entered.');
-        localStorage.setItem('distill-interstitial-password-correct', 'true');
+        localStorage.setItem(this.localStorageIdentifier(), 'true');
       }
     }
+  }
+
+  shouldRemoveSelf() {
+    // should never be visible in production
+    if (window && window.location.hostname === productionHostname) {
+      console.warn('Interstitial found on production, hiding it.');
+      return true
+    }
+    // should only have to enter password once
+    if (typeof(Storage) !== 'undefined') {
+      if (localStorage.getItem(this.localStorageIdentifier()) === 'true') {
+        console.log('Loaded that correct password was entered before; skipping interstitial.');
+        return true;
+      }
+    }
+    // otherwise, leave visible
+    return false;
+  }
+
+  localStorageIdentifier() {
+    const prefix = 'distill-drafts'
+    const suffix = 'interstitial-password-correct';
+    return prefix + (window ? window.location.pathname : '-') + suffix
   }
 
 }

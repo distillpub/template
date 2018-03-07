@@ -50,6 +50,8 @@ export default function(dom, data) {
       interstitial.password = data.password;
       body.insertBefore(interstitial, body.firstChild);
     }
+  } else if (!hasPassword && interstitial) {
+    interstitial.parentElement.removeChild(this);
   }
 
   let appendix = dom.querySelector('d-appendix');

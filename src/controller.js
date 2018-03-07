@@ -120,7 +120,11 @@ export const Controller = {
 
       const interstitial = document.querySelector('d-interstitial');
       if (interstitial) {
-        interstitial.password = frontMatter.password;
+        if (typeof frontMatter.password !== 'undefined') {
+          interstitial.password = frontMatter.password;
+        } else {
+          interstitial.parentElement.removeChild(interstitial);
+        }
       }
 
       const prerendered = document.body.hasAttribute('distill-prerendered');
