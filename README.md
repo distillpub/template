@@ -1,25 +1,25 @@
-# Distill Template [![Build Status](https://travis-ci.org/distillpub/template.svg?branch=master)](https://travis-ci.org/distillpub/template)
+# Distill Template
 
-This is the repository for the distill web framework. If you're interesting in just using the framework to write an article for the [Distill journal](http://distill.pub), visit http://distill.pub/guide/. 
+_Disclaimer: This project is research code. It is not an official Google product._
 
-The general process for using this framework is to hotlink the compiled code in your dev environment. 
+This is the repository for the distill web framework. 
 
-```html
-<script src="https://distill.pub/template.v2.js"></script>
-```
+## Contributing
 
-You can also install it as a local dependency through npm or with [yarn](https://yarnpkg.com).
 
-```
-npm install --D distill-template
-```
+To give feedback, report a bug, or request a feature, please open an issue.
 
-If you're interested in submitting pull requests or developing on the framework itself, read on.
+To contribute a change, [check out the contributing guide](CONTRIBUTING.md).
 
-## Development
+### Local Development
 
 Run `npm run start` to start a watching build rollup server. To view the sample pages in the repo, you can run `npm run serve` as a separate process which starts a static server. `npm run build` will run a one-time build.
 
-## Testing
 
-Run `npm test`. That's it.
+## License
+
+Copyright 2018, The Distill Template Authors.
+
+Licensed under the Apache License, Version 2.0
+
+See the [full license](LICENSE).
