@@ -1,4 +1,6 @@
-# Distill Template
+_This is an outdated version of the Distill template. Please switch to the master branch for the current version._
+
+# Distill Template v1
 
 This is the repository for the Distill web framework. 
 
