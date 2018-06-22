@@ -27,9 +27,9 @@ export function bylineTemplate(frontMatter) {
             <div class="name">${author.name}</div>`}
         </p>
         <p class="affiliation">
-          ${author.affiliationURL ? `
-            <a class="affiliation" href="${author.affiliationURL}">${author.affiliation}</a>` : `
-            <div class="affiliation">${author.affiliation}</div>`}
+        ${author.affiliations.map(affiliation =>
+          affiliation.url ? `<a class="affiliation" href="${affiliation.url}">${affiliation.name}</a>` : `<div class="affiliation">${affiliation.name}</div>`
+        ).join(', ')}
         </p>
       `).join('')}
     </div>

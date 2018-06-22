@@ -58,6 +58,7 @@ class Author {
     this.personalURL = object.authorURL; // 'https://colah.github.io'
     this.affiliation = object.affiliation; // 'Google Brain'
     this.affiliationURL = object.affiliationURL; // 'https://g.co/brain'
+    this.affiliations = object.affiliations || []; // new-style affiliations
   }
 
   // 'Chris'

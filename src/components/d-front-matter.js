@@ -12,13 +12,36 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+export function _moveLegacyAffiliationFormatIntoArray(frontMatter) {
+  // authors used to have propoerties "affiliation" and "affiliationURL".
+  // We now encourage using an array for affiliations containing objects with
+  // properties "name" and "url".
+  for (let author of frontMatter.authors) {
+    const hasOldStyle = Boolean(author.affiliation)
+    const hasNewStyle = Boolean(author.affiliations)
+    if (!hasOldStyle) continue;
+    if (hasNewStyle) {
+      console.warn(`Author ${author.author} has both old-style ("affiliation" & "affiliationURL") and new style ("affiliations") affiliation information!`)
+    } else {
+      let newAffiliation = {
+        "name": author.affiliation
+      }
+      if (author.affiliationURL) newAffiliation.url = author.affiliationURL;
+      author.affiliations = [newAffiliation];
+    }
+  }
+  console.log(frontMatter)
+  return frontMatter
+}
+
 export function parseFrontmatter(element) {
   const scriptTag = element.querySelector('script');
   if (scriptTag) {
     const type = scriptTag.getAttribute('type');
     if (type.split('/')[1] == 'json') {
       const content = scriptTag.textContent;
-      return JSON.parse(content);
+      const parsed = JSON.parse(content);
+      return _moveLegacyAffiliationFormatIntoArray(parsed);
     } else {
       console.error('Distill only supports JSON frontmatter tags anymore; no more YAML.');
     }
