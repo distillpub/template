@@ -24,12 +24,17 @@ export default function(dom) {
     if (text && acceptNode(n)) {
       text = quotes(text);
       text = punctuation(text);
-      text = ligatures(text);
+      // TODO: Add back support for ligatures once their uppercased versions don't hang Chrome search anymore
+      // see: https://bugs.chromium.org/p/chromium/issues/detail?id=862648
+      // text = ligatures(text);
       n.nodeValue = text;
     }
   }
 }
 
+// 2018-07-11 shancarter@ and ludwigschubert@ no longer know what this was meant to accomplish
+// if it was trying to not replace text in any child nodes of those listed here,
+// then it does not accomplish that.
 function acceptNode(node) {
   var parent = node.parentElement;
   var isMath = (parent && parent.getAttribute && parent.getAttribute('class')) ? parent.getAttribute('class').includes('katex') || parent.getAttribute('class').includes('MathJax') : false;
