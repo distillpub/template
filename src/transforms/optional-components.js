@@ -43,7 +43,7 @@ export default function(dom, data) {
 
   let title = dom.querySelector('d-title');
   if (!title) {
-    let title = dom.createElement('d-title');
+    title = dom.createElement('d-title');
     body.insertBefore(title, byline);
   }
 
