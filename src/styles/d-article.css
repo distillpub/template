@@ -227,7 +227,7 @@ d-figure {
 /* KaTeX */
 
 .katex, .katex-prerendered {
-  contain: content;
+  contain: style;
   display: inline-block;
 }
 
