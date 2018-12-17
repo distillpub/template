@@ -20,9 +20,10 @@ const T = Template('d-hover-box', `
 :host {
   position: absolute;
   width: 100%;
-  left: 0;
+  left: 0px;
   z-index: 10000;
   display: none;
+  white-space: normal
 }
 
 .container {
@@ -40,10 +41,13 @@ const T = Template('d-hover-box', `
   left: 0;
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: rgb(250, 250, 250);
+  background-color: rgba(250, 250, 250, 0.95);
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   box-sizing: border-box;
+
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 </style>
@@ -117,11 +121,14 @@ export class HoverBox extends T(HTMLElement) {
   show(position) {
     this.visible = true;
     this.style.display = 'block';
+    // 10px extra offset from element
+    this.style.top = Math.round(position[1] + 10) + 'px';
   }
 
   showAtNode(node) {
+    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
     const bbox = node.getBoundingClientRect();
-    this.show([bbox.right, bbox.bottom]);
+    this.show([node.offsetLeft + bbox.width, node.offsetTop + bbox.height]);
   }
 
   hide() {

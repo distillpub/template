@@ -19,7 +19,7 @@ const T = Template('d-cite', `
 <style>
 
 :host {
-  display: inline-block;
+
 }
 
 .citation {
@@ -48,10 +48,6 @@ figcaption .citation-number {
   line-height: 1em;
 }
 
-d-hover-box {
-  margin-top: 1.9em;
-}
-
 ul {
   margin: 0;
   padding: 0;
@@ -71,7 +67,10 @@ ul li:last-of-type {
 
 <d-hover-box id="hover-box"></d-hover-box>
 
-<div id="citation-" class="citation"><slot></slot><span class="citation-number"></span></div>
+<div id="citation-" class="citation">
+  <slot></slot>
+  <span class="citation-number"></span>
+</div>
 `);
 
 export class Cite extends T(HTMLElement) {

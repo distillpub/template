@@ -22,6 +22,7 @@ d-math[block] {
 }
 
 :host {
+
 }
 
 sup {
@@ -35,13 +36,6 @@ sup {
 span {
   color: hsla(206, 90%, 20%, 0.7);
   cursor: default;
-}
-
-.container {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  z-index: 10000;
 }
 
 .footnote-container {
