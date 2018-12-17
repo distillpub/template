@@ -17,20 +17,20 @@ import { renderMathInElement } from '../helpers/katex-auto-render';
 
 export default function(dom, data) {
   let needsCSS = false;
-  const article = dom.querySelector('d-article');
+  const body = dom.querySelector('body');
 
-  if (!article) {
-    console.warn("No d-article tag found!");
+  if (!body) {
+    console.warn("No body tag found!");
     return;
   }
 
   if (data.katex && data.katex.delimiters) {
     global.document = dom;
-    renderMathInElement(article, data.katex);
+    renderMathInElement(body, data.katex);
   }
 
   // render d-math tags
-  const mathTags = article.querySelectorAll('d-math');
+  const mathTags = body.querySelectorAll('d-math');
   if (mathTags.length > 0) {
     needsCSS = true;
     console.warn(`Prerendering ${mathTags.length} math tags...`);
