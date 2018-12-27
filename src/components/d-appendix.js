@@ -30,7 +30,7 @@ d-appendix {
 }
 
 d-appendix h3 {
-  grid-column: page-start / text-start;
+  grid-column: text;
   font-size: 15px;
   font-weight: 500;
   margin-top: 1em;
