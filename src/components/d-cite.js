@@ -102,7 +102,7 @@ export class Cite extends T(HTMLElement) {
 
   attributeChangedCallback(name, oldValue, newValue) {
     const eventName = oldValue ? 'onCiteKeyChanged' : 'onCiteKeyCreated';
-    const keys = newValue.split(',');
+    const keys = newValue.split(',').map(k => k.trim());
     const options = { detail: [this, keys], bubbles: true };
     const event = new CustomEvent(eventName, options);
     document.dispatchEvent(event);
