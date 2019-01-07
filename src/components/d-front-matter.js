@@ -35,7 +35,7 @@ export function _moveLegacyAffiliationFormatIntoArray(frontMatter) {
 }
 
 export function parseFrontmatter(element) {
-  const scriptTag = element.querySelector('script');
+  const scriptTag = element.firstElementChild;
   if (scriptTag) {
     const type = scriptTag.getAttribute('type');
     if (type.split('/')[1] == 'json') {
