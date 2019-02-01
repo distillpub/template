@@ -30,7 +30,7 @@ ${katexCSSTag}
 
 :host {
   display: inline-block;
-  contain: content;
+  contain: style;
 }
 
 :host([block]) {
@@ -73,8 +73,7 @@ export class DMath extends Mutating(T(HTMLElement)) {
     }
     // transform inline delimited math to d-math tags
     if (DMath.katexOptions.delimiters) {
-      const article = document.querySelector('d-article');
-      renderMathInElement(article, DMath.katexOptions);
+      renderMathInElement(document.body, DMath.katexOptions);
     }
   }
 

@@ -16,7 +16,7 @@ import { bibliography_cite } from '../helpers/citation';
 
 const styles = `
 d-citation-list {
-  contain: layout style;
+  contain: style;
 }
 
 d-citation-list .references {
