@@ -67,7 +67,7 @@ export default function render(dom) {
   if (templateTag) {
     templateTag.parentNode.removeChild(templateTag);
   } else {
-    console.info('FYI: Did not find template tag when trying to remove it. You may not have added it. Be aware that our polyfills will add it.')
+    console.debug('FYI: Did not find template tag when trying to remove it. You may not have added it. Be aware that our polyfills will add it.')
   }
 
   // add loader

@@ -15,14 +15,12 @@
 import { FrontMatter, mergeFromYMLFrontmatter } from './front-matter';
 import { DMath } from './components/d-math';
 import { collect_citations } from './helpers/citation.js';
+import { domContentLoaded } from './helpers/domContentLoaded.js';
 import { parseFrontmatter } from './components/d-front-matter';
 import optionalComponents from './transforms/optional-components';
 
 const frontMatter = new FrontMatter();
 
-function domContentLoaded() {
-  return ['interactive', 'complete'].indexOf(document.readyState) !== -1;
-}
 
 export const Controller = {
 
@@ -109,7 +107,7 @@ export const Controller = {
 
 
       if (citationListTag.hasAttribute('distill-prerendered')) {
-        console.info('Citation list was prerendered; not updating it.');
+        console.debug('Citation list was prerendered; not updating it.');
       } else {
         const entries = new Map(frontMatter.citations.map( citationKey => {
           return [citationKey, frontMatter.bibliography.get(citationKey)];
@@ -167,11 +165,11 @@ export const Controller = {
         console.warn('Controller received DOMContentLoaded but was already loaded!');
         return;
       } else if (!domContentLoaded()) {
-        console.warn('Controller received DOMContentLoaded before appropriate document.readyState!');
+        console.warn('Controller received DOMContentLoaded at document.readyState: ' + document.readyState + '!');
         return;
       } else {
         Controller.loaded = true;
-        console.log('Runlevel 4: Controller running DOMContentLoaded');
+        console.debug('Runlevel 4: Controller running DOMContentLoaded');
       }
 
       const frontMatterTag = document.querySelector('d-front-matter');

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 export function addPolyfill(polyfill, polyfillLoadedCallback) {
-  console.info('Runlevel 0: Polyfill required: ' + polyfill.name);
+  console.debug('Runlevel 0: Polyfill required: ' + polyfill.name);
   const script = document.createElement('script');
   script.src = polyfill.url;
   script.async = false;
@@ -58,11 +58,11 @@ export class Polyfills {
     // Define an intermediate callback that checks if all is loaded.
     const polyfillLoaded = function(polyfill) {
       polyfill.loaded = true;
-      console.info('Runlevel 0: Polyfill has finished loading: ' + polyfill.name);
-      // console.info(window[polyfill.name]);
+      console.debug('Runlevel 0: Polyfill has finished loading: ' + polyfill.name);
+      // console.debug(window[polyfill.name]);
       if (Polyfills.neededPolyfills.every((poly) => poly.loaded)) {
-        console.info('Runlevel 0: All required polyfills have finished loading.');
-        console.info('Runlevel 0->1.');
+        console.debug('Runlevel 0: All required polyfills have finished loading.');
+        console.debug('Runlevel 0->1.');
         window.distillRunlevel = 1;
         callback();
       }
