@@ -30,7 +30,6 @@ export function _moveLegacyAffiliationFormatIntoArray(frontMatter) {
       author.affiliations = [newAffiliation];
     }
   }
-  console.log(frontMatter)
   return frontMatter
 }
 
