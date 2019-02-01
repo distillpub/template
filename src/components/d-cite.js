@@ -19,11 +19,10 @@ const T = Template('d-cite', `
 <style>
 
 :host {
-
+  display: inline-block;
 }
 
 .citation {
-  display: inline-block;
   color: hsla(206, 90%, 20%, 0.7);
 }
 
@@ -68,7 +67,6 @@ ul li:last-of-type {
 <d-hover-box id="hover-box"></d-hover-box>
 
 <div id="citation-" class="citation">
-  <slot></slot>
   <span class="citation-number"></span>
 </div>
 `);
@@ -76,6 +74,11 @@ ul li:last-of-type {
 export class Cite extends T(HTMLElement) {
 
   /* Lifecycle */
+  constructor() {
+    super();
+    this._numbers = [];
+    this._entries = [];
+  }
 
   connectedCallback() {
     this.outerSpan = this.root.querySelector('#citation-');
@@ -84,6 +87,13 @@ export class Cite extends T(HTMLElement) {
     window.customElements.whenDefined('d-hover-box').then(() => {
       this.hoverBox.listen(this);
     });
+    // in case this component got connected after values were set
+    if (this.numbers) {
+      this.displayNumbers(this.numbers)
+    }
+    if (this.entries) {
+      this.displayEntries(this.entries)
+    }
   }
 
   //TODO This causes an infinite loop on firefox with polyfills.
@@ -123,21 +133,37 @@ export class Cite extends T(HTMLElement) {
   /* Setters & Rendering */
 
   set numbers(numbers) {
+    this._numbers = numbers;
+    this.displayNumbers(numbers);
+  }
+
+  get numbers() {
+    return this._numbers;
+  }
+
+  displayNumbers(numbers) {
+    if (!this.innerSpan) return;
     const numberStrings = numbers.map( index => {
       return index == -1 ? '?' : index + 1 + '';
     });
     const textContent = '[' + numberStrings.join(', ') + ']';
-    if (this.innerSpan) {
-      this.innerSpan.textContent = textContent;
-    }
+    this.innerSpan.textContent = textContent;
   }
 
   set entries(entries) {
-    if (this.hoverBox) {
-      this.hoverBox.innerHTML = `<ul>
+    this._entries = entries;
+    this.displayEntries(entries)
+  }
+
+  get entries() {
+    return this._entries;
+  }
+
+  displayEntries(entries) {
+    if (!this.hoverBox) return
+    this.hoverBox.innerHTML = `<ul>
       ${entries.map(hover_cite).map(html => `<li>${html}</li>`).join('\n')}
-      </ul>`;
-    }
+    </ul>`;
   }
 
 }
