@@ -61,9 +61,11 @@ function author_string(ent, template, sep, finalSep){
     if (name.indexOf(',') != -1){
       var last = name.split(',')[0].trim();
       var firsts = name.split(',')[1];
-    } else {
+    } else if (name.indexOf(' ') != -1) {
       var last = name.split(' ').slice(-1)[0].trim();
       var firsts = name.split(' ').slice(0,-1).join(' ');
+    } else {
+      var last = name.trim();
     }
     var initials = '';
     if (firsts != undefined) {
@@ -72,7 +74,8 @@ function author_string(ent, template, sep, finalSep){
     }
     return template.replace('${F}', firsts)
       .replace('${L}', last)
-      .replace('${I}', initials);
+      .replace('${I}', initials)
+      .trim(); // in case one of first or last was empty
   });
   if (names.length > 1) {
     var str = name_strings.slice(0, names.length-1).join(sep);
