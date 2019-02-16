@@ -37,6 +37,7 @@ const options = { runScripts: 'outside-only', QuerySelector: true, virtualConsol
 JSDOM.fromFile(program.inputPath, options).then(dom => {
   const window = dom.window;
   const document = window.document;
+  const HTMLElement = window.HTMLElement;
 
   const data = new transforms.FrontMatter;
   data.inputHTMLPath = program.inputPath; // may be needed to resolve relative links!

@@ -12,10 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { footerTemplate } from '../distill-components/distill-footer-template';
+
 export default function(dom) {
   const footerTag = dom.querySelector('distill-footer');
   if(!footerTag) {
     const footer = dom.createElement('distill-footer');
+    footer.innerHTML = footerTemplate;
     const body = dom.querySelector('body');
     body.appendChild(footer);
   }

@@ -40,6 +40,9 @@ export const Template = (name, templateString, useShadow = true) => {
       }
 
       connectedCallback() {
+        if (this.hasAttribute('distill-prerendered')) {
+          return;
+        }
         if (useShadow) {
           if ('ShadyCSS' in window) {
             ShadyCSS.styleElement(this);
