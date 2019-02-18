@@ -13,20 +13,20 @@ export const footerTemplate = `
   contain: content;
 }
 
-.logo svg {
+.footer-container .logo svg {
   width: 24px;
   position: relative;
   top: 4px;
   margin-right: 2px;
 }
 
-.logo svg path {
+.footer-container .logo svg path {
   fill: none;
   stroke: rgba(255, 255, 255, 0.8);
   stroke-width: 3px;
 }
 
-.logo {
+.footer-container .logo {
   font-size: 17px;
   font-weight: 200;
   color: rgba(255, 255, 255, 0.8);
@@ -34,16 +34,16 @@ export const footerTemplate = `
   margin-right: 6px;
 }
 
-.container {
+.footer-container {
   grid-column: text;
 }
 
-.nav {
+.footer-container .nav {
   font-size: 0.9em;
   margin-top: 1.5em;
 }
 
-.nav a {
+.footer-container .nav a {
   color: rgba(255, 255, 255, 0.8);
   margin-right: 6px;
   text-decoration: none;
@@ -51,7 +51,7 @@ export const footerTemplate = `
 
 </style>
 
-<div class='container'>
+<div class='footer-container'>
 
   <a href="/" class="logo">
     ${logo}
