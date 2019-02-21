@@ -58,6 +58,11 @@ function author_string(ent, template, sep, finalSep){
   var names = ent.author.split(' and ');
   let name_strings = names.map(name => {
     name = name.trim();
+    if (name.match(/\{.+\}/)) {
+      var regExp = /\{([^}]+)\}/;
+      var matches = regExp.exec(name);
+      return matches[1];
+    }    
     if (name.indexOf(',') != -1){
       var last = name.split(',')[0].trim();
       var firsts = name.split(',')[1];
