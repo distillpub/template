@@ -17,14 +17,14 @@
 
 <head>
   <script src="../dist/template.v2.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1" >
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf8">
 </head>
 
 <body>
   <distill-header></distill-header>
-<d-front-matter>
-  <script id='distill-front-matter' type="text/json">{
+  <d-front-matter>
+    <script id='distill-front-matter' type="text/json">{
     "title": "Why Momentum Really Works",
     "description": "Although \" extremely useful for visualizing high-dimensional data, t-SNE plots can sometimes be mysterious or misleading.",
     "published": "Jan 10, 2017",
@@ -54,96 +54,129 @@
       ]
     }
   }</script>
-</d-front-matter>
-<d-title>
-  <figure style="grid-column: page; margin: 1rem 0;"><img src="momentum.png" style="width:100%; border: 1px solid rgba(0, 0, 0, 0.2);"/></figure>
-  <p>We often think of Momentum<d-cite key="mercier2011humans"></d-cite> as a means of dampening oscillations and speeding up the iterations, leading to faster convergence. But it has other interesting behavior. It allows a larger range of step-sizes to be used, and creates its own oscillations. What is going on?</p>
-</d-title>
-<d-byline></d-byline>
-<d-article>
-  <a class="marker" href="#section-1" id="section-1"><span>1</span></a>
-  <h2>A Brief Survey of Techniques</h2>
-  <p>Before diving in: if you haven’t encountered t-SNE before, here’s what you need to know about the math behind it. The goal is to take a set of points in a high-dimensional space and find a faithful representation of those points in a lower-dimensional space, typically the 2D plane. The algorithm is non-linear and adapts to the underlying data, performing different transformations on different regions. Those differences can be a major source of confusion.</p>
-  <p>This is the first paragraph of the article. Test a long&thinsp;&mdash;&thinsp;dash -- here it is.</p>
-  <p>Test for owner's possessive. Test for "quoting a passage." And another sentence. Or two. Some flopping fins; for diving.</p>
-  <aside>Some text in an aside, margin notes, etc...</aside>
-  <p>Here's a test of an inline equation <d-math>c = a^2 + b^2</d-math>. Also with configurable katex standards just using inline '$' signs: $$x^2$$ And then there's a block equation:</p>
-  <d-math block>
-    c = \pm \sqrt{ \sum_{i=0}^{n}{a^{222} + b^2}}
-  </d-math>
-  <p>Math can also be quite involved:</p>
-  <d-math block>
-    \frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}} {1+\frac{e^{-8\pi}} {1+\cdots} } } }
-  </d-math>
-  <a class="marker" href="#section-1.1" id="section-1.1"><span>1.1</span></a>
-  <h3>Citations</h3>
-  <p><d-slider style="width: 200px;"></d-slider></p>
-  <p>We can<d-cite key="mercier2011humans"></d-cite> also cite <d-cite key="gregor2015draw,mercier2011humans,openai2018charter"></d-cite> external publications. <d-cite key="dong2014image,dumoulin2016guide,mordvintsev2015inceptionism"></d-cite>. We should also be testing footnotes<d-footnote>This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote.</d-footnote>. There are multiple footnotes, and they appear in the appendix<d-footnote>Given I have coded them right. Also, here's math in a footnote: <d-math>c = \sum_0^i{x}</d-math>. Also, a citation. Box-ception<d-cite key='gregor2015draw'></d-cite>!</d-footnote> as well.</p>
-  <a class="marker" href="#section-2" id="section-2"><span>2</span></a>
-  <h2>Displaying code snippets</h2>
-  <p>Some inline javascript:<d-code language="javascript">var x = 25;</d-code>. And here's a javascript code block.</p>
-  <d-code block language="javascript">
+  </d-front-matter>
+  <d-title>
+    <figure style="grid-column: page; margin: 1rem 0;"><img src="momentum.png"
+        style="width:100%; border: 1px solid rgba(0, 0, 0, 0.2);" /></figure>
+    <p>We often think of Momentum<d-cite key="mercier2011humans"></d-cite> as a means of dampening oscillations and
+      speeding up the iterations, leading to faster convergence. But it has other interesting behavior. It allows a
+      larger range of step-sizes to be used, and creates its own oscillations. What is going on?</p>
+  </d-title>
+  <d-byline></d-byline>
+  <d-article>
+    <a class="marker" href="#section-1" id="section-1"><span>1</span></a>
+    <h2>A Brief Survey of Techniques</h2>
+    <p>Before diving in: if you haven’t encountered t-SNE before, here’s what you need to know about the math behind it.
+      The goal is to take a set of points in a high-dimensional space and find a faithful representation of those points
+      in a lower-dimensional space, typically the 2D plane. The algorithm is non-linear and adapts to the underlying
+      data, performing different transformations on different regions. Those differences can be a major source of
+      confusion.</p>
+    <p>This is the first paragraph of the article. Test a long&thinsp;&mdash;&thinsp;dash -- here it is.</p>
+    <p>Test for owner's possessive. Test for "quoting a passage." And another sentence. Or two. Some flopping fins; for
+      diving.</p>
+    <aside>Some text in an aside, margin notes, etc...</aside>
+    <p>Here's a test of an inline equation <d-math>c = a^2 + b^2</d-math>. Also with configurable katex standards just
+      using inline '$' signs: $$x^2$$ And then there's a block equation:</p>
+    <d-math block>
+      c = \pm \sqrt{ \sum_{i=0}^{n}{a^{222} + b^2}}
+    </d-math>
+    <p>Math can also be quite involved:</p>
+    <d-math block>
+      \frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}}
+      {1+\frac{e^{-6\pi}} {1+\frac{e^{-8\pi}} {1+\cdots} } } }
+    </d-math>
+    <a class="marker" href="#section-1.1" id="section-1.1"><span>1.1</span></a>
+    <h3>Citations</h3>
+    <p>
+      <d-slider style="width: 200px;"></d-slider>
+    </p>
+    <p>We can<d-cite bibtex-key="mercier2011humans"></d-cite> also cite <d-cite
+        key="gregor2015draw,mercier2011humans,openai2018charter"></d-cite> external publications. <d-cite
+        key="dong2014image,dumoulin2016guide,mordvintsev2015inceptionism"></d-cite>. We should also be testing footnotes
+      <d-footnote>This will become a hoverable footnote. This will become a hoverable footnote. This will become a
+        hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will
+        become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote.
+      </d-footnote>. There are multiple footnotes, and they appear in the appendix<d-footnote>Given I have coded them
+        right. Also, here's math in a footnote: <d-math>c = \sum_0^i{x}</d-math>. Also, a citation. Box-ception<d-cite
+          key='gregor2015draw'></d-cite>!</d-footnote> as well.</p>
+    <a class="marker" href="#section-2" id="section-2"><span>2</span></a>
+    <h2>Displaying code snippets</h2>
+    <p>Some inline javascript:<d-code language="javascript">var x = 25;</d-code>. And here's a javascript code block.
+    </p>
+    <d-code block language="javascript">
       var x = 25;
       function(x){
-        return x * x;
+      return x * x;
       }
-  </d-code>
-  <p>We also support python.</p>
-  <d-code block language="python">
-    # Python 3: Fibonacci series up to n
-    def fib(n):
+    </d-code>
+    <p>We also support python.</p>
+    <d-code block language="python">
+      # Python 3: Fibonacci series up to n
+      def fib(n):
       a, b = 0, 1
-        while a < n:
-          print(a, end=' ')
-          a, b = b, a+b
-  </d-code>
-  <p>And a table</p>
-  <table>
-      <thead>
-        <tr><th>First</th><th>Second</th><th>Third</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>23</td><td>654</td><td>23</td></tr>
-        <tr><td>14</td><td>54</td><td>34</td></tr>
-        <tr><td>234</td><td>54</td><td>23</td></tr>
-      </tbody>
-    </table>
-  <d-figure id="last-figure"></d-figure>
-  <script>
-    const figure = document.querySelector("d-figure#last-figure");
-    const initTag = document.createElement("span");
-    initTag.textContent = "initialized!"
-    figure.appendChild(initTag);
-    figure.addEventListener("ready", function() {
-      const initTag = figure.querySelector("span");
-      initTag.textContent = "ready"
-      console.log('ready')
-    });
-    figure.addEventListener("onscreen", function() {
-      const initTag = figure.querySelector("span");
-      initTag.textContent = "onscreen"
-      console.log('onscreen')
-    });
-    figure.addEventListener("offscreen", function() {
-      const initTag = figure.querySelector("span");
-      initTag.textContent = "offscreen!"
-      console.log('offscreen')
-    });
-  </script>
-  <p>That's it for the example article!</p>
+      while a < n: print(a, end=' ' ) a, b=b, a+b </d-code> <p>And a table</p>
+        <table>
+          <thead>
+            <tr>
+              <th>First</th>
+              <th>Second</th>
+              <th>Third</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>23</td>
+              <td>654</td>
+              <td>23</td>
+            </tr>
+            <tr>
+              <td>14</td>
+              <td>54</td>
+              <td>34</td>
+            </tr>
+            <tr>
+              <td>234</td>
+              <td>54</td>
+              <td>23</td>
+            </tr>
+          </tbody>
+        </table>
+        <d-figure id="last-figure"></d-figure>
+        <script>
+          const figure = document.querySelector("d-figure#last-figure");
+          const initTag = document.createElement("span");
+          initTag.textContent = "initialized!"
+          figure.appendChild(initTag);
+          figure.addEventListener("ready", function () {
+            const initTag = figure.querySelector("span");
+            initTag.textContent = "ready"
+            console.log('ready')
+          });
+          figure.addEventListener("onscreen", function () {
+            const initTag = figure.querySelector("span");
+            initTag.textContent = "onscreen"
+            console.log('onscreen')
+          });
+          figure.addEventListener("offscreen", function () {
+            const initTag = figure.querySelector("span");
+            initTag.textContent = "offscreen!"
+            console.log('offscreen')
+          });
+        </script>
+        <p>That's it for the example article!</p>
 
-</d-article>
+  </d-article>
 
-<d-appendix>
+  <d-appendix>
 
-  <h3>Contributions</h3>
-  <p>Some text describing who did what.</p>
-  <h3>Reviewers</h3>
-  <p>Some text with links describing who reviewed the article.</p>
+    <h3>Contributions</h3>
+    <p>Some text describing who did what.</p>
+    <h3>Reviewers</h3>
+    <p>Some text with links describing who reviewed the article.</p>
 
-  <d-bibliography src="bibliography.bib"></d-bibliography>
-</d-appendix>
+    <d-bibliography src="bibliography.bib"></d-bibliography>
+  </d-appendix>
 
-<distill-footer></distill-footer>
+  <distill-footer></distill-footer>
 
 </body>

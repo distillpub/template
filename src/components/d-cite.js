@@ -12,10 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Template } from '../mixins/template';
-import { hover_cite, bibliography_cite } from '../helpers/citation';
+import { Template } from "../mixins/template";
+import { hover_cite, bibliography_cite } from "../helpers/citation";
 
-const T = Template('d-cite', `
+const T = Template(
+  "d-cite",
+  `
 <style>
 
 :host {
@@ -69,10 +71,10 @@ ul li:last-of-type {
 <div id="citation-" class="citation">
   <span class="citation-number"></span>
 </div>
-`);
+`
+);
 
 export class Cite extends T(HTMLElement) {
-
   /* Lifecycle */
   constructor() {
     super();
@@ -81,53 +83,53 @@ export class Cite extends T(HTMLElement) {
   }
 
   connectedCallback() {
-    this.outerSpan = this.root.querySelector('#citation-');
-    this.innerSpan = this.root.querySelector('.citation-number');
-    this.hoverBox = this.root.querySelector('d-hover-box');
-    window.customElements.whenDefined('d-hover-box').then(() => {
+    this.outerSpan = this.root.querySelector("#citation-");
+    this.innerSpan = this.root.querySelector(".citation-number");
+    this.hoverBox = this.root.querySelector("d-hover-box");
+    window.customElements.whenDefined("d-hover-box").then(() => {
       this.hoverBox.listen(this);
     });
     // in case this component got connected after values were set
     if (this.numbers) {
-      this.displayNumbers(this.numbers)
+      this.displayNumbers(this.numbers);
     }
     if (this.entries) {
-      this.displayEntries(this.entries)
+      this.displayEntries(this.entries);
     }
   }
 
   //TODO This causes an infinite loop on firefox with polyfills.
   // This is only needed for interactive editing so no priority.
   // disconnectedCallback() {
-    // const options = { detail: [this, this.keys], bubbles: true };
-    // const event = new CustomEvent('onCiteKeyRemoved', options);
-    // document.dispatchEvent(event);
+  // const options = { detail: [this, this.keys], bubbles: true };
+  // const event = new CustomEvent('onCiteKeyRemoved', options);
+  // document.dispatchEvent(event);
   // }
 
   /* observe 'key' attribute */
 
   static get observedAttributes() {
-    return ['key'];
+    return ["key", "bibtex-key"];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    const eventName = oldValue ? 'onCiteKeyChanged' : 'onCiteKeyCreated';
-    const keys = newValue.split(',').map(k => k.trim());
+    const eventName = oldValue ? "onCiteKeyChanged" : "onCiteKeyCreated";
+    const keys = newValue.split(",").map(k => k.trim());
     const options = { detail: [this, keys], bubbles: true };
     const event = new CustomEvent(eventName, options);
     document.dispatchEvent(event);
   }
 
   set key(value) {
-    this.setAttribute('key', value);
+    this.setAttribute("key", value);
   }
 
   get key() {
-    return this.getAttribute('key');
+    return this.getAttribute("key") || this.getAttribute("bibtex-key");
   }
 
   get keys() {
-    return this.getAttribute('key').split(',');
+    return this.key.split(",");
   }
 
   /* Setters & Rendering */
@@ -143,16 +145,16 @@ export class Cite extends T(HTMLElement) {
 
   displayNumbers(numbers) {
     if (!this.innerSpan) return;
-    const numberStrings = numbers.map( index => {
-      return index == -1 ? '?' : index + 1 + '';
+    const numberStrings = numbers.map(index => {
+      return index == -1 ? "?" : index + 1 + "";
     });
-    const textContent = '[' + numberStrings.join(', ') + ']';
+    const textContent = "[" + numberStrings.join(", ") + "]";
     this.innerSpan.textContent = textContent;
   }
 
   set entries(entries) {
     this._entries = entries;
-    this.displayEntries(entries)
+    this.displayEntries(entries);
   }
 
   get entries() {
@@ -160,10 +162,12 @@ export class Cite extends T(HTMLElement) {
   }
 
   displayEntries(entries) {
-    if (!this.hoverBox) return
+    if (!this.hoverBox) return;
     this.hoverBox.innerHTML = `<ul>
-      ${entries.map(hover_cite).map(html => `<li>${html}</li>`).join('\n')}
+      ${entries
+        .map(hover_cite)
+        .map(html => `<li>${html}</li>`)
+        .join("\n")}
     </ul>`;
   }
-
 }

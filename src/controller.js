@@ -173,8 +173,10 @@ export const Controller = {
       }
 
       const frontMatterTag = document.querySelector('d-front-matter');
-      const data = parseFrontmatter(frontMatterTag);
-      Controller.listeners.onFrontMatterChanged({detail: data});
+      if (frontMatterTag) {
+        const data = parseFrontmatter(frontMatterTag);
+        Controller.listeners.onFrontMatterChanged({detail: data});
+      }
 
       // Resolving "citations" dependency due to initial DOM load
       frontMatter.citations = collect_citations();
