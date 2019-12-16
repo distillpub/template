@@ -16,7 +16,9 @@ export function collect_citations(dom = document) {
   const citations = new Set();
   const citeTags = dom.querySelectorAll("d-cite");
   for (const tag of citeTags) {
-    for (const key of tag.keys) {
+    const keyString = tag.getAttribute("key") || tag.getAttribute("bibtex-key");
+    const keys = keyString.split(",").map(k => k.trim());
+    for (const key of keys) {
       citations.add(key);
     }
   }

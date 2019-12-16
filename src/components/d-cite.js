@@ -129,7 +129,9 @@ export class Cite extends T(HTMLElement) {
   }
 
   get keys() {
-    return this.key.split(",");
+    const result = this.key.split(",");
+    console.log(result);
+    return result;
   }
 
   /* Setters & Rendering */
