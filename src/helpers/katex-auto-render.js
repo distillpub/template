@@ -28,14 +28,16 @@ const findEndOfMath = function(delimiter, text, startIndex) {
   while (index < text.length) {
     const character = text[index];
 
-    if (braceLevel <= 0 &&
-      text.slice(index, index + delimLength) === delimiter) {
+    if (
+      braceLevel <= 0 &&
+      text.slice(index, index + delimLength) === delimiter
+    ) {
       return index;
-    } else if (character === '\\') {
+    } else if (character === "\\") {
       index++;
-    } else if (character === '{') {
+    } else if (character === "{") {
       braceLevel++;
-    } else if (character === '}') {
+    } else if (character === "}") {
       braceLevel--;
     }
 
@@ -49,7 +51,7 @@ const splitAtDelimiters = function(startData, leftDelim, rightDelim, display) {
   const finalData = [];
 
   for (let i = 0; i < startData.length; i++) {
-    if (startData[i].type === 'text') {
+    if (startData[i].type === "text") {
       const text = startData[i].data;
 
       let lookingForLeft = true;
@@ -60,13 +62,14 @@ const splitAtDelimiters = function(startData, leftDelim, rightDelim, display) {
       if (nextIndex !== -1) {
         currIndex = nextIndex;
         finalData.push({
-          type: 'text',
-          data: text.slice(0, currIndex),
+          type: "text",
+          data: text.slice(0, currIndex)
         });
         lookingForLeft = false;
       }
 
-      while (true) { // eslint-disable-line no-constant-condition
+      while (true) {
+        // eslint-disable-line no-constant-condition
         if (lookingForLeft) {
           nextIndex = text.indexOf(leftDelim, currIndex);
           if (nextIndex === -1) {
@@ -74,8 +77,8 @@ const splitAtDelimiters = function(startData, leftDelim, rightDelim, display) {
           }
 
           finalData.push({
-            type: 'text',
-            data: text.slice(currIndex, nextIndex),
+            type: "text",
+            data: text.slice(currIndex, nextIndex)
           });
 
           currIndex = nextIndex;
@@ -83,20 +86,17 @@ const splitAtDelimiters = function(startData, leftDelim, rightDelim, display) {
           nextIndex = findEndOfMath(
             rightDelim,
             text,
-            currIndex + leftDelim.length);
+            currIndex + leftDelim.length
+          );
           if (nextIndex === -1) {
             break;
           }
 
           finalData.push({
-            type: 'math',
-            data: text.slice(
-              currIndex + leftDelim.length,
-              nextIndex),
-            rawData: text.slice(
-              currIndex,
-              nextIndex + rightDelim.length),
-            display: display,
+            type: "math",
+            data: text.slice(currIndex + leftDelim.length, nextIndex),
+            rawData: text.slice(currIndex, nextIndex + rightDelim.length),
+            display: display
           });
 
           currIndex = nextIndex + rightDelim.length;
@@ -106,8 +106,8 @@ const splitAtDelimiters = function(startData, leftDelim, rightDelim, display) {
       }
 
       finalData.push({
-        type: 'text',
-        data: text.slice(currIndex),
+        type: "text",
+        data: text.slice(currIndex)
       });
     } else {
       finalData.push(startData[i]);
@@ -117,14 +117,16 @@ const splitAtDelimiters = function(startData, leftDelim, rightDelim, display) {
   return finalData;
 };
 
-
 const splitWithDelimiters = function(text, delimiters) {
-  let data = [{type: 'text', data: text}];
+  let data = [{ type: "text", data: text }];
   for (let i = 0; i < delimiters.length; i++) {
     const delimiter = delimiters[i];
     data = splitAtDelimiters(
-      data, delimiter.left, delimiter.right,
-      delimiter.display || false);
+      data,
+      delimiter.left,
+      delimiter.right,
+      delimiter.display || false
+    );
   }
   return data;
 };
@@ -137,10 +139,10 @@ const renderMathInText = function(text, optionsCopy) {
   const fragment = document.createDocumentFragment();
 
   for (let i = 0; i < data.length; i++) {
-    if (data[i].type === 'text') {
+    if (data[i].type === "text") {
       fragment.appendChild(document.createTextNode(data[i].data));
     } else {
-      const tag = document.createElement('d-math');
+      const tag = document.createElement("d-math");
       const math = data[i].data;
       // Override any display mode defined in the settings with that
       // defined by the text itself
@@ -148,15 +150,14 @@ const renderMathInText = function(text, optionsCopy) {
       try {
         tag.textContent = math;
         if (optionsCopy.displayMode) {
-          tag.setAttribute('block', '');
+          tag.setAttribute("block", "");
         }
       } catch (e) {
         if (!(e instanceof katex.ParseError)) {
           throw e;
         }
         optionsCopy.errorCallback(
-          'KaTeX auto-render: Failed to parse `' + data[i].data +
-          '` with ',
+          "KaTeX auto-render: Failed to parse `" + data[i].data + "` with ",
           e
         );
         fragment.appendChild(document.createTextNode(data[i].rawData));
@@ -174,13 +175,17 @@ const renderElem = function(elem, optionsCopy) {
     const childNode = elem.childNodes[i];
     if (childNode.nodeType === 3) {
       // Text node
-      const frag = renderMathInText(childNode.textContent, optionsCopy);
-      i += frag.childNodes.length - 1;
-      elem.replaceChild(frag, childNode);
+      const text = childNode.textContent;
+      if (optionsCopy.mightHaveMath(text)) {
+        const frag = renderMathInText(text, optionsCopy);
+        i += frag.childNodes.length - 1;
+        elem.replaceChild(frag, childNode);
+      }
     } else if (childNode.nodeType === 1) {
       // Element node
-      const shouldRender = optionsCopy.ignoredTags.indexOf(
-        childNode.nodeName.toLowerCase()) === -1;
+      const shouldRender =
+        optionsCopy.ignoredTags.indexOf(childNode.nodeName.toLowerCase()) ===
+        -1;
 
       if (shouldRender) {
         renderElem(childNode, optionsCopy);
@@ -192,27 +197,40 @@ const renderElem = function(elem, optionsCopy) {
 
 const defaultAutoRenderOptions = {
   delimiters: [
-    {left: '$$', right: '$$', display: true},
-    {left: '\\[', right: '\\]', display: true},
-    {left: '\\(', right: '\\)', display: false},
+    { left: "$$", right: "$$", display: true },
+    { left: "\\[", right: "\\]", display: true },
+    { left: "\\(", right: "\\)", display: false }
     // LaTeX uses this, but it ruins the display of normal `$` in text:
     // {left: '$', right: '$', display: false},
   ],
 
   ignoredTags: [
-    'script', 'noscript', 'style', 'textarea', 'pre', 'code', 'svg',
+    "script",
+    "noscript",
+    "style",
+    "textarea",
+    "pre",
+    "code",
+    "svg"
   ],
 
   errorCallback: function(msg, err) {
     console.error(msg, err);
-  },
+  }
 };
 
 export const renderMathInElement = function(elem, options) {
   if (!elem) {
-    throw new Error('No element provided to render');
+    throw new Error("No element provided to render");
   }
 
   const optionsCopy = Object.assign({}, defaultAutoRenderOptions, options);
+  const delimiterStrings = optionsCopy.delimiters.flatMap(d => [
+    d.left,
+    d.right
+  ]);
+  const mightHaveMath = text =>
+    delimiterStrings.some(d => text.indexOf(d) !== -1);
+  optionsCopy.mightHaveMath = mightHaveMath;
   renderElem(elem, optionsCopy);
 };

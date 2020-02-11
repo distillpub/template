@@ -12,23 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import resolve  from 'rollup-plugin-node-resolve';
-import string   from 'rollup-plugin-string';
-import commonjs from 'rollup-plugin-commonjs';
-import buble    from 'rollup-plugin-buble';
+import resolve from "rollup-plugin-node-resolve";
+import string from "rollup-plugin-string";
+import commonjs from "rollup-plugin-commonjs";
+import buble from "rollup-plugin-buble";
+import serve from "rollup-plugin-serve";
 
 // uncomment to show dependencies [1/2]
 // import rollupGrapher from 'rollup-plugin-grapher'
 
 const componentsConfig = {
-  input: 'src/components.js',
-  output: [{ format: 'umd', name: 'dl', file: 'dist/template.v2.js' }],
+  input: "src/components.js",
+  output: [{ format: "umd", name: "dl", file: "dist/template.v2.js" }]
 };
 
 const transformsConfig = {
-  input: 'src/transforms.js',
-  output: [{ format: 'umd', name: 'dl', file: 'dist/transforms.v2.js', globals: {fs: 'fs'} }],
-  external: ['fs']
+  input: "src/transforms.js",
+  output: [
+    {
+      format: "umd",
+      name: "dl",
+      file: "dist/transforms.v2.js",
+      globals: { fs: "fs" }
+    }
+  ],
+  external: ["fs"]
 };
 
 const defaultConfig = {
@@ -36,13 +44,21 @@ const defaultConfig = {
   plugins: [
     resolve({
       jsnext: true,
-      browser: true,
+      browser: true
     }),
     string({
-      include: ['**/*.txt', '**/*.svg', '**/*.html', '**/*.css', '**/*.base64']
+      include: ["**/*.txt", "**/*.svg", "**/*.html", "**/*.css", "**/*.base64"]
     }),
-    commonjs(),
-
+    serve({
+      open: true,
+      openPage: "/examples/index.html",
+      contentBase: ["dist", "examples"],
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      },
+      port: 8088
+    }),
+    commonjs()
   ]
 };
 
@@ -52,7 +68,7 @@ Object.assign(transformsConfig, defaultConfig);
 // transpile transforms so the node render script works…
 transformsConfig.plugins.push(
   buble({
-    target: { 'node': 6 }
+    target: { node: 6 }
   })
 );
 
@@ -64,7 +80,4 @@ transformsConfig.plugins.push(
 //   })
 // );
 
-export default [
-  componentsConfig,
-  transformsConfig,
-];
+export default [componentsConfig, transformsConfig];
