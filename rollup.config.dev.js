@@ -46,6 +46,7 @@ const defaultConfig = {
       jsnext: true,
       browser: true
     }),
+    commonjs(),
     string({
       include: ["**/*.txt", "**/*.svg", "**/*.html", "**/*.css", "**/*.base64"]
     }),
@@ -57,8 +58,7 @@ const defaultConfig = {
         "Access-Control-Allow-Origin": "*"
       },
       port: 8088
-    }),
-    commonjs()
+    })
   ]
 };
 
