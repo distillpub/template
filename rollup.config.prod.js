@@ -12,24 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import configs from "./rollup.config.dev";
-import babili from "rollup-plugin-babili";
+import configs from "./rollup.config.common";
 
-function isNotServePlugin(plugin) {
-  return plugin.name !== "serve";
-}
-
-for (const config of configs) {
-  config.plugins = config.plugins.filter(isNotServePlugin);
-}
-
-const [componentsConfig, transformsConfig] = configs;
-
-componentsConfig.plugins.push(
-  babili({
-    comments: false, // means: *remove* comments
-    sourceMap: true
-  })
-);
-
-export default [componentsConfig, transformsConfig];
+export default configs;

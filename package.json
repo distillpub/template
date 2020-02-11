@@ -16,7 +16,7 @@
     "serve": "http-server",
     "test": "mocha",
     "lint": "eslint",
-    "build": "rollup -c rollup.config.js",
+    "build": "rollup -c rollup.config.prod.js",
     "prepare": "npm run build"
   },
   "repository": {
