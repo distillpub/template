@@ -193,8 +193,17 @@ export function hover_cite(ent) {
     cite += "<br>";
 
     var a_str = author_string(ent, "${I} ${L}", ", ") + ".";
+    if (a_str.trim() === '.') {
+      a_str = '';  
+    }
+    
     var v_str =
       venue_string(ent).trim() + " " + ent.year + ". " + doi_string(ent, true);
+    
+    if (!a_str.length) {
+      cite += v_str;
+      return cite;
+    }
 
     if ((a_str + v_str).length < Math.min(40, ent.title.length)) {
       cite += a_str + " " + v_str;
