@@ -24,6 +24,8 @@
     "type": "git"
   },
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@rollup/plugin-babel": "^5.0.0",
     "bibtex-parse-js": "^0.0.23",
     "chai": "^3.5.0",
     "eslint": "^4.19.1",
@@ -36,8 +38,6 @@
     "mocha": "^5.2.0",
     "prismjs": "^1.20.0",
     "rollup": "^2.7.3",
-    "rollup-plugin-babili": "^3.1.1",
-    "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-copy": "^0.2.3",
     "rollup-plugin-grapher": "^0.2.0",

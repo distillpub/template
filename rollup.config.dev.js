@@ -13,16 +13,11 @@
 // limitations under the License.
 
 import configs from "./rollup.config.common";
-import babili from "rollup-plugin-babili";
 import serve from "rollup-plugin-serve";
 
 const [componentsConfig, transformsConfig] = configs;
 
 componentsConfig.plugins.push(
-  babili({
-    comments: false, // means: *remove* comments
-    sourceMap: true
-  }),
   serve({
     open: true,
     openPage: "/index.html",

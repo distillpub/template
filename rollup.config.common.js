@@ -15,14 +15,12 @@
 import resolve from "rollup-plugin-node-resolve";
 import string from "rollup-plugin-string";
 import commonjs from "rollup-plugin-commonjs";
-import buble from "rollup-plugin-buble";
-import babili from "rollup-plugin-babili";
+import babel from '@rollup/plugin-babel';
 
 // uncomment to show dependencies [1/2]
 // import rollupGrapher from 'rollup-plugin-grapher'
 
 const defaultConfig = {
-  sourcemap: true,
   plugins: [
     resolve({
       jsnext: true,
@@ -37,7 +35,13 @@ const defaultConfig = {
 
 const componentsConfig = {
   input: "src/components.js",
-  output: [{ format: "umd", name: "dl", file: "dist/template.v2.js" }]
+  output: [{ format: "umd", name: "dl", file: "dist/template.v2.js", sourcemap: true }],
+  plugins: [
+    babel({
+      "babelHelpers": "bundled",
+      "targets": "defaults"
+    })
+  ]
 };
 
 const transformsConfig = {
@@ -47,35 +51,22 @@ const transformsConfig = {
       format: "umd",
       name: "dl",
       file: "dist/transforms.v2.js",
-      globals: { fs: "fs" }
+      globals: { fs: "fs" },
+      sourcemap: true,
     }
   ],
-  external: ["fs"]
+  external: ["fs"],
+  plugins: [
+    babel({
+      "babelHelpers": "bundled",
+      "targets": {
+        "node": "current"
+      }
+    })
+  ]
 };
 
 Object.assign(componentsConfig, defaultConfig);
 Object.assign(transformsConfig, defaultConfig);
-
-// transpile transforms so the node render script works…
-transformsConfig.plugins.push(
-  buble({
-    target: { node: 6 }
-  })
-);
-
-componentsConfig.plugins.push(
-  babili({
-    comments: false, // means: *remove* comments
-    sourceMap: true
-  })
-);
-
-// uncomment to show dependencies [2/2]
-// transformsConfig.plugins.push(
-//   rollupGrapher({
-//     dest: '/dev/null',
-//     verbose: true
-//   })
-// );
 
 export default [componentsConfig, transformsConfig];
