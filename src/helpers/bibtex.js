@@ -18,7 +18,8 @@ function normalizeTag(string) {
   return string
     .replace(/[\t\n ]+/g, ' ')
     .replace(/{\\["^`.'acu~Hvs]( )?([a-zA-Z])}/g, (full, x, char) => char)
-    .replace(/{\\([a-zA-Z])}/g, (full, char) => char);
+    .replace(/{\\([a-zA-Z])}/g, (full, char) => char)
+    .replace(/[{}]/gi,'');  // Replace curly braces forcing plaintext in latex.
 }
 
 export function parseBibtex(bibtex) {
