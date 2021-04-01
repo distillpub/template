@@ -61,6 +61,11 @@ function author_string(ent, template, sep, finalSep) {
   var names = ent.author.split(" and ");
   let name_strings = names.map(name => {
     name = name.trim();
+    if (name.match(/\{.+\}/)) {
+      var regExp = /\{([^}]+)\}/;
+      var matches = regExp.exec(name);
+      return matches[1];
+    } 
     if (name.indexOf(",") != -1) {
       var last = name.split(",")[0].trim();
       var firsts = name.split(",")[1];
@@ -114,7 +119,7 @@ function venue_string(ent) {
     cite += ent.publisher;
     if (cite[cite.length - 1] != ".") cite += ".";
   }
-  return cite;
+  return cite.replace(/[{}]/gi,'');
 }
 
 function link_string(ent) {
@@ -148,7 +153,7 @@ function doi_string(ent, new_line) {
 }
 
 function title_string(ent) {
-  return '<span class="title">' + ent.title + "</span> ";
+  return '<span class="title">' + ent.title.replace(/[{}]/gi,'') + "</span> ";
 }
 
 export function bibliography_cite(ent, fancy) {
@@ -188,7 +193,7 @@ export function bibliography_cite(ent, fancy) {
 export function hover_cite(ent) {
   if (ent) {
     var cite = "";
-    cite += "<strong>" + ent.title + "</strong>";
+    cite += "<strong>" + ent.title.replace(/[{}]/gi,'') + "</strong>";
     cite += link_string(ent);
     cite += "<br>";
 

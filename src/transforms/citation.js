@@ -113,6 +113,11 @@ export default function(dom, data) {
     var names = ent.author.split(' and ');
     let name_strings = names.map(name => {
       name = name.trim();
+      if (name.match(/\{.+\}/)) {
+        var regExp = /\{([^}]+)\}/;
+        var matches = regExp.exec(name);
+        return matches[1];
+      } 
       if (name.indexOf(',') != -1){
         var last = name.split(',')[0].trim();
         var firsts = name.split(',')[1];
@@ -153,7 +158,7 @@ export default function(dom, data) {
       cite += ent.publisher;
       if (cite[cite.length-1] != '.') cite += '.';
     }
-    return cite;
+    return cite.replace(/[{}]/gi,'');
   }
 
   function link_string(ent){
@@ -186,7 +191,7 @@ export default function(dom, data) {
 
   function bibliography_cite(ent, fancy){
     if (ent){
-      var cite =  '<b>' + ent.title + '</b> ';
+      var cite =  '<b>' + ent.title.replace(/[{}]/gi,'') + '</b> ';
       cite += link_string(ent) + '<br>';
       cite += author_string(ent, '${L}, ${I}', ', ', ' and ');
       if (ent.year || ent.date){
@@ -216,7 +221,7 @@ export default function(dom, data) {
   function hover_cite(ent){
     if (ent){
       var cite = '';
-      cite += '<b>' + ent.title + '</b>';
+      cite += '<b>' + ent.title.replace(/[{}]/gi,'') + '</b>';
       cite += link_string(ent);
       cite += '<br>';
 
