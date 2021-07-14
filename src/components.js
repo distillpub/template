@@ -28,6 +28,7 @@ import { Byline }          from './components/d-byline';
 import { Cite }            from './components/d-cite';
 import { CitationList }    from './components/d-citation-list';
 import { Code }            from './components/d-code';
+import { ContentRef }            from './components/d-content-ref';
 import { Footnote }        from './components/d-footnote';
 import { FootnoteList }    from './components/d-footnote-list';
 import { FrontMatter }     from './components/d-front-matter';
@@ -83,7 +84,7 @@ const initialize = function() {
 
   /* 4. Register components */
   const components = [
-    Abstract, Appendix, Article, Bibliography, Byline, Cite, CitationList, Code,
+    Abstract, Appendix, Article, Bibliography, Byline, Cite, CitationList, Code,ContentRef,
     Footnote, FootnoteList, FrontMatter, HoverBox, Title, DMath, References, TOC, Figure,
     Slider, Interstitial
   ];
