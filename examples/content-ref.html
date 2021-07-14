@@ -1,0 +1,78 @@
+
+<!--
+  Copyright 2018 The Distill Template Authors
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!doctype html>
+
+<head>
+  <script src="../dist/template.v2.js"></script>
+
+</head>
+
+<body>
+  <d-byline></d-byline>
+  <d-article>
+
+<br>
+<br>
+<div id="definition 1.6">
+<p>
+<strong>Definition 1.6</strong>
+        Let <d-math>X</d-math> and <d-math>Y</d-math> be sets. For all <d-math>x\in X</d-math> and <d-math>y\in Y</d-math> the <i>pair</i> <d-math>(x,y)</d-math> is defined as
+        the set <d-math>\big\{ \{x \}, \{ x, y \} \big\}</d-math>. The <i>cartesian product</i>
+        <d-math>X \times Y</d-math> is defined as 
+        <br><br><d-math block>
+          \big\{ z \in \mathscr{P}(\mathscr{P}(X \cup Y)) \mid \exists x \in X \, \exists y \in Y : \: 
+          z = \{ \{x \}, \{ x, y \}\} \big\}  .
+</d-math>
+</p>
+</div>
+<br>
+<p>
+See <d-content-ref val="(1.6)" ref="definition 1.6"></d-content-ref> as an example. <d-content-ref val="(1.6)" ref="definition 1.6"></d-content-ref> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
+<div id="proposition 1.8">
+    <p>
+<strong>Proposition 1.8</strong>
+  Let <d-math>L, M, N</d-math> be sets. Then the following associativity law for the cartesian product is satisfied:
+  
+  </p><ol class='enumeration'>
+
+  <li value='(a)'> 
+      <d-math>L \times (M \times N)  = (L \times M) \times N</d-math>.
+  
+  </li></ol><p>
+
+  Moreover, the following distributivity laws hold true:
+  
+  </p><ol class='enumeration'>
+
+  <li value='(a)'> 
+      <d-math>L \times (M \cup N)  = (L \times M) \cup (L \times N)</d-math> and   
+      <d-math>(M \cup N) \times L = (M \times L) \cup (N \times L)</d-math>,
+  </li><li value='(b)'>
+      <d-math>L \times (M \cap N)  = (L \times M) \cap (L \times N)</d-math> and   
+      <d-math>(M \cap N) \times L = (M \times L) \cap (N \times L)</d-math>, 
+  </li><li value='(c)'>
+      <d-math>L \times (M \setminus N)  = (L \times M) \setminus (L \times N)</d-math> and   
+      <d-math>(M \setminus N) \times L = (M \times L) \setminus (N \times L)</d-math>.
+  
+  </li></ol><p>
+</p></div> <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt 
+<d-content-ref val="(1.8)" ref="proposition 1.8"></d-content-ref> ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+</p>
+  </d-article>
+  
+</body>
+
