@@ -55,7 +55,7 @@
     "commander": "^2.20.3",
     "d3-array": "^2.4.0",
     "d3-drag": "^1.2.5",
-    "d3-scale": "^3.2.1",
+    "d3-scale": "^4.0.2",
     "d3-selection": "^1.4.1",
     "d3-time-format": "^2.2.3",
     "escape-html": "^1.0.3",
